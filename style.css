@@ -1,3 +1,4 @@
-.position {
+.position:hover {
+    transition: 2s;
     color: purple;
 }
