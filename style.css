@@ -1,5 +1,5 @@
 * {
-    outline: 1px solid red !important;
+    /*outline: 1px solid red !important;*/
 }
 
 * {
@@ -51,8 +51,8 @@
 .wrapper {
     position: relative;
     overflow: hidden;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border: 1px solid black;
 }
 
@@ -63,9 +63,9 @@
 
 #slide {
     position: absolute;
-    left: -100px;
-    width: 100px;
-    height: 100px;
+    left: -200px;
+    width: 200px;
+    height: 200px;
     background: blue;
     transition: 1s;
 }
