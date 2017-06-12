@@ -16,7 +16,7 @@
 
 
 .position {
-    color: purple;
+    color: rgb(173, 66, 244);
 
     margin-top: 25px;
     font-size: 21px;
@@ -30,7 +30,7 @@
 }
 
 .tagline {
-    color: purple;
+    color: rgb(173, 66, 244); /*Hex color: #ad42f4*/
 
     text-align: center;
 
