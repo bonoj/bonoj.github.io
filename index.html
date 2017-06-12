@@ -22,16 +22,78 @@
       <div class="tagline">Anatomically human, technically android.</div>
 
 
+
+
+
+
+
+
+
+
+
+<!-- !!!!!!!!!!!!! EXPERIMENTING HERE !!!!!!!!!!!!!! -->
+<!-- CSS mixed for convenience, will split if works -->
+
+<style style="text/css">
+div.slide-left {
+  width:100%;
+  overflow:hidden;
+}
+div.slide-left p {
+  animation: slide-left 2s;
+}
+
+@keyframes slide-left {
+  from {
+    margin-left: 100%;
+    width: 100%;
+  }
+
+  to {
+    margin-left: -100%;
+    width: 100%;
+  }
+}
+</style>
+
+<div class="slide-left">
+<p>I go sliding into oblivion... but what causes me to reappear?</p>
+</div>
+
+
+
+
+
+<!-- Dead end? -->
+
+<!-- <div class="textOuterContainer">
+
+      <div class="textInnerContainer">
+         <div class="text1">Show me second</div>
+         <div class="text2">Show me first</div>
+      </div>
+
+   </div> -->
+
+
+
+
+
    <div class="section group">
    <div class="col span_1_of_3">
       <div class="wrapper">
-         <img id="slide" src="http://lorempixel.com/output/cats-q-c-300-300-4.jpg" />
+
+         <div class="innerContainer">
+
+            <img id="slide" src="http://lorempixel.com/output/cats-q-c-300-300-4.jpg" />
+
+         </div>
+
       </div>
       <div class="projectTitle">Arcana</div>
    </div>
    <div class="col span_1_of_3">
    <div class="wrapper">
-
          <img id="slide" src="http://lorempixel.com/output/cats-q-c-300-300-5.jpg" />
       </div>
       <div class="projectTitle">Speed of Darkness</div>
@@ -63,6 +125,7 @@
    </div>
 </div>
 
+<!-- Junk, delete me eventually. -->
 <!-- <section id="grid">
    <img src="http://lorempixel.com/output/cats-q-c-300-300-1.jpg">
    <img src="http://lorempixel.com/output/cats-q-c-300-300-4.jpg">
@@ -73,6 +136,8 @@
 </section> -->
 
 </div>
+
+
 
 </body>
 
