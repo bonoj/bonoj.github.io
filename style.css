@@ -400,7 +400,7 @@ pre {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: all 0.7s linear;
+  transition: all 0.3s ease-in-out;
 }
 #f1_container:hover #f1_card {
   transform: rotateY(180deg);
@@ -639,7 +639,7 @@ pre {
     margin: 20px;
 }
 
-.ch-item {
+/*.ch-item {
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -650,6 +650,31 @@ pre {
         inset 0 0 0 16px rgba(255,255,255,0.6),
         0 1px 2px rgba(0,0,0,0.1);
     transition: all 0.4s ease-in-out;
+}*/
+
+.ch-item {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    cursor: default;
+}
+
+.ch-info-wrap{
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    perspective: 800px;
+    transition: all 0.4s ease-in-out;
+    top: 20px;
+    left: 20px;
+    background: #f9f9f9 url(../images/bg.jpg);
+    box-shadow:
+        0 0 0 20px rgba(255,255,255,0.2),
+        inset 0 0 3px rgba(115,114, 23, 0.8);
+
 }
 
 .ch-img-1 {
@@ -664,7 +689,7 @@ pre {
     background-image: url('https://s-media-cache-ak0.pinimg.com/originals/92/41/63/92416380370e7d4739cedbdfbd0f4762.jpg');
 }
 
-.ch-info {
+/*.ch-info {
     position: absolute;
     background: rgba(63,147,147, 0.8);
     width: inherit;
@@ -674,9 +699,33 @@ pre {
     opacity: 0;
     transition: all 0.4s ease-in-out;
     transform: scale(0);
+}*/
+
+.ch-info{
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    transition: all 0.4s ease-in-out;
+    transform-style: preserve-3d;
 }
 
-.ch-info h3 {
+.ch-info > div {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-position: center center;
+    backface-visibility: hidden;
+}
+
+.ch-info .ch-info-back {
+    transform: rotate3d(0,1,0,180deg);
+    background: rgb(173, 66, 244);
+}
+
+/*.ch-info h3 {
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -715,6 +764,45 @@ pre {
 
 .ch-info p a:hover {
     color: rgba(255,242,34, 0.8);
+}*/
+
+.ch-info h3 {
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 14px;
+    margin: 0 15px;
+    padding: 40px 0 0 0;
+    height: 90px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    text-shadow:
+        0 0 1px #fff,
+        0 1px 2px rgba(0,0,0,0.3);
+}
+
+.ch-info p {
+    color: #fff;
+    padding: 10px 5px;
+    font-style: italic;
+    margin: 0 30px;
+    font-size: 12px;
+    border-top: 1px solid rgba(255,255,255,0.5);
+}
+
+.ch-info p a {
+    display: block;
+    color: rgba(255,255,255,0.7);
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding-top: 4px;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+/*.ch-info p a:hover {
+    color: rgba(255,242,34, 0.8);
 }
 
 .ch-item:hover {
@@ -730,4 +818,14 @@ pre {
 
 .ch-item:hover .ch-info p {
     opacity: 1;
+}*/
+
+.ch-item:hover .ch-info-wrap {
+    box-shadow:
+        0 0 0 0 rgba(255,255,255,0.8),
+        inset 0 0 3px rgba(115,114, 23, 0.8);
+}
+
+.ch-item:hover .ch-info {
+    transform: rotate3d(0,1,0,-180deg);
 }
