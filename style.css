@@ -58,7 +58,13 @@ pre {
 .bodyContainer {
     margin: 0 auto;
     width: 900px;
+}
 
+.backgroundContainer {
+    background-color:  rgb(173, 66, 244); /*Hex color: #ad42f4*/
+    position: absolute;
+    width: 100%;
+    height: 400px;
 }
 
 .portrait {
@@ -76,7 +82,7 @@ pre {
 }
 
 .position {
-    color: rgb(173, 66, 244); /*Hex color: #ad42f4*/
+    /*color: rgb(173, 66, 244);*/ /*Purple Hex color: #ad42f4*/
 
     margin-top: 25px;
     font-size: 21px;
@@ -92,7 +98,7 @@ pre {
 .tagline {
     margin-bottom: 25px;
 
-    color: rgb(173, 66, 244); /*Hex color: #ad42f4*/
+    /*color: rgb(173, 66, 244);*/ /*Purple Hex color: #ad42f4*/
 
     text-align: center;
 
@@ -107,14 +113,9 @@ pre {
     text-align: center;
 }
 
-
-.section {
-
-}
-
 .col:hover {
     transition: 2s;
-    color: rgb(173, 66, 244); /*Hex color: #ad42f4*/
+    color: rgb(173, 66, 244); /*Purple Hex color: #ad42f4*/
 }
 
 
