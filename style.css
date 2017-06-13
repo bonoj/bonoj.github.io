@@ -11,7 +11,7 @@
 }
 
 h1 {
-    text-shadow: 1px 1px 5px #000;
+    text-shadow: 2px 2px 5px #000;
 }
 
 h3 {
@@ -93,7 +93,7 @@ pre {
 
 .name {
     text-align: center;
-    text-shadow: 1px 1px 5px #000;
+    text-shadow: 2px 2px 5px #000;
 }
 
 .position {
@@ -112,7 +112,7 @@ pre {
 }
 
 .tagline {
-    text-shadow: 1px 1px 5px #000;
+    text-shadow: 2px 2px 5px #000;
 
     margin-bottom: 25px;
 
@@ -394,6 +394,7 @@ pre {
 }*/
 
 
+
 #f1_container {
   position: relative;
   margin: 10px auto;
@@ -411,8 +412,8 @@ pre {
   transition: all 0.4s ease-in-out;
 }
 #f1_container:hover #f1_card {
-  transform: rotateY(180deg);
-  box-shadow: -5px 5px 5px #aaa;
+    transform: rotateY(180deg);
+    box-shadow: -5px 5px 5px #aaa;
 }
 .face {
     position: absolute;
