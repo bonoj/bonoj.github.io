@@ -23,7 +23,7 @@ h3 {
     background-color:  rgb(173, 66, 244); /*Purple. Hex color: #ad42f4*/
     position: absolute;
     width: 100%;
-    height: 425px;
+    height: 420px;
     border-bottom: 1px solid #C0C0C0;
 
     box-shadow: inset 0px 6px 9px -6px;
@@ -37,13 +37,50 @@ h3 {
     text-align: center;
 }
 
-.portraitContainer:hover {
-
+#portraitId:hover + #aboutContainer {
+    display: block;
 }
 
-/*.grow:hover {
+#aboutContainer {
+    display: none;
+    position: absolute;
+
+    color: #ffffff;
+    text-align: center;
+
+    background-color:  rgb(173, 66, 244); /*Purple. Hex color: #ad42f4*/
+    margin-top: 10px;
+    width: 900px;
+    height: 125px;
+
+    box-shadow: inset 0px 6px 9px -6px #000;
+    border: 1px solid #000;
+}
+
+
+
+
+
+/* Expandable Contact Box */
+.grow {
+    color: #808080;
+    border: 1px solid #C0C0C0;
+    box-shadow: 5px 5px 5px #aaa;
+    padding: 5px 5px 5px 5px;
+    /*border-radius: 10px;*/
+    height: 70px;
+    width: 100%;
+    margin: 10px 0% 5px 0%;
+    float: left;
+    position: relative;
+    transition: height 0.5s;
+    -webkit-transition: height 0.5s;
+    text-align: center;
+    overflow: hidden;
+}
+.grow:hover {
   height: 145px;
-}*/
+}
 
  /*Fading Portrait */
 /*#portrait-fade {
@@ -215,27 +252,6 @@ h3 {
 
 .project-description-container {
     margin-top: 90px;
-}
-
-/* Expandable Contact Box */
-.grow {
-    color: #808080;
-    border: 1px solid #C0C0C0;
-    box-shadow: 5px 5px 5px #aaa;
-    padding: 5px 5px 5px 5px;
-    /*border-radius: 10px;*/
-    height: 70px;
-    width: 100%;
-    margin: 10px 0% 5px 0%;
-    float: left;
-    position: relative;
-    transition: height 0.5s;
-    -webkit-transition: height 0.5s;
-    text-align: center;
-    overflow: hidden;
-}
-.grow:hover {
-  height: 145px;
 }
 
 /* ZOOM IN TEST */
