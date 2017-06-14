@@ -10,6 +10,10 @@
     box-sizing: border-box;
 }
 
+h1 {
+    margin-bottom: 2px;
+}
+
 h3 {
     font-size: 18px;
 }
@@ -32,29 +36,62 @@ h3 {
     -o-box-shadow: inset 0px 6px 9px -6px;
 }
 
+.footerContainer {
+
+    background-color:  rgb(173, 66, 244); /*Purple. Hex color: #ad42f4*/
+
+    width: 100%;
+    height: 50px;
+    text-align: center;
+
+    box-shadow: inset 0px 6px 11px -6px;
+    -webkit-box-shadow: inset 0px 6px 11px -6px;
+    -moz-box-shadow: inset 0px 6px 11px -6px;
+    -o-box-shadow: inset 0px 6px 119px -6px;
+}
+
+.footer {
+    display: inline-block;
+    margin-top: 15px;
+    color: #fff;
+    text-shadow: 2px 2px 5px #000;
+}
+
 .portraitContainer {
     margin-top: 75px;
     text-align: center;
 }
 
+#portraitId {
+    width: 200px;
+    margin: 0 auto;
+}
+
 #portraitId:hover + #aboutContainer {
     display: block;
+    z-index: 99 !important;
 }
 
 #aboutContainer {
     display: none;
     position: absolute;
 
-    color: #ffffff;
+    color: #808080;
+    border: 1px solid #C0C0C0;
+    box-shadow: 5px 5px 5px #404040;
+    padding: 5px 5px 5px 5px;
+
+    /*color: #ffffff;*/
     text-align: center;
 
-    background-color:  rgb(173, 66, 244); /*Purple. Hex color: #ad42f4*/
+    background-color: #fff;
+    /*background-color:  rgb(173, 66, 244);*/ /*Purple. Hex color: #ad42f4*/
     margin-top: 10px;
     width: 900px;
     height: 125px;
 
-    box-shadow: inset 0px 6px 9px -6px #000;
-    border: 1px solid #000;
+    /*box-shadow: inset 0px 6px 9px -6px #000;
+    border: 1px solid #000;*/
 }
 
 
@@ -111,10 +148,12 @@ h3 {
 }
 
 .position {
-    text-shadow: 2px 2px 5px #000;
-    margin-top: 25px;
     font-size: 21px;
+    text-shadow: 2px 2px 5px #000;
     text-align: center;
+
+    margin-top: 21px;
+    margin-bottom: 27px;
 
     -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 2s; /* Firefox < 16 */
@@ -125,14 +164,13 @@ h3 {
 
 .tagline {
     text-shadow: 2px 2px 5px #000;
-    margin-bottom: 25px;
     text-align: center;
 
-    -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 5s; /* Firefox < 16 */
-        -ms-animation: fadein 5s; /* Internet Explorer */
-         -o-animation: fadein 5s; /* Opera < 12.1 */
-            animation: fadein 5s;
+    -webkit-animation: fadein 3s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 3s; /* Firefox < 16 */
+        -ms-animation: fadein 3s; /* Internet Explorer */
+         -o-animation: fadein 3s; /* Opera < 12.1 */
+            animation: fadein 3s;
 }
 
 /* POSITION AND TAGLINE TEXT FADE IN */
