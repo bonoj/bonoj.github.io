@@ -391,7 +391,7 @@ h3 {
 }*/
 
 
-/*TYPEWRITING EFFECT EXPERIMENTATION*/
+/*FIRST TYPEWRITER EXPERIMENT*/
 /* Google Fonts */
 @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
 
@@ -401,7 +401,8 @@ h3 {
 
     /*height: calc(100vh - 8em);*/
     /*padding: 4em;*/
-    color: rgba(255,255,255,.75);
+    /*color: rgba(0,255,0,.75);*/
+    color: rgba(0,255,0,1);
     font-family: 'Anonymous Pro', monospace;
     background-color: rgb(25,25,25);
 }
