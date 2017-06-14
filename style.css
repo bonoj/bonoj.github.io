@@ -21,6 +21,7 @@ h3 {
 .bodyContainer {
     margin: 0 auto;
     width: 900px;
+
 }
 
 .backgroundContainer {
@@ -37,7 +38,6 @@ h3 {
 }
 
 .footerContainer {
-
     background-color:  rgb(173, 66, 244); /*Purple. Hex color: #ad42f4*/
 
     width: 100%;
@@ -57,21 +57,58 @@ h3 {
     text-shadow: 2px 2px 5px #000;
 }
 
+/* PURPLE MATRIX FISSURES */
+/*.ruptureBackgroundContainer {
+    position: absolute;
+    width: 800px;
+    height: 400px;
+    outline: 1px solid red !important;
+}*/
+
+ /*color: #ffffff;*/
+    /*background-color:  rgb(173, 66, 244);*/ /*Purple. Hex color: #ad42f4*/
+    /*box-shadow: inset 0px 6px 9px -6px #000;
+    border: 1px solid #000;*/
+
+.ruptureParentContainer {
+    position: absolute;
+    display: flex;
+    width: 900px;
+    height: 130px;
+}
+#ruptureContainerLeft {
+    width: 300px;
+    height: 130px;
+
+    /*outline: 1px solid red !important;*/
+}
+#ruptureContainerSeparator {
+    width: 300px;
+    height: 130px;
+}
+#ruptureContainerRight {
+    width: 300px;
+    height: 130px;
+
+    /*outline: 1px solid red !important;*/
+}
+
+/* PORTRAIT HOVER FOR ABOUT */
 .portraitContainer {
     margin-top: 75px;
     text-align: center;
+    z-index: 98 !important;
 }
-
 #portraitId {
     width: 200px;
     margin: 0 auto;
 }
-
 #portraitId:hover + #aboutContainer {
     display: block;
     z-index: 99 !important;
 }
 
+/* ABOUT */
 #aboutContainer {
     display: none;
     position: absolute;
@@ -86,14 +123,30 @@ h3 {
     margin-top: 10px;
     width: 900px;
     height: 125px;
-
-    /*color: #ffffff;*/
-    /*background-color:  rgb(173, 66, 244);*/ /*Purple. Hex color: #ad42f4*/
-    /*box-shadow: inset 0px 6px 9px -6px #000;
-    border: 1px solid #000;*/
 }
-
-
+/* ABOUT SPEECH BUBBLE ARROW */
+.aboutContainer:after, .aboutContainer:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.aboutContainer:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #fff;
+    border-width: 9px;
+    margin-left: -9px;
+}
+.aboutContainer:before {
+    border-color: rgba(192, 192, 192, 0);
+    border-bottom-color: #C0C0C0;
+    border-width: 10px;
+    margin-left: -10px;
+}
 
  /*Fading Portrait */
 /*#portrait-fade {
@@ -114,15 +167,14 @@ h3 {
   opacity:0;
 }*/
 
+/* PERSONAL INFORMATION */
 .personalInformation {
     color: #fff;
 }
-
 .name {
     text-align: center;
     text-shadow: 2px 2px 5px #000;
 }
-
 .position {
     font-size: 21px;
     text-shadow: 2px 2px 5px #000;
@@ -137,7 +189,6 @@ h3 {
          -o-animation: fadein 2s; /* Opera < 12.1 */
             animation: fadein 2s;
 }
-
 .tagline {
     font-size: 16px;
     text-shadow: 2px 2px 5px #000;
@@ -149,7 +200,6 @@ h3 {
          -o-animation: fadein 3s; /* Opera < 12.1 */
             animation: fadein 3s;
 }
-
 /* POSITION AND TAGLINE TEXT FADE IN */
 @keyframes fadein {
     from { opacity: 0; }
@@ -180,9 +230,8 @@ h3 {
     to   { opacity: 1; }
 }
 
-
-/* Expandable Contact Box */
-.grow {
+/* CONTACT */
+.contactGrowContainer {
     color: #808080;
     border: 1px solid #C0C0C0;
     box-shadow: 5px 5px 5px #aaa;
@@ -198,7 +247,7 @@ h3 {
     text-align: center;
     overflow: hidden;
 }
-.grow:hover {
+.contactGrowContainer:hover {
   height: 145px;
 }
 
@@ -320,3 +369,23 @@ h3 {
     background-image: url('https://s-media-cache-ak0.pinimg.com/originals/92/41/63/92416380370e7d4739cedbdfbd0f4762.jpg');
 }
 */
+
+/*.speech-bubble {
+    position: relative;
+    background: #00aabb;
+    border-radius: .4em;
+}
+
+.speech-bubble:after {
+    content: 'blah';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-top-color: #00aabb;
+    border-bottom: 0;
+    margin-left: -20px;
+    margin-bottom: -20px;
+}*/
