@@ -20,7 +20,7 @@ h3 {
 }
 
 .backgroundContainer {
-    background-color:  rgb(173, 66, 244); /*Hex color: #ad42f4*/
+    background-color:  rgb(173, 66, 244); /*Purple. Hex color: #ad42f4*/
     position: absolute;
     width: 100%;
     height: 425px;
@@ -34,7 +34,35 @@ h3 {
 
 .portraitContainer {
     margin-top: 75px;
+    text-align: center;
 }
+
+.portraitContainer:hover {
+
+}
+
+/*.grow:hover {
+  height: 145px;
+}*/
+
+ /*Fading Portrait */
+/*#portrait-fade {
+  position:relative;
+  height:200px;
+  width:190px;
+  margin:0 auto;
+}
+#portrait-fade img {
+  position:absolute;
+  left:0;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+#portrait-fade img.top:hover {
+  opacity:0;
+}*/
 
 .personalInformation {
     color: #fff;
@@ -47,7 +75,6 @@ h3 {
 
 .position {
     text-shadow: 2px 2px 5px #000;
-
     margin-top: 25px;
     font-size: 21px;
     text-align: center;
@@ -61,11 +88,7 @@ h3 {
 
 .tagline {
     text-shadow: 2px 2px 5px #000;
-
     margin-bottom: 25px;
-
-    /*color: rgb(173, 66, 244);*/ /*Purple Hex color: #ad42f4*/
-
     text-align: center;
 
     -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
@@ -192,26 +215,6 @@ h3 {
 
 .project-description-container {
     margin-top: 90px;
-}
-
-
- /*Fading Portrait */
-#portrait-fade {
-  position:relative;
-  height:200px;
-  width:190px;
-  margin:0 auto;
-}
-#portrait-fade img {
-  position:absolute;
-  left:0;
-  -webkit-transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -o-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
-}
-#portrait-fade img.top:hover {
-  opacity:0;
 }
 
 /* Expandable Contact Box */
