@@ -115,14 +115,15 @@ h3 {
     font-size: 16px;
     background-color: #fff;
     color: #808080;
-    border: 1px solid #C0C0C0;
+
     box-shadow: 5px 5px 5px #404040;
     padding: 5px 5px 5px 5px;
-
     text-align: center;
     margin-top: 10px;
     width: 900px;
     height: 125px;
+
+    /*border: 1px solid #C0C0C0;*/
 }
 /* ABOUT SPEECH BUBBLE ARROW */
 .aboutContainer:after, .aboutContainer:before {
@@ -143,7 +144,8 @@ h3 {
 }
 .aboutContainer:before {
     border-color: rgba(192, 192, 192, 0);
-    border-bottom-color: #C0C0C0;
+    /*border-bottom-color: #C0C0C0;*/
+    border-bottom-color: #fff;
     border-width: 10px;
     margin-left: -10px;
 }
@@ -325,6 +327,7 @@ h3 {
 .face.front {
     text-align: center;
     margin-top: 50px;
+    height: 250px;
 }
 
 .face.back {
