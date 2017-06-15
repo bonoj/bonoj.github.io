@@ -444,3 +444,57 @@ h3 {
     width: 500px;
     background-color: rgb(25,25,25);
 }
+
+#circ-container {
+    width: 100%;
+    align-items: center;
+}
+
+#circ1 {
+    height: 300px;
+    width: 300px;
+    border: 1px solid #C0C0C0;
+    text-align: center;
+}
+
+#circ1:hover {
+
+  -webkit-transform: scale(2);
+      -ms-transform: scale(2);
+          transform: scale(2);
+}
+
+/* Checkbox Hack */
+
+input[type=checkbox] {
+   display: none;
+}
+label {
+  -webkit-appearance: push-button;
+  -moz-appearance: button;
+  display: inline-block;
+  margin: 60px 0 10px 0;
+  cursor: pointer;
+}
+
+/* Default State */
+.toggledContainer {
+   background: green;
+   width: 400px;
+   height: 100px;
+   line-height: 100px;
+   color: white;
+   text-align: center;
+}
+
+/* Toggled State */
+input[type=checkbox]:checked ~ .toggledContainer {
+   background: red;
+}
+
+
+
+
+/* PROJECT MODAL */
+.toggler { background:lightblue; cursor:pointer; }
+.toggler .togglee { display:none; }
