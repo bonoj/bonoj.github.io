@@ -1,6 +1,6 @@
-$(function() {
-    $('.toggler').click(function() {
-        $(this).find('div').slideToggle();
-    });
-});
+// $(function() {
+//     $('.toggler').click(function() {
+//         $(this).find('div').slideToggle();
+//     });
+// });
 
