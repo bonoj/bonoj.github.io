@@ -232,13 +232,13 @@ h3 {
     to   { opacity: 1; }
 }
 
+
 /* CONTACT */
-.contactGrowContainer {
+/*.contactGrowContainer {
     color: #808080;
     border: 1px solid #C0C0C0;
     box-shadow: 5px 5px 5px #aaa;
     padding: 5px 5px 5px 5px;
-    /*border-radius: 10px;*/
     height: 70px;
     width: 100%;
     margin: 10px 0% 5px 0%;
@@ -253,7 +253,48 @@ h3 {
 }
 .contactGrowContainer:hover {
   height: 145px;
+}*/
+
+.contactGrowContainer {
+    color: #808080;
+    border: 1px solid #C0C0C0;
+    box-shadow: 5px 5px 5px #aaa;
+    padding: 5px 5px 5px 5px;
+    /*border-radius: 10px;*/
+    height: 70px;
+    width: 900px;
+    margin: 10px 0% 5px 0%;
+    float: left;
+
+    position: absolute;
+    top: 420px;
+
+   /* transition: height 0.4s;
+    -webkit-transition: height 0.4s;*/
+
+    transition: height 0.4s, top 0.4s;
+    -moz-transition: height 0.4s, top 0.4s;
+    -webkit-transition:top height 0.4s, 0.4s;
+    -o-transition: height 0.4s, top 0.4s;
+
+    text-align: center;
+    overflow: hidden;
+    z-index: 99;
+    background-color: #fff;
+}
+.contactGrowContainer:hover {
+  height: 140px;
+  top: 350px;
+
+  /*position: absolute;*/
   /*box-shadow: 5px 8px 5px #aaa;*/
+
+
+
+}
+
+.contactSpacer {
+    height: 85px;
 }
 
 
