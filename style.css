@@ -253,6 +253,7 @@ h3 {
 }
 .contactGrowContainer:hover {
   height: 145px;
+  /*box-shadow: 5px 8px 5px #aaa;*/
 }
 
 
@@ -676,7 +677,7 @@ body {
     width:900px;
     height:620px;
 
-    z-index: 98;
+    z-index: 97;
 }
 .modalsContainer {
     /*DELETE MODALS CONTAINER IF UNUSED*/
