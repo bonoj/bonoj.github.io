@@ -537,6 +537,8 @@ body {
     display:none;
     outline: none !important;
     cursor: auto;
+
+    /*-webkit-transform:translateZ(0px);*/
 }
 .headfocus:focus + .project5 {
     display:block;
@@ -560,6 +562,9 @@ body {
     left:-300px;
     width:900px;
     height:620px;
+
+    z-index: 99;
+    /*-webkit-transform:translateZ(0px);*/
 }
 
 /* PROJECT 6 DETAIL VIEW */
@@ -646,3 +651,32 @@ body {
 
 
 /*outline: 1px solid red !important;*/
+
+#jsTest {
+    display: none;
+
+    /*display: block;*/
+
+
+    outline: none !important;
+
+    padding: 10px;
+    text-align: center;
+
+    box-shadow: 5px 5px 5px #aaa;
+    border: 1px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0;
+
+    background-color:  #fff;
+
+    width: 100%;
+    height: 420px;
+
+    position: absolute;
+
+    top: 515px;
+    width:900px;
+    height:620px;
+
+    z-index: 99;
+}
