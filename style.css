@@ -97,7 +97,7 @@ h3 {
 .portraitContainer {
     margin-top: 75px;
     text-align: center;
-    z-index: 98 !important;
+    z-index: 99 !important;
 }
 #portraitId {
     width: 200px;
@@ -259,6 +259,7 @@ h3 {
     clear: both;
     padding: 0px;
     margin: 0px;
+    margin-bottom: 5px;
 }
 
 /*  COLUMN SETUP  */
@@ -302,10 +303,10 @@ h3 {
   margin: 10px auto;
   width: 300px;
   height: 300px;
-  z-index: 1;
+  /*z-index: 1;*/
 }
 #f1_container {
-  perspective: 1000;
+  /*perspective: 1000;*/
 }
 #f1_card {
   width: 100%;
@@ -505,92 +506,42 @@ input[type=checkbox]:checked ~ .toggledContainer {
 .toggler .togglee { display:none; }
 
 
-/* DISALLOWS X SCROLLING */
+/* PROJECT DETAILS EXPANDED VIEW */
 body {
-    overflow-x: hidden;
+    overflow-x: hidden; /* disallow x scroll */
 }
-
-
-.head:hover > .tip {
-    color: red;
+*:focus {
+    outline: none;
 }
-
-.tip {
-    /*color: black;*/
-}
-
 .headfocusContainer {
     text-align: center;
     width: 100%
 }
-
 .headfocus {
     display: inline-block;
     width: 100px;
-    /*height: 100px;*/
-
-    /*text-align: center;*/
-    /*margin: 10px 0% 5px 0%*/
 
     border: 1px solid #C0C0C0;
-    /*border-radius: 50px;*/
-
-    /*text-shadow: 2px 2px 5px #000;*/
-
 
     cursor: pointer;
     cursor: hand;
-
-
 }
 
-.headfocus:after {
-    /*content: "Explore!";*/
-}
-
-.headfocus:hover {
-
-
-    /*top: 1px;*/
-
-
-    /*text-shadow: 2px 2px 5px #000;*/
-
-    /*background-color:  rgb(173, 66, 244);*/
-
-  /*  box-shadow: inset 0px 6px 9px -6px;
-    -webkit-box-shadow: inset 0px 6px 9px -6px;
-    -moz-box-shadow: inset 0px 6px 9px -6px;
-    -o-box-shadow: inset 0px 6px 9px -6px;*/
-
-
-
-
-}
-
-.headfocus .tip {
-    display:none;
-    outline: none !important;
-
-    cursor: auto;
-}
-
-.headfocus:focus {
-    /*outline: 1px solid red !important;*/
-}
-
-.tip {
+/* PROJECT 5 DETAIL VIEW */
+.project5 {
     display: none;
 }
-
-.headfocus:focus + .tip {
+.headfocus .project5 {
+    display:none;
+    outline: none !important;
+    cursor: auto;
+}
+.headfocus:focus + .project5 {
     display:block;
     outline: none !important;
 
     padding: 10px;
     text-align: center;
-
-    /*color: #808080;*/
 
     box-shadow: 5px 5px 5px #aaa;
     border: 1px solid #C0C0C0;
@@ -601,40 +552,83 @@ body {
     width: 100%;
     height: 420px;
 
+    position: absolute;
 
-    /*background-color:  rgb(173, 66, 244); /*Purple. Hex color: #ad42f4*/
+    top:-320px;
+    left:-300px;
+    width:900px;
+    height:620px;
+}
 
-    /*box-shadow: inset 0px 6px 9px -6px;
-    -webkit-box-shadow: inset 0px 6px 9px -6px;
-    -moz-box-shadow: inset 0px 6px 9px -6px;
-    -o-box-shadow: inset 0px 6px 9px -6px;*/
+/* PROJECT 6 DETAIL VIEW */
+.tip6 {
+    display: none;
+}
+.headfocus .tip6 {
+    display:none;
+    outline: none !important;
+    cursor: auto;
+}
+.headfocus:focus + .tip6 {
+    display:block;
+    outline: none !important;
+    /*outline: solid red 1px;*/
 
-    position:absolute;
+    /*padding: 10px;*/
+    text-align: center;
+
+    box-shadow: 5px 5px 5px #aaa;
+    border: 1px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0;
+
+    background-color:  #fff;
+
+    width: 100%;
+    height: 420px;
+
+    position: absolute;
 
     top:-320px;
     left:-600px;
     width:900px;
     height:620px;
-
-    /*top:0px;
-    left:0;
-    width:100%;
-    height:100%;*/
-    /*z-index: 99 !important;*/
-
-    /*outline: 1px solid red !important;*/
 }
 
-*:focus {
-    outline: none;
+
+.innerProjectDetails {
+    position: relative;
+    outline: solid red 1px;
+
+    top: 5px;
+    left: 5px;
+    width:890px;
+    height:610px;
+    z-index: 99;
+
+    background-color: #fff;
+
+    -webkit-transform: translate3d(0,0,0);
 }
 
-/*a:hover,
-a:active {
-    visibility: visible;
-    outline: 1px solid red !important;
-}*/
 
+
+.headfocus:after {
+    /*content: "Explore!";*/
+}
+
+.headfocus:hover {
+
+    /*top: 1px;*/
+
+    /*text-shadow: 2px 2px 5px #000;*/
+
+    /*background-color:  rgb(173, 66, 244);*/
+
+  /*  box-shadow: inset 0px 6px 9px -6px;
+    -webkit-box-shadow: inset 0px 6px 9px -6px;
+    -moz-box-shadow: inset 0px 6px 9px -6px;
+    -o-box-shadow: inset 0px 6px 9px -6px;*/
+}
 
 /* PROJECT EXPLORATION */
 /*.project-exploration-container {
