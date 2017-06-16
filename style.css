@@ -652,11 +652,8 @@ body {
 
 /*outline: 1px solid red !important;*/
 
-#jsTest {
+#proj1, #proj2, #proj3, #proj4, #proj5, #proj6 {
     display: none;
-
-    /*display: block;*/
-
 
     outline: none !important;
 
