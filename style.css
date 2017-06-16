@@ -114,6 +114,7 @@ h3 {
     position: absolute;
     font-size: 16px;
     background-color: #fff;
+    /*color: #404040;*/
     color: #808080;
 
     box-shadow: 5px 5px 5px #404040;
@@ -122,19 +123,18 @@ h3 {
     margin-top: 10px;
     width: 900px;
     height: 125px;
-
-    /*border: 1px solid #C0C0C0;*/
 }
-/* ABOUT SPEECH BUBBLE ARROW */
+/* ABOUT SPEECH BUBBLE ARROW*/
 .aboutContainer:after, .aboutContainer:before {
     bottom: 100%;
     left: 50%;
     border: solid transparent;
-    content: " ";
     height: 0;
     width: 0;
     position: absolute;
     pointer-events: none;
+
+    content: "";
 }
 .aboutContainer:after {
     border-color: rgba(255, 255, 255, 0);
@@ -144,7 +144,7 @@ h3 {
 }
 .aboutContainer:before {
     border-color: rgba(192, 192, 192, 0);
-    /*border-bottom-color: #C0C0C0;*/
+    border-bottom-color: #C0C0C0;
     border-bottom-color: #fff;
     border-width: 10px;
     margin-left: -10px;
@@ -232,33 +232,13 @@ h3 {
     to   { opacity: 1; }
 }
 
-
-/* CONTACT */
-/*.contactGrowContainer {
-    color: #808080;
-    border: 1px solid #C0C0C0;
-    box-shadow: 5px 5px 5px #aaa;
-    padding: 5px 5px 5px 5px;
-    height: 70px;
-    width: 100%;
-    margin: 10px 0% 5px 0%;
-    float: left;
-    position: relative;
-    transition: height 0.5s;
-    -webkit-transition: height 0.5s;
-    text-align: center;
-    overflow: hidden;
-    z-index: 99;
-    background-color: #fff;
-}
-.contactGrowContainer:hover {
-  height: 145px;
-}*/
-
 .contactGrowContainer {
     color: #808080;
-    border: 1px solid #C0C0C0;
-    box-shadow: 5px 5px 5px #aaa;
+    /*color: #606060;*/
+    border: 1px solid #DCDCDC;
+    /*border: 1px solid #404040;*/
+    /*box-shadow: 5px 5px 5px #aaa;*/
+    box-shadow: 5px 5px 5px #606060;
     padding: 5px 5px 5px 5px;
     /*border-radius: 10px;*/
     height: 70px;
@@ -285,12 +265,6 @@ h3 {
 .contactGrowContainer:hover {
   height: 140px;
   top: 350px;
-
-  /*position: absolute;*/
-  /*box-shadow: 5px 8px 5px #aaa;*/
-
-
-
 }
 
 .contactSpacer {
@@ -362,7 +336,8 @@ h3 {
 }
 #f1_container:hover #f1_card {
     transform: rotateY(180deg);
-    box-shadow: -5px 5px 5px #aaa;
+    /*box-shadow: -5px 5px 5px #aaa;*/
+    box-shadow: -5px 5px 5px #606060;
 }
 .face {
     position: absolute;
@@ -384,7 +359,7 @@ h3 {
     padding: 10px;
     color: #808080;
     text-align: center;
-    border: 1px solid #C0C0C0;
+    border: 1px solid #DCDCDC;
 }
 
 .project-description-container {
@@ -705,12 +680,16 @@ body {
 
     padding: 10px;
     text-align: center;
+    color: #808080;
 
     box-shadow: 5px 5px 5px #aaa;
-    border: 1px solid #C0C0C0;
-    border-bottom: 1px solid #C0C0C0;
+    /*border: 1px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0;*/
 
-    background-color:  #fff;
+    border: 1px solid #DCDCDC;
+    box-shadow: 5px 5px 5px #606060;
+
+    background-color: #fff;
 
     position: absolute;
 
