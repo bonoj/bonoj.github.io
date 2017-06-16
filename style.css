@@ -519,8 +519,6 @@ body {
     /*color: black;*/
 }
 
-
-
 .headfocusContainer {
     text-align: center;
     width: 100%
@@ -543,11 +541,17 @@ body {
     cursor: pointer;
     cursor: hand;
 
+
+}
+
+.headfocus:after {
+    /*content: "Explore!";*/
 }
 
 .headfocus:hover {
 
 
+    /*top: 1px;*/
 
 
     /*text-shadow: 2px 2px 5px #000;*/
@@ -567,30 +571,32 @@ body {
 .headfocus .tip {
     display:none;
     outline: none !important;
+
+    cursor: auto;
 }
 
-.headfocus:focus .tip {
+.headfocus:focus {
+    /*outline: 1px solid red !important;*/
+}
+
+.tip {
+    display: none;
+}
+
+.headfocus:focus + .tip {
     display:block;
     outline: none !important;
-
-
 
     padding: 10px;
     text-align: center;
 
-
     /*color: #808080;*/
-
 
     box-shadow: 5px 5px 5px #aaa;
     border: 1px solid #C0C0C0;
     border-bottom: 1px solid #C0C0C0;
 
     background-color:  #fff;
-
-    /*outline: 1px solid red !important;*/
-
-
 
     width: 100%;
     height: 420px;
@@ -603,10 +609,7 @@ body {
     -moz-box-shadow: inset 0px 6px 9px -6px;
     -o-box-shadow: inset 0px 6px 9px -6px;*/
 
-
     position:absolute;
-
-
 
     top:-320px;
     left:-600px;
@@ -618,8 +621,31 @@ body {
     width:100%;
     height:100%;*/
     /*z-index: 99 !important;*/
+
+    /*outline: 1px solid red !important;*/
 }
 
 *:focus {
     outline: none;
 }
+
+/*a:hover,
+a:active {
+    visibility: visible;
+    outline: 1px solid red !important;
+}*/
+
+
+/* PROJECT EXPLORATION */
+/*.project-exploration-container {
+    height: 50px;
+    background-color:  rgb(173, 66, 244);
+
+    box-shadow: inset 0px 6px 9px -6px;
+    -webkit-box-shadow: inset 0px 6px 9px -6px;
+    -moz-box-shadow: inset 0px 6px 9px -6px;
+    -o-box-shadow: inset 0px 6px 9px -6px;
+}*/
+
+
+/*outline: 1px solid red !important;*/
