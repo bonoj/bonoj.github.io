@@ -359,12 +359,34 @@ h1 {
 
     position: absolute;
     bottom: 10px;
-    left: 400px;
+    left: 395px;
 }
 .button2:focus {
     outline: none;
 }
 .button2:active {
+    background-color: #aa00ff;
+}
+.button3 {
+    background-color: rgb(173, 66, 244);
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    color: #fff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    cursor: hand;
+
+    width: 170px;
+}
+.button3:focus {
+    outline: none;
+}
+.button3:active {
     background-color: #aa00ff;
 }
 
