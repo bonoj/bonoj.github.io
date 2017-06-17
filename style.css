@@ -192,9 +192,17 @@ h1 {
   height: 140px;
   top: 350px;
 }
-
 .contactSpacer {
     height: 85px;
+}
+.contactInformationContainer {
+    padding-top: 12px;
+    display: flex;
+    justify-content: center;
+}
+.contactItem {
+    text-align: center;
+    width: 300px;
 }
 
 

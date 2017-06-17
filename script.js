@@ -109,3 +109,15 @@ $(document).mouseup(function(e)
         container.hide();
     }
 });
+
+$('document').ready(function(){
+m='joh';
+m+='nlb';
+m+='ono@gma';
+m+='il.c';
+m+='om';
+$ele = document.getElementById('contact-mail');
+$ele.href = 'mailto:'+m;
+$ele.innerHTML = m;
+});
+var m;
