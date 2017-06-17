@@ -286,13 +286,15 @@ h1 {
     display: block;
     transform: rotateY(180deg);
     box-sizing: border-box;
-    padding: 10px;
+    padding-top: 60px;
+    padding-left: 30px;
+    padding-right: 30px;
     color: #808080;
     text-align: center;
     border: 1px solid #DCDCDC;
 }
 .project-description-container {
-    margin-top: 90px;
+    /* REMOVE IF NOT USED */
 }
 
 /* PROJECT MODALS */
@@ -320,6 +322,24 @@ h1 {
 }
 #modalsContainer {
     /*DELETE MODALS CONTAINER IF UNUSED*/
+}
+.button {
+    background-color: rgb(173, 66, 244);
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    color: #fff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    cursor: hand;
+}
+.button:focus {
+    outline: none;
+    background-color: #aa00ff;
 }
 
 
