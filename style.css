@@ -692,11 +692,11 @@ body {
 
     top: 515px;
     width:900px;
-    height:620px;
+    height:625px;
 
     z-index: 97;
 }
-.modalsContainer {
+#modalsContainer {
     /*DELETE MODALS CONTAINER IF UNUSED*/
 }
 
@@ -722,3 +722,4 @@ body {
 
     z-index: 99;
 }*/
+

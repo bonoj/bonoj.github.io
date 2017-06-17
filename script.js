@@ -43,3 +43,69 @@ function hideProjectModal(projectId) {
         break;
     }
 }
+
+$(document).mouseup(function(e)
+{
+    var container = $(document.getElementById("proj1"));
+
+    // If the click target is neither the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0)
+    {
+        container.hide();
+    }
+});
+
+$(document).mouseup(function(e)
+{
+    var container = $(document.getElementById("proj2"));
+
+    // If the click target is neither the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0)
+    {
+        container.hide();
+    }
+});
+
+$(document).mouseup(function(e)
+{
+    var container = $(document.getElementById("proj3"));
+
+    // If the click target is neither the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0)
+    {
+        container.hide();
+    }
+});
+
+$(document).mouseup(function(e)
+{
+    var container = $(document.getElementById("proj4"));
+
+    // If the click target is neither the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0)
+    {
+        container.hide();
+    }
+});
+
+$(document).mouseup(function(e)
+{
+    var container = $(document.getElementById("proj5"));
+
+    // If the click target is neither the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0)
+    {
+        container.hide();
+    }
+});
+
+$(document).mouseup(function(e)
+{
+    var container = $(document.getElementById("proj6"));
+
+    // If the click target is neither the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0)
+    {
+        container.hide();
+    }
+});
