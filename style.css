@@ -203,6 +203,7 @@ h1 {
 .contactItem {
     text-align: center;
     width: 300px;
+    margin-top: -15px;
 }
 
 
@@ -392,6 +393,20 @@ h1 {
 .button3:active {
     background-color: #aa00ff;
 }
+
+.projectScreenshot {
+    height: 300px;
+    width: 200px;
+}
+.projectScreenshotWide {
+    height: 300px;
+    width: 400px;
+}
+.projectScreenshotWider {
+    height: 300px;
+    width: 500px;
+}
+
 
 
 
