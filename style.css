@@ -410,6 +410,15 @@ h1 {
     height: 300px;
     width: 500px;
 }
+.projectDetails {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.projectDetailsWider {
+    padding-left: 180px;
+    padding-right: 180px;
+}
 
 
 
