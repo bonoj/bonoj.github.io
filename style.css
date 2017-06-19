@@ -395,12 +395,16 @@ h1 {
 }
 
 .projectScreenshot {
-    height: 300px;
+    height: 350px;
     width: 200px;
 }
 .projectScreenshotWide {
     height: 300px;
     width: 400px;
+}
+.projectScreenshotShort {
+    height: 300px;
+    width: 200px;
 }
 .projectScreenshotWider {
     height: 300px;
