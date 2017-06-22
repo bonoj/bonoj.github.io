@@ -315,8 +315,15 @@ h1 {
 
 .face.front:hover {
     z-index: -1;
-    content: "TESTING";
 }
+
+.face.front:hover:after {
+    position: absolute;
+    color: #fff;
+    content: "No IE Support";
+    left: 0px;
+}
+
 
 .face.front {
     text-align: center;
