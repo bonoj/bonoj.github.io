@@ -286,9 +286,9 @@ h1 {
   z-index: 1;
 }
 #f1_container {
-  perspective: 1000;
+  /*perspective: 1000;
   -webkit-perspective: 1000px;
-  -moz-perspective: 1000px;
+  -moz-perspective: 1000px;*/
 }
 #f1_card {
   width: 100%;
