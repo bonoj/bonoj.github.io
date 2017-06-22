@@ -315,6 +315,7 @@ h1 {
 
 .face.front:hover {
     z-index: -1;
+    content: "TESTING";
 }
 
 .face.front {
@@ -464,16 +465,13 @@ h1 {
     padding-right: 180px;
 }
 
-@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
-   /* IE10+ specific styles go here */
-    .ieOnly {
-        display: normal;
-    }
-}
 
-.ieOnly {
-    display: none;
-}
+
+
+
+
+/* HERE THERE BE EXPERIMENTS! */
+
 
 /* Radial Out */
 /*.hvr-radial-out {
@@ -517,13 +515,88 @@ h1 {
   transform: scale(2);
 }*/
 
+/*.hvr-radial-out {
+    height: 300px;
+    width: 300px;
+    position: relative;
+    top: 1500px;
+    z-index: 1
+}
+.radialFront:hover{
+    position: absolute;
+    outline: solid red 1px;
+    z-index: -1;
+
+}
+.radialFront {
+    top: 0px;
+    position: absolute;
+    z-index: 3;
+}
+.radialBack {
+    top: 0px;
+    outline: solid red 1px;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+
+    background-color: #fff;
+    z-index: 2;
+}
+.radialBack:hover {
+    position: absolute;
+    z-index: 2;
+}
+
+.b {
+    position:absolute;
+    height: 300px;
+    width: 300px;
+    background-color:#b6c9e7;
+    z-index:1000;
+    opacity:1;
+    background-color: #fff;
+    margin-top: 50px;
+    margin-left: 50px;
+    }
+.b:hover {
+    opacity: 0;
+}
+
+.a {
+    position:absolute;
+    height: 300px;
+    width: 300px;
+    background-color:red;
+    z-index:999;
+    opacity:0;
+    outline: solid red 1px;
+    }
+
+.b:hover ~ .a {
+    position:absolute;
+    height: 300px;
+    width: 300px;
+    background-color:#b6c9e7;
+    opacity:1;
+    transition:  all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    -webkit-transition:  all 0.4s ease-in-out 0s;
+    -o-transition:  all 0.4s ease-in-out 0s;
+    -webkit-animation-duration: 2s;
+}*/
+
+
+/*.hvr-radial-out:hover + .radialFront:hover {
+    display: none;
+}*/
+/*
+.hvr-radial-out:hover + .radialBack {
+    display: normal;
+}*/
 
 
 
-
-
-
-/* HERE THERE BE EXPERIMENTS! */
 
 /* PURPLE MATRIX FISSURES */
 /*.ruptureBackgroundContainer {
