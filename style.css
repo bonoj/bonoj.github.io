@@ -313,6 +313,10 @@ h1 {
     -webkit-backface-visibility:hidden;
 }
 
+.face.front:hover {
+    z-index: -1;
+}
+
 .face.front {
     text-align: center;
     margin-top: 50px;
