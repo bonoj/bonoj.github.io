@@ -321,10 +321,6 @@ h1 {
     text-align: center;
     margin-top: 50px;
     height: 250px;
-
-    -moz-transform:perspective(1000px) rotateY(0deg);
--webkit-transform:perspective(1000px) rotateY(0deg);
-transform:perspective(1000px) rotateY(0deg);
 }
 
 .face.back {
@@ -341,24 +337,7 @@ transform:perspective(1000px) rotateY(0deg);
     border: 1px solid #DCDCDC;
     background-color: #fff;
     z-index: 2;
-
-    -moz-transform:perspective(1000px) rotateY(-180deg);
--webkit-transform:perspective(1000px) rotateY(-180deg);
-transform:perspective(1000px) rotateY(-180deg);
 }
-
-#f1_container:hover .face.front {
-    -webkit-transform:perspective(1000px) rotateY(-179.9deg);
--moz-transform:perspective(1000px) rotateY(-179.9deg);
-transform:perspective(1000px) rotateY(360deg);
-}
-
-#f1_container:hover .face.front {
-    -moz-transform:perspective(1000px) rotateY(0);
--webkit-transform:perspective(1000px) rotateY(0);
-transform:perspective(1000px) rotateY(180deg);
-}
-
 .project-description-container {
     /* REMOVE IF NOT USED */
 }
@@ -485,9 +464,16 @@ transform:perspective(1000px) rotateY(180deg);
     padding-right: 180px;
 }
 
+.ieOnly {
+    display: none;
+}
 
-
-
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+   /* IE10+ specific styles go here */
+    .ieOnly {
+        display: normal;
+    }
+}
 
 /* Radial Out */
 /*.hvr-radial-out {
