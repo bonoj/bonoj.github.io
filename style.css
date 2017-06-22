@@ -335,6 +335,8 @@ h1 {
     color: #808080;
     text-align: center;
     border: 1px solid #DCDCDC;
+    background-color: #fff;
+    z-index: 2;
 }
 .project-description-container {
     /* REMOVE IF NOT USED */
