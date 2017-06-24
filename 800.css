@@ -16,7 +16,7 @@ h1 {
 
 .bodyContainer {
     margin: 0 auto;
-    width: 500px;
+    width: 900px;
 
 }
 
@@ -63,7 +63,7 @@ h1 {
     margin: 0 auto;
     position: absolute;
     top: 50px;
-    width: 500px;
+    width: 900px;
     height: 350px;
     z-index: 98;
 }
@@ -84,7 +84,7 @@ h1 {
     padding: 5px 5px 5px 5px;
     text-align: center;
     margin-top: 10px;
-    width: 500px;
+    width: 900px;
     height: 125px;
 
     padding-top: 10px;
@@ -176,7 +176,7 @@ h1 {
     box-shadow: 5px 5px 5px #606060;
     padding: 0px 5px 5px 5px;
     height: 70px;
-    width: 500px;
+    width: 900px;
     margin: 10px 0% 5px 0%;
     float: left;
 
@@ -223,7 +223,7 @@ h1 {
     box-shadow: 5px 5px 5px #606060;
     padding: 0px 5px 5px 5px;
     height: 70px;
-    width: 500px;
+    width: 900px;
     margin: 10px 0% 5px 0%;
     padding-top: 20px;
 
@@ -351,7 +351,7 @@ h1 {
 }
 
 /* PROJECT MODALS */
-#proj1, #proj2, #proj3, #proj4, #proj5, #proj6 {
+#proj1, #proj2 {
     display: none;
 
     outline: none !important;
@@ -368,8 +368,52 @@ h1 {
     position: absolute;
 
     top: 515px;
-    width:500px;
+    width:900px;
     height:625px;
+
+    z-index: 97;
+}
+#proj3, #proj4 {
+    display: none;
+
+    outline: none !important;
+
+    padding: 10px;
+    text-align: center;
+    color: #808080;
+
+    border: 1px solid #DCDCDC;
+    box-shadow: 5px 5px 5px #606060;
+
+    background-color: #fff;
+
+    position: absolute;
+
+    top: 515px;
+    width:900px;
+    height:1225px;
+
+    z-index: 97;
+}
+#proj5, #proj6 {
+    display: none;
+
+    outline: none !important;
+
+    padding: 10px;
+    text-align: center;
+    color: #808080;
+
+    border: 1px solid #DCDCDC;
+    box-shadow: 5px 5px 5px #606060;
+
+    background-color: #fff;
+
+    position: absolute;
+
+    top: 515px;
+    width:900px;
+    height:1825px;
 
     z-index: 97;
 }
@@ -621,7 +665,7 @@ h1 {
 /*.ruptureParentContainer {
     position: absolute;
     display: flex;
-    width: 500px;
+    width: 900px;
     height: 130px;
 }
 #ruptureContainerLeft {
