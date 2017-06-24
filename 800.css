@@ -16,7 +16,7 @@ h1 {
 
 .bodyContainer {
     margin: 0 auto;
-    width: 900px;
+    width: 500px;
 
 }
 
@@ -63,7 +63,7 @@ h1 {
     margin: 0 auto;
     position: absolute;
     top: 50px;
-    width: 900px;
+    width: 500px;
     height: 350px;
     z-index: 98;
 }
@@ -84,7 +84,7 @@ h1 {
     padding: 5px 5px 5px 5px;
     text-align: center;
     margin-top: 10px;
-    width: 900px;
+    width: 500px;
     height: 125px;
 
     padding-top: 10px;
@@ -176,7 +176,7 @@ h1 {
     box-shadow: 5px 5px 5px #606060;
     padding: 0px 5px 5px 5px;
     height: 70px;
-    width: 900px;
+    width: 500px;
     margin: 10px 0% 5px 0%;
     float: left;
 
@@ -223,7 +223,7 @@ h1 {
     box-shadow: 5px 5px 5px #606060;
     padding: 0px 5px 5px 5px;
     height: 70px;
-    width: 900px;
+    width: 500px;
     margin: 10px 0% 5px 0%;
     padding-top: 20px;
 
@@ -368,7 +368,7 @@ h1 {
     position: absolute;
 
     top: 515px;
-    width:900px;
+    width:500px;
     height:625px;
 
     z-index: 97;
@@ -621,7 +621,7 @@ h1 {
 /*.ruptureParentContainer {
     position: absolute;
     display: flex;
-    width: 900px;
+    width: 500px;
     height: 130px;
 }
 #ruptureContainerLeft {
