@@ -244,24 +244,17 @@ h1 {
     margin-bottom: 5px;
 }*/
 
-.phoneSection {
-    clear: both;
-    padding: 0px;
-    margin: 0px;
-    margin-bottom: 5px;
-}
-
 /*  COLUMN SETUP  */
-.col {
+/*.col {
     display: block;
     float: left;
 }
 .col:first-child {
     margin-left: 0;
-}
+}*/
 
 /*  GROUPING  */
-.group:before,
+/*.group:before,
 .group:after {
     content:"";
     display:table;
@@ -271,18 +264,18 @@ h1 {
 }
 .group {
     zoom: 1;
-}
+}*/
 
-/*  GRID OF TWO  */
+/*  GRID OF THREE  */
 /*.span_3_of_3 {
     width: 100%;
 }
 .span_2_of_3 {
     width: 66.7%;
-}*/
-.span_1_of_3 {
-    width: 50%;
 }
+.span_1_of_3 {
+    width: 33.3%;
+}*/
 
 /* FLIP CARDS */
 #f1_container {
