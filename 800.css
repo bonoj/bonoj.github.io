@@ -237,7 +237,14 @@ h1 {
 
 
 /*  SECTIONS  */
-.section {
+/*.section {
+    clear: both;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 5px;
+}*/
+
+.phoneSection {
     clear: both;
     padding: 0px;
     margin: 0px;
