@@ -203,6 +203,7 @@ body {
 }
 .contactGrowContainer:hover + .button {
   pointer-events: auto;
+}
 .contactSpacer {
     height: 85px;
 }
