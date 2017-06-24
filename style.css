@@ -317,14 +317,6 @@ h1 {
     z-index: -1;
 }
 
-.face.front:hover:after {
-    position: absolute;
-    color: #fff;
-    content: "No IE Support";
-    left: 0px;
-}
-
-
 .face.front {
     text-align: center;
     margin-top: 50px;
