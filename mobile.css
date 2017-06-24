@@ -201,6 +201,8 @@ body {
   height: 140px;
   top: 350px;
 }
+.contactGrowContainer:hover + .button {
+  pointer-events: auto;
 .contactSpacer {
     height: 85px;
 }
@@ -438,6 +440,8 @@ body {
     margin: 4px 2px;
     cursor: pointer;
     cursor: hand;
+
+    pointer-events: none;
 }
 .button:focus {
     outline: none;
