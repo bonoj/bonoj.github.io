@@ -21,7 +21,7 @@ h1 {
 }
 
 .backgroundContainer {
-    background-color:  rgb(173, 66, 244); /*Purple. Hex color: #ad42f4*/
+    background-color:  rgb(164, 198, 57); /*(173, 66, 244);*/ /*Purple. Hex color: #ad42f4*/
     position: absolute;
     width: 100%;
     height: 420px;
@@ -34,7 +34,7 @@ h1 {
 }
 
 .footerContainer {
-    background-color:  rgb(173, 66, 244); /*Purple. Hex color: #ad42f4*/
+    background-color:  rgb(164, 198, 57); /*(173, 66, 244);*/ /*Purple. Hex color: #ad42f4*/
 
     width: 100%;
     height: 50px;
@@ -369,7 +369,7 @@ h1 {
     /*DELETE MODALS CONTAINER IF UNUSED*/
 }
 .button {
-    background-color: rgb(173, 66, 244);
+    background-color: rgb(164, 198, 57); /*(173, 66, 244);*/
     border: 1px solid #DCDCDC;
     border-radius: 5px;
     color: #fff;
@@ -390,7 +390,7 @@ h1 {
     background-color: #aa00ff;
 }
 .button2 {
-    background-color: rgb(173, 66, 244);
+    background-color: rgb(164, 198, 57); /*(173, 66, 244);*/
     border: 1px solid #DCDCDC;
     border-radius: 5px;
     color: #fff;
@@ -415,7 +415,7 @@ h1 {
     background-color: #aa00ff;
 }
 .button3 {
-    background-color: rgb(173, 66, 244);
+    background-color: rgb(164, 198, 57); /*(173, 66, 244);*/
     border: 1px solid #DCDCDC;
     border-radius: 5px;
     color: #fff;
