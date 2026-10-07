@@ -8,6 +8,34 @@
 <div class="route">question → lens → coordinate → authoritative evidence → action</div>
 <div class="grid" id="cards"></div><div class="panel" id="panel"></div>
 <div class="footer">This surface contains no private context. Coordinates live outside the public instrument. Authority remains with the source reached through a coordinate.</div>
+<script type="application/json" id="context-lens-semantic-bootstrap">
+{
+  "schema":"context-lens.bootstrap.v1",
+  "purpose":"model-facing routing metadata; public, non-authoritative, contains no private source contents",
+  "private_coordinate_source":{"repository":"bonoj/Home","path":"jit/context-lens/COORDINATES.md"},
+  "bootstrap":{
+    "cold":["resolve private_coordinate_source","follow recipe:cold","retrieve only implicated authority","act from stronger evidence"],
+    "betwixt":["recipe:betwixt"],
+    "publication_disagreement":["recipe:publication disagreement"],
+    "history":["recipe:historical capability"],
+    "protected_seam":["recipe:interstice repair"]
+  },
+  "authority_order":["executable evidence","implementation","present semantic interpretation","research evidence","archaeology"],
+  "invariants":[
+    "public lens routes attention and never outranks its sources",
+    "private coordinates are handles, not content to serialize publicly",
+    "retrieval uses existing authorization",
+    "stop descending when stronger evidence answers the question",
+    "distinguish intended, accepted, propagated, deployed, and observed state"
+  ],
+  "stop_conditions":[
+    "do not ingest repository graph by default",
+    "do not copy private source contents into this public surface",
+    "do not infer live state from git state alone",
+    "do not repair protected seams from absence"
+  ]
+}
+</script>
 <script>
 const modes=[
 {id:"cold",name:"Cold start",why:"Orient without swallowing the whole graph.",steps:["Resolve private coordinate sheet.","Read orientation + current aperture.","Retrieve only authority implicated by the work.","Descend to the project that owns executable truth."]},
