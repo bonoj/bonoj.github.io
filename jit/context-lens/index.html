@@ -1,0 +1,47 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Context Lens</title>
+<style>
+:root{color-scheme:dark;font:15px/1.45 system-ui;background:#0d1117;color:#d8dee9}
+body{max-width:900px;margin:auto;padding:28px 18px 80px} h1{font-size:1.35rem;margin:0} .muted{color:#8b949e}
+header{display:flex;justify-content:space-between;gap:16px;align-items:baseline;border-bottom:1px solid #30363d;padding-bottom:16px;margin-bottom:20px}
+#unlock{display:flex;gap:8px;margin:28px 0} input,button{font:inherit;background:#161b22;color:inherit;border:1px solid #30363d;border-radius:8px;padding:10px 12px}
+input{flex:1}button{cursor:pointer} section{margin:24px 0} h2{font-size:.8rem;letter-spacing:.14em;color:#8b949e;text-transform:uppercase}
+.card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:14px 16px;margin:8px 0}
+.name{font-weight:650}.tag{font:12px ui-monospace,monospace;color:#a5d6ff}.route{font:13px ui-monospace,monospace;color:#7ee787;overflow-wrap:anywhere}
+details{margin-top:10px} pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;background:#010409;padding:12px;border-radius:8px}
+#error{color:#ff7b72}.hidden{display:none}
+</style>
+<header><div><h1>Context Lens</h1><div class="muted">dormant executable context</div></div><span class="tag">v0</span></header>
+<div id="unlock"><input id="key" type="password" autocomplete="off" placeholder="Home capability key"><button id="go">wake</button></div>
+<div id="error"></div><main id="app" class="hidden"></main>
+<script>
+const $=s=>document.querySelector(s);
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function bytes64(s){return Uint8Array.from(atob(s),c=>c.charCodeAt(0))}
+async function wake(){
+ $("#error").textContent="";
+ try{
+  const pack=await fetch("./payload.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("payload unavailable");return r.json()});
+  const raw=$("#key").value.trim(); if(!raw)throw Error("key required");
+  const keyBytes=bytes64(raw); if(keyBytes.length!==32)throw Error("wrong key");
+  const key=await crypto.subtle.importKey("raw",keyBytes,"AES-GCM",false,["decrypt"]);
+  const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:bytes64(pack.iv)},key,bytes64(pack.ciphertext));
+  const d=JSON.parse(new TextDecoder().decode(plain)); render(d);
+ }catch(e){$("#error").textContent="sleeping — "+(e.message==="OperationError"?"capability rejected":e.message)}
+}
+function cards(xs,fn){return (xs||[]).map(fn).join("")}
+function render(d){
+ $("#unlock").remove(); $("#error").remove(); const a=$("#app"); a.classList.remove("hidden");
+ a.innerHTML=
+ '<section><h2>Now</h2><div class="card"><div class="name">'+esc(d.now.locus)+'</div><div>'+esc(d.now.state)+'</div><div class="route">'+esc(d.now.route)+'</div></div></section>'+
+ '<section><h2>Map</h2>'+cards(d.map,x=>'<div class="card"><div class="name">'+esc(x.name)+'</div><div>'+esc(x.role)+'</div><div class="route">'+esc(x.handle)+'</div></div>')+'</section>'+
+ '<section><h2>Handles</h2>'+cards(d.handles,x=>'<div class="card"><div class="name">'+esc(x.name)+'</div><div>'+esc(x.why)+'</div><div class="route">'+esc(x.repo)+' :: '+esc(x.path)+'</div></div>')+'</section>'+
+ '<section><h2>Scars</h2>'+cards(d.scars,x=>'<div class="card">'+esc(x)+'</div>')+'</section>'+
+ '<section><h2>Recipes</h2>'+cards(d.recipes,x=>'<div class="card"><div class="name">'+esc(x.need)+'</div><div>'+esc(x.do)+'</div></div>')+'</section>'+
+ '<details><summary>raw model surface</summary><pre>'+esc(JSON.stringify(d,null,2))+'</pre></details>';
+}
+$("#go").onclick=wake; $("#key").onkeydown=e=>{if(e.key==="Enter")wake()};
+</script>
