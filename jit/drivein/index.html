@@ -22,9 +22,9 @@ import {CSS3DRenderer,CSS3DObject} from 'https://esm.sh/three@0.180.0/examples/j
 
 
 try {
-const scene=new T.Scene();scene.background=new T.Color(0x06101b);scene.fog=new T.FogExp2(0x071827,.012);
+const scene=new T.Scene();scene.background=null;scene.fog=new T.FogExp2(0x071827,.012);
 const world=new T.Group();scene.add(world);
-const renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.38;document.querySelector('#stage').append(renderer.domElement);
+const renderer=new T.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.38;renderer.setClearColor(0x000000,0);renderer.domElement.style.cssText='position:fixed;inset:0;z-index:2;pointer-events:none';document.querySelector('#stage').append(renderer.domElement);
 const camera=new T.PerspectiveCamera(42,1,.1,150);scene.add(new T.HemisphereLight(0x82c6dc,0x17202d,1.5));const sun=new T.DirectionalLight(0xffc77e,2.4);sun.position.set(-7,13,7);scene.add(sun);const blue=new T.PointLight(0x2cbed7,95,36);blue.position.set(2,-2,2);scene.add(blue);
 const M=(color,metalness=.1,roughness=.65,extra={})=>new T.MeshStandardMaterial({color,metalness,roughness,...extra});
 const brass=M(0xb78b4e,.78,.3),bright=M(0xf2cb7e,.45,.3),rock=M(0x242b33,.08,.94),basalt=M(0x3c4449,.04,.9),green=M(0x467b50,.08,.75),leaf=M(0x85a767,.04,.7),cyan=new T.MeshBasicMaterial({color:0x42d7dc}),purple=new T.MeshBasicMaterial({color:0xb06fe6}),glow=new T.MeshBasicMaterial({color:0xffc678}),glass=new T.MeshPhysicalMaterial({color:0x9dcdd7,transparent:true,opacity:.17,metalness:.05,roughness:.12,depthWrite:false,side:T.DoubleSide});
@@ -64,15 +64,20 @@ const filmSurface=new CSS3DObject(film);
 filmSurface.position.set(0,-.5,-3.44);
 filmSurface.scale.set(.01,.01,.01);
 cssScene.add(filmSurface);
+// WebGL depth proxy punches a transparent window through the canvas.
+// Foreground meshes remain visible; background meshes fail the depth test.
+const windowDepth=new T.Mesh(new T.PlaneGeometry(9.1,5.2),new T.MeshBasicMaterial({transparent:true,opacity:0,blending:T.NoBlending,depthWrite:true,depthTest:true,side:T.DoubleSide}));
+windowDepth.position.copy(filmSurface.position);windowDepth.position.z+=.005;
+world.add(windowDepth);
 const cssRenderer=new CSS3DRenderer();
 cssRenderer.setSize(innerWidth,innerHeight);
-cssRenderer.domElement.style.cssText='position:fixed;inset:0;z-index:3;pointer-events:none';
+cssRenderer.domElement.style.cssText='position:fixed;inset:0;z-index:1;pointer-events:none';
 document.querySelector('#stage').append(cssRenderer.domElement);
-function positionFilm(){filmSurface.visible=camera.position.z>filmSurface.position.z+.05;cssRenderer.render(cssScene,camera)}
+function positionFilm(){filmSurface.visible=camera.position.z>filmSurface.position.z+.05;windowDepth.visible=filmSurface.visible;cssRenderer.render(cssScene,camera)}
 let angle=.6,elev=.27,dist=27,targetY=.3,lastX=0,lastY=0;
-const pointers=new Map();let pinch=0;renderer.domElement.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,[e.clientX,e.clientY]);lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});
-renderer.domElement.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);const ps=[...pointers.values()];if(ps.length===1){angle+=(e.clientX-old[0])*.006;elev=T.MathUtils.clamp(elev+(e.clientY-old[1])*.004,-.4,1.2)}else if(ps.length===2){const d=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]);if(pinch)dist=T.MathUtils.clamp(dist*pinch/d,17,58);pinch=d}});
-function end(e){pointers.delete(e.pointerId);pinch=0}renderer.domElement.addEventListener('pointerup',end);renderer.domElement.addEventListener('pointercancel',end);renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();dist=T.MathUtils.clamp(dist+e.deltaY*.022,17,58)},{passive:false});
+const pointers=new Map();let pinch=0;document.querySelector('#stage').addEventListener('pointerdown',e=>{pointers.set(e.pointerId,[e.clientX,e.clientY]);lastX=e.clientX;lastY=e.clientY;document.querySelector('#stage').setPointerCapture(e.pointerId)});
+document.querySelector('#stage').addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);const ps=[...pointers.values()];if(ps.length===1){angle+=(e.clientX-old[0])*.006;elev=T.MathUtils.clamp(elev+(e.clientY-old[1])*.004,-.4,1.2)}else if(ps.length===2){const d=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]);if(pinch)dist=T.MathUtils.clamp(dist*pinch/d,17,58);pinch=d}});
+function end(e){pointers.delete(e.pointerId);pinch=0}document.querySelector('#stage').addEventListener('pointerup',end);document.querySelector('#stage').addEventListener('pointercancel',end);document.querySelector('#stage').addEventListener('wheel',e=>{e.preventDefault();dist=T.MathUtils.clamp(dist+e.deltaY*.022,17,58)},{passive:false});
 function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);cssRenderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();if(w<h)dist=Math.max(dist,27)}addEventListener('resize',resize);resize();
 
 const probeButton=document.querySelector('#probe'),probePanel=document.querySelector('#probePanel'),probeText=document.querySelector('#probeText');
