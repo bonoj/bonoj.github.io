@@ -24,7 +24,7 @@ import {CSS3DRenderer,CSS3DObject} from 'https://esm.sh/three@0.180.0/examples/j
 try {
 const scene=new T.Scene();scene.background=null;scene.fog=new T.FogExp2(0x071827,.012);
 const world=new T.Group();scene.add(world);
-const renderer=new T.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.38;renderer.setClearColor(0x000000,0);renderer.domElement.style.cssText='position:fixed;inset:0;z-index:2;pointer-events:none';document.querySelector('#stage').append(renderer.domElement);
+const renderer=new T.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.38;renderer.setClearColor(0x000000,0);renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.domElement.style.cssText='position:fixed;inset:0;z-index:2;pointer-events:none';document.querySelector('#stage').append(renderer.domElement);
 const camera=new T.PerspectiveCamera(42,1,.1,150);scene.add(new T.HemisphereLight(0x82c6dc,0x17202d,1.5));const sun=new T.DirectionalLight(0xffc77e,2.4);sun.position.set(-7,13,7);scene.add(sun);const blue=new T.PointLight(0x2cbed7,95,36);blue.position.set(2,-2,2);scene.add(blue);
 const M=(color,metalness=.1,roughness=.65,extra={})=>new T.MeshStandardMaterial({color,metalness,roughness,...extra});
 const brass=M(0xb78b4e,.78,.3),bright=M(0xf2cb7e,.45,.3),rock=M(0x242b33,.08,.94),basalt=M(0x3c4449,.04,.9),green=M(0x467b50,.08,.75),leaf=M(0x85a767,.04,.7),cyan=new T.MeshBasicMaterial({color:0x42d7dc}),purple=new T.MeshBasicMaterial({color:0xb06fe6}),glow=new T.MeshBasicMaterial({color:0xffc678}),glass=new T.MeshPhysicalMaterial({color:0x9dcdd7,transparent:true,opacity:.17,metalness:.05,roughness:.12,depthWrite:false,side:T.DoubleSide});
@@ -69,43 +69,41 @@ cyl(watcher,.13,.24,.9,bark,0,.55,0);ball(watcher,.18,snow,0,1.13,0);
 beam([-.1,.75,0],[-.65,.42,0],.05,bark,watcher);beam([.1,.75,0],[.52,.49,0],.05,bark,watcher);
 beam([-.05,.1,0],[-.25,-.35,0],.06,bark,watcher);beam([.05,.1,0],[.22,-.35,0],.06,bark,watcher);
 // Lighting/material laboratory. Snapshot all original mesh materials; never touch the CSS3D video.
-const materialStates=new Map();
-world.traverse(o=>{if(!o.isMesh)return;for(const m of (Array.isArray(o.material)?o.material:[o.material]))if(m&&!materialStates.has(m)&&m.isMeshStandardMaterial){materialStates.set(m,{color:m.color.clone(),roughness:m.roughness,metalness:m.metalness,flatShading:m.flatShading,emissive:m.emissive.clone(),emissiveIntensity:m.emissiveIntensity})}});
-const baseLight={sunColor:sun.color.clone(),sunIntensity:sun.intensity,blueColor:blue.color.clone(),blueIntensity:blue.intensity,hemiIntensity:scene.children.find(o=>o.isHemisphereLight)?.intensity??1.5,exposure:renderer.toneMappingExposure,fogColor:scene.fog.color.clone(),fogDensity:scene.fog.density};
+// Visual lab: lighting geometry, actual shadows, procedural surface relief and edge accents.
 const hemi=scene.children.find(o=>o.isHemisphereLight);
-const looks=[
- {name:'ORIGINAL',exposure:1.38,sun:2.4,blue:95,hemi:1.5,fog:.012},
- {name:'MOONLIT',exposure:1.08,sun:3.4,blue:145,hemi:.45,fog:.035,sunColor:0x9bbaff,blueColor:0x437bff,tint:0x9bbde2,rough:.82},
- {name:'GOLDEN HOUR',exposure:1.65,sun:4.1,blue:24,hemi:.8,fog:.024,sunColor:0xff9c4b,tint:0xffd4a2,rough:.58},
- {name:'SILHOUETTE',exposure:.78,sun:1.1,blue:190,hemi:.12,fog:.052,sunColor:0xc5e5ff,blueColor:0x48f3e7,rough:.97},
- {name:'FROSTED',exposure:1.85,sun:2.8,blue:100,hemi:2.5,fog:.042,sunColor:0xd9edff,tint:0xc5e5f4,rough:.29,metal:.1},
- {name:'BRONZE AGE',exposure:1.25,sun:3.2,blue:28,hemi:.55,fog:.02,sunColor:0xffc36d,tint:0xd4a875,rough:.32,metal:.72},
- {name:'NOIR',exposure:.92,sun:4.8,blue:0,hemi:.22,fog:.026,mono:true,rough:.88},
- {name:'DREAM',exposure:1.6,sun:2.0,blue:165,hemi:1.9,fog:.065,sunColor:0xf7a6db,blueColor:0x9b74ff,tint:0xe3b8ed,rough:.45}
+const originals=new Map();
+world.traverse(o=>{if(!o.isMesh)return;o.userData.originalCast=o.castShadow;o.userData.originalReceive=o.receiveShadow;for(const m of (Array.isArray(o.material)?o.material:[o.material]))if(m?.isMeshStandardMaterial&&!originals.has(m))originals.set(m,{roughness:m.roughness,metalness:m.metalness,bumpMap:m.bumpMap,bumpScale:m.bumpScale,flatShading:m.flatShading})});
+const noiseCanvas=document.createElement('canvas');noiseCanvas.width=noiseCanvas.height=128;
+const ctx=noiseCanvas.getContext('2d'),img=ctx.createImageData(128,128);
+for(let y=0;y<128;y++)for(let x=0;x<128;x++){const i=(y*128+x)*4;const v=Math.max(0,Math.min(255,120+38*Math.sin(x*.23)*Math.cos(y*.19)+35*Math.sin(x*.87+y*.63)+24*Math.sin(y*1.9-x*.5)));img.data[i]=img.data[i+1]=img.data[i+2]=v;img.data[i+3]=255}ctx.putImageData(img,0,0);
+const relief=new T.CanvasTexture(noiseCanvas);relief.wrapS=relief.wrapT=T.RepeatWrapping;relief.repeat.set(3,3);
+sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-13;sun.shadow.camera.right=13;sun.shadow.camera.top=13;sun.shadow.camera.bottom=-13;sun.shadow.camera.near=.5;sun.shadow.camera.far=45;sun.shadow.bias=-.0006;sun.shadow.normalBias=.025;
+const accent=new T.Group();world.add(accent);
+const edged=[];
+world.traverse(o=>{if(!o.isMesh||o===envelope||o===innerGlass||o.geometry?.attributes?.position?.count>500)return;if(!o.geometry?.isBufferGeometry)return;const e=new T.LineSegments(new T.EdgesGeometry(o.geometry,24),new T.LineBasicMaterial({color:0xb8d8df,transparent:true,opacity:.65,depthWrite:false}));e.visible=false;o.add(e);edged.push(e)});
+const presets=[
+ {name:'ORIGINAL',sun:2.4,hemi:1.5,blue:95,fog:.012,exposure:1.38},
+ {name:'HARD SHADOWS',sun:4.5,hemi:.35,blue:12,fog:.008,exposure:1.15,shadows:true},
+ {name:'ETCHED EDGES',sun:2.5,hemi:.7,blue:65,fog:.012,exposure:1.25,edges:true},
+ {name:'CARVED STONE',sun:3.5,hemi:.5,blue:20,fog:.015,exposure:1.18,shadows:true,bump:.18,rough:.96},
+ {name:'HAMMERED METAL',sun:3.6,hemi:.65,blue:80,fog:.012,exposure:1.25,shadows:true,bump:.12,metal:.88,rough:.28},
+ {name:'STAGE SPOTLIGHT',sun:6,hemi:.12,blue:0,fog:.025,exposure:1.02,shadows:true,spot:true},
+ {name:'FOG & DEPTH',sun:2.6,hemi:.55,blue:70,fog:.085,exposure:1.25,shadows:true},
+ {name:'INK DIORAMA',sun:3.3,hemi:.3,blue:20,fog:.018,exposure:1.15,shadows:true,edges:true,rough:1}
 ];
+const originalSunPosition=sun.position.clone(),originalFog=scene.fog.density;
 let lookIndex=0;
 function applyLook(){
- const v=looks[lookIndex];
- renderer.toneMappingExposure=v.exposure;
- sun.intensity=v.sun;sun.color.copy(v.sunColor?new T.Color(v.sunColor):baseLight.sunColor);
- blue.intensity=v.blue;blue.color.copy(v.blueColor?new T.Color(v.blueColor):baseLight.blueColor);
- if(hemi)hemi.intensity=v.hemi;
- scene.fog.density=v.fog;scene.fog.color.copy(baseLight.fogColor);
- if(v.name==='GOLDEN HOUR')scene.fog.color.set(0x443025);
- if(v.name==='MOONLIT')scene.fog.color.set(0x111d38);
- if(v.name==='DREAM')scene.fog.color.set(0x32223d);
- for(const [m,b] of materialStates){
-  m.color.copy(b.color);m.roughness=b.roughness;m.metalness=b.metalness;
-  m.emissive.copy(b.emissive);m.emissiveIntensity=b.emissiveIntensity;
-  if(v.tint)m.color.lerp(new T.Color(v.tint),.23);
-  if(v.mono){const h=(m.color.r+m.color.g+m.color.b)/3;m.color.setRGB(h,h,h)}
-  if(v.rough!==undefined)m.roughness=v.rough;
-  if(v.metal!==undefined)m.metalness=v.metal;
-  m.needsUpdate=true;
- }
+ const v=presets[lookIndex];
+ sun.intensity=v.sun;sun.position.copy(v.spot?new T.Vector3(-2,12,9):originalSunPosition);
+ hemi.intensity=v.hemi;blue.intensity=v.blue;scene.fog.density=v.fog;renderer.toneMappingExposure=v.exposure;
+ sun.castShadow=!!v.shadows;sun.shadow.radius=v.spot?1:2;
+ world.traverse(o=>{if(o.isMesh){o.castShadow=!!v.shadows&&o!==envelope&&o!==innerGlass;o.receiveShadow=!!v.shadows&&o!==envelope&&o!==innerGlass}});
+ for(const [m,b] of originals){m.roughness=v.rough??b.roughness;m.metalness=v.metal??b.metalness;m.bumpMap=v.bump?relief:b.bumpMap;m.bumpScale=v.bump??b.bumpScale;m.needsUpdate=true}
+ for(const e of edged)e.visible=!!v.edges;
  document.querySelector('#treatmentSwitch').textContent='LOOK · '+v.name;
 }
-document.querySelector('#treatmentSwitch').addEventListener('click',()=>{lookIndex=(lookIndex+1)%looks.length;applyLook()});
+document.querySelector('#treatmentSwitch').addEventListener('click',()=>{lookIndex=(lookIndex+1)%presets.length;applyLook()});
 const film=document.createElement('iframe');
 film.src='https://drive.google.com/file/d/1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC/preview?autoplay=1';
 film.title="The Death Knight and the Huntress — a film by Jonathan Lott";
@@ -182,7 +180,7 @@ const round=(n,d=2)=>Number.isFinite(n)?+n.toFixed(d):null;
 function inspectWorld(){
  camera.updateMatrixWorld();world.updateMatrixWorld(true);
  const center=new T.Vector3(0,0,0).project(camera);
- const report={build:'palehorse-008',source:mediaSources[sourceIndex].name,media:mediaSources[sourceIndex].kind,controlWindow:'separate play and scrub native islands',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
+ const report={build:'palehorse-009',source:mediaSources[sourceIndex].name,media:mediaSources[sourceIndex].kind,controlWindow:'separate play and scrub native islands',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
  probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
