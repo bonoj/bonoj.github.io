@@ -69,7 +69,7 @@ cyl(watcher,.13,.24,.9,bark,0,.55,0);ball(watcher,.18,snow,0,1.13,0);
 beam([-.1,.75,0],[-.65,.42,0],.05,bark,watcher);beam([.1,.75,0],[.52,.49,0],.05,bark,watcher);
 beam([-.05,.1,0],[-.25,-.35,0],.06,bark,watcher);beam([.05,.1,0],[.22,-.35,0],.06,bark,watcher);
 const film=document.createElement('iframe');
-film.src='https://drive.google.com/file/d/1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC/preview';
+film.src='https://drive.google.com/file/d/1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC/preview?autoplay=1';
 film.title="The Death Knight and the Huntress — a film by Jonathan Lott";
 film.allow='autoplay; fullscreen; picture-in-picture';
 film.style.cssText='width:910px;height:520px;border:0;background:#090b12;pointer-events:none';
@@ -106,7 +106,7 @@ function updateControlWindow(){
 }
 const tapRay=new T.Raycaster(),tapNdc=new T.Vector2();
 const mediaSources=[
- {name:'JON',kind:'drive',url:'https://drive.google.com/file/d/1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC/preview',title:'The Death Knight and the Huntress — Jonathan Lott'},
+ {name:'JON',kind:'drive',url:'https://drive.google.com/file/d/1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC/preview?autoplay=1',title:'The Death Knight and the Huntress — Jonathan Lott'},
  {name:'YOUTUBE',kind:'youtube',url:'https://www.youtube-nocookie.com/embed/cetw-9l9V9g?playsinline=1&rel=0&enablejsapi=1&origin='+encodeURIComponent(location.origin),title:'Warlockracy — Baldur’s Gate 3'}
 ];
 let sourceIndex=0,playerPlaying=false;
@@ -144,7 +144,7 @@ const round=(n,d=2)=>Number.isFinite(n)?+n.toFixed(d):null;
 function inspectWorld(){
  camera.updateMatrixWorld();world.updateMatrixWorld(true);
  const center=new T.Vector3(0,0,0).project(camera);
- const report={build:'palehorse-006',source:mediaSources[sourceIndex].name,media:mediaSources[sourceIndex].kind,controlWindow:'separate play and scrub native islands',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
+ const report={build:'palehorse-007',source:mediaSources[sourceIndex].name,media:mediaSources[sourceIndex].kind,controlWindow:'separate play and scrub native islands',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
  probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
