@@ -39,7 +39,7 @@ const innerGlass=new T.Mesh(new T.SphereGeometry(INNER_R,72,48),new T.MeshPhysic
 const equator=put(world,new T.TorusGeometry(BAUBLE_R,.095,10,120),brass);equator.rotation.x=Math.PI/2;
 for(const y of [-.15,.15]){const trim=put(world,new T.TorusGeometry(BAUBLE_R,.021,6,120),bright,0,y,0);trim.rotation.x=Math.PI/2}
 for(let i=0;i<8;i++){const a=i*Math.PI/4;ball(world,.12,bright,Math.cos(a)*BAUBLE_R,0,Math.sin(a)*BAUBLE_R)}
-let angle=.6,elev=.27,dist=27,targetY=.3;
+let angle=.6,elev=.27,dist=27,targetY=.3,lastX=0,lastY=0;
 const pointers=new Map();let pinch=0;renderer.domElement.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,[e.clientX,e.clientY]);lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});
 renderer.domElement.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);const ps=[...pointers.values()];if(ps.length===1){angle+=(e.clientX-old[0])*.006;elev=T.MathUtils.clamp(elev+(e.clientY-old[1])*.004,-.4,1.2)}else if(ps.length===2){const d=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]);if(pinch)dist=T.MathUtils.clamp(dist*pinch/d,17,58);pinch=d}});
 function end(e){pointers.delete(e.pointerId);pinch=0}renderer.domElement.addEventListener('pointerup',end);renderer.domElement.addEventListener('pointercancel',end);renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();dist=T.MathUtils.clamp(dist+e.deltaY*.022,17,58)},{passive:false});
