@@ -34,26 +34,102 @@ function ring(p,r,t,m,x,y,z){const o=put(p,new T.TorusGeometry(r,t,7,48),m,x,y,z
 function beam(a,b,r,m,p=world){const v=new T.Vector3(...a),w=new T.Vector3(...b),d=w.clone().sub(v),o=put(p,new T.CylinderGeometry(r,r,d.length(),7),m,...v.clone().add(w).multiplyScalar(.5).toArray());o.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),d.normalize());return o}
 
 
-// A conserved spherical-cap ocean: equilibrium under fixed downward gravity.
-// The water surface is an exact sphere/plane intersection; orbiting the camera
-// changes the view, never the direction of gravity in world coordinates.
-const waterFill=.34;
-const waterRadius=10.07;
-function capVolume(h){return Math.PI*h*h*(waterRadius-h/3)}
-const targetVolume=waterFill*4*Math.PI*Math.pow(waterRadius,3)/3;
-let lo=0,hi=2*waterRadius;
-for(let i=0;i<48;i++){const mid=(lo+hi)/2;if(capVolume(mid)<targetVolume)lo=mid;else hi=mid}
-const surfaceY=-waterRadius+(lo+hi)/2;
-const oceanMaterial=new T.MeshPhysicalMaterial({color:0x168fba,metalness:0,roughness:.19,transparent:true,opacity:.73,depthWrite:true,side:T.DoubleSide});
-const surfaceMaterial=new T.MeshPhysicalMaterial({color:0x67dbea,metalness:0,roughness:.11,transparent:true,opacity:.84,side:T.DoubleSide});
-const oceanGeometry=new T.SphereGeometry(waterRadius,72,48);
-const positions=oceanGeometry.attributes.position;
-for(let i=0;i<positions.count;i++){if(positions.getY(i)>surfaceY)positions.setY(i,surfaceY)}
-oceanGeometry.computeVertexNormals();
-const ocean=put(world,oceanGeometry,oceanMaterial);
-const surfaceRadius=Math.sqrt(Math.max(0,waterRadius*waterRadius-surfaceY*surfaceY));
-const surface=put(world,new T.CircleGeometry(surfaceRadius,96),surfaceMaterial,0,surfaceY+.012,0);
-surface.rotation.x=-Math.PI/2;
+// Dynamic height-field ocean: conservative finite-volume fluxes and inertial waves.
+// External gravity acts in world -Y. Camera orbit never changes that field.
+const waterFill=.34, waterRadius=10.07, N=52, cell=2*waterRadius/N;
+const capVolume=h=>Math.PI*h*h*(waterRadius-h/3);
+const targetVolume=waterFill*4*Math.PI*waterRadius**3/3;
+let low=0,high=2*waterRadius;
+for(let k=0;k<48;k++){const m=(low+high)/2;if(capVolume(m)<targetVolume)low=m;else high=m}
+const surfaceY=-waterRadius+(low+high)/2;
+const count=N*N, floor=new Float32Array(count), area=new Float32Array(count);
+const h=new Float32Array(count), vx=new Float32Array(count), vz=new Float32Array(count);
+const dh=new Float32Array(count), ax=new Float32Array(count), az=new Float32Array(count);
+const valid=new Uint8Array(count), g=16, damping=.997;
+const index=(i,j)=>j*N+i, X=i=>(i+.5)*cell-waterRadius, Z=j=>(j+.5)*cell-waterRadius;
+let wetArea=0,initialMass=0;
+for(let j=0;j<N;j++)for(let i=0;i<N;i++){
+ const id=index(i,j),x=X(i),z=Z(j),r2=x*x+z*z;
+ if(r2>=waterRadius*waterRadius*.985)continue;
+ valid[id]=1;floor[id]=-Math.sqrt(waterRadius*waterRadius-r2);
+ h[id]=Math.max(0,surfaceY-floor[id]);area[id]=cell*cell;initialMass+=h[id]*area[id];wetArea+=area[id];
+}
+const oceanMat=new T.MeshPhysicalMaterial({color:0x1596b9,roughness:.2,metalness:0,transparent:true,opacity:.83,side:T.DoubleSide,depthWrite:true});
+const oceanGeo=new T.BufferGeometry();
+const verts=new Float32Array(count*4*3),indices=[];
+for(let j=0;j<N;j++)for(let i=0;i<N;i++){const id=index(i,j);if(!valid[id])continue;
+ const base=id*4;for(let k=0;k<4;k++){verts[3*(base+k)]=X(i)+(k===1||k===2?cell/2:-cell/2);verts[3*(base+k)+2]=Z(j)+(k>=2?cell/2:-cell/2)}
+ indices.push(base,base+2,base+1,base,base+3,base+2);
+}
+oceanGeo.setAttribute('position',new T.BufferAttribute(verts,3).setUsage(T.DynamicDrawUsage));oceanGeo.setIndex(indices);
+const ocean=put(world,oceanGeo,oceanMat);
+const skirtMat=new T.MeshPhysicalMaterial({color:0x08708f,roughness:.25,transparent:true,opacity:.69,side:T.DoubleSide,depthWrite:false});
+const skirtGeo=new T.BufferGeometry(),skirtVerts=new Float32Array(count*4*3),skirtIndices=[];
+for(let j=0;j<N;j++)for(let i=0;i<N;i++){const id=index(i,j);if(!valid[id])continue;
+ const x=X(i),z=Z(j),y=floor[id],r=Math.sqrt(x*x+z*z);
+ if(r<waterRadius*.65)continue;
+ const b=id*4;skirtIndices.push(b,b+1,b+2,b,b+2,b+3);
+}
+skirtGeo.setAttribute('position',new T.BufferAttribute(skirtVerts,3).setUsage(T.DynamicDrawUsage));skirtGeo.setIndex(skirtIndices);
+put(world,skirtGeo,skirtMat);
+let impulseCount=0,simSteps=0,simTime=0;
+function splash(x,z,strength=2.8){
+ impulseCount++;
+ for(let j=0;j<N;j++)for(let i=0;i<N;i++){const id=index(i,j);if(!valid[id])continue;
+ const d2=(X(i)-x)**2+(Z(j)-z)**2;
+ const w=Math.exp(-d2/3.5);
+ h[id]=Math.max(0,h[id]+strength*w*.10);
+ vx[id]+=(X(i)-x)*w*strength*.24;vz[id]+=(Z(j)-z)*w*strength*.24;
+ }
+ normalizeMass();
+}
+function normalizeMass(){
+ let mass=0;for(let k=0;k<count;k++)mass+=h[k]*area[k];
+ const diff=(initialMass-mass)/wetArea;
+ for(let k=0;k<count;k++)if(valid[k])h[k]=Math.max(0,h[k]+diff);
+}
+function simulate(dt){
+ // Momentum from pressure-surface slope, then conservative face fluxes.
+ const t=Math.min(dt,.016);
+ for(let k=0;k<count;k++){dh[k]=0;ax[k]=0;az[k]=0}
+ for(let j=1;j<N-1;j++)for(let i=1;i<N-1;i++){const k=index(i,j);if(!valid[k])continue;
+ const l=index(i-1,j),r=index(i+1,j),d=index(i,j-1),u=index(i,j+1);
+ const yl=valid[l]?floor[l]+h[l]:floor[k]+h[k],yr=valid[r]?floor[r]+h[r]:floor[k]+h[k];
+ const yd=valid[d]?floor[d]+h[d]:floor[k]+h[k],yu=valid[u]?floor[u]+h[u]:floor[k]+h[k];
+ ax[k]=-g*(yr-yl)/(2*cell);az[k]=-g*(yu-yd)/(2*cell);
+ }
+ for(let k=0;k<count;k++)if(valid[k]){vx[k]=(vx[k]+ax[k]*t)*damping;vz[k]=(vz[k]+az[k]*t)*damping}
+ for(let j=0;j<N;j++)for(let i=0;i<N;i++){const k=index(i,j);if(!valid[k])continue;
+ if(i+1<N){const r=index(i+1,j);if(valid[r]){const v=(vx[k]+vx[r])*.5,src=v>0?k:r;
+ const q=Math.sign(v)*Math.min(Math.abs(v)*Math.max(0,h[src])*t/cell,Math.max(0,h[src])*.24);
+ dh[k]-=q;dh[r]+=q;}else vx[k]=Math.min(0,vx[k]);}
+ if(j+1<N){const u=index(i,j+1);if(valid[u]){const v=(vz[k]+vz[u])*.5,src=v>0?k:u;
+ const q=Math.sign(v)*Math.min(Math.abs(v)*Math.max(0,h[src])*t/cell,Math.max(0,h[src])*.24);
+ dh[k]-=q;dh[u]+=q;}else vz[k]=Math.min(0,vz[k]);}
+ }
+ for(let k=0;k<count;k++)if(valid[k])h[k]=Math.max(0,h[k]+dh[k]);
+ if((++simSteps%24)===0)normalizeMass();
+ simTime+=t;
+}
+function updateOcean(){
+ const p=oceanGeo.attributes.position,sp=skirtGeo.attributes.position;
+ for(let j=0;j<N;j++)for(let i=0;i<N;i++){const k=index(i,j);if(!valid[k])continue;
+ const y=floor[k]+h[k],base=k*4;
+ for(let c=0;c<4;c++){const ni=i+(c===1||c===2?1:-1),nj=j+(c>=2?1:-1);
+ let sum=y,n=1;
+ for(const [di,dj] of [[ni,j],[i,nj],[ni,nj]])if(di>=0&&di<N&&dj>=0&&dj<N&&valid[index(di,dj)]){sum+=floor[index(di,dj)]+h[index(di,dj)];n++}
+ p.setY(base+c,sum/n);
+ const x=p.getX(base+c),z=p.getZ(base+c),r2=x*x+z*z;
+ sp.setXYZ(base+c,x,c<2?y:-Math.sqrt(Math.max(0,waterRadius*waterRadius-r2)),z);
+ }
+ }
+ p.needsUpdate=true;sp.needsUpdate=true;oceanGeo.computeVertexNormals();
+}
+updateOcean();
+const splashButton=document.createElement('button');splashButton.textContent='💧 PLOP';document.querySelector('#hud').append(splashButton);
+splashButton.onclick=()=>splash((Math.random()-.5)*5,(Math.random()-.5)*5,4);
+const surgeButton=document.createElement('button');surgeButton.textContent='↝ SURGE';document.querySelector('#hud').append(surgeButton);
+surgeButton.onclick=()=>{for(let k=0;k<count;k++)if(valid[k])vx[k]+=3.2;splash(0,0,1.4)};
 
 const BAUBLE_R=10.25,INNER_R=BAUBLE_R-.18;
 const envelope=new T.Mesh(new T.SphereGeometry(BAUBLE_R,72,48),new T.MeshPhysicalMaterial({color:0xa0dce2,metalness:0,roughness:.08,transparent:true,opacity:.055,depthWrite:false,side:T.FrontSide}));world.add(envelope);
@@ -73,7 +149,7 @@ const round=(n,d=2)=>Number.isFinite(n)?+n.toFixed(d):null;
 function inspectWorld(){
  camera.updateMatrixWorld();world.updateMatrixWorld(true);
  const center=new T.Vector3(0,0,0).project(camera);
- const report={build:'waterworld-equilibrium-v1',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:1,contentsInstantiated:true,water:{fillFraction:waterFill,surfaceY:round(surfaceY),volume:round(targetVolume),gravity:[0,-1,0],phase:'liquid',model:'equilibrium spherical cap'}},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
+ const report={build:'waterworld-dynamic-v2',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:1,contentsInstantiated:true,water:{fillFraction:waterFill,surfaceY:round(surfaceY),volume:round(targetVolume),gravity:[0,-1,0],phase:'liquid',model:'conservative 2D finite-volume shallow water',steps:simSteps,impulses:impulseCount}},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
  probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
@@ -95,7 +171,7 @@ document.querySelector('#copyProbe').addEventListener('click',()=>recordInteract
 document.querySelector('#closeProbe').addEventListener('click',()=>recordInteraction('inspect-close'));
 
 
-let last=performance.now();function frame(now){requestAnimationFrame(frame);probeFrames++;probeFrameMs+=Math.max(0,now-last);last=now;if(now-probeLast>2500){probeLast=now;if(probePanel.classList.contains('open'))inspectWorld();probeFrames=0;probeFrameMs=0}
+let last=performance.now(),accumulator=0;function frame(now){requestAnimationFrame(frame);accumulator+=Math.min(.05,(now-last)/1000);let steps=0;while(accumulator>=.008&&steps++<7){simulate(.008);accumulator-=.008}updateOcean();probeFrames++;probeFrameMs+=Math.max(0,now-last);last=now;if(now-probeLast>2500){probeLast=now;if(probePanel.classList.contains('open'))inspectWorld();probeFrames=0;probeFrameMs=0}
 camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera)}
 requestAnimationFrame(frame);
 }catch(e){window.BaubleFatal(e);console.error(e)}
