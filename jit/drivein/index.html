@@ -68,8 +68,51 @@ const cssRenderer=new CSS3DRenderer();
 cssRenderer.setSize(innerWidth,innerHeight);
 cssRenderer.domElement.style.cssText='position:fixed;inset:0;z-index:3;pointer-events:none';
 document.querySelector('#stage').append(cssRenderer.domElement);
-function positionFilm(){
+// General hybrid occlusion: sample world geometry against the CSS3D surface.
+// No ring-specific geometry or hand-authored occluders.
+const occlusionRay=new T.Raycaster();
+const occlusionCanvas=document.createElement('canvas');
+occlusionCanvas.width=36;occlusionCanvas.height=21;
+const occlusionCtx=occlusionCanvas.getContext('2d',{willReadFrequently:true});
+const occlusionPixel=occlusionCtx.createImageData(36,21);
+const occlusionObjects=[];
+world.traverse(o=>{
+ if(!o.isMesh)return;
+ const m=o.material;
+ if(m && (m.transparent || m.opacity<1))return;
+ occlusionObjects.push(o);
+});
+const occlusionPoint=new T.Vector3(),occlusionDirection=new T.Vector3();
+let lastOcclusion=0,occlusionHidden=0;
+function updateHybridOcclusion(now){
+ if(now-lastOcclusion<220)return;
+ lastOcclusion=now;
+ camera.updateMatrixWorld();
+ filmSurface.updateWorldMatrix(true,false);
+ world.updateWorldMatrix(true,true);
+ const w=occlusionCanvas.width,h=occlusionCanvas.height,p=occlusionPixel.data;
+ let hidden=0;
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+  occlusionPoint.set(((x+.5)/w-.5)*910, (.5-(y+.5)/h)*520,0);
+  filmSurface.localToWorld(occlusionPoint);
+  occlusionDirection.copy(occlusionPoint).sub(camera.position);
+  const distance=occlusionDirection.length();
+  occlusionRay.set(camera.position,occlusionDirection.multiplyScalar(1/distance));
+  occlusionRay.near=.1;occlusionRay.far=distance-.11;
+  const blocked=occlusionRay.intersectObjects(occlusionObjects,false).length>0;
+  const i=(y*w+x)*4;
+  p[i]=255;p[i+1]=255;p[i+2]=255;p[i+3]=blocked?0:255;
+  if(blocked)hidden++;
+ }
+ occlusionCtx.putImageData(occlusionPixel,0,0);
+ const mask='url("'+occlusionCanvas.toDataURL('image/png')+'")';
+ film.style.webkitMaskImage=mask;film.style.maskImage=mask;
+ film.style.webkitMaskSize='100% 100%';film.style.maskSize='100% 100%';
+ occlusionHidden=hidden;
+}
+function positionFilm(now){
  filmSurface.visible=camera.position.z>filmSurface.position.z+.05;
+ if(filmSurface.visible)updateHybridOcclusion(now);
  cssRenderer.render(cssScene,camera);
 }
 let angle=.6,elev=.27,dist=27,targetY=.3,lastX=0,lastY=0;
@@ -107,7 +150,7 @@ document.querySelector('#closeProbe').addEventListener('click',()=>recordInterac
 
 
 let last=performance.now();function frame(now){requestAnimationFrame(frame);probeFrames++;probeFrameMs+=Math.max(0,now-last);last=now;if(now-probeLast>2500){probeLast=now;if(probePanel.classList.contains('open'))inspectWorld();probeFrames=0;probeFrameMs=0}
-camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera);positionFilm()}
+camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera);positionFilm(now)}
 requestAnimationFrame(frame);
 }catch(e){window.BaubleFatal(e);console.error(e)}
 </script></body></html>
