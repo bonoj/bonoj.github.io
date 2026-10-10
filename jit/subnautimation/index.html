@@ -60,7 +60,7 @@ for(const y of [-.15,.15]){const trim=put(world,new T.TorusGeometry(BAUBLE_R,.02
 for(let i=0;i<8;i++){const a=i*Math.PI/4;ball(world,.12,bright,Math.cos(a)*BAUBLE_R,0,Math.sin(a)*BAUBLE_R)}
 // Back hemisphere only, geological layers; no visible inward-facing globe mesh.
 const cavern=new T.Group();world.add(cavern);
-const shellGeometry=new T.SphereGeometry(9.93,96,48,0,Math.PI,0,Math.PI);
+const shellGeometry=new T.SphereGeometry(9.93,12,8,0,Math.PI,0,Math.PI);
 shellGeometry.rotateY(Math.PI/2);
 const shellPos=shellGeometry.attributes.position,shellColors=new Float32Array(shellPos.count*3);
 const shellColor=new T.Color();
@@ -72,7 +72,62 @@ for(let i=0;i<shellPos.count;i++){
  shellColors[i*3]=shellColor.r;shellColors[i*3+1]=shellColor.g;shellColors[i*3+2]=shellColor.b;
 }
 shellGeometry.setAttribute('color',new T.BufferAttribute(shellColors,3));
-const shell=put(cavern,shellGeometry,new T.MeshStandardMaterial({vertexColors:true,roughness:.96,side:T.BackSide}),0,0,0);
+
+// Geological volume: a bounded, layered occupancy field, not a height-map ceiling.
+// Exposed voxel faces form continuous strata, walls, shelves and a carved chamber.
+shellGeometry.dispose();
+const N=44,STEP=20/N,half=10,voxels=new Uint8Array(N*N*N);
+const vi=(x,y,z)=>x+N*(y+N*z);
+const geologicalField=(x,y,z)=>{
+ const r=Math.hypot(x,y,z),fold=.7*Math.sin(x*.34+z*.19)+.42*Math.sin(z*.62-y*.2);
+ const chamber=Math.pow(x/7.7,2)+Math.pow((y-.2)/6.6,2)+Math.pow((z-1.4)/7.3,2);
+ const throat=Math.pow((x+2.2)/4.6,2)+Math.pow((y+2.8)/3.1,2)+Math.pow((z+1.3)/5.2,2);
+ const upper=Math.pow((x-3.1)/4.5,2)+Math.pow((y-3.1)/2.7,2)+Math.pow((z+.8)/4.1,2);
+ const boundary=r<9.72;
+ const empty=chamber<1+fold*.075||throat<1||upper<1;
+ return boundary&&!empty;
+};
+for(let z=0;z<N;z++)for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+ const px=-half+(x+.5)*STEP,py=-half+(y+.5)*STEP,pz=-half+(z+.5)*STEP;
+ voxels[vi(x,y,z)]=geologicalField(px,py,pz)?1:0;
+}
+const vertices=[],normals=[],colors=[],rockColor=new T.Color();
+const faces=[
+ [[1,0,0],[[1,0,0],[1,1,0],[1,1,1],[1,0,1]]],
+ [[-1,0,0],[[0,0,1],[0,1,1],[0,1,0],[0,0,0]]],
+ [[0,1,0],[[0,1,1],[1,1,1],[1,1,0],[0,1,0]]],
+ [[0,-1,0],[[0,0,0],[1,0,0],[1,0,1],[0,0,1]]],
+ [[0,0,1],[[1,0,1],[1,1,1],[0,1,1],[0,0,1]]],
+ [[0,0,-1],[[0,0,0],[0,1,0],[1,1,0],[1,0,0]]]
+];
+let exposed=0;
+for(let z=0;z<N;z++)for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+ if(!voxels[vi(x,y,z)])continue;
+ const px=-half+x*STEP,py=-half+y*STEP,pz=-half+z*STEP;
+ const fold=.8*Math.sin(px*.31+pz*.23)+.4*Math.sin(pz*.59);
+ const stratum=Math.max(0,Math.min(5,Math.floor((py+9+fold)/3.1)));
+ rockColor.setHex(strataColors[stratum]);
+ const variation=.77+.25*fbm(px, pz+py*.3,37);
+ rockColor.multiplyScalar(variation);
+ for(const [normal,corners] of faces){
+  const nx=x+normal[0],ny=y+normal[1],nz=z+normal[2];
+  if(nx>=0&&nx<N&&ny>=0&&ny<N&&nz>=0&&nz<N&&voxels[vi(nx,ny,nz)])continue;
+  // Keep the viewer-facing hemisphere open. Its rock is cut away as a cross-section.
+  if(pz>3.2&&normal[2]>0)continue;
+  exposed++;
+  for(const q of [0,1,2,0,2,3]){
+   const v=corners[q];vertices.push(px+v[0]*STEP,py+v[1]*STEP,pz+v[2]*STEP);
+   normals.push(...normal);colors.push(rockColor.r,rockColor.g,rockColor.b);
+  }
+ }
+}
+const volumeGeometry=new T.BufferGeometry();
+volumeGeometry.setAttribute('position',new T.Float32BufferAttribute(vertices,3));
+volumeGeometry.setAttribute('normal',new T.Float32BufferAttribute(normals,3));
+volumeGeometry.setAttribute('color',new T.Float32BufferAttribute(colors,3));
+const volume=put(cavern,volumeGeometry,new T.MeshStandardMaterial({vertexColors:true,roughness:.94,side:T.DoubleSide}));
+const geologyVolumeStats={grid:N,occupied:voxels.reduce((a,b)=>a+b,0),exposedFaces:exposed,triangles:vertices.length/9};
+
 const oceanMat=new T.MeshBasicMaterial({color:0x0c7891,transparent:true,opacity:.09,depthWrite:false,side:T.DoubleSide});
 const ocean=cyl(world,8.35,8.35,4.8,oceanMat,0,-1.5,0,64);ocean.renderOrder=1;
 // Independent internal waterline, bounded to the bauble instead of a rectangular tabletop.
@@ -140,7 +195,7 @@ function inspectWorld(){
  const swimmersProbe={total:fish.length,aboveWater:0,belowGeology:0,between:0,screen:0};for(const f of fish){const p=f.g.position,g=geologyHeight(p.x,p.z),w=water.surfaceY(p.x,p.z);if(p.y>w)swimmersProbe.aboveWater++;else if(p.y<g)swimmersProbe.belowGeology++;else swimmersProbe.between++;if(project(p).inView)swimmersProbe.screen++}
  const renderProbe={calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures};
  const warnings=[];if(!originalTerrain.visible)warnings.push('WATER SOLVER STILL USES HIDDEN TERRAIN; REQUIRES UNIFIED BOUNDARY');if(Math.abs(gh-sea)>.3)warnings.push('WATER SOLVER GROUND DOES NOT MATCH VISIBLE SEABED');if(swimmersProbe.aboveWater>0)warnings.push('SOME SWIMMERS ABOVE WATER');if(swimmersProbe.screen<fish.length*.4)warnings.push('MOST SWIMMERS OUTSIDE CAMERA FRUSTUM');if(innerHeight>innerWidth*1.5)warnings.push('PORTRAIT VIEW: camera distance='+round(dist)+'; object may occupy small screen area');
- const report={build:'spherical-bauble-v1',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:project(new T.Vector3(0,0,0)),upperHabitat:project(new T.Vector3(0,4,0)),lowerBasin:project(new T.Vector3(0,-4,0))},layers:{originalTerrainVisible:originalTerrain.visible,geologyMeshVisible:seabed.visible,waterSurface:round(waterY),hiddenGround:round(gh),visibleSeabed:round(sea),samples:sample},habitats:habitatsProbe,transport:{circuits:circuits.length,delivered:materialDelivered,parcelsPerCircuit:70,renderedParcels:circuits.map(c=>({solid:c.mesh.count,gas:c.gasMesh.count,rain:c.rainMesh.count})),terrainMutationTarget:'hidden solver and visible seabed',visibleSeabedUpdatedByTransport:true},swimmers:swimmersProbe,render:renderProbe,performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings};
+ const report={build:'geological-volume-v1',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:project(new T.Vector3(0,0,0)),upperHabitat:project(new T.Vector3(0,4,0)),lowerBasin:project(new T.Vector3(0,-4,0))},geologicalVolume:geologyVolumeStats,layers:{originalTerrainVisible:originalTerrain.visible,geologyMeshVisible:seabed.visible,waterSurface:round(waterY),hiddenGround:round(gh),visibleSeabed:round(sea),samples:sample},habitats:habitatsProbe,transport:{circuits:circuits.length,delivered:materialDelivered,parcelsPerCircuit:70,renderedParcels:circuits.map(c=>({solid:c.mesh.count,gas:c.gasMesh.count,rain:c.rainMesh.count})),terrainMutationTarget:'hidden solver and visible seabed',visibleSeabedUpdatedByTransport:true},swimmers:swimmersProbe,render:renderProbe,performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings};
  probeWarnings=warnings;probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
