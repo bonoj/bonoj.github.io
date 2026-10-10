@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#07101a"><title>The Pale Horse · A World for Jon</title><style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050b14;color:#f5dfb2;font-family:system-ui}canvas{display:block;touch-action:none}#stage{position:fixed;inset:0}#title{position:fixed;left:0;right:0;top:max(14px,env(safe-area-inset-top));text-align:center;pointer-events:none;text-shadow:0 3px 12px #000}h1{font:normal clamp(24px,5vw,43px) Georgia,serif;letter-spacing:.14em;margin:0}#tag{font-size:10px;letter-spacing:.25em;color:#c4b291;margin-top:7px}#hud{z-index:5;position:fixed;bottom:0;left:0;right:0;padding:25px 12px max(20px,env(safe-area-inset-bottom));text-align:center;background:linear-gradient(transparent,#050b14e8 35%)}#buttons{display:flex;justify-content:center;gap:9px}button{border:1px solid #9c8556aa;background:#15202acb;color:#f0d5a0;padding:13px 18px;border-radius:9px;font:600 12px system-ui;min-height:48px}#status{font:11px system-ui;letter-spacing:.08em;color:#c0c4c2;margin:0 0 12px}#error{position:fixed;top:35%;left:12px;right:12px;color:#ffb7a5;font:12px monospace;white-space:pre-wrap;text-align:center} #probe{position:fixed;top:82px;right:10px;z-index:30;background:#101d29e8;color:#d9eced;border:1px solid #6f999e;border-radius:9px;padding:8px 12px;font:12px system-ui}#probePanel{display:none;position:fixed;inset:118px 9px 100px;z-index:29;background:#07121df2;color:#d9e6e5;overflow:auto;padding:14px;border:1px solid #6f999e;border-radius:10px;font:12px/1.45 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}#probePanel.open{display:block}#probeActions{display:flex;gap:8px;position:sticky;top:-14px;background:#07121d;padding:8px 0}#probeActions button{background:#223c4b;color:#fff;border:1px solid #648c9d;border-radius:6px;padding:9px} </style></head><body><div id="stage"></div><button id="probe" type="button">◉ INSPECT</button><button id="sourceSwitch" type="button" style="position:fixed;top:82px;left:10px;z-index:30;padding:10px 14px;min-height:44px">SOURCE · JON</button><button id="treatmentSwitch" type="button" style="position:fixed;top:136px;left:10px;z-index:30;padding:10px 14px;min-height:44px">LOOK · ORIGINAL</button><div id="probePanel"><div id="probeActions"><button id="copyProbe">COPY REPORT</button><button id="closeProbe">CLOSE</button></div><div id="probeText"></div></div><div id="title"><h1>THE PALE HORSE</h1><div id="tag">A WORLD FOR JON · THE DEATH KNIGHT & THE HUNTRESS</div></div><div id="hud"><div id="status">THE FROZEN WOOD · ORBIT / PINCH TO EXPLORE</div></div><div id="error"></div><script>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050b14;color:#f5dfb2;font-family:system-ui}canvas{display:block;touch-action:none}#stage{position:fixed;inset:0}#title{position:fixed;left:0;right:0;top:max(14px,env(safe-area-inset-top));text-align:center;pointer-events:none;text-shadow:0 3px 12px #000}h1{font:normal clamp(24px,5vw,43px) Georgia,serif;letter-spacing:.14em;margin:0}#tag{font-size:10px;letter-spacing:.25em;color:#c4b291;margin-top:7px}#hud{z-index:5;position:fixed;bottom:0;left:0;right:0;padding:25px 12px max(20px,env(safe-area-inset-bottom));text-align:center;background:linear-gradient(transparent,#050b14e8 35%)}#buttons{display:flex;justify-content:center;gap:9px}button{border:1px solid #9c8556aa;background:#15202acb;color:#f0d5a0;padding:13px 18px;border-radius:9px;font:600 12px system-ui;min-height:48px}#status{font:11px system-ui;letter-spacing:.08em;color:#c0c4c2;margin:0 0 12px}#error{position:fixed;top:35%;left:12px;right:12px;color:#ffb7a5;font:12px monospace;white-space:pre-wrap;text-align:center} #probe{position:fixed;top:82px;right:10px;z-index:30;background:#101d29e8;color:#d9eced;border:1px solid #6f999e;border-radius:9px;padding:8px 12px;font:12px system-ui}#probePanel{display:none;position:fixed;inset:118px 9px 100px;z-index:29;background:#07121df2;color:#d9e6e5;overflow:auto;padding:14px;border:1px solid #6f999e;border-radius:10px;font:12px/1.45 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}#probePanel.open{display:block}#probeActions{display:flex;gap:8px;position:sticky;top:-14px;background:#07121d;padding:8px 0}#probeActions button{background:#223c4b;color:#fff;border:1px solid #648c9d;border-radius:6px;padding:9px} </style></head><body><div id="stage"></div><button id="probe" type="button">◉ INSPECT</button><button id="sourceSwitch" type="button" style="position:fixed;top:82px;left:10px;z-index:30;padding:10px 14px;min-height:44px">SOURCE · JON</button><button id="treatmentSwitch" type="button" style="position:fixed;top:136px;left:10px;z-index:30;padding:10px 14px;min-height:44px">LOOK · ORIGINAL</button><button id="opticSwitch" type="button" style="position:fixed;top:190px;left:10px;z-index:30;padding:10px 12px;min-height:44px;font-size:11px">OPTICS · OFF</button><div id="probePanel"><div id="probeActions"><button id="copyProbe">COPY REPORT</button><button id="closeProbe">CLOSE</button></div><div id="probeText"></div></div><div id="title"><h1>THE PALE HORSE</h1><div id="tag">A WORLD FOR JON · THE DEATH KNIGHT & THE HUNTRESS</div></div><div id="hud"><div id="status">THE FROZEN WOOD · ORBIT / PINCH TO EXPLORE</div></div><div id="error"></div><script>
 (function(){
  const el=document.getElementById('error');
  function fatal(error){
@@ -104,6 +104,79 @@ function applyLook(){
  document.querySelector('#treatmentSwitch').textContent='LOOK · '+v.name;
 }
 document.querySelector('#treatmentSwitch').addEventListener('click',()=>{lookIndex=(lookIndex+1)%presets.length;applyLook()});
+// Independent optical treatments: exterior emitter, responsive shell and projected interior caustics.
+const opticalModes=[
+ {name:'OFF'},
+ {name:'SOLAR LENS',cycle:true,glass:.48,caustic:.48,light:110,distort:.12},
+ {name:'LANTERN',cycle:true,glass:.8,caustic:.85,light:190,distort:.15},
+ {name:'PRISM',cycle:true,glass:.75,caustic:.7,light:150,rainbow:true,distort:.25},
+ {name:'GHOST GLASS',glass:1.15,caustic:.18,light:95,distort:.32},
+ {name:'CAUSTIC POOL',cycle:true,glass:.26,caustic:1.5,light:160,distort:.08},
+ {name:'ECLIPSE',cycle:true,glass:.95,caustic:.25,light:175,distort:.14},
+ {name:'HEARTLIGHT',glass:.65,caustic:1.0,light:160,distort:.12},
+ {name:'DOUBLE STAR',cycle:true,glass:.95,caustic:.95,light:200,rainbow:true,distort:.2}
+];
+let opticalIndex=0,opticalEpoch=performance.now();
+const opticLight=new T.PointLight(0xffe6b2,0,38,1.8);scene.add(opticLight);
+const lamp=new T.Group();scene.add(lamp);
+const lampCore=new T.Mesh(new T.IcosahedronGeometry(.36,1),new T.MeshBasicMaterial({color:0xffedc4}));lamp.add(lampCore);
+const lampHalo=new T.Mesh(new T.SphereGeometry(.8,16,12),new T.MeshBasicMaterial({color:0xffb65e,transparent:true,opacity:.13,depthWrite:false,blending:T.AdditiveBlending}));lamp.add(lampHalo);
+const opticalUniforms={uLight:{value:new T.Vector3(0,0,1)},uPower:{value:0},uDistort:{value:0},uTime:{value:0},uRainbow:{value:0}};
+const opticalShell=new T.Mesh(new T.SphereGeometry(BAUBLE_R+.035,64,40),new T.ShaderMaterial({
+ uniforms:opticalUniforms,transparent:true,depthWrite:false,blending:T.AdditiveBlending,side:T.FrontSide,
+ vertexShader:`varying vec3 vNormal;varying vec3 vWorld;void main(){vec4 w=modelMatrix*vec4(position,1.);vWorld=w.xyz;vNormal=normalize(mat3(modelMatrix)*normal);gl_Position=projectionMatrix*viewMatrix*w;}`,
+ fragmentShader:`uniform vec3 uLight;uniform float uPower,uDistort,uTime,uRainbow;varying vec3 vNormal,vWorld;
+ void main(){vec3 N=normalize(vNormal),L=normalize(uLight-vWorld),V=normalize(cameraPosition-vWorld);
+ float rim=pow(1.-abs(dot(N,V)),3.2);
+ vec3 H=normalize(L+V);float spec=pow(max(dot(N,H),0.),130.);
+ float band=pow(max(dot(N,L),0.),7.)*pow(1.-abs(dot(N,V)),2.);
+ float rip=sin(dot(N,vec3(12.,18.,7.))+uTime*.7)*.5+.5;
+ vec3 c=mix(vec3(.26,.66,.87),vec3(1.,.78,.42),clamp(dot(N,L)*.5+.5,0.,1.));
+ if(uRainbow>.5)c=mix(c,vec3(.65+.35*sin(dot(N,L)*18.),.55+.4*sin(dot(N,L)*18.+2.),.6+.4*sin(dot(N,L)*18.+4.)),.65);
+ float a=(rim*.24+spec*1.6+band*.19+rip*rim*uDistort*.13)*uPower;
+ gl_FragColor=vec4(c*a,clamp(a,0.,.85));}`
+}));world.add(opticalShell);opticalShell.visible=false;
+const causticUniforms={uTime:{value:0},uStrength:{value:0},uColor:{value:new T.Color(0xffd7a0)},uCenter:{value:new T.Vector2(0,0)},uRainbow:{value:0}};
+const caustic=new T.Mesh(new T.PlaneGeometry(14.8,14.8),new T.ShaderMaterial({
+ uniforms:causticUniforms,transparent:true,depthWrite:false,depthTest:true,side:T.DoubleSide,blending:T.AdditiveBlending,
+ vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+ fragmentShader:`uniform float uTime,uStrength,uRainbow;uniform vec3 uColor;uniform vec2 uCenter;varying vec2 vUv;
+ void main(){vec2 p=(vUv-.5)*14.8-uCenter;float d=length(p);
+ float a=sin(p.x*2.9+sin(p.y*2.4+uTime*.8)*1.8+uTime*.6);
+ float b=sin(p.y*3.3+sin(p.x*2.7-uTime*.5)*1.5);
+ float lines=pow(max(0.,(a+b)*.5),9.);
+ float focus=exp(-d*d/24.);
+ vec3 c=uColor;if(uRainbow>.5)c=vec3(.65+.35*sin(p.x*.9),.6+.4*sin(p.y*.8+2.),.6+.4*sin(p.x*.6+p.y*.6+4.));
+ float alpha=lines*focus*uStrength*.55;
+ gl_FragColor=vec4(c*alpha,alpha);}`
+}));caustic.rotation.x=-Math.PI/2;caustic.position.set(0,-5.97,0);theater.add(caustic);caustic.visible=false;
+function applyOptic(){
+ const v=opticalModes[opticalIndex];opticalEpoch=performance.now();
+ lamp.visible=opticalIndex!==0;opticalShell.visible=opticalIndex!==0;caustic.visible=!!v.caustic;
+ opticalUniforms.uPower.value=v.glass||0;opticalUniforms.uDistort.value=v.distort||0;opticalUniforms.uRainbow.value=v.rainbow?1:0;
+ causticUniforms.uStrength.value=v.caustic||0;causticUniforms.uRainbow.value=v.rainbow?1:0;
+ opticLight.intensity=v.light||0;
+ document.querySelector('#opticSwitch').textContent='OPTICS · '+v.name+(v.cycle?' · 30s':'');
+}
+document.querySelector('#opticSwitch').addEventListener('click',()=>{opticalIndex=(opticalIndex+1)%opticalModes.length;applyOptic()});
+function updateOptic(now){
+ if(!opticalIndex)return;
+ const v=opticalModes[opticalIndex],t=(now-opticalEpoch)/1000;
+ const a=v.cycle?t*Math.PI*2/30:-.5;
+ const y=v.cycle?Math.sin(a)*12:8;
+ const x=v.name==='HEARTLIGHT'?0:Math.cos(a)*14;
+ const z=v.name==='HEARTLIGHT'?13:Math.sin(a)*14+3;
+ lamp.position.set(x,y,z);opticLight.position.copy(lamp.position);
+ opticalUniforms.uLight.value.copy(lamp.position);opticalUniforms.uTime.value=t;
+ causticUniforms.uTime.value=t;causticUniforms.uCenter.value.set(x*.16,z*.16);
+ const daylight=v.cycle?Math.max(.08,.5+.5*Math.sin(a)):1;
+ opticLight.intensity=v.light*daylight;
+ lampCore.material.color.set(v.rainbow?0xc9eaff:0xffedc4);
+ lampHalo.material.opacity=.08+.1*daylight;
+ if(v.name==='ECLIPSE')opticLight.intensity*=.3;
+ if(v.name==='DOUBLE STAR')lampHalo.scale.setScalar(1.2+.25*Math.sin(t*2));
+ else lampHalo.scale.setScalar(1);
+}
 const film=document.createElement('iframe');
 film.src='https://drive.google.com/file/d/1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC/preview?autoplay=1';
 film.title="The Death Knight and the Huntress — a film by Jonathan Lott";
@@ -180,7 +253,7 @@ const round=(n,d=2)=>Number.isFinite(n)?+n.toFixed(d):null;
 function inspectWorld(){
  camera.updateMatrixWorld();world.updateMatrixWorld(true);
  const center=new T.Vector3(0,0,0).project(camera);
- const report={build:'palehorse-009',source:mediaSources[sourceIndex].name,media:mediaSources[sourceIndex].kind,controlWindow:'separate play and scrub native islands',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
+ const report={build:'palehorse-010',source:mediaSources[sourceIndex].name,media:mediaSources[sourceIndex].kind,controlWindow:'separate play and scrub native islands',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
  probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
@@ -203,7 +276,7 @@ document.querySelector('#closeProbe').addEventListener('click',()=>recordInterac
 
 
 let last=performance.now();function frame(now){requestAnimationFrame(frame);probeFrames++;probeFrameMs+=Math.max(0,now-last);last=now;if(now-probeLast>2500){probeLast=now;if(probePanel.classList.contains('open'))inspectWorld();probeFrames=0;probeFrameMs=0}
-camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera);positionFilm()}
+camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);updateOptic(now);renderer.render(scene,camera);positionFilm()}
 requestAnimationFrame(frame);
 }catch(e){window.BaubleFatal(e);console.error(e)}
 </script></body></html>
