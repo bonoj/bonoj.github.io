@@ -66,7 +66,7 @@ filmSurface.scale.set(.01,.01,.01);
 cssScene.add(filmSurface);
 // WebGL depth proxy punches a transparent window through the canvas.
 // Foreground meshes remain visible; background meshes fail the depth test.
-const windowDepth=new T.Mesh(new T.PlaneGeometry(9.1,5.2),new T.MeshBasicMaterial({colorWrite:false,depthWrite:true,depthTest:true,side:T.DoubleSide}));
+const windowDepth=new T.Mesh(new T.PlaneGeometry(9.1,5.2),new T.MeshBasicMaterial({transparent:true,opacity:0,blending:T.NoBlending,depthWrite:true,depthTest:true,side:T.DoubleSide}));
 windowDepth.position.copy(filmSurface.position);windowDepth.position.z+=.005;
 world.add(windowDepth);
 const cssRenderer=new CSS3DRenderer();
@@ -98,7 +98,7 @@ const round=(n,d=2)=>Number.isFinite(n)?+n.toFixed(d):null;
 function inspectWorld(){
  camera.updateMatrixWorld();world.updateMatrixWorld(true);
  const center=new T.Vector3(0,0,0).project(camera);
- const report={build:'drivein-001',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
+ const report={build:'drivein-002',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
  probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
