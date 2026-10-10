@@ -52,6 +52,24 @@ for(let row=0;row<3;row++)for(let col=-3;col<=3;col++){
 }
 const projector=cyl(theater,.4,.4,1,basalt,0,-5,4.8);projector.rotation.x=Math.PI/2;
 ball(theater,.24,glow,0,-5,4.15);
+
+const film=document.createElement('iframe');
+film.src='https://drive.google.com/file/d/1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC/preview';
+film.title='The Death Knight and the Huntress — Jonathan Lott';
+film.allow='autoplay; fullscreen; picture-in-picture';
+film.style.cssText='position:fixed;z-index:3;border:0;background:#090b12;display:none';
+document.body.append(film);
+const corners=[[-4.55,2.1,-3.44],[4.55,2.1,-3.44],[-4.55,-3.1,-3.44],[4.55,-3.1,-3.44]];
+function positionFilm(){
+ camera.updateMatrixWorld();
+ const pts=corners.map(c=>new T.Vector3(...c).project(camera));
+ const xs=pts.map(p=>(p.x+1)*innerWidth/2),ys=pts.map(p=>(1-p.y)*innerHeight/2);
+ const w=Math.max(...xs)-Math.min(...xs),h=Math.max(...ys)-Math.min(...ys);
+ const facing=Math.cos(angle)>0;
+ const show=facing&&pts.every(p=>p.z<1)&&w>80&&h>45;
+ film.style.display=show?'block':'none';
+ if(show){film.style.left=Math.min(...xs)+'px';film.style.top=Math.min(...ys)+'px';film.style.width=w+'px';film.style.height=h+'px'}
+}
 let angle=.6,elev=.27,dist=27,targetY=.3,lastX=0,lastY=0;
 const pointers=new Map();let pinch=0;renderer.domElement.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,[e.clientX,e.clientY]);lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});
 renderer.domElement.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);const ps=[...pointers.values()];if(ps.length===1){angle+=(e.clientX-old[0])*.006;elev=T.MathUtils.clamp(elev+(e.clientY-old[1])*.004,-.4,1.2)}else if(ps.length===2){const d=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]);if(pinch)dist=T.MathUtils.clamp(dist*pinch/d,17,58);pinch=d}});
@@ -87,7 +105,7 @@ document.querySelector('#closeProbe').addEventListener('click',()=>recordInterac
 
 
 let last=performance.now();function frame(now){requestAnimationFrame(frame);probeFrames++;probeFrameMs+=Math.max(0,now-last);last=now;if(now-probeLast>2500){probeLast=now;if(probePanel.classList.contains('open'))inspectWorld();probeFrames=0;probeFrameMs=0}
-camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera)}
+camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera);positionFilm()}
 requestAnimationFrame(frame);
 }catch(e){window.BaubleFatal(e);console.error(e)}
 </script></body></html>
