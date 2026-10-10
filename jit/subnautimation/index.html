@@ -15,7 +15,7 @@ function ball(p,r,m,x,y,z){return put(p,new T.SphereGeometry(r,12,8),m,x,y,z)}
 function cyl(p,r1,r2,h,m,x,y,z,n=12){return put(p,new T.CylinderGeometry(r1,r2,h,n),m,x,y,z)}
 function ring(p,r,t,m,x,y,z){const o=put(p,new T.TorusGeometry(r,t,7,48),m,x,y,z);o.rotation.x=Math.PI/2;return o}
 function beam(a,b,r,m,p=world){const v=new T.Vector3(...a),w=new T.Vector3(...b),d=w.clone().sub(v),o=put(p,new T.CylinderGeometry(r,r,d.length(),7),m,...v.clone().add(w).multiplyScalar(.5).toArray());o.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),d.normalize());return o}
-let terrain=createTerrainSystem({THREE:T,scene:world});terrain.apparatus.material=rock;
+let terrain=createTerrainSystem({THREE:T,scene:world});terrain.apparatus.material=rock;terrain.apparatus.visible=false;
 terrain.initializeFunctionalBiomes({duration:1,budgetMs:50});
 const geological=new T.Group();world.add(geological);
 const strataColors=[0x25343b,0x536b69,0x8a8069,0x3d6268,0x81775f,0x34545b];
@@ -24,23 +24,47 @@ const sampleNoise=(x,z,k)=>{let v=Math.sin(x*13.17+z*29.71+k*71.13)*43758.5453;r
 const smoothstep=t=>t*t*(3-2*t);
 function fbm(x,z,k){let total=0,amp=.5,freq=.3;for(let j=0;j<4;j++){const X=x*freq,Z=z*freq,ix=Math.floor(X),iz=Math.floor(Z),u=smoothstep(X-ix),v=smoothstep(Z-iz),a=sampleNoise(ix,iz,k+j*13),b=sampleNoise(ix+1,iz,k+j*13),c=sampleNoise(ix,iz+1,k+j*13),d=sampleNoise(ix+1,iz+1,k+j*13);total+=amp*((a+(b-a)*u)*(1-v)+(c+(d-c)*u)*v);amp*=.5;freq*=2}return total}
 function geology(x,z){const r=Math.hypot(x,z),a=Math.atan2(z,x),tectonic=1.25*Math.sin(a*3+fbm(x,z,12)*3),ridges=1.2*Math.abs(Math.sin(x*.8+z*.37)),canyon=-2*Math.exp(-Math.pow(z-Math.sin(x*.45)*1.7,2)/1.3),terraces=.27*Math.floor(fbm(x,z,43)*7),detail=fbm(x,z,8)*1.8;return -3.7+tectonic+ridges+canyon+terraces+detail+.35*Math.cos(r*.7)}
-const geo=new T.PlaneGeometry(18.5,18.5,110,110);geo.rotateX(-Math.PI/2);
+const geo=new T.PlaneGeometry(17.6,17.6,110,110);geo.rotateX(-Math.PI/2);
 const pos=geo.attributes.position,cols=new Float32Array(pos.count*3),cc=new T.Color();
-for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i),y=geology(x,z);pos.setY(i,y);const layer=Math.min(5,Math.max(0,Math.floor((y+5.5)*1.35)));cc.setHex(strataColors[layer]);const moss=Math.max(0,fbm(x,z,51)-.49)*.8;cc.lerp(new T.Color(0x448d7c),moss);cols[i*3]=cc.r;cols[i*3+1]=cc.g;cols[i*3+2]=cc.b}
+for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i),rr=Math.hypot(x,z),y=geology(x,z);pos.setY(i,y);const layer=Math.min(5,Math.max(0,Math.floor((y+5.5)*1.35)));cc.setHex(strataColors[layer]);const moss=Math.max(0,fbm(x,z,51)-.49)*.8;cc.lerp(new T.Color(0x448d7c),moss);cols[i*3]=cc.r;cols[i*3+1]=cc.g;cols[i*3+2]=cc.b}
 geo.setAttribute('color',new T.BufferAttribute(cols,3));geo.computeVertexNormals();
-const seabed=put(geological,geo,new T.MeshStandardMaterial({vertexColors:true,roughness:.92,side:T.DoubleSide}),0,0,0);
+const seabed=put(geological,geo,new T.MeshStandardMaterial({vertexColors:true,roughness:.92,side:T.DoubleSide,clippingPlanes:[new T.Plane(new T.Vector3(0,1,0),100)]}),0,0,0);
 const shelfMat=strataMats[2];
-for(let i=0;i<13;i++){const a=i*Math.PI*2/13,r=7.2+sampleNoise(i,0,17)*1.6,x=Math.cos(a)*r,z=Math.sin(a)*r,h=1.2+sampleNoise(i,1,18)*3;const pillar=cyl(geological,.25,.6,h,strataMats[i%6],x,geology(x,z)+h/2,z,7);pillar.rotation.z=(sampleNoise(i,2,19)-.5)*.2}
 const originalTerrain=terrain.mesh;originalTerrain.visible=false;
-const geologyHeight=(x,z)=>geology(x,z);
+const seabedDelta=new Float32Array(pos.count);
+function deformVisible(x,z,delta){for(let i=0;i<pos.count;i++){const dx=pos.getX(i)-x,dz=pos.getZ(i)-z,rr=dx*dx+dz*dz;if(rr<1.8){const d=delta*Math.exp(-rr/0.45);seabedDelta[i]+=d;pos.setY(i,pos.getY(i)+d)}}pos.needsUpdate=true;geo.computeVertexNormals();}
+const geologyHeight=(x,z)=>{const ix=Math.max(0,Math.min(110,Math.round((x+8.8)/17.6*110))),iz=Math.max(0,Math.min(110,Math.round((z+8.8)/17.6*110)));return pos.getY(iz*111+ix)};
 
-const water=createWater({THREE:T,owner:world,terrain,look:{color:0x247f98,opacity:.46,sideColor:0x0b5c74,sideOpacity:.52}});water.initializeToLevel(.95);water.setEnabled(true);water.setDisplayDensity(20);
-ring(world,9.7,.18,brass,0,-1.12,0);cyl(world,10.4,10.5,.4,rock,0,-6.4,0);ring(world,10.45,.13,brass,0,-6.6,0);
-const oceanMat=new T.MeshBasicMaterial({color:0x07516a,transparent:true,opacity:.105,depthWrite:false,side:T.DoubleSide});const ocean=cyl(world,8.1,8.1,4.8,oceanMat,0,-1.5,0,8);ocean.renderOrder=1;
+const water=createWater({THREE:T,owner:world,terrain,look:{color:0x247f98,opacity:.08,sideColor:0x0b5c74,sideOpacity:.05}});water.initializeToLevel(.95);water.setEnabled(true);water.setDisplayDensity(20);
+
+// Spherical world boundary: transparent glass, brass equator, geological back wall.
+// The front half is deliberately open to the camera; the glass is the only front surface.
+const BAUBLE_R=10.25;
+const envelope=new T.Mesh(new T.SphereGeometry(BAUBLE_R,72,48),new T.MeshPhysicalMaterial({color:0xa0dce2,metalness:0,roughness:.08,transparent:true,opacity:.055,depthWrite:false,side:T.FrontSide}));
+world.add(envelope);
+const equator=put(world,new T.TorusGeometry(BAUBLE_R,.095,10,120),brass);equator.rotation.x=Math.PI/2;
+for(const y of [-.15,.15]){const trim=put(world,new T.TorusGeometry(BAUBLE_R,.021,6,120),bright,0,y,0);trim.rotation.x=Math.PI/2}
+for(let i=0;i<8;i++){const a=i*Math.PI/4;ball(world,.12,bright,Math.cos(a)*BAUBLE_R,0,Math.sin(a)*BAUBLE_R)}
+// Back hemisphere only, geological layers; no visible inward-facing globe mesh.
 const cavern=new T.Group();world.add(cavern);
-const ceiling=put(cavern,new T.SphereGeometry(10.7,48,24,0,Math.PI*2,0,Math.PI/2),new T.MeshStandardMaterial({color:0x1c242b,side:T.BackSide,roughness:1}),0,5.7,0);ceiling.rotation.z=Math.PI;
-const rng=(n)=>{const v=Math.sin(n*128.19+12.7)*43758.5453;return v-Math.floor(v)};
-for(let i=0;i<180;i++){const a=rng(i+2)*Math.PI*2,r=Math.sqrt(rng(i+98))*9.4,x=Math.cos(a)*r,z=Math.sin(a)*r,y=7.2-rng(i+44)*2.4;const len=.3+Math.pow(rng(i+199),2)*3.3;const cone=put(cavern,new T.ConeGeometry(.12+rng(i+6)*.24,len,5),i%6===0?basalt:rock,x,y-len*.5,z);cone.rotation.z=Math.PI; }
+const shellGeometry=new T.SphereGeometry(9.93,96,48,0,Math.PI,0,Math.PI);
+shellGeometry.rotateY(Math.PI/2);
+const shellPos=shellGeometry.attributes.position,shellColors=new Float32Array(shellPos.count*3);
+const shellColor=new T.Color();
+for(let i=0;i<shellPos.count;i++){
+ const x=shellPos.getX(i),y=shellPos.getY(i),z=shellPos.getZ(i);
+ const n=fbm(x*.7+y*.4,z*.7+y*.2,71);
+ const strata=Math.min(5,Math.max(0,Math.floor((y+9.5)/3.3+n*1.3)));
+ shellColor.setHex(strataColors[strata]).multiplyScalar(.65+n*.5);
+ shellColors[i*3]=shellColor.r;shellColors[i*3+1]=shellColor.g;shellColors[i*3+2]=shellColor.b;
+}
+shellGeometry.setAttribute('color',new T.BufferAttribute(shellColors,3));
+const shell=put(cavern,shellGeometry,new T.MeshStandardMaterial({vertexColors:true,roughness:.96,side:T.BackSide}),0,0,0);
+const oceanMat=new T.MeshBasicMaterial({color:0x0c7891,transparent:true,opacity:.09,depthWrite:false,side:T.DoubleSide});
+const ocean=cyl(world,8.35,8.35,4.8,oceanMat,0,-1.5,0,64);ocean.renderOrder=1;
+// Independent internal waterline, bounded to the bauble instead of a rectangular tabletop.
+const waterDisc=put(world,new T.CircleGeometry(8.2,96),new T.MeshPhysicalMaterial({color:0x1a9cba,transparent:true,opacity:.18,roughness:.18,metalness:.12,depthWrite:false,side:T.DoubleSide}),0,.96,0);
+waterDisc.rotation.x=-Math.PI/2;
 const habitats=[];const sites=[[-5.1,2.7,2.1],[1.3,3.6,2.7],[5.6,1.9,1.75],[-1.6,-3.5,1.5],[5.3,-4.1,1.1]];
 for(let i=0;i<sites.length;i++){const [x,z,r]=sites[i],floor=1.25+(i%3)*.42;const group=new T.Group();group.position.set(x,floor,z);world.add(group);habitats.push({x,z,r,floor});
 cyl(group,r,r,.18,brass,0,0,0,24);ring(group,r,.09,bright,0,.13,0);
@@ -85,11 +109,11 @@ function updateCircuits(t){
 }
 const motes=new T.Group();world.add(motes);const dots=[];for(let i=0;i<240;i++){const a=rng(i+29)*Math.PI*2,r=Math.sqrt(rng(i+399))*8,x=Math.cos(a)*r,z=Math.sin(a)*r,y=-4+rng(i+211)*8;const o=ball(motes,.018+rng(i+72)*.027,i%8===0?glow:cyan,x,y,z);dots.push({o,y,phase:rng(i+7)*7})}
 const fireflies=[];for(let i=0;i<90;i++){const a=rng(i+912)*Math.PI*2,r=rng(i+315)*8;const o=ball(world,.035,glow,Math.cos(a)*r,1.5+rng(i+38)*4,Math.sin(a)*r);fireflies.push({o,phase:rng(i+411)*8})}
-const impacts=[];let tick=0,angle=.6,elev=.27,dist=36,targetY=.3,drag=false,lastX=0,lastY=0;
+const impacts=[];let tick=0,angle=.6,elev=.27,dist=27,targetY=.3,drag=false,lastX=0,lastY=0;
 const status=document.querySelector('#status');setInterval(()=>{status.textContent='5 ACTIVE MATERIAL CIRCUITS · '+materialDelivered+' PARCELS DELIVERED · '+fish.length+' SWIMMERS'},2500);const pointers=new Map();let pinch=0;renderer.domElement.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,[e.clientX,e.clientY]);lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});
-renderer.domElement.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);const ps=[...pointers.values()];if(ps.length===1){angle+=(e.clientX-old[0])*.006;elev=T.MathUtils.clamp(elev+(e.clientY-old[1])*.004,-.4,1.2)}else if(ps.length===2){const d=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]);if(pinch)dist=T.MathUtils.clamp(dist*pinch/d,16,64);pinch=d}});
-function end(e){pointers.delete(e.pointerId);pinch=0}renderer.domElement.addEventListener('pointerup',end);renderer.domElement.addEventListener('pointercancel',end);renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();dist=T.MathUtils.clamp(dist+e.deltaY*.022,16,64)},{passive:false});
-function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();if(w<h)dist=Math.max(dist,32*h/w*.63)}addEventListener('resize',resize);resize();
+renderer.domElement.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);const ps=[...pointers.values()];if(ps.length===1){angle+=(e.clientX-old[0])*.006;elev=T.MathUtils.clamp(elev+(e.clientY-old[1])*.004,-.4,1.2)}else if(ps.length===2){const d=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]);if(pinch)dist=T.MathUtils.clamp(dist*pinch/d,17,58);pinch=d}});
+function end(e){pointers.delete(e.pointerId);pinch=0}renderer.domElement.addEventListener('pointerup',end);renderer.domElement.addEventListener('pointercancel',end);renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();dist=T.MathUtils.clamp(dist+e.deltaY*.022,17,58)},{passive:false});
+function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();if(w<h)dist=Math.max(dist,27)}addEventListener('resize',resize);resize();
 // Read-only observer. Measures spatial contracts and projected visibility without changing simulation.
 const probeButton=document.querySelector('#probe'),probePanel=document.querySelector('#probePanel'),probeText=document.querySelector('#probeText');
 let probeReport='',probeLast=0,probeFrames=0,probeFrameMs=0,probeWarnings=[];
@@ -102,8 +126,8 @@ function inspectWorld(){
  const habitatsProbe=habitats.map((h,i)=>({id:i,center:project(new T.Vector3(h.x,h.floor,h.z)),floor:round(h.floor),geology:round(geologyHeight(h.x,h.z)),water:round(water.surfaceY(h.x,h.z))}));
  const swimmersProbe={total:fish.length,aboveWater:0,belowGeology:0,between:0,screen:0};for(const f of fish){const p=f.g.position,g=geologyHeight(p.x,p.z),w=water.surfaceY(p.x,p.z);if(p.y>w)swimmersProbe.aboveWater++;else if(p.y<g)swimmersProbe.belowGeology++;else swimmersProbe.between++;if(project(p).inView)swimmersProbe.screen++}
  const renderProbe={calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures};
- const warnings=[];if(!originalTerrain.visible)warnings.push('AUTHORITATIVE TERRAIN MESH HIDDEN: excavate/raise affect invisible surface');if(Math.abs(gh-sea)>.3)warnings.push('WATER SOLVER GROUND DOES NOT MATCH VISIBLE SEABED');if(swimmersProbe.aboveWater>0)warnings.push('SOME SWIMMERS ABOVE WATER');if(swimmersProbe.screen<fish.length*.4)warnings.push('MOST SWIMMERS OUTSIDE CAMERA FRUSTUM');if(innerHeight>innerWidth*1.5)warnings.push('PORTRAIT VIEW: camera distance='+round(dist)+'; object may occupy small screen area');
- const report={build:'5b6f5f73+probe',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:project(new T.Vector3(0,0,0)),upperHabitat:project(new T.Vector3(0,4,0)),lowerBasin:project(new T.Vector3(0,-4,0))},layers:{originalTerrainVisible:originalTerrain.visible,geologyMeshVisible:seabed.visible,waterSurface:round(waterY),hiddenGround:round(gh),visibleSeabed:round(sea),samples:sample},habitats:habitatsProbe,transport:{circuits:circuits.length,delivered:materialDelivered,parcelsPerCircuit:70,renderedParcels:circuits.map(c=>({solid:c.mesh.count,gas:c.gasMesh.count,rain:c.rainMesh.count})),terrainMutationTarget:'hidden original terrain',visibleSeabedUpdatedByTransport:false},swimmers:swimmersProbe,render:renderProbe,performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings};
+ const warnings=[];if(!originalTerrain.visible)warnings.push('WATER SOLVER STILL USES HIDDEN TERRAIN; REQUIRES UNIFIED BOUNDARY');if(Math.abs(gh-sea)>.3)warnings.push('WATER SOLVER GROUND DOES NOT MATCH VISIBLE SEABED');if(swimmersProbe.aboveWater>0)warnings.push('SOME SWIMMERS ABOVE WATER');if(swimmersProbe.screen<fish.length*.4)warnings.push('MOST SWIMMERS OUTSIDE CAMERA FRUSTUM');if(innerHeight>innerWidth*1.5)warnings.push('PORTRAIT VIEW: camera distance='+round(dist)+'; object may occupy small screen area');
+ const report={build:'spherical-bauble-v1',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:project(new T.Vector3(0,0,0)),upperHabitat:project(new T.Vector3(0,4,0)),lowerBasin:project(new T.Vector3(0,-4,0))},layers:{originalTerrainVisible:originalTerrain.visible,geologyMeshVisible:seabed.visible,waterSurface:round(waterY),hiddenGround:round(gh),visibleSeabed:round(sea),samples:sample},habitats:habitatsProbe,transport:{circuits:circuits.length,delivered:materialDelivered,parcelsPerCircuit:70,renderedParcels:circuits.map(c=>({solid:c.mesh.count,gas:c.gasMesh.count,rain:c.rainMesh.count})),terrainMutationTarget:'hidden solver and visible seabed',visibleSeabedUpdatedByTransport:true},swimmers:swimmersProbe,render:renderProbe,performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings};
  probeWarnings=warnings;probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
