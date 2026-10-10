@@ -83,12 +83,26 @@ for(let ring=1;ring<RINGS;ring++)for(let t=0;t<SECTORS;t++){
 const wallGeo=new T.BufferGeometry();
 wallGeo.setAttribute('position',new T.Float32BufferAttribute(undersidePositions,3));wallGeo.setAttribute('color',new T.Float32BufferAttribute(undersideColors,3));wallGeo.setIndex(undersideIndices);wallGeo.computeVertexNormals();
 const earthWall=put(geological,wallGeo,new T.MeshStandardMaterial({vertexColors:true,roughness:.95,side:T.DoubleSide}));
-function refreshEarthWalls(){// upper terrain deformation does not alter the fixed glass-conforming underside
- const wp=wallGeo.attributes.position;
- for(let t=0;t<SECTORS;t++){const i=1+(RINGS-1)*SECTORS+t;const top=pos.getY(i);const x=pos.getX(i),z=pos.getZ(i);
-  // Rim can meet the sphere slightly above the underside; no vertical cake wall.
+// The top heightfield and spherical underside share x/z but not y at the rim.
+// Stitch that boundary explicitly; otherwise camera angles expose an open slit.
+const SEAM_STEPS=16,seamPositions=new Float32Array((SECTORS+1)*(SEAM_STEPS+1)*3),seamColors=new Float32Array(seamPositions.length),seamIndices=[];
+for(let t=0;t<SECTORS;t++)for(let j=0;j<SEAM_STEPS;j++){const a=t*(SEAM_STEPS+1)+j,b=(t+1)*(SEAM_STEPS+1)+j;seamIndices.push(a,b,a+1,b,b+1,a+1)}
+const seamGeo=new T.BufferGeometry();seamGeo.setAttribute('position',new T.BufferAttribute(seamPositions,3));seamGeo.setAttribute('color',new T.BufferAttribute(seamColors,3));seamGeo.setIndex(seamIndices);
+const rimSeal=put(geological,seamGeo,new T.MeshStandardMaterial({vertexColors:true,roughness:.95,side:T.DoubleSide}));
+function refreshEarthWalls(){
+ const sp=seamGeo.attributes.position,sc=seamGeo.attributes.color;
+ for(let t=0;t<=SECTORS;t++){
+  const k=t%SECTORS,i=1+(RINGS-1)*SECTORS+k,x=pos.getX(i),z=pos.getZ(i),top=pos.getY(i);
+  const bottom=wallGeo.attributes.position.getY(i);
+  for(let j=0;j<=SEAM_STEPS;j++){
+   const f=j/SEAM_STEPS,y=top+(bottom-top)*f,n=t*(SEAM_STEPS+1)+j;
+   sp.setXYZ(n,x,y,z);sc.setXYZ(n,...terrainColor(x,z,y));
+  }
  }
+ sp.needsUpdate=true;sc.needsUpdate=true;seamGeo.computeVertexNormals();
 }
+refreshEarthWalls();
+
 
 const water=createWater({THREE:T,owner:world,terrain,look:{color:0x247f98,opacity:.08,sideColor:0x0b5c74,sideOpacity:.05}});water.initializeToLevel(.95);water.setEnabled(true);water.setDisplayDensity(20);
 
@@ -102,7 +116,7 @@ const equator=put(world,new T.TorusGeometry(BAUBLE_R,.095,10,120),brass);equator
 for(const y of [-.15,.15]){const trim=put(world,new T.TorusGeometry(BAUBLE_R,.021,6,120),bright,0,y,0);trim.rotation.x=Math.PI/2}
 for(let i=0;i<8;i++){const a=i*Math.PI/4;ball(world,.12,bright,Math.cos(a)*BAUBLE_R,0,Math.sin(a)*BAUBLE_R)}
 // No voxel shell: geological substance is the circular terrain and its shared perimeter section.
-const geologyVolumeStats={shellThickness:GLASS_GAP,innerRadius:INNER_R,mode:'spherical-terrarium',rings:RINGS,sectors:SECTORS,underside:'spherical',verticalWall:false};
+const geologyVolumeStats={shellThickness:GLASS_GAP,innerRadius:INNER_R,mode:'spherical-terrarium',rings:RINGS,sectors:SECTORS,underside:'spherical',verticalWall:false,rimSeal:true};
 
 const oceanMat=new T.MeshBasicMaterial({color:0x0c7891,transparent:true,opacity:.09,depthWrite:false,side:T.DoubleSide});
 // Remove the cylindrical water volume; the waterline is bounded by the inner sphere.
@@ -174,6 +188,7 @@ function inspectWorld(){
  const violations=[];let checked=0,maxEscape=0;
  function testContainment(kind,id,x,y,z){checked++;const escape=Math.hypot(x,y,z)-(BAUBLE_R-.12);if(escape>0){maxEscape=Math.max(maxEscape,escape);if(violations.length<32)violations.push({kind,id,x:round(x),y:round(y),z:round(z),escape:round(escape)})}}
  for(let i=0;i<pos.count;i++)testContainment('geological-surface',i,pos.getX(i),pos.getY(i),pos.getZ(i));
+ for(let i=0;i<seamGeo.attributes.position.count;i++){const p=seamGeo.attributes.position;testContainment('rim-seal',i,p.getX(i),p.getY(i),p.getZ(i))}
  for(let i=0;i<wallGeo.attributes.position.count;i++){const p=wallGeo.attributes.position;testContainment('geological-wall',i,p.getX(i),p.getY(i),p.getZ(i))}
  for(let i=0;i<habitats.length;i++){const h=habitats[i];for(let a=0;a<12;a++){const t=a*Math.PI/6;testContainment('habitat-footprint',i,h.x+Math.cos(t)*h.r,h.floor,h.z+Math.sin(t)*h.r)}}
  for(let i=0;i<fish.length;i++){const p=fish[i].g.position;testContainment('swimmer',i,p.x,p.y,p.z)}
@@ -182,7 +197,7 @@ function inspectWorld(){
  const renderProbe={calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures};
  const warnings=[];if(!originalTerrain.visible)warnings.push('WATER SOLVER STILL USES HIDDEN TERRAIN; REQUIRES UNIFIED BOUNDARY');if(Math.abs(gh-sea)>.3)warnings.push('WATER SOLVER GROUND DOES NOT MATCH VISIBLE SEABED');if(swimmersProbe.aboveWater>0)warnings.push('SOME SWIMMERS ABOVE WATER');if(swimmersProbe.screen<fish.length*.4)warnings.push('MOST SWIMMERS OUTSIDE CAMERA FRUSTUM');if(innerHeight>innerWidth*1.5)warnings.push('PORTRAIT VIEW: camera distance='+round(dist)+'; object may occupy small screen area');
  if(containment.status==='FAIL')warnings.unshift('BAUBLE CONTAINMENT FAIL: '+violations.length+' sampled escapes, max '+round(maxEscape));
- const report={build:'bounded-terrarium-v7',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:project(new T.Vector3(0,0,0)),upperHabitat:project(new T.Vector3(0,4,0)),lowerBasin:project(new T.Vector3(0,-4,0))},geologicalVolume:geologyVolumeStats,containment,layers:{originalTerrainVisible:originalTerrain.visible,geologyMeshVisible:seabed.visible,waterSurface:round(waterY),hiddenGround:round(gh),visibleSeabed:round(sea),samples:sample},habitats:habitatsProbe,transport:{circuits:circuits.length,delivered:materialDelivered,parcelsPerCircuit:70,renderedParcels:circuits.map(c=>({solid:c.mesh.count,gas:c.gasMesh.count,rain:c.rainMesh.count})),terrainMutationTarget:'hidden solver and visible seabed',visibleSeabedUpdatedByTransport:true},swimmers:swimmersProbe,render:renderProbe,performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings};
+ const report={build:'sealed-rim-v8',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:project(new T.Vector3(0,0,0)),upperHabitat:project(new T.Vector3(0,4,0)),lowerBasin:project(new T.Vector3(0,-4,0))},geologicalVolume:geologyVolumeStats,containment,layers:{originalTerrainVisible:originalTerrain.visible,geologyMeshVisible:seabed.visible,waterSurface:round(waterY),hiddenGround:round(gh),visibleSeabed:round(sea),samples:sample},habitats:habitatsProbe,transport:{circuits:circuits.length,delivered:materialDelivered,parcelsPerCircuit:70,renderedParcels:circuits.map(c=>({solid:c.mesh.count,gas:c.gasMesh.count,rain:c.rainMesh.count})),terrainMutationTarget:'hidden solver and visible seabed',visibleSeabedUpdatedByTransport:true},swimmers:swimmersProbe,render:renderProbe,performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings};
  probeWarnings=warnings;probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
