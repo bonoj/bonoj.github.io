@@ -1,0 +1,57 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07101a"><title>Subnautimation · A World Between Waters</title><style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050b14;color:#f5dfb2;font-family:system-ui}canvas{display:block;touch-action:none}#stage{position:fixed;inset:0}#title{position:fixed;left:0;right:0;top:max(14px,env(safe-area-inset-top));text-align:center;pointer-events:none;text-shadow:0 3px 12px #000}h1{font:normal clamp(24px,5vw,43px) Georgia,serif;letter-spacing:.14em;margin:0}#tag{font-size:10px;letter-spacing:.25em;color:#c4b291;margin-top:7px}#hud{position:fixed;bottom:0;left:0;right:0;padding:25px 12px max(20px,env(safe-area-inset-bottom));text-align:center;background:linear-gradient(transparent,#050b14e8 35%)}#buttons{display:flex;justify-content:center;gap:9px}button{border:1px solid #9c8556aa;background:#15202acb;color:#f0d5a0;padding:13px 18px;border-radius:9px;font:600 12px system-ui;min-height:48px}#status{font:11px system-ui;letter-spacing:.08em;color:#c0c4c2;margin:0 0 12px}#error{position:fixed;top:35%;left:12px;right:12px;color:#ffb7a5;font:12px monospace;white-space:pre-wrap;text-align:center}</style></head><body><div id="stage"></div><div id="title"><h1>SUBNAUTIMATION</h1><div id="tag">THE CIVILIZATION BETWEEN WATERS</div></div><div id="hud"><div id="status">DRAG TO ORBIT · PINCH TO DIVE · THE DEPTHS ARE ALIVE</div><div id="buttons"><button id="flood">≈ FLOOD</button><button id="bloom">✧ BLOOM</button><button id="impact">☄ IMPACT</button></div></div><div id="error"></div><script type="module">
+import * as T from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+import {createTerrainSystem} from './terrain/terrain-system.js';
+import {createWater} from './liquids/liquids.js';
+try {
+const scene=new T.Scene();scene.background=new T.Color(0x06101b);scene.fog=new T.FogExp2(0x071827,.012);
+const world=new T.Group();scene.add(world);
+const renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.38;document.querySelector('#stage').append(renderer.domElement);
+const camera=new T.PerspectiveCamera(42,1,.1,150);scene.add(new T.HemisphereLight(0x82c6dc,0x17202d,1.5));const sun=new T.DirectionalLight(0xffc77e,2.4);sun.position.set(-7,13,7);scene.add(sun);const blue=new T.PointLight(0x2cbed7,95,36);blue.position.set(2,-2,2);scene.add(blue);
+const M=(color,metalness=.1,roughness=.65,extra={})=>new T.MeshStandardMaterial({color,metalness,roughness,...extra});
+const brass=M(0xb78b4e,.78,.3),bright=M(0xf2cb7e,.45,.3),rock=M(0x242b33,.08,.94),basalt=M(0x3c4449,.04,.9),green=M(0x467b50,.08,.75),leaf=M(0x85a767,.04,.7),cyan=new T.MeshBasicMaterial({color:0x42d7dc}),purple=new T.MeshBasicMaterial({color:0xb06fe6}),glow=new T.MeshBasicMaterial({color:0xffc678}),glass=new T.MeshPhysicalMaterial({color:0x9dcdd7,transparent:true,opacity:.17,metalness:.05,roughness:.12,depthWrite:false,side:T.DoubleSide});
+function put(parent,geo,material,x=0,y=0,z=0){const o=new T.Mesh(geo,material);o.position.set(x,y,z);parent.add(o);return o}
+function ball(p,r,m,x,y,z){return put(p,new T.SphereGeometry(r,12,8),m,x,y,z)}
+function cyl(p,r1,r2,h,m,x,y,z,n=12){return put(p,new T.CylinderGeometry(r1,r2,h,n),m,x,y,z)}
+function ring(p,r,t,m,x,y,z){const o=put(p,new T.TorusGeometry(r,t,7,48),m,x,y,z);o.rotation.x=Math.PI/2;return o}
+function beam(a,b,r,m,p=world){const v=new T.Vector3(...a),w=new T.Vector3(...b),d=w.clone().sub(v),o=put(p,new T.CylinderGeometry(r,r,d.length(),7),m,...v.clone().add(w).multiplyScalar(.5).toArray());o.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),d.normalize());return o}
+let terrain=createTerrainSystem({THREE:T,scene:world});terrain.apparatus.material=rock;terrain.mesh.traverse(o=>{if(o.isMesh)o.material.color.setHex(0x3d4442)});
+const water=createWater({THREE:T,owner:world,terrain,look:{color:0x247f98,opacity:.46,sideColor:0x0b5c74,sideOpacity:.52}});water.initializeToLevel(.95);water.setEnabled(true);water.setDisplayDensity(20);
+ring(world,9.7,.18,brass,0,-1.12,0);cyl(world,10.4,10.5,.4,rock,0,-6.4,0);ring(world,10.45,.13,brass,0,-6.6,0);
+const oceanMat=new T.MeshBasicMaterial({color:0x07516a,transparent:true,opacity:.16,depthWrite:false,side:T.DoubleSide});const ocean=cyl(world,8.1,8.1,3.4,oceanMat,0,-.75,0,8);ocean.renderOrder=1;
+const cavern=new T.Group();world.add(cavern);
+const ceiling=put(cavern,new T.SphereGeometry(10.7,48,24,0,Math.PI*2,0,Math.PI/2),new T.MeshStandardMaterial({color:0x1c242b,side:T.BackSide,roughness:1}),0,5.7,0);ceiling.rotation.z=Math.PI;
+const rng=(n)=>{const v=Math.sin(n*128.19+12.7)*43758.5453;return v-Math.floor(v)};
+for(let i=0;i<180;i++){const a=rng(i+2)*Math.PI*2,r=Math.sqrt(rng(i+98))*9.4,x=Math.cos(a)*r,z=Math.sin(a)*r,y=7.2-rng(i+44)*2.4;const len=.3+Math.pow(rng(i+199),2)*3.3;const cone=put(cavern,new T.ConeGeometry(.12+rng(i+6)*.24,len,5),i%6===0?basalt:rock,x,y-len*.5,z);cone.rotation.z=Math.PI; }
+const habitats=[];const sites=[[-5.1,2.7,2.1],[1.3,3.6,2.7],[5.6,1.9,1.75],[-1.6,-3.5,1.5],[5.3,-4.1,1.1]];
+for(let i=0;i<sites.length;i++){const [x,z,r]=sites[i],floor=1.25+(i%3)*.42;const group=new T.Group();group.position.set(x,floor,z);world.add(group);habitats.push({x,z,r,floor});
+cyl(group,r,r,.18,brass,0,0,0,24);ring(group,r,.09,bright,0,.13,0);
+const dome=put(group,new T.SphereGeometry(r,24,14,0,Math.PI*2,0,Math.PI/2),glass,0,.15,0);dome.renderOrder=6;
+for(let j=0;j<8;j++){const a=j*Math.PI/4;beam([Math.cos(a)*r,.15,Math.sin(a)*r],[0,r+.15,0],.035,brass,group)}
+for(let j=0;j<12;j++){const a=rng(i*27+j)*Math.PI*2,rr=Math.sqrt(rng(i*41+j))*r*.73,h=.35+rng(i*99+j)*.65;const xx=Math.cos(a)*rr,zz=Math.sin(a)*rr;cyl(group,.055,.09,h,brass,xx,h/2,zz,6);ball(group,.22+rng(j+i*2)*.18,j%4===0?leaf:green,xx,h+.1,zz)}
+cyl(world,.17,.24,floor+5.9,brass,x,(floor-5.9)/2,z,8);for(let k=0;k<3;k++)ring(world,.29,.045,bright,x,floor-1-k*1.65,z);
+const lamp=new T.PointLight(0xf6bd67,8,6);lamp.position.set(x,floor+.8,z);world.add(lamp);
+}
+for(let i=0;i<habitats.length-1;i++){const a=habitats[i],b=habitats[i+1],y=Math.min(a.floor,b.floor)-.07;beam([a.x,y,a.z],[b.x,y,b.z],.11,brass);for(let j=0;j<7;j++){const t=j/6,x=a.x+(b.x-a.x)*t,z=a.z+(b.z-a.z)*t;ball(world,.055,glow,x,y+.18,z)}}
+for(let i=0;i<7;i++){const a=i*2*Math.PI/7;const x=Math.cos(a)*7.1,z=Math.sin(a)*7.1;const y=terrain.groundHeight(x,z);if(!Number.isFinite(y))continue;for(let j=0;j<4;j++){const xx=x+(rng(i*11+j)-.5),zz=z+(rng(i*31+j)-.5),h=.3+rng(i*17+j)*.8;cyl(world,.07,.12,h,basalt,xx,y+h/2,zz,6);ball(world,.17+rng(j*13+i)*.12,j%2?purple:cyan,xx,y+h,zz)}}
+const hoops=new T.Group();world.add(hoops);for(let i=0;i<12;i++){const a=i*.55,x=Math.cos(a)*7.7,z=Math.sin(a)*7.7,y=2.3+Math.sin(a*2)*.8;const o=ring(hoops,.55,.045,brass,x,y,z);o.rotation.y=a;ball(hoops,.065,glow,x,y+.55,z)}
+const swimmers=new T.Group();world.add(swimmers);const fishGeo=new T.ConeGeometry(.13,.52,5);fishGeo.rotateX(Math.PI/2);let fish=[],bloomCount=0;
+function spawnFish(n){for(let i=0;i<n;i++){const j=fish.length,a=rng(j*4+4)*Math.PI*2,r=.7+rng(j*3+7)*6.9,y=-.8-rng(j*5+3)*3.4;const color=j%9===0?purple:j%4===0?glow:cyan;const g=new T.Group();swimmers.add(g);put(g,fishGeo,color);const tail=put(g,new T.ConeGeometry(.12,.26,3),color,0,0,-.3);tail.rotation.x=Math.PI/2;fish.push({g,a,r,y,speed:.22+rng(j*7+1)*.6,phase:rng(j*2)*7,tail})}}
+spawnFish(130);
+const motes=new T.Group();world.add(motes);const dots=[];for(let i=0;i<240;i++){const a=rng(i+29)*Math.PI*2,r=Math.sqrt(rng(i+399))*8,x=Math.cos(a)*r,z=Math.sin(a)*r,y=-4+rng(i+211)*8;const o=ball(motes,.018+rng(i+72)*.027,i%8===0?glow:cyan,x,y,z);dots.push({o,y,phase:rng(i+7)*7})}
+const fireflies=[];for(let i=0;i<90;i++){const a=rng(i+912)*Math.PI*2,r=rng(i+315)*8;const o=ball(world,.035,glow,Math.cos(a)*r,1.5+rng(i+38)*4,Math.sin(a)*r);fireflies.push({o,phase:rng(i+411)*8})}
+const impacts=[];let tick=0,angle=.6,elev=.27,dist=36,targetY=.3,drag=false,lastX=0,lastY=0;
+const status=document.querySelector('#status');document.querySelector('#flood').onclick=()=>{water.inject(90,0,0);status.textContent='WATER ENTERING THE BASIN · FLOW CONSERVED'};document.querySelector('#bloom').onclick=()=>{spawnFish(90);bloomCount++;status.textContent=fish.length+' LUMINOUS SWIMMERS · THE DEPTHS ARE ALIVE'};document.querySelector('#impact').onclick=()=>{const x=(Math.random()-.5)*9,z=(Math.random()-.5)*9,y=terrain.groundHeightExact(x,z);terrain.impact(new T.Vector3(x,y,z),{magnitude:1.5});water.inject(6,x,z);const flash=ball(world,.35,glow,x,y+3,z);impacts.push({flash,t:0,y});status.textContent='GEOLOGY DEFORMED · WATER REDISTRIBUTING'};
+const pointers=new Map();let pinch=0;renderer.domElement.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,[e.clientX,e.clientY]);lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});
+renderer.domElement.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);const ps=[...pointers.values()];if(ps.length===1){angle+=(e.clientX-old[0])*.006;elev=T.MathUtils.clamp(elev+(e.clientY-old[1])*.004,-.4,1.2)}else if(ps.length===2){const d=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]);if(pinch)dist=T.MathUtils.clamp(dist*pinch/d,16,64);pinch=d}});
+function end(e){pointers.delete(e.pointerId);pinch=0}renderer.domElement.addEventListener('pointerup',end);renderer.domElement.addEventListener('pointercancel',end);renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();dist=T.MathUtils.clamp(dist+e.deltaY*.022,16,64)},{passive:false});
+function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();if(w<h)dist=Math.max(dist,32*h/w*.63)}addEventListener('resize',resize);resize();
+let last=performance.now();function frame(now){requestAnimationFrame(frame);const dt=Math.min(.045,(now-last)/1000);last=now;tick+=dt;water.update(now);
+const eta=water.surfaceY(0,0);if(Number.isFinite(eta)){ocean.position.y=(-3.1+eta)/2;ocean.scale.y=Math.max(.1,(eta+3.1)/3.4)}
+for(const f of fish){f.a+=dt*f.speed/(f.r+.4);const x=Math.cos(f.a)*f.r,z=Math.sin(f.a)*f.r;const local=water.surfaceY(x,z);const cap=Number.isFinite(local)?Math.min(-.25,local-.3):-.25;const yy=Math.min(cap,f.y+Math.sin(tick*.8+f.phase)*.24);f.g.position.set(x,yy,z);f.g.rotation.y=-f.a;f.tail.rotation.z=Math.sin(tick*9+f.phase)*.35}
+for(const d of dots)d.o.position.y=d.y+Math.sin(tick*.7+d.phase)*.3;for(const f of fireflies)f.o.position.y+=Math.sin(tick+f.phase)*dt*.04;
+for(let i=impacts.length-1;i>=0;i--){const q=impacts[i];q.t+=dt;q.flash.position.y=q.y+3-q.t*6;q.flash.scale.setScalar(Math.max(.01,1-q.t));if(q.t>1){world.remove(q.flash);impacts.splice(i,1)}}
+camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera)}
+requestAnimationFrame(frame);
+}catch(e){document.querySelector('#error').textContent='SUBNAUTIMATION FAILED TO WAKE\n'+(e.stack||e.message);console.error(e)}
+</script></body></html>
