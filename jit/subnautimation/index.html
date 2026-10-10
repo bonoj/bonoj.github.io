@@ -15,10 +15,28 @@ function ball(p,r,m,x,y,z){return put(p,new T.SphereGeometry(r,12,8),m,x,y,z)}
 function cyl(p,r1,r2,h,m,x,y,z,n=12){return put(p,new T.CylinderGeometry(r1,r2,h,n),m,x,y,z)}
 function ring(p,r,t,m,x,y,z){const o=put(p,new T.TorusGeometry(r,t,7,48),m,x,y,z);o.rotation.x=Math.PI/2;return o}
 function beam(a,b,r,m,p=world){const v=new T.Vector3(...a),w=new T.Vector3(...b),d=w.clone().sub(v),o=put(p,new T.CylinderGeometry(r,r,d.length(),7),m,...v.clone().add(w).multiplyScalar(.5).toArray());o.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),d.normalize());return o}
-let terrain=createTerrainSystem({THREE:T,scene:world});terrain.apparatus.material=rock;terrain.mesh.traverse(o=>{if(o.isMesh)o.material.color.setHex(0x3d4442)});
+let terrain=createTerrainSystem({THREE:T,scene:world});terrain.apparatus.material=rock;
+terrain.initializeFunctionalBiomes({duration:1,budgetMs:50});
+const geological=new T.Group();world.add(geological);
+const strataColors=[0x25343b,0x536b69,0x8a8069,0x3d6268,0x81775f,0x34545b];
+const strataMats=strataColors.map(c=>M(c,.1,.87));
+const sampleNoise=(x,z,k)=>{let v=Math.sin(x*13.17+z*29.71+k*71.13)*43758.5453;return v-Math.floor(v)};
+const smoothstep=t=>t*t*(3-2*t);
+function fbm(x,z,k){let total=0,amp=.5,freq=.3;for(let j=0;j<4;j++){const X=x*freq,Z=z*freq,ix=Math.floor(X),iz=Math.floor(Z),u=smoothstep(X-ix),v=smoothstep(Z-iz),a=sampleNoise(ix,iz,k+j*13),b=sampleNoise(ix+1,iz,k+j*13),c=sampleNoise(ix,iz+1,k+j*13),d=sampleNoise(ix+1,iz+1,k+j*13);total+=amp*((a+(b-a)*u)*(1-v)+(c+(d-c)*u)*v);amp*=.5;freq*=2}return total}
+function geology(x,z){const r=Math.hypot(x,z),a=Math.atan2(z,x),tectonic=1.25*Math.sin(a*3+fbm(x,z,12)*3),ridges=1.2*Math.abs(Math.sin(x*.8+z*.37)),canyon=-2*Math.exp(-Math.pow(z-Math.sin(x*.45)*1.7,2)/1.3),terraces=.27*Math.floor(fbm(x,z,43)*7),detail=fbm(x,z,8)*1.8;return -3.7+tectonic+ridges+canyon+terraces+detail+.35*Math.cos(r*.7)}
+const geo=new T.PlaneGeometry(18.5,18.5,110,110);geo.rotateX(-Math.PI/2);
+const pos=geo.attributes.position,cols=new Float32Array(pos.count*3),cc=new T.Color();
+for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i),y=geology(x,z);pos.setY(i,y);const layer=Math.min(5,Math.max(0,Math.floor((y+5.5)*1.35)));cc.setHex(strataColors[layer]);const moss=Math.max(0,fbm(x,z,51)-.49)*.8;cc.lerp(new T.Color(0x448d7c),moss);cols[i*3]=cc.r;cols[i*3+1]=cc.g;cols[i*3+2]=cc.b}
+geo.setAttribute('color',new T.BufferAttribute(cols,3));geo.computeVertexNormals();
+const seabed=put(geological,geo,new T.MeshStandardMaterial({vertexColors:true,roughness:.92,side:T.DoubleSide}),0,0,0);
+const shelfMat=strataMats[2];
+for(let i=0;i<13;i++){const a=i*Math.PI*2/13,r=7.2+sampleNoise(i,0,17)*1.6,x=Math.cos(a)*r,z=Math.sin(a)*r,h=1.2+sampleNoise(i,1,18)*3;const pillar=cyl(geological,.25,.6,h,strataMats[i%6],x,geology(x,z)+h/2,z,7);pillar.rotation.z=(sampleNoise(i,2,19)-.5)*.2}
+const originalTerrain=terrain.mesh;originalTerrain.visible=false;
+const geologyHeight=(x,z)=>geology(x,z);
+
 const water=createWater({THREE:T,owner:world,terrain,look:{color:0x247f98,opacity:.46,sideColor:0x0b5c74,sideOpacity:.52}});water.initializeToLevel(.95);water.setEnabled(true);water.setDisplayDensity(20);
 ring(world,9.7,.18,brass,0,-1.12,0);cyl(world,10.4,10.5,.4,rock,0,-6.4,0);ring(world,10.45,.13,brass,0,-6.6,0);
-const oceanMat=new T.MeshBasicMaterial({color:0x07516a,transparent:true,opacity:.16,depthWrite:false,side:T.DoubleSide});const ocean=cyl(world,8.1,8.1,3.4,oceanMat,0,-.75,0,8);ocean.renderOrder=1;
+const oceanMat=new T.MeshBasicMaterial({color:0x07516a,transparent:true,opacity:.105,depthWrite:false,side:T.DoubleSide});const ocean=cyl(world,8.1,8.1,4.8,oceanMat,0,-1.5,0,8);ocean.renderOrder=1;
 const cavern=new T.Group();world.add(cavern);
 const ceiling=put(cavern,new T.SphereGeometry(10.7,48,24,0,Math.PI*2,0,Math.PI/2),new T.MeshStandardMaterial({color:0x1c242b,side:T.BackSide,roughness:1}),0,5.7,0);ceiling.rotation.z=Math.PI;
 const rng=(n)=>{const v=Math.sin(n*128.19+12.7)*43758.5453;return v-Math.floor(v)};
@@ -33,7 +51,7 @@ cyl(world,.17,.24,floor+5.9,brass,x,(floor-5.9)/2,z,8);for(let k=0;k<3;k++)ring(
 const lamp=new T.PointLight(0xf6bd67,8,6);lamp.position.set(x,floor+.8,z);world.add(lamp);
 }
 for(let i=0;i<habitats.length-1;i++){const a=habitats[i],b=habitats[i+1],y=Math.min(a.floor,b.floor)-.07;beam([a.x,y,a.z],[b.x,y,b.z],.11,brass);for(let j=0;j<7;j++){const t=j/6,x=a.x+(b.x-a.x)*t,z=a.z+(b.z-a.z)*t;ball(world,.055,glow,x,y+.18,z)}}
-for(let i=0;i<7;i++){const a=i*2*Math.PI/7;const x=Math.cos(a)*7.1,z=Math.sin(a)*7.1;const y=terrain.groundHeight(x,z);if(!Number.isFinite(y))continue;for(let j=0;j<4;j++){const xx=x+(rng(i*11+j)-.5),zz=z+(rng(i*31+j)-.5),h=.3+rng(i*17+j)*.8;cyl(world,.07,.12,h,basalt,xx,y+h/2,zz,6);ball(world,.17+rng(j*13+i)*.12,j%2?purple:cyan,xx,y+h,zz)}}
+for(let i=0;i<7;i++){const a=i*2*Math.PI/7;const x=Math.cos(a)*7.1,z=Math.sin(a)*7.1;const y=geologyHeight(x,z);if(!Number.isFinite(y))continue;for(let j=0;j<4;j++){const xx=x+(rng(i*11+j)-.5),zz=z+(rng(i*31+j)-.5),h=.3+rng(i*17+j)*.8;cyl(world,.07,.12,h,basalt,xx,y+h/2,zz,6);ball(world,.17+rng(j*13+i)*.12,j%2?purple:cyan,xx,y+h,zz)}}
 const hoops=new T.Group();world.add(hoops);for(let i=0;i<12;i++){const a=i*.55,x=Math.cos(a)*7.7,z=Math.sin(a)*7.7,y=2.3+Math.sin(a*2)*.8;const o=ring(hoops,.55,.045,brass,x,y,z);o.rotation.y=a;ball(hoops,.065,glow,x,y+.55,z)}
 const swimmers=new T.Group();world.add(swimmers);const fishGeo=new T.ConeGeometry(.13,.52,5);fishGeo.rotateX(Math.PI/2);let fish=[],bloomCount=0;
 function spawnFish(n){for(let i=0;i<n;i++){const j=fish.length,a=rng(j*4+4)*Math.PI*2,r=.7+rng(j*3+7)*6.9,y=-.8-rng(j*5+3)*3.4;const color=j%9===0?purple:j%4===0?glow:cyan;const g=new T.Group();swimmers.add(g);put(g,fishGeo,color);const tail=put(g,new T.ConeGeometry(.12,.26,3),color,0,0,-.3);tail.rotation.x=Math.PI/2;fish.push({g,a,r,y,speed:.22+rng(j*7+1)*.6,phase:rng(j*2)*7,tail})}}
@@ -47,8 +65,8 @@ renderer.domElement.addEventListener('pointermove',e=>{if(!pointers.has(e.pointe
 function end(e){pointers.delete(e.pointerId);pinch=0}renderer.domElement.addEventListener('pointerup',end);renderer.domElement.addEventListener('pointercancel',end);renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();dist=T.MathUtils.clamp(dist+e.deltaY*.022,16,64)},{passive:false});
 function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();if(w<h)dist=Math.max(dist,32*h/w*.63)}addEventListener('resize',resize);resize();
 let last=performance.now();function frame(now){requestAnimationFrame(frame);const dt=Math.min(.045,(now-last)/1000);last=now;tick+=dt;water.update(now);
-const eta=water.surfaceY(0,0);if(Number.isFinite(eta)){ocean.position.y=(-3.1+eta)/2;ocean.scale.y=Math.max(.1,(eta+3.1)/3.4)}
-for(const f of fish){f.a+=dt*f.speed/(f.r+.4);const x=Math.cos(f.a)*f.r,z=Math.sin(f.a)*f.r;const local=water.surfaceY(x,z);const cap=Number.isFinite(local)?Math.min(-.25,local-.3):-.25;const yy=Math.min(cap,f.y+Math.sin(tick*.8+f.phase)*.24);f.g.position.set(x,yy,z);f.g.rotation.y=-f.a;f.tail.rotation.z=Math.sin(tick*9+f.phase)*.35}
+const eta=water.surfaceY(0,0);if(Number.isFinite(eta)){ocean.position.y=(-4.8+eta)/2;ocean.scale.y=Math.max(.1,(eta+4.8)/4.8)}
+for(const f of fish){f.a+=dt*f.speed/(f.r+.4);const x=Math.cos(f.a)*f.r,z=Math.sin(f.a)*f.r;const local=water.surfaceY(x,z);const cap=Number.isFinite(local)?Math.min(.15,local-.3):.15;const yy=Math.max(geologyHeight(x,z)+.4,Math.min(cap,f.y+Math.sin(tick*.8+f.phase)*.24));f.g.position.set(x,yy,z);f.g.rotation.y=-f.a;f.tail.rotation.z=Math.sin(tick*9+f.phase)*.35}
 for(const d of dots)d.o.position.y=d.y+Math.sin(tick*.7+d.phase)*.3;for(const f of fireflies)f.o.position.y+=Math.sin(tick+f.phase)*dt*.04;
 for(let i=impacts.length-1;i>=0;i--){const q=impacts[i];q.t+=dt;q.flash.position.y=q.y+3-q.t*6;q.flash.scale.setScalar(Math.max(.01,1-q.t));if(q.t>1){world.remove(q.flash);impacts.splice(i,1)}}
 camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera)}
