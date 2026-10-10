@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#07101a"><title>The Pale Horse · A World for Jon</title><style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050b14;color:#f5dfb2;font-family:system-ui}canvas{display:block;touch-action:none}#stage{position:fixed;inset:0}#title{position:fixed;left:0;right:0;top:max(14px,env(safe-area-inset-top));text-align:center;pointer-events:none;text-shadow:0 3px 12px #000}h1{font:normal clamp(24px,5vw,43px) Georgia,serif;letter-spacing:.14em;margin:0}#tag{font-size:10px;letter-spacing:.25em;color:#c4b291;margin-top:7px}#hud{z-index:5;position:fixed;bottom:0;left:0;right:0;padding:25px 12px max(20px,env(safe-area-inset-bottom));text-align:center;background:linear-gradient(transparent,#050b14e8 35%)}#buttons{display:flex;justify-content:center;gap:9px}button{border:1px solid #9c8556aa;background:#15202acb;color:#f0d5a0;padding:13px 18px;border-radius:9px;font:600 12px system-ui;min-height:48px}#status{font:11px system-ui;letter-spacing:.08em;color:#c0c4c2;margin:0 0 12px}#error{position:fixed;top:35%;left:12px;right:12px;color:#ffb7a5;font:12px monospace;white-space:pre-wrap;text-align:center} #probe{position:fixed;top:82px;right:10px;z-index:30;background:#101d29e8;color:#d9eced;border:1px solid #6f999e;border-radius:9px;padding:8px 12px;font:12px system-ui}#probePanel{display:none;position:fixed;inset:118px 9px 100px;z-index:29;background:#07121df2;color:#d9e6e5;overflow:auto;padding:14px;border:1px solid #6f999e;border-radius:10px;font:12px/1.45 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}#probePanel.open{display:block}#probeActions{display:flex;gap:8px;position:sticky;top:-14px;background:#07121d;padding:8px 0}#probeActions button{background:#223c4b;color:#fff;border:1px solid #648c9d;border-radius:6px;padding:9px} </style></head><body><div id="stage"></div><button id="probe" type="button">◉ INSPECT</button><button id="sourceSwitch" type="button" style="position:fixed;top:82px;left:10px;z-index:30;padding:10px 14px;min-height:44px">SOURCE · JON</button><div id="probePanel"><div id="probeActions"><button id="copyProbe">COPY REPORT</button><button id="closeProbe">CLOSE</button></div><div id="probeText"></div></div><div id="title"><h1>THE PALE HORSE</h1><div id="tag">A WORLD FOR JON · THE DEATH KNIGHT & THE HUNTRESS</div></div><div id="hud"><div id="status">THE FROZEN WOOD · ORBIT / PINCH TO EXPLORE</div></div><div id="error"></div><script>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050b14;color:#f5dfb2;font-family:system-ui}canvas{display:block;touch-action:none}#stage{position:fixed;inset:0}#title{position:fixed;left:0;right:0;top:max(14px,env(safe-area-inset-top));text-align:center;pointer-events:none;text-shadow:0 3px 12px #000}h1{font:normal clamp(24px,5vw,43px) Georgia,serif;letter-spacing:.14em;margin:0}#tag{font-size:10px;letter-spacing:.25em;color:#c4b291;margin-top:7px}#hud{z-index:5;position:fixed;bottom:0;left:0;right:0;padding:25px 12px max(20px,env(safe-area-inset-bottom));text-align:center;background:linear-gradient(transparent,#050b14e8 35%)}#buttons{display:flex;justify-content:center;gap:9px}button{border:1px solid #9c8556aa;background:#15202acb;color:#f0d5a0;padding:13px 18px;border-radius:9px;font:600 12px system-ui;min-height:48px}#status{font:11px system-ui;letter-spacing:.08em;color:#c0c4c2;margin:0 0 12px}#error{position:fixed;top:35%;left:12px;right:12px;color:#ffb7a5;font:12px monospace;white-space:pre-wrap;text-align:center} #probe{position:fixed;top:82px;right:10px;z-index:30;background:#101d29e8;color:#d9eced;border:1px solid #6f999e;border-radius:9px;padding:8px 12px;font:12px system-ui}#probePanel{display:none;position:fixed;inset:118px 9px 100px;z-index:29;background:#07121df2;color:#d9e6e5;overflow:auto;padding:14px;border:1px solid #6f999e;border-radius:10px;font:12px/1.45 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}#probePanel.open{display:block}#probeActions{display:flex;gap:8px;position:sticky;top:-14px;background:#07121d;padding:8px 0}#probeActions button{background:#223c4b;color:#fff;border:1px solid #648c9d;border-radius:6px;padding:9px} </style></head><body><div id="stage"></div><button id="probe" type="button">◉ INSPECT</button><button id="sourceSwitch" type="button" style="position:fixed;top:82px;left:10px;z-index:30;padding:10px 14px;min-height:44px">SOURCE · JON</button><button id="treatmentSwitch" type="button" style="position:fixed;top:136px;left:10px;z-index:30;padding:10px 14px;min-height:44px">LOOK · ORIGINAL</button><div id="probePanel"><div id="probeActions"><button id="copyProbe">COPY REPORT</button><button id="closeProbe">CLOSE</button></div><div id="probeText"></div></div><div id="title"><h1>THE PALE HORSE</h1><div id="tag">A WORLD FOR JON · THE DEATH KNIGHT & THE HUNTRESS</div></div><div id="hud"><div id="status">THE FROZEN WOOD · ORBIT / PINCH TO EXPLORE</div></div><div id="error"></div><script>
 (function(){
  const el=document.getElementById('error');
  function fatal(error){
@@ -68,6 +68,44 @@ const watcher=new T.Group();theater.add(watcher);watcher.position.set(3.3,-5.7,2
 cyl(watcher,.13,.24,.9,bark,0,.55,0);ball(watcher,.18,snow,0,1.13,0);
 beam([-.1,.75,0],[-.65,.42,0],.05,bark,watcher);beam([.1,.75,0],[.52,.49,0],.05,bark,watcher);
 beam([-.05,.1,0],[-.25,-.35,0],.06,bark,watcher);beam([.05,.1,0],[.22,-.35,0],.06,bark,watcher);
+// Lighting/material laboratory. Snapshot all original mesh materials; never touch the CSS3D video.
+const materialStates=new Map();
+world.traverse(o=>{if(!o.isMesh)return;for(const m of (Array.isArray(o.material)?o.material:[o.material]))if(m&&!materialStates.has(m)&&m.isMeshStandardMaterial){materialStates.set(m,{color:m.color.clone(),roughness:m.roughness,metalness:m.metalness,flatShading:m.flatShading,emissive:m.emissive.clone(),emissiveIntensity:m.emissiveIntensity})}});
+const baseLight={sunColor:sun.color.clone(),sunIntensity:sun.intensity,blueColor:blue.color.clone(),blueIntensity:blue.intensity,hemiIntensity:scene.children.find(o=>o.isHemisphereLight)?.intensity??1.5,exposure:renderer.toneMappingExposure,fogColor:scene.fog.color.clone(),fogDensity:scene.fog.density};
+const hemi=scene.children.find(o=>o.isHemisphereLight);
+const looks=[
+ {name:'ORIGINAL',exposure:1.38,sun:2.4,blue:95,hemi:1.5,fog:.012},
+ {name:'MOONLIT',exposure:1.08,sun:3.4,blue:145,hemi:.45,fog:.035,sunColor:0x9bbaff,blueColor:0x437bff,tint:0x9bbde2,rough:.82},
+ {name:'GOLDEN HOUR',exposure:1.65,sun:4.1,blue:24,hemi:.8,fog:.024,sunColor:0xff9c4b,tint:0xffd4a2,rough:.58},
+ {name:'SILHOUETTE',exposure:.78,sun:1.1,blue:190,hemi:.12,fog:.052,sunColor:0xc5e5ff,blueColor:0x48f3e7,rough:.97},
+ {name:'FROSTED',exposure:1.85,sun:2.8,blue:100,hemi:2.5,fog:.042,sunColor:0xd9edff,tint:0xc5e5f4,rough:.29,metal:.1},
+ {name:'BRONZE AGE',exposure:1.25,sun:3.2,blue:28,hemi:.55,fog:.02,sunColor:0xffc36d,tint:0xd4a875,rough:.32,metal:.72},
+ {name:'NOIR',exposure:.92,sun:4.8,blue:0,hemi:.22,fog:.026,mono:true,rough:.88},
+ {name:'DREAM',exposure:1.6,sun:2.0,blue:165,hemi:1.9,fog:.065,sunColor:0xf7a6db,blueColor:0x9b74ff,tint:0xe3b8ed,rough:.45}
+];
+let lookIndex=0;
+function applyLook(){
+ const v=looks[lookIndex];
+ renderer.toneMappingExposure=v.exposure;
+ sun.intensity=v.sun;sun.color.copy(v.sunColor?new T.Color(v.sunColor):baseLight.sunColor);
+ blue.intensity=v.blue;blue.color.copy(v.blueColor?new T.Color(v.blueColor):baseLight.blueColor);
+ if(hemi)hemi.intensity=v.hemi;
+ scene.fog.density=v.fog;scene.fog.color.copy(baseLight.fogColor);
+ if(v.name==='GOLDEN HOUR')scene.fog.color.set(0x443025);
+ if(v.name==='MOONLIT')scene.fog.color.set(0x111d38);
+ if(v.name==='DREAM')scene.fog.color.set(0x32223d);
+ for(const [m,b] of materialStates){
+  m.color.copy(b.color);m.roughness=b.roughness;m.metalness=b.metalness;
+  m.emissive.copy(b.emissive);m.emissiveIntensity=b.emissiveIntensity;
+  if(v.tint)m.color.lerp(new T.Color(v.tint),.23);
+  if(v.mono){const h=(m.color.r+m.color.g+m.color.b)/3;m.color.setRGB(h,h,h)}
+  if(v.rough!==undefined)m.roughness=v.rough;
+  if(v.metal!==undefined)m.metalness=v.metal;
+  m.needsUpdate=true;
+ }
+ document.querySelector('#treatmentSwitch').textContent='LOOK · '+v.name;
+}
+document.querySelector('#treatmentSwitch').addEventListener('click',()=>{lookIndex=(lookIndex+1)%looks.length;applyLook()});
 const film=document.createElement('iframe');
 film.src='https://drive.google.com/file/d/1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC/preview?autoplay=1';
 film.title="The Death Knight and the Huntress — a film by Jonathan Lott";
@@ -144,7 +182,7 @@ const round=(n,d=2)=>Number.isFinite(n)?+n.toFixed(d):null;
 function inspectWorld(){
  camera.updateMatrixWorld();world.updateMatrixWorld(true);
  const center=new T.Vector3(0,0,0).project(camera);
- const report={build:'palehorse-007',source:mediaSources[sourceIndex].name,media:mediaSources[sourceIndex].kind,controlWindow:'separate play and scrub native islands',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
+ const report={build:'palehorse-008',source:mediaSources[sourceIndex].name,media:mediaSources[sourceIndex].kind,controlWindow:'separate play and scrub native islands',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
  probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
