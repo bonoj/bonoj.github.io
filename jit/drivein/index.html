@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07101a"><title>Bauble · A World Between Waters</title><style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050b14;color:#f5dfb2;font-family:system-ui}canvas{display:block;touch-action:none}#stage{position:fixed;inset:0}#title{position:fixed;left:0;right:0;top:max(14px,env(safe-area-inset-top));text-align:center;pointer-events:none;text-shadow:0 3px 12px #000}h1{font:normal clamp(24px,5vw,43px) Georgia,serif;letter-spacing:.14em;margin:0}#tag{font-size:10px;letter-spacing:.25em;color:#c4b291;margin-top:7px}#hud{position:fixed;bottom:0;left:0;right:0;padding:25px 12px max(20px,env(safe-area-inset-bottom));text-align:center;background:linear-gradient(transparent,#050b14e8 35%)}#buttons{display:flex;justify-content:center;gap:9px}button{border:1px solid #9c8556aa;background:#15202acb;color:#f0d5a0;padding:13px 18px;border-radius:9px;font:600 12px system-ui;min-height:48px}#status{font:11px system-ui;letter-spacing:.08em;color:#c0c4c2;margin:0 0 12px}#error{position:fixed;top:35%;left:12px;right:12px;color:#ffb7a5;font:12px monospace;white-space:pre-wrap;text-align:center} #probe{position:fixed;top:82px;right:10px;z-index:30;background:#101d29e8;color:#d9eced;border:1px solid #6f999e;border-radius:9px;padding:8px 12px;font:12px system-ui}#probePanel{display:none;position:fixed;inset:118px 9px 100px;z-index:29;background:#07121df2;color:#d9e6e5;overflow:auto;padding:14px;border:1px solid #6f999e;border-radius:10px;font:12px/1.45 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}#probePanel.open{display:block}#probeActions{display:flex;gap:8px;position:sticky;top:-14px;background:#07121d;padding:8px 0}#probeActions button{background:#223c4b;color:#fff;border:1px solid #648c9d;border-radius:6px;padding:9px} </style></head><body><div id="stage"></div><button id="probe" type="button">◉ INSPECT</button><div id="probePanel"><div id="probeActions"><button id="copyProbe">COPY REPORT</button><button id="closeProbe">CLOSE</button></div><div id="probeText"></div></div><div id="title"><h1>THE DEATH KNIGHT</h1><div id="tag">&amp; THE HUNTRESS · JONATHAN LOTT</div></div><div id="hud"><div id="status">CINEMA · ORBIT / PINCH TO EXPLORE</div></div><div id="error"></div><script>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050b14;color:#f5dfb2;font-family:system-ui}canvas{display:block;touch-action:none}#stage{position:fixed;inset:0}#title{position:fixed;left:0;right:0;top:max(14px,env(safe-area-inset-top));text-align:center;pointer-events:none;text-shadow:0 3px 12px #000}h1{font:normal clamp(24px,5vw,43px) Georgia,serif;letter-spacing:.14em;margin:0}#tag{font-size:10px;letter-spacing:.25em;color:#c4b291;margin-top:7px}#hud{position:fixed;bottom:0;left:0;right:0;padding:25px 12px max(20px,env(safe-area-inset-bottom));text-align:center;background:linear-gradient(transparent,#050b14e8 35%)}#buttons{display:flex;justify-content:center;gap:9px}button{border:1px solid #9c8556aa;background:#15202acb;color:#f0d5a0;padding:13px 18px;border-radius:9px;font:600 12px system-ui;min-height:48px}#status{font:11px system-ui;letter-spacing:.08em;color:#c0c4c2;margin:0 0 12px}#error{position:fixed;top:35%;left:12px;right:12px;color:#ffb7a5;font:12px monospace;white-space:pre-wrap;text-align:center} #probe{position:fixed;top:82px;right:10px;z-index:30;background:#101d29e8;color:#d9eced;border:1px solid #6f999e;border-radius:9px;padding:8px 12px;font:12px system-ui}#probePanel{display:none;position:fixed;inset:118px 9px 100px;z-index:29;background:#07121df2;color:#d9e6e5;overflow:auto;padding:14px;border:1px solid #6f999e;border-radius:10px;font:12px/1.45 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}#probePanel.open{display:block}#probeActions{display:flex;gap:8px;position:sticky;top:-14px;background:#07121d;padding:8px 0}#probeActions button{background:#223c4b;color:#fff;border:1px solid #648c9d;border-radius:6px;padding:9px} </style></head><body><div id="stage"></div><button id="probe" type="button">◉ INSPECT</button><div id="probePanel"><div id="probeActions"><button id="copyProbe">COPY REPORT</button><button id="closeProbe">CLOSE</button></div><div id="probeText"></div></div><div id="title"><h1>BALDUR'S GATE</h1><div id="tag">WARLOCKRACY · CINEMA EXPERIMENT</div></div><div id="hud"><div id="status">CINEMA · ORBIT / PINCH TO EXPLORE</div></div><div id="error"></div><script>
 (function(){
  const el=document.getElementById('error');
  function fatal(error){
@@ -55,8 +55,8 @@ const projector=cyl(theater,.4,.4,1,basalt,0,-5,4.8);projector.rotation.x=Math.P
 ball(theater,.24,glow,0,-5,4.15);
 
 const film=document.createElement('iframe');
-film.src='https://drive.google.com/file/d/1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC/preview';
-film.title='The Death Knight and the Huntress — Jonathan Lott';
+film.src='https://www.youtube-nocookie.com/embed/cetw-9l9V9g?playsinline=1&rel=0';
+film.title='Warlockracy — Baldur's Gate 3';
 film.allow='autoplay; fullscreen; picture-in-picture';
 film.style.cssText='width:910px;height:520px;border:0;background:#090b12;pointer-events:auto';
 const cssScene=new T.Scene();
@@ -68,53 +68,7 @@ const cssRenderer=new CSS3DRenderer();
 cssRenderer.setSize(innerWidth,innerHeight);
 cssRenderer.domElement.style.cssText='position:fixed;inset:0;z-index:3;pointer-events:none';
 document.querySelector('#stage').append(cssRenderer.domElement);
-// General hybrid occlusion: sample world geometry against the CSS3D surface.
-// No ring-specific geometry or hand-authored occluders.
-const occlusionRay=new T.Raycaster();
-const occlusionCanvas=document.createElement('canvas');
-occlusionCanvas.width=36;occlusionCanvas.height=21;
-const occlusionCtx=occlusionCanvas.getContext('2d',{willReadFrequently:true});
-const occlusionPixel=occlusionCtx.createImageData(36,21);
-const occlusionObjects=[];
-world.traverse(o=>{
- if(!o.isMesh)return;
- const m=o.material;
- if(m && (m.transparent || m.opacity<1))return;
- occlusionObjects.push(o);
-});
-const occlusionPoint=new T.Vector3(),occlusionDirection=new T.Vector3();
-let lastOcclusion=0,occlusionHidden=0;
-function updateHybridOcclusion(now){
- if(now-lastOcclusion<220)return;
- lastOcclusion=now;
- camera.updateMatrixWorld();
- filmSurface.updateWorldMatrix(true,false);
- world.updateWorldMatrix(true,true);
- const w=occlusionCanvas.width,h=occlusionCanvas.height,p=occlusionPixel.data;
- let hidden=0;
- for(let y=0;y<h;y++)for(let x=0;x<w;x++){
-  occlusionPoint.set(((x+.5)/w-.5)*910, (.5-(y+.5)/h)*520,0);
-  filmSurface.localToWorld(occlusionPoint);
-  occlusionDirection.copy(occlusionPoint).sub(camera.position);
-  const distance=occlusionDirection.length();
-  occlusionRay.set(camera.position,occlusionDirection.multiplyScalar(1/distance));
-  occlusionRay.near=.1;occlusionRay.far=distance-.11;
-  const blocked=occlusionRay.intersectObjects(occlusionObjects,false).length>0;
-  const i=(y*w+x)*4;
-  p[i]=255;p[i+1]=255;p[i+2]=255;p[i+3]=blocked?0:255;
-  if(blocked)hidden++;
- }
- occlusionCtx.putImageData(occlusionPixel,0,0);
- const mask='url("'+occlusionCanvas.toDataURL('image/png')+'")';
- film.style.webkitMaskImage=mask;film.style.maskImage=mask;
- film.style.webkitMaskSize='100% 100%';film.style.maskSize='100% 100%';
- occlusionHidden=hidden;
-}
-function positionFilm(now){
- filmSurface.visible=camera.position.z>filmSurface.position.z+.05;
- if(filmSurface.visible)updateHybridOcclusion(now);
- cssRenderer.render(cssScene,camera);
-}
+function positionFilm(){filmSurface.visible=camera.position.z>filmSurface.position.z+.05;cssRenderer.render(cssScene,camera)}
 let angle=.6,elev=.27,dist=27,targetY=.3,lastX=0,lastY=0;
 const pointers=new Map();let pinch=0;renderer.domElement.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,[e.clientX,e.clientY]);lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});
 renderer.domElement.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);const ps=[...pointers.values()];if(ps.length===1){angle+=(e.clientX-old[0])*.006;elev=T.MathUtils.clamp(elev+(e.clientY-old[1])*.004,-.4,1.2)}else if(ps.length===2){const d=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]);if(pinch)dist=T.MathUtils.clamp(dist*pinch/d,17,58);pinch=d}});
@@ -150,7 +104,7 @@ document.querySelector('#closeProbe').addEventListener('click',()=>recordInterac
 
 
 let last=performance.now();function frame(now){requestAnimationFrame(frame);probeFrames++;probeFrameMs+=Math.max(0,now-last);last=now;if(now-probeLast>2500){probeLast=now;if(probePanel.classList.contains('open'))inspectWorld();probeFrames=0;probeFrameMs=0}
-camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera);positionFilm(now)}
+camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera);positionFilm()}
 requestAnimationFrame(frame);
 }catch(e){window.BaubleFatal(e);console.error(e)}
 </script></body></html>
