@@ -90,7 +90,7 @@ const geologicalField=(x,y,z)=>{
  const upper=Math.pow((x-3.1)/4.5,2)+Math.pow((y-3.1)/2.7,2)+Math.pow((z+.8)/4.1,2);
  const boundary=r<9.72;
  const empty=chamber<1+fold*.075||throat<1||upper<1;
- return boundary&&!empty;
+ return boundary&&!empty&&z<-.65; // open frontal cross-section: no opaque rock between camera and habitats
 };
 for(let z=0;z<N;z++)for(let y=0;y<N;y++)for(let x=0;x<N;x++){
  const px=-half+(x+.5)*STEP,py=-half+(y+.5)*STEP,pz=-half+(z+.5)*STEP;
@@ -117,8 +117,7 @@ for(let z=0;z<N;z++)for(let y=0;y<N;y++)for(let x=0;x<N;x++){
  for(const [normal,corners] of faces){
   const nx=x+normal[0],ny=y+normal[1],nz=z+normal[2];
   if(nx>=0&&nx<N&&ny>=0&&ny<N&&nz>=0&&nz<N&&voxels[vi(nx,ny,nz)])continue;
-  // Keep the viewer-facing hemisphere open. Its rock is cut away as a cross-section.
-  if(pz>3.2&&normal[2]>0)continue;
+  // Expose the actual cut plane, rather than retaining an exterior cap.
   exposed++;
   for(const q of [0,1,2,0,2,3]){
    const v=corners[q];vertices.push(px+v[0]*STEP,py+v[1]*STEP,pz+v[2]*STEP);
@@ -200,7 +199,7 @@ function inspectWorld(){
  const swimmersProbe={total:fish.length,aboveWater:0,belowGeology:0,between:0,screen:0};for(const f of fish){const p=f.g.position,g=geologyHeight(p.x,p.z),w=water.surfaceY(p.x,p.z);if(p.y>w)swimmersProbe.aboveWater++;else if(p.y<g)swimmersProbe.belowGeology++;else swimmersProbe.between++;if(project(p).inView)swimmersProbe.screen++}
  const renderProbe={calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures};
  const warnings=[];if(!originalTerrain.visible)warnings.push('WATER SOLVER STILL USES HIDDEN TERRAIN; REQUIRES UNIFIED BOUNDARY');if(Math.abs(gh-sea)>.3)warnings.push('WATER SOLVER GROUND DOES NOT MATCH VISIBLE SEABED');if(swimmersProbe.aboveWater>0)warnings.push('SOME SWIMMERS ABOVE WATER');if(swimmersProbe.screen<fish.length*.4)warnings.push('MOST SWIMMERS OUTSIDE CAMERA FRUSTUM');if(innerHeight>innerWidth*1.5)warnings.push('PORTRAIT VIEW: camera distance='+round(dist)+'; object may occupy small screen area');
- const report={build:'geological-volume-v1',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:project(new T.Vector3(0,0,0)),upperHabitat:project(new T.Vector3(0,4,0)),lowerBasin:project(new T.Vector3(0,-4,0))},geologicalVolume:geologyVolumeStats,layers:{originalTerrainVisible:originalTerrain.visible,geologyMeshVisible:seabed.visible,waterSurface:round(waterY),hiddenGround:round(gh),visibleSeabed:round(sea),samples:sample},habitats:habitatsProbe,transport:{circuits:circuits.length,delivered:materialDelivered,parcelsPerCircuit:70,renderedParcels:circuits.map(c=>({solid:c.mesh.count,gas:c.gasMesh.count,rain:c.rainMesh.count})),terrainMutationTarget:'hidden solver and visible seabed',visibleSeabedUpdatedByTransport:true},swimmers:swimmersProbe,render:renderProbe,performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings};
+ const report={build:'geological-cutaway-v2',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:project(new T.Vector3(0,0,0)),upperHabitat:project(new T.Vector3(0,4,0)),lowerBasin:project(new T.Vector3(0,-4,0))},geologicalVolume:geologyVolumeStats,layers:{originalTerrainVisible:originalTerrain.visible,geologyMeshVisible:seabed.visible,waterSurface:round(waterY),hiddenGround:round(gh),visibleSeabed:round(sea),samples:sample},habitats:habitatsProbe,transport:{circuits:circuits.length,delivered:materialDelivered,parcelsPerCircuit:70,renderedParcels:circuits.map(c=>({solid:c.mesh.count,gas:c.gasMesh.count,rain:c.rainMesh.count})),terrainMutationTarget:'hidden solver and visible seabed',visibleSeabedUpdatedByTransport:true},swimmers:swimmersProbe,render:renderProbe,performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings};
  probeWarnings=warnings;probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
