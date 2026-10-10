@@ -66,7 +66,7 @@ filmSurface.scale.set(.01,.01,.01);
 cssScene.add(filmSurface);
 // WebGL depth proxy punches a transparent window through the canvas.
 // Foreground meshes remain visible; background meshes fail the depth test.
-const windowDepth=new T.Mesh(new T.PlaneGeometry(9.1,5.2),new T.MeshBasicMaterial({transparent:true,opacity:0,blending:T.NoBlending,depthWrite:true,depthTest:true,side:T.DoubleSide}));
+const windowDepth=new T.Mesh(new T.PlaneGeometry(9.1,5.2),new T.MeshBasicMaterial({colorWrite:false,depthWrite:true,depthTest:true,side:T.DoubleSide}));
 windowDepth.position.copy(filmSurface.position);windowDepth.position.z+=.005;
 world.add(windowDepth);
 const cssRenderer=new CSS3DRenderer();
