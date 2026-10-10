@@ -3,6 +3,18 @@
 import * as T from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
 import {createTerrainSystem} from './terrain/terrain-system.js';
 import {createWater} from './liquids/liquids.js';
+// A fatal startup error remains copyable even when the simulation never initializes.
+const errorEl=document.querySelector('#error');
+function showFatal(e){
+ const report='SUBNAUTIMATION FAILED TO WAKE\\n'+(e?.stack||e?.message||String(e))+'\\nURL: '+location.href+'\\nTime: '+new Date().toISOString();
+ errorEl.style.cssText='position:fixed;inset:25% 12px auto;z-index:100;white-space:pre-wrap;overflow-wrap:anywhere;text-align:left;background:#211a20f5;border:1px solid #fa8c82;border-radius:12px;padding:16px;color:#ffd7cd;font:12px/1.5 ui-monospace,monospace';
+ errorEl.textContent=report+'\\n';
+ const copy=document.createElement('button');copy.type='button';copy.textContent='COPY ERROR';copy.style.cssText='display:block;margin-top:16px;width:100%;min-height:52px;font:700 15px system-ui;background:#633b40;color:white;border:1px solid #ffad9f;border-radius:8px';
+ copy.onclick=async()=>{try{await navigator.clipboard.writeText(report);copy.textContent='COPIED'}catch(_){const ta=document.createElement('textarea');ta.value=report;document.body.append(ta);ta.select();document.execCommand('copy');ta.remove();copy.textContent='COPIED'}};
+ errorEl.append(copy);
+}
+addEventListener('error',e=>{if(e.error)showFatal(e.error)});
+addEventListener('unhandledrejection',e=>showFatal(e.reason));
 try {
 const scene=new T.Scene();scene.background=new T.Color(0x06101b);scene.fog=new T.FogExp2(0x071827,.012);
 const world=new T.Group();scene.add(world);
@@ -20,6 +32,7 @@ terrain.initializeFunctionalBiomes({duration:1,budgetMs:50});
 const geological=new T.Group();world.add(geological);
 const strataColors=[0x25343b,0x536b69,0x8a8069,0x3d6268,0x81775f,0x34545b];
 const strataMats=strataColors.map(c=>M(c,.1,.87));
+const rng=(n)=>{const v=Math.sin(n*128.19+12.7)*43758.5453;return v-Math.floor(v)};
 const sampleNoise=(x,z,k)=>{let v=Math.sin(x*13.17+z*29.71+k*71.13)*43758.5453;return v-Math.floor(v)};
 const smoothstep=t=>t*t*(3-2*t);
 function fbm(x,z,k){let total=0,amp=.5,freq=.3;for(let j=0;j<4;j++){const X=x*freq,Z=z*freq,ix=Math.floor(X),iz=Math.floor(Z),u=smoothstep(X-ix),v=smoothstep(Z-iz),a=sampleNoise(ix,iz,k+j*13),b=sampleNoise(ix+1,iz,k+j*13),c=sampleNoise(ix,iz+1,k+j*13),d=sampleNoise(ix+1,iz+1,k+j*13);total+=amp*((a+(b-a)*u)*(1-v)+(c+(d-c)*u)*v);amp*=.5;freq*=2}return total}
@@ -155,5 +168,5 @@ for(const d of dots)d.o.position.y=d.y+Math.sin(tick*.7+d.phase)*.3;for(const f 
 for(let i=impacts.length-1;i>=0;i--){const q=impacts[i];q.t+=dt;q.flash.position.y=q.y+3-q.t*6;q.flash.scale.setScalar(Math.max(.01,1-q.t));if(q.t>1){world.remove(q.flash);impacts.splice(i,1)}}
 camera.position.set(Math.sin(angle)*Math.cos(elev)*dist,Math.sin(elev)*dist+targetY,Math.cos(angle)*Math.cos(elev)*dist);camera.lookAt(0,targetY,0);renderer.render(scene,camera)}
 requestAnimationFrame(frame);
-}catch(e){document.querySelector('#error').textContent='SUBNAUTIMATION FAILED TO WAKE\n'+(e.stack||e.message);console.error(e)}
+}catch(e){showFatal(e);console.error(e)}
 </script></body></html>
