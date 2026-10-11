@@ -48,7 +48,7 @@ for(const y of [-.15,.15]){const trim=put(world,new T.TorusGeometry(BAUBLE_R,.02
 for(let i=0;i<8;i++){const a=i*Math.PI/4;ball(world,.12,bright,Math.cos(a)*BAUBLE_R,0,Math.sin(a)*BAUBLE_R)}
 
 let seed=SEED;function rand(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296}
-const N=53,S=8.3,heights=new Float32Array(N*N);
+const N=53,S=6.4,heights=new Float32Array(N*N);
 const idx=(i,j)=>j*N+i;
 function height(x,z){const ridge=1.05*Math.exp(-(((z+3.1)/2.1)**2)),fold=.48*Math.sin(x*.85+z*.43)+.26*Math.cos(z*1.8-x*.32),knoll=.85*Math.exp(-(((x-5.4)**2+(z+1.8)**2)/4.8));return -2.9+ridge+fold+knoll+.22*Math.sin(x*2.2)*Math.cos(z*1.6)}
 for(let j=0;j<N;j++)for(let i=0;i<N;i++){let x=(i/(N-1)*2-1)*S,z=(j/(N-1)*2-1)*S;heights[idx(i,j)]=height(x,z)}
@@ -62,11 +62,11 @@ const cylinder=new T.CylinderGeometry(1,1,1,6),cone=new T.ConeGeometry(1,1,7),cu
 function block(x,y,z,sx,sy,sz,m=wall,rot=0){const o=put(inhabitants,cube,m,x,y,z);o.scale.set(sx,sy,sz);o.rotation.y=rot;return o}
 function tree(x,z,s=1){const y=H(x,z),h=(1.25+rand()*.95)*s;const t=put(trunks,cylinder,wood,x,y+h*.37,z);t.scale.set(.12*s,h*.74,.12*s);const crown=put(crowns,cone,rand()<.35?leaf2:leaf,x,y+h*1.13,z);crown.scale.set(.68*s,h*1.4,.68*s);return {x,z,y,fuel:1.3*s,heat:0,ash:0,flame:0,crown,trunk:t,kind:'tree'}}
 const fuels=[];
-for(let i=0;i<115;i++){const x=(rand()*2-1)*7.45,z=(rand()*2-1)*7.5;if(z<-.6||Math.hypot(x-5.4,z+1.8)<2.3||Math.hypot(x+3.5,z+3.6)<2.6||Math.abs(x)<.7&&z<2)continue;fuels.push(tree(x,z,.65+rand()*.65))}
+for(let i=0;i<115;i++){const x=(rand()*2-1)*6.1,z=(rand()*2-1)*6.1;if(z<-.6||Math.hypot(x-5.4,z+1.8)<2.3||Math.hypot(x+3.5,z+3.6)<2.6||Math.abs(x)<.7&&z<2)continue;fuels.push(tree(x,z,.65+rand()*.65))}
 function timber(x,z,s=1){const y=H(x,z);const o=block(x,y+.3*s,z,.34*s,.6*s,.35*s,wood);return {x,z,y,fuel:2*s,heat:0,ash:0,flame:0,crown:o,trunk:o,kind:'timber'}}
 function keep(){const x=-3.65,z=-3.7,y=H(x,z);for(let k=0;k<4;k++){const a=k*Math.PI/2;block(x+Math.cos(a)*1.2,y+.63,z+Math.sin(a)*1.2,2.8,1.26,.38,wall,a)}for(let i=0;i<4;i++){const xx=x-1.4+i*.92;block(xx,y+1.4,z-1.22,.65,.45,.68,wall);fuels.push(timber(xx,z-1.12,.8))}for(let k=0;k<4;k++){const a=k*Math.PI/2;block(x+Math.cos(a)*1.35,y+1.4,z+Math.sin(a)*1.35,.6,.55,.6,stone)}}
 keep();
-const rockX=5.35,rockZ=-2.05,rockY=H(rockX,rockZ);const yenRock=put(inhabitants,new T.DodecahedronGeometry(1.1,0),stone,rockX,rockY+.45,rockZ);rock.scale.set(1.65,.8,1.4);rock.rotation.y=.5;
+const rockX=4.95,rockZ=-2.05,rockY=H(rockX,rockZ);const yenRock=put(inhabitants,new T.DodecahedronGeometry(1.1,0),stone,rockX,rockY+.45,rockZ);yenRock.scale.set(1.65,.8,1.4);yenRock.rotation.y=.5;
 const yen=put(inhabitants,new T.ConeGeometry(.19,.85,8),M(0x161a23),rockX,rockY+1.23,rockZ);yen.rotation.z=.1;
 const yHead=put(inhabitants,new T.SphereGeometry(.14,9,7),M(0xb8a18b),rockX,rockY+1.79,rockZ);
 let state,wind=0,events=[];const initialO2=220;
