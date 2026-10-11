@@ -38,7 +38,7 @@ function ring(p,r,t,m,x,y,z){const o=put(p,new T.TorusGeometry(r,t,7,48),m,x,y,z
 function beam(a,b,r,m,p=world){const v=new T.Vector3(...a),w=new T.Vector3(...b),d=w.clone().sub(v),o=put(p,new T.CylinderGeometry(r,r,d.length(),7),m,...v.clone().add(w).multiplyScalar(.5).toArray());o.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),d.normalize());return o}
 
 const BAUBLE_R=10.25,INNER_R=BAUBLE_R-.18;
-const earth=M(0x59634b),soil=M(0x4d4939),stone=M(0x70746c),wall=M(0x8b8c7f),wood=M(0x56402a),char=M(0x181d1b),leaf=M(0x304a36),leaf2=M(0x435c3a);
+const earth=M(0x59634b),soil=M(0x4d4939),stone=M(0x70746c),wall=M(0x8b8c7f),wood=M(0x56402a),char=M(0x181d1b),forestLeaf=M(0x304a36),leaf2=M(0x435c3a);
 const firelight=new T.PointLight(0xff571d,0,19);scene.add(firelight);
 
 const envelope=new T.Mesh(new T.SphereGeometry(BAUBLE_R,72,48),new T.MeshPhysicalMaterial({color:0xa0dce2,metalness:0,roughness:.08,transparent:true,opacity:.055,depthWrite:false,side:T.FrontSide}));world.add(envelope);
@@ -60,7 +60,7 @@ const terrain=put(world,geo,new T.MeshStandardMaterial({vertexColors:true,roughn
 const inhabitants=new T.Group();world.add(inhabitants);const trunks=new T.Group();inhabitants.add(trunks);const crowns=new T.Group();inhabitants.add(crowns);
 const cylinder=new T.CylinderGeometry(1,1,1,6),cone=new T.ConeGeometry(1,1,7),cube=new T.BoxGeometry(1,1,1);
 function block(x,y,z,sx,sy,sz,m=wall,rot=0){const o=put(inhabitants,cube,m,x,y,z);o.scale.set(sx,sy,sz);o.rotation.y=rot;return o}
-function tree(x,z,s=1){const y=H(x,z),h=(1.25+rand()*.95)*s;const t=put(trunks,cylinder,wood,x,y+h*.37,z);t.scale.set(.12*s,h*.74,.12*s);const crown=put(crowns,cone,rand()<.35?leaf2:leaf,x,y+h*1.13,z);crown.scale.set(.68*s,h*1.4,.68*s);return {x,z,y,fuel:1.3*s,heat:0,ash:0,flame:0,crown,trunk:t,kind:'tree'}}
+function tree(x,z,s=1){const y=H(x,z),h=(1.25+rand()*.95)*s;const t=put(trunks,cylinder,wood,x,y+h*.37,z);t.scale.set(.12*s,h*.74,.12*s);const crown=put(crowns,cone,rand()<.35?leaf2:forestLeaf,x,y+h*1.13,z);crown.scale.set(.68*s,h*1.4,.68*s);return {x,z,y,fuel:1.3*s,heat:0,ash:0,flame:0,crown,trunk:t,kind:'tree'}}
 const fuels=[];
 for(let i=0;i<115;i++){const x=(rand()*2-1)*6.1,z=(rand()*2-1)*6.1;if(z<-.6||Math.hypot(x-5.4,z+1.8)<2.3||Math.hypot(x+3.5,z+3.6)<2.6||Math.abs(x)<.7&&z<2)continue;fuels.push(tree(x,z,.65+rand()*.65))}
 function timber(x,z,s=1){const y=H(x,z);const o=block(x,y+.3*s,z,.34*s,.6*s,.35*s,wood);return {x,z,y,fuel:2*s,heat:0,ash:0,flame:0,crown:o,trunk:o,kind:'timber'}}
@@ -70,7 +70,7 @@ const rockX=4.95,rockZ=-2.05,rockY=H(rockX,rockZ);const yenRock=put(inhabitants,
 const yen=put(inhabitants,new T.ConeGeometry(.19,.85,8),M(0x161a23),rockX,rockY+1.23,rockZ);yen.rotation.z=.1;
 const yHead=put(inhabitants,new T.SphereGeometry(.14,9,7),M(0xb8a18b),rockX,rockY+1.79,rockZ);
 let state,wind=0,events=[];const initialO2=220;
-function reset(){state={oxygen:initialO2,co2:0,ash:0,heat:0,consumed:0,addedFuel:0,addedO2:0,time:0,ignitions:0};wind=0;events=[];for(const f of fuels){f.heat=0;f.flame=0;f.ash=0;f.fuel=f.kind==='tree'?1.3:1.6;f.crown.visible=true;f.crown.material=f.kind==='tree'?leaf:wood}firelight.intensity=0;updateHUD()}
+function reset(){state={oxygen:initialO2,co2:0,ash:0,heat:0,consumed:0,addedFuel:0,addedO2:0,time:0,ignitions:0};wind=0;events=[];for(const f of fuels){f.heat=0;f.flame=0;f.ash=0;f.fuel=f.kind==='tree'?1.3:1.6;f.crown.visible=true;f.crown.material=f.kind==='tree'?forestLeaf:wood}firelight.intensity=0;updateHUD()}
 reset();
 
 function ignite(){let target=fuels.filter(f=>f.fuel>.01).sort((a,b)=>Math.hypot(a.x-rockX,a.z-rockZ)-Math.hypot(b.x-rockX,b.z-rockZ))[0];if(target){target.heat+=5;state.ignitions++;events.push('ignition at '+target.x.toFixed(1)+','+target.z.toFixed(1))}}
