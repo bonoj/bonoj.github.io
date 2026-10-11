@@ -1,1 +1,65 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><title>Yennefer · Sodden</title><body><h1>Yennefer · Sodden</h1></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Yennefer · Sodden</title><style>
+*{box-sizing:border-box}body{margin:0;background:#080d14;color:#e7d6ad;font:12px system-ui;overflow:hidden}canvas{display:block;touch-action:none}#stage{position:fixed;inset:0}header{position:fixed;top:env(safe-area-inset-top);left:0;right:0;text-align:center;pointer-events:none;padding:10px;text-shadow:0 2px 8px #000}h1{font:normal 27px Georgia,serif;letter-spacing:.2em;margin:0}small{font:10px monospace;color:#c8af8e}#hud{position:fixed;bottom:0;left:0;right:0;padding:16px 10px max(20px,env(safe-area-inset-bottom));background:linear-gradient(transparent,#090d15f0 25%);text-align:center}#actions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px}button{min-height:45px;padding:9px 13px;border:1px solid #ab8b5e;border-radius:8px;background:#20252b;color:#f5dcac;font-weight:650}#inspect{position:fixed;right:9px;top:83px;z-index:3}#report{display:none;position:fixed;z-index:4;inset:120px 8px 120px;overflow:auto;background:#0c1722f7;border:1px solid #bba77d;border-radius:10px;padding:12px;white-space:pre-wrap;font:11px/1.5 monospace}#report.open{display:block}#report button{margin-right:8px}#error{position:fixed;top:28%;left:10px;right:10px;color:#ff9e80;white-space:pre-wrap;background:#180c0be8;z-index:10}
+</style></head><body><div id="stage"></div><header><h1>YENNEFER</h1><small>SODDEN HILL · <span id="build">yennefer-v1</span></small></header><button id="inspect">◉ INSPECT</button><div id="report"><button id="copy">COPY</button><button id="close">CLOSE</button><pre id="data"></pre></div><div id="hud"><div id="status">SEALED · AWAITING IGNITION</div><div id="actions"><button data-action="wood">🌲 FUEL</button><button data-action="oxygen">◌ OXYGEN</button><button data-action="spark">🔥 IGNITE</button><button data-action="wind">↝ STIR</button><button data-action="reset">↻ RESET</button></div></div><div id="error"></div>
+<script type="module">
+import * as T from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+try{
+const BUILD='yennefer-v1',R=10.25,INNER=10.07,SEED=741,STEP=1/60;
+const scene=new T.Scene();scene.background=new T.Color(0x070d18);const world=new T.Group();scene.add(world);
+const renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;document.querySelector('#stage').append(renderer.domElement);
+const camera=new T.PerspectiveCamera(42,innerWidth/innerHeight,.1,130);
+scene.add(new T.HemisphereLight(0x8ca7c5,0x171913,1.7));const sun=new T.DirectionalLight(0xffc58c,2.2);sun.position.set(-6,12,8);scene.add(sun);
+const firelight=new T.PointLight(0xff571d,0,19);scene.add(firelight);
+const mat=(c,r=1)=>new T.MeshStandardMaterial({color:c,roughness:r});
+const earth=mat(0x59634b),soil=mat(0x4d4939),stone=mat(0x70746c),wall=mat(0x8b8c7f),wood=mat(0x56402a),char=mat(0x181d1b),leaf=mat(0x304a36),leaf2=mat(0x435c3a),brass=new T.MeshStandardMaterial({color:0xb18b52,metalness:.75,roughness:.3});
+const flameMat=new T.MeshBasicMaterial({color:0xffb04a,transparent:true,opacity:.86,depthWrite:false});
+function mesh(parent,g,m,x=0,y=0,z=0){const o=new T.Mesh(g,m);o.position.set(x,y,z);parent.add(o);return o}
+const glass=mesh(world,new T.SphereGeometry(R,64,40),new T.MeshPhysicalMaterial({color:0x9edce4,roughness:.09,transparent:true,opacity:.065,depthWrite:false,side:T.FrontSide}));glass.userData.external=true;
+const inner=mesh(world,new T.SphereGeometry(INNER,64,40),new T.MeshPhysicalMaterial({color:0xa8d5d9,roughness:.1,transparent:true,opacity:.035,depthWrite:false,side:T.BackSide}));inner.userData.external=true;
+const ring=mesh(world,new T.TorusGeometry(R,.09,8,100),brass);ring.rotation.x=Math.PI/2;ring.userData.external=true;
+let seed=SEED;function rand(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296}
+const N=53,S=8.3,heights=new Float32Array(N*N);
+const idx=(i,j)=>j*N+i;
+function height(x,z){const ridge=1.05*Math.exp(-((z+3.1)/2.1)**2),fold=.48*Math.sin(x*.85+z*.43)+.26*Math.cos(z*1.8-x*.32),knoll=.85*Math.exp(-((x-5.4)**2+(z+1.8)**2)/4.8);return -2.9+ridge+fold+knoll+.22*Math.sin(x*2.2)*Math.cos(z*1.6)}
+for(let j=0;j<N;j++)for(let i=0;i<N;i++){let x=(i/(N-1)*2-1)*S,z=(j/(N-1)*2-1)*S;heights[idx(i,j)]=height(x,z)}
+function H(x,z){const u=T.MathUtils.clamp((x/S+1)*.5*(N-1),0,N-1.001),v=T.MathUtils.clamp((z/S+1)*.5*(N-1),0,N-1.001),i=Math.floor(u),j=Math.floor(v),a=u-i,b=v-j;return T.MathUtils.lerp(T.MathUtils.lerp(heights[idx(i,j)],heights[idx(i+1,j)],a),T.MathUtils.lerp(heights[idx(i,j+1)],heights[idx(i+1,j+1)],a),b)}
+const positions=[],colors=[],indices=[],c=new T.Color();for(let j=0;j<N;j++)for(let i=0;i<N;i++){const x=(i/(N-1)*2-1)*S,z=(j/(N-1)*2-1)*S,y=heights[idx(i,j)];positions.push(x,y,z);c.setHSL(.25+Math.sin(x*.9+z)*.02,.16+Math.max(0,z)*.008,.23+(y+3)*.028);colors.push(c.r,c.g,c.b)}
+for(let j=0;j<N-1;j++)for(let i=0;i<N-1;i++){const a=idx(i,j),b=a+1,d=a+N;indices.push(a,d,b,b,d,d+1)}
+const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(positions,3));geo.setAttribute('color',new T.Float32BufferAttribute(colors,3));geo.setIndex(indices);geo.computeVertexNormals();
+const terrain=mesh(world,geo,new T.MeshStandardMaterial({vertexColors:true,roughness:.96,side:T.DoubleSide}));terrain.name='heightfield';
+const inhabitants=new T.Group();world.add(inhabitants);const trunks=new T.Group();inhabitants.add(trunks);const crowns=new T.Group();inhabitants.add(crowns);
+const cylinder=new T.CylinderGeometry(1,1,1,6),cone=new T.ConeGeometry(1,1,7),cube=new T.BoxGeometry(1,1,1);
+function block(x,y,z,sx,sy,sz,m=wall,rot=0){const o=mesh(inhabitants,cube,m,x,y,z);o.scale.set(sx,sy,sz);o.rotation.y=rot;return o}
+function tree(x,z,s=1){const y=H(x,z),h=(1.25+rand()*.95)*s;const t=mesh(trunks,cylinder,wood,x,y+h*.37,z);t.scale.set(.12*s,h*.74,.12*s);const crown=mesh(crowns,cone,rand()<.35?leaf2:leaf,x,y+h*1.13,z);crown.scale.set(.68*s,h*1.4,.68*s);return {x,z,y,fuel:1.3*s,heat:0,ash:0,flame:0,crown,trunk:t,kind:'tree'}}
+const fuels=[];
+for(let i=0;i<115;i++){const x=(rand()*2-1)*7.45,z=(rand()*2-1)*7.5;if(z<-.6||Math.hypot(x-5.4,z+1.8)<2.3||Math.hypot(x+3.5,z+3.6)<2.6||Math.abs(x)<.7&&z<2)continue;fuels.push(tree(x,z,.65+rand()*.65))}
+function timber(x,z,s=1){const y=H(x,z);const o=block(x,y+.3*s,z,.34*s,.6*s,.35*s,wood);return {x,z,y,fuel:2*s,heat:0,ash:0,flame:0,crown:o,trunk:o,kind:'timber'}}
+function keep(){const x=-3.65,z=-3.7,y=H(x,z);for(let k=0;k<4;k++){const a=k*Math.PI/2;block(x+Math.cos(a)*1.2,y+.63,z+Math.sin(a)*1.2,2.8,1.26,.38,wall,a)}for(let i=0;i<4;i++){const xx=x-1.4+i*.92;block(xx,y+1.4,z-1.22,.65,.45,.68,wall);fuels.push(timber(xx,z-1.12,.8))}for(let k=0;k<4;k++){const a=k*Math.PI/2;block(x+Math.cos(a)*1.35,y+1.4,z+Math.sin(a)*1.35,.6,.55,.6,stone)}}
+keep();
+const rockX=5.35,rockZ=-2.05,rockY=H(rockX,rockZ);const rock=mesh(inhabitants,new T.DodecahedronGeometry(1.1,0),stone,rockX,rockY+.45,rockZ);rock.scale.set(1.65,.8,1.4);rock.rotation.y=.5;
+const yen=mesh(inhabitants,new T.ConeGeometry(.19,.85,8),mat(0x161a23),rockX,rockY+1.23,rockZ);yen.rotation.z=.1;
+const yHead=mesh(inhabitants,new T.SphereGeometry(.14,9,7),mat(0xb8a18b),rockX,rockY+1.79,rockZ);
+let state,wind=0,events=[];const initialO2=220;
+function reset(){state={oxygen:initialO2,co2:0,ash:0,heat:0,consumed:0,addedFuel:0,addedO2:0,time:0,ignitions:0};wind=0;events=[];for(const f of fuels){f.heat=0;f.flame=0;f.ash=0;f.fuel=f.kind==='tree'?1.3:1.6;f.crown.visible=true;f.crown.material=f.kind==='tree'?leaf:wood}firelight.intensity=0;updateHUD()}
+reset();
+const sparks=[];const emberGeo=new T.SphereGeometry(.09,6,5);
+function ignite(){let target=fuels.filter(f=>f.fuel>.01).sort((a,b)=>Math.hypot(a.x-rockX,a.z-rockZ)-Math.hypot(b.x-rockX,b.z-rockZ))[0];if(target){target.heat+=5;state.ignitions++;events.push('ignition at '+target.x.toFixed(1)+','+target.z.toFixed(1))}}
+function addFuel(){const x=(rand()*2-1)*6.5,z=(rand()*2-1)*6.5;fuels.push(tree(x,z,.8));state.addedFuel+=1.3;events.push('fuel admitted')}
+function action(a){if(a==='wood')addFuel();if(a==='oxygen'){state.oxygen+=30;state.addedO2+=30;events.push('oxygen admitted +30')}if(a==='spark')ignite();if(a==='wind'){wind=wind?0:1;events.push('stir '+wind)}if(a==='reset')reset();updateHUD()}
+document.querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>action(b.dataset.action));
+function simulate(dt){state.time+=dt;let active=0,energy=0;const hot=fuels.filter(f=>f.heat>.2);for(const f of fuels){if(f.fuel<=0){f.heat=Math.max(0,f.heat-dt*.9);continue}
+let received=0;for(const h of hot){if(h===f)continue;const dx=f.x-h.x,dz=f.z-h.z,d2=dx*dx+dz*dz;if(d2<10){const leeward=wind?Math.max(.2,1+dx*.32):1;received+=h.flame*dt*1.9*leeward/(.6+d2)}}
+f.heat=Math.max(0,f.heat+received-dt*.15);
+const rate=f.heat>1.15&&state.oxygen>.0001?Math.min(f.fuel,state.oxygen/.9,dt*(.12+Math.min(1.8,f.heat*.16))):0;
+if(rate>0){f.fuel-=rate;state.oxygen-=rate*.9;state.co2+=rate*.9;state.ash+=rate*.1;state.consumed+=rate;f.heat+=rate*2.8;f.flame=Math.min(1,f.flame+dt*3);active++;energy+=f.flame}else f.flame=Math.max(0,f.flame-dt*2);
+if(f.fuel<=.001){f.fuel=0;f.crown.material=char;f.crown.scale.y*=.8}
+}state.heat=fuels.reduce((a,f)=>a+f.heat,0);firelight.intensity=energy?Math.min(90,energy*13):0;firelight.position.set(rockX,rockY+3,rockZ);if(Math.floor(state.time*3)!==Math.floor((state.time-dt)*3))updateHUD()}
+function updateHUD(){const burning=fuels.filter(f=>f.flame>.05).length;document.querySelector('#status').textContent='O₂ '+state.oxygen.toFixed(1)+' · CO₂ '+state.co2.toFixed(1)+' · BURNING '+burning+' · FUEL '+fuels.reduce((a,f)=>a+f.fuel,0).toFixed(1)}
+let az=.65,el=.38,dist=29,down=new Map();renderer.domElement.addEventListener('pointerdown',e=>{down.set(e.pointerId,[e.clientX,e.clientY]);renderer.domElement.setPointerCapture(e.pointerId)});renderer.domElement.addEventListener('pointermove',e=>{if(!down.has(e.pointerId))return;const p=down.get(e.pointerId);if(down.size===1){az+=(e.clientX-p[0])*.006;el=T.MathUtils.clamp(el+(e.clientY-p[1])*.005,-.1,1.3)}else{dist=T.MathUtils.clamp(dist+(e.clientY-p[1])*.04,19,48)}down.set(e.pointerId,[e.clientX,e.clientY])});for(const name of ['pointerup','pointercancel'])renderer.domElement.addEventListener(name,e=>down.delete(e.pointerId));renderer.domElement.addEventListener('wheel',e=>{dist=T.MathUtils.clamp(dist+e.deltaY*.012,19,48)},{passive:true});
+const containment={radius:INNER,terrainMax:Math.max(...heights),sceneGravity:[0,-1,0]};
+function inspect(){return {build:BUILD,seed:SEED,simulation:{time:state.time,step:STEP,gravity:[0,-1,0],wind},inventory:{oxygen:state.oxygen,oxygenIntroduced:state.addedO2,co2:state.co2,ash:state.ash,consumedFuel:state.consumed,remainingFuel:fuels.reduce((a,f)=>a+f.fuel,0),fuelIntroduced:state.addedFuel,oxygenConservationError:initialO2+state.addedO2-state.oxygen-state.co2,heat:state.heat},geometry:{terrain:'53x53 height field',fuelObjects:fuels.length,containment},events:events.slice(-30),render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles}}}
+globalThis.BaubleInspect=inspect;const panel=document.querySelector('#report');document.querySelector('#inspect').onclick=()=>{panel.classList.toggle('open');document.querySelector('#data').textContent=JSON.stringify(inspect(),null,2)};document.querySelector('#close').onclick=()=>panel.classList.remove('open');document.querySelector('#copy').onclick=async()=>{await navigator.clipboard.writeText(JSON.stringify(inspect(),null,2))};
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+let prev=performance.now(),acc=0;function frame(now){requestAnimationFrame(frame);acc+=Math.min(.06,(now-prev)/1000);prev=now;let n=0;while(acc>=STEP&&n++<5){simulate(STEP);acc-=STEP}camera.position.set(Math.sin(az)*Math.cos(el)*dist,Math.sin(el)*dist,Math.cos(az)*Math.cos(el)*dist);camera.lookAt(0,-1,0);renderer.render(scene,camera)}requestAnimationFrame(frame);
+}catch(e){document.querySelector('#error').textContent=String(e.stack||e)}
+</script></body></html>
