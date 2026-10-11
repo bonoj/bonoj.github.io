@@ -19,7 +19,7 @@
 </script><script type="module">
 import * as T from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
 // One canonical build identity: UI and inspection report share this constant.
-const BUILD='hermeticon-v5-shell-v7';
+const BUILD='hermeticon-v6-shell-v7';
 document.querySelector('#build').textContent=BUILD;
 document.querySelector('#fresh').onclick=()=>{const u=new URL(location.href);u.searchParams.set('fresh',Date.now().toString(36));location.replace(u.href)};
 
@@ -102,7 +102,7 @@ function verifyInvariants(){
 
 const hermeticon=(()=>{
 const N=100000,R=9.83,G=44,C=2*R/G,xyz=new Float32Array(N*3),v=new Float32Array(N*3),rgb=new Float32Array(N*3),head=new Int32Array(G*G*G);
-let seed=918273,contacts=0,bounces=0,ticks=0,mode=2,captured=0,impulses=0,lastImpulseStep=-1,lastImpulseBeads=0,lastImpulseMomentum=0;const impulseHistory=[];const swallowed=new Uint8Array(N);const phages=[];let phageConsumed=0,phageSpawns=0;const beadRadius=.095,phageBaseRadius=.3,phageGeo=new T.IcosahedronGeometry(1,2),phageMat=new T.MeshStandardMaterial({color:0xf22c43,roughness:.48,metalness:.08,emissive:0x4d020b,emissiveIntensity:.22});
+let seed=918273,contacts=0,bounces=0,ticks=0,mode=2,captured=0,impulses=0,lastImpulseStep=-1,lastImpulseBeads=0,lastImpulseMomentum=0;const impulseHistory=[];const swallowed=new Uint8Array(N);const phages=[];let phageConsumed=0,phageSpawns=0,phageCaptures=0,phageDigestions=0,phageBounces=0,peakFeedingPerStep=0;const FEED_RATE=20,DIGEST_TIME=2;let feedCursor=0;const beadRadius=.095,phageBaseRadius=.3,phageGeo=new T.IcosahedronGeometry(1,2),phageMat=new T.MeshStandardMaterial({color:0xf22c43,roughness:.48,metalness:.08,emissive:0x4d020b,emissiveIntensity:.22});
 const rand=()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296);
 for(let i=0;i<N;i++){const j=i*3;let x,y,z;do{x=(rand()*2-1)*8.8;y=(rand()*2-1)*8.8;z=(rand()*2-1)*8.8}while(x*x+y*y+z*z>76);xyz[j]=x;xyz[j+1]=y;xyz[j+2]=z;v[j]=(rand()-.5)*9;v[j+1]=(rand()-.5)*9;v[j+2]=(rand()-.5)*9;const c=new T.Color().setHSL(.47+rand()*.27,.8,.6);rgb[j]=c.r;rgb[j+1]=c.g;rgb[j+2]=c.b}
 const geo=new T.BufferGeometry();geo.setAttribute('position',new T.BufferAttribute(xyz,3).setUsage(T.DynamicDrawUsage));geo.setAttribute('color',new T.BufferAttribute(rgb,3));
@@ -113,7 +113,7 @@ gravityButton.onclick=()=>{mode=(mode+1)%modes.length;labels()};labels();
 document.querySelector('#spawnPhage').onclick=()=>{
 let x,y,z;do{x=(rand()*2-1)*8.5;y=(rand()*2-1)*8.5;z=(rand()*2-1)*8.5}while(x*x+y*y+z*z>(R-phageBaseRadius-.1)**2);
 const mesh=new T.Mesh(phageGeo,phageMat);mesh.position.set(x,y,z);mesh.scale.setScalar(phageBaseRadius);world.add(mesh);
-phages.push({x,y,z,vx:(rand()-.5)*7,vy:(rand()-.5)*7,vz:(rand()-.5)*7,r:phageBaseRadius,eaten:0,mesh});phageSpawns++;
+phages.push({id:phageSpawns+1,x,y,z,vx:(rand()-.5)*7,vy:(rand()-.5)*7,vz:(rand()-.5)*7,r:phageBaseRadius,eaten:0,credit:0,feedingStep:0,peakFeedingStep:0,alive:true,host:null,digest:0,initialVolume:phageBaseRadius**3,mesh});phageSpawns++;
 };
 document.querySelector('#impulse').onclick=()=>{
 let affected=0,momentum=0;
@@ -123,7 +123,22 @@ impulses++;lastImpulseStep=ticks;lastImpulseBeads=affected;lastImpulseMomentum=m
 impulseHistory.push({step:ticks,affected,momentum:+momentum.toFixed(2)});if(impulseHistory.length>12)impulseHistory.shift();
 };
 function advance(dt){
-for(const p of phages){p.x+=p.vx*dt;p.y+=p.vy*dt;p.z+=p.vz*dt;const d=Math.hypot(p.x,p.y,p.z),limit=R-p.r-.01;if(d>limit&&d>0){const nx=p.x/d,ny=p.y/d,nz=p.z/d,dot=p.vx*nx+p.vy*ny+p.vz*nz;p.x=nx*limit;p.y=ny*limit;p.z=nz*limit;if(dot>0){p.vx-=1.9*dot*nx;p.vy-=1.9*dot*ny;p.vz-=1.9*dot*nz}}p.mesh.position.set(p.x,p.y,p.z)}
+for(const p of phages){if(!p.alive)continue;p.feedingStep=0;p.credit=Math.min(1,p.credit+FEED_RATE*dt);p.x+=p.vx*dt;p.y+=p.vy*dt;p.z+=p.vz*dt;const d=Math.hypot(p.x,p.y,p.z),limit=R-p.r-.01;if(d>limit&&d>0){const nx=p.x/d,ny=p.y/d,nz=p.z/d,dot=p.vx*nx+p.vy*ny+p.vz*nz;p.x=nx*limit;p.y=ny*limit;p.z=nz*limit;if(dot>0){p.vx-=1.9*dot*nx;p.vy-=1.9*dot*ny;p.vz-=1.9*dot*nz}}p.mesh.position.set(p.x,p.y,p.z)}
+// Phage contact: comparable sizes rebound; >=2:1 radius captures on contact.
+for(let a=0;a<phages.length;a++){const p=phages[a];if(!p.alive)continue;for(let b=a+1;b<phages.length;b++){const q=phages[b];if(!q.alive)continue;const dx=q.x-p.x,dy=q.y-p.y,dz=q.z-p.z,d=Math.hypot(dx,dy,dz);if(d>=p.r+q.r)continue;const big=p.r>=q.r?p:q,small=big===p?q:p;if(big.r>=2*small.r){small.alive=false;small.host=big.id;small.digest=0;small.mesh.visible=true;phageCaptures++;continue}
+const nx=d>1e-8?dx/d:1,ny=d>1e-8?dy/d:0,nz=d>1e-8?dz/d:0,overlap=p.r+q.r-d,shift=overlap*.5+.0001;
+p.x-=nx*shift;p.y-=ny*shift;p.z-=nz*shift;q.x+=nx*shift;q.y+=ny*shift;q.z+=nz*shift;
+const rel=(q.vx-p.vx)*nx+(q.vy-p.vy)*ny+(q.vz-p.vz)*nz;
+if(rel<0){const imp=-.95*rel;p.vx-=imp*nx;p.vy-=imp*ny;p.vz-=imp*nz;q.vx+=imp*nx;q.vy+=imp*ny;q.vz+=imp*nz}
+p.mesh.position.set(p.x,p.y,p.z);q.mesh.position.set(q.x,q.y,q.z);phageBounces++;
+}}
+for(const p of phages){if(p.alive||p.host===null)continue;const host=phages.find(q=>q.id===p.host);if(!host)continue;
+const before=p.digest;p.digest=Math.min(1,p.digest+dt/DIGEST_TIME);
+const transferred=(p.initialVolume+p.eaten*beadRadius**3)*(p.digest-before);
+host.initialVolume+=transferred;host.r=Math.cbrt(host.initialVolume+host.eaten*beadRadius**3);host.mesh.scale.setScalar(host.r);
+const offset=host.r+p.r*(1-p.digest)*.6;p.mesh.position.set(host.x+offset,host.y,host.z);p.mesh.scale.setScalar(p.r*(1-p.digest));
+if(p.digest>=1){p.mesh.visible=false;phageDigestions++}
+}
 head.fill(-1);
 for(let i=0;i<N;i++){const j=i*3;if(swallowed[i])continue;let x=xyz[j],y=xyz[j+1],z=xyz[j+2],vx=v[j],vy=v[j+1],vz=v[j+2];
 vx+=(-z*.3+Math.sin(y+ticks*.01))*.1*dt;vy+=(x*.3+Math.cos(z+ticks*.01))*.1*dt;vz+=(y*.3+Math.sin(x+ticks*.01))*.1*dt;
@@ -136,14 +151,20 @@ x+=vx*dt;y+=vy*dt;z+=vz*dt;
 if(mode===4&&x*x+y*y+z*z<.3025){swallowed[i]=1;captured++;xyz[j]=xyz[j+1]=xyz[j+2]=0;v[j]=v[j+1]=v[j+2]=0;continue}
 const d2=x*x+y*y+z*z;if(d2>R*R){const d=Math.sqrt(d2),nx=x/d,ny=y/d,nz=z/d,dot=vx*nx+vy*ny+vz*nz;x=nx*(R-.002);y=ny*(R-.002);z=nz*(R-.002);if(dot>0){vx-=1.96*dot*nx;vy-=1.96*dot*ny;vz-=1.96*dot*nz;bounces++}}
 let eaten=false;
-for(const p of phages){const dx=x-p.x,dy=y-p.y,dz=z-p.z,contact=p.r+beadRadius;if(dx*dx+dy*dy+dz*dz<=contact*contact){swallowed[i]=2;p.eaten++;phageConsumed++;p.r=Math.cbrt(phageBaseRadius**3+p.eaten*beadRadius**3);p.mesh.scale.setScalar(p.r);xyz[j]=xyz[j+1]=xyz[j+2]=0;v[j]=v[j+1]=v[j+2]=0;rgb[j]=rgb[j+1]=rgb[j+2]=0;eaten=true;break}}
+// Frozen radius and one bead per available feeding credit; rotate priority across steps.
+for(let k=0;k<phages.length;k++){const p=phages[(feedCursor+k)%phages.length];if(!p.alive||p.credit<1)continue;
+const dx=x-p.x,dy=y-p.y,dz=z-p.z,contact=p.r+beadRadius;
+if(dx*dx+dy*dy+dz*dz<=contact*contact){p.credit-=1;p.eaten++;p.feedingStep++;phageConsumed++;swallowed[i]=2;xyz[j]=xyz[j+1]=xyz[j+2]=0;v[j]=v[j+1]=v[j+2]=0;rgb[j]=rgb[j+1]=rgb[j+2]=0;eaten=true;break}}
+
 if(eaten)continue;
 xyz[j]=x;xyz[j+1]=y;xyz[j+2]=z;v[j]=vx;v[j+1]=vy;v[j+2]=vz;
 const a=Math.max(0,Math.min(G-1,((x+R)/C)|0)),b=Math.max(0,Math.min(G-1,((y+R)/C)|0)),c=Math.max(0,Math.min(G-1,((z+R)/C)|0)),h=(a*G+b)*G+c,k=head[h];
 if(k>=0){const q=k*3,dx=x-xyz[q],dy=y-xyz[q+1],dz=z-xyz[q+2],dd=dx*dx+dy*dy+dz*dz;if(dd>1e-9&&dd<.19*.19){const inv=1/Math.sqrt(dd),nx=dx*inv,ny=dy*inv,nz=dz*inv,rel=(vx-v[q])*nx+(vy-v[q+1])*ny+(vz-v[q+2])*nz;if(rel<0){const impulse=-.96*rel;v[j]+=impulse*nx;v[j+1]+=impulse*ny;v[j+2]+=impulse*nz;v[q]-=impulse*nx;v[q+1]-=impulse*ny;v[q+2]-=impulse*nz;contacts++}}}head[h]=i}
+for(const p of phages){if(!p.alive)continue;p.r=Math.cbrt(p.initialVolume+p.eaten*beadRadius**3);p.mesh.scale.setScalar(p.r);p.peakFeedingStep=Math.max(p.peakFeedingStep,p.feedingStep);peakFeedingPerStep=Math.max(peakFeedingPerStep,p.feedingStep)}
+if(phages.length)feedCursor=(feedCursor+1)%phages.length;
 ticks++;geo.attributes.position.needsUpdate=true;if(phageConsumed)geo.attributes.color.needsUpdate=true}
-function inspect(){let outside=0,energy=0,radial=Array(10).fill(0),radialMomentum=Array(10).fill(0),angular=[0,0,0],active=0;for(let i=0;i<N;i++){if(swallowed[i])continue;active++;const j=i*3,x=xyz[j],y=xyz[j+1],z=xyz[j+2],vx=v[j],vy=v[j+1],vz=v[j+2],r2=x*x+y*y+z*z;if(r2>R*R+.02)outside++;const shell=Math.min(9,Math.floor(Math.sqrt(r2)/R*10));radial[shell]++;if(r2>1e-8)radialMomentum[shell]+=(x*vx+y*vy+z*vz)/Math.sqrt(r2);energy+=vx*vx+vy*vy+vz*vz;angular[0]+=y*vz-z*vy;angular[1]+=z*vx-x*vz;angular[2]+=x*vy-y*vx}return{count:N,active,captured,phageConsumed,phageSpawns,phages:phages.map(p=>({position:[+p.x.toFixed(2),+p.y.toFixed(2),+p.z.toFixed(2)],radius:+p.r.toFixed(3),eaten:p.eaten})),contacts,bounces,ticks,outside,gravity:modes[mode],impulses,lastImpulseStep,lastImpulseBeads,lastImpulseMomentum:+lastImpulseMomentum.toFixed(2),secondsSinceImpulse:lastImpulseStep<0?null:+((ticks-lastImpulseStep)*.008).toFixed(3),impulseHistory,radialDensityShellCounts:radial,radialMomentumByShell:radialMomentum.map(value=>+value.toFixed(2)),meanSpeedSquared:active?+(energy/active).toFixed(3):0,angularMomentumPerBead:angular.map(value=>+(value/N).toFixed(3)),collisionModel:'one candidate per cell; approximate O(N) contacts',captureModel:'black-hole captures and phage consumption tracked separately; phage volume grows by consumed bead volume'}}
-registerInvariant('hermeticon-population',()=>xyz.length===N*3&&captured<=N);registerInvariant('hermeticon-finite',()=>Number.isFinite(xyz[0])&&Number.isFinite(v[0]));
+function inspect(){let outside=0,energy=0,radial=Array(10).fill(0),radialMomentum=Array(10).fill(0),angular=[0,0,0],active=0;for(let i=0;i<N;i++){if(swallowed[i])continue;active++;const j=i*3,x=xyz[j],y=xyz[j+1],z=xyz[j+2],vx=v[j],vy=v[j+1],vz=v[j+2],r2=x*x+y*y+z*z;if(r2>R*R+.02)outside++;const shell=Math.min(9,Math.floor(Math.sqrt(r2)/R*10));radial[shell]++;if(r2>1e-8)radialMomentum[shell]+=(x*vx+y*vy+z*vz)/Math.sqrt(r2);energy+=vx*vx+vy*vy+vz*vz;angular[0]+=y*vz-z*vy;angular[1]+=z*vx-x*vz;angular[2]+=x*vy-y*vx}return{count:N,active,captured,phageConsumed,phageSpawns,phageCaptures,phageDigestions,phageBounces,peakFeedingPerStep,feedRatePerSecond:FEED_RATE,digestSeconds:DIGEST_TIME,accountedBeads:active+captured+phageConsumed,phages:phages.map(p=>({id:p.id,alive:p.alive,host:p.host,digestion:+p.digest.toFixed(3),position:[+p.x.toFixed(2),+p.y.toFixed(2),+p.z.toFixed(2)],radius:+p.r.toFixed(3),eaten:p.eaten,feedingCredit:+p.credit.toFixed(3),lastStepFed:p.feedingStep,peakFeedingStep:p.peakFeedingStep})),contacts,bounces,ticks,outside,gravity:modes[mode],impulses,lastImpulseStep,lastImpulseBeads,lastImpulseMomentum:+lastImpulseMomentum.toFixed(2),secondsSinceImpulse:lastImpulseStep<0?null:+((ticks-lastImpulseStep)*.008).toFixed(3),impulseHistory,radialDensityShellCounts:radial,radialMomentumByShell:radialMomentum.map(value=>+value.toFixed(2)),meanSpeedSquared:active?+(energy/active).toFixed(3):0,angularMomentumPerBead:angular.map(value=>+(value/N).toFixed(3)),collisionModel:'one candidate per cell; approximate O(N) contacts',captureModel:'black-hole captures and phage consumption tracked separately; phage volume grows by consumed bead volume'}}
+registerInvariant('hermeticon-population',()=>xyz.length===N*3&&captured+phageConsumed<=N);registerInvariant('hermeticon-finite',()=>Number.isFinite(xyz[0])&&Number.isFinite(v[0]));
 globalThis.HermeticonInspect=inspect;document.querySelector('#status').textContent='100,000 BEADS · CHAOTIC CONTACTS';return{advance,inspect}
 })();
 
