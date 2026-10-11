@@ -187,6 +187,18 @@ const filmSurface=new CSS3DObject(film);
 filmSurface.position.set(0,-.5,-3.44);
 filmSurface.scale.set(.01,.01,.01);
 cssScene.add(filmSurface);
+// Native HTML5 playback probe: same Drive bytes, without Google's preview UI.
+const nativeVideo=document.createElement('video');
+nativeVideo.controls=true;nativeVideo.playsInline=true;nativeVideo.preload='metadata';
+nativeVideo.style.cssText='width:910px;height:520px;background:#090b12;object-fit:contain;pointer-events:auto';
+const nativeSurface=new CSS3DObject(nativeVideo);
+nativeSurface.position.copy(filmSurface.position);
+nativeSurface.scale.copy(filmSurface.scale);
+nativeSurface.visible=false;
+cssScene.add(nativeSurface);
+const nativeEvents=[],nativeLimit=48;
+function noteNative(type){nativeEvents.push({ms:Math.round(performance.now()),type,readyState:nativeVideo.readyState,networkState:nativeVideo.networkState,time:+nativeVideo.currentTime.toFixed(2),error:nativeVideo.error?{code:nativeVideo.error.code,message:nativeVideo.error.message}:null});if(nativeEvents.length>nativeLimit)nativeEvents.shift()}
+for(const event of ['loadstart','loadedmetadata','canplay','playing','pause','waiting','seeking','seeked','ended','stalled','suspend','error'])nativeVideo.addEventListener(event,()=>noteNative(event));
 // WebGL depth proxy punches a transparent window through the canvas.
 // Foreground meshes remain visible; background meshes fail the depth test.
 const windowDepth=new T.Mesh(new T.PlaneGeometry(9.1,5.2),new T.MeshBasicMaterial({color:0x000000,transparent:true,opacity:0,blending:T.NoBlending,depthWrite:true,depthTest:true,side:T.DoubleSide,toneMapped:false}));
@@ -206,7 +218,7 @@ const nativeIslands=[
  [[-4.5,-3.05],[4.5,-3.05],[4.5,-2.43],[-4.5,-2.43]]
 ];
 function updateControlWindow(){
- if(!filmSurface.visible||camera.position.z<=filmSurface.position.z+.05){gestureShield.style.clipPath='none';return}
+ if((!filmSurface.visible&&!nativeSurface.visible)||camera.position.z<=filmSurface.position.z+.05){gestureShield.style.clipPath='none';return}
  camera.updateMatrixWorld();
  const project=([x,y])=>{const v=new T.Vector3(x,y,-3.435).project(camera);return ((v.x+1)*50).toFixed(3)+'% '+((1-v.y)*50).toFixed(3)+'%'};
  const contours=['0% 0%','100% 0%','100% 100%','0% 100%','0% 0%'];
@@ -214,20 +226,30 @@ function updateControlWindow(){
  gestureShield.style.clipPath='polygon(evenodd, '+contours.join(', ')+')';
 }
 const tapRay=new T.Raycaster(),tapNdc=new T.Vector2();
+const directDriveUrl='https://drive.google.com/uc?export=download&id=1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC';
 const mediaSources=[
  {name:'JON',kind:'drive',url:'https://drive.google.com/file/d/1yYT3hrKjVZ10kPZbssS7ZDtmhfkr4caC/preview?autoplay=1',title:'The Death Knight and the Huntress — Jonathan Lott'},
- {name:'YOUTUBE',kind:'youtube',url:'https://www.youtube-nocookie.com/embed/cetw-9l9V9g?playsinline=1&rel=0&enablejsapi=1&origin='+encodeURIComponent(location.origin),title:'Warlockracy — Baldur’s Gate 3'}
+ {name:'YOUTUBE',kind:'youtube',url:'https://www.youtube-nocookie.com/embed/cetw-9l9V9g?playsinline=1&rel=0&enablejsapi=1&origin='+encodeURIComponent(location.origin),title:'Warlockracy — Baldur’s Gate 3'},
+ {name:'DIRECT DRIVE',kind:'native',url:directDriveUrl,title:'The Death Knight and the Huntress — direct MP4 probe'}
 ];
 let sourceIndex=0,playerPlaying=false;
 const sourceSwitch=document.querySelector('#sourceSwitch');
 sourceSwitch.onclick=()=>{
  sourceIndex=(sourceIndex+1)%mediaSources.length;
  const source=mediaSources[sourceIndex];
- film.src=source.url;film.title=source.title;playerPlaying=false;
+ if(source.kind==='native'){
+  filmSurface.visible=false;film.style.pointerEvents='none';
+  nativeSurface.visible=true;nativeVideo.src=source.url;nativeVideo.load();
+ }else{
+  nativeVideo.pause();nativeVideo.removeAttribute('src');nativeVideo.load();nativeSurface.visible=false;
+  film.src=source.url;film.title=source.title;film.style.pointerEvents='auto';
+ }
+ playerPlaying=false;
  sourceSwitch.textContent='SOURCE · '+source.name;
  document.querySelector('#status').textContent='THE FROZEN WOOD · '+source.name+' · ORBIT / PINCH';
 };
 function tapVideo(x,y){
+ if(mediaSources[sourceIndex].kind==='native')return;
  if(!filmSurface.visible)return;
  tapNdc.set(x/innerWidth*2-1,1-y/innerHeight*2);
  camera.updateMatrixWorld();world.updateMatrixWorld(true);
@@ -240,7 +262,7 @@ function tapVideo(x,y){
  // Google Drive exposes no supported remote playback API.
  // Keep the shield intact so native iframe gestures never steal the camera.
 }
-function positionFilm(){filmSurface.visible=camera.position.z>filmSurface.position.z+.05;windowDepth.visible=filmSurface.visible;cssRenderer.render(cssScene,camera);updateControlWindow()}
+function positionFilm(){const visible=camera.position.z>filmSurface.position.z+.05;filmSurface.visible=visible&&mediaSources[sourceIndex].kind!=='native';nativeSurface.visible=visible&&mediaSources[sourceIndex].kind==='native';windowDepth.visible=visible;cssRenderer.render(cssScene,camera);updateControlWindow()}
 let angle=.6,elev=.27,dist=27,targetY=.3,lastX=0,lastY=0;
 const pointers=new Map();const tapStarts=new Map();let pinch=0;document.querySelector('#stage').addEventListener('pointerdown',e=>{tapStarts.set(e.pointerId,{x:e.clientX,y:e.clientY,moved:false,multi:pointers.size>0});if(pointers.size)for(const t of tapStarts.values())t.multi=true;pointers.set(e.pointerId,[e.clientX,e.clientY]);lastX=e.clientX;lastY=e.clientY;document.querySelector('#stage').setPointerCapture(e.pointerId)});
 document.querySelector('#stage').addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const tap=tapStarts.get(e.pointerId);if(tap&&Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>9)tap.moved=true;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);const ps=[...pointers.values()];if(ps.length===1){angle+=(e.clientX-old[0])*.006;elev=T.MathUtils.clamp(elev+(e.clientY-old[1])*.004,-.4,1.2)}else if(ps.length===2){const d=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]);if(pinch)dist=T.MathUtils.clamp(dist*pinch/d,17,58);pinch=d}});
@@ -253,7 +275,7 @@ const round=(n,d=2)=>Number.isFinite(n)?+n.toFixed(d):null;
 function inspectWorld(){
  camera.updateMatrixWorld();world.updateMatrixWorld(true);
  const center=new T.Vector3(0,0,0).project(camera);
- const report={build:'palehorse-010',source:mediaSources[sourceIndex].name,media:mediaSources[sourceIndex].kind,controlWindow:'separate play and scrub native islands',time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
+ const report={build:'palehorse-011',source:mediaSources[sourceIndex].name,media:mediaSources[sourceIndex].kind,controlWindow:'separate play and scrub native islands',nativeProbe:{url:directDriveUrl,active:mediaSources[sourceIndex].kind==='native',currentTime:round(nativeVideo.currentTime),duration:round(nativeVideo.duration),paused:nativeVideo.paused,readyState:nativeVideo.readyState,networkState:nativeVideo.networkState,videoWidth:nativeVideo.videoWidth,videoHeight:nativeVideo.videoHeight,error:nativeVideo.error?{code:nativeVideo.error.code,message:nativeVideo.error.message}:null,events:nativeEvents.slice()},time:new Date().toISOString(),viewport:{width:innerWidth,height:innerHeight,pixelRatio:round(renderer.getPixelRatio())},camera:{distance:round(dist),azimuth:round(angle),elevation:round(elev),targetY:round(targetY),fov:camera.fov,worldOrigin:{x:round((center.x+1)*innerWidth/2),y:round((1-center.y)*innerHeight/2)}},vessel:{outerRadius:BAUBLE_R,innerRadius:INNER_R,glassThickness:round(BAUBLE_R-INNER_R),inhabitants:0,contentsInstantiated:false},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures},performance:{fpsApprox:round(probeFrames?1000/(probeFrameMs/probeFrames):0)},interactionTrace:{events:interactionLog.slice(),truncated:interactionSeq>interactionLimit,total:interactionSeq,elapsedMs:Math.round(performance.now()-interactionStart),coordinates:'normalized canvas coordinates; no text, device identity, or network transmission'},warnings:[]};
  probeReport=JSON.stringify(report,null,2);probeText.textContent=probeReport;return report;
 }
 probeButton.onclick=()=>{probePanel.classList.toggle('open');if(probePanel.classList.contains('open'))inspectWorld()};
