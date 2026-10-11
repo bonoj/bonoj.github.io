@@ -19,7 +19,7 @@
 </script><script type="module">
 import * as T from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
 // One canonical build identity: UI and inspection report share this constant.
-const BUILD='bauble-shell-v3';
+const BUILD='bauble-shell-v4';
 document.querySelector('#build').textContent=BUILD;
 document.querySelector('#fresh').onclick=()=>{const u=new URL(location.href);u.searchParams.set('fresh',Date.now().toString(36));location.replace(u.href)};
 
@@ -54,7 +54,7 @@ world.traverse(o=>{if(o.isMesh&&o!==envelope&&o!==innerGlass&&o!==equator&&
 for(const o of shellParts)o.userData.allowOutsideBauble=true;
 const containment={checks:0,violations:[],maxOverflow:0,checkedObjects:0,lastCheckMs:0};
 const alarm=document.querySelector('#containmentAlarm');
-const scratchPoint=new T.Vector3(),scratchMatrix=new T.Matrix4(),scratchBox=new T.Box3();
+const scratchPoint=new T.Vector3(),scratchMatrix=new T.Matrix4();
 function verifyContainment(){
  world.updateMatrixWorld(true);
  const failures=[];let checked=0,maxOverflow=0;
@@ -66,10 +66,13 @@ function verifyContainment(){
   for(let k=0;k<count;k++){
    if(o.isInstancedMesh){o.getMatrixAt(k,scratchMatrix);scratchMatrix.premultiply(o.matrixWorld)}
    else scratchMatrix.copy(o.matrixWorld);
-   scratchBox.copy(g.boundingBox).applyMatrix4(scratchMatrix);
-   // Farthest corner of the transformed AABB is a conservative bound.
-   const far=Math.sqrt(Math.max(scratchBox.min.x**2,scratchBox.max.x**2)+Math.max(scratchBox.min.y**2,scratchBox.max.y**2)+Math.max(scratchBox.min.z**2,scratchBox.max.z**2));
-   const overflow=far-INNER_R;
+   // Test actual vertices, not bounding boxes (which falsely flag spherical shells).
+   const positions=g.getAttribute('position');if(!positions)continue;
+   let overflow=0;
+   for(let v=0;v<positions.count;v++){
+    scratchPoint.fromBufferAttribute(positions,v).applyMatrix4(scratchMatrix);
+    overflow=Math.max(overflow,scratchPoint.length()-INNER_R);
+   }
    checked++;
    if(overflow>.025){maxOverflow=Math.max(maxOverflow,overflow);if(failures.length<12)failures.push({object:o.name||o.uuid.slice(0,8),instance:o.isInstancedMesh?k:null,overflow:round(overflow,3)})}
   }
