@@ -517,7 +517,7 @@ const drillToy=(()=>{
  const finGeo=new T.BoxGeometry(.12,.48,.34);
  for(let i=0;i<4;i++){const fin=new T.Mesh(finGeo,metal);fin.position.set(Math.cos(i*Math.PI/2)*.31,.64,Math.sin(i*Math.PI/2)*.31);fin.rotation.y=i*Math.PI/2;root.add(fin)}
  const particleGeo=new T.IcosahedronGeometry(.085,0),particleMat=new T.MeshStandardMaterial({color:0xc9aa7e,roughness:.8});
- const beads=[],maxBeads=220;for(let i=0;i<maxBeads;i++){const mesh=new T.Mesh(particleGeo,particleMat);mesh.visible=false;root.add(mesh);beads.push({mesh,active:false,vx:0,vy:0,vz:0,age:0,material:null})}
+ const particleRoot=new T.Group();particleRoot.userData.worldDomain=true;world.add(particleRoot);const beads=[],maxBeads=220;for(let i=0;i<maxBeads;i++){const mesh=new T.Mesh(particleGeo,particleMat);mesh.visible=false;particleRoot.add(mesh);beads.push({mesh,active:false,vx:0,vy:0,vz:0,age:0,material:null})}
  const X=0,Z=0;let y=3.0,elapsed=0,removed=0,accreted=0,collision=false,started=false,stopped=false,dirty=null;
  const gx=Math.round((X/WORLD_HALF+1)*(NX-1)/2),gz=Math.round((Z/WORLD_HALF+1)*(NZ-1)/2);
  const mark=(ix,iz)=>{if(!dirty)dirty={x0:ix,x1:ix,z0:iz,z1:iz};else{dirty.x0=Math.min(dirty.x0,ix);dirty.x1=Math.max(dirty.x1,ix);dirty.z0=Math.min(dirty.z0,iz);dirty.z1=Math.max(dirty.z1,iz)}};
@@ -537,19 +537,19 @@ const drillToy=(()=>{
   if(!started||stopped)return;
   elapsed+=dt;
   if(!collision){y-=dt*.42;root.rotation.y+=dt*7;
-   const iy=Math.round((y/MINY*0+(y-MINY)/(MAXY-MINY))*(NY-1));
+   const iy=Math.round((y-MINY)/(MAXY-MINY)*(NY-1));
    if(iy>=1&&iy<NY-1&&field[id(gx,iy,gz)]>0){
     const k=id(gx,iy,gz),m=materialAt(X,yp(iy),Z);
     if(m&&launch({materialId:m.id,lineage:m.lineage??{source:[X,yp(iy),Z],excavation:1}})){
      field[k]=-.3;depositedMaterial.delete(k);solidCount--;voidCount++;removed++;mark(gx,gz)
     }
    }
-   if(y<=MINY+.32||(!field.slice(0).some((v,i)=>v>0&&i%NX===gx&&Math.floor(i/(NX*NY))===gz))){
+   if(y<=MINY+.32){
     collision=true;telemetryEvent('drill-hermeticon','contact after '+removed+' samples');
     root.children.slice(0,7).forEach(m=>{if(m.material)m.material=metal});
    }
   }
-  root.position.set(-wanderX,y,-wanderZ);
+  root.position.set(-wanderX,y,-wanderZ);particleRoot.position.set(-wanderX,0,-wanderZ);
   for(const b of beads){if(!b.active)continue;b.age+=dt;b.vy-=9.8*dt;b.mesh.position.x+=b.vx*dt;b.mesh.position.y+=b.vy*dt;b.mesh.position.z+=b.vz*dt;
    const p=b.mesh.position,ground=fieldSample(p.x,p.y-.1,p.z);
    if(ground>0&&b.vy<0){b.vy=Math.abs(b.vy)*.48;b.vx*=.76;b.vz*=.76;p.y+=.13}
