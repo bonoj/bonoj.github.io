@@ -21,7 +21,7 @@ import * as T from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.modul
 
 // One canonical build identity: UI and inspection report share this constant.
 // Publication replaces this token with the exact Repository source commit SHA.
-const BUILD='9aba6c5a37ad2d29f9c5e6d1ac45c137932f869c';
+const BUILD='c2bc7f41106c651dbb9e28b0db7a98ec231faa8c';
 document.querySelector('#build').textContent=BUILD.slice(0,8);
 document.querySelector('#fresh').onclick=()=>{const u=new URL(location.href);u.searchParams.set('fresh',Date.now().toString(36));location.replace(u.href)};
 
@@ -54,7 +54,7 @@ const STEP=.008,MAX_STEPS=7,MAX_FRAME=.05;
 const clock={time:0,steps:0,droppedSeconds:0,accumulator:0};
 // Authoritative signed volume. Positive=solid, negative=void.
 // The equator y=0 is the fixed datum; both surfaces and tunnels are extracted.
-const R=9.65, EXTRACTION_MARGIN=4.0, NX=85,NY=21,NZ=85, MINY=-3.6,MAXY=3.6; const WORLD_HALF=25.2; let wanderX=0,wanderZ=0; const WANDER_STEP=2;
+const R=9.65, EXTRACTION_MARGIN=4.0, NX=85,NY=21,NZ=85, MINY=-3.6,MAXY=3.6; const WORLD_HALF=25.2; let wanderX=0,wanderZ=0; const WANDER_STEP=2; const wanderTrace=[];let wanderTraceClock=0;
 const depositedMaterial=new Map();
 const field=new Float32Array(NX*NY*NZ),id=(x,y,z)=>x+NX*(y+NY*z);
 const xp=x=>(x/(NX-1)*2-1)*WORLD_HALF,yp=y=>MINY+y/(NY-1)*(MAXY-MINY),zp=z=>(z/(NZ-1)*2-1)*WORLD_HALF;
@@ -435,9 +435,27 @@ function updateGel(){
  if(now-gelLastFlow>85){gelRelax();gelLastFlow=now}
  if(now-gelLastDraw>160){gelRebuild();gelLastDraw=now}
 }
+// Shared material contact law; material identity does not select a collision response.
+const MICRO_RESTITUTION=.38,MICRO_TANGENT_RETENTION=.82;
+function microSurfaceResponse(p,nx,ny,nz){
+ const vn=p.vx*nx+p.vy*ny+p.vz*nz;
+ if(vn<0){const impulse=(1+MICRO_RESTITUTION)*vn;p.vx-=impulse*nx;p.vy-=impulse*ny;p.vz-=impulse*nz}
+ const normal=p.vx*nx+p.vy*ny+p.vz*nz;
+ p.vx=(p.vx-normal*nx)*MICRO_TANGENT_RETENTION+normal*nx;
+ p.vy=(p.vy-normal*ny)*MICRO_TANGENT_RETENTION+normal*ny;
+ p.vz=(p.vz-normal*nz)*MICRO_TANGENT_RETENTION+normal*nz;
+ return vn<0;
+}
+function microTerrainContact(p,geoX,geoZ,radius){
+ if(fieldSample(geoX,p.y,geoZ)<-radius)return false;
+ const [nx,ny,nz]=rainSurfaceNormal(geoX,p.y,geoZ);
+ microSurfaceResponse(p,nx,ny,nz);
+ for(let k=0;k<12&&fieldSample(geoX,p.y,geoZ)>-radius;k++){p.x+=nx*.035;p.y+=ny*.035;p.z+=nz*.035;geoX+=nx*.035;geoZ+=nz*.035}
+ return true;
+}
 function rainStep(dt){
  // Hydrology sheet suspended; discrete rain BBs remain active.
- const gravity=9.8,restitution=.38,tangentDamping=.82;
+ const gravity=9.8;
  rainTime+=dt;
  const fractionBefore=(RAIN_N-rainEmitted)/RAIN_N;
  const size=Math.cbrt(Math.max(.001,fractionBefore));
@@ -484,12 +502,9 @@ function rainStep(dt){
    }
    if(hit){
     const [nx,ny,nz]=rainSurfaceNormal(hx+wanderX,hy,hz+wanderZ);
-    const vn=rainVX[i]*nx+rainVY[i]*ny+rainVZ[i]*nz;
-    if(vn<0){rainVX[i]-=(1+restitution)*vn*nx;rainVY[i]-=(1+restitution)*vn*ny;rainVZ[i]-=(1+restitution)*vn*nz;rainBounces++}
-    const normalSpeed=rainVX[i]*nx+rainVY[i]*ny+rainVZ[i]*nz;
-    rainVX[i]=(rainVX[i]-normalSpeed*nx)*tangentDamping+normalSpeed*nx;
-    rainVY[i]=(rainVY[i]-normalSpeed*ny)*tangentDamping+normalSpeed*ny;
-    rainVZ[i]=(rainVZ[i]-normalSpeed*nz)*tangentDamping+normalSpeed*nz;
+    const impact={vx:rainVX[i],vy:rainVY[i],vz:rainVZ[i]};
+    if(microSurfaceResponse(impact,nx,ny,nz))rainBounces++;
+    rainVX[i]=impact.vx;rainVY[i]=impact.vy;rainVZ[i]=impact.vz;
     let push=0;
     while(fieldSample(hx+wanderX,hy,hz+wanderZ)>-RAIN_R&&push++<12){hx+=nx*.035;hy+=ny*.035;hz+=nz*.035}
     rainX[i]=hx+wanderX;rainY[i]=hy;rainZ[i]=hz+wanderZ;
@@ -708,7 +723,9 @@ function microContacts(particles,dt){
  }
  microStats.frames++;microStats.processed+=count;
 }
-let corpseDispersed=false,lowerTaps=0,lowerWoken=0;
+let corpseDispersed=false,lowerTaps=0,lowerWoken=0;const thumpStats={affected:0,energyAdded:0,energyRejected:0,maxSpeed:0};
+function applyThump(p,seed){const before=p.vx*p.vx+p.vy*p.vy+p.vz*p.vz;const speed=Math.sqrt(before),cap=7,amplitude=1.45/(1+speed/5);const angle=rainRandom(seed,lowerTaps+31)*Math.PI*2;const nx=Math.cos(angle)*.52,ny=.68,nz=Math.sin(angle)*.52;const vx=p.vx+amplitude*nx,vy=p.vy+amplitude*ny,vz=p.vz+amplitude*nz;const proposed=Math.hypot(vx,vy,vz),scale=Math.min(1,cap/(proposed||1));p.vx=vx*scale;p.vy=vy*scale;p.vz=vz*scale;p.rest=false;const after=p.vx*p.vx+p.vy*p.vy+p.vz*p.vz;thumpStats.energyAdded+=Math.max(0,after-before)*.5;thumpStats.energyRejected+=Math.max(0,proposed*proposed-after)*.5;thumpStats.maxSpeed=Math.max(thumpStats.maxSpeed,Math.sqrt(after));thumpStats.affected++}
+
 function lowerBowlTap(clientX,clientY){
  const rect=renderer.domElement.getBoundingClientRect();
  walkPointer.set((clientX-rect.left)/rect.width*2-1,-(clientY-rect.top)/rect.height*2+1);
@@ -723,40 +740,38 @@ function lowerBowlTap(clientX,clientY){
  const hit=o.clone().addScaledVector(d,t);
  if(hit.y>=-.16)return false; // Brass band and upper hemisphere retain walking intent.
  lowerTaps++;
- // Crucible tap acts on all resting vessel-owned BBs, independent of hit proximity.
- let woken=0;
- for(let i=0;i<rainEmitted;i++){
-  if(rainOwner[i]!==1||rainRest[i]!==1)continue;
-  const angle=rainRandom(i,lowerTaps+31)*Math.PI*2;
-  const kick=.9+rainRandom(i,lowerTaps+32)*1.1;
-  rainVX[i]+=Math.cos(angle)*kick;
-  rainVY[i]+=1.2+rainRandom(i,lowerTaps+33)*1.8;
-  rainVZ[i]+=Math.sin(angle)*kick;
-  rainRest[i]=0;woken++;
- }
- lowerWoken+=woken;
- // A corpse is a visual body, not conserved matter. Disperse it into orange
- // visual beads, retaining the existing 100 red splat particles separately.
+ // Macro shotgun precedes the micro thump. Fracture only macros within the vessel.
  const f=fugitive;
- if(f.mode==='splat'&&!corpseDispersed){
-  const cx=f.x,cy=f.y+fugitiveSize*.5,cz=f.z;
-  if(f.owner==='hermeticon'){
-   corpseDispersed=true;fugitiveMesh.visible=false;
-   // Release all remaining blood and the full solid inventory; never create extra matter.
-   for(let i=PUMPKIN_BLOOD_IMPACT;i<PUMPKIN_TOTAL;i++){
-    const a=i*2.39996323,rad=.55+(i%7)*.13;
-    f.particles.push({x:cx,y:cy,z:cz,vx:Math.cos(a)*rad,vy:1.3+(i%5)*.34,vz:Math.sin(a)*rad,rest:false,liquid:i<PUMPKIN_LIQUID});
+ if(f.mode!=='splat'){
+  const cx=f.x-wanderX,cy=f.y+fugitiveSize*.5,cz=f.z-wanderZ;
+  if(cx*cx+cy*cy+cz*cz<(INNER_R-fugitiveRadius)**2){
+   const length=Math.hypot(cx,cy,cz)||1;
+   const ix=-cx/length,iy=-cy/length,iz=-cz/length;
+   f.x=cx;f.y=cy-fugitiveSize*.5;f.z=cz;f.owner='hermeticon';
+   f.mode='splat';f.vx=0;f.vy=0;f.vz=0;
+   f.particles.length=0;corpseDispersed=true;fugitiveMesh.visible=false;
+   for(let i=0;i<PUMPKIN_TOTAL;i++){
+    const a=i*2.39996323,b=(i+.5)/PUMPKIN_TOTAL*2-1,rad=Math.sqrt(1-b*b);
+    const sx=Math.cos(a)*rad,sy=b,sz=Math.sin(a)*rad;
+    const speed=3.8+.8*rainRandom(i,lowerTaps+71);
+    f.particles.push({x:cx+sx*.09,y:cy+sy*.09,z:cz+sz*.09,vx:ix*speed+sx*.65,vy:iy*speed+sy*.65,vz:iz*speed+sz*.65,rest:false,liquid:i<PUMPKIN_LIQUID});
    }
-   splatMesh.count=f.particles.length;
+   splatMesh.count=PUMPKIN_TOTAL;
   }
  }
- // Stir resting solid matter and disturb the slowly moving liquid without authored swirl.
- if(f.mode==='splat')for(let j=0;j<f.particles.length;j++){
-  const p=f.particles[j];if(!p.rest&&(!p.liquid||Math.hypot(p.vx,p.vy,p.vz)>.7))continue;
-  const angle=rainRandom(lowerTaps,j+41)*Math.PI*2;
-  p.vx+=Math.cos(angle)*1.4;p.vy+=1.4;p.vz+=Math.sin(angle)*1.4;
-  p.rest=false;
+ // Existing splat bodies release their remaining conserved matter before agitation.
+ if(f.mode==='splat'&&!corpseDispersed&&f.owner==='hermeticon'){
+  corpseDispersed=true;fugitiveMesh.visible=false;
+  for(let i=PUMPKIN_BLOOD_IMPACT;i<PUMPKIN_TOTAL;i++){
+   const a=i*2.39996323,rad=.55+(i%7)*.13;
+   f.particles.push({x:f.x,y:f.y+fugitiveSize*.5,z:f.z,vx:Math.cos(a)*rad,vy:1.3+(i%5)*.34,vz:Math.sin(a)*rad,rest:false,liquid:i<PUMPKIN_LIQUID});
+  }
+  splatMesh.count=f.particles.length;
  }
+ // Then thump every micro, including newly fractured material.
+ for(let i=0;i<rainEmitted;i++)if(rainOwner[i]===1){const p={vx:rainVX[i],vy:rainVY[i],vz:rainVZ[i],rest:!!rainRest[i]};applyThump(p,i);rainVX[i]=p.vx;rainVY[i]=p.vy;rainVZ[i]=p.vz;rainRest[i]=0}
+ // Same impulse law for all released pumpkin micros, moving or resting.
+ if(f.mode==='splat')for(let j=0;j<f.particles.length;j++)applyThump(f.particles[j],j+RAIN_N);
  return true;
 }
 function fugitiveStep(dt){
@@ -800,13 +815,15 @@ function fugitiveStep(dt){
   for(let i=0;i<f.particles.length;i++){
    const p=f.particles[i];if(!p.rest){
     p.vy-=g*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.z+=p.vz*dt;
+    // Both terrain faces use the same restitution as rain and the bowl.
+    microTerrainContact(p,p.x+wanderX,p.z+wanderZ,.06);
     const lx=p.x,lz=p.z;
     const rr=Math.hypot(lx,p.y,lz);
     if(p.y<0&&rr>INNER_R-.06){
      const limit=INNER_R-.06,k=limit/rr;p.x*=k;p.y*=k;p.z*=k;
      const nx=-p.x/limit,ny=-p.y/limit,nz=-p.z/limit;
      const vn=p.vx*nx+p.vy*ny+p.vz*nz;
-     if(vn<-.12){const e=.38;p.vx-=(1+e)*vn*nx;p.vy-=(1+e)*vn*ny;p.vz-=(1+e)*vn*nz;crucibleCollisions++;microStats.bowlImpacts++}else if(vn<0){p.vx-=vn*nx;p.vy-=vn*ny;p.vz-=vn*nz;microStats.bowlContacts++}const tangent=1-.035*dt;p.vx*=tangent;p.vz*=tangent;
+     if(microSurfaceResponse(p,nx,ny,nz)){if(vn<-.12){crucibleCollisions++;microStats.bowlImpacts++}else microStats.bowlContacts++}
      // Blood remains dynamic; solid material can sleep after dissipating contact energy.
      // Preserve tangential motion and avoid arbitrary contact sleep.
     }
@@ -1180,6 +1197,7 @@ function simulate(dt){
   sharedApertureOffset.set(wanderX,0,wanderZ);
  }
  wanderCube.position.set(walker.x-wanderX,walker.y+WANDER_SIZE*.5,walker.z-wanderZ);
+ wanderTraceClock+=dt;if(wanderTraceClock>=1){wanderTraceClock%=1;wanderTrace.push({t:round(walker.t,2),walker:{x:round(walker.x),y:round(walker.y),z:round(walker.z)},aperture:{x:round(wanderX),z:round(wanderZ)},relative:{x:round(walker.x-wanderX),z:round(walker.z-wanderZ)},route:walker.route.length});if(wanderTrace.length>90)wanderTrace.shift()}
 }
 let angle=.6,elev=.27,dist=27,targetY=0,lastX=0,lastY=0;
 const pointers=new Map(),pointerStarts=new Map();let pinch=0,multiGesture=false;
@@ -1246,7 +1264,7 @@ function inspectWeather(){
  return {coordinateSystem:'Hermeticon-local render; cloud and BB positions persist in geological world',
   cloud:{worldCenter:{x:round(c.x+wanderX),y:round(c.y),z:round(c.z+wanderZ)},localCenter:{x:round(c.x),y:round(c.y),z:round(c.z)},dimensions:cloudDimensions.map(d=>round(d*size)),remaining:RAIN_N-rainEmitted,visible:cloud.visible,materialDoubleSided:cloud.material.side===T.DoubleSide,shaderCompiled:!!cloud.material.userData.shaderCompiled,shaderHooks:cloud.material.userData.shaderHooks||null,clipRadius:INNER_R,clipHemisphere:'upper',sampleCount:samples,insideWeatherDome:inside,aboveEquator:above,overlapFraction:round(inside/samples,4),boundsOutsideDome:Math.hypot(c.x,c.y,c.z)+Math.hypot(...half)>INNER_R},
   bbs:{emitted:rainEmitted,visible,offscreenPersisting:outside,resting,nonfinite,belowBowl,nearest:round(minDistance===Infinity?0:minDistance),farthest:round(maxDistance),conserved:rainEmitted+(RAIN_N-rainEmitted)===RAIN_N},
-  emission:{enabled:false,time:round(rainTime,3),budget:round(rainBudget,4),nominalRate:round(RAIN_N/RAIN_DURATION,3),currentOverlapEstimate:round(inside/samples,4),actualEmitted:rainEmitted},
+  emission:{enabled:true,time:round(rainTime,3),budget:round(rainBudget,4),nominalRate:round(RAIN_N/RAIN_DURATION,3),currentOverlapEstimate:round(inside/samples,4),actualEmitted:rainEmitted},
   movement:{wanderX:round(wanderX),wanderZ:round(wanderZ)},warnings:[...(!cloud.material.userData.shaderCompiled?['CLOUD_SHADER_NOT_COMPILED']:[]),...(nonfinite?['NONFINITE_BBS']:[])]};
 }
 globalThis.BaubleInspectWeather=inspectWeather;
@@ -1293,6 +1311,25 @@ const telemetryEvents=[],telemetryErrors=[],TELEMETRY_LIMIT=48;
 addEventListener('error',e=>{telemetryErrors.push(String(e.message).slice(0,240));if(telemetryErrors.length>4)telemetryErrors.shift()});
 addEventListener('unhandledrejection',e=>{telemetryErrors.push(String(e.reason).slice(0,240));if(telemetryErrors.length>4)telemetryErrors.shift()});
 function telemetryEvent(type,detail=''){telemetryEvents.push({t:Math.round(performance.now()),type,detail:String(detail).slice(0,160)});if(telemetryEvents.length>TELEMETRY_LIMIT)telemetryEvents.shift()}
+// On-demand orthographic material census: 24x24 integer occupancy, no render readback.
+function inspectMicroMaps(){
+ const bins=24,extent=INNER_R,channels=['blood','solid','rain'],views={top:[],side:[]};
+ for(const view of ['top','side'])for(let c=0;c<3;c++)views[view].push(new Uint32Array(bins*bins));
+ const totals=[0,0,0],outside=[0,0,0];
+ function mark(x,y,z,c){
+  totals[c]++;
+  for(const view of ['top','side']){
+   const u=x,v=view==='top'?z:y;
+   const ix=Math.floor((u+extent)/(2*extent)*bins),iy=Math.floor((v+extent)/(2*extent)*bins);
+   if(ix<0||ix>=bins||iy<0||iy>=bins){outside[c]++;continue}
+   views[view][c][ix+bins*iy]++;
+  }
+ }
+ for(const p of fugitive.particles)mark(p.x,p.y,p.z,p.liquid?0:1);
+ for(let i=0;i<rainEmitted;i++)if(rainOwner[i]===1)mark(rainX[i],rainY[i],rainZ[i],2);
+ const encode=view=>Object.fromEntries(channels.map((name,c)=>[name,Array.from(views[view][c])]));
+ return {bins,extent,axes:{top:'x,z',side:'x,y'},rowOrder:'low to high second axis',index:'x + bins * row',channels,totals,outside,top:encode('top'),side:encode('side')};
+}
 function inspectWorld(){
  const blood=fugitive.particles.filter(p=>p.liquid).length,solid=fugitive.particles.length-blood;
  const crucible={mode:fugitive.mode,owner:fugitive.owner,bodyVisible:fugitiveMesh.visible,
@@ -1300,7 +1337,7 @@ function inspectWorld(){
   inventory:{bloodTotal:PUMPKIN_LIQUID,solidTotal:PUMPKIN_SOLID,releasedBlood:blood,releasedSolid:solid,unreleasedBlood:PUMPKIN_LIQUID-blood,unreleasedSolid:PUMPKIN_SOLID-solid},
   physics:{gravity:9.8,restitution:.38,tangentialDamping:1,sleepOnContact:false},
   motionHistory:crucibleMotion.slice(),sampleSeconds:1,microContacts:{...microStats,budgetPerFrame:MICRO_PAIR_BUDGET,cellSize:MICRO_CELL,particleCount:fugitive.particles.length}};
- const report={crucible,gel:{model:'denser segmented curtain v69',absorbedBBs:gelAbsorbed,materialVolume:gelVolume,representedVolume:Array.from(gelColumns.values()).reduce((a,c)=>a+c.volume,0),nodes:gelNodes.length,edges:gelEdges,columns:gelColumns.size,fluxMoves:gelMoves,rimNodes:gelRimNodes,beadVolume:gelBeadVolume,stretchRejected:gelStretch,airEdges:gelAirEdges,releasedBBs:gelReleased,releasedVolume:gelReleasedVolume,pendingEdges:gelPending,segmentEmissions:gelSegmentEmissions,meanTangentOffset:gelSegmentEmissions?gelEmissionSpan/gelSegmentEmissions:0,rejected:gelRejected,triangles:0},build:BUILD,timeMs:Math.round(performance.now()),fps:displayFps===null?null:Math.round(displayFps*10)/10,
+ const report={crucible,thump:{count:lowerTaps,...thumpStats},microMaps:inspectMicroMaps(),weather:inspectWeather(),wanderer:{position:{x:round(walker.x),y:round(walker.y),z:round(walker.z)},aperture:{x:round(wanderX),z:round(wanderZ)},routeRemaining:walker.route.length,history:wanderTrace.slice()},gel:{model:'denser segmented curtain v69',absorbedBBs:gelAbsorbed,materialVolume:gelVolume,representedVolume:Array.from(gelColumns.values()).reduce((a,c)=>a+c.volume,0),nodes:gelNodes.length,edges:gelEdges,columns:gelColumns.size,fluxMoves:gelMoves,rimNodes:gelRimNodes,beadVolume:gelBeadVolume,stretchRejected:gelStretch,airEdges:gelAirEdges,releasedBBs:gelReleased,releasedVolume:gelReleasedVolume,pendingEdges:gelPending,segmentEmissions:gelSegmentEmissions,meanTangentOffset:gelSegmentEmissions?gelEmissionSpan/gelSegmentEmissions:0,rejected:gelRejected,triangles:0},build:BUILD,timeMs:Math.round(performance.now()),fps:displayFps===null?null:Math.round(displayFps*10)/10,
   terrain:{chunks:terrainPerf.totalChunks,fullRebuilds:terrainPerf.fullRebuilds,localRebuilds:terrainPerf.localRebuilds,lastDirtyChunks:terrainPerf.lastDirtyChunks,lastRebuildMs:terrainPerf.lastRebuildMs},
   transfer:quarry?{started:quarry.started,counts:quarry.units.reduce((a,u)=>(a[u.state]++,a),{source:0,transit:0,receiver:0}),capacity:quarry.units.length,recovery:quarry.recoveryStatus??null}:null,
   errors:telemetryErrors.slice(-4),events:telemetryEvents.slice(-24)};
