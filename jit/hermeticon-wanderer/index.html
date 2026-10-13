@@ -21,7 +21,7 @@ import * as T from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.modul
 
 // One canonical build identity: UI and inspection report share this constant.
 // Publication replaces this token with the exact Repository source commit SHA.
-const BUILD='c4194c701f10b975b3c44cce499a576b75d368e8';
+const BUILD='8dac5166045b19bbb6f0cfb8e5dc2b49e922f664';
 document.querySelector('#build').textContent=BUILD.slice(0,8);
 document.querySelector('#fresh').onclick=()=>{const u=new URL(location.href);u.searchParams.set('fresh',Date.now().toString(36));location.replace(u.href)};
 
@@ -291,6 +291,31 @@ const cloud=put(world,new T.BoxGeometry(...cloudDimensions),cloudMaterial,0,clou
 cloud.userData.worldDomain=true;
 const rainDummy=new T.Object3D();let rainTime=0,rainEmitted=0,rainBounces=0,rainSettled=0,rainEscaped=0,rainWallBounces=0,rainBudget=0;
 function rainRandom(i,s){const v=Math.sin((i+1)*127.1+(s+1)*311.7)*43758.5453;return v-Math.floor(v)}
+// Terrain is solid on every face. Only a crossing from air into rock is a
+// contact; an already embedded micro must not be repeatedly accelerated.
+const terrainContactStats={hits:0,underside:0};
+function terrainMicroContact(p,ox,oy,oz,radius){
+ const sx=ox+wanderX,sz=oz+wanderZ;
+ const start=fieldSample(sx,oy,sz),end=fieldSample(p.x+wanderX,p.y,p.z+wanderZ);
+ if(start>=-radius||end< -radius)return;
+ const [nx,ny,nz]=rainSurfaceNormal(p.x+wanderX,p.y,p.z+wanderZ);
+ const vn=p.vx*nx+p.vy*ny+p.vz*nz;
+ if(vn>=0)return;
+ // Same normal restitution as the established terrain surface; no tangential damping.
+ p.vx-=1.38*vn*nx;p.vy-=1.38*vn*ny;p.vz-=1.38*vn*nz;
+ // Resolve onto the incoming air side, avoiding a second impulse at rest.
+ let lo=0,hi=1;
+ for(let k=0;k<8;k++){
+  const t=(lo+hi)*.5;
+  if(fieldSample(sx+(p.x-ox)*t,oy+(p.y-oy)*t,sz+(p.z-oz)*t)>=-radius)hi=t;
+  else lo=t;
+ }
+ p.x=ox+(p.x-ox)*lo+nx*.004;
+ p.y=oy+(p.y-oy)*lo+ny*.004;
+ p.z=oz+(p.z-oz)*lo+nz*.004;
+ terrainContactStats.hits++;
+ if(ny<-.25)terrainContactStats.underside++;
+}
 function rainSurfaceNormal(x,y,z){
  const h=.09;
  // Positive signed-field values are INSIDE rock: outward normal is NEGATIVE gradient.
@@ -480,7 +505,7 @@ function rainStep(dt){
    let hit=false,hx=x,hy=y,hz=z;
    for(let j=1;j<=steps;j++){
     const t=j/steps,px=ox+(x-ox)*t,py=oy+(y-oy)*t,pz=oz+(z-oz)*t;
-    if(rainOwner[i]!==1&&fieldSample(px+wanderX,py,pz+wanderZ)>=-RAIN_R){hit=true;hx=px;hy=py;hz=pz;break}
+    if(fieldSample(px+wanderX,py,pz+wanderZ)>=-RAIN_R&&fieldSample(ox+wanderX,oy,oz+wanderZ)<-RAIN_R){hit=true;hx=px;hy=py;hz=pz;break}
    }
    if(hit){
     const [nx,ny,nz]=rainSurfaceNormal(hx+wanderX,hy,hz+wanderZ);
@@ -492,7 +517,7 @@ function rainStep(dt){
     rainVZ[i]=(rainVZ[i]-normalSpeed*nz)*tangentDamping+normalSpeed*nz;
     let push=0;
     while(fieldSample(hx+wanderX,hy,hz+wanderZ)>-RAIN_R&&push++<12){hx+=nx*.035;hy+=ny*.035;hz+=nz*.035}
-    rainX[i]=hx+wanderX;rainY[i]=hy;rainZ[i]=hz+wanderZ;
+    rainX[i]=hx+(rainOwner[i]===1?0:wanderX);rainY[i]=hy;rainZ[i]=hz+(rainOwner[i]===1?0:wanderZ);
     if(Math.hypot(rainVX[i],rainVY[i],rainVZ[i])<.42&&ny>.55){{rainRest[i]=1;rainSettled++}}
    }else{rainX[i]=x+(rainOwner[i]===1?0:wanderX);rainY[i]=y;rainZ[i]=z+(rainOwner[i]===1?0:wanderZ)}
    // Only the lower hemisphere is a physical bowl; upper aperture is not a wall.
@@ -816,7 +841,9 @@ function fugitiveStep(dt){
   const g=9.8;
   for(let i=0;i<f.particles.length;i++){
    const p=f.particles[i];if(!p.rest){
+    const ox=p.x,oy=p.y,oz=p.z;
     p.vy-=g*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.z+=p.vz*dt;
+    terrainMicroContact(p,ox,oy,oz,pumpkinBeadRadius);
     const lx=p.x,lz=p.z;
     const rr=Math.hypot(lx,p.y,lz);
     if(p.y<0&&rr>INNER_R-.06){
@@ -1317,7 +1344,7 @@ function inspectWorld(){
   inventory:{bloodTotal:PUMPKIN_LIQUID,solidTotal:PUMPKIN_SOLID,releasedBlood:blood,releasedSolid:solid,unreleasedBlood:PUMPKIN_LIQUID-blood,unreleasedSolid:PUMPKIN_SOLID-solid},
   physics:{gravity:9.8,restitution:.38,tangentialDamping:1,sleepOnContact:false},
   motionHistory:crucibleMotion.slice(),sampleSeconds:1,microContacts:{...microStats,budgetPerFrame:MICRO_PAIR_BUDGET,cellSize:MICRO_CELL,particleCount:fugitive.particles.length}};
- const report={crucible,thump:{count:lowerTaps,...thumpStats},gel:{model:'denser segmented curtain v69',absorbedBBs:gelAbsorbed,materialVolume:gelVolume,representedVolume:Array.from(gelColumns.values()).reduce((a,c)=>a+c.volume,0),nodes:gelNodes.length,edges:gelEdges,columns:gelColumns.size,fluxMoves:gelMoves,rimNodes:gelRimNodes,beadVolume:gelBeadVolume,stretchRejected:gelStretch,airEdges:gelAirEdges,releasedBBs:gelReleased,releasedVolume:gelReleasedVolume,pendingEdges:gelPending,segmentEmissions:gelSegmentEmissions,meanTangentOffset:gelSegmentEmissions?gelEmissionSpan/gelSegmentEmissions:0,rejected:gelRejected,triangles:0},build:BUILD,timeMs:Math.round(performance.now()),fps:displayFps===null?null:Math.round(displayFps*10)/10,
+ const report={crucible,terrainContacts:{...terrainContactStats},thump:{count:lowerTaps,...thumpStats},gel:{model:'denser segmented curtain v69',absorbedBBs:gelAbsorbed,materialVolume:gelVolume,representedVolume:Array.from(gelColumns.values()).reduce((a,c)=>a+c.volume,0),nodes:gelNodes.length,edges:gelEdges,columns:gelColumns.size,fluxMoves:gelMoves,rimNodes:gelRimNodes,beadVolume:gelBeadVolume,stretchRejected:gelStretch,airEdges:gelAirEdges,releasedBBs:gelReleased,releasedVolume:gelReleasedVolume,pendingEdges:gelPending,segmentEmissions:gelSegmentEmissions,meanTangentOffset:gelSegmentEmissions?gelEmissionSpan/gelSegmentEmissions:0,rejected:gelRejected,triangles:0},build:BUILD,timeMs:Math.round(performance.now()),fps:displayFps===null?null:Math.round(displayFps*10)/10,
   terrain:{chunks:terrainPerf.totalChunks,fullRebuilds:terrainPerf.fullRebuilds,localRebuilds:terrainPerf.localRebuilds,lastDirtyChunks:terrainPerf.lastDirtyChunks,lastRebuildMs:terrainPerf.lastRebuildMs},
   transfer:quarry?{started:quarry.started,counts:quarry.units.reduce((a,u)=>(a[u.state]++,a),{source:0,transit:0,receiver:0}),capacity:quarry.units.length,recovery:quarry.recoveryStatus??null}:null,
   errors:telemetryErrors.slice(-4),events:telemetryEvents.slice(-24)};
