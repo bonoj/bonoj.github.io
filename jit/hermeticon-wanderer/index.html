@@ -21,7 +21,7 @@ import * as T from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.modul
 
 // One canonical build identity: UI and inspection report share this constant.
 // Publication replaces this token with the exact Repository source commit SHA.
-const BUILD='b5e7d63d3ea79c74169f9670332d63cf87514b43';
+const BUILD='c33aa78a54e446e61f8e9abfe1227fb2904a42cd';
 document.querySelector('#build').textContent=BUILD.slice(0,8);
 document.querySelector('#fresh').onclick=()=>{const u=new URL(location.href);u.searchParams.set('fresh',Date.now().toString(36));location.replace(u.href)};
 
@@ -668,6 +668,7 @@ const PUMPKIN_SOLID=375,PUMPKIN_LIQUID=125,PUMPKIN_BLOOD_IMPACT=80;
 const PUMPKIN_TOTAL=PUMPKIN_SOLID+PUMPKIN_LIQUID;
 const pumpkinBeadRadius=Math.cbrt(fugitiveSize**3/PUMPKIN_TOTAL*3/(4*Math.PI));
 const splatGeo=new T.IcosahedronGeometry(pumpkinBeadRadius,0);
+const crucibleMotion=[];let crucibleSampleTime=0,crucibleCollisions=0;
 const FUGITIVE_MATTER_COLOR=0xff8b29; // Orange entity yields orange matter; red is splat blood only.
 const splatMat=new T.MeshStandardMaterial({color:0xc51e30,roughness:.8});
 const splatMesh=new T.InstancedMesh(splatGeo,splatMat,PUMPKIN_TOTAL);splatMesh.count=0;splatMesh.frustumCulled=false;world.add(splatMesh);
@@ -730,7 +731,7 @@ function fugitiveStep(dt){
  const fx=f.owner==='hermeticon'?f.x:f.x-wanderX,fz=f.owner==='hermeticon'?f.z:f.z-wanderZ;
  const inside=fx*fx+fz*fz+(f.y+.2)*(f.y+.2)<(R-.3)*(R-.3);
  fugitiveMesh.visible=inside&&!corpseDispersed;
- if(!inside)return;f.time+=dt;
+ if(!inside&&f.mode!=='splat')return;f.time+=dt;
  if(f.mode==='idle'){
   const surface=walkSurface(f.x,f.z)??1.15;
   f.y=surface+Math.abs(Math.sin(f.time*9.2+Math.sin(f.time*4.7)*2))*(.22+.19*Math.abs(Math.sin(f.time*2.9)));
@@ -772,15 +773,30 @@ function fugitiveStep(dt){
      const limit=INNER_R-.06,k=limit/rr;p.x*=k;p.y*=k;p.z*=k;
      const nx=-p.x/limit,ny=-p.y/limit,nz=-p.z/limit;
      const vn=p.vx*nx+p.vy*ny+p.vz*nz;
-     if(vn<0){p.vx-=1.32*vn*nx;p.vy-=1.32*vn*ny;p.vz-=1.32*vn*nz}
+     if(vn<0){p.vx-=1.38*vn*nx;p.vy-=1.38*vn*ny;p.vz-=1.38*vn*nz;crucibleCollisions++}
      // Blood remains dynamic; solid material can sleep after dissipating contact energy.
-     if(!p.liquid){p.vx*=.76;p.vz*=.76;
-      if(Math.hypot(p.vx,p.vy,p.vz)<.45)p.rest=true;}
+     // Preserve tangential motion and avoid arbitrary contact sleep.
     }
    }
    splatDummy.position.set(p.x,p.y,p.z);splatDummy.updateMatrix();splatMesh.setMatrixAt(i,splatDummy.matrix);
   }
   splatMesh.instanceMatrix.needsUpdate=true;
+  crucibleSampleTime+=dt;
+  if(crucibleSampleTime>=1){
+   crucibleSampleTime-=1;
+   let red=0,orange=0,rest=0,redSpeed=0,orangeSpeed=0,radial=0,tangential=0;
+   for(const p of f.particles){
+    const speed=Math.hypot(p.vx,p.vy,p.vz);
+    if(p.rest)rest++;
+    if(p.liquid){red++;redSpeed+=speed;
+     const r=Math.hypot(p.x,p.z)||1;
+     radial+=Math.abs((p.x*p.vx+p.z*p.vz)/r);
+     tangential+=Math.abs((p.x*p.vz-p.z*p.vx)/r);
+    }else{orange++;orangeSpeed+=speed}
+   }
+   crucibleMotion.push({t:round(f.time,2),red,orange,rest,redMeanSpeed:round(redSpeed/(red||1),3),orangeMeanSpeed:round(orangeSpeed/(orange||1),3),radial:round(radial/(red||1),3),tangential:round(tangential/(red||1),3),collisions:crucibleCollisions,instances:splatMesh.count});
+   if(crucibleMotion.length>36)crucibleMotion.shift();
+  }
  }
  fugitiveMesh.position.set(f.owner==='hermeticon'?f.x:f.x-wanderX,f.y+fugitiveSize*.5,f.owner==='hermeticon'?f.z:f.z-wanderZ);
  fugitiveMesh.rotation.set(f.mode==='splat'?.7:Math.sin(f.time*7)*.18,0,f.mode==='splat'?.8:Math.sin(f.time*11)*.13);
@@ -1244,7 +1260,13 @@ addEventListener('error',e=>{telemetryErrors.push(String(e.message).slice(0,240)
 addEventListener('unhandledrejection',e=>{telemetryErrors.push(String(e.reason).slice(0,240));if(telemetryErrors.length>4)telemetryErrors.shift()});
 function telemetryEvent(type,detail=''){telemetryEvents.push({t:Math.round(performance.now()),type,detail:String(detail).slice(0,160)});if(telemetryEvents.length>TELEMETRY_LIMIT)telemetryEvents.shift()}
 function inspectWorld(){
- const report={gel:{model:'denser segmented curtain v69',absorbedBBs:gelAbsorbed,materialVolume:gelVolume,representedVolume:Array.from(gelColumns.values()).reduce((a,c)=>a+c.volume,0),nodes:gelNodes.length,edges:gelEdges,columns:gelColumns.size,fluxMoves:gelMoves,rimNodes:gelRimNodes,beadVolume:gelBeadVolume,stretchRejected:gelStretch,airEdges:gelAirEdges,releasedBBs:gelReleased,releasedVolume:gelReleasedVolume,pendingEdges:gelPending,segmentEmissions:gelSegmentEmissions,meanTangentOffset:gelSegmentEmissions?gelEmissionSpan/gelSegmentEmissions:0,rejected:gelRejected,triangles:0},build:BUILD,timeMs:Math.round(performance.now()),fps:displayFps===null?null:Math.round(displayFps*10)/10,
+ const blood=fugitive.particles.filter(p=>p.liquid).length,solid=fugitive.particles.length-blood;
+ const crucible={mode:fugitive.mode,owner:fugitive.owner,bodyVisible:fugitiveMesh.visible,
+  corpseDispersed,rendered:splatMesh.count,
+  inventory:{bloodTotal:PUMPKIN_LIQUID,solidTotal:PUMPKIN_SOLID,releasedBlood:blood,releasedSolid:solid,unreleasedBlood:PUMPKIN_LIQUID-blood,unreleasedSolid:PUMPKIN_SOLID-solid},
+  physics:{gravity:9.8,restitution:.38,tangentialDamping:1,sleepOnContact:false},
+  motionHistory:crucibleMotion.slice(),sampleSeconds:1};
+ const report={crucible,gel:{model:'denser segmented curtain v69',absorbedBBs:gelAbsorbed,materialVolume:gelVolume,representedVolume:Array.from(gelColumns.values()).reduce((a,c)=>a+c.volume,0),nodes:gelNodes.length,edges:gelEdges,columns:gelColumns.size,fluxMoves:gelMoves,rimNodes:gelRimNodes,beadVolume:gelBeadVolume,stretchRejected:gelStretch,airEdges:gelAirEdges,releasedBBs:gelReleased,releasedVolume:gelReleasedVolume,pendingEdges:gelPending,segmentEmissions:gelSegmentEmissions,meanTangentOffset:gelSegmentEmissions?gelEmissionSpan/gelSegmentEmissions:0,rejected:gelRejected,triangles:0},build:BUILD,timeMs:Math.round(performance.now()),fps:displayFps===null?null:Math.round(displayFps*10)/10,
   terrain:{chunks:terrainPerf.totalChunks,fullRebuilds:terrainPerf.fullRebuilds,localRebuilds:terrainPerf.localRebuilds,lastDirtyChunks:terrainPerf.lastDirtyChunks,lastRebuildMs:terrainPerf.lastRebuildMs},
   transfer:quarry?{started:quarry.started,counts:quarry.units.reduce((a,u)=>(a[u.state]++,a),{source:0,transit:0,receiver:0}),capacity:quarry.units.length,recovery:quarry.recoveryStatus??null}:null,
   errors:telemetryErrors.slice(-4),events:telemetryEvents.slice(-24)};
