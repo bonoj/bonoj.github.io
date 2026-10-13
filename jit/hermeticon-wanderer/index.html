@@ -21,7 +21,7 @@ import * as T from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.modul
 
 // One canonical build identity: UI and inspection report share this constant.
 // Publication replaces this token with the exact Repository source commit SHA.
-const BUILD='__WANDERER_SOURCE_SHA__';
+const BUILD='fa0403c71d4fbfef2f0d8f3e5578e6a97ea8d2e5';
 document.querySelector('#build').textContent=BUILD.slice(0,8);
 document.querySelector('#fresh').onclick=()=>{const u=new URL(location.href);u.searchParams.set('fresh',Date.now().toString(36));location.replace(u.href)};
 
