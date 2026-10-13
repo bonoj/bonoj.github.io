@@ -21,7 +21,7 @@ import * as T from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.modul
 
 // One canonical build identity: UI and inspection report share this constant.
 // Publication replaces this token with the exact Repository source commit SHA.
-const BUILD='f6b363b2331568b7b668dd2e5db4d519f046583b';
+const BUILD='__WANDERER_SOURCE_SHA__';
 document.querySelector('#build').textContent=BUILD.slice(0,8);
 document.querySelector('#fresh').onclick=()=>{const u=new URL(location.href);u.searchParams.set('fresh',Date.now().toString(36));location.replace(u.href)};
 
@@ -271,7 +271,7 @@ const rainX=new Float32Array(RAIN_N),rainY=new Float32Array(RAIN_N),rainZ=new Fl
 // Geological coordinates persist independently of the moving aperture.
 const rainOwner=new Uint8Array(RAIN_N);
 let ownerTransfers=0,toTerrain=0,toHermeticon=0,maxTransferError=0;
-function rainWorld(i){return [rainX[i]-wanderX,rainY[i],rainZ[i]-wanderZ]}
+function rainWorld(i){return rainOwner[i]===1?[rainX[i],rainY[i],rainZ[i]]:[rainX[i]-wanderX,rainY[i],rainZ[i]-wanderZ]}
 const rainGeo=new T.IcosahedronGeometry(RAIN_R,0),rainMat=new T.MeshBasicMaterial({color:0x8ad9f0});
 const rainMesh=new T.InstancedMesh(rainGeo,rainMat,RAIN_N);rainMesh.userData.worldDomain=true; // Persistent geological BBs are not subject to whole-sphere containment.
 rainMesh.frustumCulled=false;rainMesh.count=0;world.add(rainMesh);
@@ -480,7 +480,7 @@ function rainStep(dt){
    let hit=false,hx=x,hy=y,hz=z;
    for(let j=1;j<=steps;j++){
     const t=j/steps,px=ox+(x-ox)*t,py=oy+(y-oy)*t,pz=oz+(z-oz)*t;
-    if(fieldSample(px+wanderX,py,pz+wanderZ)>=-RAIN_R){hit=true;hx=px;hy=py;hz=pz;break}
+    if(rainOwner[i]!==1&&fieldSample(px+wanderX,py,pz+wanderZ)>=-RAIN_R){hit=true;hx=px;hy=py;hz=pz;break}
    }
    if(hit){
     const [nx,ny,nz]=rainSurfaceNormal(hx+wanderX,hy,hz+wanderZ);
@@ -494,12 +494,13 @@ function rainStep(dt){
     while(fieldSample(hx+wanderX,hy,hz+wanderZ)>-RAIN_R&&push++<12){hx+=nx*.035;hy+=ny*.035;hz+=nz*.035}
     rainX[i]=hx+wanderX;rainY[i]=hy;rainZ[i]=hz+wanderZ;
     if(Math.hypot(rainVX[i],rainVY[i],rainVZ[i])<.42&&ny>.55){if(!gelCollect(i,hx+wanderX,hy,hz+wanderZ)){rainRest[i]=1;rainSettled++}}
-   }else{rainX[i]=x+wanderX;rainY[i]=y;rainZ[i]=z+wanderZ}
+   }else{rainX[i]=x+(rainOwner[i]===1?0:wanderX);rainY[i]=y;rainZ[i]=z+(rainOwner[i]===1?0:wanderZ)}
    // Only the lower hemisphere is a physical bowl; upper aperture is not a wall.
    const [dx,dy,dz]=rainWorld(i),rr=Math.hypot(dx,dy,dz),limit=INNER_R-RAIN_R-.012;
    if(dy<0&&rr>limit&&rr<limit+.45){
+    if(rainOwner[i]!==1){rainX[i]=dx;rainY[i]=dy;rainZ[i]=dz;rainOwner[i]=1;ownerTransfers++;toHermeticon++}
     const nx=-dx/rr,ny=-dy/rr,nz=-dz/rr;
-    rainX[i]=dx/rr*limit+wanderX;rainY[i]=dy/rr*limit;rainZ[i]=dz/rr*limit+wanderZ;
+    rainX[i]=dx/rr*limit;rainY[i]=dy/rr*limit;rainZ[i]=dz/rr*limit;
     const vn=rainVX[i]*nx+rainVY[i]*ny+rainVZ[i]*nz;
     if(vn<0){rainVX[i]-=1.38*vn*nx;rainVY[i]-=1.38*vn*ny;rainVZ[i]-=1.38*vn*nz;rainWallBounces++}
     if(ny>.95&&Math.hypot(rainVX[i],rainVY[i],rainVZ[i])<.42){rainRest[i]=1;rainSettled++}
@@ -682,18 +683,15 @@ function lowerBowlTap(clientX,clientY){
  const hit=o.clone().addScaledVector(d,t);
  if(hit.y>=-.16)return false; // Brass band and upper hemisphere retain walking intent.
  lowerTaps++;
- // Wake only resting authoritative BBs near the impact; no new material created.
- const radius=3.0;let woken=0;
+ // Crucible tap acts on all resting vessel-owned BBs, independent of hit proximity.
+ let woken=0;
  for(let i=0;i<rainEmitted;i++){
-  if(rainRest[i]!==1)continue;
-  const x=rainX[i]-wanderX,y=rainY[i],z=rainZ[i]-wanderZ;
-  const dx=x-hit.x,dy=y-hit.y,dz=z-hit.z,rr=Math.hypot(dx,dy,dz);
-  if(rr>radius)continue;
-  const strength=(1-rr/radius);
-  const tangentX=-dz/(Math.hypot(dx,dz)||1),tangentZ=dx/(Math.hypot(dx,dz)||1);
-  rainVX[i]+=tangentX*(.7+strength*.9);
-  rainVY[i]+=.9+strength*1.7;
-  rainVZ[i]+=tangentZ*(.7+strength*.9);
+  if(rainOwner[i]!==1||rainRest[i]!==1)continue;
+  const angle=rainRandom(i,lowerTaps+31)*Math.PI*2;
+  const kick=.9+rainRandom(i,lowerTaps+32)*1.1;
+  rainVX[i]+=Math.cos(angle)*kick;
+  rainVY[i]+=1.2+rainRandom(i,lowerTaps+33)*1.8;
+  rainVZ[i]+=Math.sin(angle)*kick;
   rainRest[i]=0;woken++;
  }
  lowerWoken+=woken;
@@ -702,7 +700,7 @@ function lowerBowlTap(clientX,clientY){
  const f=fugitive;
  if(f.mode==='splat'&&!corpseDispersed){
   const cx=f.x,cy=f.y+fugitiveSize*.5,cz=f.z;
-  if(Math.hypot(cx-hit.x,cy-hit.y,cz-hit.z)<4.0){
+  if(f.owner==='hermeticon'){
    corpseDispersed=true;fugitiveMesh.visible=false;
    for(let i=0;i<24;i++){
     const a=i*2.39996323,rad=.55+(i%7)*.13;
@@ -712,12 +710,10 @@ function lowerBowlTap(clientX,clientY){
   }
  }
  // Stir the existing splat beads, preserving their original red/orange colors.
- if(f.mode==='splat')for(const p of f.particles){
-  if(!p.rest)continue;
-  const dx=p.x-hit.x,dy=p.y-hit.y,dz=p.z-hit.z,rr=Math.hypot(dx,dy,dz);
-  if(rr>radius)continue;
-  const strength=1-rr/radius,len=Math.hypot(dx,dz)||1;
-  p.vx+=-dz/len*(.8+strength);p.vy+=1.1+strength*1.6;p.vz+=dx/len*(.8+strength);
+ if(f.mode==='splat')for(let j=0;j<f.particles.length;j++){
+  const p=f.particles[j];if(!p.rest)continue;
+  const angle=rainRandom(lowerTaps,j+41)*Math.PI*2;
+  p.vx+=Math.cos(angle)*1.4;p.vy+=1.4;p.vz+=Math.sin(angle)*1.4;
   p.rest=false;
  }
  return true;
