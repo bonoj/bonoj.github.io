@@ -1907,6 +1907,34 @@ Provide a genuine model adapter that consumes the same role-labeled conversation
 
 ---
 
+
+---
+
+# XXX. SANITATION ADVANCE — TIFFINITY ROUTING & THE PARK THAT MOVES
+
+**Code commit:** [`acc9b5f3`](https://github.com/bonoj/bonoj.github.io/commit/acc9b5f3716de0c0ed4d99a578a65b8dbf07248a) · **Blob:** `e407b7e2e01c14c5588422d22e77de3ab25121b9`.
+
+The user advanced with **➡️** after selecting the sequence: finish sanitation, connect a genuine model, then give TIFFINITY a consequential operational role.
+
+## Implemented
+
+1. Registered `tiffinity` in the canonical `erRoutes` dispatcher, so the ascended console participates in the same route system as GEMPIRE, Mission Control, the park and newer games.
+2. Added **👑♾️ TIFFINITY** to the primary navigation group, rather than relying only on her separate legacy navigation wrapper.
+3. Fixed `tpTravel(delta)` and `tpJump(n)` to call `render()` after changing the stored virtual mile, refreshing sector cards, HUD and attraction information.
+4. Updated `tpMount()` to start an animation frame whenever a new canvas is mounted, preventing a newly rendered canvas from depending on the old canvas loop's `tpRunning` flag.
+
+## Boundaries and next steps
+
+The original wrapped rendering chain remains in source; this is compatibility sanitation rather than full deletion. Canvas behavior and route navigation still require live browser testing. There is still no connected external model or autonomous GEMPIRE loop. The next substantial seam is a model adapter with explicit consent, read-only observation tools, mutation approvals, and receipt-driven feedback. No credentials should be embedded in public GitHub Pages source.
+
+All **29 inline JavaScript blocks** passed syntax parsing before commit. Browser behavior has not been independently verified.
+
+Tiffany's former office has been renamed the **Office of Dimensional Transition Compliance**. TIFFINITY refuses to acknowledge its jurisdiction.
+
+**Never spec what you can build first.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
