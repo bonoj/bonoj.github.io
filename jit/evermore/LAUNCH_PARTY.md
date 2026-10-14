@@ -1459,6 +1459,126 @@ Recommended acceptance sequence: open `#one`; run Inspection Mode; confirm 11 re
 
 ---
 
+
+---
+
+# XXIII. GEMPIRE OS™ — THE MODEL-FORWARD MODEL-OPERATED EMPIRE
+
+**Implementation:** [`e96149f5`](https://github.com/bonoj/bonoj.github.io/commit/e96149f5797734a2f172a57593adf56dbf010cee) · **Route:** [`#gempire`](https://bonoj.github.io/jit/evermore/#gempire) · **Source:** `jit/evermore/index.html` · **Committed source blob:** `94f843c74e3ddc694c166542323042c0511c9a92`.
+
+## XXIII-A. The strategic pivot
+
+After EVERMORE ONE turned a single-click experience into a rudimentary regression harness, the next idea was to make Evermore a **model-forward, model-operated GEMPIRE™**. The distinguishing principle is *operation*: the model should not merely describe the games, banks, ministries, generator and theme park. It should discover capabilities, inspect live state, issue typed commands, receive structured receipts, verify consequences and decide its next action.
+
+The user reaffirmed the project's working motto: **Never spec what you can build first.** The first implementation therefore provides a functioning local operator console and instrumentation before introducing any remote language-model integration.
+
+**Honest boundary:** GEMPIRE OS v0 is a **browser-local command operating surface**, not a language model, hosted agent, API server, autonomous worker or self-modifying code generator. The command registry is designed for a future model adapter. It currently requires a person to enter/select a command and click Execute.
+
+## XXIII-B. Executable system architecture
+
+```text
+GEMPIRE OS™ (#gempire)
+  ├── Observatory → gosSnapshot()
+  │   ├── wallet: coins, stars, diamonds, crowns, XP, level
+  │   ├── generator: count, next seed
+  │   ├── incidents: open count, retained total, next case ID
+  │   ├── park: local groundbreaking count
+  │   └── Match i: turns and completed cycles
+  ├── Registry → gosRegistry
+  │   ├── read-only commands
+  │   └── mutating commands
+  ├── Executor → gosExecute(name,args)
+  │   ├── validate command and argument object
+  │   ├── capture before snapshot
+  │   ├── execute actual local operation
+  │   ├── catch failure and capture after snapshot
+  │   └── emit receipt
+  └── Instrumentation → gos.events
+      ├── sequence ID and UTC time
+      ├── command, arguments, mutability
+      ├── elapsed milliseconds, success/error
+      ├── before and after state
+      └── command result
+```
+
+The system uses the same additive route architecture as the rest of Evermore, with `render()` and `nav()` wrappers. It provides a live snapshot panel, editable JSON console, command selection buttons, a structured last-receipt view, a copy control and recent trace history.
+
+## XXIII-C. Nine initial commands
+
+| Command | Mode | Actual implementation |
+|---|---|---|
+| `os.inspect` | Read | Return a bounded live snapshot of major subsystems |
+| `os.tools` | Read | Return names, descriptions and mutation flags from the registry |
+| `os.audit` | Read* | Invoke existing EVERMORE ONE `eoInspect()` and return check results |
+| `generator.create` | Write | Allocate seed, optionally attach a parent by seed, persist a new playable game |
+| `incidents.file` | Write | Validate type 0–7 and call production `eiNew()` |
+| `incidents.resolve` | Write | Validate open case ID and choice 0–3; call production `eiResolve()` |
+| `park.groundbreak` | Write | Increment the existing local ceremonial counter |
+| `wallet.inspect` | Read | Return current treasury balances |
+| `os.trace` | Read | Return the most recent 20 instrumented receipts |
+
+*The `os.audit` command runs the existing non-mutating audit and updates its in-memory audit receipt and page render. It is read-only with respect to the game's permanent economy, but not literally free of UI/in-memory side effects.*
+
+**Example operator request:**
+
+```json
+{"command":"generator.create","args":{"parent":1}}
+```
+
+**Example read-only request:**
+
+```json
+{"command":"os.inspect","args":{}}
+```
+
+**Command arguments:** `incidents.file` accepts `type` (integer 0–7); `incidents.resolve` requires `id` and `choice` (integer 0–3); `generator.create` accepts optional `parent` as a seed number. The executor rejects unknown command names and non-object argument payloads. Individual commands perform additional validation as needed. The interface exposes mutability labels; it does **not yet enforce a formal permission system, approval policy, schema registry or transactional isolation**.
+
+## XXIII-D. Instrumentation, provenance and persistence
+
+`gosExecute()` captures `gosSnapshot()` before and after the command, times execution with `performance.now()`, assigns a monotonically increasing sequence number, records the current ISO timestamp and returns a receipt with `command`, `args`, `mutates`, `ok`, `elapsedMs`, `before`, `after`, `result` and `error`.
+
+Receipts persist under `localStorage['evermore-gempire-os-v1']`. The latest **40** receipts are retained, and the UI shows the latest **12**. The `os.trace` command returns the latest **20**. `gosLast` is the latest receipt in memory; it can be copied as JSON using the browser clipboard.
+
+**Privacy and capacity:** receipts include local gameplay state and user-supplied command arguments. Sharing copied traces discloses those details. This is not a secret-safe telemetry format. Large repeated receipts can consume localStorage capacity; persistence errors are currently caught without visible notification. A later release should add redaction, versioning, schema validation, bounded receipt payloads and export controls.
+
+**Important timing caveat:** the elapsed measurement covers synchronous command execution and snapshot collection, not network latency, animation completion, GitHub Pages propagation or remote model inference.
+
+## XXIII-E. Current limits and engineering risks
+
+1. **No model adapter yet.** No provider keys, remote inference, tool-calling loop, server or background agent is implemented. Human-triggered JSON commands are the working interface.
+2. **No event bus yet.** Existing games are not universally instrumented. The OS sees and controls only registered operations.
+3. **Not transactional.** A failed command may have partially mutated state. Before/after receipts expose the difference but do not roll it back.
+4. **Read-only classification is declarative.** The registry's `mutates` flag is informational, not an enforced sandbox.
+5. **Limited schema validation.** Several commands have manual validation; no centralized typed schema compiler or capability authorization exists.
+6. **No authenticated external interface.** The operator surface runs inside the same browser origin as Evermore. Do not expose it to arbitrary remote callers.
+7. **No durable replay engine.** Receipts preserve inputs and observed results, but replay against a clean deterministic state is not yet implemented.
+8. **Audit scope remains limited.** `os.audit` reuses EVERMORE ONE's modeled checks and does not become an end-to-end browser suite merely by running through the OS.
+9. **Storage and observability are local.** No cross-device synchronization or external log sink exists.
+
+## XXIII-F. Verification and recommended tests
+
+The source commit returned blob `94f843c74e3ddc694c166542323042c0511c9a92`. All **22 inline JavaScript blocks** passed syntax parsing prior to commit. The public browser route, command execution, persistence, navigation, and mobile layout have **not** been independently exercised end to end.
+
+Recommended runtime acceptance: open `#gempire`; run `os.tools`; run `os.inspect`; inspect wallet; create a seeded game; file an incident; resolve it with both reward and follow-up paths; break ground; run `os.audit`; inspect `os.trace`; copy a receipt; reload; confirm saved game/case/counter/trace. Test malformed JSON, unknown commands, invalid IDs, disabled storage, and narrow mobile widths.
+
+## XXIII-G. Roadmap: from console to model-operated GEMPIRE
+
+**Next executable seam:** build a small adapter that consumes the discoverable registry, chooses commands under a bounded budget, requires explicit approval for state-changing actions, and reports receipts. Keep the model outside the authoritative state. The command executor remains deterministic and independently testable.
+
+Subsequent phases: centralized JSON schemas and validation; a unified event bus; automatic instrumented game events; immutable transaction IDs and idempotent treasury writes; a state-snapshot sandbox for planning; deterministic replay; failure localization; safe capability scopes; compact model-readable observations; a turn-based operator loop; and finally an optional provider-backed model with a user-controlled key or securely mediated server connection.
+
+The defining architectural rule: **the model is an operator, not the source of truth.** Evermore's state and rules remain executable without it. Every action must return evidence.
+
+## XXIII-H. Tiffany's constitutional amendment
+
+> “We have automated the empire's paperwork. We now require a machine capable of understanding why the paperwork exists. The machine has requested more paperwork.”
+
+**GEMPIRE™ is the empire. GEMPIRE OS™ is its inspectable machinery. The model will be its operator.**
+
+**Never spec what you can build first.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
