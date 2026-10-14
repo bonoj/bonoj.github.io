@@ -1679,6 +1679,86 @@ Next executable seams: real nested ride composition, independent subride control
 
 ---
 
+
+---
+
+# XXVI. TWO ISSUES, ONE EMPIRE — MISSION CONTROL™
+
+**Implementation:** [`5cd71dad`](https://github.com/bonoj/bonoj.github.io/commit/5cd71dad739dbbefa3cb0b6000a1234e969e345f) · **Route:** [`#missioncontrol`](https://bonoj.github.io/jit/evermore/#missioncontrol) · **Source blob:** `28adee19e5bbcecde8198f34a1d0b98814d8568e`.
+
+## Actual incoming missions
+
+On 2026-10-13 the user opened two real issues in the existing `bonoj/Ingest` transport:
+
+| Issue | Mission ID | Command | Mutability |
+|---|---|---|---|
+| [#4](https://github.com/bonoj/Ingest/issues/4) | `mission-1791947213768` | `os.inspect` | Read only |
+| [#5](https://github.com/bonoj/Ingest/issues/5) | `mission-1791947236403` | `wallet.inspect` | Read only |
+
+Both issue bodies contain a fenced JSON envelope marked `gempire-command-v1`, a command name and an empty arguments object. Both commands exist in GEMPIRE OS's registry. The missions are legitimate read-only requests.
+
+**Critical truth boundary:** the GitHub-connected model can fetch the issues and inspect source, but cannot directly access the user's live browser `localStorage`, wallet, or current in-memory OS state. Therefore no numerical wallet balance or live snapshot was claimed. A transport receipt is not an execution receipt.
+
+## GitHub intake acknowledgments
+
+A structured `gempire-receipt-v1` intake comment was posted to each issue:
+
+- Issue #4 intake comment ID **6159997960**.
+- Issue #5 intake comment ID **6159998401**.
+
+Each comment records the mission ID, source issue, command, `awaiting-browser-execution` status, read-only classification, validated envelope, source commit, and explicitly marks browser execution and balance observation as **not performed**. These are durable acknowledgments, not fabricated results.
+
+## Shipped Mission Control
+
+The `#missioncontrol` route adds:
+
+1. Two mission-dispatch buttons that open the Issue Bridge and request the relevant GitHub issue number (#4 or #5).
+2. A mission-indexed receipt store at `localStorage['evermore-gempire-mission-receipts-v1']`.
+3. An execution wrapper around the existing `giExecute()` path that captures the last receipt and indexes it by `bonoj/Ingest#<issue number>`, replacing previous local receipts for the same issue.
+4. A recent-receipts display (last twelve) with issue navigation and full structured JSON.
+5. An explicit explanation of the three distinct lifecycle stages: **issue filed → browser execution → GitHub evidence posted**.
+
+Receipts are bounded to the last 80 stored entries. They remain local to the browser, separate from the GitHub issue comments. Posting the actual browser receipt back to GitHub remains a manual clipboard-and-comment operation.
+
+## Lifecycle and trust boundaries
+
+```text
+GitHub issue #4/#5
+   ↓ authenticated GitHub connector reads and validates
+GitHub intake acknowledgment comment
+   ↓ browser navigates to Mission Control
+Issue Bridge fetches public issue JSON
+   ↓ user reviews + explicitly authorizes
+GEMPIRE OS executes command against browser-local state
+   ↓ structured before/after receipt
+Mission Control saves receipt by issue number
+   ↓ user copies + posts comment
+GitHub durable execution evidence
+```
+
+There is no automatic issue polling, background agent, remote browser control, or external model integration in this release. A future trusted bridge could post actual execution receipts automatically, but must preserve authorization, idempotency and protection of user-local state.
+
+## Verification
+
+The commit returned source blob `28adee19e5bbcecde8198f34a1d0b98814d8568e`; all **25 inline JavaScript blocks** passed syntax parsing before commit. Both GitHub issue intake comments were successfully created. Live browser execution and the Mission Control UI have **not** been independently browser-tested.
+
+## Next executable seams
+
+- Include issue provenance inside the base receipt before persistence (currently appended after the core executor persists).
+- Support explicit mission states: received, approved, executing, succeeded, failed, acknowledged.
+- Add receipt IDs and deduplication so re-importing the same mission cannot accidentally double-pay a mutating command.
+- Give read-only commands a safe, explicit way to export only the requested fields rather than full before/after snapshots.
+- Add a browser-verified smoke test for issue #4 and #5 and mobile layout.
+- Extend the same command registry to the Theme Park's ride dispatch and hydraulic settings; let incidents be generated from actual observed ride events.
+
+## Tiffany's audit
+
+> “Two orders received. Zero imaginary wallet balances invented. We have begun to take the imaginary economy seriously, which is frankly concerning.”
+
+**Never spec what you can build first.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
