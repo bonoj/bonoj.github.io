@@ -1973,3 +1973,39 @@ And Tiffany requires only one thing.
 # MORE. ✦
 
 *End of document. Beginning of paperwork.*
+
+
+
+# XXXII. ZIMA BLUE — THE ONE TAP RELEASE
+
+**Release:** 2026-10-13 (repository commit time may differ). **Code commit:** `73ab9f0e492f829e84b0591cc0e77fa77f1d8649`. **File:** `jit/evermore/index.html`.
+
+## Product decision
+
+The user requested that **the entire Evermore engine**, not merely Tiffany, undergo a Zima Blue reduction: **one button, one tap, and then it remains tapped.** They explicitly authorized shipping, removing access to everything else, and documenting the change. They explicitly said: **“I won't test it.”** This is a release constraint, not an invitation to assume success. **User testing is neither expected nor required.** Engineering must own verification and disclose gaps.
+
+## Implementation
+
+The old ~292 KB, 30-script game application was replaced at the canonical GitHub Pages entrypoint with a ~3.8 KB, single-script standalone page. No games, menus, wallet, Tiffany, Tiffinity, legacy routes, reset, prestige or reward affordances are present in the served entrypoint. The prior application is retained in Git history; it is not reachable through this entrypoint.
+
+The button has a one-way logical transition from **Tap** to **Tapped**. It is disabled while the shared state is being checked and permanently disabled after the browser sees a tap. Browser-local storage remembers any observed successful transition. The client polls a public ntfy topic, checks it again immediately before posting, then publishes `EVERMORE_TAPPED_V1`. Other active clients poll every 15 seconds. The UI fails closed when it cannot read the relay, rather than letting an unverified tap appear globally authoritative.
+
+## Critical limitations — do not misrepresent as solved
+
+**This is not yet guaranteed globally permanent.** The public `ntfy.sh` topic is a notification relay with bounded history, not immutable durable storage. If retention expires, a fresh client without local history can see an untapped state. The topic is publicly writable, so any actor can forge a tap. Concurrent clients can both publish between their history checks. Network/browser CORS or relay availability may prevent successful operation. The POST acknowledgment is not an atomic global compare-and-swap. No server-side authoritative bit or durable write-once backing record exists.
+
+Therefore the delivered implementation is **a minimal ntfy-synchronized one-way client experience**, not a mathematically enforced global one-time transaction. Achieving the literal permanence requirement requires an authenticated durable backend with atomic conditional creation (and ideally ntfy only as a fanout channel). Do not silently upgrade this claim.
+
+## Verification and testing responsibility
+
+Source replacement committed. JavaScript was structurally inspected; live browser execution, network POST, multi-client convergence, GitHub Pages propagation, and durable global permanence **have not been verified**. The user expressly declined testing, and no claim of their acceptance or QA is permitted. Future operators must not ask the user to perform routine release QA.
+
+## Canonical endpoint
+
+https://bonoj.github.io/jit/evermore/
+
+The former game empire is available only through repository history, not through this public entrypoint.
+
+*There is always less.*
+
+---
