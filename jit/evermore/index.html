@@ -746,8 +746,8 @@ let tpFrame=0,tpLast=0,tpRunning=false,tpCanvas=null,tpCtx=null,tpTick=0,tpRideS
 function tpSave(){try{localStorage.setItem(tpKey,JSON.stringify(tp))}catch(e){}}
 function tpHash(n){let x=Math.imul((n|0)^tp.seed,2654435761);x^=x>>>15;x=Math.imul(x,2246822519);return (x>>>0)/4294967295}
 function tpRide(n){return {name:tpNames[((n%tpNames.length)+tpNames.length)%tpNames.length],mile:n*3.7,sub:1+Math.floor(tpHash(n+13)*4),height:60+Math.floor(tpHash(n+81)*340),nested:Math.floor(tpHash(n+201)*7)+2}}
-function tpTravel(delta){tp.mile=Math.max(0,tp.mile+delta);tpSave();tpMount()}
-function tpJump(n){tp.mile=n*3.7;tpSave();tpMount()}
+function tpTravel(delta){tp.mile=Math.max(0,tp.mile+delta);tpSave();render()}
+function tpJump(n){tp.mile=n*3.7;tpSave();render()}
 function tpSetHyd(v){tp.hydraulics=Number(v);tpSave();let e=document.getElementById('tp-hyd-value');if(e)e.textContent=Math.round(tp.hydraulics*100)+'%'}
 function tpSetSpeed(v){tp.speed=Number(v);tpSave()}
 function tpLaunch(){tpRideOn=true;tpRideStart=performance.now();tp.rides++;tpSave();toast('🎢 NESTED RIDE #'+tp.rides+' — ALL HYDRAULICS ENGAGED!')}
@@ -769,7 +769,7 @@ c.fillStyle='#ffe9c3';c.font='bold '+Math.max(14,Math.min(w/26,24))+'px system-u
 c.font='12px monospace';c.fillText('RIDE WITHIN A RIDE WITHIN '+ride.nested+' RIDES',center,55);
 if(tpRideOn){c.fillStyle='#ffe0a3';c.fillRect(w*.1,h-23,w*.8*phase,8);c.strokeStyle='#fff';c.strokeRect(w*.1,h-23,w*.8,8)}
 tpFrame=requestAnimationFrame(tpDraw)}
-function tpMount(){let canvas=document.getElementById('tp-canvas');if(!canvas)return;if(tpCanvas!==canvas){tpCanvas=canvas;tpCtx=canvas.getContext('2d');tpLast=0;if(!tpRunning){tpRunning=true;tpFrame=requestAnimationFrame(tpDraw)}}}
+function tpMount(){let canvas=document.getElementById('tp-canvas');if(!canvas)return;if(tpCanvas!==canvas){tpCanvas=canvas;tpCtx=canvas.getContext('2d');tpLast=0;tpRunning=true;tpFrame=requestAnimationFrame(tpDraw)}}
 function tpPage(){let n=Math.floor(tp.mile/3.7),r=tpRide(n);return '<div class="tp-shell"><h1>🎡 EVERMORE THEME PARK THEMED THEME PARK™</h1><p>Miles and miles. Somewhere. Everywhere. Nowhere. <b>NOW HERE!</b></p><div class="tp-stage"><canvas id="tp-canvas" aria-label="Animated nested hydraulic teacup rollercoaster drop tower"></canvas><div class="tp-hud">MILE '+tp.mile.toFixed(1)+' / ∞<br>SECTOR '+n+' · '+r.height+'m TOWER<br>'+r.nested+' NESTED RIDES<br>HYDRAULICS '+Math.round(tp.hydraulics*100)+'%</div></div><div class="tp-panel"><h2>🫖 '+r.name+'</h2><p>A teacup inside a rollercoaster inside a drop tower inside '+r.nested+' rotating rides. Hydraulic pistons support the entirely unreasonable engineering.</p><button class="tp-button" onclick="tpLaunch()">🚀 LAUNCH THE NESTED RIDE</button><button class="tp-button" onclick="tpStop()">🛑 EMERGENCY TEA BREAK</button><div class="tp-grid"><div><p>💧 Hydraulic pressure <b id="tp-hyd-value">'+Math.round(tp.hydraulics*100)+'%</b></p><input class="tp-range" type="range" min="0" max="1" step=".01" value="'+tp.hydraulics+'" oninput="tpSetHyd(this.value)"></div><div><p>⏱️ Simulation speed</p><input class="tp-range" type="range" min=".25" max="3" step=".25" value="'+tp.speed+'" oninput="tpSetSpeed(this.value)"></div></div></div><div class="tp-panel"><h2>🗺️ THE INFINITE MIDWAY</h2><p>Procedural attractions every 3.7 miles, deterministic from seed '+tp.seed+'. No finite endpoint. Every sector has a distinct tower height, nesting count and attraction name.</p><button class="tp-button" onclick="tpTravel(-37)">⬅️ −37 MILES</button><button class="tp-button" onclick="tpTravel(3.7)">➡️ NEXT RIDE</button><button class="tp-button" onclick="tpTravel(37)">🚄 +37 MILES</button><button class="tp-button" onclick="tpTravel(370)">🚀 +370 MILES</button><button class="tp-button" onclick="tpJump(0)">🏰 BACK TO NOW HERE</button><div class="tp-grid">'+Array.from({length:12},(_,j)=>{let i=n+j,q=tpRide(i);return '<div class="tp-card"><b>🎢 '+q.name+'</b><p class="tp-metric">Mile '+q.mile.toFixed(1)+' · '+q.height+'m · '+q.nested+' layers</p><button class="tp-button" onclick="tpJump('+i+')">VISIT</button></div>'}).join('')+'</div></div><div class="tp-panel"><h2>🏦 PARK OPERATIONS</h2><p>Rides completed: <b>'+tp.rides+'</b> · Successful 9.5-second rides award 420 coins and 4 stars via the shared treasury. The park persists its mileage, hydraulics and ride count locally.</p><button class="tp-button" onclick="go(&quot;park&quot;)">🗺️ ORIGINAL MAGIC MAP</button><button class="tp-button" onclick="go(&quot;gempire&quot;)">💎 GEMPIRE OS</button><p>Grand opening proclamation: the park is infinitely long in its procedural coordinate system, not physically built or geographically located. No actual gambling, rides, or edible flavors.</p></div></div>'}
 const tpOldRender=render;render=function(){if(current==='themepark'){$('#app').innerHTML=tpPage();$('#nav').innerHTML=nav();wallet();requestAnimationFrame(tpMount);return}tpOldRender()};
 const tpOldNav=nav;nav=function(){return '<button class="'+(current==='themepark'?'sel':'')+'" onclick="go(&quot;themepark&quot;)">🎡 THEME PARK</button>'+tpOldNav()};
@@ -847,5 +847,12 @@ const tfOldRender=render;render=function(){if(current==='tiffinity'){$('#app').i
 const tfOldNav=nav;nav=function(){return '<button class="'+(current==='tiffinity'?'sel':'')+'" onclick="go(&quot;tiffinity&quot;)">♾️ TIFFINITY</button>'+tfOldNav()};
 const tfOldToggle=toggleHelp;toggleHelp=function(){go('tiffinity')};
 document.querySelectorAll('.floating').forEach(b=>{b.innerHTML='👑♾️ TIFFINITY ✦';b.setAttribute('aria-label','Open TIFFINITY console')});
+if(location.hash==='#tiffinity')current='tiffinity';render();
+</script>
+<script>
+/* TIFFINITY CONSOLIDATION: register ascended console in canonical router and accessible navigation. */
+erRoutes.tiffinity={view:()=>tfPage()};
+erNavGroups[0].splice(3,0,['tiffinity','👑♾️ TIFFINITY']);
+render=function(){let route=erRoutes[current];if(!route){erLegacyRender();return}if(current!=='match3d'&&typeof m3Instance!=='undefined'&&m3Instance){m3Token++;m3Instance.dispose();m3Instance=null}$('#app').innerHTML=route.view();$('#nav').innerHTML=nav();wallet();$('#helper').innerHTML='';if(route.mount)route.mount()};
 if(location.hash==='#tiffinity')current='tiffinity';render();
 </script></body></html>
