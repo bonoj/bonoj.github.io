@@ -532,6 +532,6 @@ let f=document.getElementById('m3-fallback');if(f)f.remove();
 }catch(e){if(token===m3Token)m3Fallback()}}
 const m3OldRender=render;render=function(){if(current==='match3d'){$('#app').innerHTML=m3Page();$('#nav').innerHTML=nav();wallet();m3Busy=false;m3Mount();return}m3Token++;if(m3Instance){m3Instance.dispose();m3Instance=null}m3OldRender()};
 const m3OldNav=nav;nav=function(){return '<button class="'+(current==='match3d'?'sel':'')+'" onclick="go(&quot;match3d&quot;)">💎 MATCH 1 3D</button>'+m3OldNav()};
-const m3OldLaunch=launchPage;launchPage=function(){return m3OldLaunch().replace('💎 PLAY MATCH 1 — FREE FOREVER','💎 PLAY MATCH 1 — FREE FOREVER').replace('🔔 RING THE OPENING BELL','💎 MATCH 1 3D PREMIERE</button><button onclick="go(&quot;match3d&quot;)">🔔 RING THE OPENING BELL')};
+const m3OldLaunch=launchPage;launchPage=function(){return m3OldLaunch().replace('<button onclick="launchAction(&quot;bell&quot;)">🔔 RING THE OPENING BELL</button>','<button onclick="go(&quot;match3d&quot;)">💎 MATCH 1 3D PREMIERE</button><button onclick="launchAction(&quot;bell&quot;)">🔔 RING THE OPENING BELL</button>')};
 if(location.hash==='#match3d')current='match3d';render();
 </script></body></html>
