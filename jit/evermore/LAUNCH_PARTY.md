@@ -790,6 +790,24 @@ The Corps will eventually recruit playable quality inspectors from every Evermor
 
 ---
 
+# XVII. DEVELOPMORE OPENS FOR BUSINESS — THE QUEEN DEMANDS MORE
+
+**Implementation commit: `f1566296`.** The `#developmore` route adds a playable, browser-persistent bureaucratic expansion. The new screen contains five tabs: **Core Corps**, **Queen's Quality Assurance Authority**, **Seven More**, **Partnerships**, and **Ledger**. It retains local counts and the last thirty recorded actions under `evermore-core-corps-v1`.
+
+**Core Corps:** two ceremonial award buttons for Regression Royale and Pocket Empire, accumulating Confidence Points and Thumb Laurels. The interface explicitly says these rewards **are not actual engineering test evidence**.
+
+**QQAA:** the Queen's Quality Assurance Authority is declared three times the fictional headcount of the Corps, with nine divisions and three commissions. Its triple-audit button awards three inspections and nine stamps; appeal and stamp buttons provide further escalating bureaucracy.
+
+**Seven unrelated features:** Cloud Licensing Office (Cloud Permits); Echo Subscription Service (Echoes); Moon Naming Registry (Moon Deeds); Receipt Archaeology (Ancient Receipts); Crumb Futures Board (Crumb Futures); Ceremonial Whistle Union (Whistles); Chair Diplomacy Summit (Chair Treaties). Each has a clickable issuance mechanic, persisted counters, and an event record.
+
+**Bidirectional crossover proposals:** fictional pet-food × games (Royal Kibble Quest, Catalogue of Cats), detergent × games (Dishwasher Dungeon, Bubble Battle Pass, Castle Dish Renovation), pet food × detergent (Bowl-to-Plate Bridge), retail shelf → screen (proposed on-pack QR adventures), and screen → shelf (proposed pet bowls, soap boxes, inserts). Proposal buttons file draft pitches in the local ledger. **No actual pet-food or detergent company has entered a partnership, granted rights, or endorsed Evermore. No physical product exists or is available for sale.**
+
+**Verification boundary:** all twelve embedded JavaScript blocks passed source-level syntax checks **before commit**. The commit is recorded; this section does not claim live Pages verification, successful browser interaction, mobile performance, or a complete regression run. Those remain Core Corps quests.
+
+**Tiffany's communiqué:** “The Quality Assurance Authority is three times larger than the people doing the work. This is how you know quality is our priority. We have also invited the world's pet food and dishwasher detergent industries to merge into a single, lightly scented dragon-biscuit economy. Responses are pending, including the responses we have not sent.”
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
