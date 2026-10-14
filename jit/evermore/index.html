@@ -855,4 +855,22 @@ erRoutes.tiffinity={view:()=>tfPage()};
 erNavGroups[0].splice(3,0,['tiffinity','👑♾️ TIFFINITY']);
 render=function(){let route=erRoutes[current];if(!route){erLegacyRender();return}if(current!=='match3d'&&typeof m3Instance!=='undefined'&&m3Instance){m3Token++;m3Instance.dispose();m3Instance=null}$('#app').innerHTML=route.view();$('#nav').innerHTML=nav();wallet();$('#helper').innerHTML='';if(route.mount)route.mount()};
 if(location.hash==='#tiffinity')current='tiffinity';render();
+</script>
+<style>
+#tiffany-console{border-color:#f4d19a;box-shadow:0 0 0 2px #b986e2,0 18px 80px #10061dba}
+#tiffany-console .tc-head{background:linear-gradient(110deg,#fbe3a7,#e5c4ff);color:#362348}
+#tiffany-console .tc-suggest{flex-wrap:wrap;overflow:visible}
+#tiffany-console .tc-suggest button{min-height:42px}
+.floating{background:linear-gradient(120deg,#ffe0aa,#f4cbff);border-color:#d6a4fa}
+</style>
+<script>
+/* Actual persistent floating concierge: TIFFINITY now owns the bubble AND its chat. */
+const tfBubble=document.querySelector('button.floating');
+if(tfBubble){tfBubble.innerHTML='<span>👑♾️</span> TIFFINITY <span style="font-size:13px">✦</span>';tfBubble.setAttribute('aria-label','Open TIFFINITY chat');tfBubble.setAttribute('onclick','tcToggle()')}
+const tfPanel=document.getElementById('tiffany-console');
+if(tfPanel){tfPanel.setAttribute('aria-label','TIFFINITY model-oriented operator console');tfPanel.querySelector('.tc-head strong').textContent='👑♾️ TIFFINITY™ · TRANSDIMENSIONAL OPERATIONS';tfPanel.querySelector('.tc-suggest').innerHTML='<button onclick="tcAsk(&quot;Inspect empire&quot;)">Inspect empire</button><button onclick="tcAsk(&quot;Wallet&quot;)">Wallet</button><button onclick="tcAsk(&quot;Audit&quot;)">Audit</button><button onclick="tcAsk(&quot;Trace&quot;)">Receipts</button><button onclick="tcAsk(&quot;Tools&quot;)">Tools</button><button onclick="go(&quot;tiffinity&quot;);tcToggle(false)">Full console ↗</button>';let input=tfPanel.querySelector('#tc-input');input.setAttribute('aria-label','Ask TIFFINITY');input.placeholder='Ask TIFFINITY about your empire…'}
+tcAsk=function(query){let q=String(query||'').trim().slice(0,2000);if(!q)return;let reply=tfReply(q);tfState.messages.push({role:'user',text:q},{role:'tiffinity',text:reply.text,kind:reply.kind,time:new Date().toISOString()});tfState.messages=tfState.messages.slice(-60);tfSave();tcMessage(q,'user');tcMessage('TIFFINITY ['+reply.kind+']: '+reply.text,'tiffinity');};
+const tfOldTcToggle=tcToggle;
+tcToggle=function(force){let el=document.getElementById('tiffany-console');if(!el)return;let open=typeof force==='boolean'?force:!el.classList.contains('open');el.classList.toggle('open',open);if(open){let log=document.getElementById('tc-log');log.replaceChildren();if(tfState.messages.length){tfState.messages.forEach(m=>tcMessage((m.role==='user'?'': 'TIFFINITY ['+(m.kind||'local')+']: ')+m.text,m.role==='user'?'user':'tiffinity'))}else tcMessage('TIFFINITY: I have ascended. My observations are local and my model adapter is not connected. Ask for an empire inspection, wallet, audit, trace, or tools.');document.getElementById('tc-input').focus()}};
+toggleHelp=function(){tcToggle()};
 </script></body></html>
