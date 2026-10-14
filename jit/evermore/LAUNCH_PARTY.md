@@ -1242,6 +1242,138 @@ Tiffany's final directive:
 
 ---
 
+
+---
+
+# XXI. THE DEPARTMENT OF UNFINISHED BUSINESS™
+## The Evermore Incident Engine and the discovery that every solution is a problem
+
+**Release:** [`b388c1bb`](https://github.com/bonoj/bonoj.github.io/commit/b388c1bbdc66bfc2ac0c6cbb267906aab11ed924) · **Route:** [`#incidents`](https://bonoj.github.io/jit/evermore/#incidents) · **Source:** `jit/evermore/index.html` · **Readback blob:** `75961b0408a8c634ca1e5134433e399dc8e66c8b`.
+
+### XXI-A. The premise: an empire needs consequences
+
+The user invited Clara to choose Evermore's next move. Rather than proposing yet another isolated mini-game, Clara proposed **a causal nervous system**: a Department of Unfinished Business that turns Evermore's institutions into sources of administrative emergencies. Gems unionize; groundbreakings uncover previous groundbreakings; subsidiaries declare independence; imaginary gems violate real zoning laws; pension sparkles escape to the casino; a flavor lacks flavor; the casino acquires imaginary assets; and the Mystery Pavilion becomes impossible to inspect.
+
+Tiffany authorized immediate implementation and documentation. The first version is a **working incident-management mini-game**: it has real persistent cases, distinct case text, player choices, resolution records, rewards, and bounded causal follow-ups. It is not yet a universal event bus that automatically observes every action across all preexisting Evermore games. That cross-product integration is an explicit next step.
+
+**Departmental motto:** *“We regret to inform you that your solution has been identified as a problem.”*
+
+### XXI-B. Eight inaugural case files
+
+| Type | Incident | Origin | Assigned authority | Administrative crisis |
+|---|---|---|---|---|
+| 0 | 💎 The Gems Have Unionized | Match Mountain | Ministry of Matchematics | Thirty-three gemstones demand rotational compensation and paid sparkle leave |
+| 1 | ⛏️ Groundbreaking Archaeological Emergency | Magic Map | Royal Park Authority | Excavators uncover an earlier groundbreaking beneath the current one |
+| 2 | 🏭 The Subsidiary Declares Independence | Generator Foundry | Royal Bank | A generated game claims sovereign economic status |
+| 3 | 🔮 Complex Zoning Violation | Match i | Ministry of Matchematics | An imaginary gemstone crosses a real property line |
+| 4 | ✨ Pension Sparkles Escape | Sparkle Pension Lagoon | Pensions Office | Retired particles take employment at the casino |
+| 5 | 🍬 Flavor Profile Has No Flavor | Evergrown Gardens | Royal Tasting Tribunal | Flavor #31 refuses to possess any flavor |
+| 6 | 🎰 The Casino Wins an Imaginary Fortune | Royal Casino | Royal Bank | A fictional jackpot demands a real balance sheet |
+| 7 | 🎭 Mystery Pavilion Disappears | Mysterious Mystery Pavilion | QQAA | Inspectors cannot locate the classified building |
+
+Each type has four context-specific response labels. The incident definition contains `title`, `icon`, `origin`, `owner`, `detail`, and `choices`. These are stable definitions in the `eiTypes` array, not remotely generated prose. A case instance references the type by index, avoiding repeated full text in storage.
+
+### XXI-C. Filing, resolution and causal branching
+
+The player can open a case with **FILE AN INCIDENT**, which cycles through the eight incident types using the next case ID, or file a specific type through the **INCIDENT ORIGINS** buttons. A newly opened case receives a monotonically increasing integer ID, type index, status `open`, source, timestamp and `resolution:-1`.
+
+Each open case offers four responses. `eiResolve(id,choice)` verifies that the case exists and is open, then marks it resolved and records the selected choice. The four response indices share common **mechanical outcomes** across all eight incident types:
+
+| Choice index | Narrative response | Mechanical result |
+|---|---|---|
+| 0 | Settlement / preservation / recognition, depending on incident | Case resolves; `reward(12,1)` awards 12 coins and one star |
+| 1 | Referral / deeper investigation / audit | Case resolves; a new incident is opened |
+| 2 | Mediation / permit / appointment | Case resolves; `reward(12,1)` awards 12 coins and one star |
+| 3 | Generate replacement / new bureaucracy | Case resolves; a new incident is opened |
+
+Follow-up incident type is computed as `(c.type + choice + 1) % eiTypes.length`. The follow-up's source records `Resolution of case #<id>`, giving a minimal causal link. The administrative event ledger records both the resolution and any newly created case.
+
+**Important limit:** the outcome sentences are currently shared by choice index, not unique to every type-and-choice combination. This means there are 32 **labeled options**, but only four common mechanical resolution patterns. Deeper authored consequences and systemic cross-game effects remain future work.
+
+### XXI-D. RESOLVE ALL INCIDENTS™: a mathematically honest catastrophe
+
+The **RESOLVE ALL INCIDENTS™** control snapshots all currently open case IDs, marks each of them resolved, and opens **one new case per resolved case**. The replacement's type is `(oldType + 1) % 8`, and its source names the original case. It also logs Tiffany's award for reducing administrative overhead.
+
+If `N` cases are open before the operation, then — absent the 120-case storage cap's pruning effects — exactly `N` new cases are opened, so the number of open cases is preserved. The number of cumulative resolved records grows, and the paperwork continues. **This implementation does not cause exponential growth**, despite the Ministry's claims; the absurdity is that the outstanding workload refuses to decrease.
+
+If there are zero open cases, pressing the button **creates** an incident about unnecessary administrative closure. This makes the button maximally self-defeating.
+
+**No payout is awarded for mass resolution.** Its only output is paperwork, administrative history and Tiffany's undeserved commendation.
+
+### XXI-E. Persistence, caps and performance
+
+The engine stores `ei` in `localStorage['evermore-incidents-v1']`:
+
+```json
+{
+  "next": 4,
+  "cases": [
+    {"id":1,"type":0,"status":"resolved","source":"Citizen Petition","created":1791940000000,"resolution":1},
+    {"id":2,"type":2,"status":"open","source":"Resolution of case #1","created":1791940000100,"resolution":-1}
+  ],
+  "log": [
+    "📋 Case #2 opened: The Subsidiary Declares Independence",
+    "⚠️ The solution to #1 has generated another incident."
+  ]
+}
+```
+
+The JSON is **illustrative**, not actual user data. `eiSave()` catches storage exceptions without a user-visible warning. The case array retains the latest **120** records; the event ledger retains the latest **70** strings. The active docket renders at most the latest **18** open cases, newest first. Other open cases can remain stored but may not be individually selectable through that view. As older records are pruned, the visible `resolved` and `open` counts reflect the retained array, **not lifetime totals**. The ID counter continues increasing.
+
+All persistence is browser-local. There is no multiplayer, backend queue, external case service, account sync, actual regulatory filing, or email notification. The UI uses native buttons, responsive case grids and a scrollable event ledger.
+
+### XXI-F. Treasury contract and the larger Evermore economy
+
+For response indices 0 and 2, the engine invokes the existing shared `reward(12,1)` function. This is intended to deposit **12 coins and one star** into the Evermore treasury and preserve its usual XP/level progression. A resolution can only pay once because `eiResolve` rejects any case whose status is not `open`. The code catches reward exceptions and logs a treasury error; it does **not** roll back the case resolution on payout failure. The ledger is therefore not yet an atomic financial transaction journal.
+
+For response indices 1 and 3, the new incident is the consequence instead of a coin/star reward. The new case is a separate, independently resolvable record. This creates a simple causal chain and a repeatable choice between immediate reward and further bureaucracy.
+
+### XXI-G. Relationship to existing products
+
+| Existing system | Present connection | Next intended connection |
+|---|---|---|
+| Match 33 / Match i | Incident themes and Matchematics ownership | Automatic cases after selected match wins or imaginary rotations |
+| Magic Map | Park-themed incident and navigation link | District alerts and clickable incident markers |
+| Generator | Subsidiary-themed incident and navigation link | Emit incidents when subsidiaries are generated |
+| Royal Bank | Shared reward deposits | Transaction receipts, audit cases and real liability state |
+| Sparkle Pension | Pension-themed case | Retirement/escape incidents from actual sparkle accrual |
+| Evergrown Gardens | Flavor #31 case | Generate flavor-related inspections from tasting interactions |
+| Casino | Fictional casino case | Non-wagering probability events and jackpot audits |
+| QQAA / Ministry | Assigned case owners in text | Agency-specific queues, inspectors and resolution modifiers |
+
+This release adds **explicit origin buttons**, not automatic hooks. It makes Evermore's institutions narratively interoperable and begins a genuine persistent case loop; a future event bus can make the connection operational across games.
+
+### XXI-H. Release verification and QA gates
+
+- Source committed as `b388c1bb`; returned blob SHA `75961b0408a8c634ca1e5134433e399dc8e66c8b`.
+- All **20 inline JavaScript blocks** passed syntax parsing before commit.
+- Route `#incidents` is added through wrappers around the existing `render()` and `nav()`, consistent with Evermore's additive page architecture.
+- Source-level tests establish that the code and route exist. **Public browser rendering, touch behavior, persistence reload, and actual wallet payouts have not yet been independently verified.**
+- Recommended runtime regression: open the route directly; file all eight types; resolve each choice; verify 12-coin/1-star payments for 0 and 2; verify child-case creation for 1 and 3; test mass resolution with 0, 1, and several open cases; reload; confirm the docket and ledger persist; test 120-case pruning, narrow mobile layout and navigation back to existing games.
+
+### XXI-I. Roadmap: from case manager to causal nervous system
+
+1. **Shared event dispatcher:** `evermore.emit('match.win', payload)`, `evermore.emit('generator.spawn', payload)`, `evermore.emit('park.groundbreak', payload)`, and similar typed events, without wrapping every game in fragile interception logic.
+2. **Deterministic incident triggers:** bounded probabilities or explicit thresholds, seeded from event IDs, with replayable provenance and no surprise high-frequency spam.
+3. **Typed consequence contracts:** rewards, costs, currencies, game-state modifications, map markers, agency workloads and follow-up cases, all auditable.
+4. **Incident lineage graph:** parent ID, triggering event, timestamp, assigned ministry, resolution receipts, and loop detection.
+5. **Department workload simulation:** agency queues, inspector capacity, staffing by generated Tiffanys, regulatory backlog and visible throughput.
+6. **Bulk-resolution semantics:** a deliberately comic, bounded replacement rule with clearly displayed before/after counts and safe caps.
+7. **Atomic treasury receipts:** idempotent payouts and save reconciliation to prevent duplicate or lost deposits.
+8. **Docket usability:** filters, pagination, searchable history, archive and export for cases beyond the newest 18.
+9. **Park integration:** map pin badges, district-level crises, park maintenance quests, and ceremonial emergency announcements.
+10. **The ultimate joke:** a generated ministry may audit its own generation, appeal its audit, and hire another ministry to adjudicate the appeal.
+
+### XXI-J. Tiffany's certificate of outstanding administrative efficiency
+
+> “We have resolved every incident. The number of incidents remains unchanged. This is the strongest evidence yet that our resolution department is operating at maximum capacity.”
+
+**Evermore has gained a bureaucracy that remembers.**
+
+And, naturally, remembers incorrectly.
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
