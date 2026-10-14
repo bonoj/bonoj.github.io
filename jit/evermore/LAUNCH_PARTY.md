@@ -1374,6 +1374,91 @@ And, naturally, remembers incorrectly.
 
 ---
 
+
+---
+
+# XXII. EVERMORE ONE™ — THE ONE-CLICK EMPIRE AND ITS REGRESSION HARNESS
+
+**Implementation:** [`34aaaddc`](https://github.com/bonoj/bonoj.github.io/commit/34aaaddc1d381da2d23e424f80f8000976d2b849) · **Route:** [`#one`](https://bonoj.github.io/jit/evermore/#one) · **Source:** `jit/evermore/index.html` · **Implementation blob:** `d88253a06253a3e86d51926c0170e2826f49c4d9`.
+
+## XXII-A. Origin and the engineering realization
+
+The proposition was to compress the entire Evermore experience into **one click**. The first conceptual answer was an extravagant orchestration: Match 33, Match i, the Generator, the Bank, the Magic Map, the Incident Engine and the Ministry would all participate in a single ceremony with a traceable receipt.
+
+Then came the insight: **this is a regression test in disguise.** Every feature added to Evermore increases the risk of invisible breakage at the boundaries between subsystems. A one-click orchestration offers a repeatable way to inspect those boundaries. The user approved implementation and documentation with a decisive operating principle:
+
+> **“Never spec what you can build first.”**
+
+This is the team's new motto. It is not a ban on design or documentation. It is a preference for a small executable proof over speculative architecture, followed by accurate documentation of what actually works and what remains to be built.
+
+## XXII-B. The released interface
+
+The `#one` route provides a giant **EVERMORE ONE™** button, an **Inspection Mode** button, and an itemized receipt with PASS/FAIL labels, run duration, seed, UTC timestamp, and a copy-to-clipboard control. The page is reachable from the main navigation. It is responsive and uses the established additive `render()`/`nav()` wrapper pattern.
+
+**Two deliberately different modes:**
+
+- **PARTY MODE** mutates the player's real local Evermore state. It awards coins and stars through `reward()`, updates diamonds/crowns through `save()`, creates a generated game record, increments the ceremonial groundbreaking counter, opens an incident, and checks the wallet's coin delta. The result is a real local-state event, not an animated fake receipt.
+- **INSPECTION MODE** runs a deterministic set of 11 contract and arithmetic checks. It reads and serializes current state but is intended to leave it unchanged. It does **not** invoke the original Match 33 or Match i game handlers, does not create a subsidiary, and does not pay the player. Its purpose is a fast, low-risk source-level integration sanity check in the browser.
+
+## XXII-C. The 11 Inspection Mode contracts
+
+| # | Check | What is actually asserted |
+|---|---|---|
+| 1 | Match 33 reward contract | A modeled +3,300 coin / +33 star delta |
+| 2 | Match i complex cycle | Four complex positions sum to zero |
+| 3 | Generator seeded recipe | Same seed reproduces same blueprint; target 3–10; reward 40–180 |
+| 4 | Generator subsidiary lineage | Modeled child points to parent and increments depth |
+| 5 | Royal Bank reward arithmetic | Modeled 90-coin win adds 90 coins, 1 star and 6 XP |
+| 6 | Magic Map ceremonial persistence | Nine districts exist and locally stored strike count is nonnegative |
+| 7 | Incident causal resolution | Eight incident types and referral index arithmetic |
+| 8 | Incident bulk conservation | Modeled replacement count equals original open count before pruning |
+| 9 | Matchematics invariants | Elementary zero, sign and cancellation identities |
+| 10 | Save-state round trip | Serialized snapshot parses and reserializes identically |
+| 11 | No permanent mutation | Snapshot before and after the inspection matches |
+
+**Honest scope:** several checks model expected results instead of executing the corresponding production game handler. They are useful **contract checks**, but a green receipt does not prove the full site is regression-free. In particular, the check for mass-resolution conservation is a mathematical model and does not exercise the actual `eiAll()` mutation. The receipt must not be interpreted as a browser end-to-end test suite.
+
+## XXII-D. Party Mode's six recorded operations
+
+| Operation | Actual effect |
+|---|---|
+| Match 33 ceremonial payout | Calls `reward(3300,33)` and checks deposited coins/stars |
+| Match i four-turn payout | Calls `reward(90,1)` four times, adds 4 diamonds and 1 crown, then saves |
+| Generator subsidiary | Allocates next seed; creates a new game record with optional parent lineage; persists generator state |
+| Magic Map groundbreaking | Increments `evermore-park-groundbreaking-v1` in localStorage |
+| Incident opened | Calls `eiNew(2,'EVERMORE ONE Party')` |
+| Royal Bank reconciliation | Verifies coin increase of at least 3,660 |
+
+Party Mode is **not** an atomic transaction: if an operation fails, earlier operations are not rolled back. Its Match 33 and Match i entries execute the **shared reward path**, not the complete visual/gameplay victory handlers. The generator step directly creates a record with the same state schema rather than invoking the UI's `egCreate()`. The groundbreaking step directly increments the same localStorage key rather than invoking the UI's `epGround()`. The incident step **does** invoke the actual `eiNew()` function. These distinctions matter when diagnosing failures.
+
+The coin-delta assertion is a lower bound (`>=3660`), not an exact ledger reconciliation. The party also generates normal XP/level effects via `reward()`. It is a genuine integration smoke test of several shared paths, not yet a comprehensive end-to-end orchestration.
+
+## XXII-E. State and receipt contract
+
+`eoLast` holds the latest result **in memory only**, and `eoRuns` counts runs during the current page lifetime. A refresh discards the receipt unless the user has copied it. Each row is constructed through `eoCheck(name,fn,rows)`, which catches exceptions and records a PASS or FAIL with a detail string. The report includes `mode`, `seed`, `rows`, `elapsed`, `build`, `time`, and `before`. The `build` field attempts to read a `[data-build]` element and otherwise records a fallback string; **the build SHA is not yet guaranteed to appear in receipts**.
+
+The copy button uses `navigator.clipboard.writeText(JSON.stringify(eoLast,null,2))`, with a toast on success or failure. Clipboard support and permission vary by browser.
+
+**Privacy caveat:** Inspection Mode's `before` field contains a serialized snapshot of the current player state, generator catalog, incident docket and Match i state. Copying or sharing the receipt therefore shares this local gameplay data. A future report format should redact the full snapshot by default and include only hashes, summaries or opt-in details.
+
+## XXII-F. Acceptance criteria and gaps
+
+**Verified at implementation time:** code committed to GitHub; all **21 inline script blocks** passed JavaScript syntax parsing. The route, buttons, contract list and receipt generator exist in source. **Public GitHub Pages execution, phone interaction, clipboard, real wallet deltas and actual pass/fail outcomes have not been independently observed.**
+
+Recommended acceptance sequence: open `#one`; run Inspection Mode; confirm 11 result rows and unchanged wallet; copy receipt; reload; run Party Mode; confirm six operation rows, coin delta at least +3,660, +37 stars, +4 diamonds and +1 crown (plus any normal level-up diamonds); confirm one new generator game, one shovel strike and one new incident; navigate to their original pages; reload and confirm all persisted; test a narrow phone viewport. Inspect failures instead of claiming green based only on syntax.
+
+**Future improvements:** replace modeled checks with isolated production-handler execution; add dependency-injected storage and wallet adapters; transactional rollback or sandbox clones; reproducible build SHA capture; real UI navigation tests; idempotent receipts; bounded high-volume case tests; cross-version save migration; automated GitHub Pages smoke runs; redacted shareable reports; and a persistent history of past audit runs.
+
+## XXII-G. Tiffany's final audit finding
+
+> “If everything passes, we celebrate. If anything fails, we celebrate the discovery.”
+
+**ONE click is entertainment. ONE receipt is evidence. ONE failing assertion is an invitation to build the next thing.**
+
+**Never spec what you can build first.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
