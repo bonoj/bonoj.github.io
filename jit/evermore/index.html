@@ -798,4 +798,35 @@ function egHub(){let count=gos.events.length,imported=gos.events.filter(x=>x.tra
 const egOldRender=render;render=function(){if(current==='operations'){$('#app').innerHTML=egHub();$('#nav').innerHTML=nav();wallet();return}egOldRender()};
 const egOldNav=nav;nav=function(){return '<button class="'+(current==='operations'?'sel':'')+'" onclick="go(&quot;operations&quot;)">🏛️ OPERATIONS</button>'+egOldNav()};
 if(location.hash==='#operations')current='operations';render();
-</script></body></html>
+</script>
+<script>
+/* EVERMORE ROUTER v1: single final dispatch for operator surfaces; legacy fallback retained. */
+const erLegacyRender=render;
+const erRoutes={
+operations:{view:()=>egHub()},gempire:{view:()=>gosPage()},missioncontrol:{view:()=>gxPage()},
+issuebridge:{view:()=>giPage()},one:{view:()=>eoPage()},incidents:{view:()=>eiPage()},
+generator:{view:()=>egPage()},park:{view:()=>epPage()},themepark:{view:()=>tpPage(),mount:()=>requestAnimationFrame(tpMount)},
+matchi:{view:()=>mxPage()},matchematics:{view:()=>mxMinistry()},
+matchinfinity:{view:()=>miPage()},match33:{view:()=>m33Page(),mount:()=>{m33Locked=false}},
+match3d:{view:()=>m3Page(),mount:()=>{m3Busy=false;m3Mount()}},
+grandopening:{view:()=>launchPage()},developmore:{view:()=>ccPage()},
+ipo:{view:()=>ipoPage()},fx:{view:()=>fxPage(),mount:()=>fxDrawList()},
+omnibus:{view:()=>omnibus()},particles:{view:()=>pi()},gov:{view:()=>gov()},
+bank:{view:()=>bank()},convergence:{view:()=>convergence()},catalog:{view:()=>emCatalog()}
+};
+const erNavGroups=[
+[['home','✦ HOME'],['catalog','🎮 GAMES'],['operations','🏛️ OPERATIONS'],['themepark','🎡 PARK'],['profile','👑 EMPIRE']],
+[['gempire','💎 OS'],['missioncontrol','🛰️ MISSIONS'],['issuebridge','📨 INGEST'],['one','✦ ONE'],['generator','🏭 FOUNDRY'],['incidents','📋 INCIDENTS'],['park','🗺️ MAP']],
+[['bank','🏦 BANK'],['ipo','🔔 IPO'],['fx','🌍 EXCHANGE'],['gov','🏛️ GOVERNMENT'],['convergence','✦ CONVERGENCE'],['particles','✨ PARTICLES'],['omnibus','🌐 MORE']],
+[['match3d','💎 3D'],['match33','✨ 33'],['matchinfinity','♾️ ∞'],['matchi','💎 i'],['matchematics','📐 MATCHEMATICS'],['grandopening','🎊 OPENING'],['developmore','🛡️ DEVELOPMORE'],['events','🎉 EVENTS'],['studio','🎨 STUDIO']]
+];
+nav=function(){return erNavGroups.map((group,i)=>'<span class="er-navgroup" data-group="'+i+'">'+group.map(([id,label])=>'<button class="'+(current===id?'sel':'')+'" onclick="go(&quot;'+id+'&quot;)">'+label+'</button>').join('')+'</span>').join('')};
+render=function(){let route=erRoutes[current];if(!route){erLegacyRender();return}if(current!=='match3d'&&typeof m3Instance!=='undefined'&&m3Instance){m3Token++;m3Instance.dispose();m3Instance=null}$('#app').innerHTML=route.view();$('#nav').innerHTML=nav();wallet();$('#helper').innerHTML='';if(route.mount)route.mount()};
+window.addEventListener('hashchange',()=>{let h=location.hash.slice(1);if(erRoutes[h]&&current!==h){current=h;render()}});
+if(erRoutes[location.hash.slice(1)])current=location.hash.slice(1);render();
+</script>
+<style>
+.header nav .er-navgroup{display:contents}
+.header nav{scrollbar-width:thin}
+@media(max-width:640px){.header nav button{font-size:11px;padding:10px 11px;min-height:42px}.header nav .er-navgroup[data-group="2"],.header nav .er-navgroup[data-group="3"]{display:none}}
+</style></body></html>
