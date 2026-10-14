@@ -1759,6 +1759,71 @@ The commit returned source blob `28adee19e5bbcecde8198f34a1d0b98814d8568e`; all 
 
 ---
 
+
+---
+
+# XXVII. PHASE 1 — CONSOLIDATION, SANITATION & BRANDING
+
+**App commit:** [`e10db8ee`](https://github.com/bonoj/bonoj.github.io/commit/e10db8eef943edf0c2190bc11fc61a21e934b8d6) · **Source blob:** `577309dbad76d4ce2455e13371a14231f023c753` · **Entry:** [`#operations`](https://bonoj.github.io/jit/evermore/#operations).
+
+## Directive
+
+The user explicitly ordered Phase 1: consolidate everything and perform sanitation/branding to make Evermore consistent. The goal is to reduce the number of overlapping operating surfaces without destroying games, existing saves, or their comedy. This is a **bounded first consolidation**, not a complete rewrite of the 260+ KB single-file game.
+
+## Consolidated operations surface
+
+New **EVERMORE OPERATIONS™** hub, `#operations`, presents eight existing destinations in a consistent directory: GEMPIRE OS, Mission Control, Ingest Issue Bridge, EVERMORE ONE, Incident Engine, Generator Foundry, original Magic Map and new Theme Park. It also displays counts from the actual `gosRegistry` and authoritative `gos.events` receipt ledger, including issue-linked receipts.
+
+The hub is a navigation and evidence surface. It does not add another independent command engine, mission database or wallet.
+
+## Actual runtime consolidation
+
+Previously, `giExecute()` invoked `gosExecute()` and **then** attached `receipt.transport`; therefore the durable `gos.events` copy did not necessarily contain GitHub provenance. Mission Control maintained an additional receipt index in `evermore-gempire-mission-receipts-v1`, creating an avoidable second representation.
+
+The revised `gosExecute(name,args,context)` now:
+
+1. Resolves a registered command and validates its argument object.
+2. Captures bounded before/after state and records the command result/error, elapsed time and sequence.
+3. For a valid `bonoj/Ingest` context, adds repository, issue number, canonical issue URL and protocol **before** persisting the receipt.
+4. Checks the existing authoritative `gos.events` ledger for a successful receipt with the same repository/issue pair. If found, returns the existing receipt instead of executing again.
+5. Persists up to **80** receipts in the original `evermore-gempire-os-v1` localStorage key.
+
+The Issue Bridge now passes context into `gosExecute` directly. Mission Control's `gxReceipt()` derives its issue-indexed view from `gos.events` instead of treating its own list as an independent source of truth. The old mission-receipts localStorage key is still written for compatibility, but is no longer the primary execution ledger.
+
+**Important idempotency qualification:** successful imported missions are deduplicated within the retained local ledger only. After eviction, storage reset, a different browser, or different device, the same issue can execute again. The implementation does not provide globally exactly-once semantics. Read-only inspection remains safe to repeat but may return an older receipt if the issue is reused.
+
+## Visual and brand sanitation
+
+A shared operations palette standardizes background, surface, border, action and text colors. Shared panel/button/code styles cover the recent GEMPIRE and park operating surfaces. Controls use a 44px minimum target height and mobile-safe wrapping. The sticky header navigation adapts on narrow viewports.
+
+Canonical naming:
+
+- **EVERMORE GAMES™** — public game and umbrella brand.
+- **GEMPIRE OS™** — local command registry, execution and instrumentation.
+- **EVERMORE OPERATIONS™** — consolidated operator-facing entrypoint.
+- **Ingest** — reusable, neutral GitHub Issues transport; not Evermore-specific infrastructure.
+- **Mission Control™** — issue dispatch and receipt inspection, now subordinate to GEMPIRE's authoritative ledger.
+- **EVERMORE ONE™** — party/smoke-test facade, not an alternate operating system.
+- **Tiffany** — Director of Unnecessary Governance, not a privileged security principal.
+
+## Preservation and exclusions
+
+Existing localStorage keys for wallet, game generator, park, incident engine and GEMPIRE OS were not renamed. Existing route names and deep links remain valid. The two Ingest issues #4 and #5 remain acknowledged but awaiting actual browser execution; no wallet balances were invented.
+
+This release does **not** eliminate all existing chained `render()`/`nav()` wrappers, migrate the game to modules, unify every state store, remove every duplicate CSS declaration, introduce an event bus, or establish model autonomy. Those are future consolidation targets and require browser regression testing first. The game remains one HTML file.
+
+## Verification and regression targets
+
+All **26 inline JavaScript blocks** passed source syntax parsing before commit. The GitHub write returned source blob `577309dbad76d4ce2455e13371a14231f023c753`. Live browser navigation, receipt persistence, imported-issue deduplication and mobile layout have not been independently exercised in a browser.
+
+Next: browser-test all eight routes, import #4 and #5 and capture genuine execution receipts, test duplicate import against the stored ledger, verify local save compatibility, audit button accessibility and color contrast, then collapse chained router wrappers into one explicit route table after behavioral evidence.
+
+**Tiffany's finding:** “We have consolidated the departments into one department responsible for knowing where the other departments are. It is, unexpectedly, an improvement.”
+
+**Never spec what you can build first.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
