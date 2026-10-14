@@ -712,6 +712,84 @@ The Second Opening is officially a source-level success with a documented regres
 
 ---
 
+# XVI. EVERMORE DEVELOPMORE™ — THE CORE CORPS
+
+> **WE DON'T FIX BUGS. WE UNLOCK QUALITY.**  
+> *A prestigious new playable profession in which every defect is an encounter, every viewport is a dungeon, and every successful build receives a commemorative certificate.*
+
+By unanimous vote of the Executive Board (Tiffany), the empire hereby charters **EVERMORE DEVELOPMORE™**, a wholly owned, magnificently overstaffed internal development game and its elite operational branch: **THE CORE CORPS™**. Their official mission is to keep the empire playable, legible, delightful, and improbably reliable while issuing as many medals as administratively possible.
+
+The Core Corps is a fictional, gamified framing for **real engineering disciplines**. It is not a claim that the game mechanics below are implemented. No trophy substitutes for a test, no confetti substitutes for evidence, and no certificate constitutes proof of deployment.
+
+## The two founding campaigns
+
+### 🛡️ REGRESSION ROYALE™ — THE GAUNTLET OF ELEVEN SCRIPTS
+
+**Campaign motto:** *Once more unto the breach, dear testers. And then once more, because regression.*
+
+The Corps' inaugural legend is the **Battle of the Two Apostrophes**, in which a pair of misplaced quotes incapacitated an entire IPO and foreign-exchange division. The heroes of the Core Corps located the adversaries, restored the routes, and subjected **all 11 embedded JavaScript blocks** to a syntax trial. They then inventoried **136 inline event handlers**, accounting for the apparent outliers. The code passed those **static** checks. Actual browser gameplay and live external-feed behavior remained unverified.
+
+The fictional player journey is staged as:
+
+- **The Parse Pit:** all scripts must parse; one malformed spell fails the whole floor.
+- **The Route Labyrinth:** every top-nav destination, deep link, and browser reload must arrive at the right room.
+- **The Tap Coliseum:** game actions, Tiffany, bank, Parliament, IPO, FX, particles, and purchases face actual interaction tests.
+- **The Persistence Crypt:** refresh, restore, and verify the save without sacrificing anyone's imaginary retirement.
+- **The External Feed Marsh:** test working quotes, missing quotes, offline behavior, delays, and honest timestamps.
+- **The Public Mirror:** compare the committed build to the bytes served by GitHub Pages. No mirror, no victory proclamation.
+
+**Reward currency:** 🛡️ *Confidence Points* (CP). Confidence Points are awarded only for evidence. They cannot be purchased, minted by Tiffany, or redeemed for an excuse.
+
+**Rank ladder:** Syntax Squire → Handler Hunter → Route Ranger → State Sentinel → Browser Paladin → **Grand Marshal of Actually Verified™**.
+
+**Victory condition:** passing automated and browser-level checks, with evidence attached and the public build independently confirmed. **Current real-world campaign status: static syntax and handler inspection passed; browser/public validation remains an open quest.**
+
+### 📱 POCKET EMPIRE OPTIMIZATION™ — THE THUMB-SIZED FRONTIER
+
+**Campaign motto:** *The empire shall fit in your pocket. Its bureaucracy already does.*
+
+The second founding campaign is a joyous crusade against microscopic controls, wandering navigation, horizontal overflow, clipped ledgers, inaccessible dialogs, and other creatures that thrive in a narrow viewport. The jewel-toned top bar and consolidated 24-game catalog are the Corps' first ceremonial outposts. They are **implemented in source**, but their full mobile behavior still requires device and browser validation.
+
+**Playable trials, proposed for implementation:**
+
+- **The Thumb Trials:** comfortable tap targets, forgiving spacing, no secret precision-tapping examinations.
+- **The Scroll Dragon:** defeat accidental sideways scrolling, trapped menus, and disappearing navigation.
+- **The Bank Vault Squeeze:** keep brokerage, exchange rates, financial ledgers, and government forms readable on phone screens.
+- **The Tiffany Everywhere Challenge:** summon and dismiss the concierge without obscuring essential controls.
+- **The Particle Storm Endurance Run:** preserve smooth interaction when the empire congratulates itself in thousands of pieces.
+- **The Portrait-to-Landscape Portal:** preserve usability, content, and state across rotations and viewport changes.
+- **The Smallest Throne:** certify compact layouts without sacrificing delightful visual density.
+
+**Reward currency:** 👍 *Thumb Laurels* (TL). A Laurel must be earned through a real viewport check. Tiffany may award herself honorary Laurels, which are clearly labeled honorary.
+
+**Rank ladder:** Pocket Cadet → Scroll Scout → Tap Knight → Layout Alchemist → Responsive Royalty → **Supreme Admiral of the One-Handed Empire™**.
+
+**Victory condition:** documented checks across representative phone widths, touch interaction, legibility, and performance. **Current real-world campaign status: optimistic and under active design; not yet certified.**
+
+## The Core Corps headquarters
+
+The planned **DEVELOPMORE WAR ROOM™** is a new internal destination, not yet shipped. Its prospective features include a clickable campaign board, build identity and public-deployment status, reproducible test quests, regression trophies, mobile viewport challenges, and a historical **Wall of Glorious Failures**. The wall's first exhibit is, of course, **THE TWO APOSTROPHES™**.
+
+Proposed Core Corps departments:
+
+1. **The Order of Unbroken Routes**, tasked with ensuring no link leads into the Void.
+2. **The Bureau of Reasonable Thumbs**, tasked with proving the UI was designed for humans with fingers.
+3. **The Ministry of Persistent Consequences**, charged with preventing save-state amnesia.
+4. **The Particle Weather Service**, tasked with ensuring every celebratory blizzard has a frame budget.
+5. **The Office of Verified Victories**, empowered to withhold the word *live* until the public build can actually be seen.
+
+The Corps will eventually recruit playable quality inspectors from every Evermore game. A Match 1 victory may fund a test expedition. A banker may underwrite a viewport audit. A particle pensioner may demand accessibility accommodations. A parliamentary inquiry may investigate why the menu opened behind the menu. All such integrations are **roadmap fiction until implemented**.
+
+## Founding proclamation
+
+*“We have tested our scripts. We have survived our punctuation. We have glimpsed a future in which the Royal Bank fits on a telephone and every button is large enough for a reasonably sized thumb. We shall not declare victory prematurely. We shall, however, commission the victory parade in advance.”*
+
+— **Tiffany**, Supreme Commander, EVERMORE DEVELOPMORE™ CORE CORPS
+
+**Official Corps slogan:** **THERE'S ALWAYS MORE. ESPECIALLY TESTS.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
