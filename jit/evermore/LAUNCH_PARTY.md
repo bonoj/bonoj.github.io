@@ -808,6 +808,152 @@ The Corps will eventually recruit playable quality inspectors from every Evermor
 
 ---
 
+
+---
+
+# XVIII. THE GREAT GRAND OPENING AND THE MATCH ESCALATION WARS
+## A timestamped engineering chronicle — 2026-10-14 UTC
+
+**Chronology discipline:** the following times are verified GitHub commit timestamps in UTC, not local wall-clock times. The implementation commit establishes repository state, not necessarily a completed GitHub Pages deployment or a successful interactive browser test. Earlier sections remain the historical record of preceding features.
+
+| UTC | Commit | Release and consequence |
+|---|---|---|
+| 02:12:55 | [`d7df6a94`](https://github.com/bonoj/bonoj.github.io/commit/d7df6a94) | **The Grand Opening That Never Ends**: guided first-five-minutes tour, opening bell, persistent participation, Imperial Citizen Certificate, press office. |
+| 02:17:20 | [`d7b99fa5`](https://github.com/bonoj/bonoj.github.io/commit/d7b99fa5) | **MATCH 1 3D™**: real Three.js scene, illuminated faceted jewel, pointer raycasting, particle victory, mobile fallback. |
+| 02:17:27 | [`3077ad41`](https://github.com/bonoj/bonoj.github.io/commit/3077ad41) | Corrected Grand Opening premiere/button wiring for Match 1 3D. |
+| 02:20:27 | [`b240527d`](https://github.com/bonoj/bonoj.github.io/commit/b240527d) | **MATCH 33 1D™**: thirty-three gold gems occupying one point, single tap, 132 celebratory particles, persistent per-game counters. |
+| 02:23:18 | [`0338ed70`](https://github.com/bonoj/bonoj.github.io/commit/0338ed70) | **MATCH ∞ −1D™**: retroactive victories, infinite ceremonial assets and handling fees, finite spendable rewards; crucial shared-wallet repair for Match 33, Match 1 3D, and explicit save in expansion-game reward path. |
+| 02:29:01 | [`f048ae0f`](https://github.com/bonoj/bonoj.github.io/commit/f048ae0f) | **MATCH i™ — Unreal Engrams** and the **Ministry of Matchematics™**: four rotating icons, complex-number teaching, cross-department financial satire. |
+
+### XVIII-A. The Grand Opening That Never Ends
+
+**Route:** [`#grandopening`](https://bonoj.github.io/jit/evermore/#grandopening).
+
+The opening was deliberately designed as an onboarding *experience*, not merely a launch banner. The guided path moves from Match 1 to the Royal Bank to government and finally to the Imperial Citizen Certificate. The bell may be rung repeatedly; its participation state persists in browser-local storage. A press office lets the empire report its own existence. The certificate can be copied and shared. Match 1 3D, Match 33 1D, Match ∞, and Match i were subsequently connected to the opening's premiere affordances.
+
+**Product joke:** Evermore cannot conclude its opening because concluding would foreclose the next opening. Opening is therefore a renewable institution, a perpetual launch expense, and a public celebration of having successfully opened again.
+
+### XVIII-B. MATCH 1 3D™ — one gem, three dimensions, entirely too much technology
+
+**Route:** [`#match3d`](https://bonoj.github.io/jit/evermore/#match3d).
+
+A Three.js module (`three@0.180.0`, loaded dynamically from jsDelivr) renders a faceted octahedral jewel, gold torus halo, lights, and 100 tetrahedral particles. The renderer caps device pixel ratio at 1.8. A perspective camera and raycaster let a pointer tap on the jewel trigger victory; a celebration overlay offers another match. A tappable fallback exists when the 3D module or WebGL cannot initialize. The route maintains its own win/streak state in `evermore-match1-3d-v1`.
+
+The original release counted wins but did **not** credit the main wallet. The later wallet repair added `reward(90,1)`, one diamond, and an explicit shared-state save per win. That distinction is not a footnote: **a game may visually congratulate a player without paying the currency it advertises**.
+
+### XVIII-C. MATCH 33 1D™ — thirty-three gems, one point, one tap
+
+**Route:** [`#match33`](https://bonoj.github.io/jit/evermore/#match33).
+
+The premise is intentionally impossible as physical geometry: thirty-three gold gems inhabit one point. The single prominent touch target fires 132 animated emoji particles (gold, jewels, sparkles), displays a 33× victory overlay, and tracks wins, gems, and sparkles in `evermore-match33-1d-v1`. Reduced-motion preference suppresses the burst. The first release credited only these **isolated local counters**, so the player correctly reported receiving nothing in the Royal wallet.
+
+The corrective release now deposits **3,300 coins, 33 diamonds, and 33 stars per win** into the shared `evermore-save-v1` state and calls `save()` and `wallet()`. The isolated counters remain useful as lifetime game statistics, but they are not a substitute for treasury accounting.
+
+**Lore:** This game is not harder than Match 1; it is 33 times more aggressively certain that the player has won. The mathematics of a point are subordinate to the mathematics of an executive bonus.
+
+### XVIII-D. MATCH ∞ −1D™ — the victory before the game
+
+**Route:** [`#matchinfinity`](https://bonoj.github.io/jit/evermore/#matchinfinity).
+
+The escalation goes beyond squeezing gems into a point: **remove the point, remove the tap, and declare the victory to have occurred 33 seconds before the game existed.** A ceremonial claim button increments retroactive wins, claims, and Infinity Handling Fees, persisted in `evermore-match-infinity-v1`.
+
+The UI announces infinity gems and infinity-plus-33 sparkles, with an infinity-plus-one handling fee. These are **fictional, non-spendable accounting concepts**. Each actual claim deposits **3,333 coins, 33 diamonds, 33 stars, and one crown**. Infinity is never inserted into the numeric wallet; doing so would contaminate arithmetic, rendering, comparisons, and saves. The infinite deficit is the Ministry's joke, not a JavaScript number.
+
+Tiffany's ruling: *“Please return yesterday to complete your mandatory tutorial.”*
+
+### XVIII-E. MATCH i™ — Unreal Engrams
+
+**Route:** [`#matchi`](https://bonoj.github.io/jit/evermore/#matchi).
+
+This was the conceptual counterattack to Infinity: not a larger quantity, but a **different number system**. The imaginary unit `i` satisfies `i² = −1`. Successive powers cycle:
+
+```text
+i¹ =  i       imaginary credit
+i² = −1       real liability
+i³ = −i       imaginary reversal
+i⁴ =  1       real restitution
+
+i + (−1) + (−i) + 1 = 0
+```
+
+Four icons—`1`, `i`, `−1`, and `−i`—orbit a stationary jewel. Each jewel tap advances the wheel by 90 degrees; the cycle counter increments every fourth match. The interface labels the position, total rotations, and completed cycles. Twenty-four celebratory particles appear per tap. The state persists in `evermore-match-i-v1`.
+
+**Two simultaneous ledgers:** the *imaginary gem ledger* cancels to zero each full cycle, while the *real player wallet* earns 90 coins and one star per match, plus four diamonds and one crown each fourth match. Thus a full cycle yields **360 coins, four stars, four diamonds, and one crown**, despite zero net imaginary gems. These are distinct currencies and distinct accounting systems. The on-screen imaginary balance is presented as a zero-net conceptual ledger; it is **not** a fully implemented transaction-by-transaction complex-number balance sheet.
+
+The naming is the joke's second layer. An engram is a memory trace; an *unreal engram* is a trace of an event that never occurred. It is a natural sibling to the retroactive victory bureaucracy and the Royal Bank's willingness to finance fictional certainty.
+
+### XVIII-F. The Ministry of Matchematics™
+
+**Route:** [`#matchematics`](https://bonoj.github.io/jit/evermore/#matchematics).
+
+The originally suggested *Bureau of Mathematics* was explicitly corrected to the vastly more appropriate **Ministry of Matchematics**. The Ministry is a playable-world-adjacent educational and satirical government department, not just a new label.
+
+Its current exhibits explain:
+
+1. **Complex numbers:** `a + bi`, with `i² = −1`; an extension of the real numbers, not mathematical whimsy.
+2. **The four-match cycle:** `i, −1, −i, 1`; the exact zero-sum cancellation of the cycle.
+3. **Complex-plane rotation:** `(a + bi)i = −b + ai`, a 90° *counterclockwise* mathematical rotation. The visual wheel rotates clockwise to present successive rewards at the top. That difference is disclosed rather than hidden.
+4. **Cross-ministry consequences:** Royal Bank Complex Assets Division (separate real and imaginary bookkeeping), Match ∞ (infinity is not an ordinary wallet number), Match 33 (point density is fictional), Currency Exchange (imaginary assets are not conventional FX rates), QQAA (four-rotation closure tests), and Unreal Engrams (the archive of nonexistent memories).
+5. **Revenue doctrine:** zero net imaginary gems; four gross imaginary transactions; nonzero real rewards; therefore a Ministry is needed to certify the result.
+
+Matchematics is intentionally **more precise than the corporate institution housing it**. The humor works because the mathematical statements are defensible. It is a miniature learning product hidden inside an extravagant parody of game economies.
+
+### XVIII-G. The treasury incident and its engineering lesson
+
+The user reported a concrete defect: **Match 33's apparent rewards did not appear in the main currency counter**. The investigation identified the actual shared-wallet API:
+
+```js
+function reward(coins=0,stars=0) {
+  state.coins += coins;
+  state.stars += stars;
+  state.xp += Math.max(1,Math.ceil(coins/15));
+  // Level-up logic...
+  save();
+  wallet();
+}
+```
+
+The canonical shared save is `evermore-save-v1`. Isolated per-game `localStorage` keys are for game statistics, not the universal treasury. The fix explicitly wired Match 33 and Match 1 3D to shared rewards, and ensured the twelve expansion-game win handler calls `save();wallet()` after updating shared coins/stars. Original games already use the shared reward pathway.
+
+**Important qualification:** the correction was verified at source level, not through a complete browser-based regression across every game, every currency, and every persistence boundary. Do not describe “all games correctly generating currencies” as a fully proven fact. Future QA should verify (a) displayed win, (b) actual wallet delta, (c) reload persistence, (d) spending and negative-balance rules, and (e) no double-award from repeated taps. Different mini-games have different reward profiles; not every game must produce every currency.
+
+**Known historical limitation:** wins earned in Match 33 *before* the shared-wallet fix remain recorded in its per-game counters but were not automatically backfilled into the shared treasury. A migration/backfill would require explicit design to avoid double-crediting.
+
+### XVIII-H. Regression Royale™: acceptance tests for the Matchematics era
+
+| Test | Expected |
+|---|---|
+| Match 1 3D gem tap | One win; +90 coins, +1 star, +1 diamond; repeat after overlay reset |
+| Match 33 1D tap | One win; +3,300 coins, +33 stars, +33 diamonds; 132-particle burst unless reduced motion |
+| Match ∞ claim | +3,333 coins, +33 stars, +33 diamonds, +1 crown; infinite labels do not enter numeric wallet |
+| Match i tap | +90 coins, +1 star; icons rotate 90°; counter increments |
+| Match i fourth tap | Icons return to starting orientation; +4 diamonds and +1 crown; completed cycle increments |
+| Reload each route | Game-local stats and shared wallet persist independently |
+| Expansion-game victory | Correct shared currency increment is persisted; associated local event record remains |
+| Navigation on narrow screens | Core games and Ministry remain reachable without obscured controls |
+| Multiple taps and route changes | No accidental double award; no stale scene input after navigation |
+| Reduced-motion mode | Match 33 avoids its burst; other animation paths should be audited separately |
+
+**Verification at time of writing:** 17 embedded JavaScript blocks passed syntax checks on the latest source and the commit was read back. This does **not** establish successful public CDN delivery, live browser rendering, mobile frame rate, end-to-end wallet tests, or accessibility compliance. These remain honest Core Corps work items.
+
+### XVIII-I. The next extravagant but testable frontiers
+
+- **Treasury invariant dashboard:** instrument reward events with before/after snapshots, game IDs, transaction IDs, and replayable test cases. One shared reward contract for all games.
+- **Complex Assets Division:** maintain a real-and-imaginary ledger with exact integer components; four transactions must sum to `0 + 0i`. Keep these entries explicitly non-redeemable.
+- **Matchematics curriculum:** complex conjugates, modulus, Euler's formula, roots of unity, Fourier decomposition, and interactive phasor matching. Let each theorem produce a hilariously overregulated game.
+- **Retroactive Compensation Tribunal:** adjudicate Match 33 pre-fix rewards using persisted game counters and an explicit, idempotent claim mechanism.
+- **Matchematics ↔ FX:** a mock complex exchange rate that demonstrates why conventional pricing cannot use imaginary denominations; educational simulation only.
+- **Ministry ↔ QQAA:** property-based tests for four-rotation closure, conservation of imaginary balances, and persistence across reloads.
+- **Grand Opening ↔ press office:** generate ceremonial releases from actual recorded wins, not fabricated player metrics.
+- **Mobile polish:** verify wheel targets, nav density, scroll behavior, Three.js fallback, reduced motion, and particle performance on a real phone.
+- **The Mysterious Mystery Game™:** its arithmetic is classified. The Ministry insists that its absence is mathematically significant.
+
+**Tiffany's official postmortem:** “Our player discovered that thirty-three gems were not deposited. We responded by inventing infinity, complex numbers, and an entire ministry. The original accounting defect has been repaired in source, and the Ministry will now investigate whether reality is sufficiently funded.”
+
+**The Evermore principle:** A tap becomes a win. A win becomes a ledger entry. A ledger entry becomes a number system. A number system becomes a ministry. A ministry becomes a game. **There's always more.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
