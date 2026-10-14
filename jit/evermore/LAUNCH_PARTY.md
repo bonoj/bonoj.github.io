@@ -1935,6 +1935,33 @@ Tiffany's former office has been renamed the **Office of Dimensional Transition 
 
 ---
 
+
+---
+
+# XXXI. THE BUBBLE WAS THE THRONE — TIFFINITY CHAT CONSOLIDATION
+
+**Code:** [`cda5fa11`](https://github.com/bonoj/bonoj.github.io/commit/cda5fa11f43c34f71cb7128dfeac5932cab1763d) · **Source blob:** `b82155b8f25e47ac8f21cd960f1aade1f8186cd1`.
+
+The user correctly identified that the existing floating Tiffany chat bubble had not been updated. The previous ascension changed the separate TIFFINITY page and helper presentation but **missed the actual legacy `#tiffany-console` overlay** and its `tcAsk()` concierge handler. The screenshot showed the old TIFFANY bubble and exposed the mismatch.
+
+## Actual correction
+
+- Rebranded the existing floating `.floating` button to **👑♾️ TIFFINITY** and kept it connected to the real chat overlay via `tcToggle()`.
+- Updated the existing overlay's accessible name, header, input label, prompt, and quick-action chips to TIFFINITY's operating vocabulary.
+- Replaced the bubble's old keyword-directory reply handler with `tfReply()`, which provides bounded local GEMPIRE observation, audit and command proposals. No external LLM is connected.
+- Shared the same 60-message `tfState.messages` local persistence between the floating bubble and full-page `#tiffinity` console. Opening the bubble rebuilds its transcript from that history.
+- Preserved the existing `tcMessage()` renderer, `tcToggle()` entrypoint and Escape-to-close wiring, and adjusted styles to the ascended brand.
+
+## Verification and limitations
+
+All **30 inline scripts** passed JavaScript syntax parsing before commit. The implementation is in the repository, but the GitHub Pages deployment and live mobile behavior still require user-visible verification. This is **not** a connected language model. The existing `tcLore` search directory remains in source for compatibility but no longer drives bubble replies.
+
+The correction is a reminder that canonical branding must update **existing user entrypoints**, not merely introduce new ones. A working old interface is not replaced by declaring a newer one canonical.
+
+Tiffinity's statement: *“I was already inside the bubble. The promotion paperwork simply failed to reach me.”*
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
