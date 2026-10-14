@@ -1824,6 +1824,42 @@ Next: browser-test all eight routes, import #4 and #5 and capture genuine execut
 
 ---
 
+
+---
+
+# XXVIII. ROUTER CONSOLIDATION — THE MINISTRY OF FINDING THINGS™
+
+**App commit:** [`4edbe383`](https://github.com/bonoj/bonoj.github.io/commit/4edbe383368d1993bab37298bd22682d29d28965) · **Blob:** `9d3bad9d377eebf8fbe6c655a8df08f08e68dae1`.
+
+Following Phase 1's operations consolidation, the user issued **➡️**, advancing to the next planned structural seam: route and navigation consolidation.
+
+## What changed
+
+- Installed an explicit `erRoutes` table covering **24 route IDs**: operations, GEMPIRE OS, Mission Control, Issue Bridge, EVERMORE ONE, Incidents, Generator, both parks, the MATCH dimensional variants, Matchematics, Grand Opening, DEVELOPMORE, IPO, FX, Omnibus, Particles, Government, Bank, Convergence and Catalog.
+- Each route specifies its view factory and, where needed, a post-render mount callback. Special handling preserves the 3D match scene's initialization and disposal, the particle/game locking reset, FX list draw, and Theme Park canvas mount.
+- Installed one final `render()` dispatcher for those routes. Routes outside the table continue to the existing legacy renderer, preserving base gameplay and home/profile/events/studio paths.
+- Replaced the accumulated visible navigation-button chain with a **single grouped navigation declaration**. The groups distinguish core destinations, operations, empire/economy, and games/legacy tools.
+- On narrow screens, the two lower-priority groups are hidden from the header to reduce overflow. The routes remain directly addressable by hash, and primary destinations remain available.
+- Added hash-change handling for registered routes and initial deep-link dispatch.
+
+## Honest scope
+
+This is **a canonical dispatch layer**, not yet full physical deletion of the old wrapper functions. Existing legacy wrappers remain in source as compatibility fallback and initialization machinery. Their side effects are not all audited. In particular, routes bypassing the historical wrappers may omit legacy post-render behaviors beyond those explicitly registered. Full removal should follow actual browser regression evidence, not assumptions.
+
+The routing table is an explicit source-of-truth for final dispatch on registered routes. It does not alter gameplay save keys, wallet logic, the GEMPIRE command registry, issue protocols, or the authoritative receipt ledger.
+
+## Verification and follow-up
+
+All **27 inline scripts** passed syntax parsing before commit. The commit returned source blob `9d3bad9d377eebf8fbe6c655a8df08f08e68dae1`. **No browser regression test has yet been run.**
+
+Next checks: navigate all registered routes; verify MATCH 1 3D disposal and remount, FX list initialization, Theme Park canvas, mobile header reachability, game catalog behavior, and deep links. After that, replace legacy wrappers with direct registered routes and remove dead wrapper code in measured batches.
+
+Tiffany's report: *“The empire finally knows where its departments are. This has unfortunately made several departments discover one another.”*
+
+**Never spec what you can build first.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
