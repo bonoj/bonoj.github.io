@@ -1579,6 +1579,56 @@ The defining architectural rule: **the model is an operator, not the source of t
 
 ---
 
+
+---
+
+# XXIV. GEMPIRE ISSUE BRIDGE™ — EXISTING INGEST, NEW OPERATOR CHANNEL
+
+**Implementation:** [`e056e89a`](https://github.com/bonoj/bonoj.github.io/commit/e056e89ab213d37d1e11620321e26c9607446bff) · **Route:** [`#issuebridge`](https://bonoj.github.io/jit/evermore/#issuebridge) · **Transport:** [`bonoj/Ingest/issues`](https://github.com/bonoj/Ingest/issues).
+
+The user approved using the existing GitHub issue system for GEMPIRE OS, while preserving its usefulness for serious future projects. The first implementation adds a bridge **inside Evermore**; it does not modify Ingest or impose Evermore-specific schemas on the generic transport.
+
+## Existing transport evidence
+
+The existing Ingest repository already contains observer reports in GitHub Issues #1–#3. They carry fenced JSON observations with IDs, timestamps, sources and scene details; one contains a GitHub-hosted JSON attachment. These are observation messages, **not** GEMPIRE commands. The bridge introduces a distinct opt-in protocol marker rather than trying to execute legacy observer reports.
+
+## Mission envelope
+
+```json
+{
+  "protocol": "gempire-command-v1",
+  "id": "mission-example",
+  "command": "os.inspect",
+  "args": {}
+}
+```
+
+The issue body must contain a fenced `json` block with this protocol marker, a command string, and an argument object. The browser fetches a **public** issue from `https://api.github.com/repos/bonoj/Ingest/issues/{number}`, rejects pull requests, parses the mission, and checks that the command exists in the current `gosRegistry`. Import **never executes** the command.
+
+## Three-stage workflow
+
+1. **Create mission:** select a registered command and open a prefilled GitHub new-issue form in a new tab. The user must submit the issue while signed in to GitHub.
+2. **Fetch and review:** enter its issue number in the bridge. The browser fetches and displays the command JSON and read/write classification. A separate **AUTHORIZE AND EXECUTE** button invokes `gosExecute(command,args)` against the local Evermore state.
+3. **Return evidence:** copy the execution receipt as fenced JSON suitable for a GitHub issue comment. Posting the comment remains a **manual** step; the browser has no GitHub write credential.
+
+Receipts include command metadata, elapsed time, success/error, and before/after state snapshots. The bridge also annotates the latest in-memory receipt with the Ingest repository, issue number, issue URL and protocol. **Limitation:** the transport annotation is applied after `gosExecute` has persisted its receipt; therefore the stored trace may not retain the added transport metadata. Future work should include provenance inside the executor before persistence.
+
+## Security and limitations
+
+The bridge deliberately does **not** auto-poll, auto-execute, run background tasks, authenticate to GitHub, connect to an LLM, or write issue comments. It reads public issue bodies using unauthenticated GitHub API access, subject to network/CORS behavior and API rate limits. The user must explicitly approve execution after review. GitHub is the mission/receipt transport; browser-local Evermore remains authoritative for gameplay state.
+
+The mission parser checks the protocol marker and basic argument shape; individual registered commands provide their own validation. It does not verify the issue author's identity, sign payloads, enforce capability scopes or guarantee transaction rollback. Do not treat a GitHub issue as inherently trusted. Private issue access is not supported by the browser's unauthenticated fetch.
+
+## Verification
+
+The source commit returned blob `c290a234e7413728308283163d45d2cf50ac77b0`; all **23 inline JavaScript blocks** passed syntax parsing. GitHub Pages execution and end-to-end issue import/command execution have not been independently browser-tested.
+
+**Next seam:** move issue fetch/receipt posting into a trusted model operator using the existing connected GitHub tools, preserve issue ID as provenance, and retain the browser's explicit authorization boundary for state-changing actions. Do not place a GitHub token in public client-side JavaScript.
+
+**Never spec what you can build first.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
