@@ -2009,3 +2009,10 @@ The former game empire is available only through repository history, not through
 *There is always less.*
 
 ---
+
+
+## XXXIII. THE EMPIRE RETURNS — OLI'S PRANK (2026-10-14)
+
+User requested an immediate rollback of the Zima Blue single-tap release so Oli could see the entire absurd Evermore empire as a prank. The active `jit/evermore/index.html` was restored **byte-for-byte** from pre-Zima Blue commit `cda5fa11f43c34f71cb7128dfeac5932cab1763d`, restoring source blob `b82155b8f25e47ac8f21cd960f1aade1f8186cd1` (~292 KB), including TIFFINITY's actual floating chat bubble. Restoration commit: `3fec95368c5da26d14fd5538d77deafa23a211f1`.
+
+Zima Blue remains documented and recoverable through Git history; it is **not** the current live-entry source. GitHub Pages propagation and browser rendering were not independently verified. Use `https://bonoj.github.io/jit/evermore/?v=3fec9536` to bypass stale browser cache.
