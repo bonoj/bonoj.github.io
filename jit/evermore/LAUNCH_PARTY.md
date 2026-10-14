@@ -1083,6 +1083,165 @@ The player taps a gem. The gem wins a game. The game earns money. The game creat
 
 ---
 
+
+---
+
+# XX. THE GROUNDBREAKING OF THE REAL LIVE VIRTUAL EVERMORE THEME PARK & CASINO
+## Magic cartography, speculative facilities, and thirty-one flavors that have never existed
+
+**Launch event:** 2026-10-14 **02:44:23 UTC** (GitHub commit timestamp). **Implementation commit:** [`7f6601f6`](https://github.com/bonoj/bonoj.github.io/commit/7f6601f6ebeb1b242c82e03aa16ad8a7a9a0985b). **Playable destination:** [Evermore Magic Map `#park`](https://bonoj.github.io/jit/evermore/#park). **Implementation:** `jit/evermore/index.html`; `epPage`, `epSelect`, `epGround`, `epSites`, `epA`, `epB`. **Source blob read back:** `de738de58a412384da89f7a741b2bac788267714`.
+
+### XX-A. Proclamation: the ground is virtual; the ceremony is real to the bureaucracy
+
+Tiffany has announced a **real live virtual theme park and casino**: a destination that exists in the Evermore fictional world and is delivered through a real browser, rather than a claim of an actual physical resort. The opening move is a **Magic Map**, an interactive nine-district master plan with clickable pins, district briefs, links into already implemented Evermore experiences, a repeatable ceremonial shovel strike, and a 31-entry Evergrown Flavor Gardens prospectus.
+
+The phrasing **“real live virtual”** is deliberate. The software and player interactions are real; the land, buildings, edible goods, gambling establishment, and construction ceremony are fictional. This first release does **not** claim to provide a walkable world, 3D rides, an operating hotel, a real casino, food manufacturing, real estate, ticket sales, or actual construction. It is a functioning *master-plan attraction*, a satirical groundbreaking ceremony, and a structured foundation for future features.
+
+**Tiffany's opening address:**
+
+> “Today we break ground on a park that is already open, a casino where the house wins only imaginary money, and thirty-one flavors which have never been tasted because they have never existed. This is the most ambitious virtual groundbreaking in the history of ground.”
+
+### XX-B. The enchanted map: nine districts, nine chartered impossibilities
+
+The map is a stylized, responsive CSS landscape with glowing round landmark buttons, each placed at a percentage coordinate. It is a fictional schematic, **not a geographic map**, navigational route planner, or claim of real-world location. Clicking a landmark updates the selected district's description and its **Explore Related Attraction** button. The map and the related-attraction panel share `epSelected`, initially zero.
+
+| # | District | Map x/y | Facilities and thematic charter | Current destination |
+|---|---|---|---|---|
+| 1 | 🏰 **Grand Opening Gate** | 24% / 22% | Permanent ribbon cutting, arrivals plaza, guided welcome, citizen certificates, a ceremonial procession that cannot end | `#grandopening` |
+| 2 | 🎰 **Royal Casino** | 71% / 27% | Fictional jackpot tables, non-wagering probability theater, complex-asset demonstrations, transparent house-edge lessons, responsible-play notices | `#matchematics` |
+| 3 | 🎢 **Match Mountain** | 48% / 43% | Match 1 3D jewel pavilion, 33-gem point chamber, Infinity Minus One pre-victory tunnel, Match i rotating engram ride | `#matchi` |
+| 4 | 🏦 **Royal Bank Plaza** | 20% / 63% | Coin fountains, reward receipts, treasury counters, ceremonial financial products, Institute of Unredeemable Infinity | `#bank` |
+| 5 | 🏭 **Generator Foundry** | 76% / 70% | Procedural game factory, seeded subsidiary incubators, licensing booths, recursive inspection galleries | `#generator` |
+| 6 | 🏛️ **Ministry Quarter** | 49% / 80% | Ministry of Matchematics classrooms, QQAA inspection tours, Parliament exhibits, Tiffany's rotating office | `#matchematics` |
+| 7 | 🍭 **Evergrown Flavor Gardens** | 50% / 17% | Imaginary botanical gastronomy, flavor taxonomy, 31 speculative taste profiles, demonstration greenhouse | `#park` |
+| 8 | 🎆 **Sparkle Pension Lagoon** | 13% / 86% | Retirement habitat for exhausted particles, evening light show, pension claims kiosks, protected sparkle marsh | `#park` |
+| 9 | 🎭 **Mysterious Mystery Pavilion** | 89% / 48% | Classified attraction, undisclosed queue, secret planning office, speculative exhibits that may not exist | `#park` |
+
+**Implementation nuance:** the map pin coordinates are presentation positions, not physical distances or routing data. The district buttons are native buttons with `aria-label` and `aria-pressed`; selection triggers `render()`. Three future-only districts currently link back to the park page itself, rather than to separately implemented attractions. The map's background is CSS-generated gradients and stripes; there are no tile downloads, map-service dependencies, or real geospatial coordinates.
+
+**Design intent:** the map is a hub that turns Evermore's disparate games, ministries, and bank into places within a larger imaginary civic geography. Each district should eventually offer an independently legible interaction, rather than being only a menu shortcut.
+
+### XX-C. The groundbreaking: a ceremony that can never be completed
+
+The groundbreaking panel declares the ceremony officially open, featuring a virtual gold-plated shovel and a brass band playing the sound of an investment round closing. Its **BREAK GROUND AGAIN** button calls `epGround()`, increments a counter in `localStorage['evermore-park-groundbreaking-v1']`, triggers a toast, and redraws the page. The counter represents ceremonial shovel strikes **on the local device/browser only**. It does not represent the number of unique attendees, physical shovels, construction milestones, or a networked public total.
+
+```js
+function epGround() {
+  let k='evermore-park-groundbreaking-v1', v=0;
+  try { v=Number(localStorage.getItem(k)||0) } catch(e) {}
+  v++;
+  try { localStorage.setItem(k,String(v)) } catch(e) {}
+  toast('🎉 GROUNDBREAKING CEREMONY #'+v+'! THE SHOVEL IS VIRTUAL.');
+  render();
+}
+```
+
+The panel also links to the existing Generator Foundry. No coins, stars, crowns, or diamonds are currently awarded for shovel strikes: **groundbreaking is an event counter, not a currency faucet**. Repeated ceremonies are intentional. No online scoreboard, construction animation, shared event attendance, or synchronized countdown exists in this version.
+
+### XX-D. The four-phase facilities master plan
+
+**PHASE I — OPEN IN SOURCE: The Cartographic and Ceremonial District.** The Magic Map, nine district selection buttons, descriptions, navigation links to implemented attractions, local shovel counter, announcement, and all 31 flavor entries are implemented. A responsive layout adapts map and pin sizes for narrow screens. Existing games, the bank, the generator, and Matchematics are reached through their normal Evermore routes.
+
+**PHASE II — PROPOSED: The Walkable Park.** Construct a small, beautiful, low-poly park grounds with legible walking paths, coherent ride entrances, queues, themed storefronts, moving mascots, night lighting, fountains, fireworks, and a transit loop. Prefer lightweight browser-native presentation and large mobile touch targets. The Magic Map should become a fast travel and wayfinding interface. Avoid turning a playful park into a heavyweight asset download.
+
+**PHASE III — PROPOSED: The Royal Casino and Resort.** Develop a satirical, playable **non-wagering** casino: fictional chips, demonstrative odds, house-edge exhibits, ceremonial jackpots, complex-number roulette, and mathematical illusions. No real-money wagers, deposits, cash-outs, redeemable prizes, gambling services, or representations that players can win actual monetary value. Add hotel-room vignettes, stage shows, theater seating, and locally simulated NPC crowds. Casino content should be entertainment and mathematical parody, not a real gambling product.
+
+**PHASE IV — PROPOSED: Self-Building Evermore.** Let the Generator found new park districts, attractions, subsidiary resorts, menus, shops, inspectors, and ministries from declarative recipes. Persist each district's identity and lineage; provide bounded performance and deterministic reconstruction. A park may contain a generator which creates a park containing a generator, but recursive depth, storage, and rendering costs must remain controlled. Integrate the shared treasury with transaction receipts and QA audits.
+
+**Master-planning constraint:** these phases are roadmap proposals, not delivery commitments or existing functionality. There is no physical park, operating casino, real construction schedule, zoning process, or external investment round.
+
+### XX-E. The 31 Never-Before-Tasted Evergrown Flavored Flavor Profiles™
+
+The Evergrown Flavor Gardens assert that flavor profiles can be cultivated in **abstract mathematical soil**. They cannot. This is precisely why the Gardens require a larger marketing budget.
+
+The catalog is generated by pairing corresponding entries from two fixed 31-element arrays, `epA` and `epB`. The names are stable, ordered, and displayed as cards. Five intentionally vague descriptions cycle through the list: tomorrow/yesterday tasting notes; Parliamentary paradox approval; unknown mouthfeel; Tiffany's flavor-adjacent certification; and harvest from the imaginary quadrant. **These are fictional names and jokes, not recipes, ingredients, allergen statements, sensory research, health claims, or edible products.**
+
+| # | Official flavor profile |
+|---|---|
+| 1 | **Moonlit Marshmallow™** |
+| 2 | **Quantum Thunderberry™** |
+| 3 | **Royal Comet Custard™** |
+| 4 | **Nebulous Mint Paradox™** |
+| 5 | **Velvet Plum Eclipse™** |
+| 6 | **Recursive Caramel Fog™** |
+| 7 | **Starlit Dragonfruit Waltz™** |
+| 8 | **Dragon Lavender Lightning™** |
+| 9 | **Golden Licorice Stardust™** |
+| 10 | **Phantom Mango Mirage™** |
+| 11 | **Celestial Peach Nebula™** |
+| 12 | **Midnight Salted Moonbeam™** |
+| 13 | **Infinite Cherry Timewarp™** |
+| 14 | **Whispering Vanilla Rebellion™** |
+| 15 | **Gilded Pear Conspiracy™** |
+| 16 | **Prismatic Cinnamon Orbit™** |
+| 17 | **Eternal Bubblegum Prophecy™** |
+| 18 | **Bureaucratic Lemon Daydream™** |
+| 19 | **Imaginary Strawberry Bureaucracy™** |
+| 20 | **Opaline Raspberry Portal™** |
+| 21 | **Fizzy Coconut Cosmos™** |
+| 22 | **Wandering Ginger Reverie™** |
+| 23 | **Electric Blueberry Royalty™** |
+| 24 | **Dreaming Pistachio Infinity™** |
+| 25 | **Clockwork Honey Hyperspace™** |
+| 26 | **Aurora Blackcurrant Velvet™** |
+| 27 | **Sparkle Tangerine Telescope™** |
+| 28 | **Subatomic Rosewater Echo™** |
+| 29 | **Ceremonial Fig Fireworks™** |
+| 30 | **Unicorn Toffee Wormhole™** |
+| 31 | **Evermore Unflavored Flavor™** |
+
+**Featured signature release — #31: Evermore Unflavored Flavor™.** A flavor so rigorously flavorless that the marketing department has assigned it the highest complexity score. Its alleged tasting notes are a contractual obligation to taste nothing. This is a joke, not a claim about an actual flavorless product.
+
+**Proposed Flavor Gardens facilities:** the Impossible Orchard (abstract fruit specimens), Conjugate Conservatory (paired opposite-flavor exhibits), Mouthfeel Museum (texture exhibits without food), Infinity Sorbet Stand (an infinite menu with no servings), Royal Tasting Tribunal (Tiffany certifies labels), and the Evergrown Nursery (a generator for imaginary flavor names). All six are future concepts, **not separate interactive facilities implemented in this commit**.
+
+**Potential interactive next step:** each flavor could receive a deterministic seed, an illustrated collectible card, an absurd flavor-wheel chart, a fictional taste test, and a themed non-edible particle effect. No physical consumption or actual food sales should be implied.
+
+### XX-F. UX and implementation anatomy
+
+The park adds a single responsive page under hash route `#park`. Its stylesheet defines `ep-wrap`, `ep-card`, `ep-map`, `ep-pin`, `ep-grid`, `ep-flavor`, and `ep-button`. The map uses a minimum height of 420px, reduced to 350px for narrow screens; pins reduce from 57px to 49px in the same media query. The layout uses a responsive grid for facility phases and flavor cards. A wrapper around the existing `render()` handles the park route; a wrapper around `nav()` inserts the **MAGIC MAP & PARK** navigation button. This follows Evermore's additive route pattern rather than rewriting its established games.
+
+```text
+#park
+ ├─ Magic Map (9 selectable pins)
+ │   └─ Selected district card → related Evermore route
+ ├─ Grand Groundbreaking
+ │   ├─ localStorage counter
+ │   └─ repeatable ceremony toast
+ ├─ Facilities Master Plan (4 phases)
+ ├─ Evergrown Flavor Gardens (31 cards)
+ └─ Tiffany's Official Announcement
+```
+
+**Accessibility and QA considerations:** map landmarks have accessible labels and pressed state; interactive controls are buttons, not inaccessible canvas hit targets. Remaining work includes focus management after rerender, keyboard traversal tests, color contrast, small-screen overlap checks, screen-reader landmark descriptions, reduced-motion review, and validation of storage behavior when disabled or corrupted. The park's map is **not** a real navigation system.
+
+### XX-G. Verification and outstanding checks
+
+| Claim | Status |
+|---|---|
+| Park source committed to GitHub | **Verified** — `7f6601f6` |
+| Source fetched after commit | **Verified** — blob `de738de58a412384da89f7a741b2bac788267714` |
+| JavaScript syntax | **Verified** — all 19 inline script blocks parsed |
+| Nine map locations defined | **Verified in source** |
+| Thirty-one ordered flavor profiles | **Verified in source** |
+| Groundbreaking counter persisted locally | **Implemented in source; runtime untested** |
+| Public GitHub Pages render and tap behavior | **Not independently verified** |
+| Real phone performance and accessibility | **Not independently verified** |
+| Walkable theme park, operational casino, actual food | **Not implemented / not claimed** |
+
+**Recommended acceptance walk:** load `#park` directly, select all nine pins, confirm each description and related route, return to the park, strike the ceremonial ground three times, reload and verify the counter, inspect all 31 flavors, verify the final Unflavored Flavor, test a narrow viewport, and ensure the rest of Evermore's navigation and wallet still work.
+
+### XX-H. The royal facilities budget, in fictional accounting units
+
+The park's most important resource is not land. It is **the ability to keep its own promises legible**. A map pin should lead somewhere real within the fictional website; a planned facility should be labeled as planned; a casino should not accept actual wagers; a generated flavor should not masquerade as something one can eat; and a ceremonial shovel strike should not pretend to be a real construction event. The humor grows stronger when the software itself is honest.
+
+Tiffany's final directive:
+
+> “The Magic Map shall be accurate to the extent that magic is accurate. The casino shall remain solvent by accepting no money. The Flavor Gardens shall grow only what cannot be tasted. And the groundbreaking shall continue until we have run out of ground, which we will then generate.”
+
+**There's always more. Now there's somewhere to put it.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
