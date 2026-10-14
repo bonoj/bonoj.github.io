@@ -1,7 +1,7 @@
 # ✦ EVERMORE GAMES™ — THE OFFICIAL LAUNCH PARTY ✦
 
 > **THERE'S ALWAYS MORE.**  
-> *Twelve games. One empire. Fifty-four-plus currencies. Six ministries. One Tiffany. An infinity of congratulation.*
+> *Twenty-four games. One empire. Fifty-four-plus currencies. Six ministries. One IPO. One Everywhere Exchange. One Tiffany. An infinity of congratulation.*
 
 **Document status:** living product bible, release chronicle, fictional corporate prospectus, and future development contract.  
 **Repository:** [bonoj/bonoj.github.io](https://github.com/bonoj/bonoj.github.io)  
@@ -641,6 +641,74 @@ Before JIT delivery, read **[Gate](https://github.com/bonoj/Gate/blob/main/READM
 **00:12 — Closing Ceremony.** Tiffany thanks every attendee and declares the event an unparalleled success.
 
 **00:13 — Opening Ceremony II.** There's always more.
+
+---
+
+# XV. THE SECOND OPENING: TIFFANY, THE BELL, AND THE EVERYWHERE EXCHANGE
+
+**Chronicle update: 2026-10-13/14.** This section records repository commits and verified source behavior, **not** an independently confirmed GitHub Pages deployment. Commit identifiers below are the authoritative development sequence; exact commit times should be obtained from Git history rather than invented.
+
+## A. The concierge becomes Evermore-present
+
+**Commit `d46bd5ba` — Tiffany's concierge console.** The persistent Tiffany button now opens a mobile-oriented conversational search panel with indexed lore, destinations, local-state awareness, recommendations, and a Surprise Me pathway. She can navigate the empire, explain institutions, point to games, and relentlessly advertise fictional upcoming features. **Implementation boundary:** this is a deterministic, browser-local search-and-response assistant, **not** an LLM-backed chatbot. A genuine model conversation backend, expanded semantic retrieval, and exhaustive site knowledge remain future work.
+
+**Corporate statement:** Tiffany is not omniscient. She has merely filed the paperwork declaring herself so.
+
+## B. The IPO: independence, with spectacles
+
+**Commit `5fa07843` — Sovereign & Daughters Investment Bank and Everywhere Exchange.** The fictional investment bank underwrites Evermore Games Holdings, ticker **EVRM**, with a stated opening valuation of **R$888.888 trillion**, **1,000,000,000** outstanding shares, and **100,000** fictional shares in the public float. The shareholder office begins with **R$25,000,000** in pretend brokerage cash. A ceremonial opening bell enables simulated purchases and sales; trades update a local portfolio, transaction history, and a toy market quote, with a **0.1%** fictional brokerage commission. State is persisted in the browser. Nothing represents a real security, broker, order, investment recommendation, or redeemable asset.
+
+The underwriting syndicate's organizational independence is guaranteed by **Tiffany, Tiffani, and Tiffany wearing spectacles**. A suspiciously unanimous research department rates EVRM a historic buy. This is satire, not financial advice.
+
+## C. The Everywhere Exchange: two data feeds and one speculative abyss
+
+The exchange has **fiat**, **crypto**, and **anthropological speculation** tabs. Its fiat reference feed is `open.er-api.com/v6/latest/USD`; its crypto reference feed is `api.coinbase.com/v2/exchange-rates?currency=USD`. It displays USD-based indicative conversions, user-supplied amounts, searchable currency codes, retrieval timestamps, source failures, and a **Refresh Quotes** control. The data is fetched client-side and depends on network access, CORS, feed coverage, and provider availability. **It does not guarantee every real-world currency, every cryptoasset, true streaming, or a quote for every possible pair.** There is no real-money trading or transfer.
+
+The speculative tab deliberately refuses to manufacture exchange rates for real communities' barter, gift, or culturally specific economies. Fictional concepts may be discussed as satire; fabricated market prices must not masquerade as anthropological facts.
+
+**Corporate statement:** The Exchange can tell you how much one dollar is worth. It cannot tell you how much a heartfelt favor is worth, although Tiffany has commissioned three valuation studies.
+
+## D. The Great Navigation Consolidation
+
+**Commit `581a5d55` — jewel-toned navigation and one games library.** The header was redesigned with stronger selected states, gold accents, mobile layout, and a compact **✦ MORE** destinations menu. Primary destinations are **Home**, **All Games**, **My Empire**, and **Events**. The menu exposes Studio, Royal Bank, IPO, Exchange, Government, Particles, Institutions, licensing concepts, and the mystery. The catalog now presents **the twelve founding games and twelve expansion titles together**, with search and direct play actions. Existing game systems and saves were not intentionally migrated or replaced. The additional conceptual licenses are identified as concepts rather than fully independent games.
+
+**Design lesson:** twenty-four games should be one discoverable library, not two competing product universes. Navigation is infrastructure; it must not become a minigame unless the player explicitly requests one.
+
+## E. The IPO that did not exist (until it did)
+
+The initial IPO/FX script contained **two unescaped single quotes** inside generated HTML button handlers. Those quotes broke parsing of the entire IPO/FX JavaScript block. The IPO and Exchange navigation entries could appear, while the route implementations were not registered. This was a genuine implementation regression, not simply GitHub Pages propagation.
+
+**Commit `02192cf4` — repair.** Both quoting errors were corrected. Source readback confirmed **11 of 11 embedded JavaScript blocks parse successfully**. A static inventory covered **136 inline event handlers**; its two apparent missing function names were accounted for by a native DOM method and a dynamically installed `window.evermoreSpray` handler. IPO and FX page functions, the consolidated catalog, Tiffany, and particle references were present in source.
+
+**What passed:** source commit, source readback, all script syntax checks, and static handler-reference inspection.
+
+**What was NOT established:** live Pages delivery, real browser interaction, exhaustive gameplay tests, or successful responses from the external FX APIs. **Never describe these as passed until actually tested.**
+
+**New release invariant:** Before committing or publishing an Evermore update, parse **every inline script**, inventory and inspect event-handler targets, check all route registrations and deep links, then read back the committed source. After publishing, inspect the Pages workflow and public bytes; verify at least one interaction in each materially changed system. A commit is not a live build. A passing parser is not a passing game.
+
+## F. Current wayfinding
+
+- Home: `https://bonoj.github.io/jit/evermore/`
+- Unified game library: `https://bonoj.github.io/jit/evermore/#catalog`
+- IPO: `https://bonoj.github.io/jit/evermore/#ipo`
+- Everywhere Exchange: `https://bonoj.github.io/jit/evermore/#fx`
+- Institutional omnibus: `https://bonoj.github.io/jit/evermore/#omnibus`
+
+These are **intended routes**, not proof that the current public CDN serves the latest source.
+
+## G. Next development mandates
+
+1. **Browser-level regression suite:** navigation, deep-link reloads, game launch/play/save, banking, Parliament, particle effects, Tiffany, IPO trades, FX tabs/search/feed failure, and mobile viewport checks. Automate where feasible.
+2. **A single route registry:** eliminate accumulated `render` and `nav` wrappers in favor of a predictable registered destination table; preserve functionality and state through refactor.
+3. **A durable game registry:** unify metadata and routing for founding and expansion titles rather than merely combining presentation.
+4. **Real FX freshness:** optional entry-triggered fetch, clearly bounded polling while visible, provider health and age indicators, and expandable feeds; never claim universal coverage.
+5. **Economic consequence:** EVRM trading, banking, taxes, particle pensions, government, and game rewards should produce legible, reversible fictional causal interactions rather than decorative dashboards.
+6. **Tiffany's next form:** expand lore, search coverage, site-context references, upcoming feature rumors, and optionally a real model-backed conversation path with explicit privacy/cost controls.
+7. **The Mysterious Mystery Game™:** preserve the five-clue structure, deepen the conspiracy, and **do not reveal the answer in the documentation**.
+
+The Second Opening is officially a source-level success with a documented regression and repair, **not** an independently certified public launch.
+
+**Tiffany's closing address:** “The IPO has been underwritten. The exchange has been exchanged. The games have been consolidated. The defect has been fixed. The Quality Assurance Department has been founded retroactively, and I am delighted to announce it has never made a mistake.”
 
 ---
 
