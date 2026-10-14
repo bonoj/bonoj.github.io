@@ -954,6 +954,135 @@ The canonical shared save is `evermore-save-v1`. Isolated per-game `localStorage
 
 ---
 
+
+---
+
+# XIX. THE FACTORY THAT MANUFACTURES ITS OWN FACTORIES
+## EVERMORE GENERATOR™ — Recursive Product Development, 2026-10-14 UTC
+
+**Implementation:** [`b744170d`](https://github.com/bonoj/bonoj.github.io/commit/b744170d5fca179c3ec824f69975a33b63e0f13a) · **Route:** [`#generator`](https://bonoj.github.io/jit/evermore/#generator) · **Source:** `jit/evermore/index.html`.
+
+### XIX-A. Tiffany's authorization
+
+After MATCH i's conjugate acquired a rotating gemstone, the product team asked the obvious question: **what if Evermore generated Evermore inside itself?** Tiffany's decision was immediate: *“Ship it.”* The first factory is now committed to the site. It is not a mockup or an inert list of titles. It creates game instances with actions, win thresholds, progression, persistence, and actual deposits into the shared Evermore wallet.
+
+The joke has become an architectural direction. Instead of writing a bespoke page for every escalating premise, the empire can combine a **mechanic**, a **dimension**, and a **subject** into a new product. A product may then found its own subsidiary, whose products may found further subsidiaries. Every additional corporation has a fully qualified bureaucratic identity; all share one very overworked treasury.
+
+### XIX-B. The generation grammar
+
+The v1 factory draws deterministically from seven values in each of three categories:
+
+| Axis | Options |
+|---|---|
+| Mechanic | MATCH, MERGE, TAP, IDLE, ROTATE, REMEMBER, GENERATE |
+| Dimension | 0D, 1D, 2D, 3D, −1D, iD, ∞D |
+| Subject | GEMS, DRAGONS, ENGRAMS, CROWNS, PENSIONS, PARTICLES, GENERATORS |
+
+The name format is `<MECHANIC> <DIMENSION> — <SUBJECT>™`. A subject-specific emoji appears as the playable central target. The seed also determines the win threshold and reward amount. There are **343 nominal title combinations**, though different seeds may produce the same combination with different thresholds and payouts; this is **not** 343 independent mechanics or 343 different implementations.
+
+```js
+function egBlueprint(seed) {
+  let m = egHash(seed,1)%7;
+  let d = egHash(seed,2)%7;
+  let q = egHash(seed,3)%7;
+  return {
+    seed, m, d, q,
+    title: egMechanics[m]+' '+egDimensions[d]+' — '+egSubjects[q],
+    icon: egIcons[q],
+    target: 3+(egHash(seed,4)%8),
+    reward: 40+(egHash(seed,5)%8)*20
+  };
+}
+```
+
+**Determinism:** `egHash(seed,k)` is an unsigned 32-bit integer mixing function using XOR, multiplication with `Math.imul`, and bit shifts. The same seed and category selector reproduce the same blueprint without storing the full generated definition. Seeds are currently sequential positive integers; generated content is reproducible from the current code version, but the algorithm is **not yet versioned for forward compatibility**.
+
+### XIX-C. The actual gameplay contract
+
+The generated game displays its three reels, title, seed, depth, victory count, central gem/subject button, progress bar, and action button. Both playable buttons invoke the same `egAct()` handler. Each action increments the game's progress counter. At the seed-specific target, the progress counter resets and a victory is recorded.
+
+- **Win threshold:** 3–10 actions, inclusive.
+- **Coin reward:** 40–180 coins per win, in increments of 20.
+- **Stars:** one per win.
+- **Diamond bonus:** one additional diamond on every fourth win *for that generated game*.
+- **Wallet integration:** `reward(b.reward,1)` deposits coins and stars, and already saves and refreshes the wallet. The fourth-win diamond is added to `state.diamonds` and explicitly saved/refreshed.
+- **Game state:** `steps`, `wins`, `seed`, `depth`, and optional `parent` persist independently of the universal wallet.
+
+**Truth in advertising:** the labels MATCH, MERGE, IDLE, ROTATE, REMEMBER, and GENERATE are *currently generated themes*, not seven distinct simulation algorithms. In v1 all products use the same tap-to-progress gameplay primitive. This is a working procedural game *configurator*, not yet a full mechanic-composition engine. The future architecture should make those verbs mean genuinely different actions.
+
+### XIX-D. The subsidiary recursion
+
+`egCreate()` creates a top-level product, assigning the next integer seed, initializing its counters, selecting it, and persisting the catalog. `egSpawnChild()` creates another independently playable product with a fresh seed and a `parent` reference to the selected game's seed. Its depth is parent depth plus one, capped at 99 for display/state. The new subsidiary becomes the active game immediately.
+
+```text
+EVERMORE
+└── GENERATOR
+    ├── GAME #1 (depth 0)
+    │   └── GAME #3 (depth 1, parent #1)
+    │       └── GAME #4 (depth 2, parent #3)
+    └── GAME #2 (depth 0)
+```
+
+This hierarchy is stored as flat records with `parent` and `depth`; **the current catalog is a flat list**, not an interactive tree visualization. A subsidiary does not run a separate copy of the entire Evermore website, generate arbitrary JavaScript, or deploy new pages. The recursion is **data-driven within one shared executable runtime**. The UI lists the most recent 60 games; older games remain stored but are not directly selectable through that limited catalog view.
+
+The factory's two top-level buttons, **GENERATE A GAME** and **GENERATE EVERMORE**, currently both call `egCreate()`. The latter is a theatrical promise of future recursive world-generation, not a separate full-site generator.
+
+### XIX-E. Persistence and treasury boundaries
+
+The factory stores its own catalog in `localStorage['evermore-generator-v1']`, with a record shaped like:
+
+```json
+{
+  "next": 5,
+  "selected": 3,
+  "games": [
+    {"seed":1,"steps":2,"wins":0,"depth":0},
+    {"seed":2,"steps":0,"wins":1,"depth":0},
+    {"seed":3,"steps":0,"wins":2,"depth":1,"parent":1},
+    {"seed":4,"steps":1,"wins":0,"depth":2,"parent":3}
+  ]
+}
+```
+
+This is an illustrative schema, not a claim about any particular player's save. The shared Evermore treasury remains `evermore-save-v1`. Generated wins call the existing `reward()` pathway, preserving coins, stars, XP, level-up behavior, and wallet refresh. The generator never inserts `Infinity`, complex numbers, or ceremonial currencies into the spendable numeric wallet.
+
+**Failure boundaries:** browser storage is local to the device/browser; no account sync, server persistence, cloud generation, or external commerce is implied. The factory currently catches storage exceptions rather than presenting a save-failure warning. The catalog has no deletion, export, import, or seed-version migration interface.
+
+### XIX-F. Release and verification record
+
+| Milestone | Evidence |
+|---|---|
+| Generator authored and committed | [`b744170d`](https://github.com/bonoj/bonoj.github.io/commit/b744170d5fca179c3ec824f69975a33b63e0f13a) |
+| Navigation route | `#generator` |
+| Source readback | Confirmed file blob `3589354a6c0abd725c403f037ce0a89156620251` |
+| JavaScript source syntax | All **18 inline scripts** parsed successfully |
+| Real-world browser execution | **Not independently verified** |
+| Mobile layout, storage reload, wallet deltas | **Not yet regression-tested end to end** |
+
+This is a shipped **repository implementation**; public GitHub Pages propagation and actual device behavior are separate verification gates. The release claims neither browser-tested correctness nor a fully autonomous website generator.
+
+### XIX-G. Next evolutionary stages — explicitly unimplemented
+
+1. **Mechanic components:** distinct match, merge, idle, rotate, remember, and generator actions, rather than different names for identical taps.
+2. **Game schemas and runtime versions:** stable declarative definitions, schema validation, seed/algorithm versioning, replayable event traces.
+3. **Nested empire explorer:** expandable parent/child tree, lineage breadcrumbs, per-subsidiary treasuries and optional taxation, search for older catalog entries.
+4. **Real game generation:** compose win conditions, obstacles, board topologies, timers, upgrades, currencies, particles, and rule systems into genuinely distinct games.
+5. **Evermore-in-Evermore:** instantiate a nested catalog, bank, government, and generator inside a child empire, with clearly bounded storage and simulation budgets.
+6. **Economic invariants:** transactional reward receipts, idempotency on repeated taps, save failure visibility, and QA simulations for huge catalogs.
+7. **Export and provenance:** copy/share deterministic seed recipes, reconstruct an empire from an encoded configuration, and preserve versioned recipes across releases.
+8. **Procedural ministries:** a child game's victory could spawn a regulatory department with real interactions and costs.
+9. **The Mysterious Mystery Game™:** allow the generator to create a game that refuses to disclose which of its mechanics have been generated.
+
+### XIX-H. Official licensing statement
+
+*“Every game is a fully licensed subsidiary. Every subsidiary is eligible to establish subsidiaries. The number of employees remains one.”* — Tiffany
+
+The player taps a gem. The gem wins a game. The game earns money. The game creates a company. The company creates a game. The company requires oversight. Oversight requires a Ministry. The Ministry requires a game.
+
+**There is no longer merely always more. There is now machinery for making more.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
