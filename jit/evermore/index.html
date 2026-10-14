@@ -435,4 +435,56 @@ const emOldRender=render;render=function(){if(current==='catalog'){$('#app').inn
 const emOldNav=nav;nav=function(){let main=[['home','✦ HOME'],['catalog','🎮 ALL GAMES'],['profile','👑 MY EMPIRE'],['events','🎉 EVENTS']];let more=[['studio','🎨 STUDIO'],['bank','🏦 ROYAL BANK'],['ipo','🔔 IPO'],['fx','🌍 EXCHANGE'],['gov','🏛️ GOVERNMENT'],['particles','✨ PARTICLES'],['omnibus','🌐 INSTITUTIONS'],['omnibus:games','🎮 LICENSES'],['omnibus:mystery','❔ MYSTERY']];return main.map(x=>'<button class="'+(current===x[0]?'sel':'')+'" onclick="emGo(\''+x[0]+'\')">'+x[1]+'</button>').join('')+'<div class="em-more" id="em-more"><button onclick="emToggleMenu()" aria-label="Open more destinations">✦ MORE ▾</button><div class="em-menu">'+more.map(x=>'<button onclick="emGo(\''+x[0]+'\')">'+x[1]+'</button>').join('')+'</div></div>'};
 document.addEventListener('click',e=>{let m=document.getElementById('em-more');if(m&&!m.contains(e.target))m.classList.remove('open')});
 render();
+</script>
+<style>
+.cc-shell{max-width:1120px;margin:auto;padding:20px 14px 55px}.cc-hero{background:linear-gradient(125deg,#31164e,#623a87 60%,#9e568f);border:2px solid #f4d698;border-radius:24px;padding:25px;box-shadow:0 15px 40px #1c0a3280}.cc-hero h1{font-size:clamp(27px,7vw,54px);color:#ffe4a0;margin:8px 0}.cc-hero p{color:#f6e4ff}.cc-tabs{display:flex;gap:8px;overflow-x:auto;padding:15px 0}.cc-tabs button,.cc-action{border:1px solid #ffdfa7;border-radius:13px;background:#eed3a3;color:#372049;padding:12px;font-weight:900;cursor:pointer;flex:none}.cc-tabs button.active{background:#f2a9e2}.cc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}.cc-card{background:linear-gradient(150deg,#412764,#25183e);border:1px solid #c8a6df99;border-radius:18px;padding:17px;min-width:0}.cc-card h3{margin:5px 0;color:#ffe4a0}.cc-card p{font-size:13px;color:#e2d0f3;line-height:1.5}.cc-card .cc-action{width:100%;margin-top:10px;white-space:normal}.cc-stat{font-size:28px;font-weight:900;color:#ffe5ac}.cc-kicker{font-size:11px;letter-spacing:.13em;color:#f9bff2;font-weight:900}.cc-banner{background:#f4dba7;color:#3c2854;border-radius:13px;padding:12px;margin:12px 0;font-weight:800}.cc-note{font-size:12px;color:#d4c2e4}.cc-card input{max-width:100%;padding:10px;border-radius:9px}.cc-grid .cc-card{display:flex;flex-direction:column}.cc-grid .cc-card p{flex:1}
+</style>
+<script>
+/* Developmore Core Corps + triple-scale QQAA + seven unrelated playable bureaucracies */
+const ccKey='evermore-core-corps-v1';
+const ccDefaults={tests:0,laurels:0,inspections:0,appeals:0,stamps:0,clouds:0,echoes:0,moons:0,receipts:0,crumbs:0,whistles:0,alliances:0,history:[]};
+let ccState;try{ccState=Object.assign({},ccDefaults,JSON.parse(localStorage.getItem(ccKey)||'{}'))}catch(e){ccState=Object.assign({},ccDefaults)}
+let ccTab='corps';
+const ccQuests=[
+['🛡️','REGRESSION ROYALE','The Gauntlet of Eleven Scripts','Complete a simulated desk inspection. This is not a real automated test.','tests','CONFIDENCE POINT'],
+['📱','POCKET EMPIRE','The Thumb-Sized Frontier','Award a ceremonial Thumb Laurel for optimism. Real device checks remain pending.','laurels','THUMB LAUREL']
+];
+const ccSidequests=[
+['☁️','CLOUD LICENSING OFFICE','Every cloud must register its shape.','clouds','Cloud Permit'],
+['🔊','ECHO SUBSCRIPTION SERVICE','Pay for the right to hear what you just said.','echoes','Echo'],
+['🌙','MOON NAMING REGISTRY','A new moon name with every filing.','moons','Moon Deed'],
+['🧾','RECEIPT ARCHAEOLOGY','Excavate proof of purchases not yet made.','receipts','Ancient Receipt'],
+['🍞','CRUMB FUTURES BOARD','Trade the anticipation of future toast.','crumbs','Crumb Future'],
+['🎺','CEREMONIAL WHISTLE UNION','A whistle is issued whenever someone whistles.','whistles','Whistle'],
+['🪑','CHAIR DIPLOMACY SUMMIT','Negotiate a lasting peace between stools and thrones.','alliances','Chair Treaty']
+];
+const ccPartners=[
+['🐕','ROYAL KIBBLE QUEST','Fictional pet-food × game crossover','Feed a dragon a ceremonial biscuit to receive a Royal Bowl Token.'],
+['🐈','CATALOGUE OF CATS','Fictional pet-food × pet game crossover','Adopt a brand-neutral imaginary cat and earn a Purr-Approved Pantry Seal.'],
+['🧼','DISHWASHER DUNGEON','Fictional detergent × fantasy crossover','Defeat the Grease Lich using the legendary Rinse Rune.'],
+['🫧','BUBBLE BATTLE PASS','Fictional detergent × particle crossover','Every rinse spawns a commemorative bubble with a pension entitlement.'],
+['🏰','CASTLE DISH RENOVATION','Fictional detergent × renovation crossover','Refurbish the royal sink and receive a Dishwashing Knighthood.'],
+['🥣','BOWL-TO-PLATE BRIDGE','Fictional pet-food × dishwasher crossover','Pet bowl sanitation quests unlock imaginary culinary guild achievements.'],
+['📦','SHELF-TO-SCREEN INFINITY','Fictional retail crossover concept','Proposed on-pack QR adventures and in-game branded shelves, subject to actual agreements.'],
+['🌐','SCREEN-TO-SHELF INFINITY','Fictional reverse crossover concept','Proposed real-world limited-edition pet bowls, soap boxes, and collectible inserts. None are on sale.']
+];
+function ccSave(){try{localStorage.setItem(ccKey,JSON.stringify(ccState))}catch(e){}}
+function ccAct(k,label){ccState[k]=(ccState[k]||0)+1;ccState.history.unshift(new Date().toLocaleTimeString()+' · '+label);ccState.history=ccState.history.slice(0,30);ccSave();ccDraw()}
+function ccTabTo(t){ccTab=t;ccDraw()}
+function ccCard(icon,name,desc,button,action){return '<article class="cc-card"><div style="font-size:34px">'+icon+'</div><h3>'+name+'</h3><p>'+desc+'</p><button class="cc-action" onclick="'+action+'">'+button+'</button></article>'}
+function ccPage(){let inner='';
+if(ccTab==='corps'){inner='<div class="cc-banner">🛡️ DEVELOPMORE CORE CORPS · Authorized personnel: Tiffany and anyone who tapped this button.</div><div class="cc-grid">'+ccQuests.map((q,i)=>ccCard(q[0],q[1],q[3]+' <b>Campaign:</b> '+q[2], 'AWARD '+q[5], 'ccQuest('+i+')')).join('')+'</div><p class="cc-note">Ceremonial awards only. Static source checks passed previously; real browser, device, and Pages checks are not certified by these buttons.</p>'}
+if(ccTab==='qqaa'){inner='<div class="cc-banner">👑 QUEEN’S QUALITY ASSURANCE AUTHORITY · TRIPLE THE SIZE · NINE DIVISIONS, THREE COMMISSIONS, ZERO EXCUSES</div><div class="cc-grid"><div class="cc-card"><h3>👑 The Royal Audit Throne</h3><div class="cc-stat">'+ccState.inspections+' inspections</div><p>Three inspectors supervise each Core Corps inspector. Each inspection creates three sub-inspections and an appeal opportunity.</p><button class="cc-action" onclick="ccAudit()">LAUNCH TRIPLE AUDIT ×3</button></div><div class="cc-card"><h3>⚖️ Appeals of Appeals</h3><div class="cc-stat">'+ccState.appeals+' appeals</div><p>Every objection receives a hearing. Every hearing receives a commemorative objection.</p><button class="cc-action" onclick="ccAct('+"'appeals','Royal appeal filed'"+')">FILE ROYAL APPEAL</button></div><div class="cc-card"><h3>📜 The Stamp Treasury</h3><div class="cc-stat">'+ccState.stamps+' stamps</div><p>Paperwork is now a renewable natural resource.</p><button class="cc-action" onclick="ccAct('+"'stamps','Triple-stamped approval'"+')">TRIPLE-STAMP DOCUMENT</button></div></div><p class="cc-note">The QQAA is three times the Core Corps by fictional headcount and organizational chart, not verified staffing. These are playable parody counters, not engineering test results.</p>'}
+if(ccTab==='seven'){inner='<div class="cc-banner">🎪 SEVEN COMPLETELY UNRELATED NEW INSTITUTIONS · Now somehow subsidiaries</div><div class="cc-grid">'+ccSidequests.map((q,i)=>ccCard(q[0],q[1],q[2]+' <b>Issued:</b> '+(ccState[q[3]]||0), 'ISSUE '+q[4].toUpperCase(), 'ccSide('+i+')')).join('')+'</div>'}
+if(ccTab==='partners'){inner='<div class="cc-banner">🤝 PENDING PARTNERSHIPS · FICTIONAL PROPOSALS ONLY · NO BRAND HAS AGREED TO ANYTHING</div><p>Evermore hereby invites every major pet-food and dishwasher-detergent brand to join a bidirectional crossover extravaganza. No named company is represented as a partner, sponsor, endorser, or participant.</p><div class="cc-grid">'+ccPartners.map((p,i)=>ccCard(p[0],p[1],p[2]+'<p>'+p[3]+'</p>','PITCH THIS CROSSOVER','ccPitch('+i+')')).join('')+'</div><p class="cc-note">Concepts only: no physical products, actual packaging, real-world promotions, brand licenses, or commercial commitments.</p>'}
+if(ccTab==='ledger'){inner='<div class="cc-banner">📚 THE GLORIOUS PAPER TRAIL · '+ccState.history.length+' recent entries</div><div class="cc-card">'+(ccState.history.length?ccState.history.map(x=>'<p>✦ '+x+'</p>').join(''):'<p>No paperwork. An alarming administrative emergency.</p>')+'</div>'}
+return '<div class="cc-shell"><div class="cc-hero"><div class="cc-kicker">EVERMORE GAMES™ · THE BUREAUCRATIC EXPANSION</div><h1>🛡️ DEVELOPMORE<br>CORE CORPS</h1><p>Where bugs become boss fights, phones become kingdoms, and the Queen’s Quality Assurance Authority employs three times as many people to make absolutely certain the congratulations are deserved.</p><div class="cc-grid"><div><div class="cc-stat">'+ccState.tests+'</div><small>CONFIDENCE POINTS*</small></div><div><div class="cc-stat">'+ccState.laurels+'</div><small>THUMB LAURELS*</small></div><div><div class="cc-stat">'+ccState.inspections+'</div><small>ROYAL INSPECTIONS*</small></div></div><p class="cc-note">*Fictional in-game awards, not evidence of test execution.</p></div><div class="cc-tabs">'+[['corps','🛡️ CORPS'],['qqaa','👑 QQAA'],['seven','🎪 SEVEN MORE'],['partners','🤝 PARTNERSHIPS'],['ledger','📜 LEDGER']].map(x=>'<button class="'+(ccTab===x[0]?'active':'')+'" onclick="ccTabTo('+"'"+x[0]+"'"+')">'+x[1]+'</button>').join('')+'</div>'+inner+'</div>'}
+function ccQuest(i){let q=ccQuests[i];ccAct(q[4],q[1]+' ceremonial award')}
+function ccSide(i){let q=ccSidequests[i];ccAct(q[3],q[1]+' '+q[4])}
+function ccPitch(i){ccAct('stamps','Draft proposal: '+ccPartners[i][1])}
+function ccAudit(){ccState.inspections+=3;ccState.stamps+=9;ccState.history.unshift(new Date().toLocaleTimeString()+' · Triple audit: three inspections, nine stamps');ccSave();ccDraw()}
+function ccDraw(){document.getElementById('app').innerHTML=ccPage()}
+const ccOldRender=render;render=function(){if(current==='developmore'){$('#app').innerHTML=ccPage();$('#nav').innerHTML=nav();wallet();return}ccOldRender()};
+const ccOldNav=nav;nav=function(){return ccOldNav()+'<button class="'+(current==='developmore'?'sel':'')+'" onclick="go('+"'developmore'"+')">🛡️ DEVELOPMORE</button>'};
+if(location.hash==='#developmore')current='developmore';render();
 </script></body></html>
