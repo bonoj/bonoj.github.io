@@ -1629,6 +1629,56 @@ The source commit returned blob `c290a234e7413728308283163d45d2cf50ac77b0`; all 
 
 ---
 
+
+---
+
+# XXV. GRAND OPENING — THE THEME PARK THEMED THEME PARK™
+
+**Implementation:** [`09b728ce`](https://github.com/bonoj/bonoj.github.io/commit/09b728ce8e23dca06f63e4dce0f6afbb5b7201c2) · **Route:** [`#themepark`](https://bonoj.github.io/jit/evermore/#themepark) · **Source:** `jit/evermore/index.html` · **Source blob:** `7fdacd694d1601087171a54d04de106a2f2cf8ef`.
+
+**Proclamation:** *Miles and miles long. Somewhere. Everywhere. Nowhere. NOW HERE!*
+
+## The opening
+
+The user requested the ultimate grand opening: a theme-park-themed theme park with nested attractions, especially a **teacup rollercoaster drop tower**, even more hydraulics, and a vast geography. The response was not a physical construction claim or a static announcement: a new interactive canvas-based park route was committed.
+
+## What exists
+
+- A responsive, animated Canvas 2D scene with star field, distant terrain, towering coaster track, structural struts, drop tower, nested rotating orbital teacups, and eight animated hydraulic pistons.
+- A giant **LAUNCH THE NESTED RIDE** button. Each launch starts a timed ride, animating vertical drop, rotation and hydraulic motion.
+- **EMERGENCY TEA BREAK** to cancel an active ride.
+- User-adjustable hydraulic pressure (0–100%) and simulation speed (0.25×–3×).
+- A procedural midway with one attraction sector every **3.7 virtual miles**. Navigation offers −37, +3.7, +37 and +370 miles, plus return to mile zero. Twelve upcoming sectors are presented as visitable cards.
+- Twelve attraction name families, including Teacup Rollercoaster Drop Tower, Hydraulic Dragon Spiral, Infinite Loop of the Loop, Subsidiary Safari, Royal Bank Waterfall, Mathematical Möbius Merry-Go-Round, Gemstone Gravity Well, Tiffany's Tower of Towers, 31-Flavor Flume, Nowhere Express, Everywhere Elevator and Incident Escalator.
+- Sector-specific deterministic tower height (60–399 units, displayed as meters for park lore), nesting count (2–8), and ride theme, derived from `tpHash()` and seed **741**.
+- Shared-wallet reward: **420 coins and 4 stars** when a ride reaches its approximately **9.5-second** completion threshold. The timer is wall-clock based, while animation phase uses simulation speed.
+- Local persistence at `localStorage['evermore-theme-park-v1']`: current mile, ride launch count, hydraulics, speed and seed.
+- Direct links back to the earlier Magic Map and GEMPIRE OS.
+
+## Engineering and boundaries
+
+This is a **procedural coordinate-space park**, not miles of physical terrain and not a full spatial walking simulator. The renderer draws the current attraction and supports jumps between deterministic sectors. It does not simulate actual hydraulic fluid or pressure; the hydraulic slider scales visual piston and ride motion. The rail, pistons, tower and nested teacups are stylized 2D representations, not structural engineering simulations. The ride completion awards currency once per launch via the existing `reward()` function; repeatedly launching remains possible.
+
+The drawing loop uses `requestAnimationFrame`, device-pixel-ratio-aware canvas sizing capped at 2, and a bounded particle/star count. The route is part of Evermore's existing single-file app. No remote libraries, paid assets, gambling or geographic coordinates are required.
+
+**Known limitation:** the park has no collision simulation, passengers, physics constraints, transport network or autonomous ride operators yet. The same core scene renderer is reused across sectors with deterministic configuration differences. A completed ride does not currently emit a GEMPIRE OS event or file an Incident Engine case.
+
+## Verification and roadmap
+
+The GitHub commit returned source blob `7fdacd694d1601087171a54d04de106a2f2cf8ef`. All **24 inline JavaScript blocks** passed syntax parsing before commit. Live browser animation, performance, persistence and actual payout have **not yet been independently tested**.
+
+Next executable seams: real nested ride composition, independent subride controllers, hydraulic state instrumentation, themed sector-specific geometry, continuous traversal between sectors, a miniature park map, model-operated ride dispatch through GEMPIRE OS, event receipts and incident consequences, replayable attraction seeds, accessibility controls, and browser performance checks on mobile.
+
+## Tiffany's opening address
+
+> “We promised miles and miles of entertainment. We have delivered an address space. The rollercoaster is inside the teacup, the teacup is inside the drop tower, the drop tower is inside another theme park, and the theme park is inside your phone. We have increased hydraulic pressure to the legally imaginary maximum.”
+
+**NOW HERE.**
+
+**Never spec what you can build first.**
+
+---
+
 # XIV. FINAL PROCLAMATION
 
 Evermore is not a parody of bad games because it is badly made. It is a parody of the **magnificent institutional machinery that can be constructed around a single trivial interaction**. Its interface should be beautiful, its systems legible, its mechanics connected, and its rewards absurdly generous.
