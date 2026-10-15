@@ -5,8 +5,9 @@
 
 /* Athanor instrument grammar: bottom right, refresh rightmost, eye immediately left. */
 #athanorBar{position:fixed;z-index:50;bottom:0;right:0;left:0;display:flex;flex-direction:row-reverse;align-items:center;justify-content:flex-start;gap:6px;padding:0 12px max(12px,env(safe-area-inset-bottom));pointer-events:none}#athanorBar button{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;flex:0 0 46px;width:46px;height:46px;min-width:46px;min-height:46px;padding:0 9px;font-size:23px;background:#172333;border:1px solid #66543a;border-radius:9px;color:#d9b879;opacity:1;outline:none;box-shadow:none}#athanorBar button:focus-visible{outline:2px solid #d9b879;outline-offset:2px}#athanorBar svg{display:block;flex:none}
+#title{display:block;text-align:center;pointer-events:none;text-shadow:0 3px 12px #000;margin:0 auto 12px}#title h1{font:normal clamp(19px,5vw,36px) Georgia,serif;letter-spacing:.12em;margin:0;color:#f5dfb2}#buildRow{display:flex;align-items:center;justify-content:center;gap:12px;line-height:1.25;margin-top:2px}#buildRow #build{font:12px ui-monospace,monospace;color:#e7dbb7;height:32px;display:inline-flex;align-items:center;justify-content:center}
 </style></head><body>
-<header><div><h1>Hundred Doors <span aria-hidden="true">↗</span></h1><div class="muted">Outreach console · build 004 · 15 October 2026</div></div></header>
+<header id="title"><div><h1>HUNDRED DOORS</h1><div id="buildRow"><span id="build">005</span></div></div></header>
 <p>Clara prepares the doors. You decide which ones to open. No messages are sent by this site.</p>
 <nav id="stats"></nav><nav id="tabs"><button data-tab="do" class="primary">Do</button><button data-tab="waiting">Waiting</button><button data-tab="people">People</button></nav><p id="taskhint" class="muted"></p>
 <div class="controls"><input id="search" type="search" placeholder="Find a person, studio, or problem"><select id="filter"><option value="all">All contacts</option><option value="ready">Ready</option><option value="review">Needs verification</option><option value="done">Acted on</option></select><button id="importBtn">Import JSON</button><input class="hidden" type="file" id="file" accept=".json,application/json"></div>
@@ -14,7 +15,7 @@
 <footer><p><b>Instrument panel.</b> Actions are recorded only in this browser until copied. Import your latest snapshot to restore them on another device. Never paste private correspondence into a public repository.</p><p>Public professional profiles only. LinkedIn connections are manual. Email drafts require verified public professional addresses; no guessed recipients.</p><p><a href="https://bonoj.github.io/">The world we're introducing</a> · <a href="https://github.com/bonoj/bonoj.github.io/tree/master/jit/hundred-doors">Source</a></p></footer>
 <script>
 'use strict';
-const BUILD='hundred-doors-004',KEY='hundred-doors-state-v1',DEMO='https://bonoj.github.io/';
+const BUILD='hundred-doors-005',KEY='hundred-doors-state-v1',DEMO='https://bonoj.github.io/';
 const contacts=[
 {id:'nick-pechenin',name:'Nick Pechenin',org:'Larian Studios',role:'Design leadership',url:'https://be.linkedin.com/in/nick-pechenin-65a77ba4',reason:'Reactive RPG systems and player-authored consequences.',state:'ready',channel:'linkedin',caveat:'Current role and connection state should be checked before sending.'},
 {id:'jean-guay',name:'Jean-Sebastien Guay',org:'Epic Games',role:'Graphics technical director',url:'https://ca.linkedin.com/in/jean-sebastien-guay-84964a4',reason:'Procedural city building and model-mediated Unreal workflows.',state:'ready',channel:'linkedin',caveat:'Current remit and hiring influence not verified.'},
