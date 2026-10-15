@@ -4,6 +4,7 @@ on:
     branches: [master]
     paths:
       - '.github/workflows/stable-world.yml'
+      - 'jit/**'
   workflow_dispatch:
 permissions:
   contents: read
@@ -58,6 +59,7 @@ jobs:
               path.write_text(html)
           assert 'HERMETICON' in entry.read_text()
           assert 'location.replace' not in entry.read_text()
+          assert (site/'jit/hundred-doors/index.html').is_file()
           assert (site/'athanor/compose.js').is_file()
           assert (site/'codex/genesis/world.js').is_file()
           print('PINNED RELEASE',sha)
