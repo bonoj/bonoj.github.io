@@ -44,7 +44,7 @@ jobs:
           if (site/'jit/hundred-doors/index.html').is_file():
               door_html=site/'jit/hundred-doors/index.html'
               door_html.write_text(door_html.read_text().replace('<span id="build">pending</span>', '<span id="build">'+deployed_sha[:8]+'</span>'))
-              (door/'build.json').write_text(json.dumps({'sha':deployed_sha})+'\\n')
+              (door/'build.json').write_text(json.dumps({'sha':deployed_sha})+'\n')
           for folder in ('arcana','athanor','codex'):
               shutil.copytree(source/folder,site/folder)
           for filename in ('index.html','favicon.svg'):
