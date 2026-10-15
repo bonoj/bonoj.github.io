@@ -84,6 +84,9 @@ jobs:
                   assert data['sha']==sha,(data,sha)
                   with urllib.request.urlopen('https://bonoj.github.io/?verify='+sha+'&attempt='+str(i),timeout=15) as r: html=r.read().decode()
                   assert 'HERMETICON' in html and 'location.replace' not in html
+                  # Validate immutable assets as well as the entry document.
+                  with urllib.request.urlopen('https://bonoj.github.io/athanor/compose.js?v='+sha,timeout=15) as r: module=r.read().decode()
+                  assert len(module)>100 and 'import' in module
                   print('ROOT PUBLIC RELEASE VERIFIED',sha)
                   break
               except Exception as e:
