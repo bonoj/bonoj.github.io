@@ -11,7 +11,7 @@ Hundred Doors is the active interface and working index for John's creative-worl
 ## Outreach already reported (2026-10-15)
 
 - **Brianna Butler — Walt Disney Imagineering R&D:** LinkedIn connection accepted; direct message **SENT** October 15. Asked for insight into the appropriate Imagineering R&D team, described experimental worlds and interactive systems through human–model collaboration, and shared https://bonoj.github.io/. Awaiting response; not a formal application. Preserve the exact message in the existing Home historical record; do not republish private DMs in this public source.
-- **Tom Pellini — Larian Studios:** LinkedIn connection accepted; direct message **SENT** October 15. Asked for guidance finding the right team at Larian and shared https://bonoj.github.io/. Awaiting response; not a formal application. Exact text in historical Home record.
+- **Tom Pelini — Larian Studios:** LinkedIn connection accepted; direct message **SENT** October 15. Asked for guidance finding the right team at Larian and shared https://bonoj.github.io/. Awaiting response; not a formal application. Exact text in historical Home record.
 - **Nick Pechenin (Larian), Jean-Sebastien Guay (Epic), Kevin Van Nerum (Larian), Cameron McLeod (Imagineering), Bryan Hawley (Wizards of the Coast), Asa Kalama (Imagineering):** Connection requests recorded by Hundred Doors on October 15, **not** accepted or messaged unless subsequently confirmed.
 - **Ben Brooks (Hello Games):** No verified LinkedIn profile; do not invent one.
 
