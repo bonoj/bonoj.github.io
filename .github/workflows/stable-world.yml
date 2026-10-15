@@ -35,8 +35,16 @@ jobs:
           source=pathlib.Path('/tmp/hermeticon-source')
           site=pathlib.Path('site')
           site.mkdir()
+          # Stamp JIT builds from the exact deployed repository commit.
+          deployed_sha=os.environ['GITHUB_SHA']
+          door=site/'jit/hundred-doors'
+          # The JIT directory is copied below before stamping.
           # Preserve the existing independent /jit/ projects.
           if pathlib.Path('jit').is_dir(): shutil.copytree('jit',site/'jit')
+          if (site/'jit/hundred-doors/index.html').is_file():
+              door_html=site/'jit/hundred-doors/index.html'
+              door_html.write_text(door_html.read_text().replace('<span id="build">pending</span>', '<span id="build">'+deployed_sha[:8]+'</span>'))
+              (door/'build.json').write_text(json.dumps({'sha':deployed_sha})+'\\n')
           for folder in ('arcana','athanor','codex'):
               shutil.copytree(source/folder,site/folder)
           for filename in ('index.html','favicon.svg'):
@@ -60,6 +68,7 @@ jobs:
           assert 'HERMETICON' in entry.read_text()
           assert 'location.replace' not in entry.read_text()
           assert (site/'jit/hundred-doors/index.html').is_file()
+          assert (site/'jit/hundred-doors/build.json').is_file()
           assert (site/'athanor/compose.js').is_file()
           assert (site/'codex/genesis/world.js').is_file()
           print('PINNED RELEASE',sha)
