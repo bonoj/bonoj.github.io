@@ -1,4 +1,83 @@
 ---
 layout: null
 ---
-<!doctype html><html lang="en"><meta charset="utf-8"><title>JIT Shell</title><body>Initializing shell.</body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080f15">
+<title>JIT / SHELL</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#080f15;color:#d5e2d9;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
+body{display:grid;min-height:100dvh;place-items:center;padding:clamp(18px,6vw,48px)}
+main{width:min(100%,560px);border:1px solid #77978756;padding:clamp(20px,5vw,36px);background:#0b161b}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid #77978745;padding-bottom:18px}
+h1{font-size:14px;font-weight:500;letter-spacing:.26em;margin:0}small,.muted{font-size:10px;color:#819c91;letter-spacing:.1em}
+section{padding:26px 0 20px} .label{font-size:10px;color:#8ca99b;letter-spacing:.19em}
+#current{font-size:clamp(29px,8vw,43px);letter-spacing:.06em;line-height:1.5;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+#previous{font-size:17px;letter-spacing:.1em;margin-top:5px}
+#transition{font-size:11px;margin-top:15px;color:#a3c3b1;min-height:20px}
+#detail{border-top:1px solid #77978745;padding-top:18px;display:grid;grid-template-columns:110px 1fr;gap:9px 10px;overflow-wrap:anywhere}
+#detail span:nth-child(odd){color:#819c91}
+nav{display:flex;gap:10px;margin-top:26px}
+button{appearance:none;min-height:48px;border:1px solid #a3bdab78;background:#15262a;color:#d5e2d9;border-radius:6px;font:12px ui-monospace,monospace;letter-spacing:.13em;cursor:pointer}
+#fresh{flex:1}#inspect{width:52px;font-size:23px}
+button:focus-visible{outline:2px solid #b7e2c5;outline-offset:3px}
+#report[hidden]{display:none}#report{margin-top:14px}#report textarea{width:100%;height:210px;resize:vertical;background:#091216;color:#c4dacf;border:1px solid #77978756;padding:12px;font:11px/1.5 ui-monospace,monospace}#copy{width:100%;margin-top:8px}
+footer{font-size:10px;color:#819c91;letter-spacing:.07em;margin-top:24px}
+</style>
+</head>
+<body>
+<main>
+<header><h1>JIT / SHELL</h1><small>LOCAL RELEASE WITNESS</small></header>
+<section aria-live="polite">
+<div class="label">EXECUTING BUILD</div>
+<div id="current">READING…</div>
+<div class="label">PREVIOUSLY OBSERVED</div>
+<div id="previous">—</div>
+<div id="transition">Awaiting release identity.</div>
+</section>
+<div id="detail">
+<span>IDENTITY</span><span id="identity">—</span>
+<span>OBSERVED</span><span id="observed">—</span>
+<span>REFRESH</span><span id="refreshState">READY</span>
+<span>CANONICAL</span><span>/jit/shell/</span>
+</div>
+<nav><button id="fresh" type="button" aria-label="Cache-busting refresh">↻ REFRESH</button><button id="inspect" type="button" aria-label="Inspect and copy local report">◇</button></nav>
+<div id="report" hidden><textarea id="json" readonly aria-label="Shell report"></textarea><button id="copy" type="button">COPY REPORT</button></div>
+<footer>NO GITHUB API · NO POLLING · RELEASE IDENTITY FROM PAGES BUILD</footer>
+</main>
+<script>
+'use strict';
+// GitHub Pages/Jekyll supplies the deployed source revision at build time.
+// This is not a manually maintained version label.
+const release='{{ site.github.build_revision }}';
+const valid=/^[a-f0-9]{40}$/i.test(release);
+const current=valid?release:'UNAVAILABLE';
+const key='jit-shell/last-observed/v1';
+const params=new URL(location.href).searchParams;
+const wasFresh=params.has('fresh');
+if(wasFresh){const clean=new URL(location.href);clean.searchParams.delete('fresh');history.replaceState(null,'',clean.pathname+clean.search+clean.hash);}
+let prior=null,storage='AVAILABLE';
+try{prior=JSON.parse(localStorage.getItem(key)||'null');}catch(e){storage='UNAVAILABLE';}
+const old=prior&&/^[a-f0-9]{40}$/i.test(prior.sha)?prior.sha:null;
+const changed=valid&&old&&old!==current;
+const same=valid&&old===current;
+const now=new Date().toISOString();
+const state=valid?(changed?'CHANGED — NEW BUILD OBSERVED':same?'UNCHANGED — SAME BUILD':'FIRST OBSERVATION'):'UNVERIFIED — RELEASE STAMP MISSING';
+document.getElementById('current').textContent=valid?current.slice(0,8):'UNKNOWN';
+document.getElementById('previous').textContent=old?old.slice(0,8):'—';
+document.getElementById('transition').textContent=state;
+document.getElementById('identity').textContent=valid?'PAGES BUILD REVISION':'MISSING JEKYLL REVISION';
+document.getElementById('observed').textContent=now;
+document.getElementById('refreshState').textContent=wasFresh?'CACHE-BUSTED NAVIGATION':'NORMAL NAVIGATION';
+if(valid){try{localStorage.setItem(key,JSON.stringify({sha:current,observedAt:now}));}catch(e){storage='UNAVAILABLE';}}
+const report=()=>({schema:'jit-shell-observation/v1',canonical:'https://bonoj.github.io/jit/shell/',executing:{sha:valid?current:null,short:valid?current.slice(0,8):null,source:'GitHub Pages Jekyll build_revision'},previous:prior,comparison:state,observedAt:now,cacheBustedNavigation:wasFresh,storage,githubApiCalls:0,continuousPolling:false,warning:valid?null:'Build revision was not rendered; do not treat this page as a verified release.'});
+document.getElementById('fresh').onclick=()=>{document.getElementById('refreshState').textContent='REQUESTING FRESH ENTRY…';const url=new URL(location.href);url.searchParams.set('fresh',Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));location.replace(url.href);};
+const panel=document.getElementById('report'),area=document.getElementById('json');
+document.getElementById('inspect').onclick=()=>{panel.hidden=!panel.hidden;if(!panel.hidden)area.value=JSON.stringify(report(),null,2);};
+document.getElementById('copy').onclick=async()=>{area.value=JSON.stringify(report(),null,2);try{await navigator.clipboard.writeText(area.value);document.getElementById('copy').textContent='COPIED';}catch(e){area.focus();area.select();document.getElementById('copy').textContent='SELECT TEXT';}};
+</script>
+</body>
+</html>
