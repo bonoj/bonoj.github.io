@@ -40,10 +40,11 @@ footer{font-size:10px;color:#819c91;letter-spacing:.07em;margin-top:clamp(8px,2d
 <span>IDENTITY</span><span id="identity">—</span>
 <span>OBSERVED</span><span id="observed">—</span>
 <span>REFRESH</span><span id="refreshState">READY</span>
+<span>DEPLOYMENT</span><span id="deploymentState">CHECKING…</span>
 <span>CANONICAL</span><span>/jit/shell/</span>
 </div>
 <nav><button id="fresh" type="button" aria-label="Cache-busting refresh">↻ REFRESH</button><button id="inspect" type="button" aria-label="Copy inspection report to clipboard" title="Copy report">COPY</button></nav>
-<footer>NO GITHUB API · NO POLLING · RELEASE IDENTITY FROM PAGES BUILD</footer>
+<footer>NO GITHUB API · ASYNC 30S CHECK WHILE VISIBLE · MANUAL REFRESH</footer>
 </main>
 <script>
 'use strict';
@@ -63,7 +64,9 @@ const now=new Date().toISOString();
 let state=valid?'EXECUTING STAMPED BUILD — VERIFYING MANIFEST':'UNSTAMPED HTML — REFRESH REQUIRED',manifest=null;
 const show=(message)=>{state=message;document.getElementById('current').textContent=valid?current.slice(0,8):'UNKNOWN';document.getElementById('previous').textContent=old?old.slice(0,8):'—';document.getElementById('transition').textContent=state;document.getElementById('identity').textContent=verified?'VERIFIED EXECUTING RELEASE':'UNVERIFIED';document.getElementById('observed').textContent=now;document.getElementById('refreshState').textContent=wasFresh?'CACHE-BUSTED NAVIGATION':'NORMAL NAVIGATION';};
 show(state);
-const report=()=>({schema:'jit-shell-observation/v2',canonical:'https://bonoj.github.io/jit/shell/',executing:{sha:valid?current:null,short:valid?current.slice(0,8):null,source:'Deployment-stamped HTML SHA, independently cross-checked with Pages manifest'},previous:prior,comparison:state,observedAt:now,cacheBustedNavigation:wasFresh,storage,manifest,githubApiCalls:0,continuousPolling:false});
+let latestPublished=null,lastDeploymentCheck=null;
+const deploymentEl=document.getElementById('deploymentState');
+const report=()=>({schema:'jit-shell-observation/v2',canonical:'https://bonoj.github.io/jit/shell/',executing:{sha:valid?current:null,short:valid?current.slice(0,8):null,source:'Deployment-stamped HTML SHA, independently cross-checked with Pages manifest'},previous:prior,comparison:state,observedAt:now,cacheBustedNavigation:wasFresh,storage,manifest,githubApiCalls:0,continuousPolling:true,pollIntervalSeconds:30,latestPublished:latestPublished,lastDeploymentCheck:lastDeploymentCheck});
 async function verify(){
  try{
   const meta=document.querySelector('meta[name="jit-shell-source-hash"]');
@@ -72,6 +75,7 @@ async function verify(){
   const response=await fetch('./release.json?fresh='+Date.now().toString(36),{cache:'no-store'});
   if(!response.ok)throw Error('Release manifest HTTP '+response.status);
   manifest=await response.json();
+  latestPublished=manifest.sha;lastDeploymentCheck=now;
   if(!/^[a-f0-9]{40}$/.test(manifest.sha||''))throw Error('Manifest lacks source SHA');
   if(manifest.htmlSha256!==meta.content||manifest.sha!==release)throw Error('HTML and manifest are from different releases');
   current=manifest.sha;valid=true;verified=true;
@@ -81,6 +85,28 @@ async function verify(){
  }catch(e){verified=false;show((valid?'STAMPED '+current.slice(0,8)+' — ':'UNVERIFIED — ')+e.message);}
 }
 verify();
+// Async manifest checks do not touch the executing build or force navigation.
+let checking=false;
+async function checkDeployment(){
+ if(checking||document.hidden)return;
+ checking=true;
+ const controller=new AbortController();
+ const timeout=setTimeout(()=>controller.abort(),8000);
+ try{
+  const response=await fetch('./release.json?check='+Date.now().toString(36),{cache:'no-store',signal:controller.signal});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const candidate=await response.json();
+  if(!/^[a-f0-9]{40}$/i.test(candidate.sha||'')||!/^[a-f0-9]{64}$/i.test(candidate.htmlSha256||''))throw Error('Invalid release manifest');
+  latestPublished=candidate.sha;lastDeploymentCheck=new Date().toISOString();
+  if(candidate.sha!==release){deploymentEl.textContent='NEW BUILD '+candidate.sha.slice(0,8)+' AVAILABLE';}
+  else if(candidate.htmlSha256!==document.querySelector('meta[name="jit-shell-source-hash"]')?.content){deploymentEl.textContent='RELEASE FINGERPRINT MISMATCH';}
+  else{deploymentEl.textContent='CURRENT · '+candidate.sha.slice(0,8);}
+ }catch(e){deploymentEl.textContent='CHECK FAILED · RETRYING';}
+ finally{clearTimeout(timeout);checking=false;}
+}
+setInterval(checkDeployment,30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkDeployment();});
+setTimeout(checkDeployment,1000);
 document.getElementById('fresh').onclick=()=>{document.getElementById('refreshState').textContent='REQUESTING FRESH ENTRY…';const url=new URL('https://bonoj.github.io/jit/shell/');url.searchParams.set('fresh',Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));location.replace(url.href);};
 document.getElementById('inspect').onclick=async()=>{const button=document.getElementById('inspect');const payload=JSON.stringify(report(),null,2);try{await navigator.clipboard.writeText(payload);button.textContent='COPIED';}catch(e){button.textContent='COPY FAILED';}setTimeout(()=>button.textContent='COPY',1600);};
 </script>
