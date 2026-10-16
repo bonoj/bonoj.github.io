@@ -47,8 +47,10 @@ footer{font-size:10px;color:#819c91;letter-spacing:.07em;margin-top:clamp(8px,2d
 </main>
 <script>
 'use strict';
-// Build identity is stamped into this HTML by the publisher.\nconst release=document.querySelector('meta[name="jit-shell-build-sha"]')?.content||'';
+// Build identity is stamped into this HTML by the publisher.
+const release=document.querySelector('meta[name="jit-shell-build-sha"]')?.content||'';
 let valid=/^[a-f0-9]{40}$/i.test(release);
+let verified=false;
 let current=valid?release:'UNAVAILABLE';
 const key='jit-shell/last-observed/v1';
 const params=new URL(location.href).searchParams;
@@ -59,7 +61,7 @@ try{prior=JSON.parse(localStorage.getItem(key)||'null');}catch(e){storage='UNAVA
 const old=prior&&/^[a-f0-9]{40}$/i.test(prior.sha)?prior.sha:null;
 const now=new Date().toISOString();
 let state=valid?'EXECUTING STAMPED BUILD — VERIFYING MANIFEST':'UNSTAMPED HTML — REFRESH REQUIRED',manifest=null;
-const show=(message)=>{state=message;document.getElementById('current').textContent=valid?current.slice(0,8):'UNKNOWN';document.getElementById('previous').textContent=old?old.slice(0,8):'—';document.getElementById('transition').textContent=state;document.getElementById('identity').textContent=valid?'STAMPED SOURCE COMMIT':'UNVERIFIED';document.getElementById('observed').textContent=now;document.getElementById('refreshState').textContent=wasFresh?'CACHE-BUSTED NAVIGATION':'NORMAL NAVIGATION';};
+const show=(message)=>{state=message;document.getElementById('current').textContent=valid?current.slice(0,8):'UNKNOWN';document.getElementById('previous').textContent=old?old.slice(0,8):'—';document.getElementById('transition').textContent=state;document.getElementById('identity').textContent=verified?'VERIFIED EXECUTING RELEASE':'UNVERIFIED';document.getElementById('observed').textContent=now;document.getElementById('refreshState').textContent=wasFresh?'CACHE-BUSTED NAVIGATION':'NORMAL NAVIGATION';};
 show(state);
 const report=()=>({schema:'jit-shell-observation/v2',canonical:'https://bonoj.github.io/jit/shell/',executing:{sha:valid?current:null,short:valid?current.slice(0,8):null,source:'Deployment-stamped HTML SHA, independently cross-checked with Pages manifest'},previous:prior,comparison:state,observedAt:now,cacheBustedNavigation:wasFresh,storage,manifest,githubApiCalls:0,continuousPolling:false});
 async function verify(){
@@ -72,14 +74,14 @@ async function verify(){
   manifest=await response.json();
   if(!/^[a-f0-9]{40}$/.test(manifest.sha||''))throw Error('Manifest lacks source SHA');
   if(manifest.htmlSha256!==meta.content||manifest.sha!==release)throw Error('HTML and manifest are from different releases');
-  current=manifest.sha;valid=true;
+  current=manifest.sha;valid=true;verified=true;
   const message=old?(old===current?'UNCHANGED — SAME VERIFIED BUILD':'CHANGED — NEW VERIFIED BUILD'):'FIRST VERIFIED OBSERVATION';
   show(message);
   try{localStorage.setItem(key,JSON.stringify({sha:current,observedAt:now}));}catch(e){storage='UNAVAILABLE';}
- }catch(e){show((valid?'STAMPED '+current.slice(0,8)+' — ':'UNVERIFIED — ')+e.message);}
+ }catch(e){verified=false;show((valid?'STAMPED '+current.slice(0,8)+' — ':'UNVERIFIED — ')+e.message);}
 }
 verify();
-document.getElementById('fresh').onclick=()=>{document.getElementById('refreshState').textContent='REQUESTING FRESH ENTRY…';const url=new URL(location.href);url.searchParams.set('fresh',Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));location.replace(url.href);};
+document.getElementById('fresh').onclick=()=>{document.getElementById('refreshState').textContent='REQUESTING FRESH ENTRY…';const url=new URL('https://bonoj.github.io/jit/shell/');url.searchParams.set('fresh',Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));location.replace(url.href);};
 document.getElementById('inspect').onclick=async()=>{const button=document.getElementById('inspect');const payload=JSON.stringify(report(),null,2);try{await navigator.clipboard.writeText(payload);button.textContent='COPIED';}catch(e){button.textContent='COPY FAILED';}setTimeout(()=>button.textContent='COPY',1600);};
 </script>
 </body>
