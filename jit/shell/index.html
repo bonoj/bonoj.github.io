@@ -1,114 +1,31 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#080f15">
-<meta name="jit-shell-build-sha" content="e1290a879a91f9db1d8ca1c5c2aee52c6e845c72">
-<meta name="jit-shell-source-hash" content="35e5381754b9900e6edefdc41dbf66e14e9219b635e555dadf12d37584edf3d4">
-<title>JIT / SHELL</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080f15">
+<meta name="jit-shell-build-sha" content="UNSTAMPED"><meta name="jit-shell-source-hash" content="UNSTAMPED">
+<title>SIEVE · JIT</title>
 <style>
-:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:#080f15;color:#d5e2d9;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
-body{display:grid;height:100dvh;min-height:0;place-items:stretch;padding:clamp(8px,2.5vw,20px);overflow:hidden}
-main{width:100%;height:100%;min-height:0;overflow:hidden;display:flex;flex-direction:column;border:1px solid #77978756;padding:clamp(20px,5vw,36px);background:#0b161b}
-header{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid #77978745;padding-bottom:18px}
-h1{font-size:14px;font-weight:500;letter-spacing:.26em;margin:0}small,.muted{font-size:10px;color:#819c91;letter-spacing:.1em}
-section{padding:clamp(10px,3dvh,26px) 0 clamp(8px,2dvh,20px)} .label{font-size:10px;color:#8ca99b;letter-spacing:.19em}
-#current{font-size:clamp(29px,8vw,43px);letter-spacing:.06em;line-height:1.5;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-#previous{font-size:17px;letter-spacing:.1em;margin-top:5px}
-#transition{font-size:11px;margin-top:15px;color:#a3c3b1;min-height:20px}
-#detail{font-size:clamp(10px,2.8vw,13px);grid-template-columns:minmax(72px,32%) minmax(0,1fr);border-top:1px solid #77978745;padding-top:clamp(8px,2dvh,18px);display:grid;gap:9px 10px;overflow-wrap:anywhere}
-#detail span:nth-child(odd){color:#819c91}
-nav{display:flex;gap:10px;margin-top:clamp(8px,2dvh,26px)}
-button{appearance:none;min-height:48px;border:1px solid #a3bdab78;background:#15262a;color:#d5e2d9;border-radius:6px;font:12px ui-monospace,monospace;letter-spacing:.13em;cursor:pointer}
-#fresh{flex:1}#inspect{width:92px;font-size:12px}
-button:focus-visible{outline:2px solid #b7e2c5;outline-offset:3px}
-footer{margin-top:auto;font-size:10px;color:#819c91;letter-spacing:.07em;margin-top:clamp(8px,2dvh,24px)}
-</style>
-</head>
-<body>
-<main>
-<header><h1>JIT / SHELL</h1><small>LOCAL RELEASE WITNESS</small></header>
-<section aria-live="polite">
-<div class="label">EXECUTING BUILD</div>
-<div id="current">READING…</div>
-<div class="label">PREVIOUSLY OBSERVED</div>
-<div id="previous">—</div>
-<div id="transition">Awaiting release identity.</div>
-</section>
-<div id="detail">
-<span>IDENTITY</span><span id="identity">—</span>
-<span>OBSERVED</span><span id="observed">—</span>
-<span>REFRESH</span><span id="refreshState">READY</span>
-<span>DEPLOYMENT</span><span id="deploymentState">CHECKING…</span>
-<span>CANONICAL</span><span>/jit/shell/</span>
+:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:#080f15;color:#dcebe1;font:14px/1.45 system-ui,sans-serif}body{display:flex;justify-content:center;padding:clamp(12px,3vw,28px)}main{width:min(100%,800px);height:100%;min-height:0;display:flex;flex-direction:column;gap:clamp(12px,2vh,22px)}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #456458;padding:6px 0 14px}.eyebrow{font:11px ui-monospace,monospace;letter-spacing:.2em;color:#91ac9b}h1{font-size:clamp(27px,6vw,46px);letter-spacing:.07em;font-weight:450;margin:0}.sub{color:#9bb4a7;margin:0;font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.tile{border:1px solid #38564b;background:#101e1e;padding:clamp(10px,3vw,20px);min-width:0}.tile strong{display:block;font:clamp(26px,7vw,52px)/1.15 ui-monospace,monospace;margin:13px 0 6px}.tile span{font-size:11px;color:#a3bbad}.bar{height:4px;background:#273b35;margin-top:12px}.fill{height:100%;background:#8fc6a4}.detail{display:grid;grid-template-columns:1fr 1fr;gap:10px}.panel{border-top:1px solid #456458;padding-top:12px}.panel b{font-weight:500}.panel p{font-size:13px;color:#a6bdb1;margin:8px 0}.accept{color:#a5ebba;font:clamp(24px,6vw,42px) ui-monospace,monospace}.spacer{flex:1;min-height:0}footer{border-top:1px solid #456458;padding:12px 0;display:flex;gap:12px;justify-content:space-between;align-items:center;font:11px ui-monospace,monospace;color:#91ac9b}a{color:#c5ead3;text-decoration:none}button{border:1px solid #668675;background:#142721;color:#e1f1e5;padding:11px 13px;border-radius:4px;min-height:44px;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid #c5ead3}#state{font-size:10px;overflow-wrap:anywhere}@media(max-width:510px){.detail{grid-template-columns:1fr}.tile{padding:10px}.tile strong{font-size:clamp(25px,8vw,37px)}.grid{gap:6px}.sub{font-size:12px}}
+</style></head><body><main>
+<header><div><div class="eyebrow">SANCTUM / SIEVE</div><h1>HUNDRED DOORS</h1></div><div class="eyebrow">16 OCT 2026</div></header>
+<p class="sub">Campaign progress · private ledger snapshot · discoveries are not outbound actions.</p>
+<div class="grid">
+<div class="tile"><span>CONNECTIONS SENT</span><strong>98<span>/100</span></strong><div class="bar"><div class="fill" style="width:98%"></div></div></div>
+<div class="tile"><span>APPLICATIONS SENT</span><strong>0<span>/100</span></strong><div class="bar"><div class="fill" style="width:0%"></div></div></div>
+<div class="tile"><span>EMAILS SENT</span><strong>0<span>/100</span></strong><div class="bar"><div class="fill" style="width:0%"></div></div></div>
 </div>
-<nav><button id="fresh" type="button" aria-label="Cache-busting refresh">↻ REFRESH</button><button id="inspect" type="button" aria-label="Copy inspection report to clipboard" title="Copy report">COPY</button></nav>
-<footer>NO GITHUB API · ASYNC 30S CHECK WHILE VISIBLE · MANUAL REFRESH</footer>
-</main>
-<script>
+<div class="detail"><section class="panel"><div class="eyebrow">CONNECTIONS ACCEPTED</div><div class="accept">15</div><p>101 prospects · 89 indexed profile URLs · invitations and acceptances user-reported.</p></section>
+<section class="panel"><div class="eyebrow">DISCOVERY INVENTORY</div><p><b>100</b> application destinations</p><p><b>102</b> published email channels</p><p><b>40</b> organizations indexed</p></section></div>
+<section class="panel"><div class="eyebrow">CURRENT COURSE</div><p>LinkedIn pass closed. Retired bulk-email experiment stays retired. Preserve campaign evidence; validate real outbound routes before sending. No unsolicited actions.</p></section>
+<div class="spacer"></div>
+<footer><div><div>BUILD <span id="build">VERIFYING…</span></div><div id="state">Checking deployed release</div></div><div style="display:flex;gap:8px"><button id="copy">COPY</button><button id="fresh">↻ REFRESH</button></div></footer>
+</main><script>
 'use strict';
-// Build identity is stamped into this HTML by the publisher.
-const release=document.querySelector('meta[name="jit-shell-build-sha"]')?.content||'';
-let valid=/^[a-f0-9]{40}$/i.test(release);
+const source=document.querySelector('meta[name="jit-shell-build-sha"]').content;
+const fingerprint=document.querySelector('meta[name="jit-shell-source-hash"]').content;
+const build=document.getElementById('build'),state=document.getElementById('state');
+build.textContent=/^[a-f0-9]{40}$/.test(source)?source.slice(0,8):'UNSTAMPED';
 let verified=false;
-let current=valid?release:'UNAVAILABLE';
-const key='jit-shell/last-observed/v1';
-const params=new URL(location.href).searchParams;
-const wasFresh=params.has('fresh');
-if(wasFresh){const clean=new URL(location.href);clean.searchParams.delete('fresh');history.replaceState(null,'',clean.pathname+clean.search+clean.hash);}
-let prior=null,storage='AVAILABLE';
-try{prior=JSON.parse(localStorage.getItem(key)||'null');}catch(e){storage='UNAVAILABLE';}
-const old=prior&&/^[a-f0-9]{40}$/i.test(prior.sha)?prior.sha:null;
-const now=new Date().toISOString();
-let state=valid?'EXECUTING STAMPED BUILD — VERIFYING MANIFEST':'UNSTAMPED HTML — REFRESH REQUIRED',manifest=null;
-const show=(message)=>{state=message;document.getElementById('current').textContent=valid?current.slice(0,8):'UNKNOWN';document.getElementById('previous').textContent=old?old.slice(0,8):'—';document.getElementById('transition').textContent=state;document.getElementById('identity').textContent=verified?'VERIFIED EXECUTING RELEASE':'UNVERIFIED';document.getElementById('observed').textContent=now;document.getElementById('refreshState').textContent=wasFresh?'CACHE-BUSTED NAVIGATION':'NORMAL NAVIGATION';};
-show(state);
-let latestPublished=null,lastDeploymentCheck=null;
-const deploymentEl=document.getElementById('deploymentState');
-const report=()=>({schema:'jit-shell-observation/v2',canonical:'https://bonoj.github.io/jit/shell/',executing:{sha:valid?current:null,short:valid?current.slice(0,8):null,source:'Deployment-stamped HTML SHA, independently cross-checked with Pages manifest'},previous:prior,comparison:state,observedAt:now,cacheBustedNavigation:wasFresh,storage,manifest,githubApiCalls:0,continuousPolling:true,pollIntervalSeconds:30,latestPublished:latestPublished,lastDeploymentCheck:lastDeploymentCheck});
-async function verify(){
- try{
-  const meta=document.querySelector('meta[name="jit-shell-source-hash"]');
-  if(!valid)throw Error('No source commit stamped in deployed HTML');
-  if(!meta||!meta.content||!/^[a-f0-9]{64}$/.test(meta.content))throw Error('No source fingerprint in deployed HTML');
-  const response=await fetch('./release.json?fresh='+Date.now().toString(36),{cache:'no-store'});
-  if(!response.ok)throw Error('Release manifest HTTP '+response.status);
-  manifest=await response.json();
-  latestPublished=manifest.sha;lastDeploymentCheck=now;
-  if(!/^[a-f0-9]{40}$/.test(manifest.sha||''))throw Error('Manifest lacks source SHA');
-  if(manifest.htmlSha256!==meta.content||manifest.sha!==release)throw Error('HTML and manifest are from different releases');
-  current=manifest.sha;valid=true;verified=true;
-  const message=old?(old===current?'UNCHANGED — SAME VERIFIED BUILD':'CHANGED — NEW VERIFIED BUILD'):'FIRST VERIFIED OBSERVATION';
-  show(message);
-  try{localStorage.setItem(key,JSON.stringify({sha:current,observedAt:now}));}catch(e){storage='UNAVAILABLE';}
- }catch(e){verified=false;show((valid?'STAMPED '+current.slice(0,8)+' — ':'UNVERIFIED — ')+e.message);}
-}
-verify();
-// Async manifest checks do not touch the executing build or force navigation.
-let checking=false;
-async function checkDeployment(){
- if(checking||document.hidden)return;
- checking=true;
- const controller=new AbortController();
- const timeout=setTimeout(()=>controller.abort(),8000);
- try{
-  const response=await fetch('./release.json?check='+Date.now().toString(36),{cache:'no-store',signal:controller.signal});
-  if(!response.ok)throw Error('HTTP '+response.status);
-  const candidate=await response.json();
-  if(!/^[a-f0-9]{40}$/i.test(candidate.sha||'')||!/^[a-f0-9]{64}$/i.test(candidate.htmlSha256||''))throw Error('Invalid release manifest');
-  latestPublished=candidate.sha;lastDeploymentCheck=new Date().toISOString();
-  if(candidate.sha!==release){deploymentEl.textContent='NEW BUILD '+candidate.sha.slice(0,8)+' AVAILABLE';}
-  else if(candidate.htmlSha256!==document.querySelector('meta[name="jit-shell-source-hash"]')?.content){deploymentEl.textContent='RELEASE FINGERPRINT MISMATCH';}
-  else{deploymentEl.textContent='CURRENT · '+candidate.sha.slice(0,8);}
- }catch(e){deploymentEl.textContent='CHECK FAILED · RETRYING';}
- finally{clearTimeout(timeout);checking=false;}
-}
-setInterval(checkDeployment,30000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkDeployment();});
-setTimeout(checkDeployment,1000);
-document.getElementById('fresh').onclick=()=>{document.getElementById('refreshState').textContent='REQUESTING FRESH ENTRY…';const url=new URL('https://bonoj.github.io/jit/shell/');url.searchParams.set('fresh',Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));location.replace(url.href);};
-document.getElementById('inspect').onclick=async()=>{const button=document.getElementById('inspect');const payload=JSON.stringify(report(),null,2);try{await navigator.clipboard.writeText(payload);button.textContent='COPIED';}catch(e){button.textContent='COPY FAILED';}setTimeout(()=>button.textContent='COPY',1600);};
-</script>
-</body>
-</html>
+async function check(){try{const r=await fetch('./release.json?fresh='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Manifest '+r.status);const m=await r.json();verified=m.sha===source&&m.htmlSha256===fingerprint;state.textContent=verified?'VERIFIED RELEASE':'RELEASE MISMATCH — REFRESH';}catch(e){state.textContent='UNVERIFIED · '+e.message;}}
+check();document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});setInterval(()=>{if(!document.hidden)check()},30000);
+document.getElementById('fresh').onclick=()=>{const u=new URL(location.href);u.searchParams.set('fresh',Date.now().toString(36));location.replace(u.href)};
+document.getElementById('copy').onclick=async()=>{const payload={schema:'sieve-jit-snapshot/v1',sourceCampaignUpdatedAt:'2026-10-16',counts:{"organizations":40,"applicationDestinations":100,"connectionProspects":101,"verifiedProfileUrls":89,"publishedEmailChannels":102,"submittedApplications":0,"sentConnections":98,"sentEmails":0,"acceptedConnections":15},executingSha:source,verified,canonical:location.origin+location.pathname};try{await navigator.clipboard.writeText(JSON.stringify(payload,null,2));document.getElementById('copy').textContent='COPIED'}catch(e){document.getElementById('copy').textContent='FAILED'}};
+</script></body></html>
