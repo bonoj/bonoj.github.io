@@ -37,7 +37,7 @@ function build(){
 }
 function resize(){dpr=Math.min(devicePixelRatio||1,1.6);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);build();}
 function setSong(index){
- song=(index+SONGS.length)%SONGS.length;t=0;last=0;impulses=[];fingers=[null,null,null];active.clear();balladStanza=-1;balladParticles=[];
+ song=(index+SONGS.length)%SONGS.length;t=0;last=0;impulses=[];fingers=[null,null,null];active.clear();balladStanza=-1;
  document.querySelector('.song').textContent=SONGS[song].title;document.querySelector('.identity .song').style.fontSize=song===2?'clamp(24px,5.5vw,52px)':'';duration.textContent=fmt(SONGS[song].duration);build();
 }
 function fmt(s){s=Math.floor(s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
@@ -112,43 +112,80 @@ function renderSchism(){
  ctx.strokeStyle='rgba(225,174,112,'+(.14+accent*.17)+')';ctx.beginPath();ctx.moveTo(cx+(phase-.5)*scale*.25,cy-band*1.65);ctx.lineTo(cx+(phase-.5)*scale*.25,cy+band*1.65);ctx.stroke();
 }
 
-function prepareBallad(n){
- balladStanza=n;balladParticles=[];
- const lines=BALLAD[n],font=44,step=3;
- for(let row=0;row<4;row++){
-  const str=lines[row];sc.font='600 '+font+'px system-ui,sans-serif';
-  const width=Math.ceil(sc.measureText(str).width)+12;
-  scratch.width=width;scratch.height=64;sc.font='600 '+font+'px system-ui,sans-serif';sc.fillStyle='#fff';sc.textBaseline='middle';sc.fillText(str,6,32);
-  const pix=sc.getImageData(0,0,width,64).data;
-  for(let y=0;y<64;y+=step)for(let x=0;x<width;x+=step){
-   if(pix[(y*width+x)*4+3]<110)continue;
-   const id=balladParticles.length;
-   balladParticles.push({row,x:(x-width/2)/font,y:(y-32)/font,seed:hash(id*3+row*101),seed2:hash(id*7+row*17),seed3:hash(id*13+row*29)});
+
+// Fixed inventory: all glyph configurations share the same persistent particles.
+// Every particle follows a closed 3D elliptical orbit, approaching the reading plane
+// only during its assigned stanza. The orbit itself never resets on stanza changes.
+let balladShapes=null,balladInventory=0;
+function prepareBallad(){
+ if(balladShapes)return;
+ balladShapes=[];
+ const font=44,step=3;
+ for(const lines of BALLAD){
+  const shape=[];
+  for(let row=0;row<4;row++){
+   sc.font='600 '+font+'px system-ui,sans-serif';
+   const width=Math.ceil(sc.measureText(lines[row]).width)+12;
+   scratch.width=width;scratch.height=64;
+   sc.font='600 '+font+'px system-ui,sans-serif';sc.fillStyle='#fff';sc.textBaseline='middle';sc.fillText(lines[row],6,32);
+   const pix=sc.getImageData(0,0,width,64).data;
+   for(let y=0;y<64;y+=step)for(let x=0;x<width;x+=step){
+    if(pix[(y*width+x)*4+3]<110)continue;
+    shape.push({row,x:(x-width/2)/font,y:(y-32)/font});
+   }
   }
+  balladShapes.push(shape);balladInventory=Math.max(balladInventory,shape.length);
  }
+ balladParticles=Array.from({length:balladInventory},(_,id)=>({
+  seed:hash(id*3+19),seed2:hash(id*7+29),seed3:hash(id*13+47),
+  // A tiny proportion of particles occupy near-camera return orbits.
+  lane:hash(id*17+61)<.035?2:hash(id*19+71)<.22?1:0
+ }));
 }
 function renderBallad(){
+ prepareBallad();
  const per=12,n=Math.min(53,Math.floor(t/per)),phase=(t%per)/per;
- if(balladStanza!==n)prepareBallad(n);
- const cx=W*.5,cy=H*.52;
+ const cx=W*.5,cy=H*.52,shape=balladShapes[n];
  sc.font='600 44px system-ui,sans-serif';
  const longest=Math.max(...BALLAD[n].map(line=>sc.measureText(line).width/44),1);
  const fontPixels=Math.min(26,Math.max(10,(W-34)/(longest+.3)));
  const lineHeight=Math.min(54,Math.max(28,fontPixels*1.8));
- const coherence=smooth(0,.22,phase)*(1-smooth(.80,1,phase));
- const travel=(phase-.5)*H*.34,projected=[];
- for(const p of balladParticles){
-  const reveal=smooth(0,.21,phase-p.row*.028),depart=1-smooth(.79,.99,phase+p.row*.012);
-  const settle=reveal*depart,turbulence=1-settle;
-  const field=Math.sin(p.x*2.8+t*.7+p.seed*TAU);
-  const driftX=(p.seed-.5)*W*.48+field*26,driftY=(p.seed2-.5)*H*.38+Math.cos(t*.51+p.seed3*TAU)*20;
-  const x=cx+p.x*fontPixels+driftX*turbulence,y=cy+(p.row-1.5)*lineHeight+p.y*fontPixels+travel+driftY*turbulence;
-  const z=Math.sin(p.x*3+t*.35+p.seed3*TAU)*turbulence,depth=2.5/(2.5+z*.6);
-  projected.push({x:cx+(x-cx)*depth,y:cy+(y-cy)*depth,z,alpha:Math.max(0,settle*.82+turbulence*.20)*Math.max(0,Math.min(1,(H-y+80)/120,(y+80)/120))});
+ const travel=(phase-.5)*H*.25;
+ // For readability, the typography sits on a front-facing plane.
+ // In the return leg the same particles sweep around the sides of the vessel.
+ const drawn=[];
+ for(let id=0;id<balladInventory;id++){
+  const p=balladParticles[id],glyph=shape[id],lane=p.lane;
+  // Unbroken, long-period elliptical orbital trajectory; phase is not reset
+  // by a new stanza. Alternate sides, with a rare foreground flyby.
+  const theta=t*TAU/(per*(1.08+p.seed*.36))+p.seed2*TAU;
+  const rx=W*(lane===2?.73:lane===1?.59:.55)+(p.seed-.5)*W*.11;
+  const ry=H*(.54+p.seed3*.11);
+  const ox=cx+Math.cos(theta)*rx;
+  const oy=cy+Math.sin(theta)*ry;
+  const oz=(lane===2?1.65:lane===1?-.95:-1.8)+Math.cos(theta)*.55;
+  // New glyphs assemble out of the stream and eventually dissolve back into it.
+  // Excess inventory stays in orbit; no particles are spawned or deleted.
+  const entry=smooth(.015,.25,phase),exit=1-smooth(.76,.98,phase);
+  const blend=glyph?entry*exit:0;
+  const gx=cx+(glyph?glyph.x*fontPixels:0);
+  const gy=cy+(glyph?(glyph.row-1.5)*lineHeight+glyph.y*fontPixels:0)+travel;
+  const x=ox+(gx-ox)*blend,y=oy+(gy-oy)*blend,z=oz*(1-blend);
+  const depth=3.6/(3.6+z*.35);
+  const sx=cx+(x-cx)*depth,sy=cy+(y-cy)*depth;
+  const inView=sx>-8&&sx<W+8&&sy>-8&&sy<H+8;
+  if(!inView)continue;
+  const orbitAlpha=lane===2?.34:lane===1?.18:.09;
+  const alpha=orbitAlpha+(0.83-orbitAlpha)*blend;
+  drawn.push({sx,sy,z,alpha,size:blend>.65?1.45:lane===2?2.1:1.05,lane});
  }
- projected.sort((a,b)=>b.z-a.z);
- for(const p of projected){if(p.alpha<=0)continue;ctx.fillStyle='rgba(221,209,178,'+p.alpha+')';ctx.fillRect(p.x,p.y,1.5,1.5);}
- return coherence;
+ // Back planes first; occasional foreground return particles cross in front.
+ drawn.sort((a,b)=>a.z-b.z);
+ for(const p of drawn){
+  ctx.fillStyle=p.lane===2&&p.z>.4?'rgba(175,223,211,'+p.alpha+')':'rgba(221,209,178,'+p.alpha+')';
+  ctx.fillRect(p.sx,p.sy,p.size,p.size);
+ }
+ return smooth(.02,.25,phase)*(1-smooth(.76,.98,phase));
 }
 
 function frame(ms){
@@ -165,7 +202,7 @@ function frame(ms){
 }
 document.getElementById('prev').onclick=()=>setSong(song-1);
 document.getElementById('next').onclick=()=>setSong(song+1);
-document.getElementById('shuffle').onclick=()=>setSong(song===0?1:0);
+document.getElementById('shuffle').onclick=()=>setSong((song+1+Math.floor(Math.random()*(SONGS.length-1)))%SONGS.length);
 const active=new Map(),surface=document.getElementById('touchsurface');
 surface.addEventListener('pointerdown',e=>{
  if(song!==1||active.size>=3)return;
