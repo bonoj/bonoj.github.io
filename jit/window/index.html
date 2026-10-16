@@ -39,10 +39,10 @@ function anchorLines(text){
  const width=Math.max(40,voice.clientWidth-22),spacing=parseFloat(style.letterSpacing)||0;
  const measure=s=>m.measureText(s).width+s.length*spacing;
  const lines=[];
- for(const paragraph of text.split('\\n')){
+ for(const paragraph of text.split('\n')){
   if(!paragraph.trim()){lines.push('');continue;}
   let line='';
-  for(const word of paragraph.trim().split(/\\s+/)){
+  for(const word of paragraph.trim().split(/\s+/)){
    const candidate=line?line+' '+word:word;
    if(line&&measure(candidate)>width){lines.push(line);line=word;}else line=candidate;
   }
@@ -93,7 +93,7 @@ function buildScrollScore(){
   s.lines.forEach((line,i)=>{
    const start=t+(i===0?0:220);
    const lines=anchorLines(line);
-   const glyphs=lines.join('\\n').length;
+   const glyphs=lines.join('\n').length;
    const step=25+17; // stable equivalent of the original variable keystroke rhythm
    scrubEvents.push({start,end:start+glyphs*step,lines,label:s.label,mood:s.moods[i],turn:round+1,step});
    t+=s.durations[i];
@@ -114,7 +114,7 @@ function paintScroll(t){
   for(let j=0;j<n;j++)state[start+j]='';
   state[(start+n)%slotCount]='';
   cursorAt=(start+n+1)%slotCount;
-  const visible=Math.max(0,Math.min(event.lines.join('\\n').length,Math.floor((t-event.start)/event.step)+1));
+  const visible=Math.max(0,Math.min(event.lines.join('\n').length,Math.floor((t-event.start)/event.step)+1));
   let remain=visible;
   for(let j=0;j<n;j++){
    const line=event.lines[j];
