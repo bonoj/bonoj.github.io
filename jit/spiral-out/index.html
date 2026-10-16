@@ -5,105 +5,130 @@
 
 /* One-song instrument: typography is the visible material of the sculpture. */
 .mark{display:none}.identity{pointer-events:none;position:relative;z-index:3}.identity .song{font-size:clamp(38px,9vw,83px)}.top{min-height:16px}.status{margin-left:auto}.led{display:block;width:8px;height:8px;transition:background .12s,box-shadow .12s,transform .12s;animation:none}.bottom{position:relative;z-index:3;padding-bottom:3px}.track{opacity:.55}.tiny{width:34px;height:34px;font-size:15px}.void{pointer-events:none}#stage{z-index:0}#app:before{z-index:1;opacity:.8}#grain{z-index:1}.identity{padding-top:clamp(5px,3vh,32px)}@media(max-height:600px){.identity{padding-top:4px}} 
-button,a,[role="button"]{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px solid #d5b282;outline-offset:3px}</style></head><body><div id="app"><canvas id="stage" aria-hidden="true"></canvas><div id="grain"></div><main><div class="top"><span class="mark" aria-hidden="true"></span><span class="status"><i class="led" id="led"></i></span></div><section class="identity"><div class="eyebrow">NOW DREAMING · 2001</div><div class="song">Lateralus</div><div class="artist">TOOL</div></section><div class="void"></div><div class="bottom"><span id="time">00:00</span><span class="track">◉ <span id="duration">09:24</span></span><button class="tiny" id="sound" aria-label="Toggle generated ambient tone" title="Toggle generated ambient tone">♫</button></div></main></div>
+button,a,[role="button"]{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px solid #d5b282;outline-offset:3px} .transport{display:flex;gap:7px;align-items:center}.transport .tiny{border:0;font-size:22px;color:#b9c7c7;min-width:42px;min-height:42px}.transport #shuffle{font-size:20px}.fingerboard{position:absolute;z-index:4;left:50%;transform:translateX(-50%);bottom:13%;display:flex;gap:clamp(14px,6vw,34px)}.finger{width:clamp(64px,20vw,88px);height:clamp(64px,20vw,88px);border:1px solid #8bb6ad55;border-radius:50%;background:#111b23a8;color:#c1d8d1;font-size:23px;touch-action:none;user-select:none;cursor:pointer;transition:background .1s,border-color .1s}.finger.down{background:#bc9c6c66;border-color:#f6c58a}.fingerboard[hidden]{display:none}.finger:focus-visible{outline:2px solid #f6c58a}.identity{z-index:5}.bottom{z-index:6} </style></head><body><div id="app"><canvas id="stage" aria-hidden="true"></canvas><div id="grain"></div><div class="fingerboard" id="fingerboard" hidden><button class="finger" data-finger="0" aria-label="Finger one">I</button><button class="finger" data-finger="1" aria-label="Finger two">II</button><button class="finger" data-finger="2" aria-label="Finger three">III</button></div><main><div class="top"><span class="mark" aria-hidden="true"></span><span class="status"><i class="led" id="led"></i></span></div><section class="identity"><div class="eyebrow">NOW DREAMING · 2001</div><div class="song">Lateralus</div><div class="artist">TOOL</div></section><div class="void"></div><div class="bottom"><span id="time">00:00</span><span class="track">◉ <span id="duration">09:24</span></span><div class="transport"><button class="tiny" id="prev" aria-label="Previous song">‹</button><button class="tiny" id="shuffle" aria-label="Shuffle song">⤨</button><button class="tiny" id="next" aria-label="Next song">›</button></div></div></main></div>
 <script>
 'use strict';
-// Glyph pixels are the particles. Rest positions are 2D; deformation is 3D.
-// Only short illustrative lyric excerpts are used, not a complete lyric transcription.
-const PHRASES=['black then white','red and yellow','reaching out to me','there is so much more','over thinking over analyzing','separates the body from the mind','feel the moment','embrace this moment','feel the rhythm','spiral out','keep going','swing on the spiral'];
-const canvas=document.getElementById('stage'),ctx=canvas.getContext('2d',{alpha:false}),led=document.getElementById('led'),clock=document.getElementById('time');
+const canvas=document.getElementById('stage'),ctx=canvas.getContext('2d',{alpha:false}),led=document.getElementById('led'),clock=document.getElementById('time'),duration=document.getElementById('duration'),board=document.getElementById('fingerboard');
 const scratch=document.createElement('canvas'),sc=scratch.getContext('2d',{willReadFrequently:true});
-let W=0,H=0,dpr=1,t=0,last=0,points=[],groups=[],energy=0,coherence=0,ac=null,osc=null,osc2=null,gain=null;
-const DURATION=564,TAU=Math.PI*2;
-function hash(n){let x=Math.sin(n*127.1+78.233)*43758.5453;return x-Math.floor(x);}
-function resize(){dpr=Math.min(devicePixelRatio||1,1.6);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);build();}
+const TAU=Math.PI*2;
+const SONGS=[
+ {title:'Lateralus',duration:564,phrases:['black then white','red and yellow','reaching out to me','there is so much more','over thinking over analyzing','separates the body from the mind','feel the moment','embrace this moment','feel the rhythm','spiral out','keep going','swing on the spiral']},
+ {title:'Schism',duration:403,phrases:['the pieces fit','communication','between supposed lovers','cold silence','rediscover communication','the pieces','fit','fall apart','between us','the pieces fit','communication','reassemble','the pieces fit']}
+];
+let song=0,t=0,last=0,W=0,H=0,dpr=1,particles=[],groups=[],impulses=[],fingers=[null,null,null],coherence=0;
+function hash(n){const x=Math.sin(n*127.1+78.233)*43758.5453;return x-Math.floor(x);}
+function smooth(a,b,x){x=Math.max(0,Math.min(1,(x-a)/(b-a)));return x*x*(3-2*x);}
 function build(){
- points=[];groups=[];
- const font=44;
- sc.font='600 '+font+'px system-ui,sans-serif';
- const step=3;let offset=0;
- for(let k=0;k<PHRASES.length;k++){
-  const phrase=PHRASES[k],width=Math.ceil(sc.measureText(phrase).width)+12;
-  scratch.width=width;scratch.height=64;sc.clearRect(0,0,width,64);
-  sc.fillStyle='#fff';sc.font='600 '+font+'px system-ui,sans-serif';sc.textBaseline='middle';sc.fillText(phrase,6,32);
-  const pixels=sc.getImageData(0,0,width,64).data;
-  const start=points.length;
+ particles=[];groups=[];
+ const font=44,step=3;
+ for(let k=0;k<SONGS[song].phrases.length;k++){
+  const str=SONGS[song].phrases[k];sc.font='600 '+font+'px system-ui,sans-serif';
+  const width=Math.ceil(sc.measureText(str).width)+14;
+  scratch.width=width;scratch.height=64;sc.font='600 '+font+'px system-ui,sans-serif';sc.textBaseline='middle';sc.fillStyle='#fff';sc.fillText(str,7,32);
+  const px=sc.getImageData(0,0,width,64).data,start=particles.length;
   for(let y=1;y<64;y+=step)for(let x=1;x<width;x+=step){
-   const a=pixels[(y*width+x)*4+3];if(a<100)continue;
-   const id=points.length;
-   points.push({id,k,rx:(x-width/2)/font,ry:(y-32)/font,
-    seed:hash(id*3+11),seed2:hash(id*7+3),seed3:hash(id*13+5)});
+   if(px[(y*width+x)*4+3]<100)continue;
+   const id=particles.length;particles.push({k,rx:(x-width/2)/font,ry:(y-32)/font,seed:hash(id*3+11),seed2:hash(id*7+3),seed3:hash(id*13+5)});
   }
-  groups.push({start,end:points.length,length:width/font,offset});
-  offset+=width/font;
+  groups.push({start,end:particles.length,width:width/font});
  }
 }
-function smooth(a,b,x){x=Math.max(0,Math.min(1,(x-a)/(b-a)));return x*x*(3-2*x);}
-function render(ms){
- const dt=Math.min(.05,(ms-last)/1000||.016);last=ms;t+=dt;
- ctx.fillStyle='#090d16';ctx.fillRect(0,0,W,H);
+function resize(){dpr=Math.min(devicePixelRatio||1,1.6);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);build();}
+function setSong(index){
+ song=(index+SONGS.length)%SONGS.length;t=0;last=0;impulses=[];fingers=[null,null,null];
+ document.querySelector('.song').textContent=SONGS[song].title;duration.textContent=fmt(SONGS[song].duration);board.hidden=song!==1;document.querySelectorAll('.finger').forEach(b=>b.classList.remove('down'));build();
+}
+function fmt(s){s=Math.floor(s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+function renderLateralus(){
  const scale=Math.min(W*.48,H*.34,330),cx=W*.5,cy=H*.51;
- const aura=ctx.createRadialGradient(cx,cy,0,cx,cy,scale*1.75);aura.addColorStop(0,'#304b4a28');aura.addColorStop(1,'#090d1600');ctx.fillStyle=aura;ctx.fillRect(0,0,W,H);
- // Each phrase is a material cloud with a unique, unconstrained 3D center.
- // The 2D glyph raster is the rest state, not a path for letter placement.
- const state=groups.map((g,k)=>{
-  const q=t*.21+k*2.39996;
-  const x=Math.sin(q*.79+k*.41)*.67+Math.sin(q*.39+k*1.7)*.21;
-  const y=Math.cos(q*.67+k*.7)*.49+Math.sin(q*.44+k*.13)*.15;
-  const z=Math.sin(q*.91+k*1.13)*.85;
-  const focus=(Math.sin(t*.31-k*.94)+1)/2;
-  const close=smooth(.55,.92,focus);
-  return {x,y,z,close};
- });
- let sum=0,movement=0;
- // Depth sort particles for coherent near/far layering, not an underlying stroke.
- const projected=[];
- for(const p of points){
-  const s=state[p.k],a=t*.45+p.k*.73;
-  const restX=p.rx*.17,restY=p.ry*.19;
-  const turbulence=.20+.14*Math.sin(t*.33+p.k);
-  const twist=a+p.rx*1.7;
-  const tx=restX*Math.cos(twist)-restY*Math.sin(twist);
-  const ty=restX*Math.sin(twist)+restY*Math.cos(twist);
-  const flowX=Math.sin(p.rx*3.4+t*.68+p.seed*TAU)*turbulence + (p.seed-.5)*.22;
-  const flowY=Math.cos(p.ry*4.1-t*.51+p.seed2*TAU)*turbulence+(p.seed2-.5)*.22;
-  const flowZ=Math.sin(p.rx*5.7+t*.38+p.seed3*TAU)*.42;
-  // Readability recovers as an entire phrase passes through a localized focus field.
-  const local=s.close*(.85+.15*Math.sin(t*.19+p.k));
-  const distorted=1-local;
-  const x=s.x+restX*local+(tx+flowX)*distorted;
-  const y=s.y+restY*local+(ty+flowY)*distorted;
-  const z=s.z*.65+flowZ*distorted;
-  const cameraZ=2.7+z,depth=2.7/cameraZ;
-  const px=cx+x*scale*depth,py=cy+y*scale*depth;
-  const visible=Math.max(0,Math.min(1,(1.35-z)/2.7));
-  projected.push({px,py,z,local,visible,sz:(.75+local*.55)*depth});
-  sum+=local;movement+=Math.abs(flowX)+Math.abs(flowY);
+ const states=groups.map((g,k)=>{const q=t*.21+k*2.39996;return{x:Math.sin(q*.79+k*.41)*.67+Math.sin(q*.39+k*1.7)*.21,y:Math.cos(q*.67+k*.7)*.49+Math.sin(q*.44+k*.13)*.15,z:Math.sin(q*.91+k*1.13)*.85,close:smooth(.55,.92,(Math.sin(t*.31-k*.94)+1)/2)};});
+ let sum=0;const projected=[];
+ for(const p of particles){
+  const s=states[p.k],a=t*.45+p.k*.73,rx=p.rx*.17,ry=p.ry*.19,twist=a+p.rx*1.7,turb=.20+.14*Math.sin(t*.33+p.k),local=s.close*(.85+.15*Math.sin(t*.19+p.k)),dist=1-local;
+  const x=s.x+rx*local+((rx*Math.cos(twist)-ry*Math.sin(twist))+Math.sin(p.rx*3.4+t*.68+p.seed*TAU)*turb+(p.seed-.5)*.22)*dist;
+  const y=s.y+ry*local+((rx*Math.sin(twist)+ry*Math.cos(twist))+Math.cos(p.ry*4.1-t*.51+p.seed2*TAU)*turb+(p.seed2-.5)*.22)*dist;
+  const z=s.z*.65+Math.sin(p.rx*5.7+t*.38+p.seed3*TAU)*.42*dist,depth=2.7/(2.7+z);
+  projected.push({x:cx+x*scale*depth,y:cy+y*scale*depth,z,local,depth});sum+=local;
  }
  projected.sort((a,b)=>b.z-a.z);
- for(const p of projected){
-  const alpha=(.13+.82*p.local)*(.35+.65*p.visible);
-  const radius=Math.max(.55,p.sz*(.7+p.local*.45));
-  ctx.fillStyle=p.local>.58?'rgba(246,215,165,'+alpha+')':'rgba(117,191,176,'+alpha+')';
-  ctx.beginPath();ctx.arc(p.px,p.py,radius,0,TAU);ctx.fill();
- }
- coherence=points.length?sum/points.length:0;
- energy=points.length?movement/points.length:0;
- const hue=154-90*coherence,bright=38+coherence*40;
- led.style.background='hsl('+hue+' 77% '+bright+'%)';
- led.style.boxShadow='0 0 '+(6+coherence*18)+'px hsl('+hue+' 83% 67% / '+(.3+coherence*.65)+')';
- led.style.transform='scale('+(0.9+coherence*.55)+')';
- const secs=Math.floor(t)%DURATION;clock.textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');
- if(ac&&osc){osc.frequency.setTargetAtTime(52+coherence*21,ac.currentTime,.16);osc2.frequency.setTargetAtTime(81+energy*14,ac.currentTime,.16);}
- requestAnimationFrame(render);
+ for(const p of projected){const alpha=(.13+.82*p.local)*(.35+.65*Math.max(0,Math.min(1,(1.35-p.z)/2.7)));ctx.fillStyle=p.local>.58?'rgba(246,215,165,'+alpha+')':'rgba(117,191,176,'+alpha+')';ctx.beginPath();ctx.arc(p.x,p.y,Math.max(.55,(.75+p.local*.55)*p.depth),0,TAU);ctx.fill();}
+ coherence=sum/Math.max(1,particles.length);
 }
-window.addEventListener('resize',resize);resize();requestAnimationFrame(render);
-document.getElementById('sound').addEventListener('click',async()=>{
- const b=document.getElementById('sound');
- try{if(ac){await ac.close();ac=null;osc=null;b.style.color='';return;}
- ac=new (window.AudioContext||window.webkitAudioContext)();gain=ac.createGain();gain.gain.value=.012;gain.connect(ac.destination);
- osc=ac.createOscillator();osc2=ac.createOscillator();osc.type='sine';osc2.type='sine';osc.frequency.value=55;osc2.frequency.value=82;
- osc.connect(gain);osc2.connect(gain);osc.start();osc2.start();b.style.color='#a5e4bc';
- }catch(e){b.title='Audio unavailable';}
+function section(sec){
+ if(sec<36)return{meter:[5,7],amp:.25,rate:1};
+ if(sec<110)return{meter:[5,7],amp:.56,rate:1};
+ if(sec<193)return{meter:[7,6,7,6],amp:.83,rate:1};
+ if(sec<226)return{meter:[5,7,11],amp:.72,rate:1};
+ if(sec<302)return{meter:[6,6,6,3,6],amp:.28,rate:.78};
+ if(sec<348)return{meter:[9,10,6,7],amp:.72,rate:1};
+ return{meter:[5,7,6,2],amp:.97,rate:1.06};
+}
+function renderSchism(){
+ const cx=W*.5,cy=H*.47,scale=Math.min(W*.39,300),s=section(t),eighth=.28/s.rate;
+ const pulse=t/eighth,beat=Math.floor(pulse),meter=s.meter[beat%s.meter.length];
+ // A continuous score made of particle words, moving on an asymmetrically accented eighth-note clock.
+ const accent=([1,.3,.6,.25,.85,1,.3,.75,.35,.7,.4,.8][beat%12]||.5);
+ const flow=pulse*.115,span=groups.length,view=Math.max(1.8,Math.min(3.1,W/180));
+ const wave=1+.10*Math.sin(pulse*TAU/12),band=scale*.18;
+ ctx.lineWidth=1;
+ for(let line=-2;line<=2;line++){
+  ctx.strokeStyle='rgba(139,182,173,'+(.09+s.amp*.09)+')';ctx.beginPath();
+  for(let x=0;x<=W;x+=7){const y=cy+line*band*.44+Math.sin(x*.008+t*.7+line*.7)*5*s.amp;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();
+ }
+ let sum=0;
+ for(let k=0;k<span;k++){
+  const g=groups[k],position=((k-flow)%(span+2)+(span+2))%(span+2)-1;
+  if(position>view+1)continue;
+  const centerX=cx+(position-1.1)*scale*.94*wave;
+  const centerY=cy+Math.sin(k*1.8+t*.21)*band*.9;
+  const perspective=.75+.25*Math.sin(k*1.3+t*.12);
+  const widthFactor=Math.min(.31,1.35/Math.max(3,g.width));
+  for(let i=g.start;i<g.end;i++){
+   const p=particles[i],rx=p.rx*scale*widthFactor*perspective,ry=p.ry*scale*.25*perspective;
+   let dx=0,dy=0,force=0;
+   for(const impulse of impulses){
+    const age=t-impulse.t;if(age<0||age>3.6)continue;
+    const dist=Math.hypot(centerX+rx-impulse.x,centerY+ry-impulse.y),reach=75+age*95;
+    const field=Math.exp(-Math.pow((dist-age*110)/reach,2))*impulse.power*Math.exp(-age*1.05);
+    dx+=(p.seed-.5)*field*115;dy+=(p.seed2-.5)*field*125;force+=field;
+   }
+   for(let j=0;j<3;j++)if(fingers[j]){
+    const hold=fingers[j],age=t-hold.t,power=Math.min(1.7,.35+age*.9);
+    const dist=Math.hypot(centerX+rx-hold.x,centerY+ry-hold.y),field=Math.exp(-dist*dist/(150*150))*power;
+    dx+=(p.seed-.5)*field*100;dy+=(p.seed2-.5)*field*120;force+=field;
+   }
+   const shimmer=Math.sin(pulse*.72+k*1.4+p.seed*TAU)*s.amp*(3+accent*6);
+   const x=centerX+rx+dx+shimmer,y=centerY+ry+dy+Math.sin(pulse*.4+p.seed2*TAU)*s.amp*4;
+   const opacity=Math.max(0,Math.min(1,(x+50)/80,(W+50-x)/80))*(.34+.58*s.amp);
+   ctx.fillStyle=force>.25?'rgba(238,189,127,'+opacity+')':'rgba(153,215,198,'+opacity+')';
+   ctx.fillRect(x,y,1.4+Math.min(1.6,force),1.4+Math.min(1.6,force));sum+=Math.max(0,1-Math.min(1,force));
+  }
+ }
+ coherence=sum/Math.max(1,particles.length);
+ // The bar length shifts the score's breathing rather than stopping it.
+ const phase=(pulse%12)/12;
+ ctx.strokeStyle='rgba(225,174,112,'+(.14+accent*.17)+')';ctx.beginPath();ctx.moveTo(cx+(phase-.5)*scale*.25,cy-band*1.65);ctx.lineTo(cx+(phase-.5)*scale*.25,cy+band*1.65);ctx.stroke();
+}
+function frame(ms){
+ const dt=Math.min(.05,(ms-last)/1000||.016);last=ms;t+=dt;
+ if(t>=SONGS[song].duration){t=0;impulses=[];}
+ ctx.fillStyle='#090d16';ctx.fillRect(0,0,W,H);
+ const aura=ctx.createRadialGradient(W*.5,H*.48,0,W*.5,H*.48,Math.min(W,H)*.7);aura.addColorStop(0,'#304b4a28');aura.addColorStop(1,'#090d1600');ctx.fillStyle=aura;ctx.fillRect(0,0,W,H);
+ if(song===0)renderLateralus();else renderSchism();
+ impulses=impulses.filter(i=>t-i.t<3.6);
+ led.style.background='hsl('+(154-90*coherence)+' 77% '+(38+coherence*40)+'%)';
+ led.style.boxShadow='0 0 '+(6+coherence*18)+'px hsl(150 83% 67% / '+(.3+coherence*.65)+')';
+ led.style.transform='scale('+(0.9+coherence*.55)+')';
+ clock.textContent=fmt(t);requestAnimationFrame(frame);
+}
+document.getElementById('prev').onclick=()=>setSong(song-1);
+document.getElementById('next').onclick=()=>setSong(song+1);
+document.getElementById('shuffle').onclick=()=>setSong(song===0?1:0);
+document.querySelectorAll('.finger').forEach(b=>{
+ const i=+b.dataset.finger;
+ b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);const r=b.getBoundingClientRect();const x=r.left+r.width/2,y=r.top+r.height/2;fingers[i]={t,x,y};b.classList.add('down');impulses.push({t,x,y,power:.6});});
+ const up=e=>{if(!fingers[i])return;const v=fingers[i],held=t-v.t;impulses.push({t,x:v.x,y:v.y,power:Math.min(2.6,.7+held*1.3)});fingers[i]=null;b.classList.remove('down');};
+ b.addEventListener('pointerup',up);b.addEventListener('pointercancel',up);b.addEventListener('lostpointercapture',up);
 });
+window.addEventListener('resize',resize);resize();setSong(0);requestAnimationFrame(frame);
 </script></body></html>
