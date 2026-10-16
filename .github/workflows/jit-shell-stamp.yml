@@ -51,3 +51,32 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m "Stamp JIT Shell release for ${GITHUB_SHA}"
           git push
+      - name: Verify stamped release on public Pages
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import json,os,time,urllib.request,re
+          sha=os.environ['SOURCE_SHA']
+          base='https://bonoj.github.io/jit/shell/'
+          for attempt in range(48):
+              try:
+                  nonce=str(time.time_ns())
+                  def get(name):
+                      req=urllib.request.Request(base+name+('?fresh=' if '?' not in name else '&fresh=')+nonce,headers={'Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(req,timeout=12) as r:return r.read().decode()
+                  html=get('')
+                  manifest=json.loads(get('release.json'))
+                  build=re.search(r'<meta name="jit-shell-build-sha" content="([a-f0-9]{40})"',html)
+                  fingerprint=re.search(r'<meta name="jit-shell-source-hash" content="([a-f0-9]{64})"',html)
+                  assert build and fingerprint
+                  assert build.group(1)==sha==manifest['sha']
+                  assert fingerprint.group(1)==manifest['htmlSha256']
+                  assert "publisher.\\nconst release" not in html
+                  print('PUBLIC JIT SHELL RELEASE VERIFIED',sha)
+                  break
+              except Exception as exc:
+                  if attempt==47:raise
+                  print('Waiting for Pages propagation',attempt+1,str(exc))
+                  time.sleep(10)
+          PY
