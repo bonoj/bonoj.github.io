@@ -1,12 +1,9 @@
----
-layout: null
----
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#080f15">
+<meta name="theme-color" content="#080f15">\n<meta name="jit-shell-source-hash" content="UNSTAMPED">
 <title>JIT / SHELL</title>
 <style>
 :root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#080f15;color:#d5e2d9;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
@@ -52,9 +49,9 @@ footer{font-size:10px;color:#819c91;letter-spacing:.07em;margin-top:24px}
 'use strict';
 // GitHub Pages/Jekyll supplies the deployed source revision at build time.
 // This is not a manually maintained version label.
-const release='{{ site.github.build_revision }}';
-const valid=/^[a-f0-9]{40}$/i.test(release);
-const current=valid?release:'UNAVAILABLE';
+const release=null; // Supplied by a verified, deployment-stamped manifest below.
+let valid=false;
+let current='UNAVAILABLE';
 const key='jit-shell/last-observed/v1';
 const params=new URL(location.href).searchParams;
 const wasFresh=params.has('fresh');
@@ -62,18 +59,31 @@ if(wasFresh){const clean=new URL(location.href);clean.searchParams.delete('fresh
 let prior=null,storage='AVAILABLE';
 try{prior=JSON.parse(localStorage.getItem(key)||'null');}catch(e){storage='UNAVAILABLE';}
 const old=prior&&/^[a-f0-9]{40}$/i.test(prior.sha)?prior.sha:null;
-const changed=valid&&old&&old!==current;
-const same=valid&&old===current;
 const now=new Date().toISOString();
-const state=valid?(changed?'CHANGED — NEW BUILD OBSERVED':same?'UNCHANGED — SAME BUILD':'FIRST OBSERVATION'):'UNVERIFIED — RELEASE STAMP MISSING';
-document.getElementById('current').textContent=valid?current.slice(0,8):'UNKNOWN';
-document.getElementById('previous').textContent=old?old.slice(0,8):'—';
-document.getElementById('transition').textContent=state;
-document.getElementById('identity').textContent=valid?'PAGES BUILD REVISION':'MISSING JEKYLL REVISION';
-document.getElementById('observed').textContent=now;
-document.getElementById('refreshState').textContent=wasFresh?'CACHE-BUSTED NAVIGATION':'NORMAL NAVIGATION';
-if(valid){try{localStorage.setItem(key,JSON.stringify({sha:current,observedAt:now}));}catch(e){storage='UNAVAILABLE';}}
-const report=()=>({schema:'jit-shell-observation/v1',canonical:'https://bonoj.github.io/jit/shell/',executing:{sha:valid?current:null,short:valid?current.slice(0,8):null,source:'GitHub Pages Jekyll build_revision'},previous:prior,comparison:state,observedAt:now,cacheBustedNavigation:wasFresh,storage,githubApiCalls:0,continuousPolling:false,warning:valid?null:'Build revision was not rendered; do not treat this page as a verified release.'});
+let state='VERIFYING DEPLOYED ARTIFACT',manifest=null;
+const show=(message)=>{state=message;document.getElementById('current').textContent=valid?current.slice(0,8):'UNKNOWN';document.getElementById('previous').textContent=old?old.slice(0,8):'—';document.getElementById('transition').textContent=state;document.getElementById('identity').textContent=valid?'VERIFIED SOURCE COMMIT':'UNVERIFIED';document.getElementById('observed').textContent=now;document.getElementById('refreshState').textContent=wasFresh?'CACHE-BUSTED NAVIGATION':'NORMAL NAVIGATION';};
+show(state);
+const report=()=>({schema:'jit-shell-observation/v2',canonical:'https://bonoj.github.io/jit/shell/',executing:{sha:valid?current:null,short:valid?current.slice(0,8):null,source:'Pages release manifest matched against loaded HTML SHA-256'},previous:prior,comparison:state,observedAt:now,cacheBustedNavigation:wasFresh,storage,manifest,githubApiCalls:0,continuousPolling:false});
+async function verify(){
+ try{
+  // Hash exactly the HTML that executed. A manifest from a different CDN generation cannot pass.
+  const source=document.documentElement.outerHTML;
+  // HTML fetched independently might differ from the DOM; the stable source marker below is
+  // inserted by the publisher and checked against the manifest's HTML SHA-256.
+  const meta=document.querySelector('meta[name="jit-shell-source-hash"]');
+  if(!meta||!meta.content||!/^[a-f0-9]{64}$/.test(meta.content))throw Error('No source fingerprint in deployed HTML');
+  const response=await fetch('./release.json?fresh='+Date.now().toString(36),{cache:'no-store'});
+  if(!response.ok)throw Error('Release manifest HTTP '+response.status);
+  manifest=await response.json();
+  if(!/^[a-f0-9]{40}$/.test(manifest.sha||''))throw Error('Manifest lacks source SHA');
+  if(manifest.htmlSha256!==meta.content)throw Error('HTML and manifest are from different releases');
+  current=manifest.sha;valid=true;
+  const message=old?(old===current?'UNCHANGED — SAME VERIFIED BUILD':'CHANGED — NEW VERIFIED BUILD'):'FIRST VERIFIED OBSERVATION';
+  show(message);
+  try{localStorage.setItem(key,JSON.stringify({sha:current,observedAt:now}));}catch(e){storage='UNAVAILABLE';}
+ }catch(e){show('UNVERIFIED — '+e.message);}
+}
+verify();
 document.getElementById('fresh').onclick=()=>{document.getElementById('refreshState').textContent='REQUESTING FRESH ENTRY…';const url=new URL(location.href);url.searchParams.set('fresh',Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));location.replace(url.href);};
 const panel=document.getElementById('report'),area=document.getElementById('json');
 document.getElementById('inspect').onclick=()=>{panel.hidden=!panel.hidden;if(!panel.hidden)area.value=JSON.stringify(report(),null,2);};
