@@ -1,0 +1,49 @@
+name: Stamp JIT Shell release
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'jit/shell/index.html'
+      - '.github/workflows/jit-shell-stamp.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: jit-shell-stamp
+  cancel-in-progress: false
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Stamp actual source commit and HTML fingerprint
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,os,pathlib,re
+          page=pathlib.Path('jit/shell/index.html')
+          source=page.read_text()
+          assert re.fullmatch(r'[a-f0-9]{40}',os.environ['SOURCE_SHA'])
+          marker='<meta name="jit-shell-source-hash" content="'
+          assert marker in source
+          # The hash covers the entire source template, with the stamp normalized.
+          normalized=re.sub(r'(<meta name="jit-shell-source-hash" content=")[^"]*(">)',r'\g<1>UNSTAMPED\2',source,count=1)
+          fingerprint=hashlib.sha256(normalized.encode()).hexdigest()
+          stamped=normalized.replace(marker+'UNSTAMPED">',marker+fingerprint+'">',1)
+          page.write_text(stamped)
+          pathlib.Path('jit/shell/release.json').write_text(json.dumps({'sha':os.environ['SOURCE_SHA'],'htmlSha256':fingerprint},indent=2)+'\n')
+          assert fingerprint in page.read_text()
+          print('SHELL SOURCE SHA',os.environ['SOURCE_SHA'])
+          print('SHELL HTML SHA256',fingerprint)
+          PY
+      - name: Publish stamped source to Pages branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add jit/shell/index.html jit/shell/release.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Stamp JIT Shell release for ${GITHUB_SHA}"
+          git push
