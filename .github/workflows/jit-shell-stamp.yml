@@ -7,17 +7,20 @@ on:
       - '.github/workflows/jit-shell-stamp.yml'
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 concurrency:
   group: jit-shell-stamp
   cancel-in-progress: false
 jobs:
   stamp:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
       - name: Stamp actual source commit and HTML fingerprint
         env:
           SOURCE_SHA: ${{ github.sha }}
@@ -43,14 +46,20 @@ jobs:
           print('SHELL SOURCE SHA',os.environ['SOURCE_SHA'])
           print('SHELL HTML SHA256',fingerprint)
           PY
-      - name: Publish stamped source to Pages branch
+      - name: Prepare static Pages artifact
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add jit/shell/index.html jit/shell/release.json
-          git diff --cached --quiet && exit 0
-          git commit -m "Stamp JIT Shell release for ${GITHUB_SHA}"
-          git push
+          mkdir -p "$RUNNER_TEMP/jit-pages"
+          tar --exclude=.git --exclude=.github -cf - . | tar -xf - -C "$RUNNER_TEMP/jit-pages"
+          touch "$RUNNER_TEMP/jit-pages/.nojekyll"
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/jit-pages
+      - name: Deploy Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
       - name: Verify stamped release on public Pages
         env:
           SOURCE_SHA: ${{ github.sha }}
