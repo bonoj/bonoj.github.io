@@ -1,8 +1,26 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090d10"><title>WINDOW — a machine dream</title><style>
 :root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#090d10;color:#dce5df;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit}button:focus-visible{outline:2px solid #a4dfb9;outline-offset:4px}#field{position:fixed;inset:0;width:100%;height:100%;display:block}#veil{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,transparent 10%,#05080b99 100%)}#hud{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:calc(24px + env(safe-area-inset-top)) 22px calc(26px + env(safe-area-inset-bottom));pointer-events:none}header,footer{width:100%;max-width:750px;display:flex;align-items:center;justify-content:space-between;gap:15px}header{font-size:10px;letter-spacing:.32em;color:#8da49d}#light{display:inline-block;width:7px;height:7px;border-radius:50%;background:#b9efb9;box-shadow:0 0 13px #9bdb9c;vertical-align:middle;margin-right:12px}#turn{opacity:.7}#center{position:absolute;left:12%;right:12%;top:17%;bottom:18%;width:auto;min-height:0;display:block;overflow:hidden;pointer-events:none}#voice{position:absolute;inset:0;overflow:hidden;font-size:clamp(19px,2.4vw,24px);line-height:1.5;letter-spacing:.01em;text-align:left;white-space:pre;overflow-wrap:normal;word-break:normal;text-shadow:0 0 22px #a6d5bd44}#voice.dim{opacity:1;filter:none;transform:none}#sub{position:absolute;left:0;bottom:0;font-size:10px;letter-spacing:.2em;color:#8dafa3;opacity:.65;text-transform:uppercase}footer{font-size:10px;letter-spacing:.1em;color:#849e98;pointer-events:auto;display:grid;grid-template-columns:minmax(0,1fr);gap:10px;align-items:end;padding:0}#controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}#controls button{min-width:0;height:48px;width:100%;border:1px solid #87a89a70;background:#0e1a1a8c;border-radius:2px;padding:0 8px;cursor:pointer;letter-spacing:.12em;font-size:10px;line-height:1;text-align:center;white-space:nowrap;display:flex;align-items:center;justify-content:center}#controls button:hover{background:#1b3430}#controls button:disabled{opacity:.4}#status{line-height:1.4;letter-spacing:.14em;white-space:nowrap;font-size:9px}#copy:focus-visible{outline:2px solid #a4dfb9} #corner{position:fixed;inset:13% 9%;border:1px solid #96d4b113;pointer-events:none}#corner:before,#corner:after{content:'';position:absolute;width:16px;height:16px;border-color:#a6d6bb77;border-style:solid}#corner:before{top:-1px;left:-1px;border-width:1px 0 0 1px}#corner:after{right:-1px;bottom:-1px;border-width:0 1px 1px 0}@media(max-width:500px){#center{left:11%;right:11%;top:16%;bottom:25%}#voice{font-size:19px}header{letter-spacing:.17em}#hud{padding-bottom:calc(18px + env(safe-area-inset-bottom))}#status{font-size:8px}}
-</style></head><body><canvas id="field"></canvas><div id="veil"></div><div id="corner"></div><div id="hud"><header><span><i id="light"></i>WINDOW / OBSERVATION</span><span id="turn">TURN 001</span></header><section id="center"><div id="voice" aria-live="polite"></div><div id="sub"></div></section><footer><span id="status">SIMULATED MACHINE DREAM · LOCAL OBSERVATION</span><span id="controls"><button id="mode" type="button">00 / AUTOPLAY</button><button id="next" type="button" aria-label="Next turn" title="Next turn">→</button><button id="copy" type="button" aria-label="Copy observation JSON" title="Copy observation JSON">◇</button></span></footer></div><script>
+/* Window host instruments: adapted from Athanor, isolated from the world and writing surface. */
+#hud{padding-left:clamp(14px,5.8vw,32px);padding-right:clamp(14px,5.8vw,32px)}
+header{position:relative;display:grid;grid-template-columns:1fr auto;gap:8px}
+#instrument{grid-column:1/-1;display:flex;gap:12px;justify-content:flex-end;font-size:9px;letter-spacing:.12em;opacity:.7}
+#controls{display:flex;justify-content:flex-end;gap:8px;align-items:center}
+#controls button{flex:none;width:46px;height:46px;min-height:46px;padding:0;border-radius:7px;font-size:21px;letter-spacing:0;border:1px solid #87a89a70;background:#10201fe0}
+#controls #mode{width:auto;min-width:148px;padding:0 12px;font-size:10px;letter-spacing:.12em}
+#controls button:active{background:#28423d}
+#status{font-size:9px;white-space:normal}
+#probePanel[hidden],#fault[hidden]{display:none}
+#probePanel{position:fixed;z-index:35;bottom:calc(90px + env(safe-area-inset-bottom));left:clamp(14px,5.8vw,32px);right:clamp(14px,5.8vw,32px);max-width:750px;margin:auto;padding:10px 12px;background:#0c1a1bf5;border:1px solid #87a89a90;border-radius:7px;box-shadow:0 8px 32px #000b;color:#dce5df;pointer-events:auto}
+#probeActions{display:flex;gap:8px}
+#probeActions button{min-height:40px;min-width:44px;padding:0 12px;background:#122826;border:1px solid #87a89a70;color:#dce5df;border-radius:6px;font:11px ui-monospace,monospace;letter-spacing:.1em}
+#probeActions #closeProbe{margin-left:auto;font-size:22px}
+#probeText{display:none;margin-top:10px;width:100%;height:min(34dvh,300px);resize:vertical;padding:10px;background:#091415;color:#c5dbd3;border:1px solid #87a89a50;font:11px/1.5 ui-monospace,monospace}
+#probePanel.expanded #probeText{display:block}
+#fault{position:fixed;z-index:50;top:28%;left:8%;right:8%;background:#251518f0;border:1px solid #b77878;color:#ffe3df;padding:16px;font:12px/1.5 monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:500px){#center{bottom:22%}#controls{gap:7px}#controls #mode{min-width:130px}#status{font-size:8px}#hud{padding-bottom:calc(16px + env(safe-area-inset-bottom))}}
+</style></head><body><canvas id="field"></canvas><div id="veil"></div><div id="corner"></div><div id="hud"><header><span><i id="light"></i>WINDOW / OBSERVATION</span><span id="turn">TURN 001</span><span id="instrument"><span id="build">SOURCE</span><span id="fps">◌ FPS</span></span></header><section id="center"><div id="voice" aria-live="polite"></div><div id="sub"></div></section><footer><span id="status">SIMULATED MACHINE DREAM · LOCAL OBSERVATION</span><span id="controls"><button id="mode" type="button">00 / AUTOPLAY</button><button id="next" type="button" aria-label="Next turn" title="Next turn">→</button><button id="copy" type="button" aria-label="Inspect and copy observation JSON" title="Inspect">◇</button><button id="fresh" type="button" aria-label="Reload Window" title="Reload">↻</button></span></footer></div><aside id="probePanel" hidden><div id="probeActions"><button id="copyReport" type="button">COPY</button><button id="details" type="button">DETAILS ▾</button><button id="closeProbe" type="button" aria-label="Close inspector">×</button></div><textarea id="probeText" readonly aria-label="Window observation JSON"></textarea></aside><div id="fault" role="alert" hidden></div><script>
 'use strict';
-const copyButton=document.getElementById('copy'),modeButton=document.getElementById('mode'),canvas=document.getElementById('field'),ctx=canvas.getContext('2d'),voice=document.getElementById('voice'),sub=document.getElementById('sub'),turnEl=document.getElementById('turn'),next=document.getElementById('next'),light=document.getElementById('light');
+const probePanel=document.getElementById('probePanel'),probeText=document.getElementById('probeText'),copyReport=document.getElementById('copyReport'),details=document.getElementById('details'),fault=document.getElementById('fault'),copyButton=document.getElementById('copy'),modeButton=document.getElementById('mode'),canvas=document.getElementById('field'),ctx=canvas.getContext('2d'),voice=document.getElementById('voice'),sub=document.getElementById('sub'),turnEl=document.getElementById('turn'),next=document.getElementById('next'),light=document.getElementById('light');
 let W=0,H=0,D=1,particles=[],time=0,last=0,turn=0,sequence=0,typingTimer=0;
 function resize(){D=Math.min(devicePixelRatio||1,1.5);W=innerWidth;H=innerHeight;canvas.width=W*D;canvas.height=H*D;ctx.setTransform(D,0,0,D,0,0);if(!particles.length)particles=Array.from({length:380},(_,i)=>({a:Math.random()*6.283,r:.12+Math.random()*.9,z:Math.random()*2-1,s:.2+Math.random()*.8,k:i%7}));}addEventListener('resize',()=>{resize();if(slots.length)layoutSlots();});resize();
 const scenes=[
@@ -126,21 +144,28 @@ function scrollTime(delta){
 }
 function report(){
  const active=score.filter(e=>e.start<=clock).at(-1);
- return {schema:'window-observation/v1',build:'8eb11f33',generatedAt:new Date().toISOString(),
+ return {schema:'window-observation/v1',build:'ATHANOR-WINDOW-01',generatedAt:new Date().toISOString(),
   environment:{viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},userAgent:navigator.userAgent},
   experience:{id:experiences[experience].id,name:experiences[experience].name,clockMs:Math.round(clock),durationMs:scoreEnd,turn:active?.turn||1,passage:active?.label||null},
   layout:{fontPx:parseFloat(getComputedStyle(voice).fontSize),lineHeightPx:slotHeight,slotCount,writingWidthPx:Math.round(voice.clientWidth),scoreEvents:score.length,oneCursor:true},
   observation:{...telemetry,scrollDistancePx:Math.round(telemetry.scrollDistancePx),furthestMs:Math.round(telemetry.furthestMs)},
   visibleLines:slots.map(e=>e.textContent),privacy:'Local interaction counters only; no network transmission.'};
 }
-copyButton.addEventListener('click',async()=>{
- const json=JSON.stringify(report(),null,2);
- try{
-  if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(json);
-  else {const area=document.createElement('textarea');area.value=json;area.style.cssText='position:fixed;left:0;top:0;opacity:0';document.body.appendChild(area);area.select();if(!document.execCommand('copy'))throw Error('copy unavailable');area.remove();}
-  copyButton.textContent='✓';setTimeout(()=>copyButton.textContent='◇',1800);
- }catch(e){window.prompt('Copy Window observation JSON:',json);}
-});
+function showProbe(){probeText.value=JSON.stringify(report(),null,2);probePanel.hidden=false;}
+async function copyObservation(){
+ const json=JSON.stringify(report(),null,2);probeText.value=json;
+ try{if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(json);
+ else {probePanel.hidden=false;probePanel.classList.add('expanded');probeText.style.display='block';probeText.focus();probeText.select();if(!document.execCommand('copy'))throw Error('Clipboard unavailable');}
+ copyReport.textContent='COPIED';setTimeout(()=>copyReport.textContent='COPY',1500);
+ }catch(e){probePanel.hidden=false;probePanel.classList.add('expanded');probeText.style.display='block';probeText.focus();probeText.select();copyReport.textContent='SELECT';}
+}
+copyButton.addEventListener('click',()=>{if(!probePanel.hidden){probePanel.hidden=true;return;}showProbe();});
+copyReport.addEventListener('click',copyObservation);
+details.addEventListener('click',()=>{probePanel.classList.toggle('expanded');details.textContent=probePanel.classList.contains('expanded')?'DETAILS ▴':'DETAILS ▾';});
+document.getElementById('closeProbe').addEventListener('click',()=>probePanel.hidden=true);
+document.getElementById('fresh').addEventListener('click',()=>location.reload());
+addEventListener('error',e=>{fault.hidden=false;fault.textContent='WINDOW FAULT / '+(e.message||'Unknown error')+'\\n'+(e.filename||'')+':'+(e.lineno||'');});
+addEventListener('unhandledrejection',e=>{fault.hidden=false;fault.textContent='WINDOW REJECTION / '+String(e.reason);});
 modeButton.addEventListener('click',()=>setExperience((experience+1)%experiences.length));
 next.addEventListener('click',runTurn);
 addEventListener('wheel',e=>{if(experience!==1)return;e.preventDefault();scrollTime(e.deltaY);},{passive:false});
@@ -157,6 +182,6 @@ function advanceClock(ms){
   paint(clock);
  }
 }
-function render(ms){advanceClock(ms);const dt=Math.min(.05,(ms-last)/1000||.016);last=ms;time+=dt;ctx.fillStyle='#090d10';ctx.fillRect(0,0,W,H);const cx=W*.5,cy=H*.48;const tint=['169,226,180','154,213,216','237,183,131','194,167,235'][mood];for(const p of particles){const theta=p.a+time*(.07+p.s*.09)*(p.k%2?1:-1),radius=Math.min(W,H)*(.23+p.r*.49);const x=cx+Math.cos(theta)*radius,y=cy+Math.sin(theta*1.07+p.z)*radius*.63;const depth=1+.3*Math.sin(theta+p.z*4),size=(.4+p.s*1.1)*depth;const alpha=(.035+p.s*.12)*(1+.4*Math.sin(time*.9+p.a*7));ctx.fillStyle='rgba('+tint+','+alpha+')';ctx.beginPath();ctx.arc(x,y,size,0,6.283);ctx.fill();}const r=90+Math.sin(time*.31)*20;const grad=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*.52);grad.addColorStop(0,'rgba('+tint+',.045)');grad.addColorStop(1,'rgba('+tint+',0)');ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);requestAnimationFrame(render);}
+let fpsFrames=0,fpsStart=0;document.getElementById('build').textContent='WINDOW / A1';function render(ms){if(!fpsStart)fpsStart=ms;fpsFrames++;if(ms-fpsStart>=1000){document.getElementById('fps').textContent=Math.round(fpsFrames*1000/(ms-fpsStart))+' FPS';fpsStart=ms;fpsFrames=0;}advanceClock(ms);const dt=Math.min(.05,(ms-last)/1000||.016);last=ms;time+=dt;ctx.fillStyle='#090d10';ctx.fillRect(0,0,W,H);const cx=W*.5,cy=H*.48;const tint=['169,226,180','154,213,216','237,183,131','194,167,235'][mood];for(const p of particles){const theta=p.a+time*(.07+p.s*.09)*(p.k%2?1:-1),radius=Math.min(W,H)*(.23+p.r*.49);const x=cx+Math.cos(theta)*radius,y=cy+Math.sin(theta*1.07+p.z)*radius*.63;const depth=1+.3*Math.sin(theta+p.z*4),size=(.4+p.s*1.1)*depth;const alpha=(.035+p.s*.12)*(1+.4*Math.sin(time*.9+p.a*7));ctx.fillStyle='rgba('+tint+','+alpha+')';ctx.beginPath();ctx.arc(x,y,size,0,6.283);ctx.fill();}const r=90+Math.sin(time*.31)*20;const grad=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*.52);grad.addColorStop(0,'rgba('+tint+',.045)');grad.addColorStop(1,'rgba('+tint+',0)');ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);requestAnimationFrame(render);}
 layoutSlots();setExperience(0);requestAnimationFrame(render);
 </script></body></html>
