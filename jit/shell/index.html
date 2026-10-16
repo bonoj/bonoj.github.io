@@ -21,9 +21,8 @@ section{padding:clamp(10px,3dvh,26px) 0 clamp(8px,2dvh,20px)} .label{font-size:1
 #detail span:nth-child(odd){color:#819c91}
 nav{display:flex;gap:10px;margin-top:clamp(8px,2dvh,26px)}
 button{appearance:none;min-height:48px;border:1px solid #a3bdab78;background:#15262a;color:#d5e2d9;border-radius:6px;font:12px ui-monospace,monospace;letter-spacing:.13em;cursor:pointer}
-#fresh{flex:1}#inspect{width:52px;font-size:23px}
+#fresh{flex:1}#inspect{width:92px;font-size:12px}
 button:focus-visible{outline:2px solid #b7e2c5;outline-offset:3px}
-#report[hidden]{display:none}#report{position:fixed;inset:0;z-index:10;background:#080f15ed;display:flex;flex-direction:column;justify-content:center;padding:clamp(16px,5vw,40px);overflow:hidden}#report textarea{width:100%;height:min(65dvh,650px);resize:none;background:#091216;color:#c4dacf;border:1px solid #77978756;padding:12px;font:11px/1.5 ui-monospace,monospace}#copy{width:100%;margin-top:8px}
 footer{font-size:10px;color:#819c91;letter-spacing:.07em;margin-top:clamp(8px,2dvh,24px)}
 </style>
 </head>
@@ -43,15 +42,12 @@ footer{font-size:10px;color:#819c91;letter-spacing:.07em;margin-top:clamp(8px,2d
 <span>REFRESH</span><span id="refreshState">READY</span>
 <span>CANONICAL</span><span>/jit/shell/</span>
 </div>
-<nav><button id="fresh" type="button" aria-label="Cache-busting refresh">↻ REFRESH</button><button id="inspect" type="button" aria-label="Inspect and copy local report">◇</button></nav>
-<div id="report" hidden><textarea id="json" readonly aria-label="Shell report"></textarea><button id="copy" type="button">COPY REPORT</button></div>
+<nav><button id="fresh" type="button" aria-label="Cache-busting refresh">↻ REFRESH</button><button id="inspect" type="button" aria-label="Copy inspection report to clipboard" title="Copy report">COPY</button></nav>
 <footer>NO GITHUB API · NO POLLING · RELEASE IDENTITY FROM PAGES BUILD</footer>
 </main>
 <script>
 'use strict';
-// GitHub Pages/Jekyll supplies the deployed source revision at build time.
-// This is not a manually maintained version label.
-const release=document.querySelector('meta[name="jit-shell-build-sha"]')?.content||'';
+// Build identity is stamped into this HTML by the publisher.\nconst release=document.querySelector('meta[name="jit-shell-build-sha"]')?.content||'';
 let valid=/^[a-f0-9]{40}$/i.test(release);
 let current=valid?release:'UNAVAILABLE';
 const key='jit-shell/last-observed/v1';
@@ -68,9 +64,6 @@ show(state);
 const report=()=>({schema:'jit-shell-observation/v2',canonical:'https://bonoj.github.io/jit/shell/',executing:{sha:valid?current:null,short:valid?current.slice(0,8):null,source:'Deployment-stamped HTML SHA, independently cross-checked with Pages manifest'},previous:prior,comparison:state,observedAt:now,cacheBustedNavigation:wasFresh,storage,manifest,githubApiCalls:0,continuousPolling:false});
 async function verify(){
  try{
-  // Hash exactly the HTML that executed. A manifest from a different CDN generation cannot pass.
-  // HTML fetched independently might differ from the DOM; the stable source marker below is
-  // inserted by the publisher and checked against the manifest's HTML SHA-256.
   const meta=document.querySelector('meta[name="jit-shell-source-hash"]');
   if(!valid)throw Error('No source commit stamped in deployed HTML');
   if(!meta||!meta.content||!/^[a-f0-9]{64}$/.test(meta.content))throw Error('No source fingerprint in deployed HTML');
@@ -87,9 +80,7 @@ async function verify(){
 }
 verify();
 document.getElementById('fresh').onclick=()=>{document.getElementById('refreshState').textContent='REQUESTING FRESH ENTRY…';const url=new URL(location.href);url.searchParams.set('fresh',Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));location.replace(url.href);};
-const panel=document.getElementById('report'),area=document.getElementById('json');
-document.getElementById('inspect').onclick=()=>{panel.hidden=!panel.hidden;if(!panel.hidden)area.value=JSON.stringify(report(),null,2);};
-document.getElementById('copy').onclick=async()=>{area.value=JSON.stringify(report(),null,2);try{await navigator.clipboard.writeText(area.value);document.getElementById('copy').textContent='COPIED';}catch(e){area.focus();area.select();document.getElementById('copy').textContent='SELECT TEXT';}};
+document.getElementById('inspect').onclick=async()=>{const button=document.getElementById('inspect');const payload=JSON.stringify(report(),null,2);try{await navigator.clipboard.writeText(payload);button.textContent='COPIED';}catch(e){button.textContent='COPY FAILED';}setTimeout(()=>button.textContent='COPY',1600);};
 </script>
 </body>
 </html>
