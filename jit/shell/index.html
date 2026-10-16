@@ -4,26 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080f15">
+<meta name="jit-shell-build-sha" content="UNSTAMPED">
 <meta name="jit-shell-source-hash" content="8abacf68dc78f86a9f8ef862771818f92ef9d994f3ce67b850b7501c583dd959">
 <title>JIT / SHELL</title>
 <style>
-:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#080f15;color:#d5e2d9;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
-body{display:grid;min-height:100dvh;place-items:center;padding:clamp(18px,6vw,48px)}
-main{width:min(100%,560px);border:1px solid #77978756;padding:clamp(20px,5vw,36px);background:#0b161b}
+:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:#080f15;color:#d5e2d9;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
+body{display:grid;height:100dvh;min-height:0;place-items:center;padding:clamp(8px,2.5vw,20px);overflow:hidden}
+main{width:min(100%,560px);max-height:calc(100dvh - 16px);overflow:hidden;display:flex;flex-direction:column;border:1px solid #77978756;padding:clamp(20px,5vw,36px);background:#0b161b}
 header{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid #77978745;padding-bottom:18px}
 h1{font-size:14px;font-weight:500;letter-spacing:.26em;margin:0}small,.muted{font-size:10px;color:#819c91;letter-spacing:.1em}
-section{padding:26px 0 20px} .label{font-size:10px;color:#8ca99b;letter-spacing:.19em}
+section{padding:clamp(10px,3dvh,26px) 0 clamp(8px,2dvh,20px)} .label{font-size:10px;color:#8ca99b;letter-spacing:.19em}
 #current{font-size:clamp(29px,8vw,43px);letter-spacing:.06em;line-height:1.5;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 #previous{font-size:17px;letter-spacing:.1em;margin-top:5px}
 #transition{font-size:11px;margin-top:15px;color:#a3c3b1;min-height:20px}
-#detail{border-top:1px solid #77978745;padding-top:18px;display:grid;grid-template-columns:110px 1fr;gap:9px 10px;overflow-wrap:anywhere}
+#detail{font-size:clamp(10px,2.8vw,13px);grid-template-columns:minmax(72px,32%) minmax(0,1fr);border-top:1px solid #77978745;padding-top:clamp(8px,2dvh,18px);display:grid;gap:9px 10px;overflow-wrap:anywhere}
 #detail span:nth-child(odd){color:#819c91}
-nav{display:flex;gap:10px;margin-top:26px}
+nav{display:flex;gap:10px;margin-top:clamp(8px,2dvh,26px)}
 button{appearance:none;min-height:48px;border:1px solid #a3bdab78;background:#15262a;color:#d5e2d9;border-radius:6px;font:12px ui-monospace,monospace;letter-spacing:.13em;cursor:pointer}
 #fresh{flex:1}#inspect{width:52px;font-size:23px}
 button:focus-visible{outline:2px solid #b7e2c5;outline-offset:3px}
-#report[hidden]{display:none}#report{margin-top:14px}#report textarea{width:100%;height:210px;resize:vertical;background:#091216;color:#c4dacf;border:1px solid #77978756;padding:12px;font:11px/1.5 ui-monospace,monospace}#copy{width:100%;margin-top:8px}
-footer{font-size:10px;color:#819c91;letter-spacing:.07em;margin-top:24px}
+#report[hidden]{display:none}#report{position:fixed;inset:0;z-index:10;background:#080f15ed;display:flex;flex-direction:column;justify-content:center;padding:clamp(16px,5vw,40px);overflow:hidden}#report textarea{width:100%;height:min(65dvh,650px);resize:none;background:#091216;color:#c4dacf;border:1px solid #77978756;padding:12px;font:11px/1.5 ui-monospace,monospace}#copy{width:100%;margin-top:8px}
+footer{font-size:10px;color:#819c91;letter-spacing:.07em;margin-top:clamp(8px,2dvh,24px)}
 </style>
 </head>
 <body>
@@ -50,9 +51,9 @@ footer{font-size:10px;color:#819c91;letter-spacing:.07em;margin-top:24px}
 'use strict';
 // GitHub Pages/Jekyll supplies the deployed source revision at build time.
 // This is not a manually maintained version label.
-const release=null; // Supplied by a verified, deployment-stamped manifest below.
-let valid=false;
-let current='UNAVAILABLE';
+const release=document.querySelector('meta[name="jit-shell-build-sha"]')?.content||'';
+let valid=/^[a-f0-9]{40}$/i.test(release);
+let current=valid?release:'UNAVAILABLE';
 const key='jit-shell/last-observed/v1';
 const params=new URL(location.href).searchParams;
 const wasFresh=params.has('fresh');
@@ -61,28 +62,28 @@ let prior=null,storage='AVAILABLE';
 try{prior=JSON.parse(localStorage.getItem(key)||'null');}catch(e){storage='UNAVAILABLE';}
 const old=prior&&/^[a-f0-9]{40}$/i.test(prior.sha)?prior.sha:null;
 const now=new Date().toISOString();
-let state='VERIFYING DEPLOYED ARTIFACT',manifest=null;
-const show=(message)=>{state=message;document.getElementById('current').textContent=valid?current.slice(0,8):'UNKNOWN';document.getElementById('previous').textContent=old?old.slice(0,8):'—';document.getElementById('transition').textContent=state;document.getElementById('identity').textContent=valid?'VERIFIED SOURCE COMMIT':'UNVERIFIED';document.getElementById('observed').textContent=now;document.getElementById('refreshState').textContent=wasFresh?'CACHE-BUSTED NAVIGATION':'NORMAL NAVIGATION';};
+let state=valid?'EXECUTING STAMPED BUILD — VERIFYING MANIFEST':'UNSTAMPED HTML — REFRESH REQUIRED',manifest=null;
+const show=(message)=>{state=message;document.getElementById('current').textContent=valid?current.slice(0,8):'UNKNOWN';document.getElementById('previous').textContent=old?old.slice(0,8):'—';document.getElementById('transition').textContent=state;document.getElementById('identity').textContent=valid?'STAMPED SOURCE COMMIT':'UNVERIFIED';document.getElementById('observed').textContent=now;document.getElementById('refreshState').textContent=wasFresh?'CACHE-BUSTED NAVIGATION':'NORMAL NAVIGATION';};
 show(state);
-const report=()=>({schema:'jit-shell-observation/v2',canonical:'https://bonoj.github.io/jit/shell/',executing:{sha:valid?current:null,short:valid?current.slice(0,8):null,source:'Pages release manifest matched against loaded HTML SHA-256'},previous:prior,comparison:state,observedAt:now,cacheBustedNavigation:wasFresh,storage,manifest,githubApiCalls:0,continuousPolling:false});
+const report=()=>({schema:'jit-shell-observation/v2',canonical:'https://bonoj.github.io/jit/shell/',executing:{sha:valid?current:null,short:valid?current.slice(0,8):null,source:'Deployment-stamped HTML SHA, independently cross-checked with Pages manifest'},previous:prior,comparison:state,observedAt:now,cacheBustedNavigation:wasFresh,storage,manifest,githubApiCalls:0,continuousPolling:false});
 async function verify(){
  try{
   // Hash exactly the HTML that executed. A manifest from a different CDN generation cannot pass.
-  const source=document.documentElement.outerHTML;
   // HTML fetched independently might differ from the DOM; the stable source marker below is
   // inserted by the publisher and checked against the manifest's HTML SHA-256.
   const meta=document.querySelector('meta[name="jit-shell-source-hash"]');
+  if(!valid)throw Error('No source commit stamped in deployed HTML');
   if(!meta||!meta.content||!/^[a-f0-9]{64}$/.test(meta.content))throw Error('No source fingerprint in deployed HTML');
   const response=await fetch('./release.json?fresh='+Date.now().toString(36),{cache:'no-store'});
   if(!response.ok)throw Error('Release manifest HTTP '+response.status);
   manifest=await response.json();
   if(!/^[a-f0-9]{40}$/.test(manifest.sha||''))throw Error('Manifest lacks source SHA');
-  if(manifest.htmlSha256!==meta.content)throw Error('HTML and manifest are from different releases');
+  if(manifest.htmlSha256!==meta.content||manifest.sha!==release)throw Error('HTML and manifest are from different releases');
   current=manifest.sha;valid=true;
   const message=old?(old===current?'UNCHANGED — SAME VERIFIED BUILD':'CHANGED — NEW VERIFIED BUILD'):'FIRST VERIFIED OBSERVATION';
   show(message);
   try{localStorage.setItem(key,JSON.stringify({sha:current,observedAt:now}));}catch(e){storage='UNAVAILABLE';}
- }catch(e){show('UNVERIFIED — '+e.message);}
+ }catch(e){show((valid?'STAMPED '+current.slice(0,8)+' — ':'UNVERIFIED — ')+e.message);}
 }
 verify();
 document.getElementById('fresh').onclick=()=>{document.getElementById('refreshState').textContent='REQUESTING FRESH ENTRY…';const url=new URL(location.href);url.searchParams.set('fresh',Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));location.replace(url.href);};
