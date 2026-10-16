@@ -5,10 +5,10 @@
 
 /* One-song instrument: typography is the visible material of the sculpture. */
 .mark{display:none}.identity{pointer-events:none;position:relative;z-index:3}.identity .song{font-size:clamp(38px,9vw,83px)}.top{min-height:16px}.status{margin-left:auto}.led{display:block;width:8px;height:8px;transition:background .12s,box-shadow .12s,transform .12s;animation:none}.bottom{position:relative;z-index:3;padding-bottom:3px}.track{opacity:.55}.tiny{width:34px;height:34px;font-size:15px}.void{pointer-events:none}#stage{z-index:0}#app:before{z-index:1;opacity:.8}#grain{z-index:1}.identity{padding-top:clamp(5px,3vh,32px)}@media(max-height:600px){.identity{padding-top:4px}} 
-button,a,[role="button"]{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px solid #d5b282;outline-offset:3px} .transport{display:flex;gap:7px;align-items:center}.transport .tiny{border:0;font-size:22px;color:#b9c7c7;min-width:42px;min-height:42px}.transport #shuffle{font-size:20px}.fingerboard{position:absolute;z-index:4;left:50%;transform:translateX(-50%);bottom:13%;display:flex;gap:clamp(14px,6vw,34px)}.finger{width:clamp(64px,20vw,88px);height:clamp(64px,20vw,88px);border:1px solid #8bb6ad55;border-radius:50%;background:#111b23a8;color:#c1d8d1;font-size:23px;touch-action:none;user-select:none;cursor:pointer;transition:background .1s,border-color .1s}.finger.down{background:#bc9c6c66;border-color:#f6c58a}.fingerboard[hidden]{display:none}.finger:focus-visible{outline:2px solid #f6c58a}.identity{z-index:5}.bottom{z-index:6} </style></head><body><div id="app"><canvas id="stage" aria-hidden="true"></canvas><div id="grain"></div><div class="fingerboard" id="fingerboard" hidden><button class="finger" data-finger="0" aria-label="Finger one">I</button><button class="finger" data-finger="1" aria-label="Finger two">II</button><button class="finger" data-finger="2" aria-label="Finger three">III</button></div><main><div class="top"><span class="mark" aria-hidden="true"></span><span class="status"><i class="led" id="led"></i></span></div><section class="identity"><div class="eyebrow">NOW DREAMING · 2001</div><div class="song">Lateralus</div><div class="artist">TOOL</div></section><div class="void"></div><div class="bottom"><span id="time">00:00</span><span class="track">◉ <span id="duration">09:24</span></span><div class="transport"><button class="tiny" id="prev" aria-label="Previous song">‹</button><button class="tiny" id="shuffle" aria-label="Shuffle song">⤨</button><button class="tiny" id="next" aria-label="Next song">›</button></div></div></main></div>
+button,a,[role="button"]{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,[role="button"]:focus-visible{outline:2px solid #d5b282;outline-offset:3px} .transport{display:flex;gap:7px;align-items:center}.transport .tiny{border:0;font-size:22px;color:#b9c7c7;min-width:42px;min-height:42px}.transport #shuffle{font-size:20px}.fingerboard{position:absolute;z-index:4;left:50%;transform:translateX(-50%);bottom:13%;display:flex;gap:clamp(14px,6vw,34px)}.finger{width:clamp(64px,20vw,88px);height:clamp(64px,20vw,88px);border:1px solid #8bb6ad55;border-radius:50%;background:#111b23a8;color:#c1d8d1;font-size:23px;touch-action:none;user-select:none;cursor:pointer;transition:background .1s,border-color .1s}.finger.down{background:#bc9c6c66;border-color:#f6c58a}.fingerboard[hidden]{display:none}.finger:focus-visible{outline:2px solid #f6c58a}.identity{z-index:5}.bottom{z-index:6}  #touchsurface{position:absolute;inset:0;z-index:2;touch-action:none}main{pointer-events:none}.bottom button{pointer-events:auto} </style></head><body><div id="app"><canvas id="stage" aria-hidden="true"></canvas><div id="grain"></div><div id="touchsurface" aria-label="Interactive music sculpture"></div><main><div class="top"><span class="mark" aria-hidden="true"></span><span class="status"><i class="led" id="led"></i></span></div><section class="identity"><div class="eyebrow">NOW DREAMING · 2001</div><div class="song">Lateralus</div><div class="artist">TOOL</div></section><div class="void"></div><div class="bottom"><span id="time">00:00</span><span class="track">◉ <span id="duration">09:24</span></span><div class="transport"><button class="tiny" id="prev" aria-label="Previous song">‹</button><button class="tiny" id="shuffle" aria-label="Shuffle song">⤨</button><button class="tiny" id="next" aria-label="Next song">›</button></div></div></main></div>
 <script>
 'use strict';
-const canvas=document.getElementById('stage'),ctx=canvas.getContext('2d',{alpha:false}),led=document.getElementById('led'),clock=document.getElementById('time'),duration=document.getElementById('duration'),board=document.getElementById('fingerboard');
+const canvas=document.getElementById('stage'),ctx=canvas.getContext('2d',{alpha:false}),led=document.getElementById('led'),clock=document.getElementById('time'),duration=document.getElementById('duration'),board=null;
 const scratch=document.createElement('canvas'),sc=scratch.getContext('2d',{willReadFrequently:true});
 const TAU=Math.PI*2;
 const SONGS=[
@@ -35,8 +35,8 @@ function build(){
 }
 function resize(){dpr=Math.min(devicePixelRatio||1,1.6);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);build();}
 function setSong(index){
- song=(index+SONGS.length)%SONGS.length;t=0;last=0;impulses=[];fingers=[null,null,null];
- document.querySelector('.song').textContent=SONGS[song].title;duration.textContent=fmt(SONGS[song].duration);board.hidden=song!==1;document.querySelectorAll('.finger').forEach(b=>b.classList.remove('down'));build();
+ song=(index+SONGS.length)%SONGS.length;t=0;last=0;impulses=[];fingers=[null,null,null];active.clear();
+ document.querySelector('.song').textContent=SONGS[song].title;duration.textContent=fmt(SONGS[song].duration);build();
 }
 function fmt(s){s=Math.floor(s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
 function renderLateralus(){
@@ -92,8 +92,8 @@ function renderSchism(){
     const field=Math.exp(-Math.pow((dist-age*110)/reach,2))*impulse.power*Math.exp(-age*1.05);
     dx+=(p.seed-.5)*field*115;dy+=(p.seed2-.5)*field*125;force+=field;
    }
-   for(let j=0;j<3;j++)if(fingers[j]){
-    const hold=fingers[j],age=t-hold.t,power=Math.min(1.7,.35+age*.9);
+   for(const hold of active.values()){
+    const age=t-hold.t,power=Math.min(1.7,.35+age*.9);
     const dist=Math.hypot(centerX+rx-hold.x,centerY+ry-hold.y),field=Math.exp(-dist*dist/(150*150))*power;
     dx+=(p.seed-.5)*field*100;dy+=(p.seed2-.5)*field*120;force+=field;
    }
@@ -124,11 +124,22 @@ function frame(ms){
 document.getElementById('prev').onclick=()=>setSong(song-1);
 document.getElementById('next').onclick=()=>setSong(song+1);
 document.getElementById('shuffle').onclick=()=>setSong(song===0?1:0);
-document.querySelectorAll('.finger').forEach(b=>{
- const i=+b.dataset.finger;
- b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);const r=b.getBoundingClientRect();const x=r.left+r.width/2,y=r.top+r.height/2;fingers[i]={t,x,y};b.classList.add('down');impulses.push({t,x,y,power:.6});});
- const up=e=>{if(!fingers[i])return;const v=fingers[i],held=t-v.t;impulses.push({t,x:v.x,y:v.y,power:Math.min(2.6,.7+held*1.3)});fingers[i]=null;b.classList.remove('down');};
- b.addEventListener('pointerup',up);b.addEventListener('pointercancel',up);b.addEventListener('lostpointercapture',up);
+const active=new Map(),surface=document.getElementById('touchsurface');
+surface.addEventListener('pointerdown',e=>{
+ if(song!==1||active.size>=3)return;
+ e.preventDefault();surface.setPointerCapture(e.pointerId);
+ const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+ active.set(e.pointerId,{t,x,y});impulses.push({t,x,y,power:.65});
 });
+surface.addEventListener('pointermove',e=>{
+ const v=active.get(e.pointerId);if(!v)return;
+ const r=canvas.getBoundingClientRect();v.x=e.clientX-r.left;v.y=e.clientY-r.top;
+});
+function release(e){
+ const v=active.get(e.pointerId);if(!v)return;
+ const held=Math.max(0,t-v.t);impulses.push({t,x:v.x,y:v.y,power:Math.min(2.8,.75+held*1.4)});
+ active.delete(e.pointerId);
+}
+surface.addEventListener('pointerup',release);surface.addEventListener('pointercancel',release);canvas.addEventListener('lostpointercapture',release);
 window.addEventListener('resize',resize);resize();setSong(0);requestAnimationFrame(frame);
 </script></body></html>
