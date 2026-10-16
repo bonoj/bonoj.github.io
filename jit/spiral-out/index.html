@@ -2,66 +2,105 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080b12"><meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"><title>SPIRAL OUT · lyrical dreaming</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080b12;color:#f2e9dc;font-family:system-ui,-apple-system,Segoe UI,sans-serif}button{font:inherit}#app{height:100dvh;min-height:420px;position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 50% 44%,#1c2432 0%,#0c111b 43%,#07090f 82%)}#stage{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.95}#app:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(#090c14bd 0%,transparent 25%,transparent 58%,#080b12b5 82%,#080b12f5 100%)}#grain{position:absolute;inset:0;pointer-events:none;opacity:.13;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E")}main{height:100%;display:flex;flex-direction:column;position:relative;z-index:2;padding:clamp(18px,4vw,36px);padding-top:max(18px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom))}.top,.bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}.mark{font-size:11px;font-weight:750;letter-spacing:.27em;color:#d3a978}.status{font-size:10px;letter-spacing:.17em;color:#8bb6ad;display:flex;align-items:center;gap:8px}.led{width:6px;height:6px;border-radius:50%;background:#91e1be;box-shadow:0 0 14px #70e9b2;animation:blink 2.7s ease-in-out infinite}@keyframes blink{50%{opacity:.3}}.identity{padding-top:clamp(18px,5vh,48px);text-align:center}.eyebrow{color:#9c9c9b;font-size:10px;letter-spacing:.24em;margin-bottom:12px}.song{font-size:clamp(34px,7.7vw,78px);font-weight:650;letter-spacing:-.055em;line-height:1.04;text-wrap:balance;text-shadow:0 3px 30px #0008}.artist{margin-top:12px;font-size:clamp(17px,3vw,25px);color:#e0ad78;font-weight:480;letter-spacing:.06em}.album{font-size:11px;color:#a5a6aa;letter-spacing:.15em;margin-top:8px}.void{flex:1;min-height:30px}.lyric-area{max-width:650px;width:100%;margin:0 auto 4vh;text-align:center}.small{font-size:10px;color:#9ca6a9;letter-spacing:.2em;margin-bottom:16px}.fragments{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 20px;min-height:100px}.fragment{border:0;background:transparent;color:#c8c9c8;font-size:clamp(18px,4.5vw,27px);font-weight:350;letter-spacing:.01em;line-height:1.55;padding:4px 2px;cursor:default;transition:color .5s,text-shadow .5s,transform .35s}.fragment.link{color:#e2cba4;cursor:pointer;text-shadow:0 0 16px #d9a86a3b;animation:glimmer 6s ease-in-out infinite}.fragment.link:nth-child(even){animation-delay:-2.7s}.fragment.link:hover,.fragment.link:focus-visible{color:#fff0d1;text-shadow:0 0 18px #ffca85b8;outline:none}.fragment.link:active{transform:scale(1.07)}@keyframes glimmer{50%{color:#f4e0bc;text-shadow:0 0 20px #e5ad7080}}.bottom{font-size:10px;letter-spacing:.12em;color:#8c959c;min-height:35px}.tiny{background:none;border:1px solid #5e68705c;border-radius:50%;width:36px;height:36px;color:#b9c7c7;cursor:pointer;font-size:17px}.tiny:focus-visible{outline:2px solid #d5b282}.meta{display:flex;align-items:center;gap:12px}.note{font-size:10px;color:#a0aaa8;text-align:center;min-height:16px;margin-top:8px}.transit .identity,.transit .fragments{animation:arrive .7s ease both}@keyframes arrive{from{opacity:.15;filter:blur(9px);transform:translateY(8px)}to{opacity:1;filter:blur(0);transform:none}}@media(max-height:650px){.identity{padding-top:9px}.song{font-size:clamp(29px,6vw,53px)}.lyric-area{margin-bottom:1vh}.fragments{min-height:62px;gap:4px 14px}.fragment{font-size:clamp(16px,3.5vw,21px)}.small{margin-bottom:5px}}@media(prefers-reduced-motion:reduce){.fragment.link,.led{animation:none}.transit .identity,.transit .fragments{animation:none}}
-</style></head><body><div id="app"><canvas id="stage" aria-hidden="true"></canvas><div id="grain"></div><main><div class="top"><span class="mark">SPIRAL OUT</span><span class="status"><i class="led"></i> ASSOCIATIVE SIGNAL</span></div><section class="identity" aria-live="polite"><div class="eyebrow">NOW DREAMING · <span id="year">2001</span></div><div class="song" id="song">Lateralus</div><div class="artist" id="artist">TOOL</div><div class="album" id="album">LATERALUS</div></section><div class="void"></div><section class="lyric-area"><div class="small" id="hint">TOUCH A LUMINOUS PHRASE</div><div class="fragments" id="fragments"></div><div class="note" id="note"></div></section><div class="bottom"><span id="count">01 / DREAM</span><div class="meta"><span id="edgeCount">DISCOVERING CONNECTIONS</span><button class="tiny" id="drift" title="Let the machine dream" aria-label="Dream to a connected song">◎</button><button class="tiny" id="sound" title="Toggle generated ambient audio" aria-label="Toggle ambient audio">♫</button></div></div></main></div>
+
+/* One-song instrument: typography is the visible material of the sculpture. */
+.mark{display:none}.identity{pointer-events:none;position:relative;z-index:3}.identity .song{font-size:clamp(38px,9vw,83px)}.top{min-height:16px}.status{margin-left:auto}.led{display:block;width:8px;height:8px;transition:background .12s,box-shadow .12s,transform .12s;animation:none}.bottom{position:relative;z-index:3;padding-bottom:3px}.track{opacity:.55}.tiny{width:34px;height:34px;font-size:15px}.void{pointer-events:none}#stage{z-index:0}#app:before{z-index:1;opacity:.8}#grain{z-index:1}.identity{padding-top:clamp(5px,3vh,32px)}@media(max-height:600px){.identity{padding-top:4px}} 
+</style></head><body><div id="app"><canvas id="stage" aria-hidden="true"></canvas><div id="grain"></div><main><div class="top"><span class="mark" aria-hidden="true"></span><span class="status"><i class="led" id="led"></i></span></div><section class="identity"><div class="eyebrow">NOW DREAMING · 2001</div><div class="song">Lateralus</div><div class="artist">TOOL</div></section><div class="void"></div><div class="bottom"><span id="time">00:00</span><span class="track">◉ <span id="duration">09:24</span></span><button class="tiny" id="sound" aria-label="Toggle generated ambient tone" title="Toggle generated ambient tone">♫</button></div></main></div>
 <script>
 'use strict';
-// Each short excerpt is a small seed, not a full lyric. Edges are computed only from literal words in these excerpts.
-// Add verified excerpts to expand the graph; never fabricate a lyrical edge.
-const songs=[
-['Lateralus','Tool',2001,'Lateralus',['spiral out','feel the rhythm','overthinking','possibilities']],
-['Parabola','Tool',2001,'Lateralus',['we are eternal','this body','feel this moment']],
-['Schism','Tool',2001,'Lateralus',['I know the pieces fit','between supposed lovers']],
-['Sober','Tool',1993,'Undertow',['why can\'t we not be sober','just want to start this over']],
-['Forty Six & 2','Tool',1996,'Ænima',['my shadow','change is coming','feel the change']],
-['Hurt','Nine Inch Nails',1994,'The Downward Spiral',['I hurt myself today','what have I become']],
-['Closer','Nine Inch Nails',1994,'The Downward Spiral',['you get me closer','my whole existence']],
-['The Hand That Feeds','Nine Inch Nails',2005,'With Teeth',['will you bite the hand that feeds','on your knees']],
-['Black Hole Sun','Soundgarden',1994,'Superunknown',['black hole sun','won\'t you come','wash away the rain']],
-['Fell on Black Days','Soundgarden',1994,'Superunknown',['fell on black days','whatsoever I\'ve feared']],
-['Come as You Are','Nirvana',1991,'Nevermind',['come as you are','as a friend','take your time']],
-['Lithium','Nirvana',1991,'Nevermind',['I\'m so happy','today I found my friends']],
-['Alive','Pearl Jam',1991,'Ten',['I\'m still alive','is something wrong']],
-['Black','Pearl Jam',1991,'Ten',['all the love gone bad','my bitter hands']],
-['1979','The Smashing Pumpkins',1995,'Mellon Collie',['we don\'t even care','the street heats']],
-['Tonight, Tonight','The Smashing Pumpkins',1995,'Mellon Collie',['believe in me','tonight tonight','the impossible is possible']],
-['Creep','Radiohead',1992,'Pablo Honey',['I\'m a creep','I\'m a weirdo','you\'re so special']],
-['Karma Police','Radiohead',1997,'OK Computer',['karma police','this is what you\'ll get']],
-['No Surprises','Radiohead',1997,'OK Computer',['no alarms and no surprises','a handshake of carbon monoxide']],
-['Everything in Its Right Place','Radiohead',2000,'Kid A',['everything in its right place','yesterday I woke up']],
-['Change (In the House of Flies)','Deftones',2000,'White Pony',['I watched you change','you feel so alive']],
-['My Own Summer (Shove It)','Deftones',1997,'Around the Fur',['shove it','the sun','I think God is moving']],
-['In the End','Linkin Park',2000,'Hybrid Theory',['in the end','it doesn\'t even matter','one thing']],
-['Numb','Linkin Park',2003,'Meteora',['I\'ve become so numb','all I want to do']],
-['Time Is Running Out','Muse',2003,'Absolution',['our time is running out','I wanted freedom']],
-['Starlight','Muse',2006,'Black Holes and Revelations',['far away','our hopes and expectations','black holes']],
-['The Distance','Cake',1996,'Fashion Nugget',['he\'s going the distance','he\'s going for speed']],
-['Pepper','Butthole Surfers',1996,'Electriclarryland',['I don\'t mind the sun','you never know just how you look']],
-['Losing My Religion','R.E.M.',1991,'Out of Time',['that\'s me in the corner','losing my religion']],
-['Bitter Sweet Symphony','The Verve',1997,'Urban Hymns',['I can change','I can\'t change','a million different people']],
-['Wonderwall','Oasis',1995,'(What\'s the Story) Morning Glory?',['you\'re gonna be the one','save me','by now']],
-['Everlong','Foo Fighters',1997,'The Colour and the Shape',['if everything could ever feel this real','breathe out']],
-['The Pretender','Foo Fighters',2007,'Echoes, Silence, Patience & Grace',['what if I say','you\'re not like the others']],
-['Zombie','The Cranberries',1994,'No Need to Argue',['in your head','another mother\'s breaking','what\'s in your head']],
-['You Oughta Know','Alanis Morissette',1995,'Jagged Little Pill',['you oughta know','are you thinking of me']],
-['One Headlight','The Wallflowers',1996,'Bringing Down the Horse',['we can drive it home','one headlight']],
-['Sex and Candy','Marcy Playground',1997,'Marcy Playground',['I smell sex and candy','who\'s that lounging']],
-['Semi-Charmed Life','Third Eye Blind',1997,'Third Eye Blind',['I want something else','semi-charmed kind of life']],
-['Drive','Incubus',1999,'Make Yourself',['whatever tomorrow brings','I\'ll be there']],
-['Wish You Were Here','Incubus',2001,'Morning View',['I wish you were here','the sky resembles a backlit canopy']]
-].map((s,i)=>({id:i,title:s[0],artist:s[1],year:s[2],album:s[3],parts:s[4]}));
-const STOP=new Set('a an and are as at be been but by can do for from had has have he her here him his i if in into is it its me my not of on or our she so that the their them there these they this to was we were what when where who why will with would you your youre im ive ill dont cant wont its'.split(' '));
-const words=s=>[...new Set((s.toLowerCase().match(/[a-z]+/g)||[]).filter(w=>w.length>=3&&!STOP.has(w)))];
-const index=new Map();songs.forEach(s=>s.parts.forEach((p,j)=>words(p).forEach(w=>{if(!index.has(w))index.set(w,[]);index.get(w).push({id:s.id,part:j})})));
-function options(song){return song.parts.map((p,j)=>({part:p,j,targets:[...new Set(words(p).flatMap(w=>(index.get(w)||[]).filter(v=>v.id!==song.id).map(v=>v.id)))]}));}
-let current=0,visited=[0],chosen='',dreamTimer=null,active=false;
-const el=id=>document.getElementById(id);
-function chooseTarget(targets){const fresh=targets.filter(t=>!visited.includes(t));const pool=fresh.length?fresh:targets;return pool[Math.floor(Math.random()*pool.length)]}
-function render(anchor=''){const s=songs[current];el('song').textContent=s.title;el('artist').textContent=s.artist.toUpperCase();el('year').textContent=s.year;el('album').textContent=s.album.toUpperCase();el('count').textContent=String(visited.length).padStart(2,'0')+' / DREAM';const opts=options(s);const total=new Set(opts.flatMap(o=>o.targets)).size;el('edgeCount').textContent=total+' CONNECTED SONGS';el('hint').textContent=anchor?'THROUGH “'+anchor.toUpperCase()+'”':'TOUCH A LUMINOUS PHRASE';el('note').textContent=total?'':'No matching excerpt yet · drift to another frequency';const area=el('fragments');area.replaceChildren();opts.forEach(o=>{const b=document.createElement('button');b.className='fragment'+(o.targets.length?' link':'');b.textContent=o.part;b.disabled=!o.targets.length;b.title=o.targets.length?o.targets.length+' connected songs':'';b.addEventListener('click',()=>travel(chooseTarget(o.targets),o.part));area.appendChild(b)});const app=el('app');app.classList.remove('transit');void app.offsetWidth;app.classList.add('transit');}
-function travel(id,anchor=''){if(id===undefined)return;current=id;visited.push(id);chosen=anchor;render(anchor);morph=1;document.title=songs[id].title+' · SPIRAL OUT';}
-function drift(){const o=options(songs[current]).filter(x=>x.targets.length);if(!o.length){const candidates=songs.filter(s=>options(s).some(x=>x.targets.length));travel(candidates[Math.floor(Math.random()*candidates.length)].id);return}const weighted=o.flatMap(x=>Array(Math.max(1,5-x.targets.length)).fill(x));const pick=weighted[Math.floor(Math.random()*weighted.length)];travel(chooseTarget(pick.targets),pick.part);}
-el('drift').addEventListener('click',drift);
-let audioCtx,osc1,osc2,gain;el('sound').addEventListener('click',async()=>{try{if(audioCtx){await audioCtx.close();audioCtx=null;el('sound').style.color='';return}audioCtx=new (window.AudioContext||window.webkitAudioContext)();gain=audioCtx.createGain();gain.gain.value=.016;gain.connect(audioCtx.destination);osc1=audioCtx.createOscillator();osc2=audioCtx.createOscillator();osc1.type='sine';osc2.type='triangle';osc1.frequency.value=55;osc2.frequency.value=82.4;osc1.connect(gain);osc2.connect(gain);osc1.start();osc2.start();el('sound').style.color='#a6e5c8';}catch(e){el('note').textContent='Ambient audio unavailable on this device';}});
-const canvas=el('stage'),ctx=canvas.getContext('2d',{alpha:false});let W=0,H=0,dpr=1,morph=0,phase=0,last=0;
-function resize(){dpr=Math.min(devicePixelRatio||1,1.7);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.floor(W*dpr);canvas.height=Math.floor(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}window.addEventListener('resize',resize);resize();
-function draw(t){const dt=Math.min(.04,(t-last)/1000||.016);last=t;phase+=dt;morph=Math.max(0,morph-dt*.55);ctx.fillStyle='#090d16';ctx.fillRect(0,0,W,H);const cx=W*.5,cy=H*.50,scale=Math.min(W*.47,H*.32,300);const signature=current*1.618;const layers=20,steps=110;for(let k=layers-1;k>=0;k--){const depth=k/(layers-1),z=(depth-.5)*2.6;const perspective=1/(1+Math.max(-.65,z+1)*.31);ctx.beginPath();for(let i=0;i<=steps;i++){const u=i/steps,angle=u*Math.PI*5+phase*(.15+depth*.13)+signature*.14;const envelope=Math.sin(Math.PI*u)**.8;const flutter=Math.sin(u*21+phase*1.6+signature)*.12+Math.sin(u*47-phase*.7)*.045;const radius=(.21+envelope*(.37+flutter)+morph*.17*Math.sin(u*11+phase*2))*scale;const x=cx+Math.cos(angle+depth*.65)*radius*perspective+Math.sin(u*8+phase*.23+signature)*scale*.18;const y=cy+Math.sin(angle+depth*.65)*radius*.57*perspective+Math.cos(u*9+phase*.3+signature)*scale*.22+(depth-.5)*scale*.65;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}const hue=28+depth*155+(current*17)%22;ctx.strokeStyle='hsla('+hue+',76%,'+(60+depth*13)+'%,'+(.04+(1-depth)*.22)+')';ctx.lineWidth=.65+(1-depth)*1.7;ctx.stroke()}const glow=ctx.createRadialGradient(cx,cy,0,cx,cy,scale*1.6);glow.addColorStop(0,'#21314325');glow.addColorStop(1,'#080c1400');ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);requestAnimationFrame(draw)}requestAnimationFrame(draw);render();
+// Lateralus, single-song study. Only short excerpt fragments are present;
+// this is NOT the complete copyrighted lyric text or recorded audio.
+const PHRASES=[
+ 'black then white are all I see','red and yellow then came to be',
+ 'reaching out to me','lets me see','there is so much more',
+ 'over thinking over analyzing','separates the body from the mind',
+ 'withering my intuition','missing opportunities','feed my will',
+ 'feel the moment','drawn outside the lines of reason',
+ 'embrace this moment','feel the rhythm','spiral out','keep going',
+ 'swing on the spiral','we may just go where no one has been',
+ 'spiral out','keep going'
+];
+const source=PHRASES.join('   •   ');
+const glyphs=[...source].map((c,i)=>({c,i,code:c.charCodeAt(0),phase:i*.043,
+ x:0,y:0,z:0,vx:0,vy:0,vz:0}));
+const canvas=document.getElementById('stage'),ctx=canvas.getContext('2d',{alpha:false});
+const led=document.getElementById('led'),clock=document.getElementById('time');
+let W=0,H=0,dpr=1,last=0,t=0,energy=0,curvature=0,ac=null,osc=null,osc2=null,gain=null;
+const DURATION=564;
+function resize(){dpr=Math.min(window.devicePixelRatio||1,1.6);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);}
+addEventListener('resize',resize);resize();
+function target(g,time){
+ const u=g.i/Math.max(1,glyphs.length-1),q=u*Math.PI*11.8-time*.18;
+ const fib=1.61803398875,spin=q+Math.sin(u*17-time*.14)*.2;
+ const base=.15+.72*Math.sqrt(u),field=Math.sin(u*27-time*.71)*.13+Math.sin(u*73+time*.4)*.043;
+ const r=base+field,drift=.06*Math.sin(time*.3+u*37);
+ // Semantic density influences local deformation; adjacent glyphs also couple physically.
+ const weight=(g.code%13)/13;
+ return {x:Math.cos(spin)*r*1.25+drift,
+ y:Math.sin(spin)*r*.72+Math.sin(u*15+time*.23)*.12,
+ z:Math.sin(q*.42+time*.27)*.83+Math.cos(u*37-time*.48)*(.09+weight*.035)};
+}
+function simulate(dt){
+ const step=Math.min(.032,dt);
+ for(const g of glyphs){const a=target(g,t);g.vx=(g.vx+(a.x-g.x)*step*18)*Math.exp(-step*6);g.vy=(g.vy+(a.y-g.y)*step*18)*Math.exp(-step*6);g.vz=(g.vz+(a.z-g.z)*step*18)*Math.exp(-step*6);}
+ // Neighbor constraints make the letters collectively deform the strand, not sit on a drawn line.
+ for(let k=0;k<2;k++)for(let i=1;i<glyphs.length;i++){
+ const a=glyphs[i-1],b=glyphs[i],dx=b.x-a.x,dy=b.y-a.y,dz=b.z-a.z;
+ const len=Math.hypot(dx,dy,dz)||1,rest=(a.c===' '||b.c===' '?.017:.0105);
+ const f=(len-rest)/len*.13;
+ a.vx+=dx*f;a.vy+=dy*f;a.vz+=dz*f;b.vx-=dx*f;b.vy-=dy*f;b.vz-=dz*f;
+ }
+ let e=0,c=0;
+ for(let i=0;i<glyphs.length;i++){const g=glyphs[i];g.x+=g.vx*step*24;g.y+=g.vy*step*24;g.z+=g.vz*step*24;e+=Math.hypot(g.vx,g.vy,g.vz);if(i>1){const a=glyphs[i-1],b=glyphs[i-2];c+=Math.abs((g.x-a.x)*(a.y-b.y)-(g.y-a.y)*(a.x-b.x));}}
+ energy=e/glyphs.length;curvature=c/glyphs.length;
+}
+function project(g){const rot=t*.085,xx=g.x*Math.cos(rot)-g.z*Math.sin(rot),zz=g.x*Math.sin(rot)+g.z*Math.cos(rot),persp=2.8/(2.8+zz);const size=Math.min(W*.47,H*.40,350);return{x:W*.5+xx*size*persp,y:H*.53+g.y*size*persp,z:zz,p:persp};}
+function draw(ms){
+ const dt=Math.min(.045,(ms-last)/1000||.016);last=ms;t+=dt;
+ simulate(dt);
+ ctx.fillStyle='#090d16';ctx.fillRect(0,0,W,H);
+ const size=Math.min(W*.47,H*.40,350),cx=W*.5,cy=H*.53;
+ const aura=ctx.createRadialGradient(cx,cy,0,cx,cy,size*1.8);aura.addColorStop(0,'#304b4a32');aura.addColorStop(.5,'#24334517');aura.addColorStop(1,'#090d1600');ctx.fillStyle=aura;ctx.fillRect(0,0,W,H);
+ const p=glyphs.map(project);
+ const order=glyphs.map((g,i)=>i).sort((a,b)=>p[b].z-p[a].z);
+ // The glyphs ARE the signal; no stroke, spline or hidden carrier is rendered.
+ ctx.textAlign='center';ctx.textBaseline='middle';
+ for(const i of order){
+ const g=glyphs[i],v=p[i];if(g.c===' ')continue;
+ const front=Math.max(0,Math.min(1,(.55-v.z)/1.5));
+ const depth=Math.max(0,Math.min(1,(v.z+1.2)/2.4));
+ const near=front*front*(3-2*front);
+ const font=(7+near*14)*v.p;
+ if(font<3)continue;
+ ctx.save();ctx.translate(v.x,v.y);
+ const n=p[Math.min(i+1,p.length-1)],prev=p[Math.max(0,i-1)];
+ let angle=Math.atan2(n.y-prev.y,n.x-prev.x);
+ // Readable foreground: glyphs relax toward upright orientation as they approach.
+ angle*=1-near*.91;
+ ctx.rotate(angle);
+ ctx.font=(near>.58?'500 ':'400 ')+font.toFixed(1)+'px ui-monospace, SFMono-Regular, Menlo, monospace';
+ const alpha=Math.min(.95,.16+near*.81);
+ ctx.fillStyle=near>.57?'rgba(244,219,174,'+alpha+')':'rgba(122,183,169,'+alpha+')';
+ if(near>.74){ctx.shadowBlur=10*near;ctx.shadowColor='#caa87a88';}
+ ctx.fillText(g.c,0,0);ctx.restore();
+ }
+ // Instrument is coupled to deformation and glyph motion, never an independent blinking timer.
+ const pulse=Math.min(1,.2+energy*2.6+curvature*25);
+ const hue=150-Math.min(1,curvature*140)*103;
+ led.style.background='hsl('+hue+' 75% '+(38+pulse*37)+'%)';
+ led.style.boxShadow='0 0 '+(5+pulse*19)+'px hsl('+hue+' 83% 66% / '+(.25+pulse*.65)+')';
+ led.style.transform='scale('+(0.85+pulse*.6)+')';
+ const secs=Math.floor(t)%DURATION;clock.textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');
+ if(ac&&osc){osc.frequency.setTargetAtTime(54+energy*11,ac.currentTime,.15);osc2.frequency.setTargetAtTime(81+curvature*200,ac.currentTime,.15);}
+ requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+document.getElementById('sound').addEventListener('click',async()=>{
+ const button=document.getElementById('sound');
+ try{if(ac){await ac.close();ac=null;osc=null;button.style.color='';return;}
+ ac=new (window.AudioContext||window.webkitAudioContext)();gain=ac.createGain();gain.gain.value=.012;gain.connect(ac.destination);
+ osc=ac.createOscillator();osc2=ac.createOscillator();osc.type='sine';osc2.type='sine';osc.frequency.value=55;osc2.frequency.value=82;
+ osc.connect(gain);osc2.connect(gain);osc.start();osc2.start();button.style.color='#a5e4bc';
+ }catch(e){button.title='Audio unavailable';}
+});
 </script></body></html>
