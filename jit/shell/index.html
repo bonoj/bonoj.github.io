@@ -16,16 +16,5 @@
 <section class="panel"><div class="eyebrow">DISCOVERY INVENTORY</div><p><b>100</b> application destinations</p><p><b>102</b> published email channels</p><p><b>40</b> organizations indexed</p></section></div>
 <section class="panel"><div class="eyebrow">CURRENT COURSE</div><p>LinkedIn pass closed. Retired bulk-email experiment stays retired. Preserve campaign evidence; validate real outbound routes before sending. No unsolicited actions.</p></section>
 <div class="spacer"></div>
-<footer><div><div>BUILD <span id="build">VERIFYING…</span></div><div id="state">Checking deployed release</div></div><div style="display:flex;gap:8px"><button id="copy">COPY</button><button id="fresh">↻ REFRESH</button></div></footer>
-</main><script>
-'use strict';
-const source=document.querySelector('meta[name="jit-shell-build-sha"]').content;
-const fingerprint=document.querySelector('meta[name="jit-shell-source-hash"]').content;
-const build=document.getElementById('build'),state=document.getElementById('state');
-build.textContent=/^[a-f0-9]{40}$/.test(source)?source.slice(0,8):'UNSTAMPED';
-let verified=false;
-async function check(){try{const r=await fetch('./release.json?fresh='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Manifest '+r.status);const m=await r.json();verified=m.sha===source&&m.htmlSha256===fingerprint;state.textContent=verified?'VERIFIED RELEASE':'RELEASE MISMATCH — REFRESH';}catch(e){state.textContent='UNVERIFIED · '+e.message;}}
-check();document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});setInterval(()=>{if(!document.hidden)check()},30000);
-document.getElementById('fresh').onclick=()=>{const u=new URL(location.href);u.searchParams.set('fresh',Date.now().toString(36));location.replace(u.href)};
-document.getElementById('copy').onclick=async()=>{const payload={schema:'sieve-jit-snapshot/v1',sourceCampaignUpdatedAt:'2026-10-16',counts:{"organizations":40,"applicationDestinations":100,"connectionProspects":101,"verifiedProfileUrls":89,"publishedEmailChannels":102,"submittedApplications":0,"sentConnections":98,"sentEmails":0,"acceptedConnections":15},executingSha:source,verified,canonical:location.origin+location.pathname};try{await navigator.clipboard.writeText(JSON.stringify(payload,null,2));document.getElementById('copy').textContent='COPIED'}catch(e){document.getElementById('copy').textContent='FAILED'}};
-</script></body></html>
+<footer><span>CAMPAIGN SNAPSHOT · 16 OCT 2026</span><a href="https://bonoj.github.io/Hermeticon/sieve/">SIEVE ↗</a></footer>
+</main></body></html>
