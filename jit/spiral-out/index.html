@@ -8,99 +8,102 @@
 </style></head><body><div id="app"><canvas id="stage" aria-hidden="true"></canvas><div id="grain"></div><main><div class="top"><span class="mark" aria-hidden="true"></span><span class="status"><i class="led" id="led"></i></span></div><section class="identity"><div class="eyebrow">NOW DREAMING · 2001</div><div class="song">Lateralus</div><div class="artist">TOOL</div></section><div class="void"></div><div class="bottom"><span id="time">00:00</span><span class="track">◉ <span id="duration">09:24</span></span><button class="tiny" id="sound" aria-label="Toggle generated ambient tone" title="Toggle generated ambient tone">♫</button></div></main></div>
 <script>
 'use strict';
-// Lateralus, single-song study. Only short excerpt fragments are present;
-// this is NOT the complete copyrighted lyric text or recorded audio.
-const PHRASES=[
- 'black then white are all I see','red and yellow then came to be',
- 'reaching out to me','lets me see','there is so much more',
- 'over thinking over analyzing','separates the body from the mind',
- 'withering my intuition','missing opportunities','feed my will',
- 'feel the moment','drawn outside the lines of reason',
- 'embrace this moment','feel the rhythm','spiral out','keep going',
- 'swing on the spiral','we may just go where no one has been',
- 'spiral out','keep going'
-];
-const source=PHRASES.join('   •   ');
-const glyphs=[...source].map((c,i)=>({c,i,code:c.charCodeAt(0),phase:i*.043,
- x:0,y:0,z:0,vx:0,vy:0,vz:0}));
-const canvas=document.getElementById('stage'),ctx=canvas.getContext('2d',{alpha:false});
-const led=document.getElementById('led'),clock=document.getElementById('time');
-let W=0,H=0,dpr=1,last=0,t=0,energy=0,curvature=0,ac=null,osc=null,osc2=null,gain=null;
-const DURATION=564;
-function resize(){dpr=Math.min(window.devicePixelRatio||1,1.6);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);}
-addEventListener('resize',resize);resize();
-function target(g,time){
- const u=g.i/Math.max(1,glyphs.length-1),q=u*Math.PI*11.8-time*.18;
- const fib=1.61803398875,spin=q+Math.sin(u*17-time*.14)*.2;
- const base=.15+.72*Math.sqrt(u),field=Math.sin(u*27-time*.71)*.13+Math.sin(u*73+time*.4)*.043;
- const r=base+field,drift=.06*Math.sin(time*.3+u*37);
- // Semantic density influences local deformation; adjacent glyphs also couple physically.
- const weight=(g.code%13)/13;
- return {x:Math.cos(spin)*r*1.25+drift,
- y:Math.sin(spin)*r*.72+Math.sin(u*15+time*.23)*.12,
- z:Math.sin(q*.42+time*.27)*.83+Math.cos(u*37-time*.48)*(.09+weight*.035)};
-}
-function simulate(dt){
- const step=Math.min(.032,dt);
- for(const g of glyphs){const a=target(g,t);g.vx=(g.vx+(a.x-g.x)*step*18)*Math.exp(-step*6);g.vy=(g.vy+(a.y-g.y)*step*18)*Math.exp(-step*6);g.vz=(g.vz+(a.z-g.z)*step*18)*Math.exp(-step*6);}
- // Neighbor constraints make the letters collectively deform the strand, not sit on a drawn line.
- for(let k=0;k<2;k++)for(let i=1;i<glyphs.length;i++){
- const a=glyphs[i-1],b=glyphs[i],dx=b.x-a.x,dy=b.y-a.y,dz=b.z-a.z;
- const len=Math.hypot(dx,dy,dz)||1,rest=(a.c===' '||b.c===' '?.017:.0105);
- const f=(len-rest)/len*.13;
- a.vx+=dx*f;a.vy+=dy*f;a.vz+=dz*f;b.vx-=dx*f;b.vy-=dy*f;b.vz-=dz*f;
+// Glyph pixels are the particles. Rest positions are 2D; deformation is 3D.
+// Only short illustrative lyric excerpts are used, not a complete lyric transcription.
+const PHRASES=['black then white','red and yellow','reaching out to me','there is so much more','over thinking over analyzing','separates the body from the mind','feel the moment','embrace this moment','feel the rhythm','spiral out','keep going','swing on the spiral'];
+const canvas=document.getElementById('stage'),ctx=canvas.getContext('2d',{alpha:false}),led=document.getElementById('led'),clock=document.getElementById('time');
+const scratch=document.createElement('canvas'),sc=scratch.getContext('2d',{willReadFrequently:true});
+let W=0,H=0,dpr=1,t=0,last=0,points=[],groups=[],energy=0,coherence=0,ac=null,osc=null,osc2=null,gain=null;
+const DURATION=564,TAU=Math.PI*2;
+function hash(n){let x=Math.sin(n*127.1+78.233)*43758.5453;return x-Math.floor(x);}
+function resize(){dpr=Math.min(devicePixelRatio||1,1.6);W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);build();}
+function build(){
+ points=[];groups=[];
+ const font=44;
+ sc.font='600 '+font+'px system-ui,sans-serif';
+ const step=3;let offset=0;
+ for(let k=0;k<PHRASES.length;k++){
+  const phrase=PHRASES[k],width=Math.ceil(sc.measureText(phrase).width)+12;
+  scratch.width=width;scratch.height=64;sc.clearRect(0,0,width,64);
+  sc.fillStyle='#fff';sc.font='600 '+font+'px system-ui,sans-serif';sc.textBaseline='middle';sc.fillText(phrase,6,32);
+  const pixels=sc.getImageData(0,0,width,64).data;
+  const start=points.length;
+  for(let y=1;y<64;y+=step)for(let x=1;x<width;x+=step){
+   const a=pixels[(y*width+x)*4+3];if(a<100)continue;
+   const id=points.length;
+   points.push({id,k,rx:(x-width/2)/font,ry:(y-32)/font,
+    seed:hash(id*3+11),seed2:hash(id*7+3),seed3:hash(id*13+5)});
+  }
+  groups.push({start,end:points.length,length:width/font,offset});
+  offset+=width/font;
  }
- let e=0,c=0;
- for(let i=0;i<glyphs.length;i++){const g=glyphs[i];g.x+=g.vx*step*24;g.y+=g.vy*step*24;g.z+=g.vz*step*24;e+=Math.hypot(g.vx,g.vy,g.vz);if(i>1){const a=glyphs[i-1],b=glyphs[i-2];c+=Math.abs((g.x-a.x)*(a.y-b.y)-(g.y-a.y)*(a.x-b.x));}}
- energy=e/glyphs.length;curvature=c/glyphs.length;
 }
-function project(g){const rot=t*.085,xx=g.x*Math.cos(rot)-g.z*Math.sin(rot),zz=g.x*Math.sin(rot)+g.z*Math.cos(rot),persp=2.8/(2.8+zz);const size=Math.min(W*.47,H*.40,350);return{x:W*.5+xx*size*persp,y:H*.53+g.y*size*persp,z:zz,p:persp};}
-function draw(ms){
- const dt=Math.min(.045,(ms-last)/1000||.016);last=ms;t+=dt;
- simulate(dt);
+function smooth(a,b,x){x=Math.max(0,Math.min(1,(x-a)/(b-a)));return x*x*(3-2*x);}
+function render(ms){
+ const dt=Math.min(.05,(ms-last)/1000||.016);last=ms;t+=dt;
  ctx.fillStyle='#090d16';ctx.fillRect(0,0,W,H);
- const size=Math.min(W*.47,H*.40,350),cx=W*.5,cy=H*.53;
- const aura=ctx.createRadialGradient(cx,cy,0,cx,cy,size*1.8);aura.addColorStop(0,'#304b4a32');aura.addColorStop(.5,'#24334517');aura.addColorStop(1,'#090d1600');ctx.fillStyle=aura;ctx.fillRect(0,0,W,H);
- const p=glyphs.map(project);
- const order=glyphs.map((g,i)=>i).sort((a,b)=>p[b].z-p[a].z);
- // The glyphs ARE the signal; no stroke, spline or hidden carrier is rendered.
- ctx.textAlign='center';ctx.textBaseline='middle';
- for(const i of order){
- const g=glyphs[i],v=p[i];if(g.c===' ')continue;
- const front=Math.max(0,Math.min(1,(.55-v.z)/1.5));
- const depth=Math.max(0,Math.min(1,(v.z+1.2)/2.4));
- const near=front*front*(3-2*front);
- const font=(7+near*14)*v.p;
- if(font<3)continue;
- ctx.save();ctx.translate(v.x,v.y);
- const n=p[Math.min(i+1,p.length-1)],prev=p[Math.max(0,i-1)];
- let angle=Math.atan2(n.y-prev.y,n.x-prev.x);
- // Readable foreground: glyphs relax toward upright orientation as they approach.
- angle*=1-near*.91;
- ctx.rotate(angle);
- ctx.font=(near>.58?'500 ':'400 ')+font.toFixed(1)+'px ui-monospace, SFMono-Regular, Menlo, monospace';
- const alpha=Math.min(.95,.16+near*.81);
- ctx.fillStyle=near>.57?'rgba(244,219,174,'+alpha+')':'rgba(122,183,169,'+alpha+')';
- if(near>.74){ctx.shadowBlur=10*near;ctx.shadowColor='#caa87a88';}
- ctx.fillText(g.c,0,0);ctx.restore();
+ const scale=Math.min(W*.48,H*.34,330),cx=W*.5,cy=H*.51;
+ const aura=ctx.createRadialGradient(cx,cy,0,cx,cy,scale*1.75);aura.addColorStop(0,'#304b4a28');aura.addColorStop(1,'#090d1600');ctx.fillStyle=aura;ctx.fillRect(0,0,W,H);
+ // Each phrase is a material cloud with a unique, unconstrained 3D center.
+ // The 2D glyph raster is the rest state, not a path for letter placement.
+ const state=groups.map((g,k)=>{
+  const q=t*.21+k*2.39996;
+  const x=Math.sin(q*.79+k*.41)*.67+Math.sin(q*.39+k*1.7)*.21;
+  const y=Math.cos(q*.67+k*.7)*.49+Math.sin(q*.44+k*.13)*.15;
+  const z=Math.sin(q*.91+k*1.13)*.85;
+  const focus=(Math.sin(t*.31-k*.94)+1)/2;
+  const close=smooth(.55,.92,focus);
+  return {x,y,z,close};
+ });
+ let sum=0,movement=0;
+ // Depth sort particles for coherent near/far layering, not an underlying stroke.
+ const projected=[];
+ for(const p of points){
+  const s=state[p.k],a=t*.45+p.k*.73;
+  const restX=p.rx*.17,restY=p.ry*.19;
+  const turbulence=.20+.14*Math.sin(t*.33+p.k);
+  const twist=a+p.rx*1.7;
+  const tx=restX*Math.cos(twist)-restY*Math.sin(twist);
+  const ty=restX*Math.sin(twist)+restY*Math.cos(twist);
+  const flowX=Math.sin(p.rx*3.4+t*.68+p.seed*TAU)*turbulence + (p.seed-.5)*.22;
+  const flowY=Math.cos(p.ry*4.1-t*.51+p.seed2*TAU)*turbulence+(p.seed2-.5)*.22;
+  const flowZ=Math.sin(p.rx*5.7+t*.38+p.seed3*TAU)*.42;
+  // Readability recovers as an entire phrase passes through a localized focus field.
+  const local=s.close*(.85+.15*Math.sin(t*.19+p.k));
+  const distorted=1-local;
+  const x=s.x+restX*local+(tx+flowX)*distorted;
+  const y=s.y+restY*local+(ty+flowY)*distorted;
+  const z=s.z*.65+flowZ*distorted;
+  const cameraZ=2.7+z,depth=2.7/cameraZ;
+  const px=cx+x*scale*depth,py=cy+y*scale*depth;
+  const visible=Math.max(0,Math.min(1,(1.35-z)/2.7));
+  projected.push({px,py,z,local,visible,sz:(.75+local*.55)*depth});
+  sum+=local;movement+=Math.abs(flowX)+Math.abs(flowY);
  }
- // Instrument is coupled to deformation and glyph motion, never an independent blinking timer.
- const pulse=Math.min(1,.2+energy*2.6+curvature*25);
- const hue=150-Math.min(1,curvature*140)*103;
- led.style.background='hsl('+hue+' 75% '+(38+pulse*37)+'%)';
- led.style.boxShadow='0 0 '+(5+pulse*19)+'px hsl('+hue+' 83% 66% / '+(.25+pulse*.65)+')';
- led.style.transform='scale('+(0.85+pulse*.6)+')';
+ projected.sort((a,b)=>b.z-a.z);
+ for(const p of projected){
+  const alpha=(.13+.82*p.local)*(.35+.65*p.visible);
+  const radius=Math.max(.55,p.sz*(.7+p.local*.45));
+  ctx.fillStyle=p.local>.58?'rgba(246,215,165,'+alpha+')':'rgba(117,191,176,'+alpha+')';
+  ctx.beginPath();ctx.arc(p.px,p.py,radius,0,TAU);ctx.fill();
+ }
+ coherence=points.length?sum/points.length:0;
+ energy=points.length?movement/points.length:0;
+ const hue=154-90*coherence,bright=38+coherence*40;
+ led.style.background='hsl('+hue+' 77% '+bright+'%)';
+ led.style.boxShadow='0 0 '+(6+coherence*18)+'px hsl('+hue+' 83% 67% / '+(.3+coherence*.65)+')';
+ led.style.transform='scale('+(0.9+coherence*.55)+')';
  const secs=Math.floor(t)%DURATION;clock.textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');
- if(ac&&osc){osc.frequency.setTargetAtTime(54+energy*11,ac.currentTime,.15);osc2.frequency.setTargetAtTime(81+curvature*200,ac.currentTime,.15);}
- requestAnimationFrame(draw);
+ if(ac&&osc){osc.frequency.setTargetAtTime(52+coherence*21,ac.currentTime,.16);osc2.frequency.setTargetAtTime(81+energy*14,ac.currentTime,.16);}
+ requestAnimationFrame(render);
 }
-requestAnimationFrame(draw);
+window.addEventListener('resize',resize);resize();requestAnimationFrame(render);
 document.getElementById('sound').addEventListener('click',async()=>{
- const button=document.getElementById('sound');
- try{if(ac){await ac.close();ac=null;osc=null;button.style.color='';return;}
+ const b=document.getElementById('sound');
+ try{if(ac){await ac.close();ac=null;osc=null;b.style.color='';return;}
  ac=new (window.AudioContext||window.webkitAudioContext)();gain=ac.createGain();gain.gain.value=.012;gain.connect(ac.destination);
  osc=ac.createOscillator();osc2=ac.createOscillator();osc.type='sine';osc2.type='sine';osc.frequency.value=55;osc2.frequency.value=82;
- osc.connect(gain);osc2.connect(gain);osc.start();osc2.start();button.style.color='#a5e4bc';
- }catch(e){button.title='Audio unavailable';}
+ osc.connect(gain);osc2.connect(gain);osc.start();osc2.start();b.style.color='#a5e4bc';
+ }catch(e){b.title='Audio unavailable';}
 });
 </script></body></html>
