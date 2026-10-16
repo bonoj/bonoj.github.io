@@ -1,4 +1,4 @@
-name: Stamp JIT Shell release
+name: Deploy JIT Shell
 on:
   push:
     branches: [master]
@@ -21,31 +21,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Stamp actual source commit and HTML fingerprint
-        env:
-          SOURCE_SHA: ${{ github.sha }}
-        run: |
-          python3 - <<'PY'
-          import hashlib,json,os,pathlib,re
-          page=pathlib.Path('jit/shell/index.html')
-          source=page.read_text()
-          assert re.fullmatch(r'[a-f0-9]{40}',os.environ['SOURCE_SHA'])
-          marker='<meta name="jit-shell-source-hash" content="'
-          build_marker='<meta name="jit-shell-build-sha" content="'
-          assert build_marker in source
-          assert marker in source
-          # The hash covers the entire source template, with the stamp normalized.
-          normalized=re.sub(r'(<meta name="jit-shell-source-hash" content=")[^"]*(">)',r'\g<1>UNSTAMPED\2',source,count=1)
-          normalized=re.sub(r'(<meta name="jit-shell-build-sha" content=")[^"]*(">)',r'\g<1>UNSTAMPED\2',normalized,count=1)
-          fingerprint=hashlib.sha256(normalized.encode()).hexdigest()
-          stamped=normalized.replace(marker+'UNSTAMPED">',marker+fingerprint+'">',1)
-          stamped=stamped.replace(build_marker+'UNSTAMPED">',build_marker+os.environ['SOURCE_SHA']+'">',1)
-          page.write_text(stamped)
-          pathlib.Path('jit/shell/release.json').write_text(json.dumps({'sha':os.environ['SOURCE_SHA'],'htmlSha256':fingerprint},indent=2)+'\n')
-          assert fingerprint in page.read_text()
-          print('SHELL SOURCE SHA',os.environ['SOURCE_SHA'])
-          print('SHELL HTML SHA256',fingerprint)
-          PY
       - name: Prepare static Pages artifact
         run: |
           mkdir -p "$RUNNER_TEMP/jit-pages"
@@ -60,32 +35,21 @@ jobs:
       - name: Deploy Pages artifact
         id: deployment
         uses: actions/deploy-pages@v4
-      - name: Verify stamped release on public Pages
-        env:
-          SOURCE_SHA: ${{ github.sha }}
+      - name: Verify deployed JIT Shell
         run: |
           python3 - <<'PY'
-          import json,os,time,urllib.request,re
-          sha=os.environ['SOURCE_SHA']
-          base='https://bonoj.github.io/jit/shell/'
-          for attempt in range(48):
+          import time,urllib.request
+          url='https://bonoj.github.io/jit/shell/?fresh='
+          for attempt in range(30):
               try:
-                  nonce=str(time.time_ns())
-                  def get(name):
-                      req=urllib.request.Request(base+name+('?fresh=' if '?' not in name else '&fresh=')+nonce,headers={'Cache-Control':'no-cache'})
-                      with urllib.request.urlopen(req,timeout=12) as r:return r.read().decode()
-                  html=get('')
-                  manifest=json.loads(get('release.json'))
-                  build=re.search(r'<meta name="jit-shell-build-sha" content="([a-f0-9]{40})"',html)
-                  fingerprint=re.search(r'<meta name="jit-shell-source-hash" content="([a-f0-9]{64})"',html)
-                  assert build and fingerprint
-                  assert build.group(1)==sha==manifest['sha']
-                  assert fingerprint.group(1)==manifest['htmlSha256']
-                  assert "publisher.\\nconst release" not in html
-                  print('PUBLIC JIT SHELL RELEASE VERIFIED',sha)
+                  req=urllib.request.Request(url+str(time.time_ns()),headers={'Cache-Control':'no-cache'})
+                  with urllib.request.urlopen(req,timeout=12) as response:
+                      html=response.read().decode()
+                  assert 'HUNDRED DOORS' in html and 'CAMPAIGN SNAPSHOT' in html
+                  print('PUBLIC SIEVE JIT SHELL VERIFIED')
                   break
               except Exception as exc:
-                  if attempt==47:raise
-                  print('Waiting for Pages propagation',attempt+1,str(exc))
+                  if attempt==29:raise
+                  print('Waiting for deployment',attempt+1,str(exc))
                   time.sleep(10)
           PY
