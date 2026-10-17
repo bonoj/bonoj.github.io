@@ -1,0 +1,118 @@
+# TIFFINITY SURVIVORS™
+**EVERMORE GAMES™ · THERE'S ALWAYS MORE™**
+
+[Play](https://bonoj.github.io/jit/evermore-2/) · [Source](./index.html) · [Original Evermore](../evermore/)
+
+## Features and invariants — quick reference
+
+A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️ stands at the center while enemies approach in increasingly frequent waves. Tap her to cast, earn currency, automate combat, establish towers, and recruit a little civilization.
+
+- **Five lands, five identities:** ☀️ Plains (judgment/prisms), 💧 Island (repulsion/lightning), 💀 Swamp (poison/leech), 🔥 Mountain (explosions/rockets), 🌳 Forest (growth/vines). These identities recur across manual spells, drones, towers, and recruits.
+- **Combat and economy:** five starting hearts; enemies converge on Tiffany; each kill awards **2 coins**, every **eighth kill 1 gem**. Purchased automation contributes kills and therefore revenue. Restart resets the run.
+- **First shop tier — five drones:** Prism (25 coins), Chain (40), Leech (65 + 1 gem), Rocket (90 + 2 gems), Vines (120 + 3 gems). Each is purchased once and remains active, orbiting Tiffany and attacking automatically.
+- **Expansion milestones:** starting arena = **1× area**; second drone = **2× area**; **five placed towers OR five purchased drones** = **4× area**. Camera zooms out rather than enlarging the phone viewport. Reaching both five-of-five conditions must not expand again.
+- **Two-drone unlock:** Tiffany's **casting spell** rotates independently every **2 seconds**. Tapping Tiffany casts her current spell. The **selected land** stays fixed until the player chooses another land; it controls tower placement, not the autocycle. The current casting icon appears above Tiffany.
+- **Towers:** once two drones are owned, tapping the arena away from Tiffany places a tower of the selected land. Maximum **one per land**, **five total**. Placing the same land again **moves** its tower, rather than creating a duplicate. Towers periodically fire localized land spells, nominally every **2 seconds**; their positions survive camera expansion.
+- **Second shop tier — five army divisions:** after all five drones are purchased, the **same five shop slots** become Cherubs (180 coins + 2 gems), Auditors (240 + 3), Notaries (320 + 5), Phoenixes (420 + 7), Arborists (550 + 10). Buying a division does **not** replace or remove its drone.
+- **Recruits:** a purchased division spawns units from its matching tower approximately every **5 seconds** (only after that tower exists), with at most **eight active recruits per land**. Units pursue nearby enemies, periodically attack with their own effects, live at most **24 seconds**, and are removed on their **first enemy collision**. They are not invulnerable permanent turrets.
+- **Distinct recruit effects:** Cherubs fire a prismatic beam and splash nearby enemies; Auditors establish slowing audit zones; Notaries poison nearby enemies; Phoenixes launch explosive projectiles; Arborists damage and entangle enemy groups.
+- **Tone and interface:** mobile-first, direct taps, no long-press; rhyming Tiffany corporate couplets last **7.2 seconds**, with new non-forced verse events dropped while one is showing. UI state should reflect actual purchases and spell/land separation.
+- **State invariants:** no duplicate drone, tower, or division for a land; a relocated tower retains its identity; recruits belong to a land and originate from its tower; kills are accounted for by the common hit/kill mechanism; expansion is derived from acquired milestones; restart returns all progress, entities, and scale to baseline.
+- **Delivery invariant:** a successful GitHub write and read-back proves **source persistence**, not that GitHub Pages has deployed or that the browser is executing the new code. Never call runtime behavior verified without exercising it.
+
+## Development chronicle — conversational invention
+
+### 1. A tiny game instead of another grand design
+
+The premise was intentionally almost comically small: Tiffany, a stationary vampire, in an arena; five land-flavored spells; monsters moving toward her; a tap to cast. The game was placed in its own `jit/evermore-2/` directory, preserving the original, much larger EVERMORE experiment. The first useful design choice was **to make something playable immediately** rather than build an abstract game framework or comprehensive roadmap. A single HTML file with its own styles, Canvas drawing, and JavaScript loop kept iteration cheap.
+
+The five land types were not just cosmetic buttons. Each suggested a family of effects: judgment and light, water and electricity, poison and decay, fire and explosive force, forest and binding growth. That shared vocabulary made later systems feel like elaborations of one world rather than arbitrary upgrades.
+
+### 2. Drones turn combat into a feedback economy
+
+Five purchasable autonomous drones were added, one per land, with distinct effects and escalating coin/gem prices. Unlike a mere damage multiplier, each drone created a new behavior to watch: a piercing prism lance, chained lightning, leech mines, a rocket, and vine harpoons. Because their kills earned the same coins and gems as manual attacks, the game acquired a feedback loop: **fight → earn → purchase automation → earn faster**.
+
+This exposed the first emergent design pressure. Once the player had all five drones, currency accumulated without much left to buy. The solution was not simply to inflate enemy health or add a score counter; it was to invent new institutions for Tiffany's growing enterprise. The absurd corporate fiction—Royal Reserve Bank, factories, divisions, acquisitions—was already part of EVERMORE's broader identity and provided an unusually fertile vocabulary for progression.
+
+### 3. Tiffany gets a voice
+
+Short, rhyming corporate couplets gave feedback a personality. Tiffany comments on scarcity, wealth, fire, damage, acquisitions, and the five-drone milestone. The poem system deliberately holds a verse for **7.2 seconds** and drops ordinary incoming verse events while busy, rather than queueing a torrent of stale jokes. This was a small but consequential interface rule: the game could be busy without the character becoming unreadable.
+
+The tone became an invariant: whimsical, esoteric, gleefully acquisitive, never an earnest tutorial voice. The fiction is not decoration added after gameplay; it is a machine for generating gameplay ideas.
+
+### 4. Two drones buy physical space
+
+The next proposal took one turn: **when two drones are owned, double the arena area**. The implementation zoomed the logical coordinate system out by `sqrt(2)` on each axis, preserving the physical mobile viewport and Tiffany's central position. Existing enemy and effect coordinates were shifted with the new center. This mattered because expansion felt like territorial growth, not a scene reload or a different page.
+
+The first expansion also created an opportunity: more empty ground begged for structures. The feature was committed as `8883094a`. Source read-back succeeded, but that did not constitute live-browser verification.
+
+### 5. The five towers: turning empty ground into agency
+
+The user proposed a second layer: after the two-drone milestone, Tiffany cycles spells every two seconds, still casts when tapped, and can place **five persistent localized towers**, one for each land. Tapping the field places the currently selected type; tapping again with that type moves it. Towers cast automatically every two seconds. Crucially, this is **one tower per type**, not five disposable charges.
+
+This was a leap from buying orbiting helpers to **authoring a spatial arrangement**. Towers could guard different parts of the field, and relocating one became a meaningful tactical action. The first implementation was committed as `154e0ec8`.
+
+The player then reported that tower placement did not appear to work. Inspection found the pointer handler, unlock condition, tower renderer, and update loop present in GitHub source, but did **not** establish what code GitHub Pages had actually served to the player's browser. The investigation was therefore inconclusive about the reported live failure. A separate defect was found: a Forest tower's slowing zone was evaluated around Tiffany rather than the tower. This was corrected later. **Do not rewrite this incident as a confirmed cache bug or as an end-to-end test pass.**
+
+### 6. Five towers *or* five drones: expansion becomes a progression rule
+
+The user immediately extended the spatial grammar: when all five towers are placed **or** all five drones are purchased, expand again. The second zoom sets each logical axis to twice its original length, giving **four times the initial area**. The two alternative prerequisites share one milestone; satisfying both must not create a third expansion.
+
+This also fixed the Forest zone origin to use the zone's own coordinates. Commit: `6ad4fac7`. A small, composable rule now linked economic progression and spatial progression: either investment in mobile automation or investment in territory can grow the world.
+
+### 7. The shop mutates into a recruitment institution
+
+The next turn introduced a second purchasing tier, unlocked only after all five drones were bought. Instead of adding more buttons to an already narrow mobile interface, the existing five shop slots **change purpose**. They now sell more expensive divisions that periodically produce units from their corresponding towers.
+
+The five divisions deliberately do **not** merely duplicate their drones' attacks:
+
+- **Cherubs:** beams and splash damage around the victim.
+- **Liquid Auditors:** localized slowing audit zones.
+- **Ghost Notaries:** group poison.
+- **Phoenix Futures:** explosive projectiles.
+- **Antlered Arborists:** damaging, binding hedgerows.
+
+The division has to own its land's tower before it can recruit. Units move toward enemies, fire periodically, disappear after one enemy collision, and time out after 24 seconds. A cap of eight active units per land prevents unbounded recruitment. This created a hierarchy with actual dependencies: **drones finance expansion; towers claim space; divisions recruit from towers; recruits fight and generate revenue**. Commit: `25ff647a`.
+
+An important implementation nuance: “survive one hit” was encoded as a unit being removed on its **first collision with an enemy**; there is not yet a general enemy-projectile-versus-unit health system. That distinction should be preserved when extending combat.
+
+### 8. The autocycle exposed a state-model mistake
+
+The player noticed that Tiffany's automatic spell rotation was also changing the **selected land**. This was not intended. The initial implementation had overloaded one `selected` variable to mean both *what the player selected for tower placement* and *what Tiffany will cast now*. Once a timer modified it, the UI and placement semantics drifted together.
+
+The fix introduced a separate `castSpell` state. With fewer than two drones, casting follows manual selection; at the two-drone milestone, `castSpell` begins cycling independently every two seconds. The selected land remains stable and continues to determine tower placement and relocation. A current-spell icon above Tiffany makes the split visible. Commit: `fce0779c`.
+
+This is a compact example of an important engineering lesson: **different concepts deserve different state even when they initially share a value**. The player discovered the distinction by playing, not by reviewing a specification.
+
+### 9. Why the development loop felt startlingly fast
+
+The conversation explicitly recognized that the game had become *legitimately fun* and that the changes had happened in **a few turns**, not “a few hours.” That correction matters. The unit of iteration was no longer a work session, sprint, or code-review cycle. It was a conversational move:
+
+**Play → notice a pressure or possibility → propose one rule → implement → persist → play again.**
+
+Each move changed what could be imagined next. Drones made money accumulate; money suggested larger investments. Larger arenas suggested placeable defenses. Towers suggested territorial control. Territorial control suggested units and armies. A tiny ambiguity in spell selection suggested a more correct internal state model. The design was **discovered through use**, not dictated by a master plan.
+
+This does not mean the cost of verification became zero. Fast source edits can still produce runtime bugs, UI ambiguity, deployment lag, and mistakes hidden by one-file complexity. The tower-placement report and autocycle correction are evidence of that. The appropriate response is not to slow invention to a crawl; it is to make the **observe → correct → verify** half of the loop as cheap as the **invent → ship** half.
+
+### 10. What to preserve as Evermore grows
+
+The strongest progression pattern is **play a mechanic → monetize it → automate it → watch it become an institution**. Every new purchase should ideally grant a *different kind of agency*, not merely bigger numbers. Space, placement, independent actors, and interdependent production all make the world richer.
+
+Preserve the separation between **manual intent** (selected land), **automatic behavior** (Tiffany's cycling spell), **persistent infrastructure** (towers and purchased divisions), and **ephemeral agents** (recruits). Preserve one-per-land uniqueness and explicit milestones. Keep the mobile screen usable; repurposing five existing shop slots was more elegant than endlessly adding rows.
+
+Most importantly, keep the game playful and inspectable. A fast iteration is only truly complete when the source is committed **and the intended behavior can be observed in the running artifact**. The source currently documents the intended implementation; the recorded GitHub read-backs are not a substitute for a live gameplay regression pass.
+
+---
+
+## Build and verification record
+
+| Commit | Change | Verification recorded |
+|---|---|---|
+| `bfc4413b` | Tiffany's rhyming verse persistence/drop policy | Source commit |
+| `8883094a` | Double arena area at two drones | GitHub source read-back |
+| `154e0ec8` | Autocycle and five movable, periodic towers | GitHub source read-back; player later reported placement trouble |
+| `6ad4fac7` | Second expansion at five towers or drones; Forest-zone correction | GitHub source read-back |
+| `25ff647a` | Second-tier army purchases and tower-born recruits | GitHub source read-back |
+| `fce0779c` | Separate selected land from autocycling cast spell | GitHub source read-back |
+
+**Current reference:** `jit/evermore-2/index.html` on `master`, inspected after `fce0779c`. The application is a single-file prototype; this document describes its implemented rules and known verification limits, not a guarantee that every browser path has been tested.
