@@ -273,19 +273,10 @@ return;
 }
 
 // shell/athanor/athanor.js
-// Fingerprint the actual served Chaos HTML, not a parent repository's build.json.
-// SHA-256 is content-derived, so every edit changes the displayed identity.
-var BUILD = "unverified";
-try {
-  const response = await fetch(new URL(location.pathname, location.origin), { cache: "no-store" });
-  if (!response.ok) throw Error("Chaos HTML HTTP " + response.status);
-  const bytes = await response.arrayBuffer();
-  const hash = await crypto.subtle.digest("SHA-256", bytes);
-  BUILD = Array.from(new Uint8Array(hash), b => b.toString(16).padStart(2, "0")).join("");
-} catch (error) {
-  console.warn("Chaos content identity unavailable", error);
-}
-document.querySelector("#build").textContent = BUILD === "unverified" ? "--------" : BUILD.slice(0, 8);
+// Deployment stamps this placeholder with the exact published Git revision.
+// Never derive a second, competing build identity in the browser.
+var BUILD = "pending";
+document.querySelector("#build").textContent = BUILD.slice(0, 8);
 var githubToggle = document.querySelector("#githubToggle");
 var githubPanel = document.querySelector("#githubPanel");
 if (githubToggle && githubPanel) {
