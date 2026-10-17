@@ -388,3 +388,18 @@ Do **not** actually perform that extraction in this run. Instead keep a short `j
 6. Trace a single BB-equivalent through structure → debris → recovery → new structure using public component interfaces, not private array mutation.
 
 **Success criterion:** Astra delivers a rich, executable, biomechanical Institute within one self-contained Chaos artifact while preserving capability boundaries that can later be extracted with minimal code change. Architectural cleanliness is a first-class acceptance criterion, not a deferred refactor.
+
+
+## 20. Terrain deformation as civilization-scale material work (continuation guidance, 2026-10-17)
+
+Terrain is **living structural material**, not scenery, a decorative crater layer, or a boundary of the Hermeticon viewport. The Institute must eventually excavate, displace, deposit, compact, and reshape the existing authoritative continuous terrain volume through autonomous local agents and machinery. This is a capability contract, not a prescribed creature or a request for a scripted terrain animation.
+
+- Reuse the established signed-field terrain deformation, surface query, impact and debris machinery. Do not introduce a parallel terrain authority, a separate physics world, or viewport-dependent matter ownership. Maintain continuous Crown, Seam, and Underside topology; an opening or tunnel must be a real change to that terrain, not a visual decal.
+- Define explicit transactions between **terrain inventory**, finite discrete BB stock, carried cargo, structural material, and loose debris. Excavation must account for removed substrate; deposition must consume accountable feedstock. Record provenance and reconcile counts or explicitly document differing units. Do not pretend the existing Loom ledger already covers terrain lattice or unrelated loose populations.
+- Terrain changes must affect future support contacts, load paths, navigation/reachability, sensing, construction placement, and repair. Prevent unsupported floating construction; distinguish absent support from merely hidden geometry.
+- Prefer a small functioning actor-driven loop: sense terrain → decide local cut/fill → actuate deformation → transfer material → build or repair → observe consequences. Use deterministic seeds, finite throughput, bounded work, meaningful failure, and replayable evidence. The actor's form and choreography remain Astra's creative choice.
+- Do **not** require each terrain voxel or field sample to become a continuously simulated free BB. Use the existing authoritative field for bulk terrain, with explicit and conservative conversion at excavation/deposition boundaries. Respect phone-first performance without silent population deletion.
+- Persist terrain modifications and pending material transactions with the world; the existing Loom-only checkpoint is insufficient. Version recovery and test mid-operation reload, conservation, local terrain rebuild, support invalidation, and view independence.
+- Integrate visible terrain work into the Institute's biomechanical design language and the Crown/Seam/Underside continuity. Deliver consequential morphology, not only a numeric terrain edit or an isolated test machine.
+
+**Acceptance:** Demonstrate one autonomous, observable, material-accounted terrain cut-and-fill cycle that changes a real structure's support or a traversable route, survives checkpoint/reload, and does not depend on Wanderer or viewport position. Record what is actually tested versus what still needs WebGL/mobile witness. This is the next capability frontier, not permission to stop the larger Living Institute mission after one successful slice.
