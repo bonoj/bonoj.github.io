@@ -62,3 +62,11 @@ Syntax check passed. These are executed non-WebGL tests, not merely source inspe
 3. Strengthen load-bearing span and tendon mechanics; support-specific damage and repaired foundations; make flow sensors observe independent ports.
 4. Grow Crown/Seam/Underside anatomy through conserved recipes and actual traversable openings. The present Loom is a rich first mechanism, not the North Star's full civilization.
 5. Profile actual phone render/update distributions before increasing density. Never silently cap material.
+
+## Current source checkpoint
+- Executable source: `4ec4995acd9ffc704ffd1bcea8371290a14ada95` (Mnemonic Loom).
+- All six changed files read back byte-for-byte; HTML blob `b50db33cf0e95261bc64e31db1eca903e8e890a1`.
+- Git comparison confirmed every changed path stays under `jit/chaos/`; protected root and recovery branch untouched.
+- Default-Wanderer run also matched the no-Wanderer machine state at 9,000 ticks.
+- Deployment of this new slice is pending at this record's write time; check latest `Promote stable world` run and canonical `build.json`. Later documentation-only commits do not change this executable source blob, though the publisher stamps their deployment commit.
+- Browser verification still blocked by this cloud environment's disabled WebGL; request phone 👁 report before claiming visual/60 FPS acceptance.
