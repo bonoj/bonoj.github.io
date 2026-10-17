@@ -2318,7 +2318,7 @@ function createEquatorialTreatment({ terrain, parent }) {
  // Each visible bead belongs to exactly one inventory or assembled structure.
  // Hermeticon Institute: purpose -> functional graph -> lattice -> BB embodiment.
 // Terrain Entity Contract v1 — all positions are terrain-local; rendering follows terrain.group.
-function createTerrainEntityContract(T,terrain,surface,vessel){
+function createTerrainEntityContract(T,terrain,surface,view){
  const root=new T.Group();root.name="Arcana / Terrain Entity Contract";terrain.group.add(root);
  const entities=[],violations=[],bead=new T.IcosahedronGeometry(.075,1);
  const palettes={stone:0xadb3a7,brass:0xe0ad62,glass:0x7dd9df,ember:0xf28b55};
@@ -2337,7 +2337,18 @@ function createTerrainEntityContract(T,terrain,surface,vessel){
    else if(part.kind==="ring"){const n=part.count||48;for(let i=0;i<n;i++){const a=i*2*Math.PI/n;positions.push([part.center[0]+Math.cos(a)*part.radius,part.center[1],part.center[2]+Math.sin(a)*part.radius]);}}
    else if(part.kind==="meridian"){const n=part.count||48;for(let i=0;i<n;i++){const a=i*2*Math.PI/n;positions.push([part.center[0]+Math.cos(a)*part.radius,part.center[1]+Math.sin(a)*part.radius,part.center[2]]);}}
    else throw Error("unknown lattice primitive "+part.kind);
-   const mesh=new T.InstancedMesh(bead,new T.MeshStandardMaterial({color:palettes[part.material]||palettes.stone,metalness:.55,roughness:.4}),positions.length);
+   const material=new T.MeshStandardMaterial({color:palettes[part.material]||palettes.stone,metalness:.55,roughness:.4});
+   // Fragment-level Hermeticon aperture: geometry is persistent; no BB instance culling.
+   material.onBeforeCompile=shader=>{
+    shader.uniforms.entityViewCenter={value:view.center};
+    shader.uniforms.entityViewRadius={value:view.radius};
+    shader.vertexShader=shader.vertexShader.replace("#include <common>","#include <common>\nvarying vec3 vEntityWorld;");
+    shader.vertexShader=shader.vertexShader.replace("#include <worldpos_vertex>","#include <worldpos_vertex>\nvec4 entityWorld=modelMatrix * vec4(transformed,1.0);\n#ifdef USE_INSTANCING\nentityWorld=modelMatrix * instanceMatrix * vec4(transformed,1.0);\n#endif\nvEntityWorld=entityWorld.xyz;");
+    shader.fragmentShader=shader.fragmentShader.replace("#include <common>","#include <common>\nvarying vec3 vEntityWorld;\nuniform vec3 entityViewCenter;\nuniform float entityViewRadius;");
+    shader.fragmentShader=shader.fragmentShader.replace("#include <clipping_planes_fragment>","#include <clipping_planes_fragment>\nif(distance(vEntityWorld,entityViewCenter)>entityViewRadius) discard;");
+   };
+   material.customProgramCacheKey=()=> "entity-spherical-aperture-v1";
+   const mesh=new T.InstancedMesh(bead,material,positions.length);
    const d=new T.Object3D();for(let i=0;i<positions.length;i++){d.position.set(...positions[i]);d.updateMatrix();mesh.setMatrixAt(i,d.matrix);}mesh.instanceMatrix.needsUpdate=true;mesh.name=spec.id+"/"+part.role;group.add(mesh);
    materialCount+=positions.length;renderParts.push({mesh,positions,visible:positions.length});components.push({role:part.role,primitive:part.kind,beads:positions.length});
   }
@@ -2358,22 +2369,21 @@ function createTerrainEntityContract(T,terrain,surface,vessel){
  compose({id:"surveyor",role:"mobile reconnaissance",motion:"propelled",anchor:{x:2,z:2,clearance:2.5},velocity:[0,0,0],parts:[
   {kind:"ring",role:"propulsion rim",center:[0,0,0],radius:.4,count:44,material:"brass"},
   {kind:"segment",role:"sensor boom",a:[0,-.25,0],b:[0,.4,0],count:14,material:"glass"}]});
- let t=0,frames=0,maxAnchorError=0,clippedTotal=0;const point=new T.Vector3(),vesselCenter=new T.Vector3(),dummy=new T.Object3D(),radius=10.07,epsilon=.075;
+ let t=0,frames=0,maxAnchorError=0;
  function update(dt){t+=Math.max(0,Math.min(.06,dt));frames++;
+  root.position.set(-view.offset.x,0,-view.offset.z);
   for(const e of entities){
    if(e.motion==="anchored"){const y=surface(e.anchor.x,e.anchor.z);e.supportValid=y!==null;if(y!==null){e.ground=y;e.group.position.set(e.anchor.x,y+(e.anchor.clearance||0),e.anchor.z);}}
    else if(e.motion==="propelled"){e.group.position.set(e.anchor.x+Math.cos(t*.45)*1.1,e.base+(e.anchor.clearance||0)+Math.sin(t*.8)*.2,e.anchor.z+Math.sin(t*.45)*1.1);}
    const p=e.group.position;const err=e.motion==="anchored"?Math.hypot(p.x-e.anchor.x,p.z-e.anchor.z,p.y-(e.ground+(e.anchor.clearance||0))):0;maxAnchorError=Math.max(maxAnchorError,err);
+   e.visibleCount=e.materialCount; // draw residency; fragment aperture is not CPU-measurable
   }
-  // Visibility is per bead in vessel space, never a mutation of entity position or ownership.
-  root.updateWorldMatrix(true,true);vessel.updateWorldMatrix(true,false);vessel.getWorldPosition(vesselCenter);clippedTotal=0;
-  for(const e of entities){e.visibleCount=0;for(const part of e.renderParts){let count=0;for(const xyz of part.positions){point.set(...xyz).applyMatrix4(e.group.matrixWorld);if(point.distanceToSquared(vesselCenter)<=(radius-epsilon)*(radius-epsilon)){dummy.position.set(...xyz);dummy.scale.setScalar(1);dummy.updateMatrix();part.mesh.setMatrixAt(count++,dummy.matrix);}}part.mesh.count=count;part.mesh.instanceMatrix.needsUpdate=true;part.visible=count;e.visibleCount+=count;}clippedTotal+=e.materialCount-e.visibleCount;}
  }
  update(0);
  return {update,inspect:()=>{
   root.updateWorldMatrix(true,true);terrain.group.updateWorldMatrix(true,false);
   const inverse=terrain.group.matrixWorld.clone().invert();
-  return {name:"Arcana — Terrain Entity Contract v1",authority:"terrain.group local frame",renderParent:"terrain.group / Arcana Terrain Entity Contract",frames,terrainFrameWorld:terrain.group.getWorldPosition(new T.Vector3()).toArray(),entityCount:entities.length,entities:entities.map(e=>{const world=e.group.getWorldPosition(new T.Vector3());const relative=world.clone().applyMatrix4(inverse);const local=e.group.position;return {id:e.id,role:e.role,motion:e.motion,anchor:e.anchor,ground:e.ground,supportValid:e.supportValid,terrainPosition:relative.toArray(),worldPosition:world.toArray(),frameError:relative.distanceTo(local),parts:e.components,material:{owned:e.materialCount,visible:e.visibleCount,clipped:e.materialCount-e.visibleCount}};}),invariants:{maxAnchorError,unresolvedSupports:entities.filter(e=>e.motion==="anchored"&&!e.supportValid).length,materialAllocated:entities.reduce((n,e)=>n+e.materialCount,0),materialVisible:entities.reduce((n,e)=>n+e.visibleCount,0),visibility:{authority:"Hermeticon interior",radius,margin:epsilon,clipped:clippedTotal,perBead:true},sharedMaterialSurveyIntegrated:true},violations};
+  return {name:"Arcana — Terrain Entity Contract v1",authority:"terrain.group local frame",renderParent:"terrain.group / Arcana Terrain Entity Contract",frames,terrainFrameWorld:terrain.group.getWorldPosition(new T.Vector3()).toArray(),entityCount:entities.length,entities:entities.map(e=>{const world=e.group.getWorldPosition(new T.Vector3());const relative=world.clone().applyMatrix4(inverse).add(new T.Vector3(view.offset.x,0,view.offset.z));const local=e.group.position;return {id:e.id,role:e.role,motion:e.motion,anchor:e.anchor,ground:e.ground,supportValid:e.supportValid,terrainPosition:relative.toArray(),worldPosition:world.toArray(),frameError:relative.distanceTo(local),parts:e.components,material:{owned:e.materialCount,submitted:e.materialCount,visible:null,visibilityMeasurement:"GPU fragment clipping; readback unavailable"}};}),invariants:{maxAnchorError,unresolvedSupports:entities.filter(e=>e.motion==="anchored"&&!e.supportValid).length,materialAllocated:entities.reduce((n,e)=>n+e.materialCount,0),materialSubmitted:entities.reduce((n,e)=>n+e.materialCount,0),materialVisible:null,visibility:{authority:"Hermeticon viewport",method:"GPU per-fragment spherical aperture",radius:view.radius,offset:{...view.offset},visibleCountMeasured:false},sharedMaterialSurveyIntegrated:true},violations};
  }};
 }
 
@@ -2419,7 +2429,12 @@ function createEntropy() {
     return { x, z };
   };
   const chaosTrials = { articulated: false, kinetic: false };
-  const institute = createTerrainEntityContract(T5, terrain, terrainSurface, world2.group);
+  // World-view authority: observer-independent. Wanderer is only a legacy tracking client.
+  const worldView={offset:{x:0,z:0},center:new T5.Vector3(0,0,0),radius:world2.inspect().vessel.innerRadius};
+  const terrainOffsetOriginal=terrain.setOffset;
+  worldView.setOffset=(x,z)=>{worldView.offset.x=x;worldView.offset.z=z;terrainOffsetOriginal(x,z);};
+  terrain.setOffset=(x,z)=>worldView.setOffset(x,z);
+  const institute = createTerrainEntityContract(T5, terrain, terrainSurface, worldView);
   const articulated = chaosTrials.articulated ? createArticulatedTrial(T5, { parent: world2.content, surface: terrainSurface, actor: () => wanderer.inspect(), offset: botanicalOffset }) : null;
   const gravity = createGravitySystem({ components: [uniformGravity({ id: "surface", y: -9.8 })] });
   world2.gravity = gravity;
@@ -2535,7 +2550,7 @@ function createEntropy() {
   const inspectShell = world2.inspect.bind(world2);
   const materialSurvey = createMaterialSurvey({ populations: [], debris });
   world2.materialSurvey = materialSurvey;
-  world2.inspect = () => ({ name: "Entropy", shell: inspectShell(), systems: [{ name: "abioentropy", stationkeeping: { name: cradle.name, center: cradle.center, position: abioentropy.group.position.toArray() }, scale: 0.12, ...abioentropy.inspect() }, { name: "eye", enabled: false, instantiated: false, error: null }, { name: "Betwixt observer swarm", enabled: false, instantiated: false }, { name: "terrain", ...terrain.inspect() }, { name: "wanderer", ...wanderer.inspect() }, { name: "articulated IK trial", enabled: chaosTrials.articulated, instantiated: !!articulated, visible: !!articulated?.group.visible }, { name: "kinetic capsule trial", enabled: chaosTrials.kinetic, capsuleVisible: trialMesh.visible, leftFootVisible: footMesh.visible, rightFootVisible: otherFootMesh.visible, simulationRunning: chaosTrials.kinetic }, { name: "borehole trial", borehole: boreholeTrial, status: "retained terrain fixture", currentTrial: "N-limb connected dynamic-foot experiment (N=2)" }, gravity.inspect(), contact.inspect(), { name: "balance perturbation", ...balancePerturbation, applied: balancePerturbationApplied }, { ...drive.inspect(), enabled: chaosTrials.kinetic }, { ...kinetic.inspect(), enabled: chaosTrials.kinetic, simulationRunning: chaosTrials.kinetic }, cinderfall.inspect(), debris.inspect(), institute.inspect()], material: (()=>{const shared=materialSurvey(),e=institute.inspect().invariants;return {...shared,authored:shared.authored+e.materialAllocated,total:shared.total+e.materialAllocated,visible:shared.visible+e.materialVisible,visibleAuthored:shared.visibleAuthored+e.materialVisible,entityAuthored:e.materialAllocated,entityVisible:e.materialVisible,entityContractIncluded:true};})(), meteorImpact: impactDispatcher.inspect(), edgeGeometry: equatorial.geometry, edgeTreatment: equatorial.inspect(), nodes: nodeMaker.inspect(), tapOwnership: navigation.inspect() });
+  world2.inspect = () => ({ name: "Entropy", shell: inspectShell(), systems: [{ name: "abioentropy", stationkeeping: { name: cradle.name, center: cradle.center, position: abioentropy.group.position.toArray() }, scale: 0.12, ...abioentropy.inspect() }, { name: "eye", enabled: false, instantiated: false, error: null }, { name: "Betwixt observer swarm", enabled: false, instantiated: false }, { name: "terrain", ...terrain.inspect() }, { name: "wanderer", ...wanderer.inspect() }, { name: "articulated IK trial", enabled: chaosTrials.articulated, instantiated: !!articulated, visible: !!articulated?.group.visible }, { name: "kinetic capsule trial", enabled: chaosTrials.kinetic, capsuleVisible: trialMesh.visible, leftFootVisible: footMesh.visible, rightFootVisible: otherFootMesh.visible, simulationRunning: chaosTrials.kinetic }, { name: "borehole trial", borehole: boreholeTrial, status: "retained terrain fixture", currentTrial: "N-limb connected dynamic-foot experiment (N=2)" }, gravity.inspect(), contact.inspect(), { name: "balance perturbation", ...balancePerturbation, applied: balancePerturbationApplied }, { ...drive.inspect(), enabled: chaosTrials.kinetic }, { ...kinetic.inspect(), enabled: chaosTrials.kinetic, simulationRunning: chaosTrials.kinetic }, cinderfall.inspect(), debris.inspect(), institute.inspect()], material: (()=>{const shared=materialSurvey(),e=institute.inspect().invariants;return {...shared,authored:shared.authored+e.materialAllocated,total:shared.total+e.materialAllocated,visible:null,visibleAuthored:null,entityAuthored:e.materialAllocated,entityVisible:null,entitySubmitted:e.materialSubmitted,visibilityMeasurement:"GPU aperture; no readback",entityContractIncluded:true};})(), meteorImpact: impactDispatcher.inspect(), edgeGeometry: equatorial.geometry, edgeTreatment: equatorial.inspect(), nodes: nodeMaker.inspect(), tapOwnership: navigation.inspect() });
   return world2;
 }
 
