@@ -247,3 +247,42 @@ Before writing a new material, capture, physics, or visibility subsystem, Astra 
 
 Run focused tests for: vessel wall collision versus shader aperture; secondary capture fixture; detached-BB ownership after impact; viewport sweep with a stationary structure; world simulation with Wanderer absent; and high-BB-count 60 FPS behavior. Record which tests were actually observed in browser versus inferred from source. The baseline has not passed these new tests merely because its shader compiled.
 
+
+## 17. Visual ambition: dense executable anatomy, not merely machinery
+
+**User-supplied reference images (2026-10-17):** (1) an intricate low-poly subterranean BB ecosystem with luminous jellyfish, articulated crawling organisms, branching flora, fungal canopies, suspended roots, a cavern, and distributed colonies; (2) an immense eye-like BB assembly suspended within a brass Hermeticon over a sparse, populated terrain. The images were supplied in the conversation, **not** uploaded into this repository. If Astra cannot access the conversation attachments, request them or use this detailed description; do not claim to have seen unavailable assets.
+
+**These references are a qualitative acceptance target.** The Institute must achieve comparable levels of structural differentiation, silhouette sophistication, density contrast, spatial layering, color/material organization, and dynamic visual life. It must not stop at a handful of simple rings, columns, cubes, and token agents. A successful implementation is not a pixel copy: it derives similarly complex structures from reusable executable recipes.
+
+### 17.1 What the first image demands
+
+A materially rich, layered landscape: low-poly terrain with overhangs and caves; rooted stalk populations with vertical growth; umbrella-like fungal branching; coral-like branching aggregates; dangling luminous chains; clustered, bead-built articulated animals; suspended bell-shaped jellyfish with tentacles; winged creatures with coherent membrane/rib lattices; and pockets of light whose illumination corresponds to actual organisms or devices. The composition has distinct near/middle/far populations, dense colonies contrasted with open traversable spaces, and credible contact between structures and terrain.
+
+These are **behavioral archetypes**, not mere shapes. A fungus has a root, growth allocation, branches, and reproduction or decay rule. A crawler has a segmented body, joints, gait/contact constraints, and material inventory. A jellyfish has a bell, radial anatomy, tentacles, buoyancy/propulsion abstraction, and a response to impact. A flying organism has lift/propulsion rules, articulated span geometry, and navigation. A luminous population has an energy source/cost or explicit chemical/material rule. Choose feasible abstractions, document them, and keep the causal contract truthful.
+
+### 17.2 What the second image demands
+
+A monumental **eye-like instrument or organism** made from many densely packed BBs with a coherent iris, pupil, concentric material regions, and physically meaningful sensing behavior. It is suspended within the Hermeticon over a much sparser landscape. This establishes a scale hierarchy: extremely detailed focal structure, sparse terrain-level populations, vast negative space, and a clearly visible vessel frame. The eye must have a purpose: observing, tracking, scanning, sampling, or coordinating the Institute. Its geometry and motion should express its function. It is **not** authorization to fill the world with a single static sphere of decorative BBs.
+
+If building a monumental eye, specify its support/locomotion mode, material source, sensor data, power, actuator costs, and behavior when the viewport moves. The Hermeticon remains a viewport, not the eye's physical parent.
+
+### 17.3 Reusable generative anatomy grammar
+
+Extend the structural grammar with a composable **living-anatomy grammar** shared by flora, fauna, machines, and architecture: branching, radial, bilateral, segmented, articulated, membrane/rib, lattice shell, filament/tentacle, packed volume, gradient material region, and anchored/propelled/constrained motion. Each recipe exposes scale, density, material palette, growth topology, joints, support/contact constraints, BB bill of materials, update cost, and inspection schema. Material must stay owned and conserved through growth, shedding, impact, and reconstruction.
+
+Use procedural density intelligently: clustered regions may contain many thousands of BBs, while distant areas remain sparse. Do not flatten everything to uniform BB spacing or indiscriminate noise. Structural hierarchy and negative space are essential.
+
+### 17.4 Required spectacle demonstrations
+
+1. **Growing colony:** An initially sparse botanical colony grows into differentiated branching/fungal structures using finite material, with visible construction stages and no spontaneous BB duplication.
+2. **Articulated life:** A segmented BB creature traverses uneven terrain, visibly actuating coherent body sections. Damage detaches real material through the existing debris engine.
+3. **Suspended life or instrument:** A jellyfish-like organism or suspended observatory moves with meaningful dynamics; tentacles/appendages respond coherently, and viewport movement does not change physical state.
+4. **Monumental focal anatomy:** An iris-like sensing assembly or similarly extraordinary architectural instrument forms a dense, readable, layered BB structure and performs actual observation.
+5. **Ecological/industrial coupling:** At least one living population exchanges material or information with the Institute's logistics/observation system. The Institute is embedded in an inhabited world, not surrounded by inert props.
+6. **Scale and density sweep:** Demonstrate close-up BB readability and wide-shot silhouette coherence while holding the mobile performance target. Report actual counts, draw cost, CPU update cost, and FPS.
+
+### 17.5 Performance and truth at high complexity
+
+Visual richness does not excuse invented behavior. Prioritize scalable instancing, recipe-based geometry, bounded simulation detail, sparse updates, deterministic procedural growth, and spatially localized interaction. An organism may have 10,000 rendered BBs without 10,000 independent physics solvers if grouped structural behavior is honestly modeled. Detached beads that enter loose physics must transfer into the existing debris system with real ownership receipts. Distinguish static structural beads, animated coherent beads, and free-moving debris.
+
+**Astra acceptance warning:** A technically correct foundry, transport network, and repair loop surrounded by simplistic placeholder shapes does **not** satisfy this charter. The user expects astonishing executable detail: systems that look richly alive because their internal structure and behavior are richly specified. Build and verify function first in slices, but deliver the visual sophistication as a first-class, measurable requirement, not optional polish.
