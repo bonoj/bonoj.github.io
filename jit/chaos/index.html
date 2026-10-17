@@ -2316,78 +2316,76 @@ function createEquatorialTreatment({ terrain, parent }) {
 
  // CHAOS LOCAL: BB-authoritative industrial colonies, first executable slice.
  // Each visible bead belongs to exactly one inventory or assembled structure.
- function createLittleWar(T, parent) {
-   const beadGeometry = new T.IcosahedronGeometry(0.065, 0);
-   const palettes = [0xd7a34e, 0x48c7b8];
-   const factions = [
-     { id:"brass", color:palettes[0], x:-5.1, z:-2.2, stock:240, factory:120, drones:[], built:0 },
-     { id:"verdigris", color:palettes[1], x:5.1, z:2.2, stock:240, factory:120, drones:[], built:0 }
-   ];
-   const meshes = factions.map((f) => {
-     const mesh = new T.InstancedMesh(beadGeometry, new T.MeshStandardMaterial({color:f.color,roughness:0.45,metalness:0.65}), 512);
-     mesh.name = "Little War / "+f.id+" / material BBs";
-     mesh.frustumCulled=false; parent.add(mesh); return mesh;
-   });
-   const dummy = new T.Object3D();
-   const seed=741; let tick=0, clock=0, lastCheck=null, eventCount=0;
-   const droneCost=36, initialTotal=factions.reduce((n,f)=>n+f.stock+f.factory,0);
-   const events=[];
-   function event(kind,f){eventCount++;events.push({tick,kind,faction:f.id});if(events.length>16)events.shift();}
-   function build(f){
-     if(f.stock<droneCost || f.drones.length>=4)return false; // temporary launch-slot capacity, not material cap
-     f.stock-=droneCost;
-     const id=f.built++;
-     f.drones.push({id,beads:droneCost,age:0,angle:id*1.8,orbit:1.2+id*.32,alt:2.4+id*.35});
-     event("assembled-and-launched",f);return true;
+ function createLittleWar(T,parent){
+ const geo=new T.IcosahedronGeometry(.085,1),dummy=new T.Object3D();
+ const factions=[{id:"brass",color:0xe9aa48,x:-4.7,z:-2.5,stock:240,factory:120,drones:[],built:0,shots:0,hits:0},{id:"verdigris",color:0x48ddcb,x:4.7,z:2.5,stock:240,factory:120,drones:[],built:0,shots:0,hits:0}];
+ const meshes=factions.map(f=>{const m=new T.InstancedMesh(geo,new T.MeshStandardMaterial({color:f.color,emissive:f.color,emissiveIntensity:.25,metalness:.62,roughness:.3}),1024);m.frustumCulled=false;m.name="Little War "+f.id+" structured BBs";parent.add(m);return m;});
+ const initial=720,events=[];let time=0,tick=0,acc=0,shots=0,hits=0,loose=[],breaches=0;
+ function log(kind,f){events.push({tick,kind,faction:f.id});if(events.length>24)events.shift();}
+ function build(f){if(f.stock<36)return false;f.stock-=36;const id=f.built++;f.drones.push({id,beads:36,x:f.x+(id%2)*.3,y:2.8,z:f.z,vx:0,vz:0,heading:0,age:0,cooldown:1+id*.3});log("launch",f);return true;}
+ factions.forEach(f=>{build(f);build(f);});
+ function segment(place,x,y,z,dx,dy,dz,n){for(let i=0;i<n;i++){const u=n===1?0:i/(n-1);place(x+dx*u,y+dy*u,z+dz*u);}}
+ function render(){
+  factions.forEach((f,fi)=>{
+   const mesh=meshes[fi];let index=0;
+   function place(x,y,z,scale=1){if(index>=1024)return;dummy.position.set(x,y,z);dummy.scale.setScalar(scale);dummy.updateMatrix();mesh.setMatrixAt(index++,dummy.matrix);}
+   // A legible foundry: four upright gantry legs, cross-braced walls, crown and chimney.
+   const x=f.x,z=f.z,y=1.45;
+   for(let i=0;i<f.factory;i++){
+    const q=i%4,k=Math.floor(i/4),u=k/29;
+    if(k<12){const sx=q<2?-1:1,sz=q%2?-1:1;place(x+sx*.75,y+u*1.35,z+sz*.75);}
+    else if(k<20){const a=(k-12)/8*Math.PI*2+q*Math.PI/2;place(x+Math.cos(a)*.78,y+1.05,z+Math.sin(a)*.78);}
+    else {const a=(k-20)/10*Math.PI*2;place(x+Math.cos(a)*(.25+q*.15),y+1.25+(q%2)*.25,z+Math.sin(a)*(.25+q*.15));}
    }
-   // Seed launch: the same debit path is used for every drone.
-   factions.forEach(f=>{build(f);build(f);});
-   function update(dt){
-     clock+=Math.min(.05,Math.max(0,dt));
-     while(clock>=.05){clock-=.05;tick++;for(const f of factions){
-       for(const d of f.drones){d.age+=.05;d.angle+=.05*(.48+(d.id%3)*.12)*(f.id==="brass"?1:-1);}
-       if(tick%100===0)build(f);
-     }}
-     for(let fi=0;fi<factions.length;fi++){
-       const f=factions[fi],mesh=meshes[fi];let index=0;
-       function place(x,y,z,scale=1){
-         dummy.position.set(x,y,z);dummy.scale.setScalar(scale);dummy.updateMatrix();
-         mesh.setMatrixAt(index++,dummy.matrix);
-       }
-       // The factory is a bead-built ring tower with an illuminated assembly crown.
-       for(let i=0;i<f.factory;i++){
-         const a=i*2.399963229728653,rad=.25+Math.sqrt(i/f.factory)*.72;
-         const level=(i%7)/6;
-         place(f.x+Math.cos(a)*rad,1.22+level*.8,f.z+Math.sin(a)*rad);
-       }
-       for(const d of f.drones){
-         const cx=f.x+Math.cos(d.angle)*d.orbit,cz=f.z+Math.sin(d.angle)*d.orbit;
-         const cy=d.alt+Math.sin(d.age*2+d.id)*.15;
-         for(let i=0;i<d.beads;i++){
-           const a=i*2.399963229728653,rr=Math.sqrt(i/d.beads);
-           // Central fuselage, two broad wings and a trailing tail.
-           const wing=i<24 ? (i%2?1:-1)*(.14+rr*.42):0;
-           const dx=wing+Math.cos(a)*.12;
-           const dz=i>=24?-.2-(i-24)*.028:Math.sin(a)*.16;
-           place(cx+dx,cy+Math.cos(a*2)*.045,cz+dz,.82);
-         }
-       }
-       mesh.count=index;mesh.instanceMatrix.needsUpdate=true;
-     }
-     const total=factions.reduce((n,f)=>n+f.stock+f.factory+f.drones.reduce((m,d)=>m+d.beads,0),0);
-     lastCheck={expected:initialTotal,observed:total,delta:total-initialTotal,pass:total===initialTotal};
+   for(const d of f.drones){
+    const c=Math.cos(d.heading),si=Math.sin(d.heading);
+    function p(dx,dy,dz){place(d.x+dx*c-dz*si,d.y+dy,d.z+dx*si+dz*c,.9);}
+    // Symmetric X wings, reinforced spine and forked tail: 36 physical beads.
+    for(let i=0;i<12;i++)p(0,0,.48-i*.09);
+    for(let side of [-1,1])for(let i=0;i<9;i++)p(side*(.12+i*.105),.035*Math.sin(i),.12-i*.055);
+    for(let side of [-1,1])for(let i=0;i<3;i++)p(side*(.16+i*.12),.02,-.58-i*.06);
    }
-   update(0);
-   return {update,inspect:()=>({
-     name:"Little War — material factories / autonomous launch",
-     phase:"A: factory fabrication and patrol; combat and salvage not yet enabled",
-     seed,tick,events:[...events],eventCount,
-     factions:factions.map(f=>({id:f.id,stock:f.stock,factoryBBs:f.factory,drones:f.drones.length,droneBBs:f.drones.reduce((n,d)=>n+d.beads,0),launched:f.built,material:f.stock+f.factory+f.drones.reduce((n,d)=>n+d.beads,0)})),
-     materialInvariant:lastCheck,materialAuthority:"local assembled BB ledger; not yet integrated with detached debris",
-     intervention:{meteor:"existing Cinderfall instrument; war damage pending",materialRain:false},
-     visibleBeads:meshes.reduce((n,m)=>n+m.count,0)
-   })};
+   mesh.count=index;mesh.instanceMatrix.needsUpdate=true;
+  });
  }
+ function update(dt){
+  const elapsed=Math.min(.06,Math.max(0,dt));time+=elapsed;acc+=elapsed;
+  // Continuous render-time motion; deterministic combat decisions at 20Hz.
+  while(acc>=.05){acc-=.05;tick++;for(let fi=0;fi<2;fi++){
+   const f=factions[fi],enemy=factions[1-fi];
+   if(tick%120===0&&f.drones.length<8)build(f);
+   for(const d of f.drones){
+    d.age+=.05;d.cooldown-=.05;
+    const target=enemy.drones.find(e=>e.beads>0)||{x:enemy.x,y:2.8,z:enemy.z};
+    const dx=target.x-d.x,dz=target.z-d.z,dist=Math.hypot(dx,dz)||1;
+    const side=fi===0?1:-1;
+    const tx=dx/dist*.8-dz/dist*.65*side,tz=dz/dist*.8+dx/dist*.65*side;
+    d.vx+=(tx*2.4-d.vx)*.075;d.vz+=(tz*2.4-d.vz)*.075;
+    d.heading=Math.atan2(d.vx,d.vz);
+    if(dist<3.5&&d.cooldown<=0){
+     d.cooldown=.75+(d.id%3)*.22;f.shots++;shots++;
+     if(target.beads>0){target.beads--;hits++;f.hits++;loose.push({x:target.x,y:target.y,z:target.z,age:0});log("BB detached by fire",f);}
+    }
+   }
+   // Destroyed craft release their remaining BBs, without inventing material.
+   for(let i=f.drones.length-1;i>=0;i--)if(f.drones[i].beads<=0){f.drones.splice(i,1);log("drone destroyed",f);}
+  }
+  for(const b of loose){b.age+=.05;b.y=Math.max(-9.9,b.y-.07);if(b.y<=-9.9)breaches++;}
+  }
+  // Interpolate movement every render frame instead of stepping at 20Hz.
+  for(const f of factions)for(const d of f.drones){d.x+=d.vx*elapsed;d.z+=d.vz*elapsed;d.y=2.9+Math.sin(time*2+d.id)*.14;}
+  render();
+ }
+ update(0);
+ return {update,inspect:()=>{const total=factions.reduce((n,f)=>n+f.stock+f.factory+f.drones.reduce((a,d)=>a+d.beads,0),loose.length);return{
+  name:"Little War — BB foundries and autonomous skirmish",phase:"B: dogfight and damage; salvage/physical debris integration pending",
+  tick,seconds:+time.toFixed(1),shots,hits,looseBBs:loose.length,breaches,
+  factions:factions.map(f=>({id:f.id,stock:f.stock,factoryBBs:f.factory,drones:f.drones.length,droneBBs:f.drones.reduce((n,d)=>n+d.beads,0),launched:f.built,shots:f.shots,hits:f.hits})),
+  materialInvariant:{expected:initial,observed:total,delta:total-initial,pass:total===initial},
+  movement:"continuous frame-rate positions; 20Hz decisions",events:[...events],
+  warning:"Detached BBs currently tracked in local ledger, not rendered or handed to shared debris. Combat is provisional."
+ };}};
+}
 
 // shell/codex/entropy/world.js
 import * as T5 from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
