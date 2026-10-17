@@ -1,6 +1,6 @@
 # JIT Chaos
 
-> **ASTRA ENTRYPOINT:** [ASTRA_START_HERE.md](./ASTRA_START_HERE.md) — read this first for the complete self-contained Chaos source map, charter reading order, and execution contract.
+> **ASTRA CONJOINER:** [ASTRA_CONJOINER.md](./ASTRA_CONJOINER.md) — read this first for the complete self-contained Chaos source map, charter reading order, and execution contract.
 
 **Purpose:** disposable, rapidly flashed, deliberately messy Entropy experiments.
 
