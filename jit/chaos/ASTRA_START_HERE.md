@@ -43,13 +43,59 @@ These are existing functions in the frozen Chaos artifact, **not instructions to
 - Existing practice entities total 253 BBs; they are contract fixtures, not the final Institute.
 - Old README sections describe rejected per-BB CPU clipping; current shader fragment aperture supersedes them.
 
+## Self-contained GitHub write recovery (no Gate or Sanctum dependency)
+
+This protocol is part of Chaos's own handoff. GitHub tool names below describe capabilities, not guaranteed permissions or guaranteed successful writes. Discover available tool signatures before calling them. **Never interpret a safety/policy refusal as a transient API error or attempt to bypass it.** For ordinary transport errors, diagnose once and switch to a legitimate supported method.
+
+### Normal path — small edits
+1. Fetch the target file and record its current blob SHA.
+2. Edit only the intended source section, preserving all other content.
+3. Update the file using its current blob SHA and an explanatory commit message.
+4. Fetch the file again and compare exact content, record the resulting commit SHA.
+5. If the SHA is stale (409/conflict), re-fetch and merge the intended change against the new version; do not blindly overwrite concurrent work.
+6. Check the resulting commit and Pages state independently; only browser-executing build evidence proves what is live.
+
+### Large frozen monolith — transport alternatives
+The full `jit/chaos/index.html` may exceed comfortable contents-update limits. **Do not repeatedly send the same oversized payload.** If the available GitHub API supports it and the failure is a size/transport limit rather than an authorization or policy denial, use Git's native tree/commit/ref path:
+1. Fetch the current branch ref/head and parent tree (inspect the precise tool signatures).
+2. Create a blob for the intended full file content using `create_blob`, within that tool's size limits.
+3. Create a tree based on the current tree, replacing **only** `jit/chaos/index.html` (and any separately intended Chaos documentation files). Preserve every unrelated path.
+4. Create a commit pointing to the new tree and current head as parent.
+5. Update the intended branch ref with the new commit, without force-pushing.
+6. Re-fetch the exact target path and commit to verify content and ancestry.
+
+**If blob creation itself rejects the payload:** Stop that path. Check whether the environment offers an authorized local checkout + `git` push, or a documented chunk-transport/assembly mechanism with independent integrity checks. Use only available, authorized tools. Never claim chunk transport exists merely because another project once had one. If no supported method is available, preserve the exact patch and report the blocker; do not fabricate success or corrupt the monolith.
+
+### Failure classification and next action
+- **Stale SHA / ref moved / conflict:** re-fetch latest head and rebase or merge the specific change; do not force.
+- **Payload too large / timeout / truncation:** switch from contents update to blob/tree/commit/ref, or a supported local Git workflow. Verify full bytes/hashes.
+- **Rate limit / temporary 5xx:** back off, preserve the patch and retry sparingly; do not loop.
+- **401/403 permissions or authentication:** stop writes, identify required authorization; do not switch tools to evade a restriction.
+- **Policy or safety refusal:** stop the refused action and report it accurately. Do not relabel as a transport problem.
+- **Unexpected content / malformed result:** inspect current remote state before any further write. Never assume a failed response means no commit occurred.
+- **Successful commit but stale Pages:** verify workflow/build/deployment status, then inspect canonical URL and executing SHA; do not destroy browser state or change cache-busting conventions without evidence.
+- **Broken live runtime:** record failing SHA and error, restore the last verified working artifact through a new, verified commit only when necessary; preserve diagnostics and document the rollback.
+
+### Persistence and cold restart
+Maintain `ASTRA_PROGRESS.md` with: last verified working runtime SHA, current source commit, completed/failed changes, exact blocker and tool response, next intended patch, acceptance evidence, and what remains unverified. Maintain `COMPONENT_CATALOG.md` for reusable boundaries. If a session ends mid-write, **re-read remote state first** and resume from the last verified commit rather than trusting a prior attempt.
+
+### Verification ladder
+1. **Prepared** — patch exists.
+2. **Committed** — GitHub returned a commit SHA.
+3. **Read-back verified** — fetched source matches the intended change.
+4. **Deployed** — Pages/deployment evidence references the expected commit.
+5. **Executing** — runtime observation or browser instrumentation confirms the actual loaded build.
+6. **Behavior verified** — acceptance instrumentation and user-visible behavior match the requirement.
+
+Never collapse these stages into the word "live". The existing Chaos README and full charter provide the project-specific invariants; this section provides the complete **local recovery decision tree** without requiring Gate, Sanctum, or another repository.
+
 ## How to work
 1. Read the complete charter and inspect the real code. State a compact architecture map and immediate first vertical slice.
 2. Begin **implementing**, not just planning. Phase 0/1 should establish observer-independent world view and a reliable test path without breaking the existing running build. Then build material conservation and a genuinely working biomechanical slice.
 3. After each substantive change: read back source, perform available syntax/static checks, check deployment, and request runtime JSON or user visual confirmation if browser execution cannot be verified directly.
 4. Maintain `COMPONENT_CATALOG.md` (component boundaries, inputs/outputs, ownership, extraction readiness) and `ASTRA_PROGRESS.md` (commits, tested claims, failures, next step) inside `jit/chaos/`. Create these as you begin work.
 5. Deliver end-to-end causal behaviors, not isolated scaffolding. Follow the charter's acceptance experiments and mark each **observed**, **source-verified**, or **unverified**.
-6. Keep the live-working baseline recoverable. If blocked by GitHub writes, inspect existing repository recovery paths; do not repeatedly brute-force identical failing writes or abandon the task.
+6. Keep the live-working baseline recoverable. If GitHub writes fail, follow the **self-contained GitHub write recovery** protocol above. Do not depend on Gate or Sanctum, repeat a blocked operation, or abandon a preserved patch.
 
 ## What a successful first session looks like
 Astra has read the entire spec, inspected the existing engine, documented a component map and phase plan, committed a small meaningful functional improvement within Chaos, verified the source read-back, and clearly identified what still needs deployment/browser evidence. Continue autonomously through subsequent slices as the environment permits.
