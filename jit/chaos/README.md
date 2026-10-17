@@ -1,5 +1,11 @@
 # JIT Chaos
 
+## Current Astra handoff — Living Institute, first working machine
+
+Read [ASTRA_PROGRESS.md](./ASTRA_PROGRESS.md), [COMPONENT_CATALOG.md](./COMPONENT_CATALOG.md), and [ACCEPTANCE_RESULTS.json](./ACCEPTANCE_RESULTS.json) for current implementation and evidence. The Mnemonic Loom now surveys, carries finite stock, builds a span, loses 16 BBs, retrieves them through the existing debris engine and repairs. Its 2,437-BB total is conserved in executed tests. Loom-only reload checkpoints preserve partial construction and salvage. Full-world persistence and the full Crown/Seam/Underside civilization remain unfinished. GPU/mobile verification is pending: the available cloud browser has WebGL disabled.
+
+Earlier sections below describe the preserved baseline and superseded priorities; current implementation details are in the linked progress record. The last user-observed good rendering remains `6f63b78b`; do not confuse successful new source tests with phone rendering verification.
+
 > **ASTRA CONJOINER:** [ASTRA_CONJOINER.md](./ASTRA_CONJOINER.md) — read this first for the complete self-contained Chaos source map, charter reading order, and execution contract.
 
 **Purpose:** disposable, rapidly flashed, deliberately messy Entropy experiments.

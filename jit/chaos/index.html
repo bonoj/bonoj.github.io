@@ -64,7 +64,7 @@ body:has(#sieveWorkspace) #sieveOverlay{z-index:30}
 #huntRoot .huntCandidate{display:grid;gap:6px;padding:12px;border:1px solid #66543a;border-radius:9px;background:#172333;color:#e7dbb7;font:12px/1.4 system-ui}
 #huntRoot .huntCandidate a{margin:0;min-height:40px;padding:10px}
 #huntRoot .huntCandidate button{justify-self:start}
-</style></head><body><div id="stage"></div><div id="containmentAlarm" role="alert"></div><div id="probePanel"><div id="probeActions"><button id="copyProbe">COPY REPORT</button><button id="detailsProbe" type="button" aria-expanded="false">DETAILS ▾</button></div><textarea id="probeText" readonly aria-label="Selectable inspection report" style="display:block;width:100%;height:65vh;resize:vertical;background:#07121d;color:#d9e6e5;font:12px/1.4 monospace"></textarea></div><div id="title"><h1>CHAOS</h1><div id="buildRow"><span id="build"></span><span id="fps">◌ fps</span></div></div><div id="hud"><div id="githubPanel" hidden><div class="githubPanelTitle">🐙 JIT · Chaos</div><a href="https://github.com/bonoj/bonoj.github.io/blob/master/jit/chaos/README.md" target="_blank" rel="noopener noreferrer">HANDOFF ↗</a><a href="https://github.com/bonoj/bonoj.github.io/commits/master/jit/chaos/" target="_blank" rel="noopener noreferrer">COMMITS ↗</a><a href="https://github.com/bonoj/bonoj.github.io/actions/workflows/stable-world.yml" target="_blank" rel="noopener noreferrer">PIPELINE ↗</a></div><div id="buttons"><button id="sieveToggle" type="button" aria-label="Toggle Sieve workspace" title="Sieve workspace" aria-controls="sieveOverlay" aria-expanded="false">🗑</button><button id="githubToggle" type="button" aria-label="Toggle Chaos GitHub links" title="Chaos GitHub" aria-controls="githubPanel" aria-expanded="false">🐙</button><button id="meteor" type="button" aria-label="Cast Cinderfall meteor" title="Cast Cinderfall meteor">☄️</button><button id="probe" type="button" aria-label="Inspect Athanor" title="Inspect Athanor">👁</button><button id="fresh" type="button" aria-label="Refresh Athanor" title="Refresh Athanor"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M26 13a10.5 10.5 0 1 0 .4 6 M26 5v8h-8"/></svg></button></div></div><section id="sieveOverlay" hidden aria-label="Sieve workspace"><div id="sieveOverlayHead"><span>SHELL · OUTREACH WORKSPACE</span><button id="sieveClose" type="button" aria-label="Close Sieve">✕</button></div><div id="sieveWorkspace"><p>Sieve is the job-search and outreach workspace: 100 connections, 100 applications, 100 professional emails. Campaign state and execution live in the private Sieve machinery.</p><a href="https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/README.md" target="_blank" rel="noopener noreferrer">SIEVE README ↗</a><a href="https://github.com/bonoj/Abyss/blob/main/shell/HANDOFF.md" target="_blank" rel="noopener noreferrer">HANDOFF ↗</a><a href="https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/WORKING_SPEC.md" target="_blank" rel="noopener noreferrer">WORKING SPEC ↗</a><a href="https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/CONJOINER_FRONTIER.md" target="_blank" rel="noopener noreferrer">CONJOINER ↗</a><a href="https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/RESUME.md" target="_blank" rel="noopener noreferrer">RÉSUMÉ ↗</a></div></section><div id="error"></div><script>
+</style></head><body><div id="stage"></div><div id="containmentAlarm" role="alert"></div><div id="probePanel"><div id="probeActions"><button id="copyProbe">COPY REPORT</button><button id="detailsProbe" type="button" aria-expanded="false">DETAILS ▾</button></div><textarea id="probeText" readonly aria-label="Selectable inspection report" style="display:block;width:100%;height:65vh;resize:vertical;background:#07121d;color:#d9e6e5;font:12px/1.4 monospace"></textarea></div><div id="title"><h1>CHAOS</h1><div id="buildRow"><span id="build"></span><span id="fps">◌ fps</span></div><div id="loomStatus" style="font:10px ui-monospace,monospace;color:#9dc5c9;letter-spacing:.08em;margin-top:7px"></div></div><div id="hud"><div id="githubPanel" hidden><div class="githubPanelTitle">🐙 JIT · Chaos</div><a href="https://github.com/bonoj/bonoj.github.io/blob/master/jit/chaos/README.md" target="_blank" rel="noopener noreferrer">HANDOFF ↗</a><a href="https://github.com/bonoj/bonoj.github.io/commits/master/jit/chaos/" target="_blank" rel="noopener noreferrer">COMMITS ↗</a><a href="https://github.com/bonoj/bonoj.github.io/actions/workflows/stable-world.yml" target="_blank" rel="noopener noreferrer">PIPELINE ↗</a></div><div id="buttons"><button id="sieveToggle" type="button" aria-label="Toggle Sieve workspace" title="Sieve workspace" aria-controls="sieveOverlay" aria-expanded="false">🗑</button><button id="githubToggle" type="button" aria-label="Toggle Chaos GitHub links" title="Chaos GitHub" aria-controls="githubPanel" aria-expanded="false">🐙</button><button id="loomPause" type="button" aria-label="Pause Institute" title="Pause Institute">⏸</button><button id="loomDamage" type="button" aria-label="Damage Loom span" title="Damage Loom span">⚡</button><button id="meteor" type="button" aria-label="Cast Cinderfall meteor" title="Cast Cinderfall meteor">☄️</button><button id="probe" type="button" aria-label="Inspect Athanor" title="Inspect Athanor">👁</button><button id="fresh" type="button" aria-label="Refresh Athanor" title="Refresh Athanor"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M26 13a10.5 10.5 0 1 0 .4 6 M26 5v8h-8"/></svg></button></div></div><section id="sieveOverlay" hidden aria-label="Sieve workspace"><div id="sieveOverlayHead"><span>SHELL · OUTREACH WORKSPACE</span><button id="sieveClose" type="button" aria-label="Close Sieve">✕</button></div><div id="sieveWorkspace"><p>Sieve is the job-search and outreach workspace: 100 connections, 100 applications, 100 professional emails. Campaign state and execution live in the private Sieve machinery.</p><a href="https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/README.md" target="_blank" rel="noopener noreferrer">SIEVE README ↗</a><a href="https://github.com/bonoj/Abyss/blob/main/shell/HANDOFF.md" target="_blank" rel="noopener noreferrer">HANDOFF ↗</a><a href="https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/WORKING_SPEC.md" target="_blank" rel="noopener noreferrer">WORKING SPEC ↗</a><a href="https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/CONJOINER_FRONTIER.md" target="_blank" rel="noopener noreferrer">CONJOINER ↗</a><a href="https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/RESUME.md" target="_blank" rel="noopener noreferrer">RÉSUMÉ ↗</a></div></section><div id="error"></div><script>
 (function(){
  const el=document.getElementById('error');
  function fatal(error){
@@ -532,6 +532,7 @@ try {
 } catch (e) {
   window.BaubleFatal(e);
   console.error(e);
+  throw e; // Preserve the original graphics failure; do not attempt to mount a half-initialized host.
 }
 
 // shell/arcana/hermeticon.js
@@ -1728,8 +1729,9 @@ function catchVesselUnderside(body, { innerRadius, beadRadius = 0, margin = WAND
 }
 
 // shell/arcana/physics/bead-debris.js
-function createBeadDebris(T6, { terrain, offset, innerRadius, parent, abiogenesis = null, wanderer = null }) {
+function createBeadDebris(T6, { terrain, offset, innerRadius, parent, abiogenesis = null, wanderer = null, view = null }) {
   const geo = new T6.IcosahedronGeometry(1, 1), mat = new T6.MeshStandardMaterial({ roughness: 0.8, metalness: 0.04 });
+  if(view)applyChaosAperture(mat,view);
   let mesh = null, allocated = 0;
   const perf = { growths: 0, lastGrowthMs: 0, peakGrowthMs: 0, lastEmitMs: 0, peakEmitMs: 0, lastPhysicsMs: 0, peakPhysicsMs: 0, lastRenderMs: 0, peakRenderMs: 0 };
   function ensureMesh(required) {
@@ -1761,7 +1763,7 @@ function createBeadDebris(T6, { terrain, offset, innerRadius, parent, abiogenesi
       const x = item.x, y = item.y, z = item.z, dx = x - point.x, dy = y - point.y, dz = z - point.z;
       const dist = Math.hypot(dx, dy, dz) || 1e-3, fall = Math.max(0.25, 1 - Math.min(1, dist / 3.2));
       const power = impulse * fall * (0.65 + 0.35 * Math.sin(emitted * 12.9898) ** 2), inv = 1 / dist;
-      const b = { x, y, z, vx: dx * inv * power, vy: dy * inv * power + 3, vz: dz * inv * power, r: item.r, color: item.color, ax: Math.sin(emitted * 3.7) * 14, ay: Math.cos(emitted * 2.3) * 14, az: Math.sin(emitted * 1.9) * 14, owner: "terrain", rx: 0, ry: 0, rz: 0 };
+      const b = { x, y, z, vx: dx * inv * power, vy: dy * inv * power + 3, vz: dz * inv * power, r: item.r, color: item.color, ax: Math.sin(emitted * 3.7) * 14, ay: Math.cos(emitted * 2.3) * 14, az: Math.sin(emitted * 1.9) * 14, owner: "terrain", batch:item.batch??null, rx: 0, ry: 0, rz: 0 };
       beads.push(b);
       emitted++;
     }
@@ -1840,7 +1842,7 @@ function createBeadDebris(T6, { terrain, offset, innerRadius, parent, abiogenesi
       wandererLastAffected = 0;
       const footprintRadius = 1.23, footprint2 = footprintRadius * footprintRadius;
       for (const b of beads) {
-        if (b.owner !== "terrain") continue;
+        if (b.owner !== "terrain" || b.batch) continue;
         const dx = wc.x + o.x - b.x, dz = wc.z + o.z - b.z;
         if (dx * dx + dz * dz > footprint2) continue;
         const field = sample(b.x, b.y, b.z);
@@ -1902,7 +1904,7 @@ function createBeadDebris(T6, { terrain, offset, innerRadius, parent, abiogenesi
           b.az *= 0.999;
           continue;
         }
-        if (wc) {
+        if (wc && !b.batch) {
           const dx = ox - (b.owner === "terrain" ? o.x : 0) - wc.x, dy = oy - wc.y, dz = oz - (b.owner === "terrain" ? o.z : 0) - wc.z;
           const sx = b.vx * step, sy = b.vy * step, sz = b.vz * step, r = wanderer.innerRadius - b.r - 3e-3;
           if (r > 0 && Math.min(dx, dx + sx) <= r && Math.max(dx, dx + sx) >= -r && Math.min(dy, dy + sy) <= r && Math.max(dy, dy + sy) >= -r && Math.min(dz, dz + sz) <= r && Math.max(dz, dz + sz) >= -r) {
@@ -1923,7 +1925,7 @@ function createBeadDebris(T6, { terrain, offset, innerRadius, parent, abiogenesi
             }
           }
         }
-        if (abiogenesis) {
+        if (abiogenesis && !b.batch) {
           const dx = ox - (b.owner === "terrain" ? o.x : 0) - cradle.x;
           const dy = oy - cradle.y, dz = oz - (b.owner === "terrain" ? o.z : 0) - cradle.z;
           const sx = b.vx * step, sy = b.vy * step, sz = b.vz * step;
@@ -1984,7 +1986,7 @@ function createBeadDebris(T6, { terrain, offset, innerRadius, parent, abiogenesi
         // Genesis bowl: prevent tunneling past the narrow underside contact band.
         // A particle already below the open rim and outside the glass is projected
         // back to the inner sphere, regardless of how far it travelled this step.
-        const wall = catchVesselUnderside(vesselBody, { innerRadius, beadRadius: b.r, margin: WANDERER_PHYSICS.vesselMargin });
+        const wall = b.batch ? {caught:false} : catchVesselUnderside(vesselBody, { innerRadius, beadRadius: b.r, margin: WANDERER_PHYSICS.vesselMargin });
         if (wall.caught) {
           if (b.owner !== "vessel") {
             b.x = vesselBody.x;
@@ -2018,7 +2020,7 @@ function createBeadDebris(T6, { terrain, offset, innerRadius, parent, abiogenesi
       const x = b.owner === "wanderer" ? wc.x + b.x : b.owner === "abiogenesis" ? abiogenesis.position.x + b.x : b.x - (b.owner === "terrain" ? o.x : 0);
       const y = b.owner === "wanderer" ? wc.y + b.y : b.owner === "abiogenesis" ? abiogenesis.position.y + b.y : b.y;
       const z = b.owner === "wanderer" ? wc.z + b.z : b.owner === "abiogenesis" ? abiogenesis.position.z + b.z : b.z - (b.owner === "terrain" ? o.z : 0);
-      if (Math.hypot(x, y, z) + b.r > innerRadius) continue;
+      // Fragment aperture handles presentation; no bead-center deletion.
       dummy.position.set(x, y, z);
       dummy.rotation.set(b.rx, b.ry, b.rz);
       dummy.scale.setScalar(b.r);
@@ -2037,7 +2039,17 @@ function createBeadDebris(T6, { terrain, offset, innerRadius, parent, abiogenesi
     perf.lastRenderMs = performance.now() - renderStart;
     perf.peakRenderMs = Math.max(perf.peakRenderMs, perf.lastRenderMs);
   }
-  return { emit, canAccept, receiveImpulse, collideSphere, directRegionToward, update, inspect: () => ({ name: "Detached anatomical BBs", count: beads.length, visible: mesh.count, terrainHits, vesselHits, wandererCaptures, wandererInteriorHits, wandererPulses, wandererLastAffected, vacuumFootprintRadius: 1.23, abiogenesisCaptures, abiogenesisInteriorHits, abiogenesisExteriorHits, abiogenesisPulses, abiogenesisLastAffected, directionCommands, lastDirected, emitted, allocated, perf: { ...perf }, ownership: { ...ownership } }) };
+  function locateBatch(batch){return beads.filter(b=>b.batch===batch).map(b=>({x:b.x,y:b.y,z:b.z,r:b.r}));}
+  function collectBatch({batch,point,radius,max},accept){
+    const found=[];for(let i=0;i<beads.length&&found.length<max;i++){const b=beads[i];if(b.batch===batch&&Math.hypot(b.x-point.x,b.y-point.y,b.z-point.z)<=radius)found.push(i);}
+    if(!found.length||!accept(found.length))return 0;
+    for(let i=found.length-1;i>=0;i--)beads.splice(found[i],1);
+    return found.length;
+  }
+  function snapshotBatch(batch){return {emitted,items:beads.filter(b=>b.batch===batch).map(b=>({...b,color:b.color.getHex()}))};}
+  function validateBatch(batch,s){return s&&Number.isInteger(s.emitted)&&s.emitted>=0&&Array.isArray(s.items)&&s.items.every(b=>b.batch===batch&&b.owner==='terrain'&&['x','y','z','vx','vy','vz','r','ax','ay','az','rx','ry','rz','color'].every(k=>Number.isFinite(b[k]))&&b.r>0);}
+  function restoreBatch(batch,s){if(!validateBatch(batch,s))throw Error('invalid debris checkpoint');for(let i=beads.length-1;i>=0;i--)if(beads[i].batch===batch)beads.splice(i,1);for(const b of s.items)beads.push({...b,color:new T6.Color(b.color)});emitted=s.emitted;}
+  return { emit, canAccept, locateBatch, collectBatch, snapshotBatch,validateBatch,restoreBatch, receiveImpulse, collideSphere, directRegionToward, update, inspect: () => ({ name: "Detached anatomical BBs", count: beads.length, visible: null, submitted: mesh.count, visibilityMeasurement:"GPU fragment clipping; readback unavailable", terrainHits, vesselHits, wandererCaptures, wandererInteriorHits, wandererPulses, wandererLastAffected, vacuumFootprintRadius: 1.23, abiogenesisCaptures, abiogenesisInteriorHits, abiogenesisExteriorHits, abiogenesisPulses, abiogenesisLastAffected, directionCommands, lastDirected, emitted, allocated, perf: { ...perf }, ownership: { ...ownership } }) };
 }
 
 // shell/arcana/physics/impact-dispatcher.js
@@ -2318,27 +2330,7 @@ function createEquatorialTreatment({ terrain, parent }) {
  // Each visible bead belongs to exactly one inventory or assembled structure.
  // Hermeticon Institute: purpose -> functional graph -> lattice -> BB embodiment.
 // Terrain Entity Contract v1 — all positions are terrain-local; rendering follows terrain.group.
-function createTerrainEntityContract(T,terrain,surface,view){
- const root=new T.Group();root.name="Arcana / Terrain Entity Contract";terrain.group.add(root);
- const entities=[],violations=[],bead=new T.IcosahedronGeometry(.075,1);
- const palettes={stone:0xadb3a7,brass:0xe0ad62,glass:0x7dd9df,ember:0xf28b55};
- function compose(spec){
-  if(!spec||typeof spec.id!=="string"||!spec.id||!spec.role||!["anchored","propelled"].includes(spec.motion)||!spec.anchor||!Number.isFinite(spec.anchor.x)||!Number.isFinite(spec.anchor.z)||!Array.isArray(spec.parts)||!spec.parts.length)throw Error("terrain entity contract: invalid specification");
-  if(entities.some(e=>e.id===spec.id))throw Error("duplicate terrain entity: "+spec.id);
-  const group=new T.Group();group.name=spec.id;root.add(group);
-  const anchor=spec.anchor;const ground=surface(anchor.x,anchor.z);
-  if(spec.motion==="anchored"&&ground===null)throw Error("unsupported terrain anchor: "+spec.id);
-  const base=ground??1.15;group.position.set(anchor.x,base+(anchor.clearance||0),anchor.z);
-  const components=[],renderParts=[];let materialCount=0;
-  for(const part of spec.parts){
-   const positions=[];
-   const segment=(p,q,n)=>{for(let i=0;i<n;i++){const t=n===1?0:i/(n-1);positions.push([p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t,p[2]+(q[2]-p[2])*t]);}};
-   if(part.kind==="segment")segment(part.a,part.b,part.count||12);
-   else if(part.kind==="ring"){const n=part.count||48;for(let i=0;i<n;i++){const a=i*2*Math.PI/n;positions.push([part.center[0]+Math.cos(a)*part.radius,part.center[1],part.center[2]+Math.sin(a)*part.radius]);}}
-   else if(part.kind==="meridian"){const n=part.count||48;for(let i=0;i<n;i++){const a=i*2*Math.PI/n;positions.push([part.center[0]+Math.cos(a)*part.radius,part.center[1]+Math.sin(a)*part.radius,part.center[2]]);}}
-   else throw Error("unknown lattice primitive "+part.kind);
-   const material=new T.MeshStandardMaterial({color:palettes[part.material]||palettes.stone,metalness:.55,roughness:.4});
-   // Fragment-level Hermeticon aperture: geometry is persistent; no BB instance culling.
+function applyChaosAperture(material,view){
    material.onBeforeCompile=shader=>{
     shader.uniforms.entityViewCenter={value:view.center};
     shader.uniforms.entityViewRadius={value:view.radius};
@@ -2348,8 +2340,33 @@ function createTerrainEntityContract(T,terrain,surface,view){
     shader.fragmentShader=shader.fragmentShader.replace("#include <clipping_planes_fragment>","#include <clipping_planes_fragment>\nif(distance(vEntityWorld,entityViewCenter)>entityViewRadius) discard;");
    };
    material.customProgramCacheKey=()=> "entity-spherical-aperture-v1";
+}
+
+function createTerrainEntityContract(T,terrain,surface,view){
+ const root=new T.Group();root.name="Arcana / Terrain Entity Contract";terrain.group.add(root);
+ const entities=[],violations=[],bead=new T.IcosahedronGeometry(.075,1);
+ const palettes={stone:0xadb3a7,brass:0xe0ad62,glass:0x7dd9df,ember:0xf28b55};
+ function compose(spec){
+  if(!spec||typeof spec.id!=="string"||!spec.id||!spec.role||!["anchored","propelled","constrained"].includes(spec.motion)||!spec.anchor||!Number.isFinite(spec.anchor.x)||!Number.isFinite(spec.anchor.z)||!Array.isArray(spec.parts)||!spec.parts.length)throw Error("terrain entity contract: invalid specification");
+  if(entities.some(e=>e.id===spec.id))throw Error("duplicate terrain entity: "+spec.id);
+  const group=new T.Group();group.name=spec.id;root.add(group);
+  const anchor=spec.anchor;const ground=surface(anchor.x,anchor.z);
+  if(spec.motion==="anchored"&&ground===null)throw Error("unsupported terrain anchor: "+spec.id);
+  const base=ground??1.15;group.position.set(anchor.x,base+(anchor.clearance||0),anchor.z);
+  const components=[],renderParts=[];let materialCount=0;
+  for(const part of spec.parts){
+   const positions=[];
+   const segment=(p,q,n)=>{for(let i=0;i<n;i++){const t=n===1?0:i/(n-1);positions.push([p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t,p[2]+(q[2]-p[2])*t]);}};
+   if(part.kind==="points")positions.push(...part.points);
+   else if(part.kind==="segment")segment(part.a,part.b,part.count||12);
+   else if(part.kind==="ring"){const n=part.count||48;for(let i=0;i<n;i++){const a=i*2*Math.PI/n;positions.push([part.center[0]+Math.cos(a)*part.radius,part.center[1],part.center[2]+Math.sin(a)*part.radius]);}}
+   else if(part.kind==="meridian"){const n=part.count||48;for(let i=0;i<n;i++){const a=i*2*Math.PI/n;positions.push([part.center[0]+Math.cos(a)*part.radius,part.center[1]+Math.sin(a)*part.radius,part.center[2]]);}}
+   else throw Error("unknown lattice primitive "+part.kind);
+   const material=new T.MeshStandardMaterial({color:palettes[part.material]||palettes.stone,metalness:.55,roughness:.4});
+   // Fragment-level Hermeticon aperture: geometry is persistent; no BB instance culling.
+   applyChaosAperture(material,view);
    const mesh=new T.InstancedMesh(bead,material,positions.length);
-   const d=new T.Object3D();for(let i=0;i<positions.length;i++){d.position.set(...positions[i]);d.updateMatrix();mesh.setMatrixAt(i,d.matrix);}mesh.instanceMatrix.needsUpdate=true;mesh.name=spec.id+"/"+part.role;group.add(mesh);
+   const d=new T.Object3D();for(let i=0;i<positions.length;i++){d.position.set(...positions[i]);d.scale.setScalar(part.scale??1);d.updateMatrix();mesh.setMatrixAt(i,d.matrix);}mesh.instanceMatrix.needsUpdate=true;mesh.frustumCulled=false;mesh.name=spec.id+"/"+part.role;group.add(mesh);
    materialCount+=positions.length;renderParts.push({mesh,positions,visible:positions.length});components.push({role:part.role,primitive:part.kind,beads:positions.length});
   }
   const e={id:spec.id,role:spec.role,motion:spec.motion,anchor:{...anchor},base,ground,group,components,renderParts,visibleCount:materialCount,materialCount,phase:0,velocity:spec.velocity||[0,0,0],supportValid:ground!==null};
@@ -2381,11 +2398,164 @@ function createTerrainEntityContract(T,terrain,surface,view){
   }
  }
  update(0);
- return {update,inspect:()=>{
+ function part(id,i){const e=entities.find(e=>e.id===id);if(!e||!e.renderParts[i])throw Error("unknown entity part");return [e,e.renderParts[i]];}
+ function setPartCount(id,i,n){const [e,p]=part(id,i);if(!Number.isInteger(n)||n<0||n>p.positions.length)throw Error("invalid part count");e.materialCount+=n-p.mesh.count;p.mesh.count=n;}
+ function setPose(id,p,rotation=0){const e=entities.find(e=>e.id===id);if(!e||e.motion!=="constrained")throw Error("pose requires constrained entity");e.group.position.set(...p);e.group.rotation.z=rotation;}
+ function partPose(id,i,position,rotation=0,scale=[1,1,1]){const [,p]=part(id,i);p.mesh.position.set(...position);p.mesh.rotation.z=rotation;p.mesh.scale.set(...scale);}
+ function partPoints(id,i,start=0,end){const [e,p]=part(id,i);e.group.updateMatrix();p.mesh.updateMatrix();return p.positions.slice(start,end).map(v=>new T.Vector3(...v).applyMatrix4(p.mesh.matrix).applyMatrix4(e.group.matrix).toArray());}
+ return {update,compose:spec=>{const e=compose(spec);return {id:e.id,beads:e.materialCount};},setPartCount,setPose,partPose,partPoints,inspect:()=>{
   root.updateWorldMatrix(true,true);terrain.group.updateWorldMatrix(true,false);
   const inverse=terrain.group.matrixWorld.clone().invert();
-  return {name:"Arcana — Terrain Entity Contract v1",authority:"terrain.group local frame",renderParent:"terrain.group / Arcana Terrain Entity Contract",frames,terrainFrameWorld:terrain.group.getWorldPosition(new T.Vector3()).toArray(),entityCount:entities.length,entities:entities.map(e=>{const world=e.group.getWorldPosition(new T.Vector3());const relative=world.clone().applyMatrix4(inverse);const local=e.group.position;return {id:e.id,role:e.role,motion:e.motion,anchor:e.anchor,ground:e.ground,supportValid:e.supportValid,terrainPosition:relative.toArray(),worldPosition:world.toArray(),frameError:relative.distanceTo(local),parts:e.components,material:{owned:e.materialCount,submitted:e.materialCount,visible:null,visibilityMeasurement:"GPU fragment clipping; readback unavailable"}};}),invariants:{maxAnchorError,unresolvedSupports:entities.filter(e=>e.motion==="anchored"&&!e.supportValid).length,materialAllocated:entities.reduce((n,e)=>n+e.materialCount,0),materialSubmitted:entities.reduce((n,e)=>n+e.materialCount,0),materialVisible:null,visibility:{authority:"Hermeticon viewport",method:"GPU per-fragment spherical aperture",radius:view.radius,offset:{...view.offset},visibleCountMeasured:false},sharedMaterialSurveyIntegrated:true},violations};
+  return {name:"Arcana — Terrain Entity Contract v1",authority:"terrain.group local frame",renderParent:"terrain.group / Arcana Terrain Entity Contract",frames,terrainFrameWorld:terrain.group.getWorldPosition(new T.Vector3()).toArray(),entityCount:entities.length,entities:entities.map(e=>{const world=e.group.getWorldPosition(new T.Vector3());const relative=world.clone().applyMatrix4(inverse);const local=e.group.position;return {id:e.id,role:e.role,motion:e.motion,anchor:e.anchor,ground:e.ground,supportValid:e.supportValid,terrainPosition:relative.toArray(),worldPosition:world.toArray(),frameError:relative.distanceTo(local),parts:e.components.map((p,i)=>({...p,capacity:p.beads,owned:e.renderParts[i].mesh.count})),material:{owned:e.materialCount,submitted:e.materialCount,visible:null,visibilityMeasurement:"GPU fragment clipping; readback unavailable"}};}),invariants:{maxAnchorError,unresolvedSupports:entities.filter(e=>e.motion==="anchored"&&!e.supportValid).length,materialAllocated:entities.reduce((n,e)=>n+e.materialCount,0),materialSubmitted:entities.reduce((n,e)=>n+e.materialCount,0),materialVisible:null,visibility:{authority:"Hermeticon viewport",method:"GPU per-fragment spherical aperture",radius:view.radius,offset:{...view.offset},visibleCountMeasured:false},sharedMaterialSurveyIntegrated:true},violations};
  }};
+}
+
+// CHAOS / MaterialLedger — aggregate ownership, atomic receipts, bounded audit chain.
+function createChaosLedger(initial){
+ const balances={...initial},total=Object.values(initial).reduce((a,b)=>a+b,0);let cursor=0,hash=2166136261;const events=[];
+ function record(tick,type,payload){const e={id:++cursor,tick,type,...payload};for(const c of JSON.stringify(e))hash=Math.imul(hash^c.charCodeAt(0),16777619)>>>0;e.checksum=hash.toString(16).padStart(8,'0');events.push(e);if(events.length>128)events.shift();return e;}
+ function transfer(from,to,n,tick,cause){if(!Object.hasOwn(balances,from)||!Object.hasOwn(balances,to)||from===to||!Number.isInteger(n)||n<=0||balances[from]<n)return false;balances[from]-=n;balances[to]+=n;record(tick,'transfer',{from,to,amount:n,cause});return true;}
+ function inspect(){const sum=Object.values(balances).reduce((a,b)=>a+b,0);return {initial:total,balances:{...balances},total:sum,balanced:sum===total&&Object.values(balances).every(n=>Number.isInteger(n)&&n>=0),cursor,checksum:hash.toString(16).padStart(8,'0'),recent:events.map(e=>({...e}))};}
+ function validate(snapshot){return snapshot&&snapshot.initial===total&&Number.isInteger(snapshot.cursor)&&snapshot.cursor>=0&&/^[0-9a-f]{8}$/.test(snapshot.checksum)&&Object.keys(balances).every(k=>Number.isInteger(snapshot.balances?.[k])&&snapshot.balances[k]>=0)&&Object.values(snapshot.balances).reduce((a,b)=>a+b,0)===total&&Array.isArray(snapshot.recent)&&snapshot.recent.length<=128;}
+ function restore(snapshot){if(!validate(snapshot))throw Error('invalid material checkpoint');Object.assign(balances,snapshot.balances);cursor=snapshot.cursor;hash=parseInt(snapshot.checksum,16);events.splice(0,events.length,...snapshot.recent);}
+ return {transfer,record,count:key=>balances[key],inspect,validate,restore};
+}
+
+// CHAOS / Anatomy — shared bead recipes. No simulation state or material ownership.
+function createLoomAnatomy(height=()=>0){
+ const out={brass:[],stone:[],glass:[],ember:[]};
+ const line=(key,a,b,n)=>{for(let i=0;i<n;i++){const t=i/(n-1);out[key].push(a.map((v,j)=>v+(b[j]-v)*t));}};
+ const ring=(key,c,r,n,vertical=false)=>{for(let i=0;i<n;i++){const a=i*Math.PI*2/n;out[key].push([c[0]+Math.cos(a)*r,c[1]+(vertical?Math.sin(a)*r:0),c[2]+(vertical?0:Math.sin(a)*r)]);}};
+ // Four independent terrain footings; branching piers and dorsal truss.
+ for(const x of [-2.5,2.5])for(const z of [-.55,.55]){
+  const footing=height(x,z);ring('stone',[x,footing+.13,z],.29,24);line('stone',[x,footing+.15,z],[x,1.8,z],18);
+  line('brass',[x,1.1,z],[x*.8,2.7,0],20);
+ }
+ for(const z of [-.46,.46]){line('brass',[-2.5,2.4,z],[2.5,2.4,z],55);for(let i=0;i<10;i++)line('brass',[-2.5+i*.5,2.4,z],[-2+i*.5,2.8,z],8);}
+ // Ribbed foundry abdomen: hollow, legible circulation, finite stock inside.
+ for(let i=0;i<10;i++)ring(i%3?'brass':'stone',[-2.5,.35+i*.14,0],.5+.13*Math.sin(i/9*Math.PI),34);
+ for(let i=0;i<8;i++){const a=i*Math.PI/4;line('glass',[-2.5+Math.cos(a)*.63,.4,Math.sin(a)*.63],[-2.5+Math.cos(a)*.63,1.65,Math.sin(a)*.63],12);}
+ // Observatory spine: triangulated load path down into the left piers.
+ for(const z of [-.3,.3]){line('brass',[-2.5,1.8,z],[-1.65,3.55,z],24);line('stone',[-2.5,1.8,z],[-3.05,3.15,z],18);}
+ return Object.entries(out).filter(([,p])=>p.length).map(([material,points])=>({kind:'points',role:material+' structural anatomy',material,points,scale:.68}));
+}
+
+// CHAOS / Mnemonic Loom — finite-stock sensor → controller → actuator → construction.
+function createMnemonicLoom(T,{entities,surface,debris}){
+ const origin={x:0,z:3},base=surface(0,3),batch='mnemonic-span-v1';
+ if(base===null)throw Error('Loom requires supported origin');
+ const part=(role,material,points,scale=.65)=>({kind:'points',role,material,points,scale});
+ const grid=(n,center)=>Array.from({length:n},(_,i)=>[center[0]+(i%5-2)*.115,center[1]+Math.floor(i/25)*.115,center[2]+(Math.floor(i/5)%5-2)*.115]);
+ const spanPoints=Array.from({length:100},(_,i)=>[-2.45+Math.floor(i/4)*.2,1.8+(i%4>1?.12:0),(i%2?1:-1)*.32]);
+ const stockPoints=grid(100,[-2.5,.56,0]);
+ const body=entities.compose({id:'mnemonic-loom',role:'finite-stock foundry and monitored load path',motion:'constrained',anchor:origin,parts:[...createLoomAnatomy((x,z)=>(surface(x,z+3)??base)-base),part('stockpile','ember',stockPoints),part('assembled span','glass',spanPoints)]});
+ const structuralParts=createLoomAnatomy().length,stockIndex=structuralParts,spanIndex=stockIndex+1;
+ entities.setPose(body.id,[0,base,3]);entities.setPartCount(body.id,spanIndex,0);
+ const irisPoints=[],irisNerves=[];
+ for(let j=0;j<7;j++)for(let i=0;i<80;i++){const a=i*Math.PI*2/80,r=.43+j*.082;irisPoints.push([Math.cos(a)*r,Math.sin(a)*r,(j-3)*.055]);}
+ for(let j=0;j<16;j++)for(let i=0;i<16;i++){const a=j*Math.PI/8+i*.025,r=.25+i*.045;irisNerves.push([Math.cos(a)*r,Math.sin(a)*r,-.22]);}
+ const iris=entities.compose({id:'mnemonic-iris',role:'stock, support and carrier sensor; powered constrained aiming',motion:'constrained',anchor:origin,parts:[part('ceramic concentric optic','stone',irisPoints,.52),part('conductive iris vanes','glass',irisNerves,.5)]});
+ const carrierShell=[];for(let j=0;j<9;j++)for(let i=0;i<20;i++){const a=i*Math.PI/10;carrierShell.push([(j-4)*.08,Math.cos(a)*(.18+.09*Math.sin(j*Math.PI/8)),Math.sin(a)*(.18+.09*Math.sin(j*Math.PI/8))]);}
+ const cargoPoints=grid(8,[0,.28,0]);
+ const carrier=entities.compose({id:'loom-tender',role:'capacity-eight cable-borne salvage and delivery organism',motion:'constrained',anchor:origin,parts:[part('segmented exoskeleton','brass',carrierShell,.53),part('carried matter','ember',cargoPoints)]});
+ entities.setPartCount(carrier.id,1,0);
+ const cable=entities.compose({id:'loom-tendon',role:'winch tether with twelve-unit reach; kinematic constraint',motion:'constrained',anchor:origin,parts:[{kind:'segment',role:'extensible cable abstraction',material:'brass',a:[0,0,0],b:[0,-1,0],count:50,scale:.35}]});
+ const fixture=entities.inspect().invariants.materialAllocated-100;
+ const ledger=createChaosLedger({fixtures:fixture,stock:100,carrier:0,span:0,debris:0});
+ const feet=[[-2.5,-.55],[-2.5,.55],[2.5,-.55],[2.5,.55]].map(([x,z])=>({x,z:z+3,initial:surface(x,z+3)}));
+ const state={tick:0,phase:'survey',position:[-2.5,base+2.15,3],target:null,angle:0,command:0,power:180,generated:0,spent:0,sensorConnected:true,powerConnected:true,transportConnected:true,sensed:null,supports:[],supported:true,loadCapacity:0,load:0,completed:0,repaired:0,damageDone:false,operatingSince:0,blocked:null,work:0};
+ ledger.record(0,'genesis',{seed:741,fixtureBBs:fixture,stock:100,source:'explicit finite imported fixture',energy:180});
+ const home=[-2.5,base+2.15,3],yard=[2.15,base+2.15,3];
+ function spend(n){if(state.power+1e-9<n)return false;state.power=Math.max(0,state.power-n);state.spent+=n;return true;}
+ function sense(){
+  state.supports=feet.map(f=>{const y=surface(f.x,f.z);return {...f,current:y,valid:y!==null&&Math.abs(y-f.initial)<.16};});state.supported=state.supports.every(f=>f.valid);
+  state.loadCapacity=state.supported?ledger.count('span')*.6:0;state.load=ledger.count('span')===100?32:0;
+  if(!state.sensorConnected){state.sensed=null;return;}
+  state.sensed={tick:state.tick,stock:ledger.count('stock'),span:ledger.count('span'),loose:debris.locateBatch(batch).length,supported:state.supported,carrier:[...state.position]};
+  state.command=Math.max(-.65,Math.min(.65,Math.atan2(state.position[0]+2.35,3.4-(state.position[1]-base))*.3));
+ }
+ function moveTo(target,dt){
+  if(!state.transportConnected){state.blocked='transport disconnected';return false;}
+  if(Math.abs(target[0])>2.8||Math.abs(target[2]-3)>1){state.blocked='salvage outside gantry workspace';return false;}
+  if(target[1]>base+2.65){state.blocked='waiting for airborne debris to descend';return false;}
+  if(target[1]<base+2.8-12){state.blocked='salvage beyond twelve-unit tendon reach';return false;}
+  const d=Math.hypot(...target.map((v,i)=>v-state.position[i]));if(d<.13)return true;
+  const step=Math.min(d,2.1*dt);if(!spend(step*1.6)){state.blocked='power shortage';return false;}
+  for(let i=0;i<3;i++)state.position[i]+=(target[i]-state.position[i])*step/d;return false;
+ }
+ function transfer(from,to,n,cause){if(!n)return false;const ok=ledger.transfer(from,to,n,state.tick,cause);if(ok)state.work++;return ok;}
+ function damage(amount=16,cause='guided member failure'){
+  const n=Math.min(Math.max(0,Math.floor(amount)),ledger.count('span'));if(!n)return 0;
+  const end=ledger.count('span'),points=entities.partPoints(body.id,spanIndex,end-n,end);
+  const items=points.map(p=>({x:p[0],y:p[1],z:p[2],r:.049,color:new T.Color(0x7dd9df),batch}));
+  if(!debris.canAccept(n))return 0;
+  if(!transfer('span','debris',n,cause))return 0;
+  const emitted=debris.emit(items,{x:2.5,y:base+1.8,z:3},.15);
+  if(emitted!==n)throw Error('debris emission receipt mismatch');
+  state.phase='recover';state.target=null;state.operatingSince=0;sync();return n;
+ }
+ function sync(){
+  entities.setPartCount(body.id,stockIndex,ledger.count('stock'));entities.setPartCount(body.id,spanIndex,ledger.count('span'));entities.setPartCount(carrier.id,1,ledger.count('carrier'));
+  entities.setPose(carrier.id,state.position);entities.setPose(iris.id,[-2.35,base+3.5,3],state.angle);
+  // Tether is an explicitly telescoping/elastic kinematic model, not a rigid-body cable solver.
+  entities.setPose(cable.id,[state.position[0],base+2.8,state.position[2]]);
+  entities.partPose(cable.id,0,[0,0,0],0,[1,Math.max(.1,base+2.8-state.position[1]),1]);
+ }
+ function update(dt){
+  state.tick++;state.blocked=null;
+  const generated=state.powerConnected?Math.min(180-state.power,6*dt):0;state.power+=generated;state.generated+=generated;
+  if(state.tick%12===1)sense();
+  const delta=Math.max(-.55*dt,Math.min(.55*dt,state.command-state.angle));if(state.sensorConnected&&spend(Math.abs(delta)*.8))state.angle+=delta;
+  if(!state.sensed){state.blocked='sensor disconnected';sync();return;}
+  if(!state.supported){state.blocked='footing loss; span closed';sync();return;}
+  if(state.phase==='survey'&&state.tick>=60){ledger.record(state.tick,'survey',{supports:state.supports,stock:100});state.phase='load';}
+  else if(state.phase==='load'){
+   if(moveTo(home,dt)){
+    const n=Math.min(8-ledger.count('carrier'),ledger.count('stock'));
+    if(n&&spend(n*.25))transfer('stock','carrier',n,'foundry fabrication and loading');
+    if(ledger.count('carrier'))state.phase='deliver';else if(ledger.count('debris'))state.phase='recover';else state.phase='operate';
+   }
+  }else if(state.phase==='deliver'){
+   if(moveTo(yard,dt)&&spend(.4)){
+    transfer('carrier','span',ledger.count('carrier'),'delivery and assembly');
+    if(ledger.count('span')===100){state.completed++;if(state.damageDone)state.repaired++;state.operatingSince=state.tick;state.phase='operate';ledger.record(state.tick,'span-open',{capacity:60,load:32});}
+    else state.phase='load';
+   }
+  }else if(state.phase==='operate'){
+   const target=[Math.sin((state.tick-state.operatingSince)/90)*2,base+2.15,3];moveTo(target,dt);
+   if(!state.damageDone&&state.tick-state.operatingSince>300){state.damageDone=true;damage();}
+  }else if(state.phase==='recover'){
+   const loose=debris.locateBatch(batch);
+   if(ledger.count('carrier')===8||!loose.length){state.phase='return';state.target=null;}
+   else {
+    const p=loose.reduce((a,b)=>Math.hypot(b.x-state.position[0],b.y-state.position[1],b.z-state.position[2])<Math.hypot(a.x-state.position[0],a.y-state.position[1],a.z-state.position[2])?b:a);
+    state.target=[p.x,p.y+.12,p.z];
+    if(moveTo(state.target,dt))debris.collectBatch({batch,point:{x:state.position[0],y:state.position[1],z:state.position[2]},radius:.5,max:8-ledger.count('carrier')},n=>transfer('debris','carrier',n,'contact salvage'));
+   }
+  }else if(state.phase==='return'){
+   if(moveTo(home,dt)){transfer('carrier','stock',ledger.count('carrier'),'recovered feedstock returned');state.phase='load';}
+  }
+  sync();
+ }
+ function command(kind,value){if(['sensorConnected','powerConnected','transportConnected'].includes(kind)){state[kind]=!!value;ledger.record(state.tick,'connection',{kind,value:!!value});if(kind==='sensorConnected')sense();return true;}return false;}
+ function inspect(){const l=ledger.inspect(),loose=debris.locateBatch(batch).length;return {name:'Mnemonic Loom',seed:741,...state,position:[...state.position],ledger:l,activeBeads:l.total-l.balances.debris,visible:null,materialScope:'all contract fixtures + loom; excludes terrain lattice and unrelated loose BBs',invariants:{balanced:l.balanced,debrisReceiptMatches:loose===l.balances.debris,carrierCapacity:l.balances.carrier<=8,spanCapacity:l.balances.span<=100,energyBalanced:Math.abs(180+state.generated-state.spent-state.power)<1e-7},mechanics:'simplified supported load path; powered kinematic cable carrier; geometric anatomy, not FEA',sensor:{input:state.sensed,command:state.command,angle:state.angle,limit:.65},persistence:'Loom checkpoint: machine, inventory, history and its loose matter; terrain/legacy observers excluded'};}
+ function blast(point,{radius}){return Math.hypot(point.x,point.y-(base+1.8),point.z-3)<radius+2.5?damage(16,'meteor load-path damage'):0;}
+ function snapshot(){return {schema:'mnemonic-loom/v1',state:JSON.parse(JSON.stringify(state)),ledger:ledger.inspect(),debris:debris.snapshotBatch(batch)};}
+ function restore(saved){
+  const a=saved?.state;
+  if(saved?.schema!=='mnemonic-loom/v1'||!a||!ledger.validate(saved.ledger)||!debris.validateBatch(batch,saved.debris)||saved.debris.items.length!==saved.ledger.balances.debris||!['survey','load','deliver','operate','recover','return'].includes(a.phase)||!Number.isInteger(a.tick)||a.tick<0||!Array.isArray(a.position)||a.position.length!==3||!a.position.every(Number.isFinite)||!['angle','command','power','generated','spent','work','completed','repaired','operatingSince'].every(k=>Number.isFinite(a[k]))||a.power<0||a.power>180||Math.abs(180+a.generated-a.spent-a.power)>1e-7||saved.ledger.balances.carrier>8||saved.ledger.balances.span>100)throw Error('invalid Loom checkpoint');
+  if(!Array.isArray(a.supports)||a.supports.some(f=>f.current===null||Math.abs((surface(f.x,f.z)??Infinity)-f.current)>.001))throw Error('checkpoint terrain support differs; restart required');
+  ledger.restore(saved.ledger);debris.restoreBatch(batch,saved.debris);for(const key of Object.keys(state))if(Object.hasOwn(a,key))state[key]=a[key];sense();sync();
+ }
+ sync();sense();return {update,inspect,damage,command,blast,snapshot,restore};
+}
+
+// CHAOS / Fixed clock — bounded catch-up with explicit dropped time.
+function createChaosClock(step,{dt=1/60,maxSteps=8}={}){
+ let tick=0,accumulator=0,dropped=0,paused=false,lastMs=0,peakMs=0;const samples=[];
+ function once(){const t=performance.now();step(dt);tick++;lastMs=performance.now()-t;peakMs=Math.max(peakMs,lastMs);}
+ function update(elapsed){if(paused)return;elapsed=Math.max(0,Number.isFinite(elapsed)?elapsed:0);samples.push(elapsed*1000);if(samples.length>240)samples.shift();accumulator+=elapsed;let n=0;while(accumulator+1e-10>=dt&&n<maxSteps){once();accumulator-=dt;n++;}if(accumulator>=dt){const skip=Math.floor(accumulator/dt)*dt;dropped+=skip;accumulator-=skip;}}
+ return {update,step:once,pause:value=>{paused=!!value;},inspect:()=>{const sorted=[...samples].sort((a,b)=>a-b);return {name:'Fixed world clock',tick,dt,paused,accumulator,droppedSeconds:dropped,lastStepMs:lastMs,peakStepMs:peakMs,frameMs:{p50:sorted[Math.floor(sorted.length*.5)]??null,p95:sorted[Math.floor(sorted.length*.95)]??null},scope:'frame intervals supplied by host; simulation CPU timing, not GPU or phone benchmark'};}};
 }
 
 // shell/codex/entropy/world.js
@@ -2475,9 +2645,13 @@ function createEntropy({ observer = true } = {}) {
     if (other) otherFootMesh.position.set(other.x - o.x, other.y, other.z - o.z);
   }
   const cradleCollision = { position: abioentropy.group.position, scale: 0.12, innerRadius: 10.07 };
-  const debris = createBeadDebris(T5, { terrain, offset: botanicalOffset, innerRadius: world2.inspect().vessel.innerRadius, parent: world2.content, abiogenesis: cradleCollision, wanderer: wanderer ? { inspect: () => wanderer.inspect(), innerRadius: 10.07 * 0.06 } : null });
+  const debris = createBeadDebris(T5, { terrain, offset: botanicalOffset, innerRadius: world2.inspect().vessel.innerRadius, parent: world2.content, view: worldView, abiogenesis: cradleCollision, wanderer: wanderer ? { inspect: () => wanderer.inspect(), innerRadius: 10.07 * 0.06 } : null });
   let eye = null, eyeError = null, eyeCamera = null;
-  const creatureSystems = [];
+  const loom=createMnemonicLoom(T5,{entities:institute,surface:terrainSurface,debris});
+  const creatureSystems = [loom];
+  world2.disturb=()=>loom.damage();
+  world2.loomCommand=loom.command;
+  world2.loomSnapshot=loom.snapshot;world2.restoreLoom=loom.restore;
   const observeEyeWorld = () => {
     const o = botanicalOffset(), targets = [];
     const w = wanderer?.inspect();
@@ -2532,12 +2706,13 @@ function createEntropy({ observer = true } = {}) {
     }
     return navigation.tap(x, y);
   };
-  world2.update = (dt) => {
+  const clock=createChaosClock((dt) => {
     updateCradle(dt);
     wanderer?.update(dt);
     if (chaosTrials.articulated) articulated.update(dt);
     if (chaosTrials.kinetic) updateKinetic(dt);
     cinderfall.update(dt);
+    loom.update(dt);
     debris.update(dt);
     institute.update(dt);
     if (eye && !eyeError) {
@@ -2548,11 +2723,12 @@ function createEntropy({ observer = true } = {}) {
         console.error("Eye update disabled; Entropy continues", error);
       }
     }
-  };
+  });
+  world2.update=clock.update;world2.pause=clock.pause;world2.step=clock.step;
   const inspectShell = world2.inspect.bind(world2);
   const materialSurvey = createMaterialSurvey({ populations: [], debris });
   world2.materialSurvey = materialSurvey;
-  world2.inspect = () => ({ name: "Entropy", shell: inspectShell(), systems: [{ name: "abioentropy", stationkeeping: { name: cradle.name, center: cradle.center, position: abioentropy.group.position.toArray() }, scale: 0.12, ...abioentropy.inspect() }, { name: "eye", enabled: false, instantiated: false, error: null }, { name: "Betwixt observer swarm", enabled: false, instantiated: false }, { name: "terrain", ...terrain.inspect() }, { name: "wanderer", enabled:!!wanderer, ...(wanderer?.inspect()||{}) }, { name:"WorldView",authority:"presentation only",offset:{...worldView.offset},observerRequired:false }, { name: "articulated IK trial", enabled: chaosTrials.articulated, instantiated: !!articulated, visible: !!articulated?.group.visible }, { name: "kinetic capsule trial", enabled: chaosTrials.kinetic, capsuleVisible: trialMesh.visible, leftFootVisible: footMesh.visible, rightFootVisible: otherFootMesh.visible, simulationRunning: chaosTrials.kinetic }, { name: "borehole trial", borehole: boreholeTrial, status: "retained terrain fixture", currentTrial: "N-limb connected dynamic-foot experiment (N=2)" }, gravity.inspect(), contact.inspect(), { name: "balance perturbation", ...balancePerturbation, applied: balancePerturbationApplied }, { ...drive.inspect(), enabled: chaosTrials.kinetic }, { ...kinetic.inspect(), enabled: chaosTrials.kinetic, simulationRunning: chaosTrials.kinetic }, cinderfall.inspect(), debris.inspect(), institute.inspect()], material: (()=>{const shared=materialSurvey(),e=institute.inspect().invariants;return {...shared,authored:shared.authored+e.materialAllocated,total:shared.total+e.materialAllocated,visible:null,visibleAuthored:null,entityAuthored:e.materialAllocated,entityVisible:null,entitySubmitted:e.materialSubmitted,visibilityMeasurement:"GPU aperture; no readback",entityContractIncluded:true};})(), meteorImpact: impactDispatcher.inspect(), edgeGeometry: equatorial.geometry, edgeTreatment: equatorial.inspect(), nodes: nodeMaker.inspect(), tapOwnership: navigation.inspect() });
+  world2.inspect = () => ({ name: "Entropy", shell: inspectShell(), systems: [{ name: "abioentropy", stationkeeping: { name: cradle.name, center: cradle.center, position: abioentropy.group.position.toArray() }, scale: 0.12, ...abioentropy.inspect() }, { name: "eye", enabled: false, instantiated: false, error: null }, { name: "Betwixt observer swarm", enabled: false, instantiated: false }, { name: "terrain", ...terrain.inspect() }, { name: "wanderer", enabled:!!wanderer, ...(wanderer?.inspect()||{}) }, { name:"WorldView",authority:"presentation only",offset:{...worldView.offset},observerRequired:false }, { name: "articulated IK trial", enabled: chaosTrials.articulated, instantiated: !!articulated, visible: !!articulated?.group.visible }, { name: "kinetic capsule trial", enabled: chaosTrials.kinetic, capsuleVisible: trialMesh.visible, leftFootVisible: footMesh.visible, rightFootVisible: otherFootMesh.visible, simulationRunning: chaosTrials.kinetic }, { name: "borehole trial", borehole: boreholeTrial, status: "retained terrain fixture", currentTrial: "N-limb connected dynamic-foot experiment (N=2)" }, gravity.inspect(), contact.inspect(), { name: "balance perturbation", ...balancePerturbation, applied: balancePerturbationApplied }, { ...drive.inspect(), enabled: chaosTrials.kinetic }, { ...kinetic.inspect(), enabled: chaosTrials.kinetic, simulationRunning: chaosTrials.kinetic }, cinderfall.inspect(), debris.inspect(), institute.inspect(),loom.inspect(),clock.inspect()], material: (()=>{const shared=materialSurvey(),e=institute.inspect().invariants;return {...shared,authored:shared.authored+e.materialAllocated,total:shared.total+e.materialAllocated,visible:null,visibleAuthored:null,entityAuthored:e.materialAllocated,entityVisible:null,entitySubmitted:e.materialSubmitted,visibilityMeasurement:"GPU aperture; no readback",entityContractIncluded:true};})(), persistence:world2.persistence??{scope:"headless test",enabled:false},meteorImpact: impactDispatcher.inspect(), edgeGeometry: equatorial.geometry, edgeTreatment: equatorial.inspect(), nodes: nodeMaker.inspect(), tapOwnership: navigation.inspect() });
   return world2;
 }
 
@@ -2561,4 +2737,17 @@ var world = createEntropy({observer:new URLSearchParams(location.search).get("ob
 globalThis.Chaos = world;
 globalThis.Athanor.mount("entropy", world);
 world.attachView(globalThis.Athanor.view());
+const checkpointKey='chaos.mnemonic-loom.v1';
+const persistence={scope:'Loom only; terrain, legacy organisms and meteor flight excluded',restored:false,savedTick:null,error:null};
+world.persistence=persistence;
+try{const saved=localStorage.getItem(checkpointKey);if(saved){world.restoreLoom(JSON.parse(saved));persistence.restored=true;}}catch(error){persistence.error=String(error);}
+function saveLoom(){try{const snapshot=world.loomSnapshot();if(!snapshot.state.supported){persistence.error='Terrain support changed; previous checkpoint retained';return;}localStorage.setItem(checkpointKey,JSON.stringify(snapshot));persistence.savedTick=snapshot.state.tick;persistence.error=null;}catch(error){persistence.error=String(error);}}
+let loomPaused=false;
+document.querySelector('#loomPause').onclick=()=>{loomPaused=!loomPaused;world.pause(loomPaused);document.querySelector('#loomPause').textContent=loomPaused?'▶':'⏸';document.querySelector('#loomPause').setAttribute('aria-label',loomPaused?'Resume Institute':'Pause Institute');saveLoom();};
+document.querySelector('#loomDamage').onclick=()=>world.disturb();
+setInterval(()=>{const report=world.loomSnapshot(),s=report.state,b=report.ledger.balances;document.querySelector('#loomStatus').textContent='LOOM · '+(s.blocked||s.phase).toUpperCase()+' · '+b.span+'/100'+(persistence.error?' · SAVE ⚠':'');},500);
+setInterval(saveLoom,5000);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)saveLoom();});
+window.addEventListener('pagehide',saveLoom);
+
 </script></body></html>

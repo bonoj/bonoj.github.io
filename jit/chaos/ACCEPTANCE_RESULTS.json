@@ -1,0 +1,196 @@
+{
+  "sourceSHA256": "d7b0cc50fa4ad786be2523cb1531e2ee5aa6d446715455bd50caf4cf1044a597",
+  "three": "180",
+  "scope": "Actual monolith factories, Node + Three; no WebGL",
+  "ticks": 9000,
+  "stages": [
+    {
+      "tick": 1,
+      "phase": "survey"
+    },
+    {
+      "tick": 60,
+      "phase": "load"
+    },
+    {
+      "tick": 61,
+      "phase": "deliver"
+    },
+    {
+      "tick": 192,
+      "phase": "load"
+    },
+    {
+      "tick": 320,
+      "phase": "deliver"
+    },
+    {
+      "tick": 448,
+      "phase": "load"
+    },
+    {
+      "tick": 576,
+      "phase": "deliver"
+    },
+    {
+      "tick": 704,
+      "phase": "load"
+    },
+    {
+      "tick": 832,
+      "phase": "deliver"
+    },
+    {
+      "tick": 960,
+      "phase": "load"
+    },
+    {
+      "tick": 1088,
+      "phase": "deliver"
+    },
+    {
+      "tick": 1216,
+      "phase": "load"
+    },
+    {
+      "tick": 1344,
+      "phase": "deliver"
+    },
+    {
+      "tick": 1472,
+      "phase": "load"
+    },
+    {
+      "tick": 1600,
+      "phase": "deliver"
+    },
+    {
+      "tick": 1728,
+      "phase": "load"
+    },
+    {
+      "tick": 1856,
+      "phase": "deliver"
+    },
+    {
+      "tick": 1984,
+      "phase": "load"
+    },
+    {
+      "tick": 2112,
+      "phase": "deliver"
+    },
+    {
+      "tick": 2240,
+      "phase": "load"
+    },
+    {
+      "tick": 2368,
+      "phase": "deliver"
+    },
+    {
+      "tick": 2496,
+      "phase": "load"
+    },
+    {
+      "tick": 2624,
+      "phase": "deliver"
+    },
+    {
+      "tick": 2752,
+      "phase": "load"
+    },
+    {
+      "tick": 2880,
+      "phase": "deliver"
+    },
+    {
+      "tick": 3008,
+      "phase": "load"
+    },
+    {
+      "tick": 3136,
+      "phase": "deliver"
+    },
+    {
+      "tick": 3264,
+      "phase": "operate"
+    },
+    {
+      "tick": 3565,
+      "phase": "recover"
+    },
+    {
+      "tick": 3676,
+      "phase": "return"
+    },
+    {
+      "tick": 3813,
+      "phase": "load"
+    },
+    {
+      "tick": 3814,
+      "phase": "deliver"
+    },
+    {
+      "tick": 3941,
+      "phase": "load"
+    },
+    {
+      "tick": 4068,
+      "phase": "recover"
+    },
+    {
+      "tick": 4208,
+      "phase": "return"
+    },
+    {
+      "tick": 4345,
+      "phase": "load"
+    },
+    {
+      "tick": 4346,
+      "phase": "deliver"
+    },
+    {
+      "tick": 4474,
+      "phase": "operate"
+    }
+  ],
+  "inventory": {
+    "fixtures": 2337,
+    "stock": 0,
+    "carrier": 0,
+    "span": 100,
+    "debris": 0
+  },
+  "total": 2437,
+  "checksum": "56000a11",
+  "checkpointTicks": [
+    750,
+    3600,
+    3700,
+    4200
+  ],
+  "passed": [
+    "no-Wanderer boot",
+    "default observer equivalence",
+    "conservation every tick",
+    "construct-damage-salvage-repair",
+    "view-independent full-state replay",
+    "checkpoint during construction and loose/carrying salvage",
+    "malformed checkpoint rejection",
+    "sensor and transport disconnect/reconnect",
+    "power starvation/recovery",
+    "30/120 Hz cadence equivalence",
+    "negative and missing-destination transfer rejection",
+    "secondary capture fixture",
+    "uneven footings and support-loss stop"
+  ],
+  "unverified": [
+    "GPU shader compilation and aperture boundary",
+    "mobile performance",
+    "complete terrain/world checkpoint",
+    "Crown/Seam/Underside civilization"
+  ]
+}
