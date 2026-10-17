@@ -1,22 +1,23 @@
 # bonoj.github.io
 
-Two active doors. Start here; don't send John hunting through legacy repositories.
+Personal GitHub Pages home and JIT experiment shelf.
 
-## Hermeticon — the real work
+## Hermeticon
 
 - **Enter:** https://bonoj.github.io/Hermeticon/
-- **Source and orientation:** [bonoj/Hermeticon/README.md](https://github.com/bonoj/Hermeticon/blob/main/README.md)
-- **Current handoff:** [bonoj/Hermeticon/HANDOFF.md](https://github.com/bonoj/Hermeticon/blob/main/HANDOFF.md)
-- **Work in:** `bonoj/Hermeticon`; follow its own deployment workflow. Do not route Hermeticon through this site's JIT bin.
+- **Source and orientation:** [bonoj/Hermeticon](https://github.com/bonoj/Hermeticon)
+- **Current handoff:** [Hermeticon/HANDOFF.md](https://github.com/bonoj/Hermeticon/blob/main/HANDOFF.md)
 
-## Hundred Doors — the tiny job-search instrument
+Hermeticon is its own project. Follow its README and handoff, and use its own deployment machinery; do not stage Hermeticon changes through this site's JIT directory.
 
-- **Open:** https://bonoj.github.io/jit/hundred-doors/
-- **Read first:** [jit/hundred-doors/README.md](jit/hundred-doors/README.md)
-- **App:** [jit/hundred-doors/index.html](jit/hundred-doors/index.html)
-- **Work in:** this repository, `master:jit/hundred-doors/`. Commit here; GitHub Pages publishes the same directory. No Home or Repository staging, no separate repo.
-- **Truth:** Outreach status is in the README / published app defaults; browser edits remain local until explicitly exported and incorporated. Don't claim automatic sync.
+## JIT
 
-## For Clara
+- **Experiments:** [jit/](jit/)
+- **Published paths:** https://bonoj.github.io/jit/
+- **Chaos:** [jit/chaos/](jit/chaos/) — disposable Entropy specimen; see [Chaos README](jit/chaos/README.md) for setup and current verification status.
 
-When John says **Hermeticon**, follow its linked README and HANDOFF. When he says **Hundred Doors**, follow the JIT README here. Do not ask him to recite repository paths. Preserve existing decisions, keep writes small and verifiable, and distinguish GitHub commits from confirmed live Pages output.
+JIT experiments live in this repository under `master:jit/` and are published through this site's Pages workflow. Individual experiments may have their own instructions; read those before editing. A committed file is not proof that the corresponding Pages artifact is live.
+
+## Working conventions
+
+Use the existing source, build, deployment, and recovery machinery. Keep edits isolated to the intended experiment, read back GitHub writes, and distinguish a successful commit from verified browser execution.
