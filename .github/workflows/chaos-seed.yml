@@ -22,8 +22,8 @@ jobs:
           cd /tmp/chaos-abyss
           npm install --no-save --no-package-lock esbuild@0.25.12
           # Entropy only; avoid pulling the Europa world into the snapshot.
-          printf "import './athanor/athanor.js';\nimport {createEntropy} from './codex/entropy/world.js';\nconst world=createEntropy();globalThis.Athanor.mount('entropy',world);world.attachView(globalThis.Athanor.view());\n" > chaos-entry.js
-          ./node_modules/.bin/esbuild chaos-entry.js --bundle --format=esm --platform=browser --target=es2022 --external:https://* --outfile=/tmp/chaos-bundle.js
+          printf "import './athanor/athanor.js';\nimport {createEntropy} from './codex/entropy/world.js';\nconst world=createEntropy();globalThis.Athanor.mount('entropy',world);world.attachView(globalThis.Athanor.view());\n" > shell/chaos-entry.js
+          ./node_modules/.bin/esbuild shell/chaos-entry.js --bundle --format=esm --platform=browser --target=es2022 --external:https://* --outfile=/tmp/chaos-bundle.js
           cd "$GITHUB_WORKSPACE"
           python3 - <<'PY'
           from pathlib import Path
