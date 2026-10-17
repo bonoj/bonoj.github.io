@@ -1,5 +1,7 @@
 # JIT Chaos
 
+> **ASTRA ENTRYPOINT:** [ASTRA_START_HERE.md](./ASTRA_START_HERE.md) — read this first for the complete self-contained Chaos source map, charter reading order, and execution contract.
+
 **Purpose:** disposable, rapidly flashed, deliberately messy Entropy experiments.
 
 - Canonical intended URL: https://bonoj.github.io/jit/chaos/
