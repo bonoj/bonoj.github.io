@@ -8,7 +8,7 @@
 1. **This file** — operating contract and map.
 2. **`README.md`** — verified state, recovery checkpoint, constraints, and handoff. Read the newest cold-handoff and view-authority sections; earlier CPU BB-clipping notes are obsolete and explicitly superseded.
 3. **`ASTRA_LIVING_INSTITUTE_SPEC.md`** — the **entire** engineering charter, including sections 16–19. Do not stop after the early roadmap: sections 16 (existing-system integration), 17 (rich BB ecosystems and monumental anatomy), 18 (cybernetic biomechanical design), and 19 (monolith packaging with internal composability) are mandatory.
-4. **`ASTRA_NORTHSTAR.md`** — the Crown / Seam / Underside visual and functional north star. Aspirational guidance; executable geometry and charter invariants take precedence.
+4. **`ASTRA_NORTHSTAR.md`** (with [`ASTRA_NORTHSTAR.png`](./ASTRA_NORTHSTAR.png)) — the Crown / Seam / Underside visual and functional north star. Aspirational guidance; executable geometry and charter invariants take precedence.
 5. **`index.html`** — actual source of truth for executable behavior. It is the existing frozen monolith; inspect the named functions and their call sites rather than rebuilding from upstream.
 6. **`build.json`** if present — deployment identity evidence, not a replacement for user-observed executing SHA.
 

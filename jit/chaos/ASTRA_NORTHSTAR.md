@@ -4,6 +4,12 @@
 
 **Authority:** Read with `ASTRA_CONJOINER.md` and `ASTRA_LIVING_INSTITUTE_SPEC.md`. Executable Chaos geometry, material conservation, and runtime observations outrank illustrative imagery. The existing three-panel triptych is a composition reference only, **not** an authoritative geometry model. Do not make the Hermeticon into a physical snow globe or a world boundary.
 
+## Visual reference
+
+![Aspirational Crown / Seam / Underside triptych](./ASTRA_NORTHSTAR.png)
+
+**Visual-only north star:** this image conveys ecological variety, biomechanical ambition, and the above/through/below composition. It is **not** authoritative for terrain geometry, equatorial alignment, physical world bounds, BB counts, or simulated functionality. Inspect the running Chaos geometry and source before implementing spatial relationships.
+
 ## Vision
 
 Build **one continuous, material, cybernetic biomechanical civilization with three radically different faces**. The same terrain, material BBs, physical world, anatomy contracts, and simulation underlie all views. The Hermeticon is an aperture into this world. Moving the Wanderer or changing camera orientation must not create, destroy, or teleport matter.
