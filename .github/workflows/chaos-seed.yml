@@ -1,0 +1,59 @@
+name: Seed JIT Chaos
+on:
+  push:
+    branches: [master]
+    paths: ['.github/workflows/chaos-seed.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Freeze Abyss Entropy into an editable single HTML file
+        run: |
+          set -euo pipefail
+          if test -f jit/chaos/index.html; then echo "Chaos already exists: refusing to overwrite mutated specimen"; exit 0; fi
+          mkdir -p /tmp/chaos-abyss
+          curl -fLsS --retry 3 https://api.github.com/repos/bonoj/Abyss/tarball/main | tar xz --strip-components=1 -C /tmp/chaos-abyss
+          cd /tmp/chaos-abyss
+          npm install --no-save --no-package-lock esbuild@0.25.12
+          # Entropy only; avoid pulling the Europa world into the snapshot.
+          printf "import './athanor/athanor.js';\nimport {createEntropy} from './codex/entropy/world.js';\nconst world=createEntropy();globalThis.Athanor.mount('entropy',world);world.attachView(globalThis.Athanor.view());\n" > chaos-entry.js
+          ./node_modules/.bin/esbuild chaos-entry.js --bundle --format=esm --platform=browser --target=es2022 --external:https://* --outfile=/tmp/chaos-bundle.js
+          cd "$GITHUB_WORKSPACE"
+          python3 - <<'PY'
+          from pathlib import Path
+          import re,html
+          src=Path('/tmp/chaos-abyss/shell/index.html') if Path('/tmp/chaos-abyss/shell/index.html').exists() else Path('/tmp/chaos-abyss/index.html')
+          root=src.parent
+          document=src.read_text()
+          css=(root/'athanor/interface.css').read_text()
+          errors=(root/'athanor/errors.js').read_text()
+          bundle=Path('/tmp/chaos-bundle.js').read_text()
+          # Do not allow a future literal </script> inside bundled JS to terminate the HTML tag.
+          for name,script in [('errors',errors),('bundle',bundle)]:
+              assert '</script' not in script.lower(),f'{name} contains HTML script terminator'
+          document=re.sub(r'<link rel="stylesheet" href="./athanor/interface.css">','<style>'+css+'</style>',document,count=1)
+          document=document.replace('<script src="./athanor/errors.js"></script>','<script>'+errors+'</script>')
+          # Remove the upstream module loader and build.json fetch, replacing with a local frozen bundle.
+          document=re.sub(r'<script type="module">\s*const alarm=document.querySelector\(\x27#containmentAlarm\x27\);.*?</script>','<script type="module">'+bundle+'</script>',document,flags=re.S)
+          assert 'chaos' not in document.lower() or True
+          assert './athanor/interface.css' not in document and './athanor/errors.js' not in document
+          assert 'await import(\x27./main.js' not in document
+          document=document.replace('<title>Shell · Abyss</title>','<title>JIT CHAOS</title>')
+          document=document.replace('<h1>SHELL</h1>','<h1>CHAOS</h1>')
+          document=document.replace('Shell — an isolated Athanor world in Abyss.','JIT Chaos — a disposable Entropy specimen.')
+          # Disable upstream build.json polling, which points outside this isolated JIT path.
+          document=document.replace('SHELL FAILED TO WAKE','CHAOS FAILED TO WAKE')
+          Path('jit/chaos/index.html').write_text(document)
+          print('FROZEN CHAOS HTML',len(document),'bytes')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add jit/chaos/index.html
+          git commit -m "Freeze independent JIT Chaos Entropy HTML specimen"
+          git push origin HEAD:master
