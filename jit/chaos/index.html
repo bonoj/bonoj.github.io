@@ -2371,7 +2371,8 @@ function createTerrainEntityContract(T,terrain,surface,view){
   {kind:"segment",role:"sensor boom",a:[0,-.25,0],b:[0,.4,0],count:14,material:"glass"}]});
  let t=0,frames=0,maxAnchorError=0;
  function update(dt){t+=Math.max(0,Math.min(.06,dt));frames++;
-  root.position.set(-view.offset.x,0,-view.offset.z);
+  // terrain.group already applies the presentation offset exactly once.
+  root.position.set(0,0,0);
   for(const e of entities){
    if(e.motion==="anchored"){const y=surface(e.anchor.x,e.anchor.z);e.supportValid=y!==null;if(y!==null){e.ground=y;e.group.position.set(e.anchor.x,y+(e.anchor.clearance||0),e.anchor.z);}}
    else if(e.motion==="propelled"){e.group.position.set(e.anchor.x+Math.cos(t*.45)*1.1,e.base+(e.anchor.clearance||0)+Math.sin(t*.8)*.2,e.anchor.z+Math.sin(t*.45)*1.1);}
@@ -2383,13 +2384,13 @@ function createTerrainEntityContract(T,terrain,surface,view){
  return {update,inspect:()=>{
   root.updateWorldMatrix(true,true);terrain.group.updateWorldMatrix(true,false);
   const inverse=terrain.group.matrixWorld.clone().invert();
-  return {name:"Arcana — Terrain Entity Contract v1",authority:"terrain.group local frame",renderParent:"terrain.group / Arcana Terrain Entity Contract",frames,terrainFrameWorld:terrain.group.getWorldPosition(new T.Vector3()).toArray(),entityCount:entities.length,entities:entities.map(e=>{const world=e.group.getWorldPosition(new T.Vector3());const relative=world.clone().applyMatrix4(inverse).add(new T.Vector3(view.offset.x,0,view.offset.z));const local=e.group.position;return {id:e.id,role:e.role,motion:e.motion,anchor:e.anchor,ground:e.ground,supportValid:e.supportValid,terrainPosition:relative.toArray(),worldPosition:world.toArray(),frameError:relative.distanceTo(local),parts:e.components,material:{owned:e.materialCount,submitted:e.materialCount,visible:null,visibilityMeasurement:"GPU fragment clipping; readback unavailable"}};}),invariants:{maxAnchorError,unresolvedSupports:entities.filter(e=>e.motion==="anchored"&&!e.supportValid).length,materialAllocated:entities.reduce((n,e)=>n+e.materialCount,0),materialSubmitted:entities.reduce((n,e)=>n+e.materialCount,0),materialVisible:null,visibility:{authority:"Hermeticon viewport",method:"GPU per-fragment spherical aperture",radius:view.radius,offset:{...view.offset},visibleCountMeasured:false},sharedMaterialSurveyIntegrated:true},violations};
+  return {name:"Arcana — Terrain Entity Contract v1",authority:"terrain.group local frame",renderParent:"terrain.group / Arcana Terrain Entity Contract",frames,terrainFrameWorld:terrain.group.getWorldPosition(new T.Vector3()).toArray(),entityCount:entities.length,entities:entities.map(e=>{const world=e.group.getWorldPosition(new T.Vector3());const relative=world.clone().applyMatrix4(inverse);const local=e.group.position;return {id:e.id,role:e.role,motion:e.motion,anchor:e.anchor,ground:e.ground,supportValid:e.supportValid,terrainPosition:relative.toArray(),worldPosition:world.toArray(),frameError:relative.distanceTo(local),parts:e.components,material:{owned:e.materialCount,submitted:e.materialCount,visible:null,visibilityMeasurement:"GPU fragment clipping; readback unavailable"}};}),invariants:{maxAnchorError,unresolvedSupports:entities.filter(e=>e.motion==="anchored"&&!e.supportValid).length,materialAllocated:entities.reduce((n,e)=>n+e.materialCount,0),materialSubmitted:entities.reduce((n,e)=>n+e.materialCount,0),materialVisible:null,visibility:{authority:"Hermeticon viewport",method:"GPU per-fragment spherical aperture",radius:view.radius,offset:{...view.offset},visibleCountMeasured:false},sharedMaterialSurveyIntegrated:true},violations};
  }};
 }
 
 // shell/codex/entropy/world.js
 import * as T5 from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
-function createEntropy() {
+function createEntropy({ observer = true } = {}) {
   const world2 = createHermeticon();
   world2.group.name = "Entropy";
   world2.content.name = "Entropy contents";
@@ -2421,19 +2422,20 @@ function createEntropy() {
   world2.edgeMode = equatorial.getMode;
   const nodeMaker = createNodeMaker(T5, world2.content);
   world2.setWitnessNodes = (nodes) => nodeMaker.set(nodes);
-  const wanderer = createWanderer({ terrain });
-  world2.content.add(wanderer.group);
   const terrainSurface = createTerrainSurfaceQuery(terrain);
-  const botanicalOffset = () => {
-    const [x, z] = wanderer.inspect().offset;
-    return { x, z };
-  };
-  const chaosTrials = { articulated: false, kinetic: false };
-  // World-view authority: observer-independent. Wanderer is only a legacy tracking client.
+  // WorldView owns presentation; observer clients may request changes.
   const worldView={offset:{x:0,z:0},center:new T5.Vector3(0,0,0),radius:world2.inspect().vessel.innerRadius};
   const terrainOffsetOriginal=terrain.setOffset;
-  worldView.setOffset=(x,z)=>{worldView.offset.x=x;worldView.offset.z=z;terrainOffsetOriginal(x,z);};
+  worldView.setOffset=(x,z)=>{
+    if(!Number.isFinite(x)||!Number.isFinite(z))throw Error("nonfinite view offset");
+    worldView.offset.x=x;worldView.offset.z=z;terrainOffsetOriginal(x,z);
+  };
   terrain.setOffset=(x,z)=>worldView.setOffset(x,z);
+  world2.setViewOffset=worldView.setOffset;
+  const botanicalOffset = () => ({...worldView.offset});
+  const wanderer = observer ? createWanderer({ terrain }) : null;
+  if(wanderer)world2.content.add(wanderer.group);
+  const chaosTrials = { articulated: false, kinetic: false };
   const institute = createTerrainEntityContract(T5, terrain, terrainSurface, worldView);
   const articulated = chaosTrials.articulated ? createArticulatedTrial(T5, { parent: world2.content, surface: terrainSurface, actor: () => wanderer.inspect(), offset: botanicalOffset }) : null;
   const gravity = createGravitySystem({ components: [uniformGravity({ id: "surface", y: -9.8 })] });
@@ -2473,13 +2475,13 @@ function createEntropy() {
     if (other) otherFootMesh.position.set(other.x - o.x, other.y, other.z - o.z);
   }
   const cradleCollision = { position: abioentropy.group.position, scale: 0.12, innerRadius: 10.07 };
-  const debris = createBeadDebris(T5, { terrain, offset: botanicalOffset, innerRadius: world2.inspect().vessel.innerRadius, parent: world2.content, abioentropy: cradleCollision, wanderer: { inspect: () => wanderer.inspect(), innerRadius: 10.07 * 0.06 } });
+  const debris = createBeadDebris(T5, { terrain, offset: botanicalOffset, innerRadius: world2.inspect().vessel.innerRadius, parent: world2.content, abiogenesis: cradleCollision, wanderer: wanderer ? { inspect: () => wanderer.inspect(), innerRadius: 10.07 * 0.06 } : null });
   let eye = null, eyeError = null, eyeCamera = null;
   const creatureSystems = [];
   const observeEyeWorld = () => {
     const o = botanicalOffset(), targets = [];
-    const w = wanderer.inspect();
-    targets.push({ id: "wanderer", position: [w.x - o.x, w.y + 0.5, w.z - o.z], salience: 1 });
+    const w = wanderer?.inspect();
+    if(w)targets.push({ id: "wanderer", position: [w.x - o.x, w.y + 0.5, w.z - o.z], salience: 1 });
     for (const system of creatureSystems) {
       const snapshot = system.inspect();
       for (const [index, c] of (snapshot.creatures || []).entries()) {
@@ -2502,7 +2504,7 @@ function createEntropy() {
     onImpact: impactDispatcher.dispatch
   });
   world2.castMeteor = () => cinderfall.cast();
-  const navigation = createTerrainNavigation({ terrain, actor: wanderer });
+  const navigation = wanderer ? createTerrainNavigation({ terrain, actor: wanderer }) : {attachView(){},tap(){return false;},inspect:()=>({enabled:false,reason:"no observer"})};
   world2.attachView = (view) => {
     navigation.attachView(view);
     eyeCamera = view?.camera ?? null;
@@ -2532,7 +2534,7 @@ function createEntropy() {
   };
   world2.update = (dt) => {
     updateCradle(dt);
-    wanderer.update(dt);
+    wanderer?.update(dt);
     if (chaosTrials.articulated) articulated.update(dt);
     if (chaosTrials.kinetic) updateKinetic(dt);
     cinderfall.update(dt);
@@ -2550,12 +2552,13 @@ function createEntropy() {
   const inspectShell = world2.inspect.bind(world2);
   const materialSurvey = createMaterialSurvey({ populations: [], debris });
   world2.materialSurvey = materialSurvey;
-  world2.inspect = () => ({ name: "Entropy", shell: inspectShell(), systems: [{ name: "abioentropy", stationkeeping: { name: cradle.name, center: cradle.center, position: abioentropy.group.position.toArray() }, scale: 0.12, ...abioentropy.inspect() }, { name: "eye", enabled: false, instantiated: false, error: null }, { name: "Betwixt observer swarm", enabled: false, instantiated: false }, { name: "terrain", ...terrain.inspect() }, { name: "wanderer", ...wanderer.inspect() }, { name: "articulated IK trial", enabled: chaosTrials.articulated, instantiated: !!articulated, visible: !!articulated?.group.visible }, { name: "kinetic capsule trial", enabled: chaosTrials.kinetic, capsuleVisible: trialMesh.visible, leftFootVisible: footMesh.visible, rightFootVisible: otherFootMesh.visible, simulationRunning: chaosTrials.kinetic }, { name: "borehole trial", borehole: boreholeTrial, status: "retained terrain fixture", currentTrial: "N-limb connected dynamic-foot experiment (N=2)" }, gravity.inspect(), contact.inspect(), { name: "balance perturbation", ...balancePerturbation, applied: balancePerturbationApplied }, { ...drive.inspect(), enabled: chaosTrials.kinetic }, { ...kinetic.inspect(), enabled: chaosTrials.kinetic, simulationRunning: chaosTrials.kinetic }, cinderfall.inspect(), debris.inspect(), institute.inspect()], material: (()=>{const shared=materialSurvey(),e=institute.inspect().invariants;return {...shared,authored:shared.authored+e.materialAllocated,total:shared.total+e.materialAllocated,visible:null,visibleAuthored:null,entityAuthored:e.materialAllocated,entityVisible:null,entitySubmitted:e.materialSubmitted,visibilityMeasurement:"GPU aperture; no readback",entityContractIncluded:true};})(), meteorImpact: impactDispatcher.inspect(), edgeGeometry: equatorial.geometry, edgeTreatment: equatorial.inspect(), nodes: nodeMaker.inspect(), tapOwnership: navigation.inspect() });
+  world2.inspect = () => ({ name: "Entropy", shell: inspectShell(), systems: [{ name: "abioentropy", stationkeeping: { name: cradle.name, center: cradle.center, position: abioentropy.group.position.toArray() }, scale: 0.12, ...abioentropy.inspect() }, { name: "eye", enabled: false, instantiated: false, error: null }, { name: "Betwixt observer swarm", enabled: false, instantiated: false }, { name: "terrain", ...terrain.inspect() }, { name: "wanderer", enabled:!!wanderer, ...(wanderer?.inspect()||{}) }, { name:"WorldView",authority:"presentation only",offset:{...worldView.offset},observerRequired:false }, { name: "articulated IK trial", enabled: chaosTrials.articulated, instantiated: !!articulated, visible: !!articulated?.group.visible }, { name: "kinetic capsule trial", enabled: chaosTrials.kinetic, capsuleVisible: trialMesh.visible, leftFootVisible: footMesh.visible, rightFootVisible: otherFootMesh.visible, simulationRunning: chaosTrials.kinetic }, { name: "borehole trial", borehole: boreholeTrial, status: "retained terrain fixture", currentTrial: "N-limb connected dynamic-foot experiment (N=2)" }, gravity.inspect(), contact.inspect(), { name: "balance perturbation", ...balancePerturbation, applied: balancePerturbationApplied }, { ...drive.inspect(), enabled: chaosTrials.kinetic }, { ...kinetic.inspect(), enabled: chaosTrials.kinetic, simulationRunning: chaosTrials.kinetic }, cinderfall.inspect(), debris.inspect(), institute.inspect()], material: (()=>{const shared=materialSurvey(),e=institute.inspect().invariants;return {...shared,authored:shared.authored+e.materialAllocated,total:shared.total+e.materialAllocated,visible:null,visibleAuthored:null,entityAuthored:e.materialAllocated,entityVisible:null,entitySubmitted:e.materialSubmitted,visibilityMeasurement:"GPU aperture; no readback",entityContractIncluded:true};})(), meteorImpact: impactDispatcher.inspect(), edgeGeometry: equatorial.geometry, edgeTreatment: equatorial.inspect(), nodes: nodeMaker.inspect(), tapOwnership: navigation.inspect() });
   return world2;
 }
 
 // shell/chaos-entry.js
-var world = createEntropy();
+var world = createEntropy({observer:new URLSearchParams(location.search).get("observer")!=="none"});
+globalThis.Chaos = world;
 globalThis.Athanor.mount("entropy", world);
 world.attachView(globalThis.Athanor.view());
 </script></body></html>
