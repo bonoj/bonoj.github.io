@@ -40,7 +40,7 @@ jobs:
           document=re.sub(r'<link rel="stylesheet" href="./athanor/interface.css">','<style>'+css+'</style>',document,count=1)
           document=document.replace('<script src="./athanor/errors.js"></script>','<script>'+errors+'</script>')
           # Remove the upstream module loader and build.json fetch, replacing with a local frozen bundle.
-          document=re.sub(r'<script type="module">\s*const alarm=document.querySelector\(\x27#containmentAlarm\x27\);.*?</script>','<script type="module">'+bundle+'</script>',document,flags=re.S)
+          document=re.sub(r'<script type="module">\s*const alarm=document.querySelector\(\x27#containmentAlarm\x27\);.*?</script>',lambda m:'<script type="module">'+bundle+'</script>',document,count=1,flags=re.S)
           assert 'chaos' not in document.lower() or True
           assert './athanor/interface.css' not in document and './athanor/errors.js' not in document
           assert 'await import(\x27./main.js' not in document
