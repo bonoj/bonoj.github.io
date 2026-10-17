@@ -286,3 +286,60 @@ Use procedural density intelligently: clustered regions may contain many thousan
 Visual richness does not excuse invented behavior. Prioritize scalable instancing, recipe-based geometry, bounded simulation detail, sparse updates, deterministic procedural growth, and spatially localized interaction. An organism may have 10,000 rendered BBs without 10,000 independent physics solvers if grouped structural behavior is honestly modeled. Detached beads that enter loose physics must transfer into the existing debris system with real ownership receipts. Distinguish static structural beads, animated coherent beads, and free-moving debris.
 
 **Astra acceptance warning:** A technically correct foundry, transport network, and repair loop surrounded by simplistic placeholder shapes does **not** satisfy this charter. The user expects astonishing executable detail: systems that look richly alive because their internal structure and behavior are richly specified. Build and verify function first in slices, but deliver the visual sophistication as a first-class, measurable requirement, not optional polish.
+
+## 18. Cybernetic biomechanical design language — core requirement
+
+**User direction (2026-10-17):** The target is explicitly **mechanical, cybernetic, and biomechanical**, in addition to rich biological and architectural detail. These are not three separate decorative styles. The Institute is a world in which organic, mechanical, and computational systems share a common executable anatomy. This requirement applies across organisms, infrastructure, instruments, transport, construction, and repair.
+
+### 18.1 Unified anatomy
+
+Treat the following as interchangeable *functional analogues* only where their mechanisms and limitations are modeled:
+
+| Biological function | Mechanical analogue | Cybernetic analogue | Required observable consequence |
+|---|---|---|---|
+| Skeleton, shell, bone | Beam, truss, chassis, armor | Load monitoring | Support, constraint, breakage |
+| Muscle, tendon | Motor, piston, cable, winch | Closed-loop actuation | Force, movement, energy use |
+| Circulation | Pipe, conveyor, pump | Flow control | Finite matter/energy transport |
+| Nervous system | Wiring, signal bus | Sensors, control network | Measured inputs and decisions |
+| Metabolism | Reactor, generator, accumulator | Power management | Energy budget and shortage |
+| Growth and healing | Fabrication, modular assembly | Diagnostics and repair planning | Conserved construction and recovery |
+| Sensory organs | Lens, antenna, probe, radar | Perception and telemetry | Actual sampled world state |
+| Joint and ligament | Hinge, bearing, compliant coupling | Feedback stabilization | Kinematic constraints and failure |
+| Exoskeleton and skin | Protective casing, membrane | Distributed condition sensing | Damage, permeability, enclosure |
+
+A mechanism may be wholly mechanical, wholly organic, or hybrid. The simulation should distinguish its physical capabilities and failure modes, not assign behavior based on appearance alone.
+
+### 18.2 Visual identity
+
+Aim for **living industrial wonder**: articulated brass skeletons, dark mineral chassis, translucent membranes, luminous signaling pathways, dense BB muscle fibers, ribbed shells, delicate instrument arrays, cable-tendon bundles, counterweights, geared joints, flexible conduits, telescoping limbs, responsive apertures, and massive structures that move with purpose. Mix precision-engineered symmetry with adaptive growth and local irregularity. Use rich material contrast and structural layering, not arbitrary greebles.
+
+Do not restrict the palette to steampunk brass: include ceramics, glass, bone-like composites, oxidized metals, stone, luminescent tissue, and functional color-coded BB populations. Make close-up component anatomy as convincing as wide-shot silhouettes.
+
+### 18.3 Executable hybrid archetypes
+
+**A. Survey leviathan:** A large mobile or suspended sensing organism with articulated skeletal spars, BB tissue, an instrument iris, sensor tendrils, and finite energy/material requirements. It actively observes the world, and its observations affect Institute operations.
+
+**B. Foundry organism:** A partly grown, partly fabricated production system with feedstock intake, pump-like material transport, articulated manipulators, thermal/process constraints, and a finite throughput. Its appearance reveals what it is currently doing.
+
+**C. Repair arthropod:** A segmented crawler with independently constrained legs, tool-bearing mandibles, replaceable BB armor, onboard stock, and a task planner. It can retrieve actual debris and repair an actual damaged connection.
+
+**D. Living bridge:** A terrain-supported load path combining rigid trusses, cable tendons, adjustable counterweights, and monitored strain. It adapts to load, can fail, and can be rebuilt from reclaimed material.
+
+**E. Cybernetic grove:** Rooted colonies with conductive or material-carrying trunks, luminous sensor nodes, and mechanical pollinators or maintenance drones. Their growth and activity connect to the Institute's logistics and observation networks.
+
+These are creative challenge archetypes, not an instruction to spawn all five instantly. Astra should choose a small number for early vertical slices, then build toward a coherent ecology of interoperable hybrid systems.
+
+### 18.4 Control and causality
+
+Implement a minimal sensor → controller → actuator loop on at least one biomechanical entity. The sensor must measure real simulation state; the controller must have explicit policy, timing and limits; the actuator must change physical or structural state and consume resources. Record sensed values, commands, actuation, and outcomes. Make a broken sensor, disconnected signal, exhausted power supply, or severed tendon produce a distinguishable failure. Avoid decorative blinking indicators that claim to represent nonexistent computation.
+
+### 18.5 Mandatory demonstrations and tests
+
+1. A biomechanical assembly actuates a constrained joint under a real control loop, with recorded input, output, energy consumption, and joint limit.
+2. A service creature physically carries finite BB material from debris or storage to a construction/repair site, with ownership reconciliation.
+3. A cybernetic sensor influences autonomous behavior; severing its connection produces an observable and recoverable operational change.
+4. A living or hybrid structure sustains localized damage and visibly reallocates work, load, or repair resources.
+5. At least one large, visually intricate hybrid structure integrates articulated mechanics, dense BB anatomy, material flow, and meaningful sensing in a single coherent entity.
+6. Rendering remains compatible with Hermeticon per-fragment visibility and independent world-view motion; no viewport-triggered physical disappearance.
+
+**Astra acceptance warning:** Organic sculptures with glued-on gears, stationary clockwork decorations, or purely cosmetic luminous nerves do not meet this requirement. The ambition is a cybernetic biomechanical world whose engineering is inseparable from its visual design.
