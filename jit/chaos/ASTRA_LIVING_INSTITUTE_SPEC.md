@@ -343,3 +343,48 @@ Implement a minimal sensor → controller → actuator loop on at least one biom
 6. Rendering remains compatible with Hermeticon per-fragment visibility and independent world-view motion; no viewport-triggered physical disappearance.
 
 **Astra acceptance warning:** Organic sculptures with glued-on gears, stationary clockwork decorations, or purely cosmetic luminous nerves do not meet this requirement. The ambition is a cybernetic biomechanical world whose engineering is inseparable from its visual design.
+
+## 19. First Astra run: monolithic packaging, composable architecture
+
+**Explicit user decision (2026-10-17):** This first Astra experiment is deliberately implemented **inside the existing frozen Chaos monolith**, `jit/chaos/index.html`. Do **not** split it into folders, migrate to a bundler, create a new repository, or preemptively extract systems into Arcana. A later experiment will compare this approach with the established separate composable folder structure. The comparison is meaningful only if this first run remains monolithic in packaging while preserving strong internal composability.
+
+**Non-negotiable:** A single HTML/JS deliverable is a packaging constraint, **not** permission to build a god object or entangle subsystem internals.
+
+### 19.1 Internal component boundaries
+
+Keep the existing source-module section markers and identifiable constructor/factory boundaries. New systems should follow the same pattern: explicit constructor arguments, owned state, a narrow public capability interface, `update` where needed, `inspect` for evidence, and deterministic disposal/reset semantics where applicable. `createEntropy` is the composition root; it should wire components and schedule them, not absorb their implementation logic.
+
+Prefer interfaces such as:
+- `WorldView`: offset/center/aperture and coordinate conversion, without a Wanderer dependency;
+- `EntityContract`: identity, terrain-space transform, components, structural constraints;
+- `MaterialLedger`: atomic transfers, ownership reconciliation, event receipts;
+- `DebrisAdapter`: transfers into the existing `createBeadDebris` engine, not a new simulator;
+- `AnatomyRecipe`: declarative morphology and BB material requirements;
+- `Sensor / Controller / Actuator`: independently replaceable feedback capabilities;
+- `LogisticsPort`: capacity, source/destination, routing and delivery;
+- `StructureSupport`: terrain footings, load dependencies, damage and repair.
+
+These are conceptual boundaries; do not create empty abstractions for their own sake. Implement interfaces only as needed for working vertical slices.
+
+### 19.2 Dependency direction
+
+`World / terrain authority → physical capabilities → composed entities → presentation adapters → observer clients` is a conceptual dependency order, not a rigid inheritance tree. Observers must never become dependencies of simulation capabilities. Material accounting must be shared through explicit operations, not by inspecting renderer instance counts. Damage and repair should call established debris/material interfaces, not manipulate private arrays in unrelated systems.
+
+Use constructor injection and explicit capability references. Avoid hidden global mutable registries, cross-system reach-through, and giant switch statements coupling every creature or building type to every operation. Maintain existing composability while improving it.
+
+### 19.3 Extraction-readiness test
+
+For each major new capability, document its **inputs, outputs, state ownership, dependencies, invariants, update cadence, and inspect schema**. At least once per implementation phase, ask: *Could this function and its local helpers move to a separate source file without changing behavior or rewiring unrelated systems?* If not, repair the boundary before adding further complexity.
+
+Do **not** actually perform that extraction in this run. Instead keep a short `jit/chaos/COMPONENT_CATALOG.md` that identifies reusable components and known coupling debt. The later modular-run comparison should be able to use this catalog as its extraction map.
+
+### 19.4 Composability acceptance tests
+
+1. Add a new creature morphology using anatomy recipes and existing material/actuation capabilities without editing the core world update algorithm.
+2. Add a new structure recipe using the same support, material, and damage contracts as existing structures.
+3. Swap one sensor, actuator, or transport implementation while keeping the entity's identity and inventory intact.
+4. Disable Wanderer and prove that world simulation, material transfer, and rendering continue.
+5. Replace a rendering/presentation policy without changing physical ownership or event history.
+6. Trace a single BB-equivalent through structure → debris → recovery → new structure using public component interfaces, not private array mutation.
+
+**Success criterion:** Astra delivers a rich, executable, biomechanical Institute within one self-contained Chaos artifact while preserving capability boundaries that can later be extracted with minimal code change. Architectural cleanliness is a first-class acceptance criterion, not a deferred refactor.
