@@ -273,9 +273,18 @@ return;
 }
 
 // shell/athanor/athanor.js
-// CHAOS_BUILD is stamped into this self-contained file at each Chaos edit.
-// It identifies this exact HTML revision, not the protected root or Abyss.
-var BUILD = "a7eb6ecd3c2368df887e7b28c3ed7b44ba1e9cd3";
+// Fingerprint the actual served Chaos HTML, not a parent repository's build.json.
+// SHA-256 is content-derived, so every edit changes the displayed identity.
+var BUILD = "unverified";
+try {
+  const response = await fetch(new URL(location.pathname, location.origin), { cache: "no-store" });
+  if (!response.ok) throw Error("Chaos HTML HTTP " + response.status);
+  const bytes = await response.arrayBuffer();
+  const hash = await crypto.subtle.digest("SHA-256", bytes);
+  BUILD = Array.from(new Uint8Array(hash), b => b.toString(16).padStart(2, "0")).join("");
+} catch (error) {
+  console.warn("Chaos content identity unavailable", error);
+}
 document.querySelector("#build").textContent = BUILD === "unverified" ? "--------" : BUILD.slice(0, 8);
 var githubToggle = document.querySelector("#githubToggle");
 var githubPanel = document.querySelector("#githubPanel");
