@@ -1726,7 +1726,7 @@ function signedFieldNormal(sample, x, y, z, h = 0.09) {
 }
 function catchVesselUnderside(body, { innerRadius, beadRadius = 0, margin = WANDERER_PHYSICS.vesselMargin }) {
   const rr = Math.hypot(body.x, body.y, body.z), limit = innerRadius - beadRadius - margin;
-  if (!(body.y < 0 && rr > limit && rr < limit + 0.45)) return { caught: false, bounced: false };
+  if (!(body.y < 0 && rr > limit)) return { caught: false, bounced: false };
   const nx = -body.x / rr, ny = -body.y / rr, nz = -body.z / rr;
   body.x = body.x / rr * limit;
   body.y = body.y / rr * limit;
@@ -1990,7 +1990,10 @@ function createBeadDebris(T6, { terrain, offset, innerRadius, parent, abiogenesi
           b.z = nz;
         }
         const vesselBody = b.owner === "terrain" ? { x: b.x - o.x, y: b.y, z: b.z - o.z, vx: b.vx, vy: b.vy, vz: b.vz } : b;
-        const wall = catchVesselUnderside(vesselBody, { innerRadius, beadRadius: b.r });
+        // Genesis bowl: prevent tunneling past the narrow underside contact band.
+        // A particle already below the open rim and outside the glass is projected
+        // back to the inner sphere, regardless of how far it travelled this step.
+        const wall = catchVesselUnderside(vesselBody, { innerRadius, beadRadius: b.r, margin: WANDERER_PHYSICS.vesselMargin });
         if (wall.caught) {
           if (b.owner !== "vessel") {
             b.x = vesselBody.x;
