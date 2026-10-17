@@ -11,7 +11,7 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 - **Combat and economy:** five starting hearts; enemies converge on Tiffany; each kill awards **2 coins**, every **eighth kill 1 gem**. Purchased automation contributes kills and therefore revenue. Restart resets the run.
 - **First shop tier — five drones:** Prism (25 coins), Chain (40), Leech (65 + 1 gem), Rocket (90 + 2 gems), Vines (120 + 3 gems). Each is purchased once and remains active, orbiting Tiffany and attacking automatically.
 - **Expansion milestones:** starting arena = **1× area**; second drone = **2× area**; **five placed towers OR five purchased drones** = **4× area**. Camera zooms out rather than enlarging the phone viewport. Reaching both five-of-five conditions must not expand again.
-- **Two-drone unlock:** Tiffany's **casting spell** rotates independently every **2 seconds**. Tapping Tiffany casts her current spell. The **selected land** stays fixed until the player chooses another land; it controls tower placement, not the autocycle. The current casting icon appears above Tiffany.
+- **Two-drone unlock:** Tiffany's **casting spell** rotates independently every **2 seconds**. Tapping Tiffany casts her current spell. The **selected land** stays fixed until the player chooses another land; it controls tower placement, not the autocycle. The existing cycling bubble communicates Tiffany's current casting spell; no separate icon above her head is needed.
 - **Towers:** once two drones are owned, tapping the arena away from Tiffany places a tower of the selected land. Maximum **one per land**, **five total**. Placing the same land again **moves** its tower, rather than creating a duplicate. Towers periodically fire localized land spells, nominally every **2 seconds**; their positions survive camera expansion.
 - **Second shop tier — five army divisions:** after all five drones are purchased, the **same five shop slots** become Cherubs (180 coins + 2 gems), Auditors (240 + 3), Notaries (320 + 5), Phoenixes (420 + 7), Arborists (550 + 10). Buying a division does **not** replace or remove its drone.
 - **Recruits:** a purchased division spawns units from its matching tower approximately every **5 seconds** (only after that tower exists), with at most **eight active recruits per land**. Units pursue nearby enemies, periodically attack with their own effects, live at most **24 seconds**, and are removed on their **first enemy collision**. They are not invulnerable permanent turrets.
@@ -80,7 +80,7 @@ An important implementation nuance: “survive one hit” was encoded as a unit 
 
 The player noticed that Tiffany's automatic spell rotation was also changing the **selected land**. This was not intended. The initial implementation had overloaded one `selected` variable to mean both *what the player selected for tower placement* and *what Tiffany will cast now*. Once a timer modified it, the UI and placement semantics drifted together.
 
-The fix introduced a separate `castSpell` state. With fewer than two drones, casting follows manual selection; at the two-drone milestone, `castSpell` begins cycling independently every two seconds. The selected land remains stable and continues to determine tower placement and relocation. A current-spell icon above Tiffany makes the split visible. Commit: `fce0779c`.
+The fix introduced a separate `castSpell` state. With fewer than two drones, casting follows manual selection; at the two-drone milestone, `castSpell` begins cycling independently every two seconds. The selected land remains stable and continues to determine tower placement and relocation. The cycling bubble already communicates the current spell; a redundant icon above Tiffany was briefly added, then removed at the player's request. Commit: `fce0779c`.
 
 This is a compact example of an important engineering lesson: **different concepts deserve different state even when they initially share a value**. The player discovered the distinction by playing, not by reviewing a specification.
 
@@ -114,5 +114,6 @@ Most importantly, keep the game playful and inspectable. A fast iteration is onl
 | `6ad4fac7` | Second expansion at five towers or drones; Forest-zone correction | GitHub source read-back |
 | `25ff647a` | Second-tier army purchases and tower-born recruits | GitHub source read-back |
 | `fce0779c` | Separate selected land from autocycling cast spell | GitHub source read-back |
+| `c5362dda` | Remove redundant spell icon above Tiffany; retain cycling bubble | GitHub source commit |
 
-**Current reference:** `jit/evermore-2/index.html` on `master`, inspected after `fce0779c`. The application is a single-file prototype; this document describes its implemented rules and known verification limits, not a guarantee that every browser path has been tested.
+**Current reference:** `jit/evermore-2/index.html` on `master`, inspected after `c5362dda`. The application is a single-file prototype; this document describes its implemented rules and known verification limits, not a guarantee that every browser path has been tested.
