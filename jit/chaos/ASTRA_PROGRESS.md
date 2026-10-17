@@ -70,3 +70,14 @@ Syntax check passed. These are executed non-WebGL tests, not merely source inspe
 - Default-Wanderer run also matched the no-Wanderer machine state at 9,000 ticks.
 - Pages workflow `39031907946` completed successfully for source `4ec4995acd9ffc704ffd1bcea8371290a14ada95`. Canonical browser reload displayed `4ec4995a` and the new Pause/Damage controls. It stopped with the original `Error creating WebGL context`, confirming this browser cannot validate graphics. Later documentation-only commits do not change the executable blob, though the publisher stamps their deployment commit.
 - Browser verification still blocked by this cloud environment's disabled WebGL; request phone 👁 report before claiming visual/60 FPS acceptance.
+
+
+## Continuation frontier — autonomous terrain work (2026-10-17)
+
+**Resume, do not restart.** The Mnemonic Loom at executable checkpoint `4ec4995acd9ffc704ffd1bcea8371290a14ada95` remains the working foundation. Read the permanent Conjoiner and charter §20 before editing. This progress entry is an evolving frontier, not a second entrypoint or a replacement for the original mission. No runtime changes or new visual/browser acceptance are implied by this documentation update.
+
+**Next creative/engineering objective:** extend the Institute from a machine *on* terrain to autonomous agents and infrastructure that *work with* terrain. Choose an inventive, visually legible cybernetic/biomechanical excavator, root system, extruder, burrower, or related mechanism; do not reduce the task to a scripted crater. Use existing authoritative signed-field terrain and debris, and introduce explicit, reconciled conversion between excavated/deposited terrain and finite material ownership. Terrain changes must alter support, sensing, access, and repair. Preserve continuous Crown/Seam/Underside geometry and Hermeticon as an aperture only.
+
+**Minimum functional witness:** autonomous sense → local cut/fill → accounted material transfer → consequential support or route change → observable response/repair; deterministic test and checkpoint/reload during unfinished work. Keep the monolith internally composable and maintain the component catalog. Do not claim complete world persistence until terrain and pending operations really survive reload.
+
+**Operational gates:** Existing Loom logic has Node acceptance evidence and deployed source confirmation; WebGL/mobile visual behavior remains unverified because Astra's browser had no WebGL context. Preserve that distinction, request a phone/browser witness when possible, and do not block all further source work on an unavailable cloud GPU. Continue toward the visually astonishing populated Institute, not merely a succession of conservative infrastructure fixtures. Update this frontier with actual verified results after implementation.
