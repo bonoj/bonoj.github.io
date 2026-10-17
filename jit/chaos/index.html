@@ -2317,46 +2317,60 @@ function createEquatorialTreatment({ terrain, parent }) {
  // CHAOS LOCAL: BB-authoritative industrial colonies, first executable slice.
  // Each visible bead belongs to exactly one inventory or assembled structure.
  // Hermeticon Institute: purpose -> functional graph -> lattice -> BB embodiment.
-function createInstitute(T,parent,surface){
- const bead=new T.IcosahedronGeometry(.075,1),mat=new T.MeshStandardMaterial({color:0xd8ae6c,metalness:.68,roughness:.35,emissive:0x493016,emissiveIntensity:.16});
- const mesh=new T.InstancedMesh(bead,mat,3072);mesh.name="Institute / Conjunction / grounded lattice";mesh.frustumCulled=false;parent.add(mesh);
- const dummy=new T.Object3D(),nodes=[{id:"conjunction",role:"exchange-and-observation",x:0,z:0},{id:"observatory",role:"evidence",x:-4.4,z:-3.5},{id:"athanor",role:"experiment",x:4.4,z:-3.5},{id:"foundry",role:"ecology",x:-4.4,z:3.5},{id:"workshop",role:"fabrication",x:4.4,z:3.5}];
- const links=nodes.slice(1).map(n=>({from:"conjunction",to:n.id,role:"material-and-evidence-transfer",status:"planned"}));
- const ground=(x,z)=>{const y=surface(x,z);return Number.isFinite(y)?y:null;};
- const centerGround=ground(0,0);const datum=centerGround??1.15;
- const lattice=[],supports=[];let unsupported=0;
- function add(x,y,z,role){lattice.push({x,y,z,role});}
- function line(x,y,z,X,Y,Z,n,role){for(let i=0;i<n;i++){const t=n===1?0:i/(n-1);add(x+(X-x)*t,y+(Y-y)*t,z+(Z-z)*t,role);}}
- function column(x,z,top,n,role){const foot=ground(x,z);if(foot===null){unsupported++;return;}supports.push({x,z,foot,top,role});line(x,foot+.09,z,x,top,z,n,role);}
- // A ring of connected members at a single construction datum; every sector has grounded piles.
- const deck=datum+.2,radius=1.9;
- for(let i=0;i<96;i++){const a=i*Math.PI*2/96,b=(i+1)*Math.PI*2/96;
-  line(Math.cos(a)*radius,deck,Math.sin(a)*radius,Math.cos(b)*radius,deck,Math.sin(b)*radius,3,"connected-deck-ring");
-  if(i%8===0)column(Math.cos(a)*radius,Math.sin(a)*radius,deck,5,"grounded-deck-pier");
+// Terrain Entity Construct v1 — all positions are terrain-local; rendering follows terrain.group.
+function createTerrainEntityConstruct(T,terrain,surface){
+ const root=new T.Group();root.name="Arcana / Terrain Entities";terrain.group.add(root);
+ const entities=[],violations=[],bead=new T.IcosahedronGeometry(.075,1);
+ const palettes={stone:0xadb3a7,brass:0xe0ad62,glass:0x7dd9df,ember:0xf28b55};
+ function compose(spec){
+  if(entities.some(e=>e.id===spec.id))throw Error("duplicate terrain entity: "+spec.id);
+  const group=new T.Group();group.name=spec.id;root.add(group);
+  const anchor=spec.anchor;const ground=surface(anchor.x,anchor.z);
+  if(spec.motion==="anchored"&&ground===null)throw Error("unsupported terrain anchor: "+spec.id);
+  const base=ground??1.15;group.position.set(anchor.x,base+(anchor.clearance||0),anchor.z);
+  const components=[];let materialCount=0;
+  for(const part of spec.parts){
+   const positions=[];
+   const segment=(p,q,n)=>{for(let i=0;i<n;i++){const t=n===1?0:i/(n-1);positions.push([p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t,p[2]+(q[2]-p[2])*t]);}};
+   if(part.kind==="segment")segment(part.a,part.b,part.count||12);
+   else if(part.kind==="ring"){const n=part.count||48;for(let i=0;i<n;i++){const a=i*2*Math.PI/n;positions.push([part.center[0]+Math.cos(a)*part.radius,part.center[1],part.center[2]+Math.sin(a)*part.radius]);}}
+   else if(part.kind==="meridian"){const n=part.count||48;for(let i=0;i<n;i++){const a=i*2*Math.PI/n;positions.push([part.center[0]+Math.cos(a)*part.radius,part.center[1]+Math.sin(a)*part.radius,part.center[2]]);}}
+   else throw Error("unknown lattice primitive "+part.kind);
+   const mesh=new T.InstancedMesh(bead,new T.MeshStandardMaterial({color:palettes[part.material]||palettes.stone,metalness:.55,roughness:.4}),positions.length);
+   const d=new T.Object3D();for(let i=0;i<positions.length;i++){d.position.set(...positions[i]);d.updateMatrix();mesh.setMatrixAt(i,d.matrix);}mesh.instanceMatrix.needsUpdate=true;mesh.name=spec.id+"/"+part.role;group.add(mesh);
+   materialCount+=positions.length;components.push({role:part.role,primitive:part.kind,beads:positions.length});
+  }
+  const e={id:spec.id,role:spec.role,motion:spec.motion,anchor:{...anchor},base,ground,group,components,materialCount,phase:0,velocity:spec.velocity||[0,0,0],supportValid:ground!==null};
+  entities.push(e);return e;
  }
- // Load-bearing spokes physically meet the central bearing pedestal.
- for(let i=0;i<8;i++){const a=i*Math.PI/4;line(0,deck,0,Math.cos(a)*radius,deck,Math.sin(a)*radius,18,"radial-load-path");}
- column(0,0,datum+1.15,22,"armillary-pedestal");
- // Four portal frames sit directly on the deck and join their lintels to the columns.
- for(const n of nodes.slice(1)){
-  const a=Math.atan2(n.z,n.x),ux=Math.cos(a),uz=Math.sin(a),vx=-uz,vz=ux;
-  const x=ux*radius,z=uz*radius,top=deck+1.15;
-  const lx=x+vx*.36,lz=z+vz*.36,rx=x-vx*.36,rz=z-vz*.36;
-  line(lx,deck,lz,lx,top,lz,16,"portal-upright");line(rx,deck,rz,rx,top,rz,16,"portal-upright");
-  line(lx,top,lz,rx,top,rz,13,"portal-lintel");
- }
- // Armillary rings connect to the top of a real pedestal via their south poles.
- const cy=datum+1.85,rr=.7;
- for(let i=0;i<96;i++){const a=i*Math.PI*2/96,b=(i+1)*Math.PI*2/96;
-  line(Math.cos(a)*rr,cy+Math.sin(a)*rr,0,Math.cos(b)*rr,cy+Math.sin(b)*rr,0,2,"armillary-x");
-  line(0,cy+Math.sin(a)*rr,Math.cos(a)*rr,0,cy+Math.sin(b)*rr,Math.cos(b)*rr,2,"armillary-z");
- }
- const total=lattice.length;let built=0,elapsed=0,tick=0;const events=[];
- function update(dt){elapsed+=Math.max(0,Math.min(.06,dt));tick++;const next=Math.min(total,Math.floor(elapsed*115));if(next>built){built=next;if(built===total)events.push({kind:"grounded-conjunction-assembled",tick});}
-  for(let i=0;i<built;i++){const p=lattice[i];dummy.position.set(p.x,p.y,p.z);dummy.scale.setScalar(1);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);}mesh.count=built;mesh.instanceMatrix.needsUpdate=true;
+ // Practice A: grounded survey mast, functionally legible foot / mast / sensor.
+ compose({id:"survey-monument",role:"terrain measurement",motion:"anchored",anchor:{x:-3.2,z:0},parts:[
+  {kind:"ring",role:"foundation",center:[0,.12,0],radius:.48,count:40,material:"stone"},
+  {kind:"segment",role:"load-bearing mast",a:[0,.12,0],b:[0,1.9,0],count:30,material:"brass"},
+  {kind:"ring",role:"sensor aperture",center:[0,1.9,0],radius:.38,count:48,material:"glass"}]});
+ // Practice B: connected gateway with two supports and a crossbeam.
+ compose({id:"field-gate",role:"passage and clearance",motion:"anchored",anchor:{x:0,z:-3.5},parts:[
+  {kind:"segment",role:"left pier",a:[-.7,.1,0],b:[-.7,1.8,0],count:26,material:"stone"},
+  {kind:"segment",role:"right pier",a:[.7,.1,0],b:[.7,1.8,0],count:26,material:"stone"},
+  {kind:"segment",role:"lintel",a:[-.7,1.8,0],b:[.7,1.8,0],count:25,material:"brass"}]});
+ // Practice C: self-propelled entity: terrain-relative coordinates, not a child of vessel hardware.
+ compose({id:"surveyor",role:"mobile reconnaissance",motion:"propelled",anchor:{x:2,z:2,clearance:2.5},velocity:[0,0,0],parts:[
+  {kind:"ring",role:"propulsion rim",center:[0,0,0],radius:.4,count:44,material:"brass"},
+  {kind:"segment",role:"sensor boom",a:[0,-.25,0],b:[0,.4,0],count:14,material:"glass"}]});
+ let t=0,frames=0,maxAnchorError=0;
+ function update(dt){t+=Math.max(0,Math.min(.06,dt));frames++;
+  for(const e of entities){
+   if(e.motion==="anchored"){const y=surface(e.anchor.x,e.anchor.z);e.supportValid=y!==null;if(y!==null){e.ground=y;e.group.position.set(e.anchor.x,y+(e.anchor.clearance||0),e.anchor.z);}}
+   else if(e.motion==="propelled"){e.group.position.set(e.anchor.x+Math.cos(t*.45)*1.1,e.base+(e.anchor.clearance||0)+Math.sin(t*.8)*.2,e.anchor.z+Math.sin(t*.45)*1.1);}
+   const p=e.group.position;const err=e.motion==="anchored"?Math.hypot(p.x-e.anchor.x,p.z-e.anchor.z,p.y-(e.ground+(e.anchor.clearance||0))):0;maxAnchorError=Math.max(maxAnchorError,err);
+  }
  }
  update(0);
- return {update,inspect:()=>({name:"Hermeticon Institute — grounded Conjunction",phase:"terrain-anchored structural lattice",intent:"interdisciplinary exchange, observation and fabrication",nodes,links,geometry:{terrainDatum:datum,centerSampleValid:centerGround!==null,deckHeight:deck,supports,unsupportedSupports:unsupported,connectedMembers:true},lattice:{planned:total,assembled:built,remaining:total-built,roles:[...new Set(lattice.map(p=>p.role))]},material:{source:"finite construction allocation (Institute-local)",allocated:total,assembled:built,reserved:total-built,conserved:built+(total-built)===total,sharedSurveyIntegrated:false},events:[...events],next:"unify shared material authority; add physical builder transport"})};
+ return {update,inspect:()=>{
+  root.updateWorldMatrix(true,true);terrain.group.updateWorldMatrix(true,false);
+  const inverse=terrain.group.matrixWorld.clone().invert();
+  return {name:"Arcana — Terrain Entity Construct v1",authority:"terrain.group local frame",renderParent:"terrain.group / Arcana Terrain Entities",frames,terrainFrameWorld:terrain.group.getWorldPosition(new T.Vector3()).toArray(),entityCount:entities.length,entities:entities.map(e=>{const world=e.group.getWorldPosition(new T.Vector3());const relative=world.clone().applyMatrix4(inverse);const local=e.group.position;return {id:e.id,role:e.role,motion:e.motion,anchor:e.anchor,ground:e.ground,supportValid:e.supportValid,terrainPosition:relative.toArray(),worldPosition:world.toArray(),frameError:relative.distanceTo(local),parts:e.components,material:{owned:e.materialCount,visible:e.materialCount}};}),invariants:{maxAnchorError,unresolvedSupports:entities.filter(e=>e.motion==="anchored"&&!e.supportValid).length,materialAllocated:entities.reduce((n,e)=>n+e.materialCount,0),materialVisible:entities.reduce((n,e)=>n+e.materialCount,0),sharedMaterialSurveyIntegrated:false},violations};
+ }};
 }
 
 // shell/codex/entropy/world.js
@@ -2401,7 +2415,7 @@ function createEntropy() {
     return { x, z };
   };
   const chaosTrials = { articulated: false, kinetic: false };
-  const institute = createInstitute(T5, world2.content, terrainSurface);
+  const institute = createTerrainEntityConstruct(T5, terrain, terrainSurface);
   const articulated = chaosTrials.articulated ? createArticulatedTrial(T5, { parent: world2.content, surface: terrainSurface, actor: () => wanderer.inspect(), offset: botanicalOffset }) : null;
   const gravity = createGravitySystem({ components: [uniformGravity({ id: "surface", y: -9.8 })] });
   world2.gravity = gravity;
