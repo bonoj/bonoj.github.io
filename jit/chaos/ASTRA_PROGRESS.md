@@ -68,5 +68,5 @@ Syntax check passed. These are executed non-WebGL tests, not merely source inspe
 - All six changed files read back byte-for-byte; HTML blob `b50db33cf0e95261bc64e31db1eca903e8e890a1`.
 - Git comparison confirmed every changed path stays under `jit/chaos/`; protected root and recovery branch untouched.
 - Default-Wanderer run also matched the no-Wanderer machine state at 9,000 ticks.
-- Deployment of this new slice is pending at this record's write time; check latest `Promote stable world` run and canonical `build.json`. Later documentation-only commits do not change this executable source blob, though the publisher stamps their deployment commit.
+- Pages workflow `39031907946` completed successfully for source `4ec4995acd9ffc704ffd1bcea8371290a14ada95`. Canonical browser reload displayed `4ec4995a` and the new Pause/Damage controls. It stopped with the original `Error creating WebGL context`, confirming this browser cannot validate graphics. Later documentation-only commits do not change the executable blob, though the publisher stamps their deployment commit.
 - Browser verification still blocked by this cloud environment's disabled WebGL; request phone 👁 report before claiming visual/60 FPS acceptance.
