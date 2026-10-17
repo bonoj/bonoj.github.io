@@ -10,7 +10,7 @@
 - The final `index.html` should inline the complete local JS bundle and CSS, with no relative module or CSS fetches; identify any intentional external dependencies (e.g. pinned Three.js CDN) rather than claiming fully offline independence.
 - Subsequent Chaos edits target the frozen HTML artifact directly. Do not silently regenerate from Abyss and erase mutations.
 - Preserve visible executing build identity, FPS, runtime error reporting, and a known-good recovery checkpoint. A Git commit is not proof that Pages is executing it.
-- Prefer existing JIT publishing and existing GitHub/Gate write recovery. No new runtime framework, architecture, or world contracts.
+- Prefer existing JIT publishing and existing GitHub/Gate write recovery. The terrain entity contract below is an explicitly requested experimental exception; it is not yet extracted into canonical Arcana.
 - This is an intentional **scratchpad**, not a production branch. Reusable discoveries may be extracted into Arcana later, explicitly.
 
 ## Stable restoration checkpoint
@@ -30,3 +30,15 @@
 5. Preserve the seed in Git history, then begin chaotic edits in-place.
 
 No iframe wrapper around live Abyss is a substitute for a frozen independent artifact.
+
+## Terrain Entity Contract v1 — experimental (2026-10-17)
+
+Source: frozen `jit/chaos/index.html`, `createTerrainEntityContract(T, terrain, surface)`. This is the **contract**, not a new coordinate universe. The terrain local frame is authoritative; the render root is a child of `terrain.group`. Vessel motion, camera motion and unrelated scene parents must not impart physical motion to entities. Gravity is a force in terrain space, not a scene parent.
+
+A composition requires unique nonempty `id`, semantic `role`, `motion` (`anchored` or `propelled` in v1), finite `anchor.x/z`, and nonempty `parts`. Reusable lattice parts currently support `segment`, `ring`, `meridian`. Anchored entities require a valid terrain surface sample; their vertical position follows terrain. Propelled entities move in terrain coordinates; their anchor is a reference, not a fixed attachment. No vessel-frame entity mode is permitted.
+
+**Practice compositions:** survey-monument (foundation/mast/aperture), field-gate (piers/lintel), surveyor (propelled rim/sensor boom). These are contract tests, not the Institute itself. The field gate does not yet resolve its two individual footings against nonuniform terrain. The surveyor's motion is scripted, not gravity-integrated. Lattice joints and load paths are geometric, not structurally simulated.
+
+**Mandatory per-build instrumentation:** build SHA, FPS, runtime errors, entity identity and purpose, motion mode, anchor, terrain and world positions, frame error, terrain support validity, lattice part inventory, BB allocation, visible BB count, and world material reconciliation. `material.entityAuthored` and `material.entityVisible` contribute static practice BBs to the world material survey; transfer into detached physics or other populations is **not implemented**. A zero frame error at one observation is evidence of coordinate consistency, not a tested vessel-motion regression.
+
+**Next gates:** prove frame invariance under an independently changing vessel transform; resolve multi-foot terrain support; connect entity material ownership to shared transfer/debris authority; then compose the Institute from these tested primitives. Preserve protected root and immutable `chaos-seed-v1`.
