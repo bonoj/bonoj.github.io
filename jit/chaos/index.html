@@ -2313,6 +2313,82 @@ function createEquatorialTreatment({ terrain, parent }) {
   }, getMode: () => edgeModes[edgeIndex], inspect: () => ({ mode: edgeModes[edgeIndex], index: edgeIndex, triangles: edgeTriangles, rebuilds: edgeRebuilds, buildMs: edgeBuildMs, solid: edgeSolid, void: edgeVoid }), geometry: edgeGeometry };
 }
 
+
+ // CHAOS LOCAL: BB-authoritative industrial colonies, first executable slice.
+ // Each visible bead belongs to exactly one inventory or assembled structure.
+ function createLittleWar(T, parent) {
+   const beadGeometry = new T.IcosahedronGeometry(0.065, 0);
+   const palettes = [0xd7a34e, 0x48c7b8];
+   const factions = [
+     { id:"brass", color:palettes[0], x:-5.1, z:-2.2, stock:240, factory:120, drones:[], built:0 },
+     { id:"verdigris", color:palettes[1], x:5.1, z:2.2, stock:240, factory:120, drones:[], built:0 }
+   ];
+   const meshes = factions.map((f) => {
+     const mesh = new T.InstancedMesh(beadGeometry, new T.MeshStandardMaterial({color:f.color,roughness:0.45,metalness:0.65}), 512);
+     mesh.name = "Little War / "+f.id+" / material BBs";
+     mesh.frustumCulled=false; parent.add(mesh); return mesh;
+   });
+   const dummy = new T.Object3D();
+   const seed=741; let tick=0, clock=0, lastCheck=null, eventCount=0;
+   const droneCost=36, initialTotal=factions.reduce((n,f)=>n+f.stock+f.factory,0);
+   const events=[];
+   function event(kind,f){eventCount++;events.push({tick,kind,faction:f.id});if(events.length>16)events.shift();}
+   function build(f){
+     if(f.stock<droneCost || f.drones.length>=4)return false; // temporary launch-slot capacity, not material cap
+     f.stock-=droneCost;
+     const id=f.built++;
+     f.drones.push({id,beads:droneCost,age:0,angle:id*1.8,orbit:1.2+id*.32,alt:2.4+id*.35});
+     event("assembled-and-launched",f);return true;
+   }
+   // Seed launch: the same debit path is used for every drone.
+   factions.forEach(f=>{build(f);build(f);});
+   function update(dt){
+     clock+=Math.min(.05,Math.max(0,dt));
+     while(clock>=.05){clock-=.05;tick++;for(const f of factions){
+       for(const d of f.drones){d.age+=.05;d.angle+=.05*(.48+(d.id%3)*.12)*(f.id==="brass"?1:-1);}
+       if(tick%100===0)build(f);
+     }}
+     for(let fi=0;fi<factions.length;fi++){
+       const f=factions[fi],mesh=meshes[fi];let index=0;
+       function place(x,y,z,scale=1){
+         dummy.position.set(x,y,z);dummy.scale.setScalar(scale);dummy.updateMatrix();
+         mesh.setMatrixAt(index++,dummy.matrix);
+       }
+       // The factory is a bead-built ring tower with an illuminated assembly crown.
+       for(let i=0;i<f.factory;i++){
+         const a=i*2.399963229728653,rad=.25+Math.sqrt(i/f.factory)*.72;
+         const level=(i%7)/6;
+         place(f.x+Math.cos(a)*rad,1.22+level*.8,f.z+Math.sin(a)*rad);
+       }
+       for(const d of f.drones){
+         const cx=f.x+Math.cos(d.angle)*d.orbit,cz=f.z+Math.sin(d.angle)*d.orbit;
+         const cy=d.alt+Math.sin(d.age*2+d.id)*.15;
+         for(let i=0;i<d.beads;i++){
+           const a=i*2.399963229728653,rr=Math.sqrt(i/d.beads);
+           // Central fuselage, two broad wings and a trailing tail.
+           const wing=i<24 ? (i%2?1:-1)*(.14+rr*.42):0;
+           const dx=wing+Math.cos(a)*.12;
+           const dz=i>=24?-.2-(i-24)*.028:Math.sin(a)*.16;
+           place(cx+dx,cy+Math.cos(a*2)*.045,cz+dz,.82);
+         }
+       }
+       mesh.count=index;mesh.instanceMatrix.needsUpdate=true;
+     }
+     const total=factions.reduce((n,f)=>n+f.stock+f.factory+f.drones.reduce((m,d)=>m+d.beads,0),0);
+     lastCheck={expected:initialTotal,observed:total,delta:total-initialTotal,pass:total===initialTotal};
+   }
+   update(0);
+   return {update,inspect:()=>({
+     name:"Little War — material factories / autonomous launch",
+     phase:"A: factory fabrication and patrol; combat and salvage not yet enabled",
+     seed,tick,events:[...events],eventCount,
+     factions:factions.map(f=>({id:f.id,stock:f.stock,factoryBBs:f.factory,drones:f.drones.length,droneBBs:f.drones.reduce((n,d)=>n+d.beads,0),launched:f.built,material:f.stock+f.factory+f.drones.reduce((n,d)=>n+d.beads,0)})),
+     materialInvariant:lastCheck,materialAuthority:"local assembled BB ledger; not yet integrated with detached debris",
+     intervention:{meteor:"existing Cinderfall instrument; war damage pending",materialRain:false},
+     visibleBeads:meshes.reduce((n,m)=>n+m.count,0)
+   })};
+ }
+
 // shell/codex/entropy/world.js
 import * as T5 from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
 function createEntropy() {
@@ -2355,6 +2431,7 @@ function createEntropy() {
     return { x, z };
   };
   const chaosTrials = { articulated: false, kinetic: false };
+  const littleWar = createLittleWar(T5, world2.content);
   const articulated = chaosTrials.articulated ? createArticulatedTrial(T5, { parent: world2.content, surface: terrainSurface, actor: () => wanderer.inspect(), offset: botanicalOffset }) : null;
   const gravity = createGravitySystem({ components: [uniformGravity({ id: "surface", y: -9.8 })] });
   world2.gravity = gravity;
@@ -2457,6 +2534,7 @@ function createEntropy() {
     if (chaosTrials.kinetic) updateKinetic(dt);
     cinderfall.update(dt);
     debris.update(dt);
+    littleWar.update(dt);
     if (eye && !eyeError) {
       try {
         eye.update(dt, eyeCamera);
@@ -2469,7 +2547,7 @@ function createEntropy() {
   const inspectShell = world2.inspect.bind(world2);
   const materialSurvey = createMaterialSurvey({ populations: [], debris });
   world2.materialSurvey = materialSurvey;
-  world2.inspect = () => ({ name: "Entropy", shell: inspectShell(), systems: [{ name: "abioentropy", stationkeeping: { name: cradle.name, center: cradle.center, position: abioentropy.group.position.toArray() }, scale: 0.12, ...abioentropy.inspect() }, { name: "eye", enabled: false, instantiated: false, error: null }, { name: "Betwixt observer swarm", enabled: false, instantiated: false }, { name: "terrain", ...terrain.inspect() }, { name: "wanderer", ...wanderer.inspect() }, { name: "articulated IK trial", enabled: chaosTrials.articulated, instantiated: !!articulated, visible: !!articulated?.group.visible }, { name: "kinetic capsule trial", enabled: chaosTrials.kinetic, capsuleVisible: trialMesh.visible, leftFootVisible: footMesh.visible, rightFootVisible: otherFootMesh.visible, simulationRunning: chaosTrials.kinetic }, { name: "borehole trial", borehole: boreholeTrial, status: "retained terrain fixture", currentTrial: "N-limb connected dynamic-foot experiment (N=2)" }, gravity.inspect(), contact.inspect(), { name: "balance perturbation", ...balancePerturbation, applied: balancePerturbationApplied }, { ...drive.inspect(), enabled: chaosTrials.kinetic }, { ...kinetic.inspect(), enabled: chaosTrials.kinetic, simulationRunning: chaosTrials.kinetic }, cinderfall.inspect(), debris.inspect()], material: materialSurvey(), meteorImpact: impactDispatcher.inspect(), edgeGeometry: equatorial.geometry, edgeTreatment: equatorial.inspect(), nodes: nodeMaker.inspect(), tapOwnership: navigation.inspect() });
+  world2.inspect = () => ({ name: "Entropy", shell: inspectShell(), systems: [{ name: "abioentropy", stationkeeping: { name: cradle.name, center: cradle.center, position: abioentropy.group.position.toArray() }, scale: 0.12, ...abioentropy.inspect() }, { name: "eye", enabled: false, instantiated: false, error: null }, { name: "Betwixt observer swarm", enabled: false, instantiated: false }, { name: "terrain", ...terrain.inspect() }, { name: "wanderer", ...wanderer.inspect() }, { name: "articulated IK trial", enabled: chaosTrials.articulated, instantiated: !!articulated, visible: !!articulated?.group.visible }, { name: "kinetic capsule trial", enabled: chaosTrials.kinetic, capsuleVisible: trialMesh.visible, leftFootVisible: footMesh.visible, rightFootVisible: otherFootMesh.visible, simulationRunning: chaosTrials.kinetic }, { name: "borehole trial", borehole: boreholeTrial, status: "retained terrain fixture", currentTrial: "N-limb connected dynamic-foot experiment (N=2)" }, gravity.inspect(), contact.inspect(), { name: "balance perturbation", ...balancePerturbation, applied: balancePerturbationApplied }, { ...drive.inspect(), enabled: chaosTrials.kinetic }, { ...kinetic.inspect(), enabled: chaosTrials.kinetic, simulationRunning: chaosTrials.kinetic }, cinderfall.inspect(), debris.inspect(), littleWar.inspect()], material: materialSurvey(), meteorImpact: impactDispatcher.inspect(), edgeGeometry: equatorial.geometry, edgeTreatment: equatorial.inspect(), nodes: nodeMaker.inspect(), tapOwnership: navigation.inspect() });
   return world2;
 }
 
