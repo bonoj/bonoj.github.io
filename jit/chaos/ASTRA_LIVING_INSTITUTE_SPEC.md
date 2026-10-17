@@ -204,3 +204,46 @@ The Institute is done when it is a persistent, self-operating, structurally legi
 **Astra's creative freedom:** Name precincts, invent engineering mechanisms, design architectural silhouettes, choose procedural recipes and service-agent behavior, and surprise the user with coherent emergent details. Do not weaken conservation, independence, persistence, inspectability, or deployment isolation.
 
 **Final instruction:** Make the impossible architecture possible by making its consequences real.
+
+## 16. Existing-system integration map — MANDATORY READ BEFORE BUILDING
+
+This section was added after explicit review of the frozen Chaos bundle. **Do not rebuild capabilities already present.** The list describes current implementation and its limitations, not promised APIs in upstream Arcana. Search the named functions in `jit/chaos/index.html` and inspect their complete source and call sites before designing replacements.
+
+| Existing component | Actual source entry point | Reuse obligation |
+|---|---|---|
+| Hermeticon shell and capture boundary | `createHermeticon()`, `world2.group`, `world2.content`, `world2.inspect().vessel.innerRadius` | Preserve shell geometry (outer 10.25, inner 10.07) and separate visibility from physical containment. Do not parent physical entity identity to the vessel. |
+| Terrain and signed-field geometry | `createTerrain()`, `createTerrainSurfaceQuery()`, `terrain.sample`, `terrain.sphereContact`, `terrain.impact`, `terrain.setOffset`, `terrain.getAperture` | Terrain is the support and contact authority. Reuse existing signed volume, material map, crater and aperture mechanisms; do not add a competing terrain model. |
+| World viewing | `worldView` in `createEntropy()`, `terrain.setOffset`, `createTerrainEntityContract(...,view)` | Separate world/view frames; keep Hermeticon fragment-level aperture and no-Wanderer requirement. Beware duplicated transforms and shader program variants. |
+| Authored BB structural entities | `createTerrainEntityContract()` | Extend semantic components and anchored/propelled contracts; retain terrain-space persistence and the 253-BB baseline. Do not replace it with unrelated decorative meshes. |
+| Detached BB physics | `createBeadDebris(T6,{terrain,offset,innerRadius,parent,abiogenesis,wanderer})` | **Primary existing loose-matter engine.** Inspect `emit`, `canAccept`, `receiveImpulse`, `collideSphere`, `directRegionToward`, `update`, `inspect`; integrate damage and recovery with its BB accounting and collision mechanics rather than building a second loose-bead simulator. |
+| Vessel and secondary capture | `createBeadDebris` internal vessel/abiogenesis/wanderer collision and ownership logic | Preserve existing vessel wall contact and capture distinctions. **Do not conflate capture with viewport visibility.** Inspect how the `ownership` counters (`terrain`, `vessel`, `abiogenesis`, `wanderer`) are calculated. Current world call site passes `abioentropy` while function signature names `abiogenesis`: verify whether this is an actual integration mismatch before relying on secondary capture. |
+| Gravity/contact and connected limbs | `createGravitySystem`, `uniformGravity`, `createTerrainContact`, `createConnectedLimbs`, `createKineticBody`, `createFootContacts` | Reuse established forces, terrain collision and constrained-motion contracts where appropriate. Some articulated/kinetic trials are disabled: do not enable blindly or assert they are validated. |
+| Meteor and impacts | `createCinderfall`, `createImpactDispatcher`, `world2.castMeteor`, `terrain.impact` | Use the existing meteor→dispatcher→debris/creature/plant→terrain impact route. Register Institute damage receivers with dispatcher rather than creating an unrelated explosion engine. Note `creatures:[]` and `plants:[]` currently carry no active populations. |
+| Population survey | `createMaterialSurvey({populations,debris})`, `world2.materialSurvey`, `world2.inspect().material` | Extend/reconcile current inspection and ownership. Current `populations:[]`; Institute entity counts are appended separately. Do not confuse authored, submitted, visible, detached, or allocated. |
+| Navigation and observer | `createTerrainNavigation({terrain,actor})`, `createWanderer({terrain})`, `world2.attachView` | Reuse tap/raycast plumbing where useful; remove any requirement for Wanderer as simulation or view authority. Existing navigation is Wanderer-centric and may need an optional client adapter. |
+| Rendering/visibility treatment | `createObservationLens`, terrain aperture shader, entity `onBeforeCompile` spherical fragment aperture | Preserve terrain-only hybrid depth treatment and shell appearance. No CPU cluster culling. Check shader error telemetry after each shader edit. |
+| Instrumentation | `world2.inspect()`, `terrain.inspect()`, `debris.inspect()`, `institute.inspect()`, renderer/edge error report | Extend existing observable contracts rather than inventing a parallel dashboard. |
+
+### 16.1 Concrete BB debris and capture rules
+
+- `createBeadDebris` uses dynamically grown `InstancedMesh` capacity and maintains its own physical `beads` collection; the reported `allocated` is GPU capacity, **not** BB ownership. `count` is actual detached beads, `visible` is submitted instances, and ownership counters describe physical classification. The user has previously rejected arbitrary hidden population limits. Profile and expose backpressure rather than silently capping matter.
+- The existing engine computes terrain contact, vessel interactions, Wanderer capture, and a secondary small Hermeticon capture region. These are *physical interactions*, not proof that the visibility shader is responsible for BB existence.
+- Current call site: `createBeadDebris(T5,{terrain,offset:botanicalOffset,innerRadius:world2.inspect().vessel.innerRadius,parent:world2.content,abioentropy:cradleCollision,wanderer:{inspect:()=>wanderer.inspect(),innerRadius:10.07*0.06}})`. The function signature accepts `abiogenesis`, not `abioentropy`. Astra must investigate this discrepancy and either document why it is benign or correct it with an isolated test. Do not claim secondary capture works from the current zero capture counters.
+- `offset:botanicalOffset` currently derives from `wanderer.inspect().offset`. Decouple that dependency in favor of `worldView` before claiming no-Wanderer support. The same applies to Cinderfall, optional observer logic, and navigation wiring.
+- When structural BBs are detached, create an **atomic material ownership transfer** and emit through the existing debris interface. Avoid double-counting while a structure is damaged or a BB is in transit. Make any ownership bookkeeping mismatch visible in invariants.
+- No arbitrary disappearance at the Hermeticon boundary. Loose BBs may collide, rebound, be captured or transported according to physical rules; authored structural geometry may be partially clipped for presentation. The two policies are distinct and must not be interchanged.
+
+### 16.2 Rendering and 60 FPS guidance
+
+The live observation for `6f63b78b` reported **60.53 FPS**, no shader errors, 17 shader programs, 652×1179 render target at device pixel ratio 1.7, and ~2.4 ms last observation-lens render time (not total frame time). These are *one-device measurements*, not universal budgets or proof of headroom.
+
+Target **60 FPS phone-first** and approximately **16.7 ms/frame** total budget. Capture p50/p95 frame times and separately attribute CPU simulation, BB integration, terrain rebuild, instanced-matrix uploads, shader passes, and GPU draw overhead. Preserve existing CPU-first, instanced Three.js strategy. Reuse pooled meshes and existing geometries. Avoid per-frame allocations proportional to every BB when avoidable; use spatial locality and update only changed instance data where feasible. Measure first, then optimize; never degrade material conservation or determinism to hide performance costs.
+
+Prior world experiments reportedly achieved far higher BB counts in other contexts; **do not infer Chaos has the same capacity**. Run actual increasing-population trials, record device and build, and identify performance knees. At performance limits, reduce ornamental work, spread construction across ticks, or expose a user-visible throughput budget. Do not silently discard material.
+
+### 16.3 Mandatory Astra inspection gates
+
+Before writing a new material, capture, physics, or visibility subsystem, Astra must produce a short reuse decision for the corresponding component above: **existing behavior, tested limitation, required extension, and regression test**. Prefer modifying an existing composable system to adding a competing implementation.
+
+Run focused tests for: vessel wall collision versus shader aperture; secondary capture fixture; detached-BB ownership after impact; viewport sweep with a stationary structure; world simulation with Wanderer absent; and high-BB-count 60 FPS behavior. Record which tests were actually observed in browser versus inferred from source. The baseline has not passed these new tests merely because its shader compiled.
+
