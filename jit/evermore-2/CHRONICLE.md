@@ -1214,3 +1214,69 @@ This episode exemplifies a productive separation of *intent*, *mechanism*, and *
 **Next verification boundary:** When the monument module is deliberately integrated, add bounded 👁 reporting for candidate sites, blocked placement, worker arrival and inventory credit, construction, occupation, immunity and relocation rubble. Verify stone conservation and continuing Cherub recruitment in a live run; do not infer these from this observer export.
 
 **The model's contemporaneous summary:** “The headless foundation hasn't disturbed the living Fire ecology.” Treat this as a narrow observation about the reported run, not a general guarantee.
+
+
+## 2026-10-18 — The Scarab War: turn-by-turn design before implementation
+
+This is the **design dialogue**, not a record of shipped gameplay. It follows the five-monument headless experiment and the first healthy 👁 observer report. The human is the human; the collaborator is the model. The canonical implementation contract is in [README.md](./README.md). No scarab warrior, Sun Reliquary, combat coupling, or live monument integration was built during these turns.
+
+### Turn 1 — The human proposes a combined-arms trio
+
+**The human:** “How about a trio of scarabs. 🛡 🪲, 🗡 🪲, and 🏹 🪲 . Scorpions attack them on sight. 👼 (and monument with ✨️) attack scorpions on sight. Scorpions drop rocks per hit and attempt to replenish their rocks by consuming 🪱 🍄 🦴 the moment they take a hit. An idle scorpion will defend itself if no food sources are available.”
+
+**The model's response:** Interpreted the trio as complementary shield, melee, and ranged scarabs, and the conflict as territorial rather than a simple resource faucet. It emphasized that one successful armored hit removes one armor rock and creates one physical loose stone, with scorpions urgently seeking the missing ingredient and defending themselves if no eligible food exists. The model asked whether every scarab could haul rocks or whether hauling belonged to the shield role.
+
+**Why it matters:** Sun's offensive pressure actively interrupts Fire's three-ingredient armor/metamorphosis cycle. Scorpions remain autonomous ecological agents rather than passive loot sources; 👼 and inhabited 🏛️✨ become territorial anti-scorpion defenses.
+
+### Turn 2 — The human defines universal carrying and delivery commitment
+
+**The human:** “All three can carry rocks, but they prioritize visible scorpions over carrying rocks. Once they pick up a rock, they must return it to build a monument or deliver it to Tiffany if there are no valid monuments to construct. Each monument only takes 1 rock to construct.”
+
+**The model's response:** Established a shared priority rule: **unladen → engage visible scorpion → collect available loose rock → laden → complete physical delivery → repeat**. Each scarab carries at most one rock. A single delivered rock constructs one monument. If a designated site is invalid because of Tiffany's protected space or overlap, preserve the earlier requirement to physically reach that site before inventory credit; when no constructible monument remains, deliver to Tiffany. The model added a material-conservation interpretation: a killed carrier drops its stone into the battlefield, never losing or teleporting it.
+
+**Why it matters:** The combat and logistics phases are deliberately asymmetric. Scorpions take precedence *before* pickup; delivery takes precedence *after* pickup. One-rock construction also finalizes the previously open monument cost and matches the headless model's default cost of one.
+
+### Turn 3 — The human specifies combat, durability, and visual restraint
+
+**The human:** “Shield beetle attempts to block scorpion. It can take 2 hits (first hit destroys shield). Sword and arrow beetles each take only one hit. Creeps can damage or kill them as well but they ignore creeps. Arrow has hitscan but slow reload. Visibly it just looks like standard tool use.”
+
+**The model's response:** Restated the shield scarab's physical interception and two-hit durability (first hit removes visible shield, second kills); the sword scarab's melee engagement and one-hit fragility; and the bow scarab's ranged hitscan, slow reload, one-hit fragility, and simple tool-use visual. Creeps can injure or kill scarabs, but scarabs do not seek or attack creeps. The model cautioned against inventing elaborate arrow/projectile effects, invisible defense auras, or free stone transfers. Exact timings, ranges, and geometry were left for source-informed implementation.
+
+**Why it matters:** Three visually and mechanically distinct roles can share the same claim/transport/delivery machinery. The shield's protection is positional rather than an abstract global buff. Existing creeps remain a meaningful hazard without becoming scarab targets.
+
+### Turn 4 — The human orders the canonical specification
+
+**The human:** “Spec this in doc!”
+
+**The model's action:** Updated [README.md](./README.md) in commit [`15ad2379`](https://github.com/bonoj/bonoj.github.io/commit/15ad23790c720f861ce7485f64167137d6131736), recording the scarab trio, hunting priority, stone logistics, scorpion hostility and replenishment, Cherub/inhabited-monument defense, durability, hitscan bow, creep indifference, physical rubble and one-rock monuments. It reconciled the headless cost note with the now-approved cost. **Documentation only.**
+
+### Turn 5 — The human requests a normal home building
+
+**The human:** “We need also a building that uses normal building system for them. Suggestions?”
+
+**The model's response:** Proposed three possible homes: **🛕 Sun Reliquary** (small sacred military workshop), **🔆 Solar Obelisk** (landmark), and **🏰 Scarab Garrison** (fortified barracks). It favored the Reliquary because it could use the existing placement, destruction, and recovery machinery without conflating the home with the five monument objectives. It suggested that a destroyed home should interrupt scarab replenishment until restored, while inhabited monuments remain distinct.
+
+**Why it matters:** The worker trio acquires an ordinary, vulnerable ecological home. No special building framework or shop control is needed; the Reliquary is not itself a permanent monument.
+
+### Turn 6 — The human selects the Reliquary and defines respawn/idle
+
+**The human:** “Agreed. Add to spec! 🪲 respawns from there with the usual slight delay if killed and then moves to rejoin its unit. If no rocks or scorpions are available they idle by their reliquary with the standard walking idle.”
+
+**The model's action:** Added the **🛕 Sun Reliquary** to [README.md](./README.md), commit [`0f5a00ef`](https://github.com/bonoj/bonoj.github.io/commit/0f5a00ef266bc7694e9bc7b15ff7454f7e530fa9). It specified normal building placement/destruction/recovery, delayed respawn at the Reliquary, physical travel to rejoin the trio, and ordinary walking idle near home when no scorpion or loose rock is available. No replacement can spawn while the home is destroyed. **Documentation only.**
+
+### Turn 7 — The human freezes the plan in history before building
+
+**The human:** “Add this entire plan turn for turn to chronicle before we build, should help cement it.”
+
+**The model's action:** Appended this retrospective, preserving the chronological dialogue, decision boundaries, accepted mechanics, and the difference between the headless monument prototype and the unbuilt live Sun expedition.
+
+### Agreed implementation contract at the end of the exchange
+
+- **One home:** 🛕 Sun Reliquary using the existing worker-building lifecycle; destroyed home blocks replacement; scarabs respawn after the ordinary slight delay and physically rejoin their unit; ordinary walking idle near home when no work exists.
+- **Three workers:** 🛡️ shield (two hits, first removes shield, intercepts scorpions), 🗡️ sword (one hit, melee), 🏹 bow (one hit, slow-reloading hitscan). Ordinary legible tool-use visuals.
+- **Targeting:** Scorpions attack scarabs on sight; unladen scarabs prioritize visible scorpions over stone. Scarabs ignore creeps offensively but remain vulnerable to them. Cherubs and inhabited monuments attack scorpions on sight.
+- **Physical material:** One hit against armored scorpion → one removed armor stone → one loose rock; scorpion immediately attempts the missing 🪱/🍄/🦴 meal, defending itself if none is available. Unladen scarabs claim and collect one rock each; laden scarabs prioritize delivery, with cargo dropped physically on death.
+- **Construction:** Exactly one delivered rock per 🏛️, up to five sites around ☀️. Avoid Tiffany's personal space and overlapping sites; blocked designated sites require arrival before crediting Tiffany. With no valid construction remaining, deliver to Tiffany. Cherubs prioritize vacant monuments and become permanent ✨; occupied monuments attack scorpions and cannot be destroyed by enemies. Normal Cherub recruitment/expiry continues. Moving ☀️ crumbles its monuments into loose rocks, including occupied ones.
+- **Engineering constraints:** Compose with existing worker groups, building placement/recovery, standard walking idle, targeting/claims, world resources, and 👁. No invented UI, no replacement building system, no new stone generation, no premature combat constants, no changes to the one-of-each Fire feeding and rat metamorphosis contract. The existing `sun-monuments.mjs` remains **headless and dormant**, with 15 authoring-time deterministic assertions; none of this newly specified war has yet been integrated or live-tested.
+
+**The creative hypothesis:** Sun may discover that a thriving Fire colony is more useful alive than annihilated: a regenerating quarry, fiercely defended by creatures that need the same rocks to reproduce. The game should be allowed to reveal whether that dynamic actually emerges rather than scripting the outcome.
