@@ -46,9 +46,9 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 - Staged succession: 🌋 --💧 Island--> 🗻 --🌳 Forest--> ⛰️ --💧 Island--> 🏔️. 🔥 Mountain pulses return **any cooled stage** (🗻 ⛰️ 🏔️) to 🌋 after the same 2–5-second randomized transformation delay. Each eligible tower pulse starts an individual 2–5-second delay. Pending transformations cannot be reset or skipped.
 - Mountains persist after towers move and are not trampled; they do not yet block enemies.
 
-**Design invariants:** Every tower remains independently useful; all existing combat, shop, currency, and controls remain. Tower interactions depend on spatial overlap and pulses, not hard-coded combinations. Swamp still independently poisons; 🍄 mushrooms, ash, fire propagation, harvesting, and tree/mountain collision are ideas, **not implemented**. Restart clears crops and mountains.
+**Design invariants:** Every tower remains independently useful; all existing combat, shop, currency, and controls remain. Tower interactions depend on spatial overlap and pulses, not hard-coded combinations. Swamp independently poisons and now produces 🦴 bones on enemy deaths within its tower radius; bones decay to 🍄 mushrooms. Ash, fire propagation, harvesting, and tree/mountain collision remain **not implemented**. Restart clears crops and mountains.
 
-**Next:** Player gameplay test, then fix only observed issues. Inspect tower placement, delayed maturation, Fire clearing, volcano local radius, geological succession, and restart. GitHub source persistence is confirmed; Pages deployment and browser behavior are **not independently verified**.
+**Next:** Player gameplay test, then develop collector behavior around persistent 🦴 and 🍄. No collector roles have been implemented. Fix observed issues. Inspect tower placement, delayed maturation, Fire clearing, volcano local radius, geological succession, and restart. GitHub source persistence is confirmed; Pages deployment and browser behavior are **not independently verified**.
 
 **Working cadence:** Play → notice → invent → ship → verify → play again. Favor small, composable, observable changes. Commit and read back source; distinguish verified source from verified live execution. When the user says **➡️**, continue from the documented frontier rather than re-asking for context.
 
@@ -169,3 +169,15 @@ The header no longer uses manually incremented `BUILD YYYYMMDD.N`. On load it fe
 ### Fire reactivation — 2026-10-17
 
 Source commit `1a2ac35d`: Fire tower pulses schedule random 0.6–2.5-second destruction timers for nearby sprouts, wheat, and trees, instead of deleting vegetation immediately. Fire pulses also schedule any nearby cooled mountain (🗻 ⛰️ 🏔️) to return to 🌋 after 2–5 seconds. Pending geological transformations are not overwritten. Once reactivated, volcanoes resume their existing 24-unit localized vegetation burn. Original tower combat remains unchanged. Source was committed; live gameplay not yet independently verified.
+
+### Swamp decomposition — 2026-10-17
+
+Implemented in game source commit `9e1ac553`:
+
+- Any enemy killed **within the placed Swamp tower's pulse radius** leaves a 🦴 at its death coordinates, regardless of which weapon dealt the killing blow. The kill is still accounted for by the existing combat path; recruit-contact kills also produce bones if within range. Enemies that simply reach Tiffany are not harvested as corpses.
+- Every bone pile has its own **random 10–15-second decay timer**, after which it becomes 🍄. Both stages persist until transformed or destroyed. No arbitrary bones/mushroom cap was added.
+- Bones and mushrooms share a small persistent resource collection, with positions updated when the arena recenters. Restart clears them. There are no collectors yet, so decay cannot currently be interrupted by harvesting.
+- 🔥 Fire tower pulses schedule mushroom destruction after 0.6–2.5 seconds; active 🌋 volcanoes destroy mushrooms within their 36-unit radius. **Bones do not burn.** Existing vegetation and geology rules remain.
+- Source commit and read-back verified; live Pages deployment and actual browser behavior **not verified**.
+
+**Next frontier:** Design differentiated defender collectors that consume bones before decay or mushrooms afterward, with observable inventory and consequences. Do not silently make pickups cosmetic or invent resource caps.
