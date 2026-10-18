@@ -38,7 +38,7 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 - 💧 Island tower pulses water nearby unwatered sprouts and start **one-time** random maturation timers: Plains → 🌾 wheat in **1.5–4 s**; Forest → 🌳 tree in **5–10 s**. Later pulses don't restart pending growth.
 - 🌱 and 🌾 are trampled by enemies; 🌳 is not. Trees don't block paths. All crops share a **100-entity cap**, avoid the **65-unit Tiffany exclusion radius**, and visually sway. Existing cooled mountains do not prevent plant growth; do not invent new placement exclusions.
 - 🔥 Mountain tower pulses schedule burns of 🌱🌾🌳 after **0.6–2.5 s** rather than deleting them immediately. Island and Fire effects remain spatial and independent.
-- **Logging is active only after Arborist purchase.** Ants harvest mature trees and deposit wood in their hut. Wheat is not harvested; wood is stored locally and has no spending mechanic yet.
+- **No logging currently implemented.** Ant lumberjacks and their hut are specified below as a future feature only. Wheat and trees currently have no harvesting or wood storage.
 
 **Geology (implemented):**
 - 🔥 Mountain tower independently spawns 🌋 around every **16 s**, maximum **12 geological objects** across all stages, near the tower.
