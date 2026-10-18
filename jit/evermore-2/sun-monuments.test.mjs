@@ -1,0 +1,24 @@
+import {createSunMonuments} from './sun-monuments.mjs';
+const runTests = function(factory){
+const assert=(condition,message)=>{if(!condition)throw Error(message)};
+const m=factory({cx:260,cy:260,width:520,height:520,exclusion:{x:260,y:260,r:70},radius:120,cost:2});
+assert(m.state.sites.length===5,"five sites");
+assert(m.arrive(0,2,{x:0,y:0}).reason==="worker-not-at-site","must arrive");
+for(const site of m.state.sites)assert(m.arrive(site.id,2,site).status==="built","build");
+assert(m.inhabit(0,{id:17}),"inhabit");
+assert(!m.inhabit(0,{id:18}),"single inhabitant");
+assert(!m.attack(0),"immune");
+assert(m.attack(1),"unoccupied vulnerable");
+assert(m.state.looseStone.length===2,"physical rubble");
+assert(m.relocate(280,260)===8,"collapse four structures");
+assert(m.state.looseStone.length===10,"conserved rubble");
+assert(m.state.inventoryStone===0,"no auto inventory");
+const b=factory({cx:260,cy:260,width:520,height:520,exclusion:{x:260,y:140,r:35},radius:120,cost:3});
+assert(b.arrive(0,3,b.state.sites[0]).status==="credited","blocked fallback");
+assert(b.state.inventoryStone===3,"arrival credit");
+assert(b.state.looseStone.length===0,"no rubble from credit");
+assert(b.arrive(0,3,b.state.sites[0]).ok===false,"no duplicate credit");
+assert(b.arrive(1,3,b.state.sites[1]).status==="built","other site unaffected");
+return "PASS: 15 headless assertions";
+};
+console.log(runTests(createSunMonuments));
