@@ -1280,3 +1280,40 @@ This is the **design dialogue**, not a record of shipped gameplay. It follows th
 - **Engineering constraints:** Compose with existing worker groups, building placement/recovery, standard walking idle, targeting/claims, world resources, and 👁. No invented UI, no replacement building system, no new stone generation, no premature combat constants, no changes to the one-of-each Fire feeding and rat metamorphosis contract. The existing `sun-monuments.mjs` remains **headless and dormant**, with 15 authoring-time deterministic assertions; none of this newly specified war has yet been integrated or live-tested.
 
 **The creative hypothesis:** Sun may discover that a thriving Fire colony is more useful alive than annihilated: a regenerating quarry, fiercely defended by creatures that need the same rocks to reproduce. The game should be allowed to reveal whether that dynamic actually emerges rather than scripting the outcome.
+
+
+## 2026-10-18 — First live Scarab War observation: partial success, completion gate
+
+**The human** supplied a full `tiffinity-world-observer/v1` report from **executing build `e0926322`**, captured at **23:40:58 UTC**, at **64 seconds** of game time. The model inspected the report and live source. This is an **observed integration checkpoint, not feature acceptance**.
+
+### Confirmed by the observation
+
+- 🛕 **Sun Reliquary alive** and all **three roles spawned once**: shield, sword, bow. At 64 seconds, shield has **2 HP**, sword and bow **1 HP** each, and none carries a stone. Sun Tier III appeared by the 40-second sample (two scarabs), with the third present by 45 seconds.
+- Five Sun sites were planned. **Four reported unblocked; site 2 reported blocked**, matching the requirement to recognize invalid placement. **Zero monuments built or inhabited.**
+- Fire ecology continued: **one Fire Idol**, **one scorpion**, and two successful meals (**bones** and **worm**). The scorpion had **two armor stones** and still needed a **mushroom**. The existing Eagle, octopus, and civilian populations continued operating; all five towers and eight depots were alive at the final sample.
+- **No runtime errors** were reported. This establishes that the executing build loaded and ran through the observed interval, not that every new interaction is correct.
+
+### Not yet observed — do not infer success
+
+- **No `sunScorpionArmorHit`, `sunScorpionUnarmoredHit`, `fireScorpionAttackScarab`, `sunScarabDeath.*`, or `sunShieldBroken` events.** There is no demonstrated encounter, hit, shield interception, casualty, or delayed respawn.
+- **No `sunStoneCollected`, `sunMonumentBuilt`, `sunStoneDelivered`, `sunCherubAssigned`, `sunCherubAscended`, or `sunMonumentAttack` events.** No evidence yet for the intended rock-to-monument supply chain, blocked-site arrival and credit, or Cherub occupation and defense.
+- **Zero loose stones** at capture. This is consistent with no armored scorpion hit but is not proof that material conservation is correct under combat.
+- **No tower relocation, monument collapse, Reliquary destruction, or reconstruction** was exercised.
+- All three scarabs appear under the generic `idle` labor bucket. The source currently uses a dedicated scarab update path rather than the civilian worker FSM; this bucket does **not** prove they are stationary or idling correctly.
+
+### Source-informed limitations and questions
+
+The model inspected `index.html` after receiving the report. Scarabs search for scorpions only within a local detection radius (**160 world units** in this implementation); with the factions apart, an uneventful first minute is possible. Scorpions have a separate short defensive pursuit radius. The first observer payload does not include scarab positions, objectives, target distances, site claim state, or transit phases, so absence of engagement cannot distinguish geographic separation from a targeting defect.
+
+The first integration was committed across `6e51b082`, `41268759`, and `5103ae7b`; README was subsequently updated in `e0926322`. The observed build reports **`e0926322`**. Distinguish source commit, deployment, and the build actually executed on the human's device.
+
+### Completion criteria for this feature — evidence required
+
+1. **Combat:** In a controlled reachable encounter, scorpion and scarabs target each other on sight; shield visibly intercepts and survives one hit with shield destroyed, then dies on the next; sword and bow die in one hit; sword strikes in melee and bow uses hitscan with slow reload and ordinary tool-use visuals. Creeps may kill scarabs without becoming scarab targets. Cherubs attack scorpions.
+2. **Fire armor ecology:** Every successful armored hit produces **exactly one physical loose rock**, removes **exactly one armor point**, reopens the matching missing meal, and prompts food replacement; scorpion defends itself if food is unavailable. The one-of-each worm/mushroom/bones feeding and fully armored rat metamorphosis continue to work.
+3. **Stone logistics:** All three scarab roles can exclusively claim and carry **one** rock. Before pickup, visible scorpions take priority; after pickup, **physical delivery is committed**. A killed carrier drops its physical cargo. No double-claims, duplicated stone, teleportation, or unexplained loss.
+4. **Monuments:** One delivered rock creates exactly one 🏛️, up to five. Site blocking and Tiffany exclusion are honored, including **actual arrival at a blocked planned site before inventory credit**. When no valid monument remains, the rock reaches Tiffany's inventory by travel. Cherubs preferentially occupy vacant monuments, become permanent ✨, and inhabited monuments defend against scorpions while remaining enemy-indestructible. Normal Cherub spawning/combat/expiry persists.
+5. **Lifecycle:** Reliquary participates in normal building destruction/recovery. Scarabs respawn there after the standard slight delay and **walk to rejoin their unit**; they use the ordinary walking idle near home when no scorpions or loose stone are available. Destroyed home cannot spawn replacements. Moving ☀️ collapses all five potential built monuments into physical rocks, extinguishing their ✨.
+6. **Regression and verification:** Other worker depots, Fire Idols/scorpions, food chains, resource HUD, tower placement, ordinary enemies, and existing gameplay remain healthy. Add deterministic tests where practical, use 👁 events plus snapshots to establish each transition, and check **the executing build SHA** before claiming browser success. The initial no-error 64-second report is a smoke observation, **not a pass for the above gates**.
+
+**Next work:** Instrument only the missing decision/position evidence needed to separate “too far apart” from “broken targeting”; then exercise a real armored hit → physical pickup → one-rock monument → Cherub occupation sequence. Keep the accepted design unchanged unless observation exposes a genuine contradiction. No UI invention.
