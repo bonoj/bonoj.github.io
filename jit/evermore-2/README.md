@@ -27,7 +27,7 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 
 ## Tier III bone collectors — proposed ecological chain (not implemented)
 
-- **Identity:** 🐀 rat, equipped 🪏 shovel, based at a 🪦 graveyard. Graveyard is the proposed worker home/building, not an existing shop icon. Tier III unlock details remain undecided; do not invent a purchase control.
+- **Identity:** 🐀 rat, equipped 🪏 shovel, based at a 🪦 graveyard. Graveyard is the proposed worker home/building, not an existing shop icon. The existing-style **Tier III 💀 Swamp advancement** unlocks and spawns the 🪦 graveyard near a living Swamp tower, together with its 🐀 bone collectors. No separate graveyard purchase or additional shop control. Use existing depot placement, destruction and recovery machinery.
 - **Existing bone source:** Enemy deaths within the living 💀 Swamp tower's influence spawn actual 🦴 bones directly (`remains` objects with `stage:'bones'`). There is no intermediate corpse/remains stage. Bones naturally become 🍄 mushrooms after **25–30 seconds**.
 - **Existing independent mushroom source:** 💀 Swamp withering turns 🌱 sprouts, 🌾 wheat, or 🌳 trees directly into 🍄 mushrooms after **2–4 seconds**; this pathway never passes through bones.
 - **Existing mushroom consumer:** Tier II 🪱 worms with 🗡️ daggers harvest 🍄 mushrooms from either pathway and deliver them to ⚗️. Swamp vegetation supplies mushrooms independently of enemy deaths.
