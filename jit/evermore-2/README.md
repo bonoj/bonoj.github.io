@@ -27,6 +27,9 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 
 ## Coral moth irrigators — implemented
 
+**Current moth cycle:** Each 🦋 owns at most one 30-second 🌧️ cloud. It exclusively claims an eligible 🌋 outside 🔥 tower fire radius first, otherwise an unclaimed 🌱 sprout; flies to the target, leaves a cloud, returns to 🪸 and hovers until its own cloud expires. The 🌧️ emoji drifts within a stationary, invisible protection footprint—no blue radius circle. Claims release when invalidated. Source commit `599ca809`.
+
+
 - **Representative:** 🦋 butterfly, a fast flying civilian ecology worker. **Effect:** 🌧 rainclouds left behind as the butterfly travels; rainclouds are persistent world effects, not the butterfly's body or a new combat unit.
 - **Targets and priority:** select eligible active 🌋 volcanoes first, then 🌱 sprouts from either Plains or Forest. Ignore active volcanoes inside the 🔥 Mountain tower's effective fire radius when choosing targets. Retarget when eligibility changes; avoid redundant targeting of patches already covered by effective rain. Fast autonomous flight and idle wandering should reuse the existing actor/worker grammar where practical.
 - **Rain footprint and duration:** each deposited 🌧 hovers in place for **30 seconds**, with a useful area footprint covering a local patch of sprouts or a volcano and nearby ecology, rather than a single point. Butterfly departs to seek another target while the rain persists. Rain performs the existing Island water transformations: 🌱 matures to 🌾 Plains wheat or 🌳 Forest tree according to its origin; 🌋 cools to the next mountain stage. Apply existing ecological transition/timer rules where compatible, rather than inventing a second unrelated ecology.
