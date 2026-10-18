@@ -131,3 +131,7 @@ Regression harness retired (2026-10-18): removed `.github/workflows/evermore-2-r
 ### Mission Command
 
 With five towers placed, Tiffany stops cycling spells and tapping her toggles the five-icon command ring. Its icons are stubs. Drones maintain their original circular orbit around Tiffany at radius 65, angular speed 0.65 radians per second, with alternating directions. Towers do not influence drone movement; combat continues independently.
+
+### Dynamic drone engagement radius
+
+Drone target acquisition uses `reach = w / (2 * arenaScale)`, equivalent to half the visible viewport width in world units (1 AU across a 2 AU-wide view). The Prism beam's rendered and damaging reach obeys this same limit; chain follow-up acquisition is capped by it. Existing drone orbit geometry is unchanged. Source commit `60c4cff8`; live browser verification pending.
