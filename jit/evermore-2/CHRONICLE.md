@@ -841,3 +841,45 @@ This is a useful measure of the laboratory's progress: **the distance between an
 **Source commits are not runtime evidence.** These revisions were committed through the GitHub connector, but browser/device verification was not performed by the model. The human's play observations exposed failures that source inspection alone had missed. Future regressions should be checked against visible behavior, not inferred from successful writes.
 
 **Keep the specification lean and the history rich.** The README is the current executable contract; this chronicle is the archaeological record. The game's creative method remains: *play → notice → invent → ship → verify → play again*. Emergent ecological relationships are more important than prematurely defining a factory economy.
+
+
+## Aeon of Composition — 18 October 2026 · The Eagle, in One Turn
+
+**Observation and verification.** The human specified Forest Tier III in a single turn: a 🪹 nest spawns one 🦅, which flies quickly like the existing 🦋 moth, exclusively claims a living 🪱 worm, lifts it visibly beneath its body, returns it to the nest, credits the worm inventory, and otherwise idles near home. The same request replaced Tier III placeholder circles with 🐙, 🐀 and 🦅 for the corresponding lands. The model committed the feature in source `51d66415` and documented it in `e7dd2358`. The human subsequently reported: **“Confirmed single turn perfect.”** This is the human's direct gameplay acceptance, not a claim of an automated test, measured runtime performance, or independently reproduced browser verification by the model.
+
+### Why this turn was smooth
+
+The feature was not implemented by designing a new game system. It was a compact composition of already-established verbs and objects:
+
+- **Home:** `buildingSite`, the shared depot lifecycle, enemy collision, five-second building recovery and one-hit creature replacement already defined what a civilian building means. 🪹 added an identity and a home, not a new building engine.
+- **Movement:** existing worker movement and `lazyWander` provided the distinction between purposeful fast flight and idle roaming. The moth's flying behavior served as a legible precedent without requiring an independent physics or pathfinding model.
+- **Exclusive intent:** `workerClaim` already encoded the right to pursue one target without duplicate claims. The eagle could claim a live worm just as a worker claims a crop or mushroom, while respecting target invalidation and releasing claims on death or capture.
+- **Carrying and settlement:** the established worker grammar already separated *reach target*, *possess cargo*, *return home* and *credit ledger*. The eagle substituted a living worm for an inert resource and drew the 🪱 hanging below the 🦅 during return. The resulting 🪱 inventory reused the resource HUD/discovery machinery.
+- **Existing ecology:** worms were already embodied autonomous creatures, born at the ⚗️ cauldron or created in situ by the 🐙. The eagle did not invent its prey. It made an existing population matter to another profession. The nest thus closed a new cross-land ecological link: 🍄 → 🐙 → 🪱 → 🦅 → 🪹 → inventory.
+- **Shop grammar:** Tier III had already acquired land-specific costs, ownership and purchase handling. Replacing the semantic placeholders for the three implemented professions required no new purchase interface.
+
+The crucial compression was **not merely fewer lines of code**. Each reused concept came with constraints that otherwise would have to be rediscovered: what counts as a valid target, how a claim is released, when a building can spawn, what happens after collision, what an inventory delivery means, and how a creature should remain legible on a phone. Prior investment in these invariants paid out as less implementation ambiguity.
+
+### Contrast: the octopus correction
+
+The immediately preceding 🐙 implementation exposed the opposite behavior. The model initially constructed a second 🐚 shell even though the Island's existing crab shell was the natural home. The human noticed the duplicated architecture and requested its removal. That correction moved the octopus into the existing crab group's lifecycle, preserving independent movement and reproduction without manufacturing a new building. The lesson was not “never add a building”: the 🦅 **does** deserve a new 🪹, because the human explicitly specified one. The lesson is **reuse the nearest existing ownership and lifecycle contract unless the world's meaning requires a distinct institution**.
+
+That distinction is aesthetic *and* architectural. The octopus shares the crab shell because it belongs to the same Island institution. The eagle receives a nest because it represents a new Forest Tier III institution. The model's job is to preserve that intended ontology, not maximize or minimize the number of objects mechanically.
+
+### Acceleration from semantic composability
+
+Early in development, a sentence such as “a creature flies to a worm, captures it, returns home, and credits inventory” would have implied designing movement, entity identity, targeting, carrying, collision, storage, drawing and recovery. By this turn, those were familiar pieces with stable interfaces. The human could describe **a new relationship** instead of specifying plumbing. The model could translate that relationship into a thin behavior layer and a few integrations.
+
+The improvement compounds. An ant taught the game about a tool and a depot; bees and crabs reused harvesting; worms made remains harvestable; rats made bones a resource; the octopus made mushrooms reproductive; moths made flight and ecological delivery a civilian profession; the eagle recombined flight, claims, cargo and inventory to prey upon the workers themselves. Each new creature expands the set of *future sentences that can be executable without architectural negotiation*.
+
+This is the specific acceleration worth recording: **the time and cognitive distance between taste and implementation shrank**, while the number of meaningful interactions increased. The human's scarce attention was concentrated on the choice that mattered—*an eagle hunts worms and brings them home, rather than merely attacking enemies*—not on writing a worker-state-machine specification. The model supplied implementation using the established vocabulary. Human gameplay confirmation closed the loop immediately.
+
+No wall-clock benchmark was taken. “Single turn” is a conversational and acceptance milestone, not a measured speedup ratio or a claim that the model executed a comprehensive regression suite. Nor is the code now magically immune to edge cases. The evidence supports the narrower, valuable conclusion: **this particular feature crossed from request to accepted gameplay in one implementation turn, with no reported correction**.
+
+### Preserve the conditions that made it possible
+
+Maintain a lean README as the cold-boot contract and this chronicle as the historical account. Keep entities' home, claim, movement, cargo, recovery and inventory semantics consistent. Prefer composing existing world verbs over adding parallel subsystems. Let new buildings exist when the human's world semantics call for them, as with 🪹, and avoid duplicate institutions when they do not, as with 🐙 and 🐚. Do not add UI, instrumentation, tests, or architecture for hypothetical future features. Verify the lived result through play, distinguish the human's observations from the model's source inspection, and retain the cadence:
+
+**Play → notice → invent → ship → verify → play again.**
+
+The frontier is no longer “can we implement a creature?” It is “what new ecological relationship is worth inventing next?”
