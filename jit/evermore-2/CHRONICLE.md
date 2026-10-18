@@ -306,7 +306,7 @@ For the extreme version, the model proposed introducing a lightweight spatial gr
 - Entity / population caps: **Unchanged**
 - Gameplay rule changes: **Zero**
 
-The model proposed comparing a reproducible busy-world scenario before and after each optimization, measuring average frame time, worst-frame spikes, allocations, and entity counts. a test subject's phone then becomes our real-world validation.
+The model proposed comparing a reproducible busy-world scenario before and after each optimization, measuring average frame time, worst-frame spikes, allocations, and entity counts. A test subject's phone then becomes our real-world validation.
 
 **One important rule:** don't blindly move simulation to a lower update frequency. That can change collisions, timing, and worker behavior. First eliminate redundant work while preserving every simulation step.
 
@@ -500,10 +500,10 @@ Runtime Eyes IV (`53416919`): 👁 is a two-step real-game diagnostic. First tap
 
 ### Performance optimization begins — 18 October 2026
 
-a test subject's phone demonstrably struggled and heated during gameplay. Fast CPU-side measurements on a different Android phone do not disprove that problem. Performance work must preserve every gameplay mechanic, population, entity interaction, visual animation and future gameplay capacity. First reversible candidate committed as `f3ad7496`: cache the three static crop emoji glyphs into small raster canvases, then draw the cached images with the existing per-plant rotation and transform. This removes repeated font glyph rasterization requests from the crop loop; crop counts, simulation, stages, sway and collisions remain unchanged. Visual equivalence, Pages execution, device performance and Oli-phone improvement are **not yet verified**. Inspect at zoom levels and compare live measurements; revert promptly if fidelity regresses.
+A test subject's phone demonstrably struggled and heated during gameplay. Fast CPU-side measurements on a different Android phone do not disprove that problem. Performance work must preserve every gameplay mechanic, population, entity interaction, visual animation and future gameplay capacity. First reversible candidate committed as `f3ad7496`: cache the three static crop emoji glyphs into small raster canvases, then draw the cached images with the existing per-plant rotation and transform. This removes repeated font glyph rasterization requests from the crop loop; crop counts, simulation, stages, sway and collisions remain unchanged. Visual equivalence, Pages execution, device performance and test-subject-device improvement are **not yet verified**. Inspect at zoom levels and compare live measurements; revert promptly if fidelity regresses.
 
 
-**Crop glyph-cache experiment reverted (`fe558207`, 18 October 2026).** Live Android mature-world comparison: cached version reduced Canvas `fillText` calls from roughly 197 to 115 per frame, but recent JavaScript render-command time increased from ~0.61ms to ~0.93ms and frame work from ~0.81ms to ~1.20ms. Workloads were not identical, so causality is not established; the experiment offered no measured benefit. Original `cropDraw` restored, source read-back verified. Do not extrapolate text-call reduction into speedup. Oli's lower-performing phone remains the real unresolved performance target.
+**Crop glyph-cache experiment reverted (`fe558207`, 18 October 2026).** Live Android mature-world comparison: cached version reduced Canvas `fillText` calls from roughly 197 to 115 per frame, but recent JavaScript render-command time increased from ~0.61ms to ~0.93ms and frame work from ~0.81ms to ~1.20ms. Workloads were not identical, so causality is not established; the experiment offered no measured benefit. Original `cropDraw` restored, source read-back verified. Do not extrapolate text-call reduction into speedup. The test subject's lower-performing phone remains the real unresolved performance target.
 
 
 ### Combat targeting prefilter — 18 October 2026
@@ -559,4 +559,4 @@ Therefore: **Runtime Eyes OFF; speculative optimization deferred; emoji retained
 
 The single-switch implementation and its subsequent OFF setting were committed and read back from GitHub; documentation changes were also committed. This record does **not** assert that the OFF build has been executed in a live browser, that Pages has deployed it, that the weaker phone has improved, that frame rates are identical, or that GPU/thermal behavior is known. Those require actual device/browser observation. Preserve the distinction among GitHub source, deployed Pages artifact and executing browser build. No game behavior, ecology cap, enemy population, art or mechanics were intentionally changed as part of the switch-off decision.
 
-The lasting engineering principle for the human and the model is simple: **an optimization must be removable without changing gameplay semantics, and a diagnostic must be operable without becoming part of the developer's everyday mental workload.** The game is the experiment; instrumentation is a tool we pick up only when needed.
+The lasting engineering principle for the human and the model is simple: **an optimization must be removable without changing gameplay semantics, and a diagnostic must be operable without becoming part of the model's everyday mental workload.** The game is the experiment; instrumentation is a tool we pick up only when needed.
