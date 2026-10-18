@@ -38,11 +38,11 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 
 ## Tier III Island — mycelial octopus
 
-- 💧 Tier III (🪙250 + 🧊10) creates a separate 🐚 home and **one** 🐙 ground walker, using the existing depot placement, destruction and recovery lifecycle. No extra shop control.
+- 💧 Tier III (🪙250 + 🧊10) adds **one** 🐙 ground walker to the existing 🐚 crab shell, sharing its placement, destruction and recovery lifecycle. No second shell is built. No extra shop control.
 - The octopus walks slowly (26 world units/s) toward the **nearest unclaimed 🍄 mushroom** anywhere on the map. It uses the existing `workerClaim` exclusivity shared with worms, releasing invalid claims.
 - On arrival, it consumes the mushroom and spawns a **permanent 🪱 worm at that location**, immediately equipped with the ordinary worm harvesting FSM. No trip back to the shell; no mushroom-inventory cost or population cap.
-- The octopus dies on a single enemy collision and respawns at its home. If the home is destroyed, the normal building recovery lifecycle applies.
-- Worm population target grows with reproduction; lost worms can replenish to that target. Source through `25a485e8`; physical-device verification pending.
+- The octopus dies on a single enemy collision and respawns at the existing crab shell. If the shell is destroyed, crabs and octopus both stop and resume after its normal building recovery.
+- Worm population target grows with reproduction; lost worms can replenish to that target. Source through `0a35a5f7`; physical-device verification pending.
 
 ## Tier III shop placeholders — implemented in source
 
