@@ -847,6 +847,16 @@ This is a useful measure of the laboratory's progress: **the distance between an
 
 **Observation and verification.** The human specified Forest Tier III in a single turn: a 🪹 nest spawns one 🦅, which flies quickly like the existing 🦋 moth, exclusively claims a living 🪱 worm, lifts it visibly beneath its body, returns it to the nest, credits the worm inventory, and otherwise idles near home. The same request replaced Tier III placeholder circles with 🐙, 🐀 and 🦅 for the corresponding lands. The model committed the feature in source `51d66415` and documented it in `e7dd2358`. The human subsequently reported: **“Confirmed single turn perfect.”** This is the human's direct gameplay acceptance, not a claim of an automated test, measured runtime performance, or independently reproduced browser verification by the model.
 
+### The human's original specification — verbatim
+
+> T3 🌳 spawns 🪹 building. 🪹 spawns one 🦅 which flies quickly like 🦋, claims 🪱 and carries it back (worm hangs below) to nest where 🪱 is added to inventory. Idles near nest if no worms to hunt:).
+>
+> T3 placeholders become 🐙, 🐀, and 🦅 where appropriate.
+
+**Subsequent human acceptance (verbatim):** “Let's update our docs and go into detail in chronicle about smoothness and acceleration due to composability. Confirmed single turn perfect.”
+
+This records the exact input and the human's reported result, without expanding either into claims of automated regression coverage.
+
 ### Why this turn was smooth
 
 The feature was not implemented by designing a new game system. It was a compact composition of already-established verbs and objects:
