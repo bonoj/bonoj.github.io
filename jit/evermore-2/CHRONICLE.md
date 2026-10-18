@@ -173,3 +173,5 @@ Swamp decomposition change (`1ef3cc8f`): wither sprouts, wheat and trees over 2�
 `cdbddfea`: deterministic permanent building placement, collision clearances for 🛖 🍯 🐚, expanding ring + grid fallback, no tower-following or overlapping fallback.
 
 `d845c3c0`: discovery-driven HUD implemented, hidden counters until first earned, fixed-height two-row progression, WAVE removed.
+
+Regression harness retired (2026-10-18): removed `.github/workflows/evermore-2-regression.yml`, `tests/regression.spec.cjs`, and `tests/package.json` after persistent red runs. Do not assume automated regression coverage or claim green checks. Game source unchanged. Future tests should be purpose-built and verified before enabling CI.
