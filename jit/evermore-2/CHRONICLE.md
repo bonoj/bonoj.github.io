@@ -502,3 +502,8 @@ Oli's phone demonstrably struggled and heated during gameplay. Fast CPU-side mea
 
 
 **Crop glyph-cache experiment reverted (`fe558207`, 18 October 2026).** Live Android mature-world comparison: cached version reduced Canvas `fillText` calls from roughly 197 to 115 per frame, but recent JavaScript render-command time increased from ~0.61ms to ~0.93ms and frame work from ~0.81ms to ~1.20ms. Workloads were not identical, so causality is not established; the experiment offered no measured benefit. Original `cropDraw` restored, source read-back verified. Do not extrapolate text-call reduction into speedup. Oli's lower-performing phone remains the real unresolved performance target.
+
+
+### Combat targeting prefilter — 18 October 2026
+
+First compartmentalized optimization: `6b991170` adds axis-aligned candidate rejection inside `target()` before its unchanged `Math.hypot` distance calculation. The candidate is rejected only when absolute x or y displacement is already at least the current best radius; it cannot beat the incumbent. Enemy iteration order, exclusion checks, strict distance threshold, tie-breaking, gameplay, drawing and animation remain unchanged. Source write/readback verified; device performance and live behavioral equivalence are not yet measured. This is a conservative broad-phase prefilter, **not** a spatial index. Proceed independently with measured improvements; revert if worse.
