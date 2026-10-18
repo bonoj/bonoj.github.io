@@ -52,7 +52,22 @@ const VISUAL_SIZE=Object.freeze({micro:12,small:19,medium:24,actor:27,worldFeatu
 const spriteFont=(size,bold=false)=>(bold?'bold ':'')+size+'px system-ui';
 function mountainDraw(){ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=spriteFont(VISUAL_SIZE.worldFeature);for(const m of mountains)ctx.fillText(['🌋','🗻','⛰️','🏔️'][m.stage],m.x,m.y)}
 function cropTrample(e){crops=crops.filter(p=>p.stage==='tree'||Math.hypot(e.x-p.x,e.y-p.y)>cropRadius+8)}
-function cropDraw(t){ctx.textAlign='center';ctx.textBaseline='middle';for(const p of crops){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(Math.sin(t*1.5+p.phase)*(p.stage==='tree'?.035:.09));ctx.font=spriteFont(p.stage==='tree'?VISUAL_SIZE.worldFeature:p.stage==='wheat'?VISUAL_SIZE.medium:VISUAL_SIZE.small);ctx.fillText(p.stage==='tree'?'🌳':p.stage==='wheat'?'🌾':'🌱',0,0);ctx.restore()}}
+// Rasterize only invariant crop glyphs once; keep every plant, animation and interaction unchanged.
+const cropGlyphCache=new Map();
+function cropGlyph(stage){
+ const size=stage==='tree'?VISUAL_SIZE.worldFeature:stage==='wheat'?VISUAL_SIZE.medium:VISUAL_SIZE.small;
+ const icon=stage==='tree'?'🌳':stage==='wheat'?'🌾':'🌱';
+ const key=icon+':'+size;
+ if(cropGlyphCache.has(key))return cropGlyphCache.get(key);
+ const d=Math.min(2,devicePixelRatio||1),side=Math.ceil(size*2.6*d);
+ const image=document.createElement('canvas');image.width=side;image.height=side;
+ const g=image.getContext('2d');
+ if(!g)return null;
+ g.scale(d,d);g.textAlign='center';g.textBaseline='middle';g.font=spriteFont(size);
+ g.fillText(icon,side/(2*d),side/(2*d));
+ const glyph={image,side:side/d};cropGlyphCache.set(key,glyph);return glyph
+}
+function cropDraw(t){ctx.textAlign='center';ctx.textBaseline='middle';for(const p of crops){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(Math.sin(t*1.5+p.phase)*(p.stage==='tree'?.035:.09));const glyph=cropGlyph(p.stage);if(glyph)ctx.drawImage(glyph.image,-glyph.side/2,-glyph.side/2,glyph.side,glyph.side);else{ctx.font=spriteFont(p.stage==='tree'?VISUAL_SIZE.worldFeature:p.stage==='wheat'?VISUAL_SIZE.medium:VISUAL_SIZE.small);ctx.fillText(p.stage==='tree'?'🌳':p.stage==='wheat'?'🌾':'🌱',0,0)}ctx.restore()}}
 
 // Civilian forestry is independent of combat recruits.
 // Small reusable FSM kernel: explicit transitions, enter/exit hooks, state timeouts and recovery.
