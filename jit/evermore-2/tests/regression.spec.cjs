@@ -3,11 +3,12 @@ const fs = require('node:fs');
 const path = require('node:path');
 const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
 const bridge = `window.__test = {
-  snapshot: () => ({ towers: towers.map(t=>({...t})), drones: drones.map(d=>({...d})), armies: armies.map(a=>({...a})), units: units.map(u=>({...u})), crops: crops.map(p=>({...p})), mountains: mountains.map(m=>({...m})), remains: remains.map(p=>({...p})), lumberHut: lumberHut&&({...lumberHut}), lumberAnts: lumberAnts.map(a=>({x:a.x,y:a.y,state:a.fsm.state,stateTime:a.fsm.time,hasTree:!!a.tree,carrying:a.fsm.state==='carry'||a.fsm.state==='unload'})), woodDelivered, enemies: enemies.map(e=>({...e})), coins, gems, hp, kills, selected, castSpell, arenaScale, w, h, cx, cy }),
+  snapshot: () => ({ towers: towers.map(t=>({...t})), drones: drones.map(d=>({...d})), armies: armies.map(a=>({...a})), units: units.map(u=>({...u})), crops: crops.map(p=>({...p})), mountains: mountains.map(m=>({...m})), remains: remains.map(p=>({...p})), lumberHut: lumberHut&&({...lumberHut}), lumberAnts: lumberAnts.map(a=>({x:a.x,y:a.y,state:a.fsm.state,stateTime:a.fsm.time,hasTree:!!a.tree,carrying:a.fsm.state==='carry'||a.fsm.state==='unload'})), woodDelivered, resources:{...resources}, workers:Object.fromEntries(Object.entries(workerGroups).map(([k,g])=>[k,{depot:{...g.depot},actors:g.workers.map(a=>({x:a.x,y:a.y,state:a.fsm.state,cargo:a.cargo,motion:a.prof.motion}))}])), enemies: enemies.map(e=>({...e})), coins, gems, hp, kills, selected, castSpell, arenaScale, w, h, cx, cy }),
   seed: () => { coins=100000; gems=100000; hud(); },
   enemy: (x,y,hp=2) => { const e={x,y,hp,speed:0,slow:0,poison:0,pt:0,dead:false}; enemies.push(e); return e; },
   crop: (source,stage,x,y) => { const p={source,stage,x,y,growAt:0,phase:0}; crops.push(p); return p; },
   mountain: (stage,x,y) => { const m={stage,x,y,nextStage:-1,changeAt:0}; mountains.push(m); return m; },
+  startWorkers: kind => startWorkers(kind),
   towerFire: i => towerFire(towers.find(t=>t.i===i)),
   unitFire: i => unitFire(units.find(u=>u.i===i)),
   recruit: i => recruit(armies.find(a=>a.i===i)),
@@ -84,7 +85,7 @@ test('swamp death produces bones, reset clears world',async({page})=>{
   let s=await state(page);
   expect(s.remains).toHaveLength(1);expect(s.remains[0].stage).toBe('bones');
   expect(s.kills).toBe(1);
-  await page.locator('#restart').click();s=await state(page);
+  await page.evaluate(()=>reset());s=await state(page);
   expect(s.towers).toHaveLength(0);expect(s.armies).toHaveLength(0);
   expect(s.units).toHaveLength(0);expect(s.remains).toHaveLength(0);
   expect(s.drones).toHaveLength(0);expect(s.hp).toBe(5);
@@ -139,4 +140,39 @@ test('sprite size tokens and ant axe remain semantically consistent',async({page
  expect(html).toContain("ctx.scale(a.facing*rig.bodyNativeFacing,1)");
  expect(html).toContain("if(chopping&&a.tree)faceActor(a,a.tree.x)");
  expect(html).toContain("ctx.font=spriteFont(VISUAL_SIZE.worldFeature)");
+});
+
+test('three professions share FSM, fly/scuttle, harvest and deliver distinct materials',async({page})=>{
+ await buyAll(page);
+ for(let i=0;i<5;i++)await place(page,i,100+i*55,110);
+ await buyAll(page);
+ let s=await state(page);
+ expect(Object.keys(s.workers).sort()).toEqual(['ant','bee','crab']);
+ for(const kind of ['ant','bee','crab'])expect(s.workers[kind].actors).toHaveLength(3);
+ expect(s.workers.bee.actors[0].motion).toBe('fly');
+ expect(s.workers.crab.actors[0].motion).toBe('scuttle');
+ await page.evaluate(()=>{
+   window.__test.pause();const s=window.__test.snapshot();
+   window.__test.crop(0,'wheat',s.workers.bee.depot.x+54,s.workers.bee.depot.y);
+   window.__test.crop(4,'tree',s.workers.ant.depot.x+54,s.workers.ant.depot.y);
+   window.__test.mountain(3,s.workers.crab.depot.x+55,s.workers.crab.depot.y);
+   window.__test.resume();
+ });
+ await page.evaluate(()=>window.__test.step(10));
+ s=await state(page);
+ expect(s.resources.wood).toBeGreaterThan(0);
+ expect(s.resources.wheat).toBeGreaterThan(0);
+ expect(s.resources.ice).toBeGreaterThan(0);
+ expect(s.mountains.some(m=>m.stage===2)).toBe(true);
+ await page.evaluate(()=>window.__test.step(12));
+ s=await state(page);
+ expect(s.resources.herbs).toBeGreaterThan(0);
+ await page.evaluate(()=>window.__test.step(12));
+ s=await state(page);
+ expect(s.resources.stone).toBeGreaterThan(0);
+ expect(s.mountains.some(m=>m.stage===0)).toBe(false);
+ await page.evaluate(()=>reset());
+ s=await state(page);
+ expect(Object.keys(s.workers)).toHaveLength(0);
+ expect(Object.values(s.resources).every(n=>n===0)).toBe(true);
 });
