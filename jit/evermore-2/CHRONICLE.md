@@ -241,3 +241,6 @@ Swamp decomposition change (`1ef3cc8f`): wither sprouts, wheat and trees over 2�
 `d845c3c0`: discovery-driven HUD implemented, hidden counters until first earned, fixed-height two-row progression, WAVE removed.
 
 Regression harness retired (2026-10-18): removed `.github/workflows/evermore-2-regression.yml`, `tests/regression.spec.cjs`, and `tests/package.json` after persistent red runs. Do not assume automated regression coverage or claim green checks. Game source unchanged. Future tests should be purpose-built and verified before enabling CI.
+
+### The commander's accession — 18 October 2026
+At five towers, Tiffany ceased automatic spell rotation and assumed mission command. Her drones began long-period patrols between their respective towers and Tiffany, while retaining their combat roles. A five-glyph radial command ring (🧭 🔭 📡 🗺️ ⚙️) appeared on tapping Tiffany, collapsible on a second tap, its affordances deliberately left as stubs for future invention. Source `6627ec3e`; live verification pending.
