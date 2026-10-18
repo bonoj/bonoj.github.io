@@ -939,3 +939,50 @@ These are **proposals, not approved features**, generated from the census rather
 After reviewing these suggestions, the human wrote: **“Persist your suggestions as appends in the chronicle. This is excellent. We can let you take over driving creative design.”** This authorizes the model to **proactively study evidence and originate ecological ideas**. It does not require immediate implementation of every idea, nor erase the established principle that the human chooses which changes enter the game. The model should drive discovery: identify measurable patterns, propose surprising but composable interactions, distinguish observations from speculation, and recommend experiments. The human remains the arbiter of taste and can approve, redirect or reject any proposed loop.
 
 The shift is consequential: a civilization originally described by its human can now **report enough of its own behavior to inspire the model's next invention**. The feedback loop is no longer limited to human screenshots and narration. Keep the chronicle as the append-only record of observations, proposals, acceptance, and subsequent results.
+
+
+## Second Ecological Census and the Unoccupied Tier III Niches — 18 October 2026
+
+**Evidence.** The human supplied a second World Observer report from build `1fe52a0d`, captured at `2026-10-18T19:41:06.535Z`, 168 game seconds into the same run. It extended the first report at 98 seconds, so the two reports should be interpreted as successive observations, **not independent trials**. The development cheat had initialized inventories to 99 each near the beginning; raw inventory balances are therefore not natural accumulation totals.
+
+### The second worm bloom is observed, not hypothetical
+
+After the first pulse peaked at ten living 🪱 worms at 65 s, mushrooms disappeared around 75 s, and worms declined to three by 105–130 s. 🍄 mushrooms then returned: three at 120 s, eight at 125 s, eleven at 130 s. Living worms climbed to six at 135 s and ten at 140 s, while mushroom remains fell to four. The population dipped to seven at 150–155 s, then rose again to nine at 160 s, ten at 165 s, and **eleven at 168 s**, with eight mushrooms still present. This is an observed second reproductive pulse with renewed mushroom consumption, not yet proof of a stable periodic oscillation.
+
+Between the two reports, cumulative 🐙 mushroom conversions increased **9 → 30** (+21), 🦅 worm captures **8 → 28** (+20), and eagle nest deliveries **7 → 27** (+20). Live worms increased **4 → 11** across the interval. These values are consistent with repeated prey generation and predation, but not a complete conservation equation: the worm depot can respawn workers, enemies can kill workers, and observations are periodic rather than event-complete. By 168 s, seven of eleven worms were carrying cargo, three traveling and one harvesting; at the earlier scarcity minimum, all three were idle. That change confirms a return to active fungal labor.
+
+The Island 🐚 shell was destroyed around 145 s: the census recorded zero crabs and zero octopuses and six rather than seven live depots. By 150 s the shell had recovered, the 🐙 had returned, and two crabs had respawned; by 155 s all three crabs were back. Cumulative events report one crab-depot destruction, one recovery, four crab spawns, and one crab death. This is a valuable live demonstration of the shared crab/octopus building lifecycle, including interruption and recovery.
+
+Other measured developments: 🦴 deliveries increased **7 → 33** (+26); 🌾 wheat deliveries **56 → 95** (+39); 🍄 mushroom deliveries **14 → 22** (+8); 🪵 wood deliveries **16 → 22** (+6); 🧊 ice deliveries reached seven. At 168 s, crops comprised 32 sprouts and only six wheat plants, with no trees reported; geological remains included five stage-0 volcanoes, two stage-1 mountains and one stage-3 mountain, plus three rain clouds. These are instantaneous counts, not rates of terrain creation or long-term vegetation health.
+
+### What this changes in the creative hypothesis
+
+The first census suggested that eagle predation might allow mushrooms to recover. The second shows mushrooms **did** recover and another worm bloom followed while the eagle continued hunting, but does not isolate eagle predation as the cause. The important creative discovery is a living, renewable tension: **🍄 supply, 🐙 reproduction, 🪱 harvesting, and 🦅 predation are already dynamically entangled.** There is no reason to add artificial population balancing before studying this behavior further.
+
+The human explicitly widened the design space: **“Consider that you still have two more tier three places holders, ☀️ and 🔥. And you are free to add or create new inventory for consumption.”** This is permission to originate new resource types and autonomous consumers, not an instruction to implement any particular candidate immediately. Existing Tier III slots are 💧 🐙, 💀 🐀 and 🌳 🦅; ☀️ Plains and 🔥 Mountain remain available.
+
+### Model proposal A — ☀️ Plains: 🐻 The Honey Thief
+
+**Identity:** Tier III Plains creates a 🕳️ den and one 🐻 bear. The bear is a slow, readable ground creature with a visible carried honey pot. Its target is not a loose crop or enemy but the existing 🍯 beehive institution. It travels to the hive, takes a share of the wheat produced by 🐝 bees, and carries that value home to convert into a **new 🍯 honey inventory**.
+
+**Novel relationship:** instead of competing for raw wheat in the field, the bear consumes **another profession's already-produced output**. This introduces institutional theft or parasitism into the economy. The bees support both the kingdom and a charming opportunist. A den creates a distinct Tier III Plains home and uses the established destructible-building/respawn contract; targeting, carrying and depositing should reuse existing worker concepts rather than inventing a parallel engine.
+
+**Implementation questions to resolve when selected:** whether wheat is deducted from the global `resources.wheat` balance or tracked as hive-local stock; how to ensure theft is visibly connected to the hive rather than a distant global ledger; how much wheat becomes one honey unit; what happens if the hive or den is destroyed; and whether the bear's behavior should depend on available wheat rather than run unconditionally. Do **not** assume the existing hive has a local inventory; the current design is a proposal. A good first slice could use the existing global wheat ledger with an explicit claim/deduction at the hive, but that is an architectural decision to inspect before implementation.
+
+**Why it is interesting:** 🌾 wheat was plentiful and bee deliveries continued throughout the second census, while the worm loop already had several consumers. The bear opens a separate ecological/economic pressure point, making the established Plains labor meaningful to a new creature without another generic production tree. The honey inventory is an outcome with room for later consequences, not a reason to invent a recipe catalog.
+
+### Model proposal B — 🔥 Mountain: 🦎 The Ember Shepherd
+
+**Identity:** Tier III Mountain creates a volcanic 🪺 nursery and one 🦎 salamander. The salamander wanders toward active 🌋 volcanoes, extracts a 🔥 ember, and carries it visibly home, crediting a **new 🔥 ember inventory**. Removing an ember cools the targeted volcano into the next geological stage (described in the initial pitch as 🪨), using the already-existing staged mountain transformation system.
+
+**Novel relationship:** this creates a **second, qualitatively distinct cooling profession**. 🦋 moths cool through rain clouds and ecological moisture; the salamander cools by extracting and storing heat. Both affect the same geological substrate, but one produces environmental coverage and the other produces a tangible resource. Crabs then remain downstream consumers of the cooled mineral stages. The candidate loop is **🌋 → 🦎 → 🔥 inventory**, with **🌋 → cooled mountain → 🦀 → 🪨/🌿/🧊** as a coupled consequence.
+
+**Implementation questions to resolve when selected:** confirm the actual stage transition and visual icon mapping from source; reuse `mountainPulse`/stage-change contracts or an appropriate existing transition without bypassing geological invariants; exclusive claims to prevent duplicate harvesting; whether each volcano yields one ember per cooling event; what happens when rain cools the target first; whether stage-0 volcano supply is sufficient; and how the nursery's destruction affects a salamander in transit. The salamander should be a worker with a home, one life and a meaningful idle behavior, not a combat drone or free-floating resource generator.
+
+**Why it is interesting:** the second census reported multiple active volcanoes and rain clouds, while crab excavation and moth rain already form a material chain. The salamander makes geological transformation economically consequential without building a new geology subsystem. The proposed ember inventory can later be consumed by another species or institution, but **no consumption loop is approved or invented yet**.
+
+### Design judgment and order
+
+The model recommended **🦎 Ember Shepherd first**, because it composes the strongest existing systems—civilian behavior, rain, staged volcano cooling and crab excavation—while leaving the newly observed worm ecology intact. The 🐻 Honey Thief remains a second, distinct experiment in consumption of another profession's output. Both are **candidate designs, not committed game features**. Neither should be silently implemented merely because it appears in this chronicle.
+
+**Next step:** choose one candidate, inspect its target lifecycle and invariants in code, implement a minimal legible vertical slice, verify in a natural run with 👁, and evaluate whether it changes ecology in an interesting way. Preserve exact human prompts, model proposals, evidence, and outcomes here as separate historical facts. The creative loop is now: **observe → hypothesize → propose → human selects → compose → verify → observe again**.
