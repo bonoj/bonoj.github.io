@@ -150,3 +150,11 @@ Source commit `3a8c8e98`: Cherubs are combat-only again. Removed their experimen
 ### Ant lumberjacks — 2026-10-17
 
 Source commit `6dbda05b`: Arborist purchase creates a hut and three autonomous ants. They claim mature Forest trees, approach, chop for two seconds with animated axes, remove harvested trees, carry logs back, and increment an internal delivery counter. Ants and tools are drawn large without additional UI. Recenter and reset are handled. Regression source added in `475816db`. GitHub source committed; Actions/browser execution and visual legibility have not yet been independently verified.
+
+### Ant FSM, visual sizing, and oriented equipment — 2026-10-18
+
+The original ant lumberjacks were reorganized around the reusable in-file FSM with explicit idle, travel, chop, carry, and unload transitions, tree claims and release, and recovery on invalidated targets (source `e7b77f63`). Visual sizes were centralized into `VISUAL_SIZE`: ant 27, axe 24, log 25, hut/tree 30 logical pixels (source `27146af4`). A subsequent one-line axe-only mirror (`214a982b`) did not solve the underlying orientation coupling. The renderer was then refactored to `drawEquippedActor` and `faceActor`: one shared native-left body orientation transform governs the ant, tool mount, and cargo, while the axe swings about its local pivot (source `2a6d9326`; test assertions `6f34c9c7`; README `d3da91e6`). This is the composable foundation for future tool-using bees. Source persisted; live visual correctness and Actions results were not confirmed.
+
+### Footer removal — 2026-10-18
+
+Removed the entire obsolete bottom footer containing the land title, Evermore 1.0 link, and Restart button, along with footer CSS, status assignment, and click binding (source `1f09db3d`). The internal `reset()` remains. Existing land and army controls, HUD, and battlefield were not deliberately modified. GitHub source read-back confirmed removal; public Pages behavior was not independently verified.
