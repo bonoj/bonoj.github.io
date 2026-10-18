@@ -27,13 +27,13 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 **Repository and execution:** `bonoj/bonoj.github.io`, branch `master`, game at `jit/evermore-2/index.html`; public URL [bonoj.github.io/jit/evermore-2/](https://bonoj.github.io/jit/evermore-2/). The game is currently a standalone, mobile-first HTML/CSS/Canvas/JavaScript file. This README sits beside it. Keep the original `jit/evermore/` game untouched. Fetch the latest file and blob SHA before edits; commit with GitHub's content update operation, then read back the changed source. A committed source change does **not** prove Pages deployment or live browser behavior. Confirm actual behavior when browser execution is available; otherwise report that limitation plainly.
 
 **Current source state:** The active game has five lands, orbiting drones, manual spells, tower placement and autocycling, recruit divisions, battlefield vegetation, geological succession, and Swamp decomposition. **Cherubs are combat-only**: their recruitment, pursuit, attack, lifespan, and rendering code was compared directly with pre-agriculture commit `a9b23251` and found identical. The Cherub watering/harvesting/carrying/delivery experiment was fully removed. Preserve the existing ranged beam and splash damage. The upper-left SHA label is deliberately visually unobtrusive but tappable for development currency; it currently fetches the latest GitHub source SHA, **not** an independently verified executing-build SHA. The original `jit/evermore/` is untouched. 
-### Ant lumberjacks (source implemented; runtime verification pending)
+### Ant lumberjacks and reusable FSM (source implemented; runtime verification pending)
 
 Purchasing Arborists spawns a 🛖 near Tiffany, in the direction of the Forest tower, with three 🐜 ants.
 
 Ants gently pace around the hut, staying outside Tiffany's 75-unit exclusion radius, until mature 🌳 trees are available. They walk to trees, face them, and chop with a swinging 🪓 overlapping their bodies. The axe appears only while chopping.
 
-Each ant carries one 🪵 on its back to the hut, deposits it, and repeats.
+Each ant carries one 🪵 on its back to the hut, unloads once, and repeats. A reusable in-file FSM kernel owns transitions, entry/exit hooks, state timeouts, and recovery. Ant states: idle → travel → chop → carry → unload → idle. Invalid/destroyed tree targets release claims. Future agents should reuse this kernel rather than inventing ad hoc state flags.
 
 Do not invent or add any controls. Ants, axes, and logs must remain recognizable at maximum zoom-out without overwhelming Tiffany. The game occupies a single viewport without page scrolling; instructional hint rows are hidden. The HUD includes an empty, invisible second resource row for future resources.
 
