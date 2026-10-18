@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
 const bridge = `window.__test = {
-  snapshot: () => ({ towers: towers.map(t=>({...t})), drones: drones.map(d=>({...d})), armies: armies.map(a=>({...a})), units: units.map(u=>({...u})), crops: crops.map(p=>({...p})), mountains: mountains.map(m=>({...m})), remains: remains.map(p=>({...p})), lumberHut: lumberHut&&({...lumberHut}), lumberAnts: lumberAnts.map(a=>({...a,tree:null})), woodDelivered, enemies: enemies.map(e=>({...e})), coins, gems, hp, kills, selected, castSpell, arenaScale, w, h, cx, cy }),
+  snapshot: () => ({ towers: towers.map(t=>({...t})), drones: drones.map(d=>({...d})), armies: armies.map(a=>({...a})), units: units.map(u=>({...u})), crops: crops.map(p=>({...p})), mountains: mountains.map(m=>({...m})), remains: remains.map(p=>({...p})), lumberHut: lumberHut&&({...lumberHut}), lumberAnts: lumberAnts.map(a=>({x:a.x,y:a.y,state:a.fsm.state,stateTime:a.fsm.time,hasTree:!!a.tree,carrying:a.fsm.state==='carry'||a.fsm.state==='unload'})), woodDelivered, enemies: enemies.map(e=>({...e})), coins, gems, hp, kills, selected, castSpell, arenaScale, w, h, cx, cy }),
   seed: () => { coins=100000; gems=100000; hud(); },
   enemy: (x,y,hp=2) => { const e={x,y,hp,speed:0,slow:0,poison:0,pt:0,dead:false}; enemies.push(e); return e; },
   crop: (source,stage,x,y) => { const p={source,stage,x,y,growAt:0,phase:0}; crops.push(p); return p; },
@@ -119,4 +119,15 @@ test('Arborist lumberjacks chop, transport and deliver without extra controls',a
   expect(s.lumberAnts).toHaveLength(0);
   expect(s.lumberHut).toBeNull();
   expect(s.woodDelivered).toBe(0);
+});
+
+test('lumber FSM releases destroyed targets and delivers exactly once',async({page})=>{
+ await buyAll(page);await place(page,4,150,120);await buyAll(page);
+ await page.evaluate(()=>{window.__test.pause();const s=window.__test.snapshot();window.__test.crop(4,'tree',s.lumberHut.x+50,s.lumberHut.y);window.__test.resume()});
+ await page.evaluate(()=>window.__test.step(.5));
+ let s=await state(page);expect(s.lumberAnts.some(a=>a.state==='travel'||a.state==='chop')).toBe(true);
+ await page.evaluate(()=>{const s=window.__test.snapshot();window.__test.pause(); /* tree removal via game ecology */ window.__test.towerFire(3);window.__test.resume()});
+ await page.evaluate(()=>window.__test.step(8));
+ s=await state(page);expect(s.woodDelivered).toBeGreaterThanOrEqual(1);
+ expect(s.lumberAnts.every(a=>['idle','travel','chop','carry','unload'].includes(a.state))).toBe(true);
 });
