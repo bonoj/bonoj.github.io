@@ -20,6 +20,11 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 - **State invariants:** no duplicate drone, tower, or division for a land; a relocated tower retains its identity; recruits belong to a land and originate from its tower; kills are accounted for by the common hit/kill mechanism; expansion is derived from acquired milestones; the internal reset function returns all progress, entities, and scale to baseline.
 - **Delivery invariant:** a successful GitHub write and read-back proves **source persistence**, not that GitHub Pages has deployed or that the browser is executing the new code. Never call runtime behavior verified without exercising it.
 
+
+### Destruction and recovery (source implemented; browser verification pending)
+
+Enemy contact destroys one-hit towers, civilian depots (🛖 🍯 🐚), and civilian workers (🐜 🐝 🦀). Combat recruits retain their existing one-hit collision and timed recruitment. Destroyed towers and depots remain purchased/owned and recover at their original positions after **5 seconds**; inactive towers do not cast, generate vegetation, or spawn volcanoes. Depot destruction clears its current workers and their resource claims. Living depots replenish workers individually every **1.5 seconds** up to the existing **three-worker** cap; the corresponding army purchase remains intact. Enemy collision consumes the attacking enemy without awarding kill currency. No new controls or HUD elements. Source commits `0242bbaf`, `556f1ded`. Runtime and full regression verification pending.
+
 ## Cold-boot handoff — resume here
 
 **Entry:** This README is the single source of truth for TIFFINITY SURVIVORS™. Read **Features and invariants**, then **this handoff** before modifying the game. [CHRONICLE.md](./CHRONICLE.md) preserves development history; it is not an implementation specification. Do not restart the project or create another handoff file.
