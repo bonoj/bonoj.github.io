@@ -16,6 +16,15 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 - **Ecology:** Plains and Forest towers plant sprouts; Island water matures wheat/trees; Swamp withers plants and killed enemies leave bones that decay to mushrooms; Mountain fire burns plants/mushrooms and spawns volcanoes. Water/Forest/Fire pulses drive mountain succession. Shared crop cap 100, geological cap 12. Keep all systems in the **same battlefield**, not separate interior games.
 - **Destruction/recovery:** enemy contact consumes the attacker and destroys one-hit towers, civilian depots and workers without kill currency. Towers recover after five seconds at their current coordinates; depots recover after five seconds at a valid site relative to their associated tower's current position. Living depots replenish workers every 1.5 seconds up to three. No duplicate land purchases, no overlapping building fallback.
 
+## Proposed civilian building — Swamp alchemist (specified, not implemented)
+
+- **Building/depot:** ⚗️ alchemical cauldron, associated with the 💀 Swamp land. This is a **world building icon, not a shop/upgrade icon**. Do not change any existing land, Tier I, or Tier II purchase icons or add a purchase control as part of this specification.
+- **Creature:** 🪱 worm. **Equipped tool:** 🗡️ dagger. **Harvest target/cargo:** 🍄 mushroom.
+- **Behavior:** worms leave their cauldron, independently find and claim existing mushrooms, wriggle to the target, slash with their dagger to harvest, visibly carry the mushroom home, and unload it into the material ledger. The dagger's slash is a rotation around its grip using the existing equipped-actor rig; no custom artwork required. Keep creature, dagger, mushroom and cauldron legible at mobile size.
+- **Implementation direction:** extend the existing shared civilian worker FSM (idle → travel → work → carry → unload), equipment orientation, exclusive target claims, valid-target recovery, persistent depot placement, worker replacement and depot destruction/recovery. Do not create a parallel worker system or spawn overlapping depots. Mushrooms are already produced by swamp decomposition; harvest those actual world objects, not synthetic resource ticks.
+- **Economy:** mushroom inventory and its later spending use require separate design decisions; do not silently equate mushrooms with existing herbs or invent processing recipes. Likewise, the unlock/purchase trigger is **not yet selected**. Preserve existing combat and controls.
+- **Status:** approved icon/behavior specification only; no game-code implementation authorized yet.
+
 ## Cold-boot handoff
 
 **Start here, then read [CHRONICLE.md](./CHRONICLE.md) only for historical detail.** Repository `bonoj/bonoj.github.io`, branch `master`; game `jit/evermore-2/index.html`. Leave `jit/evermore/` untouched. Read latest source and blob SHA before changing it. Persist surgical changes, read back, and distinguish source commit, Pages deployment, and browser-executed code. Cache-bust when necessary. Do not claim tests or device verification that did not happen.
