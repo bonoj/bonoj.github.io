@@ -49,6 +49,14 @@ jobs:
               assert source_html.count(marker)==1, 'Chaos build stamp missing or ambiguous'
               chaos_html.write_text(source_html.replace(marker, 'var BUILD = "'+deployed_sha+'";'))
               (chaos/'build.json').write_text(json.dumps({'sha':deployed_sha})+'\\n')
+          evermore=site/'jit/evermore-2'
+          evermore_html=evermore/'index.html'
+          if evermore_html.is_file():
+              source_html=evermore_html.read_text()
+              marker='var BUILD = "pending";'
+              assert source_html.count(marker)==1, 'Evermore II build stamp missing or ambiguous'
+              evermore_html.write_text(source_html.replace(marker, 'var BUILD = "'+deployed_sha+'";'))
+              (evermore/'build.json').write_text(json.dumps({'sha':deployed_sha})+'\n')
           if (site/'jit/hundred-doors/index.html').is_file():
               door_html=site/'jit/hundred-doors/index.html'
               door_html.write_text(door_html.read_text().replace('<span id="build">pending</span>', '<span id="build">'+deployed_sha[:8]+'</span>'))
