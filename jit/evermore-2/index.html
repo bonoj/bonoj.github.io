@@ -7,7 +7,7 @@ function cropSpawn(dt){if(over)return;cropClock+=dt;forestClock+=dt;if(cropClock
 function waterPlants(t,R){for(const p of crops)if(p.stage==='sprout'&&!p.growAt&&Math.hypot(p.x-t.x,p.y-t.y)<R)p.growAt=elapsed/1000+rand(p.source===4?5:1.5,p.source===4?10:4)}
 function cropGrow(){const now=elapsed/1000;for(const p of crops)if(p.burnAt&&now>=p.burnAt)p.burned=true;crops=crops.filter(p=>!p.burned);for(const p of crops)if(p.growAt&&now>=p.growAt){p.stage=p.source===4?'tree':'wheat';p.growAt=0}}
 function firePlants(t,R){for(const p of crops)if(!p.burnAt&&Math.hypot(p.x-t.x,p.y-t.y)<R)p.burnAt=elapsed/1000+rand(.6,2.5)}
-let mountains=[],volcanoClock=0;const volcanoBurnRadius=24;
+let mountains=[],volcanoClock=0;const volcanoBurnRadius=36;
 function mountainSpawn(dt){if(!towers.some(t=>t.i===3))return;volcanoClock+=dt;if(volcanoClock<16||mountains.length>=12)return;volcanoClock=0;const t=towers.find(t=>t.i===3);for(let tries=0;tries<16;tries++){const a=rand(0,Math.PI*2),r=rand(35,95),x=t.x+Math.cos(a)*r,y=t.y+Math.sin(a)*r;if(x<25||y<25||x>w-25||y>h-25||Math.hypot(x-cx,y-cy)<holyRadius||mountains.some(m=>Math.hypot(m.x-x,m.y-y)<42))continue;mountains.push({x,y,stage:0,nextStage:-1,changeAt:0});break}}
 function mountainPulse(t,R){for(const m of mountains){if(m.changeAt||Math.hypot(m.x-t.x,m.y-t.y)>=R)continue;const next=t.i===3?(m.stage!==0?0:-1):t.i===1?(m.stage===0?1:m.stage===2?3:-1):t.i===4&&m.stage===1?2:-1;if(next>=0){m.nextStage=next;m.changeAt=elapsed/1000+rand(2,5)}}}
 function mountainUpdate(dt){mountainSpawn(dt);const now=elapsed/1000;for(const m of mountains){if(m.changeAt&&now>=m.changeAt){m.stage=m.nextStage;m.changeAt=0;m.nextStage=-1}if(m.stage===0)crops=crops.filter(p=>Math.hypot(p.x-m.x,p.y-m.y)>volcanoBurnRadius)}}
