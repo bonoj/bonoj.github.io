@@ -94,3 +94,7 @@ Historical changes, rejected experiments, and build records: [Development chroni
 Shared `workerStates`, `professions`, `workerGroups`, `moveWorker` and `drawEquippedActor` now implement ant/bee/crab harvesting. Army purchase starts independent civilian groups. `resources` tracks delivered wood, wheat, ice, herbs and stone. Existing ant-facing tests should be adjusted to the generic target field; no user-facing resource strip yet. Keep ecological succession and combat recruits intact. Source commit `14dbb4ad`; tests committed separately. Browser execution and test-run green status have not been confirmed.
 
 **Crab spawn ownership correction:** Auditors (Island / 💧) create the 🐚 shell and three miners; Phoenixes do not create miners. Active 🌋 cannot be mined. Source commit `c4006334`.
+
+### Shared idle movement (2026-10-18)
+
+All civilian ants, bees, crabs and all five combat recruit divisions use `lazyWander(actor, home, dt, speed, radius)` when idle: independently randomized destination, pauses, and heading near their hangout. Combat recruits wander around their matching tower until acquiring an enemy; they continue their original attacks and pursuits. Cherub, Auditor jellyfish, Notary ghost and Phoenix use the shared `unitMotion='fly'` bobbing; Arborist deer walk. Civilian bees fly; ants walk and crabs scuttle. No synchronized idle orbiting or new UI. Source commit `45085e18`; live browser behavior not verified.
