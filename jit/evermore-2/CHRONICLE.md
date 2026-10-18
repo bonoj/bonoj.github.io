@@ -244,3 +244,11 @@ Regression harness retired (2026-10-18): removed `.github/workflows/evermore-2-r
 
 ### The commander's accession — 18 October 2026
 At five towers, Tiffany ceased automatic spell rotation and assumed mission command. Her drones retained their original circular orbits around Tiffany and their existing combat roles. A five-glyph radial command ring (🧭 🔭 📡 🗺️ ⚙️) appeared on tapping Tiffany, collapsible on a second tap, its affordances deliberately left as stubs for future invention. Source `6627ec3e`; live verification pending.
+
+### Attrition, recovery, and the one-AU horizon — 18 October 2026
+
+The little civilization acquired consequences: enemies can destroy towers, civilian depots, and individual workers on contact. Purchased infrastructure remains owned; towers recover after five seconds, depots rebuild after five seconds, and surviving depots replace lost workers at 1.5-second intervals up to three. Destroyed depots lose their workers and release outstanding resource claims. Combat recruits retain their existing one-hit losses and recruitment cycle. No new UI was introduced. Source `0242bbaf` and `556f1ded`.
+
+An early recovery implementation restored depots to stale original coordinates. The corrected lifecycle reruns the existing site-selection logic against the associated tower's **current** position, excluding the recovering depot from its own clearance test and waiting when no valid site exists. Source `ecc6f36b` and `7b827a39`. Placement-aware respawning was subsequently observed working in-game by the player.
+
+Drone acquisition range became a dynamic **one-AU radius within a two-AU-wide viewport**, computed as `w / (2 * arenaScale)`. Prism beam drawing and damage reach now share that cap; chain follow-up targeting respects the same maximum. Drone circular orbits were not changed. Source `60c4cff8`. Runtime verification of the new reach remains pending.
