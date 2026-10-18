@@ -163,3 +163,5 @@ Removed the entire obsolete bottom footer containing the land title, Evermore 1.
 ## 2026-10-18 — Three professions, one FSM
 
 Refactored existing ant forestry into a configurable shared worker FSM and equipment rig. Added golden-trident flying bee wheat harvesters and pickaxe crab miners harvesting ice, herbs and stone from successive mountain stages. Delivered materials accumulate in an internal resource ledger; no UI or economic spending integration. Preserved army combat roles. Updated Playwright regression source; live browser results pending.
+
+Auditor correction: crab miners and their 🐚 shell now spawn on Auditor purchase (Island), not Phoenix purchase (Mountain). Active volcanoes remain unmineable.
