@@ -135,8 +135,8 @@ test('lumber FSM releases destroyed targets and delivers exactly once',async({pa
 test('sprite size tokens and ant axe remain semantically consistent',async({page})=>{
  const values=await page.evaluate(()=>({...VISUAL_SIZE}));
  expect(values).toEqual({micro:12,small:19,medium:24,actor:27,worldFeature:30,hero:49,towerIcon:21,cargo:25});
- expect(html).toContain("ctx.translate(a.facing*5,-2)");
- expect(html).toContain("ctx.scale(-a.facing,1)");
- expect(html).toContain("a.facing=a.tree.x>=a.x?1:-1");
+ expect(html).toContain("ctx.translate(rig.tool.mountX,rig.tool.mountY)");
+ expect(html).toContain("ctx.scale(a.facing*rig.bodyNativeFacing,1)");
+ expect(html).toContain("if(chopping&&a.tree)faceActor(a,a.tree.x)");
  expect(html).toContain("ctx.font=spriteFont(VISUAL_SIZE.worldFeature)");
 });
