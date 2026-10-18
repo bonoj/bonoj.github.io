@@ -25,6 +25,15 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 - **Economy:** mushroom inventory and its later spending use require separate design decisions; do not silently equate mushrooms with existing herbs or invent processing recipes. The cauldron and workers unlock with the existing **Tier II 💀 Notaries upgrade**; no new shop button. Preserve existing combat and controls.
 - **Status:** implemented in `index.html` (source commit `5d67766e`). Device/browser gameplay verification is pending.
 
+## Tier III bone collectors — proposed ecological chain (not implemented)
+
+- **Identity:** 🐀 rat, equipped 🪏 shovel, based at a 🪦 graveyard. Graveyard is the proposed worker home/building, not an existing shop icon. Tier III unlock details remain undecided; do not invent a purchase control.
+- **Existing bone source:** Enemy deaths within the living 💀 Swamp tower's influence spawn actual 🦴 bones directly (`remains` objects with `stage:'bones'`). There is no intermediate corpse/remains stage. Bones naturally become 🍄 mushrooms after **25–30 seconds**.
+- **Existing independent mushroom source:** 💀 Swamp withering turns 🌱 sprouts, 🌾 wheat, or 🌳 trees directly into 🍄 mushrooms after **2–4 seconds**; this pathway never passes through bones.
+- **Existing mushroom consumer:** Tier II 🪱 worms with 🗡️ daggers harvest 🍄 mushrooms from either pathway and deliver them to ⚗️. Swamp vegetation supplies mushrooms independently of enemy deaths.
+- **Proposed contested branch:** 🐀 rats with 🪏 shovels seek, exclusively claim, dig up, visibly carry and deliver **existing 🦴 bone objects** to 🪦 before their decay deadline. Claiming does **not** pause decay. Successful harvesting removes the bone and prevents its mushroom conversion; a missed deadline converts the same object to 🍄 and makes it available to worms. Bone inventory is a proposed new resource; no spending recipe or further economy is specified.
+- **Implementation boundary:** Compose with the existing worker FSM, claim/revalidation, tool rig, delivery and depot lifecycle. Revalidate the bone stage at harvest; release stale claims after decomposition. Preserve existing land/Tier I/Tier II icons and mechanics. **Design only; do not treat this chain as implemented.**
+
 ## Coral moth irrigators — implemented
 
 - **Unlock and home:** Existing 🔥 Tier II Phoenix purchase temporarily starts three 🦋 civilian moths at a distinct 🪸 coral nursery. No additional shop control. Preserve 🐚 crab depot. This unlock association is provisional.
