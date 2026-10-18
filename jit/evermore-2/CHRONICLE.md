@@ -583,3 +583,63 @@ Tiffany's five-node Mission Command radial must remain **entirely in-game**: a c
 ### Decision and reopening criteria
 
 **Defer save/restore implementation. Keep it in the README cold-boot roadmap.** Preserve the existing cheat and gameplay. No schema, storage layer, auto-save timer, radial command or instrumentation change is needed today. Revisit when losing a carefully cultivated civilization across sessions becomes a greater practical cost than maintaining compatibility, or when the durable world model has stabilized enough to make the feature cheap. At that point, inspect source before proposing the smallest workable contract, agree on the affordance with the human, implement surgically, and verify continuity of cultivation, structures, economy and long-distance civilian journeys. The principle is to preserve consequences without freezing the laboratory's ability to invent.
+
+
+## 18 October 2026 — The irrigated frontier: emergent industrial geography
+
+### Evidence first: four observations of one living civilization
+
+The human supplied four Android Chrome screenshots of a single mature run, all displaying the source label `1a398aa3`. They show Tiffany at the center of a battlefield with five purchased land towers and five owned army divisions. The human was not asking for an implementation: the request was to reconstruct the *reasons* for tower placement and movement from images, documentation, and actual mechanics.
+
+The observed HUD progression across the four images was:
+
+| Observation | Kills | Coins | Gems | Wheat | Wood | Ice | Herbs | Stone |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 09:36, first | 688 | 9325 | 1052 | 99 | 61 | 20 | undiscovered | 4 |
+| 09:36, second | 803 | 9555 | 1066 | 114 | 68 | 25 | undiscovered | 4 |
+| 09:38, third | 1040 | 10029 | 1096 | 141 | 81 | 37 | undiscovered | 4 |
+| 09:38, fourth | 1073 | 10095 | 1100 | 146 | 82 | 37 | 2 | 4 |
+
+These are snapshots, not a controlled experiment: timestamps are minute-resolution, and the images alone cannot establish the precise sequence or causal contribution of each placement. Nevertheless, the cumulative changes show continued wheat, wood, and ice delivery during the observed interval, the later appearance of herbs, and *no stone delivery* (stone remained at four). The human explicitly confirmed finding a tower-placement “sweet spot” that produces **ice and vegetation simultaneously, at the expense of stone**.
+
+The visible spatial organization was striking: an irrigated Plains wheat patch immediately left of Tiffany; Forest growth and geological material concentrated to the northeast; Swamp's mushrooms, bones, and ghostly activity toward the southeast; Mountain fire generally farther south; and the Island tower moved to intersect useful production regions. The placement and moving spell radii are operational geometry, not decoration. In particular, the human confirmed deliberately moving Island irrigation between agriculture and geology, and discovering an overlap that supports both.
+
+### Source-grounded mechanism: production is a spatial composition
+
+The source at `jit/evermore-2/index.html` explains why this strategy works:
+
+- Plains spawns sprouts at approximately 0.65-second intervals; Forest spawns tree sprouts approximately every 3.5 seconds. Spawn attempts are spatially bounded around their living towers, subject to collisions, bounds and a shared crop cap of 100. A sprout is *not yet a harvestable crop*.
+- Island tower pulses mature nearby sprouts: the water rule schedules wheat and tree maturation, and also acts on geological features. Thus moving Island changes which latent resources become productive.
+- Mountain generates geological features at intervals while its fire burns plants and mushrooms. Geological transformations form a sequence: Mountain can reset a feature to volcanic stage 0; Island transforms stage 0 to stage 1 and stage 2 to stage 3; Forest transforms stage 1 to stage 2. Spatial overlap and ordering therefore matter. The sequence is not interchangeable.
+- Bees harvest mature wheat, ants harvest mature trees, and crabs mine eligible geological features. Each worker claims a target, travels to it, performs work, carries cargo home, and unloads; the resource counter increments **only on delivery**. Travel distance, depot location, worker survival, and availability of unclaimed targets affect throughput.
+- Towers can be relocated directly, but the associated civilian depot does not simply teleport with every move; its site can be recomputed on recovery. Consequently tower geometry, worker home geometry, and the historical locations of generated resources can diverge.
+
+The images support the claim of concurrent production, not a measured optimum or a guarantee that every subsystem is at steady state. The human's report is the authority for the intentional strategy; source mechanics explain its plausibility.
+
+### Dialogue and discovery
+
+The model first interpreted the screenshot layout as spatial programming: towers were simultaneously weapons, factories, ecological modifiers, and anchors of logistics. It hypothesized agricultural concentration near Tiffany, separation of destructive and productive biomes, and deliberate relocation of Island irrigation between wheat and geological features. It emphasized that worker path length converts distance into economic cost.
+
+The model then asked whether the human was intentionally alternating Island's irrigation between the wheat field and geology. The human answered: **“Correct. And I found a sweet spot that produces ice and vegetation simultaneously, at the expense of stone. Stone is actually a rarity because it is not renewable without human intervention at the moment.”**
+
+That correction sharpened the interpretation. The achievement was not merely alternation between two production modes: the human discovered a **concurrent operating point**, trading one resource class against others. The unchanged stone count across all four images is consistent with the reported bottleneck, though the screenshots alone do not prove the general nonrenewability claim. No code was changed as part of this observation.
+
+### Ontology and invariants: what the world has taught us
+
+**Existence is not availability; availability is not renewability; renewability is not autonomous throughput.** A mountain can exist without being in a mineable stage; a resource can be mineable without having a worker able to reach and deliver it; and a transformation can be repeatable in principle while requiring manual tower relocation to repeat in practice. This is the crucial distinction exposed by scarce stone.
+
+**Production is a graph embedded in space.** Land towers create or transform material, geography constrains intersection, workers turn eligible material into inventory, and destructive interactions erase opportunities. A productive layout is therefore a set of *relationships* among tower positions, pulse radii, resource stages, depots, and travel paths—not five individually “best” coordinates.
+
+**Ecological stages are real state.** Sprout, wheat/tree, geological stages, bones and mushrooms are not interchangeable visual sprites. Their transitions depend on ordered exposure to different land effects. Spatial separation can protect an asset; overlap can synthesize a new one. Fire is both a combat advantage and an ecological hazard.
+
+**Autonomy has degrees.** The armies autonomously fight and workers autonomously harvest, but the human still orchestrates some production transitions through placement. A system that can autonomously consume stone is not thereby capable of autonomously renewing it. This is a useful frontier for future civilization mechanics, not a mandate to automate the scarcity away.
+
+**Scarcity creates agency.** Stone's manual-renewal bottleneck gives placement decisions a cost and makes the ice/vegetation sweet spot an actual strategy rather than a cosmetic arrangement. Automatically removing that constraint would change the game economy and erase an emergent tradeoff. Preserve it unless the human deliberately chooses a new progression mechanism.
+
+**Moving infrastructure changes time as well as space.** Resources spawned earlier remain in their own locations; worker depots may remain fixed; subsequent pulses alter different neighborhoods. The world retains consequences of previous configurations. Tower placement is therefore a form of temporal programming: the human is composing a history of land use, not merely optimizing the current frame.
+
+### Significance and disposition
+
+This was a spontaneous player discovery in a game that began as a compact vampire-survivors experiment. The human's enjoyment arose from *automated efficiency*—discovering an ecological production frontier, shaping it with movement, and watching a civilization do the work. The model's role was to recover the governing rules and explain the observed strategy without mistaking an attractive theory for measured proof.
+
+**Disposition:** chronicle only. No balance changes, autonomous stone-generation mechanism, new UI, instrumentation, or optimization was requested or authorized. Preserve the actual economy and its newly discovered scarcity. The world has become interesting because its rules produce consequences the designers did not explicitly script.
