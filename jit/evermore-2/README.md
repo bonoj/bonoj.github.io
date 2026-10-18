@@ -27,7 +27,7 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 
 ## Battlefield expansion and camera — implemented in source
 
-- Battlefield area grows from 1× to 2× after the second Tier I drone, 4× after all five Tier I drones/towers, and **8× after all five Tier II divisions**.
+- Battlefield area grows from 1× to 2× after the second Tier I drone, 4× after all five Tier I drones/towers, and remains at **4× after all five Tier II divisions**. The former 8× increase is temporarily disabled.
 - **Pinch zoom and finger-drag camera movement are disabled for now.** The camera automatically fits the full unlocked battlefield at each expansion stage; preserve existing tap-to-cast, command-ring and tower-placement behavior. Do not reintroduce gesture handling without a new request.
 - Source commits `6bf8a7cb`, `7aadd86b`. Physical-device verification pending.
 
