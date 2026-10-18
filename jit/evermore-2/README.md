@@ -37,33 +37,11 @@ Each ant carries one 🪵 on its back to the hut, unloads once, and repeats. A r
 
 Do not invent or add any controls. Ants, axes, and logs must remain recognizable at maximum zoom-out without overwhelming Tiffany. The game occupies a single viewport without page scrolling; instructional hint rows are hidden. The HUD includes an empty, invisible second resource row for future resources.
 
-### Visual sizing contract — proposed, preserve current appearance
+### Visual sizing contract — implemented
 
-All sizes below are **logical Canvas pixels at arenaScale=1**. The canvas transform scales every sprite and geometric feature uniformly at expanded battlefield zoom. These are **semantic size tokens**, not a mandate that all entities be identical. Current phone screenshot is the visual baseline; do not change ant or hut appearance during the initial extraction.
+The Canvas renderer uses immutable `VISUAL_SIZE` tokens in logical world pixels, with the existing arena zoom transform applied once. Six tiers: `micro=12` (bones, Tiffany label), `small=19` (sprouts, mushrooms, rockets), `medium=24` (combat recruits, wheat, ant axes), `actor=27` (enemies, ants), `worldFeature=30` (hut, mountains, volcanoes, mature trees), `hero=49` (Tiffany). Named exceptions: `towerIcon=21`, `cargo=25`. The hut shrank 34→30, mature trees grew 29→30, mushrooms grew 16→19, axes shrank 27→24. Other entity sizes are preserved.
 
-| Token | Pixels | Existing uses |
-| --- | ---: | --- |
-| `micro` | 12 | Bones, Tiffany label |
-| `small` | 19 | Sprouts, rockets |
-| `medium` | 24 | Combat recruits, wheat |
-| `actor` | 27 | Enemies, civilian ants, ant axes |
-| `tree` | 29 | Mature trees |
-| `terrain` | 30 | Mountains, volcanoes |
-| `building` | 34 | Lumber hut |
-| `hero` | 49 | Tiffany |
-| `towerIcon` | 21 | Five tower glyphs |
-| `cargo` | 25 | Carried logs |
-| `mushroom` | 16 | Mushrooms |
-
-**Implementation specification (not yet implemented):**
-1. Introduce one immutable `VISUAL_SIZE` table beside the Canvas rendering code. Replace hard-coded sprite font sizes with token references; preserve exact current numeric values and drawing positions.
-2. Give future assets a semantic role and explicitly chosen token. Allow named exceptions (cargo, tower icon, mushroom) rather than silently rounding to the nearest tier. No new controls, HUD, layout, art, or behavior.
-3. Keep **world-space geometry separate from visual glyph sizes**: hit radii, movement speeds, stopping distances, spell radii, collision, reservations, and FSM transitions must not derive from emoji font sizes. Do not accidentally alter gameplay by standardizing art.
-4. Zoom must continue to use the existing Canvas transform; do not individually scale token values or double-scale emoji. Validate at all three arena scales and a narrow mobile viewport.
-5. Add a lightweight static regression assertion for token values and semantic usage, retain existing gameplay tests, and verify GitHub Actions green before declaring regression success. Visually inspect ants, hut, cargo, towers, Tiffany, and the bottom controls against the screenshot.
-6. If a future redesign changes relative sizes, treat it as a **separate** deliberate visual change after this no-difference refactor.
-
-**Behavioral prerequisite:** Ant FSM was updated to require cargo ownership and physical unloading, but live gameplay and green regression verification are still pending. Do not mistake a source commit for validated behavior.
+Ant chopping faces the claimed tree and draws an overlapping axe from a forward-of-center attachment, mirroring its attachment for left/right orientation. Travel faces the tree, carrying faces the hut, unloading faces the hut, and patrol faces travel direction. No changes to ant FSM state graph, economy, collision, chopping duration, UI, or scroll behavior. The latest source change has not yet been browser-verified; check both facing directions and mobile readability before declaring visual validation.
 
 ### Current frontier — one battlefield, interacting ecologies
 
