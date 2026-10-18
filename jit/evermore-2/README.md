@@ -122,3 +122,6 @@ Replace the current HUD with a fixed-height, two-row-capable discovery strip. Do
 **HUD implementation (`d845c3c0`):** discovery set drives visibility of ☠️ 🪙 💎 and five materials; 💜 always visible. Resource unlock occurs at unload. Fixed 65px HUD, reserved four/five slots, CSS transition for first material, reduced-motion handling, WAVE removed. Source committed; browser and Playwright verification pending.
 
 Regression harness retired (2026-10-18): removed `.github/workflows/evermore-2-regression.yml`, `tests/regression.spec.cjs`, and `tests/package.json` after persistent red runs. Do not assume automated regression coverage or claim green checks. Game source unchanged. Future tests should be purpose-built and verified before enabling CI.
+
+### Mission commander (implemented `6627ec3e`)
+At exactly five placed towers, Tiffany stops autocycling; tap Tiffany toggles a five-stub radial command ring 🧭 🔭 📡 🗺️ ⚙️. Ring items give visual feedback only; no actions assigned. Drones retain their combat and move on slow, long-period radial excursions between Tiffany and their corresponding towers, with Tiffany as the near endpoint. Tower placement and tower combat continue. Prior to five towers, Tiffany's tap still casts normally. Browser verification pending.
