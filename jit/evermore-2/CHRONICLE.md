@@ -1152,3 +1152,52 @@ The exciting result is not merely a slower spawn rate. Fire now depends on sever
 ### Next frontier: ☀️ hunts rock scorpions
 
 The human's selected next direction is **☀️ Tier III hunting rock-bearing 🔥 scorpions**. This is the beginning of a material conflict between the two towers, grounded in the Fire colony's existing ecology. **Not implemented yet.** Inspect current Plains systems, scorpion combat/armor, loose-stone behavior, targeting and inventory delivery before proposing a hunter. Preserve one-of-each feeding, three-stone total, rat-gated metamorphosis, physical resource consequences and existing worker independence. Do not invent a hunter identity, damage values, loot amounts or new UI before design selection. Instrument future hunting so observation distinguishes attacks, armor loss, deaths, loose-stone recovery and stone credited to Tiffany.
+
+
+## 2026-10-18 — ☀️ The Five Monuments: human–model design exchange and headless foundation
+
+This section records the actual conversational sequence that followed the Fire colony observation. It distinguishes **human decisions**, **model proposals**, **joint agreement**, and **what was committed and tested**. It is a development history, not a substitute for the current [README specification](./README.md).
+
+### Turn 1 — The human discovers Sun's motive
+
+**The human:** “I think ☀️ wants to build 🏛 so they need 🪨. They want 5 monuments around their tower at the edges so that their cherubs can become permanent ✨️ over each monument. Monuments cannot be destroyed once inhabited. A cherub prioritizes inhabiting a monument. They continue to spawn and decay as normal even after all 5 monuments are occupied. If ☀️ tower is moved, the monuments crumble to 🪨.”
+
+**The model's interpretation:** The five monuments give ☀️ a material reason to compete with 🔥 scorpions. The model restated five perimeter monuments, priority occupation by Cherubs, one permanent ✨ above each occupied monument, immunity after occupation, continuing ordinary Cherub spawning/combat/expiry even at full occupancy, and tower-relocation collapse into physical stone. It explicitly left the hunter undecided and asked whether Cherubs themselves should hunt or whether a distinct worker should do so.
+
+**Design significance:** Sun seeks territorial permanence from stone that Fire carries through an ecological reproduction cycle. Permanent occupation is *not* a permanent reduction in the Cherub division's ordinary recruitment capacity. Tower relocation becomes a costly strategic choice.
+
+### Turn 2 — The human defers hunting and specifies invalid placement
+
+**The human:** “We will get to that. Let's spec this in the doc. Additionally, monuments are not built in Tiffany's personal space. If one or more monument locations would otherwise overlap, the rocks are added to Tiffany's inventory instead when the worker (tbd) moves to the proper location for placement. Is clear?”
+
+**The model's action:** The model updated the canonical Evermore II README, commit [`1b92bfad`](https://github.com/bonoj/bonoj.github.io/commit/1b92bfadc5621c118c18089a05cf1277224c5155). It documented five candidate sites, exclusion of Tiffany's personal space, blocked/overlapping site fallback, physical arrival of a future worker before inventory credit, occupation, immunity, ordinary Cherub continuity and tower-movement collapse. Worker identity, hunting, costs and exact geometry remained open.
+
+**Important nuance:** An invalid site does not silently vanish, shift to a convenient substitute, or credit inventory immediately. The intended worker must reach its designated destination before the allocated rocks become Tiffany's inventory. The other valid monument sites remain independent. This rule is about *material delivery*, not free resource generation.
+
+### Turn 3 — The human asks about build order
+
+**The human:** “Shall we build this headless? Or after we create the unit that drives it.”
+
+**The model's proposal:** Build the monument lifecycle **headless first**. Separate `plan` (five sites), `arrive` (worker reaches a site with stone, resulting in construction or blocked-site credit), `inhabit` (Cherub becomes permanent ✨), and `collapse` (tower relocation yields loose physical stone). Test these with synthetic arrivals, not a fake gameplay worker. Keep the module dormant until the real acquisition and placement worker is designed.
+
+**Design significance:** A physical transaction boundary prevents monuments from appearing automatically or stone being credited before delivery. The future worker will supply stone and invoke the same contract rather than owning monument rules itself.
+
+### Turn 4 — The human authorizes implementation and testing
+
+**The human:** “Excellent. Agreed. We build it and you test it as well as possible headless. Instrument it if you like and I'll bring you 👁.”
+
+**The model's work:** It inspected the existing single-file game for tower placement/relocation, Cherub recruitment and expiry, resources, scorpion loose stone, and World Observer. Rather than modifying live `index.html`, it committed an isolated ES module [`sun-monuments.mjs`](./sun-monuments.mjs) at [`aaf5b087`](https://github.com/bonoj/bonoj.github.io/commit/aaf5b087dc79138863452f5e429c0bf60d4885e9) and deterministic tests [`sun-monuments.test.mjs`](./sun-monuments.test.mjs) at [`7ee9f477`](https://github.com/bonoj/bonoj.github.io/commit/7ee9f47720718b39cb6fd38b4ff70a626309ef08). It updated README's implementation/verification status at [`072a5b3f`](https://github.com/bonoj/bonoj.github.io/commit/072a5b3f4bfbed7825cf51d7262b331c8dcc465a).
+
+The model exercised the module's logic against **15 deterministic assertions in its JavaScript execution environment** and reported a pass. Those checks covered five candidate sites; rejection of premature arrival; construction; single occupancy; occupied-site immunity; vulnerability of an uninhabited monument; physical rubble on destruction and relocation; absence of automatic inventory credit on collapse; blocked-site inventory credit only upon arrival; no duplicate credit; and independent construction at another valid site. This is **not** a claimed browser/device run, GitHub Actions run, or verification of live gameplay.
+
+### What exists versus what remains conceptual
+
+**Committed headless core:** configurable five-site ring, blocked-site validation, arrival transaction, isolated stone inventory/rubble accounting, occupation, occupied-site immunity, unoccupied destruction, and relocation collapse/replanning. The model is independent of the running game; it does not change Cherub recruitment, world inventory, battlefield rendering, enemy collisions or the observer. Configured geometry and stone cost are test placeholders, **not human-selected gameplay numbers**.
+
+**Still to design or integrate:** ☀️'s actual stone hunter/carrier, how stone is removed from 🦂, site geometry tied to live world scale and Tiffany's protected space, live monument construction and visuals, Cherub prioritization and ascension in the actual unit lifecycle, enemy collisions, material accounting, relocation hooks, and 👁 event/census integration. The model deliberately did **not** ask the human for 👁 because the dormant module produces no live-world events.
+
+### Synthesis
+
+This episode exemplifies a productive separation of *intent*, *mechanism*, and *integration*. The human supplied a vivid strategic premise and an unusually important fallback rule; the model proposed a small transactional abstraction; the human authorized a headless slice; the model committed and exercised that slice without changing existing gameplay. The next worker can be designed against an explicit contract rather than forcing premature decisions about hunting, transport, or UI.
+
+**Evidence boundary:** “15 assertions passed” refers to the headless logic executed during authoring. The committed test file exists, but no claim is made here that an independent CI runner or deployed game executed it. Future work should test integration against the actual world and use 👁 to distinguish attempted placements, blocked-site credits, completed monuments, ascensions, immunity, and rubble on relocation.
