@@ -38,12 +38,12 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 - ☀️ Plains independently spawns 🌱 approximately every 0.65 seconds; 🌳 Forest independently spawns 🌱 approximately every 3.5 seconds. Each sprout retains its source land. Spawns are scattered 25–115 units around its tower.
 - 💧 Island pulses start one-shot, individually randomized maturation timers for sprouts in range. Plains sprouts become 🌾 after 1.5–4 seconds; Forest sprouts become 🌳 after 5–10 seconds. Repeated pulses do not reset pending timers.
 - Enemies trample 🌱 and 🌾, but not 🌳. Trees do not yet obstruct movement. All plants share a 100-entity cap, sway gently at independent phases, and avoid Tiffany's sacred 65-unit radius (her yellow disc is 47 units).
-- 🔥 Mountain tower pulses burn vegetation inside the tower's normal pulse radius, while retaining their existing combat effect.
+- 🔥 Mountain tower pulses schedule individual **0.6–2.5-second burn timers** for 🌱 🌾 🌳 inside the normal tower radius, rather than deleting plants instantly. Existing combat effects remain.
 
 **Geology (build 20261017.3):**
 - 🔥 Mountain independently attempts to spawn 🌋 approximately every 16 seconds, up to 12 geological objects, spaced around its tower and away from Tiffany.
 - Active 🌋 continuously burn vegetation within **24 world units**, much smaller than the Fire tower pulse. Cooling ends the burn permanently for that object.
-- Staged succession: 🌋 --💧 Island--> 🗻 --🌳 Forest--> ⛰️ --💧 Island--> 🏔️. Each eligible tower pulse starts an individual 2–5-second delay. Pending transformations cannot be reset or skipped.
+- Staged succession: 🌋 --💧 Island--> 🗻 --🌳 Forest--> ⛰️ --💧 Island--> 🏔️. 🔥 Mountain pulses return **any cooled stage** (🗻 ⛰️ 🏔️) to 🌋 after the same 2–5-second randomized transformation delay. Each eligible tower pulse starts an individual 2–5-second delay. Pending transformations cannot be reset or skipped.
 - Mountains persist after towers move and are not trampled; they do not yet block enemies.
 
 **Design invariants:** Every tower remains independently useful; all existing combat, shop, currency, and controls remain. Tower interactions depend on spatial overlap and pulses, not hard-coded combinations. Swamp still independently poisons; 🍄 mushrooms, ash, fire propagation, harvesting, and tree/mountain collision are ideas, **not implemented**. Restart clears crops and mountains.
@@ -165,3 +165,7 @@ The first Plains interior was reverted after breaking outer UI controls. The des
 ## Build identity — automatic source SHA
 
 The header no longer uses manually incremented `BUILD YYYYMMDD.N`. On load it fetches a cache-busted copy of the public page and the latest GitHub commit affecting `jit/evermore-2/index.html`. It compares the executing inline game script against the fetched public game script. When they match, the header shows `SHA XXXXXXXX` (first eight characters of that source commit); when they differ it shows `STALE BUILD`; if either lookup fails it shows `SHA unavailable`. This checks source-code correspondence, not full runtime correctness, and requires network access. Added in source commit `64a79017`. The displayed SHA changes automatically with future source commits without manual edits.
+
+### Fire reactivation — 2026-10-17
+
+Source commit `1a2ac35d`: Fire tower pulses schedule random 0.6–2.5-second destruction timers for nearby sprouts, wheat, and trees, instead of deleting vegetation immediately. Fire pulses also schedule any nearby cooled mountain (🗻 ⛰️ 🏔️) to return to 🌋 after 2–5 seconds. Pending geological transformations are not overwritten. Once reactivated, volcanoes resume their existing 24-unit localized vegetation burn. Original tower combat remains unchanged. Source was committed; live gameplay not yet independently verified.
