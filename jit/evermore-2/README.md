@@ -181,3 +181,9 @@ Implemented in game source commit `9e1ac553`:
 - Source commit and read-back verified; live Pages deployment and actual browser behavior **not verified**.
 
 **Next frontier:** Design differentiated defender collectors that consume bones before decay or mushrooms afterward, with observable inventory and consequences. Do not silently make pickups cosmetic or invent resource caps.
+
+### Developer funding shortcut — 2026-10-17
+
+- Tappable upper-left `BUILD 20261017.4` badge (13px) adds **9,999 coins and 999 gems** per tap; HUD/shop refresh immediately. Repeatable, session-only, reset clears funds.
+- Removed previous GitHub SHA display and asynchronous stale-build verifier. Badge is now a manual version label, not an authoritative deployed commit indicator.
+- Source commit `aa62d3f7` verified by GitHub readback. Public Pages and browser behavior not independently verified.
