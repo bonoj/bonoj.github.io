@@ -35,7 +35,7 @@ Ants idle on the ground near the hut until mature 🌳 trees are available. They
 
 Each ant carries one 🪵 on its back to the hut, deposits it, and repeats.
 
-Ants, axes, and logs must remain clearly legible at maximum battlefield zoom-out.
+Do not invent or add any UI. Make the ants, axes, and logs large enough to be clearly legible at maximum battlefield zoom-out.
 
 **Known verification limits:** A player previously reported being unable to place towers, although the source inspection showed a placement handler. No definitive live reproduction/resolution was recorded. Do not assume this is fixed merely because the handler exists. The latest spell-selection separation was source-verified; live gameplay still needs testing. Enemy/recruit collision currently removes both without necessarily using the normal kill-reward path; inspect currency accounting when working on unit combat. Avoid claiming live deployment based solely on a GitHub commit.
 
