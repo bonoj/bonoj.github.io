@@ -31,13 +31,18 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 - **Pinch zoom and finger-drag camera movement are disabled for now.** The camera automatically fits the full unlocked battlefield at each expansion stage; preserve existing tap-to-cast, command-ring and tower-placement behavior. Do not reintroduce gesture handling without a new request.
 - Source commits `6bf8a7cb`, `7aadd86b`. Physical-device verification pending.
 
-## Tier III Swamp — grave rats and mycelial reproduction
+## Tier III Swamp — grave rats
 
-- Purchasing the existing 💀 Tier III circle (🪙250 + 🪨10) starts a 🪦 graveyard with three 🐀 shovel-equipped rats, reusing the shared worker FSM, depot placement, destruction/recovery and claim lifecycle.
-- Rats claim existing 🦴 bones from enemy deaths, harvest them before their 25–30 second natural decay into 🍄, carry them home and credit a 🦴 bones inventory. Decay is not paused by a claim. Worms continue harvesting mushrooms independently.
-- The Tier III 🫧 Swamp drone patrols near its living Swamp tower when no enemy is within 130 world units. It consumes an unclaimed 🍄 mushroom within 38 units and spawns one permanent 🪱 worm at the existing ⚗️ cauldron, with no mushroom inventory cost and no worm population cap. Nearby enemies interrupt reproduction; the existing Leech attack remains. If the tower is destroyed, the drone reverts to its normal orbit until it returns.
-- New worms use the existing worm harvesting FSM. The group's baseline of three workers remains; reproduced workers are additional, and lost workers replenish toward the increased population target.
-- Source through `b6d671a9`; no physical-device verification claimed.
+- 💀 Tier III (🪙250 + 🪨10) creates a 🪦 graveyard and three 🐀 shovel-equipped rats. They claim and harvest existing 🦴 bones before decay, return them to the graveyard and credit bone inventory. The graveyard uses existing depot placement, destruction, recovery and worker respawn mechanics.
+- Tiffany's 🫧 Swamp drone **never** becomes a worker or leaves Tiffany's formation. Its original combat behavior is unchanged.
+
+## Tier III Island — mycelial octopus
+
+- 💧 Tier III (🪙250 + 🧊10) creates a separate 🐚 home and **one** 🐙 ground walker, using the existing depot placement, destruction and recovery lifecycle. No extra shop control.
+- The octopus walks slowly (26 world units/s) toward the **nearest unclaimed 🍄 mushroom** anywhere on the map. It uses the existing `workerClaim` exclusivity shared with worms, releasing invalid claims.
+- On arrival, it consumes the mushroom and spawns a **permanent 🪱 worm at that location**, immediately equipped with the ordinary worm harvesting FSM. No trip back to the shell; no mushroom-inventory cost or population cap.
+- The octopus dies on a single enemy collision and respawns at its home. If the home is destroyed, the normal building recovery lifecycle applies.
+- Worm population target grows with reproduction; lost worms can replenish to that target. Source through `25a485e8`; physical-device verification pending.
 
 ## Tier III shop placeholders — implemented in source
 
