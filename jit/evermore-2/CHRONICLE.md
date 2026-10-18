@@ -1121,3 +1121,34 @@ Important distinctions and future scrutiny:
 The initial request was to make ☀️ and 🔥 go to war. The resulting first experiment is **not a war**. It is an ecological mechanism that can produce geography, population growth, depletion, vulnerability, loose material and eventual conflict *before the second faction exists*. The human's remark—“It is already a loop without plains”—is the conceptual culmination. Rather than impose a capture-the-flag script, the collaborators discovered a reproductive material cycle whose interaction with Plains can be designed later, after watching what the colony actually does.
 
 **Next experiment:** observe the live Tier III Fire purchase and one full zero → one → two → three-rock metamorphosis, confirm one active scorpion per Idol, inspect whether claims and worm accounting remain consistent, and watch what limits expansion in natural play. Preserve the crabs' independence, the moths' neutrality, and the established world. Then decide how Plains can harvest the resulting stone without flattening the ecology into a scripted battle.
+
+
+---
+
+## 2026-10-18 — Rock scorpions: pivot, hiccup, success, and the Sun frontier
+
+### The pivot
+
+The first Fire colony reproduced too rapidly. An earlier natural run recorded 19 scorpion spawns, nine metamorphoses and ten Idol births in roughly a minute, while worms were pressured by both scorpions and the eagle. The human replaced the three-interchangeable-meals rule with a more ecological contract: each scorpion must eat **exactly one mushroom, one bone and one living worm, in any order**. Each distinct meal grows one visible rock worth one stone; **three rocks equal three stone total**. With all three rocks, the scorpion must consume **one living rat** before metamorphosing in place into an Idol. That rat is credited as **one rat in Tiffany's inventory**. When its required prey is unavailable, it wanders toward the nearest Idol. Losing a rock reopens the corresponding ingredient requirement. Existing stings, armor shedding and death behavior remain.
+
+### The hiccup
+
+The model invented a value of three stone *per rock*, implying nine stone on a full scorpion. The human caught the error. The model corrected the quantity to one stone per rock and the feeding rule to one of each ingredient, not three of each. Inspection then exposed a documentation gap: the README still described the obsolete any-three-meals/immediate-metamorphosis behavior. The human required the corrected specification and instrumentation. The enduring lesson is to carry the human's exact quantities into both source and canonical documentation, and to verify with stateful observation rather than reassuring prose.
+
+### The successful observed run
+
+The human supplied a tiffinity-world-observer/v1 report from **executing build 86ebc0c9**, captured at **266 game seconds**, reporting **zero errors**.
+
+- **106 ingredient meals:** 38 mushroom, 23 bone and 45 worm; the subtotals reconcile.
+- **22 rats consumed and 22 metamorphoses**, consistent with the new rat gate.
+- **23 Idol births, eight Idol destructions, 41 scorpion spawns, eight stings and eight armor losses**.
+- Tiffany's rat inventory increased from **99 to 121**, consistent with the 22 rat-consumption credits.
+- The eagle captured and delivered **28 worms**; the octopus converted **21 mushrooms**. Existing ecological systems remained active.
+
+At the final census there were **15 Idols and 19 scorpions**, with five towers and seven depots alive. The observer exposed each scorpion's stone count, named ingredient flags, outstanding objectives and target. **Fifteen of the nineteen scorpions carried two stones, having eaten mushroom and worm but still needing bone.** Many had no bone target. Bone availability had become an emergent reproduction bottleneck. The Idol population also contracted as well as expanded: six at 150 seconds, three at 160, fifteen at 210, thirteen at 230, fifteen at 265. This supports the observed gating and ecological competition, without claiming that aggregate counters alone prove every pathfinding transition.
+
+The exciting result is not merely a slower spawn rate. Fire now depends on several actual food chains and a living rat gate. Eagles compete for worms; other workers compete for remains; creeps strip armor and destroy Idols. A crowd of two-rock scorpions waiting for bones is an emergent world condition, not a scripted timer. The human's reaction: **“I think it is absolutely fantastic :).”**
+
+### Next frontier: ☀️ hunts rock scorpions
+
+The human's selected next direction is **☀️ Tier III hunting rock-bearing 🔥 scorpions**. This is the beginning of a material conflict between the two towers, grounded in the Fire colony's existing ecology. **Not implemented yet.** Inspect current Plains systems, scorpion combat/armor, loose-stone behavior, targeting and inventory delivery before proposing a hunter. Preserve one-of-each feeding, three-stone total, rat-gated metamorphosis, physical resource consequences and existing worker independence. Do not invent a hunter identity, damage values, loot amounts or new UI before design selection. Instrument future hunting so observation distinguishes attacks, armor loss, deaths, loose-stone recovery and stone credited to Tiffany.
