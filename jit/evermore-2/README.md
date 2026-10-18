@@ -98,3 +98,6 @@ Shared `workerStates`, `professions`, `workerGroups`, `moveWorker` and `drawEqui
 ### Shared idle movement (2026-10-18)
 
 All civilian ants, bees, crabs and all five combat recruit divisions use `lazyWander(actor, home, dt, speed, radius)` when idle: independently randomized destination, pauses, and heading near their hangout. Combat recruits wander around their matching tower until acquiring an enemy; they continue their original attacks and pursuits. Cherub, Auditor jellyfish, Notary ghost and Phoenix use the shared `unitMotion='fly'` bobbing; Arborist deer walk. Civilian bees fly; ants walk and crabs scuttle. No synchronized idle orbiting or new UI. Source commit `45085e18`; live browser behavior not verified.
+
+### Swamp decomposition
+Swamp tower pulses wither nearby sprouts, wheat, and trees over randomized 2–4 seconds into mushrooms. Withering stops maturation and releases worker claims; repeated pulses do not reset it. Enemy deaths near the swamp still create bones, but bones now take 25–30 seconds to become mushrooms. Plant decay produces mushrooms directly, never bones. Source `1ef3cc8f`; browser validation pending.
