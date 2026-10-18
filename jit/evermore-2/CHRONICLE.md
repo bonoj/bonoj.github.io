@@ -158,3 +158,8 @@ The original ant lumberjacks were reorganized around the reusable in-file FSM wi
 ### Footer removal — 2026-10-18
 
 Removed the entire obsolete bottom footer containing the land title, Evermore 1.0 link, and Restart button, along with footer CSS, status assignment, and click binding (source `1f09db3d`). The internal `reset()` remains. Existing land and army controls, HUD, and battlefield were not deliberately modified. GitHub source read-back confirmed removal; public Pages behavior was not independently verified.
+
+
+## 2026-10-18 — Three professions, one FSM
+
+Refactored existing ant forestry into a configurable shared worker FSM and equipment rig. Added golden-trident flying bee wheat harvesters and pickaxe crab miners harvesting ice, herbs and stone from successive mountain stages. Delivered materials accumulate in an internal resource ledger; no UI or economic spending integration. Preserved army combat roles. Updated Playwright regression source; live browser results pending.
