@@ -1,0 +1,23 @@
+name: Evermore II regression
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'jit/evermore-2/index.html'
+      - 'jit/evermore-2/tests/**'
+      - '.github/workflows/evermore-2-regression.yml'
+  workflow_dispatch:
+jobs:
+  browser-regression:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jit/evermore-2/tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
