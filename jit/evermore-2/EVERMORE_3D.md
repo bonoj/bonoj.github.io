@@ -88,6 +88,39 @@ Slices can be parallelized by isolated mechanism or world module, but **integrat
 6. Purchases, five combat identities, Tiffany autonomy, expansion, and resource discovery behave according to the README, or deviations are explicitly documented as intentional 3D adaptations.
 7. On a mobile browser the world is readable, interactive, and demonstrably executing the expected SHA. Record any unverified behaviors honestly; no claim of full parity from a partial slice.
 
+## Human time, turn-pair estimate, and expected friction
+
+These are **planning estimates, not delivery promises**, based on the established mobile-first human–model workflow and already existing Abyss/Hermeticon machinery. A **turn pair** means one human direction/observation and one substantive model response with implementation, investigation, or verification. Autonomous tool calls within a model response do not count as extra human turns. **Human time** means the human's active attention—play, screenshots, decisions, feedback—not total wall-clock time waiting for GitHub Pages.
+
+| Milestone | Human attention | Human–model turn pairs | Expected result |
+| --- | --- | --- | --- |
+| Abyss mount + first playable land interaction | 30–60 minutes | 3–6 | Independent opt-in 3D world; visible, relocatable capabilities; no impact on existing worlds |
+| Ecological proof (five land effects, staged materials) | Additional 45–90 minutes | Additional 4–8 | Real overlapping production and transformations, visible in the same terrain |
+| Civilian economy and sweet-spot experiment | Additional 45–90 minutes | Additional 5–8 | Bees, ants and crabs travel, carry and deliver; ice/vegetation overlap emerges from rules |
+| **First meaningful playable ecological slice** | **2–4 hours total** | **12–20 total** | Player can discover and exploit a genuine spatial production tradeoff |
+| Combat, progression, recovery and five divisions | Additional 3–6 hours | Additional 12–25 | Recognizable Evermore survival/civilization loop in 3D |
+| Visual legibility, interaction tuning and mobile acceptance | Additional 1–3 hours | Additional 6–15 | More delightful, legible embodiment with verified mobile behavior |
+| **Broad gameplay parity** | **6–12 hours total** | **30–60 total** | Most documented 2D invariants implemented and observed; not a promise of identical polish |
+
+The first three milestone ranges are overlapping approximations; use the **total** as the budget rather than summing all optimistic endpoints. If implementation is parallelized, independent modules may converge faster in elapsed time, but integration and human observation remain a shared bottleneck. The estimates assume a working GitHub connection, no fundamental Shell lifecycle mismatch, reuse of existing terrain/vessel/renderer, and intentionally simple first-pass 3D actors. An afternoon is a plausible **experiment for the ecological slice**, not a guarantee of broad parity.
+
+### Friction we should expect
+
+1. **Source-to-contract extraction — low to moderate.** The Evermore README preserves behavior but not every numeric constant, stage predicate, purchase cost, and worker transition. Read the 2D source for the missing facts once; add only enduring invariants to this spec.
+2. **Abyss composition and lifecycle — moderate, front-loaded.** World mounting, update order, raycast/tap ownership, terrain support heights, and vessel content attachment can be subtle. Existing Entropy/Europa worlds are the reference; do not clone their experiments or rewrite Athanor.
+3. **Three-dimensional readability — moderate to high.** Workers, cargo, crops, geological stages, and influence zones must remain discernible at mobile scale. A technically correct simulation can still be unplayable if its actors are tiny or occluded.
+4. **Spatial ecology and logistics — moderate.** Transformations must share coordinates and ordered rules; worker claims, depot recovery, and cargo delivery must survive relocation without duplication or phantom inventory. This is the principal *semantic* integration risk.
+5. **Deployment and cache verification — recurring moderate friction.** Shell changes trigger Pages, but build success does not establish browser execution. Follow the established immutable SHA bundle, Pages manifest and visible SHA. Expect publication latency; never turn it into a human cache-clearing ritual.
+6. **Mobile performance — uncertain until observed.** Signed terrain, many actors, per-frame queries and effect visuals can interact badly. Begin with economical rendering and bounded queries; optimize only against observed bottlenecks, without sacrificing behavioral fidelity.
+7. **Parallel integration — moderate.** Separate ecology, agents, economy, and presentation work can proceed independently, but shared state schemas and Shell entrypoints require a single integration authority. Avoid concurrent writes to the same files.
+8. **Unexpected play discoveries — desirable, unbounded.** New strategies may expose missing invariants or provoke creative pivots. Protect the play; do not classify every surprise as a regression.
+
+### Stop and reassess conditions
+
+If the opt-in world cannot mount without disturbing Entropy/Europa, restore the prior stable Abyss state before continuing. If a mechanic requires hard-coding the desired ice/vegetation result, stop and repair the composition model rather than claiming success. If three consecutive implementation/verification turns fail to produce new observable behavior, inspect the actual failing boundary and simplify the slice. If the first slice runs but cannot be understood at mobile scale, prioritize legibility before adding more systems. Preserve accepted 2D gameplay throughout.
+
+**Human role:** choose direction, play, observe, report surprising outcomes, and accept or reject creative results. **Model role:** inspect source, implement, integrate, test where possible, handle GitHub/Pages friction, maintain the handoff, and accurately report what has or has not been verified. The human is not the deployment engineer or routine regression tester.
+
 ## Before the first code change
 
 1. Read Evermore II README and inspect current `index.html` for exact constants, stage transitions, acquisition costs, combat attacks, worker FSM, and recovery. The README is the contract; source fills in missing mechanics rather than becoming a second competing authority.
