@@ -75,7 +75,9 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 - **Shared architecture:** Retain one battlefield and existing tower, drone, division, worker and HUD icons. Moths are flying ecology workers, not combat units. Do not restore retired Runtime Eyes unless requested.
 - **Verification:** Source implemented through commit `996fbd19`; live device/browser verification not claimed. See [chronicle](./CHRONICLE.md) for the detailed targeting/cloud/flight corrections and the design reasoning.
 
-## Tier III Plains — five monuments and permanent cherubs (design specification; not implemented)
+## Tier III Plains — five monuments and permanent cherubs (headless model committed; gameplay not integrated)
+
+**Headless implementation:** [`sun-monuments.mjs`](./sun-monuments.mjs) is a dormant, dependency-free planning/transaction model. [`sun-monuments.test.mjs`](./sun-monuments.test.mjs) contains deterministic assertions; the model was executed against its test function during authoring (15 assertions passed). No runtime-world integration, real worker, Cherub reassignment, HUD inventory mutation, physical game rubble, or 👁 reporting has been wired. Model inventory/looseStone are isolated state ledgers, not live game state. The ring radius (120), exclusion radius (configurable, default 76), footprint (22) and default cost (1) are **test/config placeholders, not human-approved gameplay values**. Site blocking is checked at worker arrival. Replanning after relocation discards previous slot records after their rubble has been recorded. Do not describe this as deployed/verified gameplay.
 
 **Purpose:** ☀️ seeks 🪨 to establish five 🏛️ monuments around its tower, at the outer edges of its territory. This creates the motive for future competition with 🔥 rock-bearing 🦂. The stone-hunting worker, acquisition mechanics, transport and construction cost are **TBD**; do not invent them in this specification.
 
