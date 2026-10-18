@@ -3,6 +3,8 @@
 
 [Play](https://bonoj.github.io/jit/evermore-2/) · [Game source](./index.html) · [Development chronicle](./CHRONICLE.md)
 
+**Identity convention:** the project owner is **the human**, the collaborator is **the model**, and other real people are **test subjects**. Use these labels in documentation; fictional characters and technical identifiers retain their names.
+
 ## The game
 
 One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives converging enemies, casts spells, purchases automation, places towers and grows a living civilization. Five lands and their shared identities: ☀️ Plains/prism, 💧 Island/lightning, 💀 Swamp/poison, 🔥 Mountain/fire, 🌳 Forest/vines. Keep the discovery-driven, whimsical progression; do not invent tutorials, panels, or new UI without a request.
@@ -20,7 +22,7 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 
 **Runtime Eyes switch:** `RUNTIME_EYES_ENABLED` near the top of `index.html` is the single binary entrypoint. `true` enables 👁 fixture, Canvas call counters, timing, observers and history; `false` hides 👁 and disables all instrumentation hooks/recording while leaving normal gameplay intact. Say **👁** or **fix instrumentation** to work on this isolated system. No extra UI or profiling machinery without a demonstrated need. The switch is currently **`false` (OFF)** for ordinary gameplay. Turn it `true` only for a focused 👁 investigation, then return it to `false`. This is a runtime gate, not a build-time tree-shake; a few branch checks remain, but no sampling or Canvas interception runs while disabled.
 
-**Dormant diagnostic (only when switch is ON):** top-right 👁 is a two-step *destructive-to-current-run* mature-state fixture. First tap resets the unsaved game and constructs a populated late-game civilization (five towers/drones/armies, workers, ecology, 55 enemies); second and subsequent taps copy live JSON diagnostics without a checkmark or dashboard. User verified initialization and clipboard reports on Android Chrome, build `53416919`. This is a **proto state-hydration mechanism, not persistent saving**. CPU-side timing is excellent on that phone; GPU/thermal costs and lag on a different phone remain unresolved. The fixture's initial enemy/army density diminishes as the game runs.
+**Dormant diagnostic (only when switch is ON):** top-right 👁 is a two-step *destructive-to-current-run* mature-state fixture. First tap resets the unsaved game and constructs a populated late-game civilization (five towers/drones/armies, workers, ecology, 55 enemies); second and subsequent taps copy live JSON diagnostics without a checkmark or dashboard. The human verified initialization and clipboard reports on Android Chrome, build `53416919`. This is a **proto state-hydration mechanism, not persistent saving**. CPU-side timing is excellent on that phone; GPU/thermal costs and lag on a different phone remain unresolved. The fixture's initial enemy/army density diminishes as the game runs.
 
 **Testing:** the old Playwright/Actions regression suite was retired after persistent red runs. Do not claim green CI or revive it without a working verified harness. Favor rapid experiments, direct observation, and early reversion when an experiment does not converge.
 
