@@ -36,6 +36,14 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 - 💀 Tier III (🪙250 + 🪨10) creates a 🪦 graveyard and three 🐀 shovel-equipped rats. They claim and harvest existing 🦴 bones before decay, return them to the graveyard and credit bone inventory. The graveyard uses existing depot placement, destruction, recovery and worker respawn mechanics.
 - Tiffany's 🫧 Swamp drone **never** becomes a worker or leaves Tiffany's formation. Its original combat behavior is unchanged.
 
+## Tier III Forest — eagle nest and worm harvesting
+
+- 🌳 Tier III (🪙250 + 🪵10) creates a separate 🪹 nest and one 🦅 eagle. The nest uses the shared building placement, destruction, recovery and single-creature respawn lifecycle.
+- The eagle flies quickly (110 world units/s) to the nearest unclaimed live 🪱 worm, marks it exclusively with `workerClaim`, and captures it on arrival. The worm hangs below the eagle on the return flight.
+- Delivery to 🪹 credits one 🪱 to the new worms inventory. The captured worm leaves the active workforce; surplus reproduced population capacity is reduced when available. No worm targets: the eagle idles and wanders around the nest.
+- If the eagle dies, its claim is released and its carried worm is lost; it respawns at the nest. Nest destruction likewise releases claims and suspends spawning until the nest recovers.
+- Tier III shop icons: 💧 🐙, 💀 🐀, 🌳 🦅; ☀️ and 🔥 remain colored circles. Source through `51d66415`; live device verification pending.
+
 ## Tier III Island — mycelial octopus
 
 - 💧 Tier III (🪙250 + 🧊10) adds **one** 🐙 ground walker to the existing 🐚 crab shell, sharing its placement, destruction and recovery lifecycle. No second shell is built. No extra shop control.
