@@ -160,4 +160,8 @@ The first Plains interior was reverted after breaking outer UI controls. The des
 - **20261017.2:** 🌳 Forest spawns slower 🌱; 💧 Island starts staggered, randomized timers yielding 🌾 from Plains or 🌳 from Forest. Trees resist trampling. Source commit f00a3fcc.
 - **20261017.3:** 🔥 Mountain pulses incinerate plants, rarely spawn localized active 🌋, and environmental pulses advance geology through 🗻, ⛰️, 🏔️. Volcanoes have a 24-unit burn radius; cooled mountains are harmless. Source commit a81b5965.
 
-**Current source:** BUILD 20261017.3; index.html blob 4250cee20e251fbe028594e3d69409fc0bf3854b at documentation time. Source committed, **live browser and public deployment not independently verified**.
+**Ecology feature milestone:** 20261017.3; index.html blob 4250cee20e251fbe028594e3d69409fc0bf3854b at documentation time. Source committed, **live browser and public deployment not independently verified**.
+
+## Build identity — automatic source SHA
+
+The header no longer uses manually incremented `BUILD YYYYMMDD.N`. On load it fetches a cache-busted copy of the public page and the latest GitHub commit affecting `jit/evermore-2/index.html`. It compares the executing inline game script against the fetched public game script. When they match, the header shows `SHA XXXXXXXX` (first eight characters of that source commit); when they differ it shows `STALE BUILD`; if either lookup fails it shows `SHA unavailable`. This checks source-code correspondence, not full runtime correctness, and requires network access. Added in source commit `64a79017`. The displayed SHA changes automatically with future source commits without manual edits.
