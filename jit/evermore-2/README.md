@@ -37,6 +37,10 @@ Each ant carries one 🪵 on its back to the hut, unloads once, and repeats. A r
 
 Do not invent or add any controls. Ants, axes, and logs must remain recognizable at maximum zoom-out without overwhelming Tiffany. The game occupies a single viewport without page scrolling; instructional hint rows are hidden. The HUD includes an empty, invisible second resource row for future resources.
 
+### Reusable oriented actor and equipment rig — implemented (visual verification pending)
+
+`drawEquippedActor(actor, rig)` in `index.html` applies one actor-local facing transform to body, equipped tool, and cargo. `faceActor(actor, targetX)` updates horizontal heading toward the target. The rig accepts `body`, `bodyNativeFacing` (native emoji orientation), `bodySize`, `usingTool`, `tool` (icon, size, mount coordinates, local offset, swing angle), and `cargo` / `cargoSize`. Ants use a native-left 🐜 body with an axe mounted at the forward side; the axe rotates locally without independently flipping. Travel/carry heading comes from movement; chop heading comes from the claimed tree. Reuse this rig for bees and their tools, rather than writing a second independent sprite/axe renderer. The current horizontal-facing model does not implement full 2D heading; extend the shared rig if bees require it. Source and static regression assertions updated; live visual validation remains outstanding.
+
 ### Visual sizing contract — implemented
 
 The Canvas renderer uses immutable `VISUAL_SIZE` tokens in logical world pixels, with the existing arena zoom transform applied once. Six tiers: `micro=12` (bones, Tiffany label), `small=19` (sprouts, mushrooms, rockets), `medium=24` (combat recruits, wheat, ant axes), `actor=27` (enemies, ants), `worldFeature=30` (hut, mountains, volcanoes, mature trees), `hero=49` (Tiffany). Named exceptions: `towerIcon=21`, `cargo=25`. The hut shrank 34→30, mature trees grew 29→30, mushrooms grew 16→19, axes shrank 27→24. Other entity sizes are preserved.
