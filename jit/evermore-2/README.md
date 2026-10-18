@@ -31,6 +31,13 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 - **Pinch zoom and finger-drag camera movement are disabled for now.** The camera automatically fits the full unlocked battlefield at each expansion stage; preserve existing tap-to-cast, command-ring and tower-placement behavior. Do not reintroduce gesture handling without a new request.
 - Source commits `6bf8a7cb`, `7aadd86b`. Physical-device verification pending.
 
+## Tier III shop placeholders — implemented in source
+
+- Once all five Tier II divisions are purchased, reuse the five existing shop buttons for **plain land-colored ● circles**. No creature icons or additional shop controls.
+- Provisional two-resource prices, **no gems**: ☀️ Plains 🪙250 + 🌾10; 💧 Island 🪙250 + 🧊10; 💀 Swamp 🪙250 + 🪨10; 🔥 Mountain 🪙250 + 🌿10; 🌳 Forest 🪙250 + 🪵10. Coins are gold. Purchases deduct inventory and mark their Tier III slot owned.
+- **Placeholder purchases do not yet activate Tier III drone behaviors or spawn Tier III structures/workers.** In particular, the proposed 🪦 graveyard / 🐀 rats are not implemented by this shop change. Preserve their separate design specification below.
+- Source commit `ca3490ee`. Physical-device verification pending.
+
 ## Tier III bone collectors — proposed ecological chain (not implemented)
 
 - **Identity:** 🐀 rat, equipped 🪏 shovel, based at a 🪦 graveyard. Graveyard is the proposed worker home/building, not an existing shop icon. The existing-style **Tier III 💀 Swamp advancement** unlocks and spawns the 🪦 graveyard near a living Swamp tower, together with its 🐀 bone collectors. No separate graveyard purchase or additional shop control. Use existing depot placement, destruction and recovery machinery.
