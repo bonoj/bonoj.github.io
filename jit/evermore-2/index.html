@@ -150,7 +150,7 @@ function lumberDraw(){
   for(const a of group.workers){
    const chopping=a.fsm.state==='chop';
    if(chopping&&a.target)faceActor(a,a.target.x);
-   const bob=prof.motion==='fly'?Math.sin(a.phase)*5-7:prof.motion==='scuttle'?Math.sin(a.phase)*1.6:prof.motion==='wriggle'?Math.sin(a.phase)*2.4:0;
+   const bob=prof.motion==='fly'?Math.sin(a.phase)*5-7:prof.motion==='scuttle'?Math.sin(a.phase)*1.6:prof.motion==='wriggle'?0:0;
    ctx.save();ctx.translate(0,bob);
    drawEquippedActor(a,{
     body:prof.body,bodyNativeFacing:prof.native,bodySize:VISUAL_SIZE.actor,
