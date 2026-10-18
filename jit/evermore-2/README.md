@@ -101,3 +101,6 @@ All civilian ants, bees, crabs and all five combat recruit divisions use `lazyWa
 
 ### Swamp decomposition
 Swamp tower pulses wither nearby sprouts, wheat, and trees over randomized 2–4 seconds into mushrooms. Withering stops maturation and releases worker claims; repeated pulses do not reset it. Enemy deaths near the swamp still create bones, but bones now take 25–30 seconds to become mushrooms. Plant decay produces mushrooms directly, never bones. Source `1ef3cc8f`; browser validation pending.
+
+### Persistent building placement
+Worker buildings 🛖 🍯 🐚 use `buildingSite(tower)` and `validBuildingSite(x,y)` to reserve a footprint (radius 19), building separation (61 center-to-center), tower separation (39), sanctuary exclusion (94), and arena margins. Deterministic expanding-ring placement with a grid fallback. Buildings do not follow tower moves; viewport resize translates them with the world. If no valid site exists, no building or workers are spawned; no overlapping fallback. Source `cdbddfea`; runtime verification pending.
