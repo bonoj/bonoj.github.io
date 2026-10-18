@@ -68,6 +68,8 @@ Do not invent or add any UI. Make the ants, axes, and logs large enough to be cl
 
 **Verification discipline:** GitHub write + readback confirms persisted source only. The latest game code was source-verified; no end-to-end Pages/browser gameplay test is recorded. Do not describe a deployed build or runtime as verified without checking it. Follow the repository's existing deployment/recovery protocol rather than inventing one.
 
+**Automated regression:** [Playwright tests](./tests/regression.spec.cjs) run in mobile-sized Chromium via [GitHub Actions](../../.github/workflows/evermore-2-regression.yml) on game/test pushes. They exercise purchases, tower placement/movement, five recruit divisions, attacks, ecology, remains, restart, and controls. Inspect the Actions result before treating a change as regression-tested. This is functional coverage, not a substitute for checking visual legibility and animation on a phone.
+
 **Development logging:** After implementing a feature, update this README only if current behavior, invariants, or next steps change. Append the development record to [CHRONICLE.md](./CHRONICLE.md).
 
 **Working cadence:** Play → notice → invent → ship → verify → play again. Favor surgical, composable changes that preserve established behavior. When the user says **➡️**, continue from this frontier without asking them to restate context.
