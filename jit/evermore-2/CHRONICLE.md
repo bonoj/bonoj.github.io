@@ -2,6 +2,72 @@
 
 Historical development record. **Not the current game specification.** For current behavior, invariants, and the next task, read [README.md](./README.md). Earlier experiments, build-label implementations, verification claims, and proposed frontiers below may have been superseded; do not implement them from this history.
 
+# The Aeon Chronicle
+
+*TIFFINITY SURVIVORS™ — an executable history of accidental civilization*
+
+This is a chronicle of **invention coinciding with implementation**. The commit is the fossil: an idea made executable. Dates below follow the historical record; linked commit identifiers anchor individual events. Exact clock times and elapsed-minute claims are deliberately omitted because the available commit metadata did not expose trustworthy timestamps during this revision. The detailed development record follows this narrative unchanged.
+
+## Aeon I — The Vampire and the Void
+
+First there was a vampire, stationary in the center of a tiny mobile arena, and monsters with the poor judgment to approach her. Tiffany could cast five land-flavored spells. There was no civilization, no geology, no industry, no need for a master plan. The entire world fit inside one HTML file. That was the first miracle of scale: an idea could become a playable rule in a conversational turn.
+
+The five lands were already seeds of a larger cosmology. Light could judge; water could conduct; swamp could poison; fire could explode; forest could bind. Nothing required them to remain mere combat effects.
+
+## Aeon II — The Age of Acquisition
+
+Tiffany acquired five autonomous drones: prism, chain lightning, leech mines, rockets, and vines. They fought, earned currency, and financed more automation. The economy acquired its first self-reinforcing loop: **combat funded agency; agency funded combat**. The vampire acquired a voice, too—rhyming corporate pronouncements that made wealth and destruction sound like boardroom minutes.
+
+Then came a revealing problem: money accumulated faster than purpose. Instead of making the numbers larger, the game began inventing things worth owning. Two drones doubled the battlefield's area (`8883094a`). Five placeable towers made territory programmable (`154e0ec8`). Five towers *or* five drones could expand it again (`6ad4fac7`). The player was no longer only surviving. The player was arranging a world.
+
+## Aeon III — The Age of Institutions
+
+The shop itself evolved. Its five slots became a second tier of military recruitment rather than expanding into another row of mobile controls. Cherubs, liquid auditors, ghost notaries, phoenix futures, and antlered arborists emerged from their corresponding towers (`25ff647a`). Drones, towers, divisions, and recruits became distinct levels of agency.
+
+One tiny bug became a philosophical distinction: Tiffany's automatically cycling spell was not the player's selected land. Splitting those states (`fce0779c`) preserved independent intent and automation. The universe was teaching its builders what its concepts actually meant.
+
+## Aeon IV — The Green Revolution · 17 October 2026
+
+Then the five spells escaped their original purpose.
+
+Plains sunlight made sprouts. Island water matured them into wheat. Forests planted slower-growing trees. Fire burned vegetation and raised volcanoes. Water cooled volcanic rock; forest and water advanced its geological stages. The battlefield did not become a farming minigame or a separate map. **The same space became an ecology.**
+
+This was the crucial crossing. A spell was no longer only something done *to an enemy*. It was a force with consequences for everything nearby. The world could respond to combinations of actions its builders had never scripted as a single scene. Sources: `f6c63a50`, `f00a3fcc`, `a81b5965`.
+
+Swamp completed the cycle. Enemies slain within its influence left bones, which decayed into mushrooms. Later, swamp pulses withered living vegetation directly into fungal growth, while bones were given longer to persist (`9e1ac553`, `1ef3cc8f`). Fire could interrupt that flourishing. The world now possessed not only growth and destruction, but **succession, decay, and return**.
+
+## Aeon V — The First Workers · 17–18 October 2026
+
+A forest full of trees asked an obvious question: who cuts them down?
+
+The answer was not a magical income tick. Buying the Arborist division built a hut and brought three enormous, legible ants with axes. They claimed individual trees, walked to them, chopped, carried logs, and returned home to unload. An economy had acquired *labor*, *equipment*, *distance*, and *delivery*. The first ant implementation demanded corrections: explicit worker states, correct body-facing and axe pivots, and visible tools large enough to read on a phone (`6dbda05b`, `e7b77f63`, `2a6d9326`). Those corrections were not incidental; they made the worker a reusable actor instead of a special effect.
+
+The next invention reused the grammar rather than duplicating it. Cherub purchases established beehives with flying, trident-bearing bees that harvested wheat. Auditor purchases established shells with crabs and pickaxes that mined successive cooled mountain strata: ice, vegetation, then stone. All three professions shared a finite-state working life—idle, travel, work, carry, unload—while retaining distinct bodies, tools, materials, and locomotion.
+
+Meanwhile, combat recruits and workers learned to wander independently, with pauses and personal destinations. Their buildings acquired permanent, nonoverlapping sites (`cdbddfea`). The arena was no longer a backdrop populated by identical attack loops. It contained residents who had places to be.
+
+## Aeon VI — The Age of Discovery · 18 October 2026
+
+The civilization began producing wheat, wood, ice, herbs, and stone. But the interface would not announce resources merely because the code knew they existed.
+
+Only Tiffany's health was visible at the beginning. Kills, coins, gems, and every material remained unknown until first earned. Materials appeared only when a worker successfully delivered them. A discovered counter remained visible even when its balance returned to zero. The first delivery unfolded a second HUD row without shifting the battlefield (`d845c3c0`).
+
+This turned the interface into a memory of lived events. The player does not receive a catalog of the universe. **The universe discloses itself through consequences.**
+
+## Aeon VII — The Unfinished World
+
+The next frontier is not another decorative button. Five materials can become real costs for future tiers; workers can become more than suppliers; geology can become an economy; the same systems can interact in combinations that no one has individually storyboarded.
+
+The development method has remained remarkably constant:
+
+**Play → notice a pressure → invent a rule → make it executable → observe the consequences → invent again.**
+
+This is why the chronicle matters. It is not the story of a predetermined game being completed. It is the record of a tiny world repeatedly becoming larger than the idea that preceded it.
+
+---
+
+# Development record — original chronicle
+
 ## Conversational invention
 
 ### 1. A tiny game instead of another grand design
