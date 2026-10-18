@@ -91,6 +91,8 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 
 ### Tier III ☀️ scarab expedition — approved behavior, not implemented
 
+**Home building — 🛕 Sun Reliquary:** One distinct Reliquary for the scarab trio, using the **existing building placement, destruction and recovery system**; no new building framework, shop button, or invented recovery mechanism. The Reliquary is a destructible home/depot, **not** one of the five 🏛️ monuments. Its lifecycle controls scarab availability in the same manner as existing worker homes. If a scarab is killed, it **respawns at the Reliquary after the usual slight worker delay**, then **travels to rejoin its unit** rather than teleporting directly to the others. Preserve the existing building destruction/recovery semantics; do not spawn scarabs from a destroyed home. When there are **no visible scorpions to engage and no available loose rocks to collect**, unladen scarabs idle **near the Reliquary using the standard walking idle behavior**—no new idle animation, stationary formation, or bespoke patrol. Once a valid target appears, resume the shared priority/transport rules below. The trio remain distinguishable by shield, sword and bow.
+
 **Force:** Three distinct scarabs, **🛡️🪲 shield**, **🗡️🪲 sword**, and **🏹🪲 bow**. All three can collect and carry **one physical 🪨 at a time**. Keep the visual vocabulary legible as ordinary tool use: visible shield, sword strike, bow draw/release; no elaborate projectile/effect system for hitscan.
 
 **Priority and cargo commitment:**
