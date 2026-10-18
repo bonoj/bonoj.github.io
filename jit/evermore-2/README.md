@@ -42,11 +42,11 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 - The eagle flies quickly (110 world units/s) to the nearest unclaimed live 🪱 worm, marks it exclusively with `workerClaim`, and captures it on arrival. The worm hangs below the eagle on the return flight.
 - Delivery to 🪹 credits one 🪱 to the new worms inventory. The captured worm leaves the active workforce; surplus reproduced population capacity is reduced when available. No worm targets: the eagle idles and wanders around the nest.
 - If the eagle dies, its claim is released and its carried worm is lost; it respawns at the nest. Nest destruction likewise releases claims and suspends spawning until the nest recovers.
-- Tier III shop icons: 💧 🐙, 💀 🐀, 🌳 🦅; ☀️ and 🔥 shop icons remain colored circles. Source through `51d66415`; live device verification pending.
+- Tier III shop icons: 💧 🐙, 💀 🐀, 🌳 🦅; ☀️ remains a colored-circle placeholder; 🔥 uses 🦂. Source through `51d66415`; live device verification pending.
 
 ## Tier III Fire — self-propagating idol colony (implemented in source)
 
-- 🔥 Tier III (🪙250 + 🌿10) creates an initial 🗿 Idol near the Mountain tower, using existing building-site selection. No new UI. Each Idol maintains exactly one 🦂 scorpion, beginning with zero rocks.
+- 🔥 Tier III (🪙250 + 🦴10) creates an initial 🗿 Idol near the Mountain tower, using existing building-site selection. No new UI. Each Idol maintains exactly one 🦂 scorpion, beginning with zero rocks.
 - Scorpions independently claim and consume existing 🦴 bones, 🍄 mushrooms, or live 🪱 worms. Each meal adds one visibly carried 🪨 rock, up to three. Existing worm claims and population accounting are respected; crabs and mountain mining are unchanged.
 - At three rocks the scorpion transforms **in place** into another Idol. The new Idol spawns a scorpion and the parent Idol replaces its own. Expansion therefore follows the location of available food rather than a scripted front. Idols are not limited to one per world.
 - Contact with an enemy creep stings it and costs one carried rock; if the scorpion has no rock, contact kills it. Death leaves one loose rock in the world and its parent Idol replaces it. Loose stone is visual/world material, not automatically added to the player's inventory. Plains harvesting of scorpions is future work.
