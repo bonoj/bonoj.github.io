@@ -819,6 +819,15 @@ Three 🦋 moths emerge from an 🪸 coral nursery when the existing 🔥 Tier I
 6. **Composition instead of reinvention** (`996fbd19`). The model had invented a separate sine/cosine looping animation for rainclouds, despite an existing `lazyWander` movement grammar. When the human asked why a separate system was necessary, the answer was: it wasn't. The model replaced bespoke oscillation with the shared wandering movement, using a small adapter to preserve cloud origin and effect radius. A cloud flies inside its footprint; the footprint does not fly.
 7. **Documentation consolidation** (`88d8f44c`). The README had accumulated mutually contradictory prose—an obsolete volcano exclusion rule, a claim that moths departed immediately for more targets, and a stale source status. These were replaced with a compact set of current invariants. The chronicle retains the mistakes and reasoning rather than letting them contaminate the cold-boot contract.
 
+
+### Semantic composability: the surprisingly small engineering lift
+
+The human emphasized a crucial distinction: **most of this development was human–model collaborative reasoning about aesthetics, not implementing new machinery**. The vocabulary was already executable. A worker could claim a target, fly, return home, and wait. A depot could host a profession. Island water already knew how to mature seedlings and cool volcanoes. Fire and geological transitions already existed. A world effect could have a radius and lifetime. The moth was assembled by composing these meanings: **🦋 + 🪸 + claim(🌋 before 🌱) + fly + deposit(🌧️, 30s) + return + wait**, with rain invoking existing ecological transformations.
+
+The conversation's difficult decisions were about *what should feel alive and legible*: whether the rain should visibly wander, whether its footprint should be drawn, whether a moth should leave one cloud or endlessly seed the world, whether volcanoes should outrank seedlings, and whether the moth should return to a coral nursery. Each aesthetic decision implied a precise behavioral invariant, but did not demand a new subsystem. The model's avoidable mistakes arose largely when it **failed to reuse the existing semantic grammar**—inventing a special movement loop or an arbitrary exclusion zone—instead of composing what was already there.
+
+This is a useful measure of the laboratory's progress: **the distance between an evocative sentence and a running system is shrinking**. The human supplies taste, constraints, observation, and correction; the model maps that intent onto existing executable capabilities. The collaboration spends its scarce attention on choosing the *world's meaning* rather than rebuilding its plumbing. That is the achievement to preserve as the ecology grows.
+
 ### Engineering lessons retained
 
 **A priority ordering is meaningless if the eligibility predicate eliminates the priority class.** Inspect target *production* and target *selection* together. Volcano spawning, rain coverage, claims, and mountain stages all affect whether an active volcano can be selected.
