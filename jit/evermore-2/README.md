@@ -26,24 +26,29 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 
 **Repository and execution:** `bonoj/bonoj.github.io`, branch `master`, game at `jit/evermore-2/index.html`; public URL [bonoj.github.io/jit/evermore-2/](https://bonoj.github.io/jit/evermore-2/). The game is currently a standalone, mobile-first HTML/CSS/Canvas/JavaScript file. This README sits beside it. Keep the original `jit/evermore/` game untouched. Fetch the latest file and blob SHA before edits; commit with GitHub's content update operation, then read back the changed source. A committed source change does **not** prove Pages deployment or live browser behavior. Confirm actual behavior when browser execution is available; otherwise report that limitation plainly.
 
-**Current playable state:** Tiffany stands in the arena; five manually selectable land types; two currencies, five purchasable orbiting drones; arena expansion at two drones and at five towers **or** five drones; five movable, one-per-land automatic towers; spell autocycle independent of selected land after two drones; five more expensive army divisions replacing the *shop offerings* after all five drones are owned; tower-born recruits with distinct effects. Tiffany's existing cycling bubble is the spell indicator; **do not reintroduce the redundant icon above her head**. Rhyming corporate verses are part of the game's identity. See the features section for exact costs, timings, and uniqueness rules.
+**Current source state:** Build 20261017.3 includes the battlefield ecology documented below. Tiffany stands in the arena; five manually selectable land types; two currencies, five purchasable orbiting drones; arena expansion at two drones and at five towers **or** five drones; five movable, one-per-land automatic towers; spell autocycle independent of selected land after two drones; five more expensive army divisions replacing the *shop offerings* after all five drones are owned; tower-born recruits with distinct effects. Tiffany's existing cycling bubble is the spell indicator; **do not reintroduce the redundant icon above her head**. Rhyming corporate verses are part of the game's identity. See the features section for exact costs, timings, and uniqueness rules.
 
 **Known verification limits:** A player previously reported being unable to place towers, although the source inspection showed a placement handler. No definitive live reproduction/resolution was recorded. Do not assume this is fixed merely because the handler exists. The latest spell-selection separation was source-verified; live gameplay still needs testing. Enemy/recruit collision currently removes both without necessarily using the normal kill-reward path; inspect currency accounting when working on unit combat. Avoid claiming live deployment based solely on a GitHub commit.
 
-### Next frontier — five inhabitable lands
+### Current frontier — one battlefield, interacting ecologies
 
-The user wants to **double-tap a land's spell button to enter a distinct playable game inside that land/tower**. **Exactly five inner games total: one for each of ☀️ Plains, 💧 Island, 💀 Swamp, 🔥 Mountain, and 🌳 Forest.** This explicitly corrects an earlier mistaken interpretation of five games *per* land (25 total). No such nested games have shipped yet; treat this as a proposed feature, not an existing invariant.
+**Separate interior games are retired.** The Plains interior prototype broke outer controls and was reverted. Do not resurrect double-tap interiors, new zoom modes, or replacement shop buttons. Everything happens in the existing arena.
 
-**Essential experience:**
-- **Single tap** on a spell continues to select that land for tower placement. **Double tap** enters that land's inner game. Preserve existing manual selection and Tiffany's independent autocycle; avoid introducing tap-delay or accidental double casts if possible.
-- While an inner game is visible, the **outer Survivors simulation must keep advancing**: enemies, drones, towers, recruits, waves, health, kills, and currency continue under the same rules. Do not freeze the outer game or fabricate a separate passive-income counter.
-- **One shared authoritative economy and run state.** Inner games may eventually spend/earn currency, but must not maintain a divergent copy of coins, gems, purchases, or outer entities.
-- Provide an obvious, reliable **return to the outer arena**, with no reset or lost progress. Inner games should be independent modules/activities with different mechanics suited to their land identities; do not build five copies of Survivors.
-- Keep the phone-first UI readable and tappable. Preserve outer game progression milestones and the one-per-land tower invariant. A land without a placed tower should still have a well-defined entry behavior; resolve that deliberately rather than accidentally tying entry to tower existence.
+**Vegetation (build 20261017.3):**
+- ☀️ Plains independently spawns 🌱 approximately every 0.65 seconds; 🌳 Forest independently spawns 🌱 approximately every 3.5 seconds. Each sprout retains its source land. Spawns are scattered 25–115 units around its tower.
+- 💧 Island pulses start one-shot, individually randomized maturation timers for sprouts in range. Plains sprouts become 🌾 after 1.5–4 seconds; Forest sprouts become 🌳 after 5–10 seconds. Repeated pulses do not reset pending timers.
+- Enemies trample 🌱 and 🌾, but not 🌳. Trees do not yet obstruct movement. All plants share a 100-entity cap, sway gently at independent phases, and avoid Tiffany's sacred 65-unit radius (her yellow disc is 47 units).
+- 🔥 Mountain tower pulses burn vegetation inside the tower's normal pulse radius, while retaining their existing combat effect.
 
-**Suggested first vertical slice:** Build the entry/exit shell and **one tiny genuinely playable inner game** (choose a land that makes for a compelling minimal experiment). Prove, by observation or instrumented state, that outer elapsed time, combat, kills, and treasury continue progressing while inside, and that exiting restores the outer view without reinitialization. Then add the other four land-specific games incrementally. Do not implement five placeholders and declare the frontier complete.
+**Geology (build 20261017.3):**
+- 🔥 Mountain independently attempts to spawn 🌋 approximately every 16 seconds, up to 12 geological objects, spaced around its tower and away from Tiffany.
+- Active 🌋 continuously burn vegetation within **24 world units**, much smaller than the Fire tower pulse. Cooling ends the burn permanently for that object.
+- Staged succession: 🌋 --💧 Island--> 🗻 --🌳 Forest--> ⛰️ --💧 Island--> 🏔️. Each eligible tower pulse starts an individual 2–5-second delay. Pending transformations cannot be reset or skipped.
+- Mountains persist after towers move and are not trampled; they do not yet block enemies.
 
-**Architecture pressure to address:** A single `requestAnimationFrame` loop currently owns the outer update and drawing. Separate **simulation ticking** from **active-view rendering/input routing** before or while introducing interiors; do not start a second uncontrolled outer simulation loop or accidentally double-tick state. Consider what happens when outer Tiffany dies while the player is inside, and make that outcome visible/recoverable. Background-tab browser throttling is different from an inner view within an active tab: the requirement is that the outer game continues during *in-app* descent, not that a mobile browser guarantees uninterrupted wall-clock simulation while suspended.
+**Design invariants:** Every tower remains independently useful; all existing combat, shop, currency, and controls remain. Tower interactions depend on spatial overlap and pulses, not hard-coded combinations. Swamp still independently poisons; 🍄 mushrooms, ash, fire propagation, harvesting, and tree/mountain collision are ideas, **not implemented**. Restart clears crops and mountains.
+
+**Next:** Player gameplay test, then fix only observed issues. Inspect tower placement, delayed maturation, Fire clearing, volcano local radius, geological succession, and restart. GitHub source persistence is confirmed; Pages deployment and browser behavior are **not independently verified**.
 
 **Working cadence:** Play → notice → invent → ship → verify → play again. Favor small, composable, observable changes. Commit and read back source; distinguish verified source from verified live execution. When the user says **➡️**, continue from the documented frontier rather than re-asking for context.
 
@@ -147,9 +152,12 @@ Most importantly, keep the game playful and inspectable. A fast iteration is onl
 
 **Current reference:** `jit/evermore-2/index.html` on `master`, inspected after `c5362dda`. The application is a single-file prototype; this document describes its implemented rules and known verification limits, not a guarantee that every browser path has been tested.
 
-## Battlefield crops — 2026-10-17
+## Battlefield ecology — 2026-10-17
 
-- Single shared battlefield; no Plains interior, zoom, or UI/button replacement.
-- The placed ☀️ Plains tower spawns 🌱 randomly within a radius of 115 world units, capped at 100 plants and spaced to avoid overlap. Spawning excludes Tiffany's center with a 65-unit radius so the emoji's visual edge remains clear of the 47-unit yellow outer disc.
-- Each 💧 Island tower pulse matures sprouts inside its existing tower range into 🌾 wheat. Enemies trample sprouts and wheat on contact. Crops are rendered in the existing arena beneath enemies, and move consistently with the existing arena recentering logic.
-- The upper-left header displays BUILD 20261017.1. No wheat economy, cherub, separate game, or persistence across restarts. Source commits `f6c63a50`, `8300b80f`; public deployment/browser verification remains separate.
+The first Plains interior was reverted after breaking outer UI controls. The design breakthrough was keeping farming and geology in the **same battlefield**, without separate views, zoom changes, or shop replacements.
+
+- **20261017.1:** ☀️ Plains spawns 🌱, 💧 Island instantly turns them into 🌾, enemies trample crops, plants sway, and the header shows a build number. Source commits f6c63a50 and 8300b80f.
+- **20261017.2:** 🌳 Forest spawns slower 🌱; 💧 Island starts staggered, randomized timers yielding 🌾 from Plains or 🌳 from Forest. Trees resist trampling. Source commit f00a3fcc.
+- **20261017.3:** 🔥 Mountain pulses incinerate plants, rarely spawn localized active 🌋, and environmental pulses advance geology through 🗻, ⛰️, 🏔️. Volcanoes have a 24-unit burn radius; cooled mountains are harmless. Source commit a81b5965.
+
+**Current source:** BUILD 20261017.3; index.html blob 4250cee20e251fbe028594e3d69409fc0bf3854b at documentation time. Source committed, **live browser and public deployment not independently verified**.
