@@ -20,14 +20,6 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 - **State invariants:** no duplicate drone, tower, or division for a land; a relocated tower retains its identity; recruits belong to a land and originate from its tower; kills are accounted for by the common hit/kill mechanism; expansion is derived from acquired milestones; restart returns all progress, entities, and scale to baseline.
 - **Delivery invariant:** a successful GitHub write and read-back proves **source persistence**, not that GitHub Pages has deployed or that the browser is executing the new code. Never call runtime behavior verified without exercising it.
 
-## Plains interior — first playable vertical slice (2026-10-17)
-
-- Tap the placed ☀️ Plains tower to enter; tap the central ☀️ to exit. This is single-tap tower entry, **not** double-tap spell entry. Other land interiors remain unimplemented.
-- The interior is rendered on the same canvas using the original 1× purple grid. Seven overlapping seedling patches grow asynchronously into swaying wheat. Persistent Plains state is allocated outside the view; leaving does not reset it. The outer battlefield simulation, wave, drones, recruits, enemies and shared money continue ticking while inside.
-- Ten fixed controls become 🌧️ Rain, 🪓 Chop, and eight inert placeholders. Rain accelerates nearby growth; Chop harvests ripe stalks in a patch. An autonomous cherub also harvests ripe stalks with an overlaid swinging axe and 💥/🌾 effects. Harvest increments a single engine counter displayed inside Plains; it is not yet exported as a HUD currency, nor spent on upgrades.
-- Restart resets Plains alongside the outer run. No permanent save across page reloads is implemented. The first version is an intentionally small playable vertical slice, not the eventual automation network.
-- Source commits `3c899435`, `29bf3fd7`, `b306d651`; source read-back is not browser/Pages verification.
-
 ## Cold-boot handoff — resume here
 
 **Entry:** This README is the single source of truth for TIFFINITY SURVIVORS™. Read **Features and invariants**, then **this handoff** before modifying the game. The chronicle below provides historical context, not prerequisite instructions. Do not restart the project or create another handoff file.
@@ -40,7 +32,7 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 
 ### Next frontier — five inhabitable lands
 
-**Historical proposal, superseded for Plains:** The user originally considered double-tapping spell buttons to enter inner lands. The implemented Plains entry uses a single tap on the placed Sun tower, and a single tap on the interior Sun to return. Other land entry behavior remains undecided. **Exactly five inner games total: one for each of ☀️ Plains, 💧 Island, 💀 Swamp, 🔥 Mountain, and 🌳 Forest.** This explicitly corrects an earlier mistaken interpretation of five games *per* land (25 total). No such nested games have shipped yet; treat this as a proposed feature, not an existing invariant.
+The user wants to **double-tap a land's spell button to enter a distinct playable game inside that land/tower**. **Exactly five inner games total: one for each of ☀️ Plains, 💧 Island, 💀 Swamp, 🔥 Mountain, and 🌳 Forest.** This explicitly corrects an earlier mistaken interpretation of five games *per* land (25 total). No such nested games have shipped yet; treat this as a proposed feature, not an existing invariant.
 
 **Essential experience:**
 - **Single tap** on a spell continues to select that land for tower placement. **Double tap** enters that land's inner game. Preserve existing manual selection and Tiffany's independent autocycle; avoid introducing tap-delay or accidental double casts if possible.
