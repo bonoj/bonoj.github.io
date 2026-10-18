@@ -72,16 +72,30 @@ const professions={
 };
 let workerGroups={};function spawnMoth(g){g.workers.push({kind:'moth',group:g,x:g.depot.x,y:g.depot.y,phase:rand(0,7),facing:1,target:null,cloud:null,wander:null})}
 function startMoths(){if(workerGroups.moth)return;const tower=towers.find(t=>t.i===1&&t.alive!==false)||towers.find(t=>t.i===3&&t.alive!==false),depot=buildingSite(tower);if(!depot)return;const g={kind:'moth',depot,workers:[],alive:true,respawn:0,workerClock:0};workerGroups.moth=g;for(let i=0;i<3;i++)spawnMoth(g)}
-function mothUpdate(dt){const g=workerGroups.moth;if(!g)return;if(!g.alive){g.respawn-=dt;if(g.respawn<=0){const t=towers.find(t=>t.i===1&&t.alive!==false)||towers.find(t=>t.i===3&&t.alive!==false),site=t&&buildingSite(t,g);if(site){g.depot=site;g.alive=true;g.workerClock=0}}return}
-g.workerClock-=dt;if(g.workers.length<3&&g.workerClock<=0){spawnMoth(g);g.workerClock=1.5}
-for(const a of g.workers){a.phase+=dt*12;if(a.cloud&&!rainClouds.includes(a.cloud))a.cloud=null;
-const eligible=p=>(mountains.includes(p)?p.stage===0&&!towers.some(t=>t.i===3&&t.alive!==false&&Math.hypot(p.x-t.x,p.y-t.y)<Math.min(w,h)*.23):crops.includes(p)&&p.stage==='sprout'&&!p.growAt)&&!rainCovered(p.x,p.y);
-if(a.target&&!eligible(a.target)){if(a.target.rainClaim===a)a.target.rainClaim=null;a.target=null}
-if(a.cloud){moveWorker(a,g.depot.x,g.depot.y,145,dt,16);continue}
-if(!a.target){a.target=mountains.find(p=>!p.rainClaim&&eligible(p))||crops.find(p=>!p.rainClaim&&eligible(p))||null;if(a.target)a.target.rainClaim=a}
-if(a.target){if(moveWorker(a,a.target.x,a.target.y,145,dt,14)){const p=a.target;p.rainClaim=null;a.target=null;if(!rainCovered(p.x,p.y)){a.cloud={x:p.x,y:p.y,visualX:p.x,visualY:p.y,r:58,life:30,phase:rand(0,Math.PI*2)};rainClouds.push(a.cloud)}}}
-else lazyWander(a,g.depot,dt,62,35)
-}}
+function mothUpdate(dt){
+ const g=workerGroups.moth;if(!g)return;
+ if(!g.alive){g.respawn-=dt;if(g.respawn<=0){const t=towers.find(t=>t.i===1&&t.alive!==false)||towers.find(t=>t.i===3&&t.alive!==false),site=t&&buildingSite(t,g);if(site){g.depot=site;g.alive=true;g.workerClock=0}}return}
+ g.workerClock-=dt;if(g.workers.length<3&&g.workerClock<=0){spawnMoth(g);g.workerClock=1.5}
+ const fireTower=towers.find(t=>t.i===3&&t.alive!==false);
+ const eligibleVolcano=p=>mountains.includes(p)&&p.stage===0&&!rainCovered(p.x,p.y)&&(!fireTower||Math.hypot(p.x-fireTower.x,p.y-fireTower.y)>=Math.min(w,h)*.12);
+ const eligibleSprout=p=>crops.includes(p)&&p.stage==='sprout'&&!p.growAt&&!rainCovered(p.x,p.y);
+ for(const a of g.workers){
+  a.phase+=dt*12;
+  if(a.cloud&&a.cloud.life<=0)a.cloud=null;
+  if(a.cloud){if(a.target?.rainClaim===a)a.target.rainClaim=null;a.target=null;moveWorker(a,g.depot.x,g.depot.y,145,dt,16);continue}
+  if(a.target&&!(mountains.includes(a.target)?eligibleVolcano(a.target):eligibleSprout(a.target))){if(a.target.rainClaim===a)a.target.rainClaim=null;a.target=null}
+  // Active volcanoes outrank seedlings, including when a new volcano appears en route.
+  const volcano=mountains.find(p=>!p.rainClaim&&eligibleVolcano(p));
+  if(volcano&&(!a.target||!mountains.includes(a.target))){if(a.target?.rainClaim===a)a.target.rainClaim=null;a.target=volcano;volcano.rainClaim=a}
+  if(!a.target){a.target=volcano||crops.find(p=>!p.rainClaim&&eligibleSprout(p))||null;if(a.target)a.target.rainClaim=a}
+  if(a.target){
+   if(moveWorker(a,a.target.x,a.target.y,145,dt,14)){
+    const p=a.target;p.rainClaim=null;a.target=null;
+    if(!rainCovered(p.x,p.y)&&!a.cloud){const cloud={x:p.x,y:p.y,visualX:p.x,visualY:p.y,r:58,life:30,phase:rand(0,Math.PI*2),owner:a};a.cloud=cloud;rainClouds.push(cloud)}
+   }
+  }else lazyWander(a,g.depot,dt,62,35)
+ }
+}
 function mothDraw(){const g=workerGroups.moth;if(!g?.alive)return;ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=spriteFont(30);ctx.fillText('🪸',g.depot.x,g.depot.y);for(const a of g.workers){ctx.font=spriteFont(27);ctx.fillText('🦋',a.x,a.y-5+Math.sin(a.phase)*4)}}
 function moveWorker(a,x,y,speed,dt,stop=0){const dx=x-a.x,dy=y-a.y,d=Math.hypot(dx,dy);if(d<=stop+.01)return true;const step=Math.min(d-stop,speed*dt);a.x+=dx/d*step;a.y+=dy/d*step;if(Math.abs(dx)>.01)a.facing=dx>0?1:-1;return d-step<=stop+.01}
 function moveAnt(a,x,y,speed,dt,stop=0){return moveWorker(a,x,y,speed,dt,stop)}
