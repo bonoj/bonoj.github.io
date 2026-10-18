@@ -66,6 +66,7 @@ function mountainDraw(){ctx.textAlign='center';ctx.textBaseline='middle';ctx.fon
    a.phase+=dt*8;a.attackCooldown=Math.max(0,a.attackCooldown-dt);
    const sg=workerGroups.scarab;const beetle=sg?.alive?sg.workers.find(b=>Math.hypot(b.x-a.x,b.y-a.y)<23):null;
    if(beetle&&a.attackCooldown<=0){sunDamage(beetle);a.attackCooldown=1;observeEvent('fireScorpionAttackScarab');}
+   if(!a.target&&sg?.alive){let nearest=null,dist=105;for(const b of sg.workers){const d=Math.hypot(b.x-a.x,b.y-a.y);if(d<dist){dist=d;nearest=b}}if(nearest&&!beetle)moveWorker(a,nearest.x,nearest.y,48,dt,18)}
    // Contact sting/claws: consumes an approaching creep, but costs armor or the scorpion's life.
    const foe=enemies.find(e=>!e.dead&&Math.hypot(e.x-a.x,e.y-a.y)<17);
    if(foe&&a.attackCooldown<=0){
