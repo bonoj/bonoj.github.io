@@ -177,3 +177,18 @@ test('three professions share FSM, fly/scuttle, harvest and deliver distinct mat
  expect(Object.keys(s.workers)).toHaveLength(0);
  expect(Object.values(s.resources).every(n=>n===0)).toBe(true);
 });
+
+test('shared lazy idle movement and flying division identities',async({page})=>{
+ expect(html).toContain('function lazyWander(a,home,dt,speed,radius=34)');
+ expect(html).toContain("const unitMotion=['fly','fly','fly','fly','walk']");
+ await buyAll(page);
+ for(let i=0;i<5;i++)await place(page,i,95+i*60,110);
+ await buyAll(page);
+ await page.evaluate(()=>{window.__test.pause();for(let i=0;i<5;i++)window.__test.recruit(i);window.__test.resume()});
+ let before=await state(page);
+ expect(before.units).toHaveLength(5);
+ await page.evaluate(()=>window.__test.step(2));
+ const after=await state(page);
+ expect(after.units.some((u,i)=>Math.hypot(u.x-before.units[i].x,u.y-before.units[i].y)>1)).toBe(true);
+ expect(after.units.every(u=>Number.isFinite(u.x)&&Number.isFinite(u.y))).toBe(true);
+});
