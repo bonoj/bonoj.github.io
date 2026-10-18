@@ -798,3 +798,37 @@ And that gives me a rather lovely formulation for the Hermeticon:
 Evermore II is a tiny, playful laboratory for precisely that idea.
 
 And the fact that you discovered its economic strategies *by playing*, rather than by specifying them beforehand, may be the most interesting part of all.
+
+---
+
+## Aeon of the Coral Moths — 18 October 2026 · Ecology before economy
+
+The human observed that the game's workers and ecology were becoming unexpectedly compelling despite never having been drawn to colony-management games such as *RimWorld* or *Dwarf Fortress*. The distinction matters: Tiffany's world was not designed around colonist needs, production schedules, or a planned tech tree. It began as a small bullet-heaven arena. Ants, bees, crabs, and worms became useful because land effects created harvestable consequences. The moth emerged from that same grammar: **ecology first; economy later**. The player interferes with a living system rather than administering an industrial one.
+
+### The intended invention
+
+Three 🦋 moths emerge from an 🪸 coral nursery when the existing 🔥 Tier II Phoenix division is purchased. That association is deliberately temporary, not a new progression doctrine. Each moth seeks an unclaimed active 🌋 volcano, or an unclaimed 🌱 seedling when no eligible volcano exists, deposits a single 30-second 🌧️ raincloud, returns to the nursery, and waits until its own cloud expires. Clouds cool mountains and grow plants by reusing Island-water transformations. The rain's ecological footprint remains at its deployment point while the cloud visual flies inside it. Its protective effect overrides fire for crops/trees and mountain-stage changes. No additional shop icons or blue footprint circles.
+
+### The thrash: where the model's implementation diverged
+
+1. **Initial rainmaker implementation** (`10f3e003`). The model implemented the coral nursery, three moths, rain effects and temporary Phoenix unlock, but retained a speculative exclusion rule: moths would ignore volcanoes inside the Mountain tower's fire radius. This was fatal to the intended priority in practice because volcanoes spawn near that tower. Moths consequently rushed seedlings.
+2. **First lifecycle correction** (`599ca809`). The human required *one cloud per moth*, with a return to the nursery and no new assignment until expiration. The model added per-moth cloud references and homeward travel, plus drifting rain visuals. The human then reported the observed behavior still violated both requirements: moths chased seedlings and appeared to place unlimited clouds. The model had treated a plausible code path as verified behavior. The report must be respected as observed, not dismissed by static inspection.
+3. **Misguided radius patch** (`19bea72e`). Rather than challenge the exclusion rule, the model arbitrarily shrank it from 23% to 12% of the smaller arena dimension. This created a new, undocumented ecological boundary and failed the composability test. The human asked why there was an exclusion zone at all. The correct response was to remove it, not tune its radius.
+4. **Exclusion removed** (`aaeea115`). The model deleted the fire-tower proximity check from moth eligibility and retained strict priority for uncovered/unclaimed active volcanoes, including preemption of seedling targets. Cloud ownership was tied to the cloud object in the active rain collection. Each moth returns to 🪸 and waits until that cloud expires. No additional arbitrary geography is authorized.
+5. **The invisible footprint**. The human explicitly checked that the blue circle had been removed. The cloud's effect area is invisible; the 🌧️ glyph alone represents it. The visual may move, but its stationary area of influence must not drift with the glyph.
+6. **Composition instead of reinvention** (`996fbd19`). The model had invented a separate sine/cosine looping animation for rainclouds, despite an existing `lazyWander` movement grammar. When the human asked why a separate system was necessary, the answer was: it wasn't. The model replaced bespoke oscillation with the shared wandering movement, using a small adapter to preserve cloud origin and effect radius. A cloud flies inside its footprint; the footprint does not fly.
+7. **Documentation consolidation** (`88d8f44c`). The README had accumulated mutually contradictory prose—an obsolete volcano exclusion rule, a claim that moths departed immediately for more targets, and a stale source status. These were replaced with a compact set of current invariants. The chronicle retains the mistakes and reasoning rather than letting them contaminate the cold-boot contract.
+
+### Engineering lessons retained
+
+**A priority ordering is meaningless if the eligibility predicate eliminates the priority class.** Inspect target *production* and target *selection* together. Volcano spawning, rain coverage, claims, and mountain stages all affect whether an active volcano can be selected.
+
+**A worker's output is a leased capability, not an unbounded effect generator.** The moth's cloud is an owned, expiring object; while that object is alive the moth cannot acquire a new job. The cloud and the worker have different movement and lifecycle responsibilities. Claims must be exclusive and released on invalidation.
+
+**Visuals and effects occupy different coordinates on purpose.** The rain cloud's visual flies using the shared actor wandering grammar; its radius-58 watering/protection footprint stays anchored to the original target. No blue circles and no new movement ontology.
+
+**Do not fix broken behavior by inventing geography or silently changing rules.** The arbitrary 12% fire exclusion was a wrong turn. No exclusion zone remains.
+
+**Source commits are not runtime evidence.** These revisions were committed through the GitHub connector, but browser/device verification was not performed by the model. The human's play observations exposed failures that source inspection alone had missed. Future regressions should be checked against visible behavior, not inferred from successful writes.
+
+**Keep the specification lean and the history rich.** The README is the current executable contract; this chronicle is the archaeological record. The game's creative method remains: *play → notice → invent → ship → verify → play again*. Emergent ecological relationships are more important than prematurely defining a factory economy.
