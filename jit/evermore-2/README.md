@@ -26,31 +26,49 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 
 **Repository and execution:** `bonoj/bonoj.github.io`, branch `master`, game at `jit/evermore-2/index.html`; public URL [bonoj.github.io/jit/evermore-2/](https://bonoj.github.io/jit/evermore-2/). The game is currently a standalone, mobile-first HTML/CSS/Canvas/JavaScript file. This README sits beside it. Keep the original `jit/evermore/` game untouched. Fetch the latest file and blob SHA before edits; commit with GitHub's content update operation, then read back the changed source. A committed source change does **not** prove Pages deployment or live browser behavior. Confirm actual behavior when browser execution is available; otherwise report that limitation plainly.
 
-**Current source state:** Build 20261017.3 includes the battlefield ecology documented below. Tiffany stands in the arena; five manually selectable land types; two currencies, five purchasable orbiting drones; arena expansion at two drones and at five towers **or** five drones; five movable, one-per-land automatic towers; spell autocycle independent of selected land after two drones; five more expensive army divisions replacing the *shop offerings* after all five drones are owned; tower-born recruits with distinct effects. Tiffany's existing cycling bubble is the spell indicator; **do not reintroduce the redundant icon above her head**. Rhyming corporate verses are part of the game's identity. See the features section for exact costs, timings, and uniqueness rules.
-
+**Current source state (2026-10-17, source commit `3a8c8e98`; documentation `c5cda2f7` before this update):** The active game has five lands, orbiting drones, manual spells, tower placement and autocycling, recruit divisions, battlefield vegetation, geological succession, and Swamp decomposition. **Cherubs are combat-only**: their recruitment, pursuit, attack, lifespan, and rendering code was compared directly with pre-agriculture commit `a9b23251` and found identical. The Cherub watering/harvesting/carrying/delivery experiment was fully removed. Preserve the existing ranged beam and splash damage. The upper-left SHA label is deliberately visually unobtrusive but tappable for development currency; it currently fetches the latest GitHub source SHA, **not** an independently verified executing-build SHA. The original `jit/evermore/` is untouched. See the state snapshot below and the historical chronicle for context.
 **Known verification limits:** A player previously reported being unable to place towers, although the source inspection showed a placement handler. No definitive live reproduction/resolution was recorded. Do not assume this is fixed merely because the handler exists. The latest spell-selection separation was source-verified; live gameplay still needs testing. Enemy/recruit collision currently removes both without necessarily using the normal kill-reward path; inspect currency accounting when working on unit combat. Avoid claiming live deployment based solely on a GitHub commit.
 
 ### Current frontier — one battlefield, interacting ecologies
 
-**Separate interior games are retired.** The Plains interior prototype broke outer controls and was reverted. Do not resurrect double-tap interiors, new zoom modes, or replacement shop buttons. Everything happens in the existing arena.
+**One battlefield is the contract.** Interior games, double-tap zoom, and alternate pages were explored and rejected. Keep all game action and the ecology in the existing arena. Don't substitute new UI for working controls.
 
-**Vegetation (build 20261017.3):**
-- ☀️ Plains independently spawns 🌱 approximately every 0.65 seconds; 🌳 Forest independently spawns 🌱 approximately every 3.5 seconds. Each sprout retains its source land. Spawns are scattered 25–115 units around its tower.
-- 💧 Island pulses start one-shot, individually randomized maturation timers for sprouts in range. Plains sprouts become 🌾 after 1.5–4 seconds; Forest sprouts become 🌳 after 5–10 seconds. Repeated pulses do not reset pending timers.
-- Enemies trample 🌱 and 🌾, but not 🌳. Trees do not yet obstruct movement. All plants share a 100-entity cap, sway gently at independent phases, and avoid Tiffany's sacred 65-unit radius (her yellow disc is 47 units).
-- 🔥 Mountain tower pulses schedule individual **0.6–2.5-second burn timers** for 🌱 🌾 🌳 inside the normal tower radius, rather than deleting plants instantly. Existing combat effects remain.
+**Vegetation and water (implemented):**
+- ☀️ Plains tower spawns 🌱 about every **0.65 s**; 🌳 Forest tower spawns 🌱 about every **3.5 s**, at distances **25–115 world units** from their respective towers. Sprouts remember their source.
+- 💧 Island tower pulses water nearby unwatered sprouts and start **one-time** random maturation timers: Plains → 🌾 wheat in **1.5–4 s**; Forest → 🌳 tree in **5–10 s**. Later pulses don't restart pending growth.
+- 🌱 and 🌾 are trampled by enemies; 🌳 is not. Trees don't block paths. All crops share a **100-entity cap**, avoid the **65-unit Tiffany exclusion radius**, and visually sway. Existing cooled mountains do not prevent plant growth; do not invent new placement exclusions.
+- 🔥 Mountain tower pulses schedule burns of 🌱🌾🌳 after **0.6–2.5 s** rather than deleting them immediately. Island and Fire effects remain spatial and independent.
+- **No resource harvesting is active.** Wheat and trees are persistent environmental outcomes, not currently carried or converted into currency/wood. There is no wood ledger.
 
-**Geology (build 20261017.3):**
-- 🔥 Mountain independently attempts to spawn 🌋 approximately every 16 seconds, up to 12 geological objects, spaced around its tower and away from Tiffany.
-- Active 🌋 continuously burn vegetation within **24 world units**, much smaller than the Fire tower pulse. Cooling ends the burn permanently for that object.
-- Staged succession: 🌋 --💧 Island--> 🗻 --🌳 Forest--> ⛰️ --💧 Island--> 🏔️. 🔥 Mountain pulses return **any cooled stage** (🗻 ⛰️ 🏔️) to 🌋 after the same 2–5-second randomized transformation delay. Each eligible tower pulse starts an individual 2–5-second delay. Pending transformations cannot be reset or skipped.
-- Mountains persist after towers move and are not trampled; they do not yet block enemies.
+**Geology (implemented):**
+- 🔥 Mountain tower independently spawns 🌋 around every **16 s**, maximum **12 geological objects** across all stages, near the tower.
+- Active 🌋 burns 🌱🌾🌳 and 🍄 within **36 world units** continuously. This is enforced by the volcano update; spawning is **not** forbidden near volcanoes. 🦴 bones are not burned.
+- Succession via overlapping tower pulses, each with a **2–5 s** scheduled delay: 🌋 —💧→ 🗻 —🌳→ ⛰️ —💧→ 🏔️. 🔥 pulses can reactivate **any** cooled stage to 🌋. Pending transitions are not skipped/reset.
+- Geological objects persist across tower relocation, aren't trampled, and don't block enemies. No ash or smoke system.
 
-**Design invariants:** Every tower remains independently useful; all existing combat, shop, currency, and controls remain. Tower interactions depend on spatial overlap and pulses, not hard-coded combinations. Swamp independently poisons and now produces 🦴 bones on enemy deaths within its tower radius; bones decay to 🍄 mushrooms. Ash, fire propagation, harvesting, and tree/mountain collision remain **not implemented**. Restart clears crops and mountains.
+**Swamp decomposition (implemented):**
+- A **killed** enemy within a placed 💀 Swamp tower's pulse radius (`min(w,h) × 0.23`) leaves 🦴 at its death coordinates, regardless of the killing weapon. An enemy that merely reaches Tiffany does not leave remains.
+- Bones decay individually after **10–15 s** to 🍄 mushrooms; sizes **12 px bones / 16 px mushrooms**. No artificial remains cap. 🔥 tower pulses schedule mushroom burning in **0.6–2.5 s**; active volcanoes destroy mushrooms in their local 36-unit radius. Bones survive fire.
+- Neither bones nor mushrooms are collected yet; no corpse-to-currency shortcut exists.
 
-**Next:** Player gameplay test, then develop collector behavior around persistent 🦴 and 🍄. No collector roles have been implemented. Fix observed issues. Inspect tower placement, delayed maturation, Fire clearing, volcano local radius, geological succession, and restart. GitHub source persistence is confirmed; Pages deployment and browser behavior are **not independently verified**.
+**Combat, armies, and economics (implemented):**
+- Five orbiting **triangle-shaped** drones remain visually unchanged: Prism straight piercing beam (**2 damage**, ~**1.5 s**); Chain lightning up to **4 targets** (~**1.15 s**); Leech draining zone (~**2.2 s**); Rocket projectile (~**1.3 s**); Vines slowing beam/zone (~**1.3 s**). Proposed drone emoji identities 🪞⚡🧿🚀🦋 were **not** implemented; 💎 stays currency.
+- Five recruit divisions unlock after buying all five drones. Each division recruits from its matching placed tower every **5 s**, at most **8 active** per land; recruits last **24 s** and die on first enemy contact.
+- **Cherub 👼 authoritative behavior:** combat only, no tending. Moves toward nearest enemy within **230 units** at **26 units/s**; its beam targets an enemy within **170 units**, deals **1 damage** to that enemy and **1** to each other enemy within **42 units** of the target, with **1.7 s** cooldown. Beam visual life **0.28 s**. No sickle-chop strike emoji, crop reservations, watering, harvesting, carrying, wood, or delivery. The Cherub code blocks (recruit, attack, unit update, drawing) were compared against pre-agriculture commit `a9b23251` and were **character-for-character identical** at source commit `3a8c8e98`.
+- Other recruits retain their distinct audit/slow, poison, projectile, and binding effects. Normal kills via `hit()` award **2 coins**, and every **8th kill** awards **1 gem**; enemy/recruit mutual-contact deaths bypass ordinary kill reward accounting and merit inspection if changed.
+- **Developer shortcut:** tap the discreet upper-left **8-character SHA** to add **9,999 coins and 999 gems** per tap. It has no button-like styling. The label asynchronously fetches GitHub's most recent source SHA and may temporarily show a fallback value; **it does not prove the executing HTML is that revision**. This is session-only and restart resets currency.
 
-**Working cadence:** Play → notice → invent → ship → verify → play again. Favor small, composable, observable changes. Commit and read back source; distinguish verified source from verified live execution. When the user says **➡️**, continue from the documented frontier rather than re-asking for context.
+**Latest development sequence and regression lessons:**
+1. Swamp bones/mushrooms and burn interactions implemented; emoji sizes refined to 12/16 px (`a9b23251`).
+2. Dev currency shortcut added, but incorrectly replaced the SHA with a large styled `BUILD 20261017.4` button and removed the old verifier (`aa62d3f7`). Presentation subsequently reverted to a subtle SHA (`a4040705`), while retaining the tap shortcut. The current label's latest-source SHA is not a verified executing SHA.
+3. Experimental Cherub farming introduced: crop claims, watering, wheat harvesting, carrying, delivery for 3 coins, threat interruption (`e40e74f8`). Watering removed and ranged beam mistakenly replaced with a close-range chop (`dc811a7d`). The user explicitly rejected both regressions.
+4. **Current restored state:** all Cherub farming/chop code removed and original ranged beam combat reinstated (`3a8c8e98`). Direct historical comparison confirmed the four Cherub code blocks match the pre-experiment version. Preserve this unless the user explicitly asks for new behavior. Historical farming entries below are **experiments, not current features**.
+
+**Open frontier / next tests:** Observe live Pages on a phone (tower placement, SHA presentation, developer currency tap, combat, crops, Swamp remains, volcano succession). There is no implemented collector or transport economy. If revisiting resource collection, design it as a separate, deliberate change rather than quietly changing Cherub weapons. Avoid new artificial caps, placement restrictions, or environmental byproducts without discussion.
+
+**Verification discipline:** GitHub write + readback confirms persisted source only. The latest game code was source-verified; no end-to-end Pages/browser gameplay test is recorded. Do not describe a deployed build or runtime as verified without checking it. Follow the repository's existing deployment/recovery protocol rather than inventing one.
+
+**Working cadence:** Play → notice → invent → ship → verify → play again. Favor surgical, composable changes that preserve established behavior. When the user says **➡️**, continue from this frontier without asking them to restate context.
 
 ---
 
