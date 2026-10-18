@@ -59,7 +59,29 @@ const workerStates={
 };
 const antStates=workerStates;
 let lumberHut=null,lumberAnts=[],woodDelivered=0;
-function startWorkers(kind){if(workerGroups[kind])return;const prof=professions[kind],tower=towers.find(t=>t.i===prof.land),angle=tower?Math.atan2(tower.y-cy,tower.x-cx):-Math.PI/4;const depot={x:cx+Math.cos(angle)*115,y:cy+Math.sin(angle)*115},group={depot,workers:[],kind};workerGroups[kind]=group;group.workers=Array.from({length:3},(_,i)=>{const a={kind,prof,group,x:depot.x+Math.cos(i*2.094)*26,y:depot.y+Math.sin(i*2.094)*26,target:null,tree:null,cargo:null,chop:0,phase:i*2.094,facing:1,patrol:i*2.094,patrolClock:0};a.fsm=makeFSM(workerStates,'idle',a);return a});if(kind==='ant'){lumberHut=depot;lumberAnts=group.workers}}
+const BUILDING_RADIUS=19,BUILDING_CLEARANCE=23,TOWER_CLEARANCE=39,SANCTUARY_CLEARANCE=94;
+function validBuildingSite(x,y){
+ if(x<BUILDING_RADIUS+12||y<BUILDING_RADIUS+12||x>w-BUILDING_RADIUS-12||y>h-BUILDING_RADIUS-12)return false;
+ if(Math.hypot(x-cx,y-cy)<SANCTUARY_CLEARANCE)return false;
+ if(towers.some(t=>Math.hypot(x-t.x,y-t.y)<TOWER_CLEARANCE))return false;
+ return Object.values(workerGroups).every(g=>Math.hypot(x-g.depot.x,y-g.depot.y)>=BUILDING_RADIUS*2+BUILDING_CLEARANCE)
+}
+function buildingSite(tower){
+ const home=tower||{x:cx,y:cy},base=Math.atan2(home.y-cy,home.x-cx);
+ // Stable expanding-ring search; preserve clearance for future construction.
+ for(const radius of [52,72,94,118,145,175,210,250,290]){
+  for(let i=0;i<24;i++){const angle=base+(i%2?1:-1)*Math.ceil(i/2)*Math.PI/12;
+   const x=home.x+Math.cos(angle)*radius,y=home.y+Math.sin(angle)*radius;
+   if(validBuildingSite(x,y))return {x,y}
+  }
+ }
+ // Scan the remaining arena deterministically rather than overlap an existing structure.
+ for(let y=BUILDING_RADIUS+12;y<h-BUILDING_RADIUS-12;y+=12)
+  for(let x=BUILDING_RADIUS+12;x<w-BUILDING_RADIUS-12;x+=12)
+   if(validBuildingSite(x,y))return {x,y};
+ return null
+}
+function startWorkers(kind){if(workerGroups[kind])return;const prof=professions[kind],tower=towers.find(t=>t.i===prof.land);const depot=buildingSite(tower);if(!depot)return false;const group={depot,workers:[],kind};workerGroups[kind]=group;group.workers=Array.from({length:3},(_,i)=>{const a={kind,prof,group,x:depot.x+Math.cos(i*2.094)*26,y:depot.y+Math.sin(i*2.094)*26,target:null,tree:null,cargo:null,chop:0,phase:i*2.094,facing:1,patrol:i*2.094,patrolClock:0};a.fsm=makeFSM(workerStates,'idle',a);return a});if(kind==='ant'){lumberHut=depot;lumberAnts=group.workers}}
 function startLumber(){startWorkers('ant')}
 function lumberUpdate(dt){for(const group of Object.values(workerGroups))for(const a of group.workers){a.phase+=dt*(a.prof.motion==='fly'?14:9);a.fsm.tick(dt)}}
 // Shared actor rig: position + heading are applied once to body, equipment and cargo.
