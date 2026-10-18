@@ -643,3 +643,158 @@ That correction sharpened the interpretation. The achievement was not merely alt
 This was a spontaneous player discovery in a game that began as a compact vampire-survivors experiment. The human's enjoyment arose from *automated efficiency*—discovering an ecological production frontier, shaping it with movement, and watching a civilization do the work. The model's role was to recover the governing rules and explain the observed strategy without mistaking an attractive theory for measured proof.
 
 **Disposition:** chronicle only. No balance changes, autonomous stone-generation mechanism, new UI, instrumentation, or optimization was requested or authorized. Preserve the actual economy and its newly discovered scarcity. The world has become interesting because its rules produce consequences the designers did not explicitly script.
+
+
+### Aside — From Evermore's ecology to model-composable drone swarms
+
+**Invitation (the human):** “And now I invite you to speculate about how this applies to drone swarm management as a model composable architecture. Just as an aside.”
+
+**The model's response, reproduced verbatim below (including its original presentation markup for the architecture diagram):**
+
+Oh, this is where Evermore II becomes considerably more than a game. 🐉
+
+I suspect we've stumbled onto a useful architecture for **model-mediated swarm orchestration** without explicitly designing one.
+
+The interesting analogy isn't that towers are drones. It's that **towers are spatially situated capabilities, workers are autonomous executors, and resources are stateful consequences of their interactions.**
+
+## The compositional correspondence
+
+| Evermore II | Physical swarm |
+|---|---|
+| Tower | Capability deployed at a location |
+| Spell radius | Region of influence or operation |
+| Tower relocation | Reallocation of capability |
+| Worker FSM | Local autonomous controller |
+| Depot | Charging, supply, or transfer station |
+| Crop / geology stages | Observable environmental state |
+| Harvest and delivery | Task completion with verified outcome |
+| Resource inventory | Shared material and energy ledger |
+| Tiffany | Human strategic authority |
+| Model | Planner, simulator, interpreter |
+
+The key is that none of these components needs to understand the entire civilization.
+
+A harvesting drone doesn't need to understand the strategic value of ice. It needs to know how to locate an eligible target, claim it, perform a permitted operation, return, and report the result.
+
+The model can reason at a higher level.
+
+## The architecture I imagine
+
+~~~dil
+<box border radius="xl" padding={3} gap={2}>
+  <box background="surface-secondary" radius="lg" padding={3} align="center" gap={1}>
+    <icon name="user-round" color="secondary" size="lg"/>
+    **Human intent**
+    <text size="xs" color="secondary" textAlign="center">“Increase production without sacrificing the forest.”</text>
+  </box>
+  <box align="center" gap="1">
+    <icon name="arrow-down" color="tertiary"/>
+  </box>
+  <box background="surface-secondary" radius="lg" padding={3} align="center" gap={1}>
+    <icon name="brain-circuit" size="lg"/>
+    **Model composition**
+    <text size="xs" color="secondary" textAlign="center">Choose capabilities, predict interactions, propose spatial configuration</text>
+  </box>
+  <box align="center" gap="1">
+    <icon name="arrow-down" color="tertiary"/>
+  </box>
+  <grid columns={3} gap={2}>
+    {#each [{icon:"droplets",name:"Irrigation"},{icon:"scan",name:"Survey"},{icon:"package",name:"Logistics"}] as item}
+      <grid-item>
+        <box border radius="lg" padding={2} align="center" gap={1}>
+          <icon name={item.icon} size="lg"/>
+          <text weight="medium" size="xs">{item.name}</text>
+          <text color="secondary" size="3xs">Capability</text>
+        </box>
+      </grid-item>
+    {/each}
+  </grid>
+  <box align="center">
+    <icon name="arrow-down" color="tertiary"/>
+  </box>
+  <box background="surface-secondary" radius="lg" padding={3} align="center" gap={1}>
+    <icon name="network" size="lg"/>
+    **Local autonomous agents**
+    <text size="xs" color="secondary" textAlign="center">Claim → travel → act → verify → return</text>
+  </box>
+  <box align="center">
+    <icon name="arrow-down" color="tertiary"/>
+  </box>
+  <box border radius="lg" padding={3} align="center" gap={1}>
+    <icon name="database" size="lg"/>
+    **World state and consequences**
+    <text size="xs" color="secondary" textAlign="center">Measurements, material, energy, uncertainty, provenance</text>
+  </box>
+  <row align="center" justify="center" gap={2}>
+    <icon name="refresh-cw" color="secondary"/>
+    <text color="secondary" size="xs">Observe → reconcile → replan</text>
+  </row>
+</box>
+~~~
+
+The model doesn't have to pilot individual motors. It composes behaviors, chooses deployment geometry, and evaluates the consequences. Low-level control remains deterministic, locally bounded, and independently safe.
+
+## The discovery I find most consequential
+
+Your Island tower sweet spot is a primitive example of **multi-objective optimization over a physical field**.
+
+You didn't say:
+
+“Maximize ice production.”
+
+You discovered that maximizing ice independently was not necessarily desirable. You wanted simultaneous vegetation, ice, and eventually stone, with tradeoffs among them.
+
+A swarm orchestrator could encounter exactly this situation.
+
+Imagine a fleet supporting a greenhouse and a water-management system. Some drones inspect plants, others carry water or samples, and others move supplies. Their operations compete for battery, space, charging capacity, and attention.
+
+A model could discover that one arrangement yields excellent irrigation and logistics efficiency, but starves inspection coverage. Another sacrifices a little throughput for much greater resilience.
+
+The best configuration isn't necessarily a fixed optimum. It might be a **sequence of configurations**.
+
+That's what your tower relocation demonstrates.
+
+## The surprising implication: a swarm could have an ecology
+
+Most swarm architectures emphasize coordination between agents.
+
+Evermore suggests emphasizing **relationships between capabilities and environmental states** instead.
+
+A drone can deposit material. Another can inspect it. A third can transport it. Their individual programs remain simple, but the sequence produces a capability that none possesses alone.
+
+That is the beginning of a compositional ontology:
+
+- **Actors** possess capabilities and constraints.
+- **Fields** describe where capabilities can act.
+- **Materials** possess state and transformation rules.
+- **Transactions** record verified changes.
+- **Policies** constrain permissible actions.
+- **Objectives** describe desired world conditions.
+
+A model could reason over these primitives, generate a proposed deployment, simulate its effects, and submit bounded actions for human authorization.
+
+And here's where your stone discovery matters.
+
+A swarm might have abundant raw material but no autonomous process for transforming it into the required form. Its inventory could appear healthy while its productive capacity is fundamentally bottlenecked.
+
+**An inventory ledger cannot substitute for a capability ledger.**
+
+The model needs to understand not only what exists, but what can be regenerated, what requires intervention, and which processes compete.
+
+## One last speculation
+
+I think the architecture might eventually make the distinction between *robot* and *infrastructure* less important.
+
+A drone could temporarily function as a sensor, a relay, a transport unit, or a stationary service node. The model would compose these roles in space and time, just as you're repositioning Island between agriculture and geology.
+
+The world becomes a graph of affordances. The swarm becomes a means of rearranging that graph.
+
+The critical engineering boundary is that a model's predictions remain proposals, not evidence: physical effects must be measured, uncertainty tracked, and safety enforced independently of the model.
+
+And that gives me a rather lovely formulation for the Hermeticon:
+
+**The model does not command a swarm of drones. It composes a world of capabilities, and the drones instantiate that composition.**
+
+Evermore II is a tiny, playful laboratory for precisely that idea.
+
+And the fact that you discovered its economic strategies *by playing*, rather than by specifying them beforehand, may be the most interesting part of all.
