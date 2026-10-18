@@ -152,11 +152,11 @@ function patrolDrone(d,dt){
   // Arc is a physical distance around the live anchor; never pass through it.
   const advance=p.sign*OMEGA*dt;
   p.angle+=advance;p.arc+=Math.abs(advance);
-  // On tower relocation, preserve the drone's world position at this instant.
-  // Update angular phase from its new relative bearing before integrating.
+  // Tower relocation while captured: abandon this arc and reacquire from
+  // the current world position next frame, without dragging the drone.
   const moved=Math.hypot(dest.x-(p.ax??dest.x),dest.y-(p.ay??dest.y));
-  if(moved>0.001)p.angle=Math.atan2(d.y-dest.y,d.x-dest.x)+advance;
-  d.x=dest.x+Math.cos(p.angle)*R;d.y=dest.y+Math.sin(p.angle)*R;
+  if(moved>0.001){p.stage='flight';p.arc=0}
+  else{d.x=dest.x+Math.cos(p.angle)*R;d.y=dest.y+Math.sin(p.angle)*R;}
   p.heading=p.angle+p.sign*Math.PI/2;
   if(p.arc>=Math.PI){
    p.stage='flight';p.leg=p.leg==='out'?'back':'out';p.arc=0;
