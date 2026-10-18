@@ -167,3 +167,5 @@ Refactored existing ant forestry into a configurable shared worker FSM and equip
 Auditor correction: crab miners and their 🐚 shell now spawn on Auditor purchase (Island), not Phoenix purchase (Mountain). Active volcanoes remain unmineable.
 
 Shared lazy idle movement: all five combat recruit divisions and three civilian professions wander independently with random pauses and waypoints. Four combat divisions fly (cherub, jellyfish, ghost, phoenix), deer walk. Civilian bee flying preserved. Combat pursuit unchanged.
+
+Swamp decomposition change (`1ef3cc8f`): wither sprouts, wheat and trees over 2–4s into mushrooms, releasing claims; bones now decay to mushrooms in 25–30s.
