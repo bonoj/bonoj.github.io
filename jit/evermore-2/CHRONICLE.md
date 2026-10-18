@@ -893,3 +893,18 @@ Maintain a lean README as the cold-boot contract and this chronicle as the histo
 **Play → notice → invent → ship → verify → play again.**
 
 The frontier is no longer “can we implement a creature?” It is “what new ecological relationship is worth inventing next?”
+
+
+## The World Becomes Its Own Witness — 18 October 2026
+
+The human proposed reversing the usual development loop. Instead of repeatedly describing what was happening in a crowded civilization or taking screenshots, instrument its populations and let the model reason from ecological history. The human pointed out that the game's existing 👁 was already waiting: the model initially proposed an unnecessary second instrument before inspecting the source. This echoed the earlier lesson of the duplicated octopus shell: **search for the existing capability before inventing another**.
+
+The old Runtime Eyes was a useful, now retired, performance laboratory. It intercepted Canvas calls, sampled frame timings, monitored memory and errors, and used a destructive first-tap mature-world fixture. That answered an earlier question about performance but was poorly suited to watching the actual world grow. The human explicitly approved retiring it in favor of a new observer using the **same 👁 button**, without the mature fixture.
+
+In source commit `1fe52a0d`, the model removed the performance observer and mature fixture and installed `WORLD_OBSERVER_ENABLED` as the single on/off switch. The first 👁 tap now exports the **current living game**, nondestructively, as `tiffinity-world-observer/v1` JSON. Five-second game-time snapshots retain a bounded history of 120 censuses: species populations, active habitats and ecological stages, inventories, labor states, and basic world counts. Event counters record actual transitions such as worker replacement, depot destruction and recovery, material delivery, octopus mushroom-to-worm conversions, eagle worm capture and nest delivery, and deaths. The observer reads the world; it does not manipulate it.
+
+The architectural change is small but consequential. The same composability that made new ecological loops inexpensive now makes them **measurable**. Existing species, claims, inventories, worker states and home lifecycles give the observer a semantic vocabulary; a single JSON snapshot can describe not only how many creatures exist but what they are doing and which ecological exchanges occurred. The model can compare successive observations, propose hypotheses, and offer new loops for the human to choose. An example chain is 🍄 → 🐙 → 🪱 → 🦅 → 🪹 → inventory. Whether it grows, oscillates, or stabilizes must be **observed**, not assumed.
+
+This is not autonomous remote telemetry. The browser holds the world state locally; the human still copies or shares the JSON. No backend, transport, background watcher, or self-directed code mutation was added. Nor is there a claim of live device verification of the new observer: the source was committed and inspected, but its clipboard behavior and observed output remain to be confirmed in the running game.
+
+The proposed new rhythm is **human invents → model builds → world runs → observer records → model proposes → human chooses**. The human remains the author of taste and the final arbiter of which ecological relationships deserve to exist. The model can now bring empirical evidence to that creative conversation rather than relying entirely on prose or screenshots.
