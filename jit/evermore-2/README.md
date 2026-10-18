@@ -146,3 +146,10 @@ Most importantly, keep the game playful and inspectable. A fast iteration is onl
 | `c5362dda` | Remove redundant spell icon above Tiffany; retain cycling bubble | GitHub source commit |
 
 **Current reference:** `jit/evermore-2/index.html` on `master`, inspected after `c5362dda`. The application is a single-file prototype; this document describes its implemented rules and known verification limits, not a guarantee that every browser path has been tested.
+
+## Battlefield crops — 2026-10-17
+
+- Single shared battlefield; no Plains interior, zoom, or UI/button replacement.
+- The placed ☀️ Plains tower spawns 🌱 randomly within a radius of 115 world units, capped at 100 plants and spaced to avoid overlap. Spawning excludes Tiffany's center with a 65-unit radius so the emoji's visual edge remains clear of the 47-unit yellow outer disc.
+- Each 💧 Island tower pulse matures sprouts inside its existing tower range into 🌾 wheat. Enemies trample sprouts and wheat on contact. Crops are rendered in the existing arena beneath enemies, and move consistently with the existing arena recentering logic.
+- The upper-left header displays BUILD 20261017.1. No wheat economy, cherub, separate game, or persistence across restarts. Source commits `f6c63a50`, `8300b80f`; public deployment/browser verification remains separate.
