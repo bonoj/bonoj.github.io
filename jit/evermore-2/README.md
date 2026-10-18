@@ -187,3 +187,9 @@ Implemented in game source commit `9e1ac553`:
 - Tappable upper-left `BUILD 20261017.4` badge (13px) adds **9,999 coins and 999 gems** per tap; HUD/shop refresh immediately. Repeatable, session-only, reset clears funds.
 - Removed previous GitHub SHA display and asynchronous stale-build verifier. Badge is now a manual version label, not an authoritative deployed commit indicator.
 - Source commit `aa62d3f7` verified by GitHub readback. Public Pages and browser behavior not independently verified.
+
+### Cherub agriculture — 2026-10-17
+
+Source commit `e40e74f8`. Cherubs (Plains army, existing 24s lifetime) now pursue unclaimed Plains sprouts/wheat when no enemy is within **95 units**. They move at **45 units/s** for tending, water unwatered sprouts after 0.5s within 18 units (using existing 1.5–4s maturation), and harvest wheat after 0.5s. Each carries at most **one wheat**, visually displayed beside the Cherub, and must physically reach Tiffany within 30 units to earn **3 coins**. Crops are claimed per Cherub to avoid duplicate harvesting; lost/destroyed crops are reacquired. Nearby enemies interrupt tending and preserve existing Cherub combat. On death or 24s expiry, carried wheat drops as a Plains wheat crop, and reservations are released. Restart resets Cherub identity sequence. Existing Island water pulses also mature crops independently.
+
+**Test frontier:** Observe real device behavior for threat interruptions, long journeys, harvest/delivery rates, and corpse-contact deaths; tune values based on actual play. GitHub source write/readback verified, but public deployment and browser execution not yet verified.
