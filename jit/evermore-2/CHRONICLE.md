@@ -1,6 +1,8 @@
 # TIFFINITY SURVIVORS™ — Development chronicle
 
-Historical development record. **Not the current game specification.** For current behavior, invariants, and the next task, read [README.md](./README.md). Earlier experiments, build-label implementations, verification claims, and proposed frontiers below may have been superseded; do not implement them from this history.
+Historical development record. **Not the current game specification.**
+
+**Identity convention:** the project owner is **the human**; the collaborator is **the model**; all other real people are **test subjects**. Keep personal names out of this chronicle. Game characters, project titles, code identifiers, and technical terms are unaffected. For current behavior, invariants, and the next task, read [README.md](./README.md). Earlier experiments, build-label implementations, verification claims, and proposed frontiers below may have been superseded; do not implement them from this history.
 
 # The Aeon Chronicle
 
@@ -96,7 +98,7 @@ The first expansion also created an opportunity: more empty ground begged for st
 
 ### 5. The five towers: turning empty ground into agency
 
-The user proposed a second layer: after the two-drone milestone, Tiffany cycles spells every two seconds, still casts when tapped, and can place **five persistent localized towers**, one for each land. Tapping the field places the currently selected type; tapping again with that type moves it. Towers cast automatically every two seconds. Crucially, this is **one tower per type**, not five disposable charges.
+The human proposed a second layer: after the two-drone milestone, Tiffany cycles spells every two seconds, still casts when tapped, and can place **five persistent localized towers**, one for each land. Tapping the field places the currently selected type; tapping again with that type moves it. Towers cast automatically every two seconds. Crucially, this is **one tower per type**, not five disposable charges.
 
 This was a leap from buying orbiting helpers to **authoring a spatial arrangement**. Towers could guard different parts of the field, and relocating one became a meaningful tactical action. The first implementation was committed as `154e0ec8`.
 
@@ -104,7 +106,7 @@ The player then reported that tower placement did not appear to work. Inspection
 
 ### 6. Five towers *or* five drones: expansion becomes a progression rule
 
-The user immediately extended the spatial grammar: when all five towers are placed **or** all five drones are purchased, expand again. The second zoom sets each logical axis to twice its original length, giving **four times the initial area**. The two alternative prerequisites share one milestone; satisfying both must not create a third expansion.
+The human immediately extended the spatial grammar: when all five towers are placed **or** all five drones are purchased, expand again. The second zoom sets each logical axis to twice its original length, giving **four times the initial area**. The two alternative prerequisites share one milestone; satisfying both must not create a third expansion.
 
 This also fixed the Forest zone origin to use the zone's own coordinates. Commit: `6ad4fac7`. A small, composable rule now linked economic progression and spatial progression: either investment in mobile automation or investment in territory can grow the world.
 
@@ -291,9 +293,9 @@ There are two particularly promising targets.
 
 **Ecology is our biggest obvious source of wasted work.** `cropTrample()` runs inside the enemy loop and filters the crop array each time. `mountainUpdate()` repeatedly filters crops and remains around every active volcano. These are good candidates for substantial reductions in work without changing the resulting world.
 
-**Rendering is the biggest uncertainty.** Every plant uses Canvas `save()`, `translate()`, `rotate()`, emoji rendering, and `restore()` each frame. We shouldn't eliminate their gentle animation; we should investigate cheaper ways to produce the same appearance.
+**Rendering is the biggest uncertainty.** Every plant uses Canvas `save()`, `translate()`, `rotate()`, emoji rendering, and `restore()` each frame. The model advised against eliminating their gentle animation; and proposed investigating cheaper ways to produce the same appearance.
 
-For the extreme version, I'd introduce a lightweight spatial grid shared by vegetation, enemies, and structures. But we'd retain exact distance checks and current update ordering. A spatial grid must accelerate the existing rules, not quietly change them.
+For the extreme version, the model proposed introducing a lightweight spatial grid shared by vegetation, enemies, and structures. But we'd retain exact distance checks and current update ordering. A spatial grid must accelerate the existing rules, not quietly change them.
 
 ### How we'll know it worked
 
@@ -304,13 +306,13 @@ For the extreme version, I'd introduce a lightweight spatial grid shared by vege
 - Entity / population caps: **Unchanged**
 - Gameplay rule changes: **Zero**
 
-I'd compare a reproducible busy-world scenario before and after each optimization, measuring average frame time, worst-frame spikes, allocations, and entity counts. Olivia's phone then becomes our real-world validation.
+The model proposed comparing a reproducible busy-world scenario before and after each optimization, measuring average frame time, worst-frame spikes, allocations, and entity counts. a test subject's phone then becomes our real-world validation.
 
 **One important rule:** don't blindly move simulation to a lower update frequency. That can change collisions, timing, and worker behavior. First eliminate redundant work while preserving every simulation step.
 
-We can keep this fast and playful: optimize a subsystem, check it, keep it if it works, revert if it doesn't. No architectural crusade.
+The human and the model can keep this fast and playful: optimize a subsystem, check it, keep it if it works, revert if it doesn't. No architectural crusade.
 
-And we should keep save-game persistence as a separate next feature, so Olivia can return to her civilization.
+Save-game persistence should remain as a separate next feature, so the test subject can return to their civilization.
 
 **The goal isn't a smaller game. It's a world that can grow dramatically larger before the phone even notices.** 🍄🐉
 
@@ -321,7 +323,7 @@ And we should keep save-game persistence as a separate next feature, so Olivia c
 
 Runtime Eyes I (d96bc606) measured frame costs, state, errors and history. II (3ae7123e) added Canvas counts, subsystem timings and RAF gap thresholds. III (b708df66) tried a synthetic offscreen rendering proxy; it was retired because it did not exercise actual game systems. IV (53416919) made the first 👁 tap replace the unsaved run with a real mature-world fixture and subsequent taps copy live JSON. The first live attempt executed stale HTML despite a current source SHA label; a cache-busted reload fixed it. The source SHA label is not proof of executing build identity.
 
-User-verified Android Chrome report for 53416919: the fixture instantiated 55 enemies, 93 crops, 24 remains, 9–11 mountains, five towers/drones/armies, 40 combat recruits, nine workers, and three depots. At 4.6 seconds average JavaScript frame work was 1.54ms, p99 5.2ms, maximum 6ms. After roughly 42 seconds of simulated play: rolling average 0.81ms, p99 1.4ms, simulation 0.2ms, Canvas command issuance 0.61ms. No JavaScript errors or long tasks. A 5.2-second RAF interruption corresponded to recorded browser hidden/visible events. JavaScript heap samples varied about 1.5–3.8MB without an established upward trend. Combat recruits fell from 40 to 18, so this is not a sustained maximum-load fixture. GPU compositing and thermals are not measured; another phone's lag/heat remains unexplained.
+Human-verified Android Chrome report for 53416919: the fixture instantiated 55 enemies, 93 crops, 24 remains, 9–11 mountains, five towers/drones/armies, 40 combat recruits, nine workers, and three depots. At 4.6 seconds average JavaScript frame work was 1.54ms, p99 5.2ms, maximum 6ms. After roughly 42 seconds of simulated play: rolling average 0.81ms, p99 1.4ms, simulation 0.2ms, Canvas command issuance 0.61ms. No JavaScript errors or long tasks. A 5.2-second RAF interruption corresponded to recorded browser hidden/visible events. JavaScript heap samples varied about 1.5–3.8MB without an established upward trend. Combat recruits fell from 40 to 18, so this is not a sustained maximum-load fixture. GPU compositing and thermals are not measured; another phone's lag/heat remains unexplained.
 
 The fixture is a first state-hydration prototype, not persistent save/load. The README was consolidated because it mixed current rules, obsolete future specs, retired CI instructions and repeated unverified-status caveats. Preserve the detailed historical notes below as archive only.
 
@@ -416,7 +418,7 @@ Ant chopping faces the claimed tree and draws an overlapping axe from a forward-
 
 **Development logging:** After implementing a feature, update this README only if current behavior, invariants, or next steps change. Append the development record to [CHRONICLE.md](./CHRONICLE.md).
 
-**Working cadence:** Play → notice → invent → ship → verify → play again. Favor surgical, composable changes that preserve established behavior. When the user says **➡️**, continue from this frontier without asking them to restate context.
+**Working cadence:** Play → notice → invent → ship → verify → play again. Favor surgical, composable changes that preserve established behavior. When the human says **➡️**, continue from this frontier without asking them to restate context.
 
 ---
 
@@ -498,7 +500,7 @@ Runtime Eyes IV (`53416919`): 👁 is a two-step real-game diagnostic. First tap
 
 ### Performance optimization begins — 18 October 2026
 
-Oli's phone demonstrably struggled and heated during gameplay. Fast CPU-side measurements on a different Android phone do not disprove that problem. Performance work must preserve every gameplay mechanic, population, entity interaction, visual animation and future gameplay capacity. First reversible candidate committed as `f3ad7496`: cache the three static crop emoji glyphs into small raster canvases, then draw the cached images with the existing per-plant rotation and transform. This removes repeated font glyph rasterization requests from the crop loop; crop counts, simulation, stages, sway and collisions remain unchanged. Visual equivalence, Pages execution, device performance and Oli-phone improvement are **not yet verified**. Inspect at zoom levels and compare live measurements; revert promptly if fidelity regresses.
+a test subject's phone demonstrably struggled and heated during gameplay. Fast CPU-side measurements on a different Android phone do not disprove that problem. Performance work must preserve every gameplay mechanic, population, entity interaction, visual animation and future gameplay capacity. First reversible candidate committed as `f3ad7496`: cache the three static crop emoji glyphs into small raster canvases, then draw the cached images with the existing per-plant rotation and transform. This removes repeated font glyph rasterization requests from the crop loop; crop counts, simulation, stages, sway and collisions remain unchanged. Visual equivalence, Pages execution, device performance and Oli-phone improvement are **not yet verified**. Inspect at zoom levels and compare live measurements; revert promptly if fidelity regresses.
 
 
 **Crop glyph-cache experiment reverted (`fe558207`, 18 October 2026).** Live Android mature-world comparison: cached version reduced Canvas `fillText` calls from roughly 197 to 115 per frame, but recent JavaScript render-command time increased from ~0.61ms to ~0.93ms and frame work from ~0.81ms to ~1.20ms. Workloads were not identical, so causality is not established; the experiment offered no measured benefit. Original `cropDraw` restored, source read-back verified. Do not extrapolate text-call reduction into speedup. Oli's lower-performing phone remains the real unresolved performance target.
@@ -515,7 +517,7 @@ First compartmentalized optimization: `6b991170` adds axis-aligned candidate rej
 
 TIFFINITY SURVIVORS is a discovery-driven, single-file mobile Canvas game whose population grows from Tiffany and a few enemies into a civilization: five land-linked drones and towers, five recruited combat divisions, ant lumberjacks, bee harvesters, crab miners, depots, crops, mountains, bones, mushrooms, particles and projectiles. These systems coexist and interact in one battlefield. The game's appeal depends on *keeping* that ecology and the playful visual density, not achieving an artificial benchmark by reducing entities or stripping effects.
 
-A practical cross-device problem motivated investigation: a mature fixture and gameplay performed comfortably on the developer's fast Galaxy S25+, while Oli reported lag and heat on a less capable phone. Excellent JavaScript timing on one phone did not settle GPU composition, thermal throttling, font rasterization, memory pressure, battery, or weaker-device behavior. The aim was to find evidence before changing the game's character. This was a diagnostic expedition, not a mandate to optimize every subsystem.
+A practical cross-device problem motivated investigation: a mature fixture and gameplay performed comfortably on the human's fast Galaxy S25+, while a test subject reported lag and heat on a less capable phone. Excellent JavaScript timing on one phone did not settle GPU composition, thermal throttling, font rasterization, memory pressure, battery, or weaker-device behavior. The aim was to find evidence before changing the game's character. This was a diagnostic expedition, not a mandate to optimize every subsystem.
 
 ### What we built to see the problem
 
@@ -523,7 +525,7 @@ Runtime Eyes evolved in stages. Its original JSON report measured frame, simulat
 
 The useful leap was the two-tap real-world fixture (source milestone `53416919`): the first 👁 tap **replaces the current unsaved run**, constructing a populated state with five drones, five towers, five armies, their recruited units, workers, crops, mountains, remains, and dozens of enemies. It then clears the measurement history. The second and later taps copy live JSON. This demonstrated that the game can hydrate much of its existing state from ordinary objects; it did **not** implement saving, persistence or a general serialized restore format. It also meant the eye was deliberately destructive on first tap, so it must never masquerade as a harmless gameplay control.
 
-Measurements on the faster Android device showed comparatively small CPU-side simulation and rendering-command costs, and revealed that long-running ecology/remains could raise drawing work. But workloads change dynamically as units die, enemies spawn and decay, workers deliver resources and plants transform. Comparing reports taken from different populations is not a controlled experiment. The instrumentation itself alters timing: `performance.now()` calls, array sampling, JSON report aggregation, method wrappers, periodic snapshots and observation callbacks are real work. The reports cannot prove absence of a GPU bottleneck or validate behavior on Oli's phone.
+Measurements on the faster Android device showed comparatively small CPU-side simulation and rendering-command costs, and revealed that long-running ecology/remains could raise drawing work. But workloads change dynamically as units die, enemies spawn and decay, workers deliver resources and plants transform. Comparing reports taken from different populations is not a controlled experiment. The instrumentation itself alters timing: `performance.now()` calls, array sampling, JSON report aggregation, method wrappers, periodic snapshots and observation callbacks are real work. The reports cannot prove absence of a GPU bottleneck or validate behavior on a test subject's phone.
 
 ### What optimization taught us
 
@@ -557,4 +559,4 @@ Therefore: **Runtime Eyes OFF; speculative optimization deferred; emoji retained
 
 The single-switch implementation and its subsequent OFF setting were committed and read back from GitHub; documentation changes were also committed. This record does **not** assert that the OFF build has been executed in a live browser, that Pages has deployed it, that the weaker phone has improved, that frame rates are identical, or that GPU/thermal behavior is known. Those require actual device/browser observation. Preserve the distinction among GitHub source, deployed Pages artifact and executing browser build. No game behavior, ecology cap, enemy population, art or mechanics were intentionally changed as part of the switch-off decision.
 
-The lasting engineering principle is simple: **an optimization must be removable without changing gameplay semantics, and a diagnostic must be operable without becoming part of the developer's everyday mental workload.** The game is the experiment; instrumentation is a tool we pick up only when needed.
+The lasting engineering principle for the human and the model is simple: **an optimization must be removable without changing gameplay semantics, and a diagnostic must be operable without becoming part of the developer's everyday mental workload.** The game is the experiment; instrumentation is a tool we pick up only when needed.
