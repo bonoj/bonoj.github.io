@@ -146,3 +146,7 @@ Source commit `e40e74f8`. Cherubs (Plains army, existing 24s lifetime) now pursu
 
 Source commit `3a8c8e98`: Cherubs are combat-only again. Removed their experimental watering, crop claiming, harvesting, carrying, delivery, and sickle-chop behavior and effects. Restored original ranged beam and nearby splash damage, enemy pursuit, 24-second lifetime, and 1.7-second cooldown. Prior agriculture notes above are historical, not current behavior. No other ecology rules changed. GitHub source readback verified; live Pages execution not independently verified.
 
+
+### Ant lumberjacks — 2026-10-17
+
+Source commit `6dbda05b`: Arborist purchase creates a hut and three autonomous ants. They claim mature Forest trees, approach, chop for two seconds with animated axes, remove harvested trees, carry logs back, and increment an internal delivery counter. Ants and tools are drawn large without additional UI. Recenter and reset are handled. Regression source added in `475816db`. GitHub source committed; Actions/browser execution and visual legibility have not yet been independently verified.
