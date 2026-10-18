@@ -76,12 +76,11 @@ function mothUpdate(dt){
  const g=workerGroups.moth;if(!g)return;
  if(!g.alive){g.respawn-=dt;if(g.respawn<=0){const t=towers.find(t=>t.i===1&&t.alive!==false)||towers.find(t=>t.i===3&&t.alive!==false),site=t&&buildingSite(t,g);if(site){g.depot=site;g.alive=true;g.workerClock=0}}return}
  g.workerClock-=dt;if(g.workers.length<3&&g.workerClock<=0){spawnMoth(g);g.workerClock=1.5}
- const fireTower=towers.find(t=>t.i===3&&t.alive!==false);
- const eligibleVolcano=p=>mountains.includes(p)&&p.stage===0&&!rainCovered(p.x,p.y)&&(!fireTower||Math.hypot(p.x-fireTower.x,p.y-fireTower.y)>=Math.min(w,h)*.12);
+ const eligibleVolcano=p=>mountains.includes(p)&&p.stage===0&&!rainCovered(p.x,p.y);
  const eligibleSprout=p=>crops.includes(p)&&p.stage==='sprout'&&!p.growAt&&!rainCovered(p.x,p.y);
  for(const a of g.workers){
   a.phase+=dt*12;
-  if(a.cloud&&a.cloud.life<=0)a.cloud=null;
+  if(a.cloud&&!rainClouds.includes(a.cloud))a.cloud=null;
   if(a.cloud){if(a.target?.rainClaim===a)a.target.rainClaim=null;a.target=null;moveWorker(a,g.depot.x,g.depot.y,145,dt,16);continue}
   if(a.target&&!(mountains.includes(a.target)?eligibleVolcano(a.target):eligibleSprout(a.target))){if(a.target.rainClaim===a)a.target.rainClaim=null;a.target=null}
   // Active volcanoes outrank seedlings, including when a new volcano appears en route.
