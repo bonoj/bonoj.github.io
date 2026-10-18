@@ -25,6 +25,13 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 - **Economy:** mushroom inventory and its later spending use require separate design decisions; do not silently equate mushrooms with existing herbs or invent processing recipes. The cauldron and workers unlock with the existing **Tier II 💀 Notaries upgrade**; no new shop button. Preserve existing combat and controls.
 - **Status:** implemented in `index.html` (source commit `5d67766e`). Device/browser gameplay verification is pending.
 
+## Battlefield expansion and camera — implemented in source
+
+- Existing progression remains 1× area initially, 2× after the second Tier I drone, and 4× after all five Tier I drones / towers. **After all five Tier II divisions are purchased, expand once to 8× the original battlefield area** (linear extent √8×), preserving inhabitants and structures relative to Tiffany.
+- **Pinch zoom is available from the start.** View scale ranges from **1× (closest)** to **2× (previous maximum zoom-out)**, additionally capped by the currently unlocked battlefield scale. The eightfold world is larger than the maximum visible viewport; two-finger centroid movement pans the camera within world bounds.
+- Keep the world simulation in world coordinates; convert pointer input through the camera transform, and do not mistake camera zoom for a change to ecological radii or unit speed. Two-finger gestures must not cast spells or place towers.
+- Source commits `38ee5675` and `02eba55f`; **Android touch verification pending**. No Tier III shop or drone behavior was added.
+
 ## Tier III bone collectors — proposed ecological chain (not implemented)
 
 - **Identity:** 🐀 rat, equipped 🪏 shovel, based at a 🪦 graveyard. Graveyard is the proposed worker home/building, not an existing shop icon. The existing-style **Tier III 💀 Swamp advancement** unlocks and spawns the 🪦 graveyard near a living Swamp tower, together with its 🐀 bone collectors. No separate graveyard purchase or additional shop control. Use existing depot placement, destruction and recovery machinery.
