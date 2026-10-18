@@ -27,10 +27,9 @@ One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives co
 
 ## Battlefield expansion and camera — implemented in source
 
-- Existing progression remains 1× area initially, 2× after the second Tier I drone, and 4× after all five Tier I drones / towers. **After all five Tier II divisions are purchased, expand once to 8× the original battlefield area** (linear extent √8×), preserving inhabitants and structures relative to Tiffany.
-- **Pinch zoom is available from the start.** The zoom-out ceiling tracks the **entire currently unlocked battlefield**: **1×, 2×, 4×, 8× area**, corresponding to linear camera scales **1, √2, 2, √8**. Minimum camera scale is always **1** (closest view). At maximum zoom-out the full battlefield fits the viewport; two-finger centroid movement pans when zoomed in. Touch taps trigger on release only if the gesture never became a pinch or drag.
-- Keep the world simulation in world coordinates; convert pointer input through the camera transform, and do not mistake camera zoom for a change to ecological radii or unit speed. Two-finger gestures must not cast spells or place towers.
-- Source commits `38ee5675` and `02eba55f`; **Android touch verification pending**. No Tier III shop or drone behavior was added.
+- Battlefield area grows from 1× to 2× after the second Tier I drone, 4× after all five Tier I drones/towers, and **8× after all five Tier II divisions**.
+- **Pinch zoom and finger-drag camera movement are disabled for now.** The camera automatically fits the full unlocked battlefield at each expansion stage; preserve existing tap-to-cast, command-ring and tower-placement behavior. Do not reintroduce gesture handling without a new request.
+- Source commits `6bf8a7cb`, `7aadd86b`. Physical-device verification pending.
 
 ## Tier III bone collectors — proposed ecological chain (not implemented)
 
