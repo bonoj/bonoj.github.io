@@ -159,3 +159,5 @@ The verbatim optimization plan is preserved in [CHRONICLE.md](./CHRONICLE.md#opt
 ### Runtime Eyes — temporary diagnostic instrument
 
 The top-right **👁** copies a JSON report (`tiffinity-runtime-eyes/v1`) to the clipboard. It captures build identity, device/browser context, frame and requestAnimationFrame timing (average, p50, p95, p99), simulation versus draw timing, long frames, entity populations and peaks, ecology stages, economy, periodic population/performance history, JavaScript errors, and nonfinite economy warnings. It is intentionally a temporary one-tap diagnostic with no panel or new game controls. Instrumentation itself adds a small measurement cost; compare equivalent runs. Source commit `d96bc606`. **Browser and clipboard verification pending.**
+
+Runtime Eyes II (`3ae7123e`) adds sampled ecology/worker timing, Canvas API operation counts, and animation-frame gap thresholds (>25/50/100 ms) to the existing 👁 report. These measurements have overhead, particularly Canvas method interception; treat them as diagnostic, not zero-cost production profiling. Live browser verification pending.
