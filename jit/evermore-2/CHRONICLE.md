@@ -171,3 +171,5 @@ Shared lazy idle movement: all five combat recruit divisions and three civilian 
 Swamp decomposition change (`1ef3cc8f`): wither sprouts, wheat and trees over 2–4s into mushrooms, releasing claims; bones now decay to mushrooms in 25–30s.
 
 `cdbddfea`: deterministic permanent building placement, collision clearances for 🛖 🍯 🐚, expanding ring + grid fallback, no tower-following or overlapping fallback.
+
+`d845c3c0`: discovery-driven HUD implemented, hidden counters until first earned, fixed-height two-row progression, WAVE removed.
