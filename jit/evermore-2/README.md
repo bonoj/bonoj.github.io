@@ -27,7 +27,7 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 **Repository and execution:** `bonoj/bonoj.github.io`, branch `master`, game at `jit/evermore-2/index.html`; public URL [bonoj.github.io/jit/evermore-2/](https://bonoj.github.io/jit/evermore-2/). The game is currently a standalone, mobile-first HTML/CSS/Canvas/JavaScript file. This README sits beside it. Keep the original `jit/evermore/` game untouched. Fetch the latest file and blob SHA before edits; commit with GitHub's content update operation, then read back the changed source. A committed source change does **not** prove Pages deployment or live browser behavior. Confirm actual behavior when browser execution is available; otherwise report that limitation plainly.
 
 **Current source state:** The active game has five lands, orbiting drones, manual spells, tower placement and autocycling, recruit divisions, battlefield vegetation, geological succession, and Swamp decomposition. **Cherubs are combat-only**: their recruitment, pursuit, attack, lifespan, and rendering code was compared directly with pre-agriculture commit `a9b23251` and found identical. The Cherub watering/harvesting/carrying/delivery experiment was fully removed. Preserve the existing ranged beam and splash damage. The upper-left SHA label is deliberately visually unobtrusive but tappable for development currency; it currently fetches the latest GitHub source SHA, **not** an independently verified executing-build SHA. The original `jit/evermore/` is untouched. 
-### Ant lumberjacks and reusable FSM (source implemented; runtime verification pending)
+### Civilian harvesting — shared FSM (source implemented; browser verification pending)
 
 Purchasing Arborists spawns a 🛖 near Tiffany, in the direction of the Forest tower, with three 🐜 ants.
 
@@ -56,7 +56,7 @@ Ant chopping faces the claimed tree and draws an overlapping axe from a forward-
 - 💧 Island tower pulses water nearby unwatered sprouts and start **one-time** random maturation timers: Plains → 🌾 wheat in **1.5–4 s**; Forest → 🌳 tree in **5–10 s**. Later pulses don't restart pending growth.
 - 🌱 and 🌾 are trampled by enemies; 🌳 is not. Trees don't block paths. All crops share a **100-entity cap**, avoid the **65-unit Tiffany exclusion radius**, and visually sway. Existing cooled mountains do not prevent plant growth; do not invent new placement exclusions.
 - 🔥 Mountain tower pulses schedule burns of 🌱🌾🌳 after **0.6–2.5 s** rather than deleting them immediately. Island and Fire effects remain spatial and independent.
-- **Logging:** three Arborist ants claim mature trees, chop, carry one log each, and deliver to their hut. Delivered wood is counted internally; wheat remains unharvested.
+- **Harvesting:** Arborists spawn three 🐜🪓 logging ants delivering 🪵 to 🛖; Cherubs spawn three flying 🐝🔱 golden harvesters delivering 🌾 to 🍯; Phoenixes spawn three scuttling 🦀⛏️ miners extracting 🧊 from 🏔️→⛰️, 🌿 from ⛰️→🗻, and 🪨 from 🗻→depleted, delivering to 🪨 depot. All three use one FSM (idle/travel/chop/carry/unload), shared claim/release, equipment rig and movement primitive. Flying is a reusable movement capability, currently visual hover/bob and increased speed; no separate pathfinding. Deliveries increment internal resource counts only, not HUD or purchasing. No new controls. User visually confirmed ant tool orientation before this refactor; new refactor not yet browser-verified.
 
 **Geology (implemented):**
 - 🔥 Mountain tower independently spawns 🌋 around every **16 s**, maximum **12 geological objects** across all stages, near the tower.
@@ -87,3 +87,8 @@ Ant chopping faces the claimed tree and draws an overlapping axe from a forward-
 ---
 
 Historical changes, rejected experiments, and build records: [Development chronicle](./CHRONICLE.md).
+
+
+### Current implementation checkpoint (2026-10-18)
+
+Shared `workerStates`, `professions`, `workerGroups`, `moveWorker` and `drawEquippedActor` now implement ant/bee/crab harvesting. Army purchase starts independent civilian groups. `resources` tracks delivered wood, wheat, ice, herbs and stone. Existing ant-facing tests should be adjusted to the generic target field; no user-facing resource strip yet. Keep ecological succession and combat recruits intact. Source commit `14dbb4ad`; tests committed separately. Browser execution and test-run green status have not been confirmed.
