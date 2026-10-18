@@ -151,6 +151,7 @@ test('three professions share FSM, fly/scuttle, harvest and deliver distinct mat
  for(const kind of ['ant','bee','crab'])expect(s.workers[kind].actors).toHaveLength(3);
  expect(s.workers.bee.actors[0].motion).toBe('fly');
  expect(s.workers.crab.actors[0].motion).toBe('scuttle');
+ expect(s.workers.crab.depot).toBeDefined();
  await page.evaluate(()=>{
    window.__test.pause();const s=window.__test.snapshot();
    window.__test.crop(0,'wheat',s.workers.bee.depot.x+54,s.workers.bee.depot.y);
