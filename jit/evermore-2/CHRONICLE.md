@@ -252,3 +252,64 @@ The little civilization acquired consequences: enemies can destroy towers, civil
 An early recovery implementation restored depots to stale original coordinates. The corrected lifecycle reruns the existing site-selection logic against the associated tower's **current** position, excluding the recovering depot from its own clearance test and waiting when no valid site exists. Source `ecc6f36b` and `7b827a39`. Placement-aware respawning was subsequently observed working in-game by the player.
 
 Drone acquisition range became a dynamic **one-AU radius within a two-AU-wide viewport**, computed as `w / (2 * arenaScale)`. Prism beam drawing and damage reach now share that cap; chain follow-up targeting respects the same maximum. Drone circular orbits were not changed. Source `60c4cff8`. Runtime verification of the new reach remains pending.
+
+## Optimization frontier — plan recorded verbatim (18 October 2026)
+
+The following is the optimization plan as proposed in the conversation, preserved without editorial rewriting. This is a *plan*, not a claim of implementation or measured improvement.
+
+## TIFFINITY SURVIVORS™ — Extreme Optimization Plan 🐉
+
+**Objective: radically reduce CPU work, allocations, and rendering overhead with zero loss of visual quality, simulation fidelity, or gameplay complexity.**
+
+Not fewer mushrooms. Not fewer enemies. Not slower workers. Not reduced frame rates.
+
+**The same living world, doing less unnecessary work.**
+
+Our guiding principle should be:
+
+> Compute when something changes. Reuse what hasn't. Never make every entity inspect the entire civilization unless it actually needs to.
+
+I'd optimize in layers, beginning with the waste we already identified.
+
+### The attack plan
+
+| Priority | Optimization | Intended result |
+|---|---|---|
+| 1 | Spatial indexing | Stop scanning every plant, enemy, and structure for local interactions |
+| 2 | Event-driven ecology | Stop repeatedly processing volcano damage and unchanged vegetation |
+| 3 | Combat targeting | Avoid redundant enemy searches without changing targeting decisions |
+| 4 | Allocation reduction | Reuse arrays and avoid repeated `filter()` allocations |
+| 5 | Canvas rendering | Reduce draw-state changes, emoji layout overhead, and redundant operations |
+| 6 | HUD updates | Only update changed counters and shop states |
+| 7 | Simulation instrumentation | Measure frame time and subsystem costs without adding visible UI |
+
+One important distinction: **zero performance loss** should mean zero degradation in gameplay or visual fidelity. The objective is substantially *better* runtime performance.
+
+## What the code inspection tells us
+
+There are two particularly promising targets.
+
+**Ecology is our biggest obvious source of wasted work.** `cropTrample()` runs inside the enemy loop and filters the crop array each time. `mountainUpdate()` repeatedly filters crops and remains around every active volcano. These are good candidates for substantial reductions in work without changing the resulting world.
+
+**Rendering is the biggest uncertainty.** Every plant uses Canvas `save()`, `translate()`, `rotate()`, emoji rendering, and `restore()` each frame. We shouldn't eliminate their gentle animation; we should investigate cheaper ways to produce the same appearance.
+
+For the extreme version, I'd introduce a lightweight spatial grid shared by vegetation, enemies, and structures. But we'd retain exact distance checks and current update ordering. A spatial grid must accelerate the existing rules, not quietly change them.
+
+### How we'll know it worked
+
+**PERFORMANCE TARGETS — NOT YET MEASURED**
+
+- Frame budget at 60 FPS: **16.7 ms**
+- Target visual fidelity: **100%**
+- Entity / population caps: **Unchanged**
+- Gameplay rule changes: **Zero**
+
+I'd compare a reproducible busy-world scenario before and after each optimization, measuring average frame time, worst-frame spikes, allocations, and entity counts. Olivia's phone then becomes our real-world validation.
+
+**One important rule:** don't blindly move simulation to a lower update frequency. That can change collisions, timing, and worker behavior. First eliminate redundant work while preserving every simulation step.
+
+We can keep this fast and playful: optimize a subsystem, check it, keep it if it works, revert if it doesn't. No architectural crusade.
+
+And we should keep save-game persistence as a separate next feature, so Olivia can return to her civilization.
+
+**The goal isn't a smaller game. It's a world that can grow dramatically larger before the phone even notices.** 🍄🐉
