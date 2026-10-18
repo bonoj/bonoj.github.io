@@ -31,11 +31,11 @@ A mobile-first, single-file HTML/CSS/Canvas survival game. Tiffany 🧛‍♀️
 
 Purchasing Arborists spawns a 🛖 near Tiffany, in the direction of the Forest tower, with three 🐜 ants.
 
-Ants idle on the ground near the hut until mature 🌳 trees are available. They walk to trees, face them, and chop with a swinging 🪓 overlapping their bodies. The axe appears only while chopping.
+Ants gently pace around the hut, staying outside Tiffany's 75-unit exclusion radius, until mature 🌳 trees are available. They walk to trees, face them, and chop with a swinging 🪓 overlapping their bodies. The axe appears only while chopping.
 
 Each ant carries one 🪵 on its back to the hut, deposits it, and repeats.
 
-Do not invent or add any UI. Make the ants, axes, and logs large enough to be clearly legible at maximum battlefield zoom-out.
+Do not invent or add any controls. Ants, axes, and logs must remain recognizable at maximum zoom-out without overwhelming Tiffany. The game occupies a single viewport without page scrolling; instructional hint rows are hidden. The HUD includes an empty, invisible second resource row for future resources.
 
 ### Current frontier — one battlefield, interacting ecologies
 
