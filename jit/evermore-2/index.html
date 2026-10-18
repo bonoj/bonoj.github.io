@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#140d23"><title>EVERMORE 2.0™ · TIFFINITY SURVIVORS</title><style>
 *{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#100b1d;color:#fff0d8;font-family:system-ui,sans-serif}body{display:flex;justify-content:center}.app{width:min(100%,520px);display:flex;flex-direction:column;height:100dvh;max-height:100dvh;overflow:hidden;background:linear-gradient(#23132e,#100b1d)}header{flex:none;padding:5px 14px 2px;text-align:center;position:relative}.build-id{position:absolute;left:7px;top:5px;font-size:12px;font-weight:600;color:#b49ab9;letter-spacing:.04em;background:none;border:0;padding:0;cursor:default;touch-action:manipulation;appearance:none;font-family:inherit}h1{font-size:clamp(19px,5vw,28px);margin:0;color:#ffdc88;letter-spacing:.05em}.runtime-eye{position:absolute;right:8px;top:3px;border:0;background:none;color:#fff;font-size:23px;padding:0 3px;cursor:pointer}header p{margin:1px 0 2px;font-size:11px;color:#d8b9dc;letter-spacing:.15em}.hud{height:65px;flex:none;position:relative;padding:3px 8px;font-size:clamp(11px,2.8vw,14px);font-weight:750;font-variant-numeric:tabular-nums;overflow:hidden}.hud-row{position:absolute;left:7px;right:7px;display:grid;align-items:center;justify-items:center;min-width:0;transition:transform .3s ease,opacity .3s ease}.hud-primary{top:18px;grid-template-columns:repeat(4,minmax(0,1fr));transform:translateY(0)}.hud-materials{top:39px;grid-template-columns:repeat(6,minmax(0,1fr));opacity:0;pointer-events:none}.hud.has-materials .hud-primary{transform:translateY(-12px)}.hud.has-materials .hud-materials{opacity:1}.hud-slot{min-width:0;max-width:100%;white-space:nowrap;font-size:inherit}.hud-slot:not(.discovered){visibility:hidden}@media(prefers-reduced-motion:reduce){.hud-row{transition:none}}.arena{position:relative;width:100%;flex:1 1 0;min-height:0;max-height:none}canvas{width:100%;height:100%;display:block;touch-action:none}.spells,.shop{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;padding:4px 9px}.shop{padding-bottom:10px}.game-button{box-sizing:border-box;min-width:0;width:100%;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;overflow:hidden;border:1px solid #72557b;border-radius:12px;background:#281c35;color:#f8eddd;padding:3px 2px;cursor:pointer;font-size:11px;line-height:1}.game-button .button-icon{display:block;flex:none;font-weight:normal;line-height:1.2}.spell .button-icon{font-size:26px}.buy .button-icon{font-size:21px}.game-button .button-price{display:block;flex:none;font-size:9px;line-height:1.2;color:#f7d7a1;white-space:nowrap}.buy{background:#231d36;border-color:#766080}.spell.active{background:#533553;border-color:#ffdd83;box-shadow:0 0 14px #f5bc7255}.buy:disabled{opacity:.55}.buy.owned{background:#294334;border-color:#8ddba0}button{font:inherit}.hint{display:none}#notice{position:absolute;top:12px;left:5%;right:5%;min-height:44px;text-align:center;pointer-events:none;color:#ffe49b;font-size:clamp(12px,3.3vw,16px);font-weight:750;line-height:1.35;text-shadow:0 2px 8px black;white-space:pre-line}
-</style></head><body><main class="app"><header><button type="button" class="build-id" id="build-id" title="Dev funds: +9999 coins, +999 gems, at least 99 of every material">local</button><h1>🧛‍♀️ TIFFINITY SURVIVORS™</h1><button id="runtime-eye" class="runtime-eye" aria-label="Copy runtime diagnostics" title="Copy runtime diagnostics">👁</button><p>EVERMORE GAMES · THERE'S ALWAYS MORE</p></header><div class="hud" id="hud"><div class="hud-row hud-primary"><span class="hud-slot discovered" id="hp">💜 5</span><span class="hud-slot" id="kills"></span><span class="hud-slot" id="money"></span><span class="hud-slot" id="gems"></span></div><div class="hud-row hud-materials"><span class="hud-slot" id="wheat"></span><span class="hud-slot" id="wood"></span><span class="hud-slot" id="ice"></span><span class="hud-slot" id="herbs"></span><span class="hud-slot" id="stone"></span><span class="hud-slot" id="mushrooms"></span><span class="hud-slot" id="bones"></span><span class="hud-slot" id="worms"></span></div></div><div class="arena"><canvas id="game" aria-label="Stationary Tiffany survival game"></canvas><div id="notice"></div></div><div class="hint"><span id="spellHint">CHOOSE A LAND · TAP TIFFANY TO CAST</span></div><div class="spells" id="spells"><button class="game-button spell active" data-n="0" aria-label="Plains"><span class="button-icon" aria-hidden="true">☀️</span></button><button class="game-button spell" data-n="1" aria-label="Island"><span class="button-icon" aria-hidden="true">💧</span></button><button class="game-button spell" data-n="2" aria-label="Swamp"><span class="button-icon" aria-hidden="true">💀</span></button><button class="game-button spell" data-n="3" aria-label="Mountain"><span class="button-icon" aria-hidden="true">🔥</span></button><button class="game-button spell" data-n="4" aria-label="Forest"><span class="button-icon" aria-hidden="true">🌳</span></button></div><div class="hint">DRONE DIVISION · UPGRADE A LAND TO AUTOPILOT</div><div class="shop" id="shop"><button class="game-button buy" data-n="0" aria-label="Prism"><span class="button-icon" aria-hidden="true">☀️</span><small class="button-price">🪙 20</small></button><button class="game-button buy" data-n="1" aria-label="Chain"><span class="button-icon" aria-hidden="true">💧</span><small class="button-price">🪙 30</small></button><button class="game-button buy" data-n="2" aria-label="Leech"><span class="button-icon" aria-hidden="true">💀</span><small class="button-price">🪙 45 · 💎 1</small></button><button class="game-button buy" data-n="3" aria-label="Rocket"><span class="button-icon" aria-hidden="true">🔥</span><small class="button-price">🪙 60 · 💎 1</small></button><button class="game-button buy" data-n="4" aria-label="Vines"><span class="button-icon" aria-hidden="true">🌳</span><small class="button-price">🪙 75 · 💎 2</small></button></div></main><script>
+</style></head><body><main class="app"><header><button type="button" class="build-id" id="build-id" title="Dev funds: +9999 coins, +999 gems, at least 99 of every material">local</button><h1>🧛‍♀️ TIFFINITY SURVIVORS™</h1><button id="runtime-eye" class="runtime-eye" aria-label="Copy runtime diagnostics" title="Copy runtime diagnostics">👁</button><p>EVERMORE GAMES · THERE'S ALWAYS MORE</p></header><div class="hud" id="hud"><div class="hud-row hud-primary"><span class="hud-slot discovered" id="hp">💜 5</span><span class="hud-slot" id="kills"></span><span class="hud-slot" id="money"></span><span class="hud-slot" id="gems"></span></div><div class="hud-row hud-materials"><span class="hud-slot" id="wheat"></span><span class="hud-slot" id="wood"></span><span class="hud-slot" id="ice"></span><span class="hud-slot" id="herbs"></span><span class="hud-slot" id="stone"></span><span class="hud-slot" id="mushrooms"></span><span class="hud-slot" id="bones"></span><span class="hud-slot" id="worms"></span><span class="hud-slot" id="rats"></span></div></div><div class="arena"><canvas id="game" aria-label="Stationary Tiffany survival game"></canvas><div id="notice"></div></div><div class="hint"><span id="spellHint">CHOOSE A LAND · TAP TIFFANY TO CAST</span></div><div class="spells" id="spells"><button class="game-button spell active" data-n="0" aria-label="Plains"><span class="button-icon" aria-hidden="true">☀️</span></button><button class="game-button spell" data-n="1" aria-label="Island"><span class="button-icon" aria-hidden="true">💧</span></button><button class="game-button spell" data-n="2" aria-label="Swamp"><span class="button-icon" aria-hidden="true">💀</span></button><button class="game-button spell" data-n="3" aria-label="Mountain"><span class="button-icon" aria-hidden="true">🔥</span></button><button class="game-button spell" data-n="4" aria-label="Forest"><span class="button-icon" aria-hidden="true">🌳</span></button></div><div class="hint">DRONE DIVISION · UPGRADE A LAND TO AUTOPILOT</div><div class="shop" id="shop"><button class="game-button buy" data-n="0" aria-label="Prism"><span class="button-icon" aria-hidden="true">☀️</span><small class="button-price">🪙 20</small></button><button class="game-button buy" data-n="1" aria-label="Chain"><span class="button-icon" aria-hidden="true">💧</span><small class="button-price">🪙 30</small></button><button class="game-button buy" data-n="2" aria-label="Leech"><span class="button-icon" aria-hidden="true">💀</span><small class="button-price">🪙 45 · 💎 1</small></button><button class="game-button buy" data-n="3" aria-label="Rocket"><span class="button-icon" aria-hidden="true">🔥</span><small class="button-price">🪙 60 · 💎 1</small></button><button class="game-button buy" data-n="4" aria-label="Vines"><span class="button-icon" aria-hidden="true">🌳</span><small class="button-price">🪙 75 · 💎 2</small></button></div></main><script>
 (()=>{'use strict';const c=document.querySelector('#game'),ctx=c.getContext('2d'),arena=c.parentElement,colors=['#ffe1a0','#79caff','#c08beb','#ff8457','#87d78b'],names=['PLAIN OF JUDGMENT','ISLAND OF REPOSSESSION','SWAMP OF COMPLIANCE','MOUNTAIN OF HOSTILE ACQUISITION','FOREST OF COMPOUND INTEREST'];let w=400,h=450,cx=200,cy=225,arenaScale=1,viewScale=1,cameraX=200,cameraY=225,selected=0,castSpell=0,rotationClock=0,commandRing=false,towers=[],enemies=[],fx=[],rings=[],zones=[],drones=[],shots=[],coins=0,gems=0,hp=5,kills=0,elapsed=0,spawnClock=0,last=0,lastCast=-10000,invuln=0,over=false,noticeTime=0;const costs=[[20,0],[30,0],[45,1],[60,1],[75,2]],armyCosts=[[120,2],[140,2],[100,3],[150,3],[160,3]],armyNames=['Cherubs','Auditors','Notaries','Phoenixes','Arborists'],armyIcons=['👼','🪼','👻','🐦‍🔥','🦌'],tier3Costs=[['wheat',250,10],['ice',250,10],['stone',250,10],['bones',250,10],['wood',250,10]];let tier3=[],armies=[],units=[];let remains=[];let fireIdols=[],fireScorpions=[],looseStone=[];
 // World Observer: non-destructive ecology telemetry; one switch, no Canvas interception.
 const WORLD_OBSERVER_ENABLED=true;
@@ -12,7 +12,7 @@ function observeCensus(){
  const stages=a=>a.reduce((o,p)=>(o[p.stage]=(o[p.stage]||0)+1,o),{});
  const labor={};
  for(const g of groups){if(!g.alive)continue;labor[g.kind]={idle:0,travel:0,chop:0,carry:0,unload:0};for(const a of g.workers){const k=a.fsm?.state||'idle';labor[g.kind][k]=(labor[g.kind][k]||0)+1}}
- return {seconds:Math.round(elapsed/1000),species,habitats:{crops:stages(crops),remains:stages(remains),mountains:stages(mountains),clouds:rainClouds.length,fireIdols:fireIdols.length,fireScorpions:fireScorpions.map(a=>a.rocks),looseStone:looseStone.length},labor,inventory:{...resources},world:{enemies:enemies.length,combatUnits:units.length,aliveTowers:towers.filter(t=>t.alive!==false).length,aliveDepots:groups.filter(g=>g.alive).length,areaScale:arenaScale}}
+ return {seconds:Math.round(elapsed/1000),species,habitats:{crops:stages(crops),remains:stages(remains),mountains:stages(mountains),clouds:rainClouds.length,fireIdols:fireIdols.length,fireScorpions:fireScorpions.map(a=>({stone:a.rocks,meals:{...a.meals},objective:a.rocks===3?"rat":Object.keys(a.meals).filter(k=>!a.meals[k]),target:a.target?.kind||a.target?.stage||null})),looseStone:looseStone.length},labor,inventory:{...resources},world:{enemies:enemies.length,combatUnits:units.length,aliveTowers:towers.filter(t=>t.alive!==false).length,aliveDepots:groups.filter(g=>g.alive).length,areaScale:arenaScale}}
 }
 function observeSample(){if(!WORLD_OBSERVER_ENABLED||elapsed/1000-observer.lastSample<5)return;observer.lastSample=elapsed/1000;observer.history.push(observeCensus());if(observer.history.length>120)observer.history.shift()}
 function observeReport(){observeSample();return {schema:'tiffinity-world-observer/v1',build:document.querySelector('#build-id').textContent,capturedAt:new Date().toISOString(),events:{...observer.events},current:observeCensus(),history:observer.history.slice(),errors:observer.errors.slice(-10)}}
@@ -39,7 +39,7 @@ function mountainDraw(){ctx.textAlign='center';ctx.textBaseline='middle';ctx.fon
  // Fire Tier III: one autonomous scorpion per idol; three meals turn a scorpion into a new idol.
  // Stone is physical armor/cargo. Crabs and their geological targets remain unchanged.
  function spawnFireScorpion(idol){
-  const a={idol,x:idol.x+rand(-12,12),y:idol.y+rand(-12,12),rocks:0,target:null,phase:rand(0,7),facing:1,wander:null,attackCooldown:0};
+  const a={idol,x:idol.x+rand(-12,12),y:idol.y+rand(-12,12),rocks:0,meals:{mushroom:false,bones:false,worm:false},target:null,phase:rand(0,7),facing:1,wander:null,attackCooldown:0};
   idol.scorpion=a;fireScorpions.push(a);observeEvent('fireScorpionSpawn');return a;
  }
  function createFireIdol(x,y){
@@ -68,49 +68,39 @@ function mountainDraw(){ctx.textAlign='center';ctx.textBaseline='middle';ctx.fon
    const foe=enemies.find(e=>!e.dead&&Math.hypot(e.x-a.x,e.y-a.y)<17);
    if(foe&&a.attackCooldown<=0){
     a.attackCooldown=.8;hit(foe,1,colors[3]);observeEvent('fireScorpionSting');
-    if(a.rocks>0){a.rocks--;looseStone.push({x:a.x,y:a.y});observeEvent('fireScorpionArmorLost')}
+    if(a.rocks>0){const key=Object.keys(a.meals).reverse().find(k=>a.meals[k]);if(key)a.meals[key]=false;a.rocks--;if(a.target?.workerClaim===a)a.target.workerClaim=null;a.target=null;looseStone.push({x:a.x,y:a.y});observeEvent('fireScorpionArmorLost')}
     else {fireScorpionDie(a);continue}
    }
-   if(a.target){
-    const p=a.target;
-    const valid=p.kind==='worm'
-     ?workerGroups.worm?.alive&&workerGroups.worm.workers.includes(p)&&p.workerClaim===a
-     :remains.includes(p)&&!p.burnAt&&p.workerClaim===a;
-    if(!valid){if(p.workerClaim===a)p.workerClaim=null;a.target=null}
-   }
+
+   const wantsRat=a.rocks===3;
+   const eligible=p=>wantsRat?p.kind==='rat':p.kind==='worm'?!a.meals.worm:p.stage==='bones'?!a.meals.bones:p.stage==='mushroom'?!a.meals.mushroom:false;
+   const liveWorker=p=>{const g=workerGroups[p.kind];return g?.alive&&g.workers.includes(p)};
+   if(a.target){const p=a.target;const valid=eligible(p)&&p.workerClaim===a&&(p.kind==='worm'||p.kind==='rat'?liveWorker(p):remains.includes(p)&&!p.burnAt);if(!valid){if(p.workerClaim===a)p.workerClaim=null;a.target=null}}
    if(!a.target){
     let best=null,dist=Infinity;
-    for(const p of remains){
-     if(p.burnAt||p.workerClaim||(p.stage!=='bones'&&p.stage!=='mushroom'))continue;
-     const d=Math.hypot(p.x-a.x,p.y-a.y);
-     if(d<dist){dist=d;best=p}
-    }
-    const worms=workerGroups.worm;
-    if(worms?.alive)for(const p of worms.workers){
-     if(p.workerClaim)continue;
-     const d=Math.hypot(p.x-a.x,p.y-a.y);
-     if(d<dist){dist=d;best=p}
-    }
+    if(!wantsRat)for(const p of remains){if(p.burnAt||p.workerClaim||!eligible(p))continue;const d=Math.hypot(p.x-a.x,p.y-a.y);if(d<dist){dist=d;best=p}}
+    for(const kind of (wantsRat?['rat']:['worm'])){const g=workerGroups[kind];if(!g?.alive)continue;for(const p of g.workers){if(p.workerClaim||!eligible(p))continue;const d=Math.hypot(p.x-a.x,p.y-a.y);if(d<dist){dist=d;best=p}}}
     if(best){a.target=best;best.workerClaim=a}
    }
    if(a.target){
     const p=a.target;faceActor(a,p.x);
     if(moveWorker(a,p.x,p.y,46,dt,14)){
-     if(p.kind==='worm'){
-      const g=workerGroups.worm;
-      if(g?.workers.includes(p)){releaseClaim(p);g.workers.splice(g.workers.indexOf(p),1);if(g.extraWorms>0)g.extraWorms--}
-     }else{const i=remains.indexOf(p);if(i>=0)remains.splice(i,1)}
+     const ingredient=p.kind==='worm'?'worm':p.kind==='rat'?'rat':p.stage;
+     if(p.kind==='worm'||p.kind==='rat'){const g=workerGroups[p.kind];if(g?.workers.includes(p)){releaseClaim(p);g.workers.splice(g.workers.indexOf(p),1);if(p.kind==='worm'&&g.extraWorms>0)g.extraWorms--}}
+     else{const i=remains.indexOf(p);if(i>=0)remains.splice(i,1)}
      if(p.workerClaim===a)p.workerClaim=null;a.target=null;
-     a.rocks++;observeEvent('fireScorpionMeals');burst(a.x,a.y,colors[3],5);
-     if(a.rocks>=3){
-      const x=a.x,y=a.y,parent=a.idol;
-      fireScorpions.splice(fireScorpions.indexOf(a),1);
+     if(ingredient==='rat'){
+      resources.rats++;discover('rats',resources.rats);observeEvent('fireScorpionRatConsumed');hud();
+      const x=a.x,y=a.y,parent=a.idol;fireScorpions.splice(fireScorpions.indexOf(a),1);
       if(parent?.scorpion===a)parent.scorpion=null;
       createFireIdol(x,y);if(parent&&fireIdols.includes(parent))spawnFireScorpion(parent);
       observeEvent('fireScorpionMetamorphosis');
-     }
+     }else{a.meals[ingredient]=true;a.rocks++;observeEvent('fireScorpionMeals');observeEvent('fireScorpionMeal.'+ingredient);burst(a.x,a.y,colors[3],5)}
     }
-   }else lazyWander(a,a.idol||{x:cx,y:cy},dt,24,95);
+   }else{
+    const nearest=fireIdols.reduce((best,idol)=>!best||Math.hypot(idol.x-a.x,idol.y-a.y)<Math.hypot(best.x-a.x,best.y-a.y)?idol:best,null);
+    lazyWander(a,nearest||{x:cx,y:cy},dt,24,35);
+   }
   }
  }
  function fireScorpionDraw(){
@@ -133,7 +123,7 @@ function cropDraw(t){ctx.textAlign='center';ctx.textBaseline='middle';for(const 
 // Small reusable FSM kernel: explicit transitions, enter/exit hooks, state timeouts and recovery.
 function makeFSM(def,initial,owner){const m={state:initial,time:0,transition(next){if(!def[next])throw Error('Unknown state '+next);if(next===this.state)return;const previous=this.state;def[previous].exit?.(owner,next);this.state=next;this.time=0;def[next].enter?.(owner,previous)},tick(dt){if(!Number.isFinite(dt)||dt<=0)return;this.time+=dt;def[this.state].update?.(owner,this,dt)}};def[initial].enter?.(owner,null);return m}
 // Civilian professions share one FSM, claim protocol, and movement capability.
-const resources={wood:0,wheat:0,ice:0,herbs:0,stone:0,mushrooms:0,bones:0,worms:0};const discovered=new Set();const materialNames=['wheat','wood','ice','herbs','stone','mushrooms','bones','worms'];const materialIcons={wheat:'🌾',wood:'🪵',ice:'🧊',herbs:'🌿',stone:'🪨',mushrooms:'🍄',bones:'🦴',worms:'🪱'};
+const resources={wood:0,wheat:0,ice:0,herbs:0,stone:0,mushrooms:0,bones:0,worms:0,rats:0};const discovered=new Set();const materialNames=['wheat','wood','ice','herbs','stone','mushrooms','bones','worms','rats'];const materialIcons={wheat:'🌾',wood:'🪵',ice:'🧊',herbs:'🌿',stone:'🪨',mushrooms:'🍄',bones:'🦴',worms:'🪱',rats:'🐀'};
 // One resource glyph and world-unit size for both loose materials and carried cargo.
 const materialSize={wheat:24,wood:25,ice:25,herbs:25,stone:25,mushrooms:19,bones:12,worms:19};function discover(key,value){if(value>0)discovered.add(key)}function renderResourceHUD(){const entries=[['hp','💜',hp],['kills','☠️',kills],['money','🪙',coins],['gems','💎',gems],...materialNames.map(k=>[k,materialIcons[k],resources[k]])];for(const [key,icon,value] of entries){const el=document.getElementById(key),shown=key==='hp'||discovered.has(key);el.classList.toggle('discovered',shown);el.textContent=shown?icon+' '+value:''}document.getElementById('hud').classList.toggle('has-materials',materialNames.some(k=>discovered.has(k)))}
 const professions={
