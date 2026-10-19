@@ -3,7 +3,7 @@
    Fixed action grammar, local observations only, strict output validation.
    Learned softmax classifier; synthetic supervision is a bootstrap, NOT emergent curiosity. */
 export const ACTIONS=["ROAM","LOOK","APPROACH","FOLLOW","WAIT"];
-export const FEATURES=["bias","visible","worker","carrying","depot","tower","creep","near","memory","change","risk","goal"];
+export const FEATURES=["bias","visible","worker","carrying","depot","tower","creep","near","memory","change","risk","goal","idleWorkers","carryingShare","goalAge","recentFailure"];
 const clamp=x=>Math.max(0,Math.min(1,Number.isFinite(x)?x:0));
 export function encodeObservation(o={}){
   const v=Array.isArray(o.visible)?o.visible:[];
@@ -16,7 +16,10 @@ export function encodeObservation(o={}){
     clamp(count(x=>x.kind==="tower")/3),
     clamp(count(x=>["creep","enemy","fire-scorpion"].some(k=>String(x.kind||"").includes(k)))/3),
     clamp(nearby.length/5),clamp((o.landmarks||[]).length/10),
-    clamp((o.events||[]).length/5),clamp(o.risk||0),o.goal?1:0]);
+    clamp((o.events||[]).length/5),clamp(o.risk||0),o.goal?1:0,
+    clamp(workers.filter(x=>!x.carrying).length/8),
+    workers.length?workers.filter(x=>x.carrying).length/workers.length:0,
+    clamp((o.goal?.age||0)/90),clamp((o.outcomes||[]).filter(x=>x.status==="stale"||x.status==="unreachable").length/4)]);
 }
 export class MicroPolicy {
   constructor(seed=741){
