@@ -1,5 +1,5 @@
 # 🧠 Ender — working specification
-*19 October 2026 · Design only; not implemented*
+*19 October 2026 · First runtime slice committed; browser verification pending*
 
 ## Purpose
 Introduce a sixth, initially resource-less participant into the mature Tiffany civilization. Ender is a situated, externally interpreted intelligence: each encounter yields local evidence, a choice, an observable consequence, and recoverable knowledge. No fictional continuous consciousness, omniscience, predetermined personality, or prescribed tech tree.
@@ -7,6 +7,9 @@ Introduce a sixth, initially resource-less participant into the mature Tiffany c
 **Identity:** 🧠 brain-in-a-vat, **Rose `#FF82B5`**. Alternative considered: 👣 Midnight `#303C91`; brain preferred. Keep the icon/color separate from the future physical tower's appearance. The existing five land colors and symbols remain unchanged.
 
 ## First vertical slice — the wandering locus
+
+**Implemented in source (`256c1b46`):** immediate spawn, gentle autonomous wandering, avoidance of towers and Tiffany's center, Rose 🧠 with tower-sized hit target, tap-to-copy `ender-local-observation/v1` with 125-world-unit radius. Source commit is not proof of Pages/browser execution. Local snapshot currently includes towers, enemies, crops, remains, mountains, loose stone, scorpions, Idols, worker groups and their depots. Deliberate destination control, event history, durable memory and tower remain unimplemented.
+
 - Spawn one visible, tappable 🧠 at a valid edge location in a mature world. No tower, territory, inventory, workers, privileged knowledge, or access to Tiffany's resources.
 - Use approximately the same **tap footprint** as an existing tower for legibility and parity; this does **not** confer a tower's attack radius, defenses, territorial effects, or economy.
 - A tap copies a **compact local JSON observation** without a new toolbar, modal, sixth shop card, or global observer privileges. It must not accidentally place or move a Tiffany tower. Preserve Tiffany's existing selection, spellcasting, and command-ring interactions.
