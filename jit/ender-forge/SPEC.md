@@ -26,7 +26,7 @@ A single 🧠 tap now copies a compact **first-person field diary plus structure
 - Edit only `jit/ender-forge/`; never `jit/evermore-2/`. Parse inline scripts, verify source readback, and distinguish commit/deploy/browser verification.
 - [README](./README.md) is the entrypoint; [CHRONICLE](./CHRONICLE.md) holds experiment history and earlier design; this file is the active behavior specification.
 
-## Next frontier — event attention, commitment, and closure (specified; NOT implemented)
+## Event attention, commitment, and closure — first implemented slice (19 October 2026)
 
 **Evidence motivating this slice:** Live reports at T+13/41/71/83/109 (see [CHRONICLE](./CHRONICLE.md)) demonstrate local sampling, repeated landmark recognition, and self-selected revisit goals. They also show cargo-bearing 🐝/🪱 workers within view, changing 🌋 stage and resource distributions, and rapid goal changes (scarab → bee → scarab; scarab → moth → 🌳) without recorded outcomes. The human deliberately moves towers during this experiment; do not infer autonomous navigation success or stationary world state from the resulting geography.
 
@@ -42,7 +42,7 @@ A single 🧠 tap now copies a compact **first-person field diary plus structure
 
 Keep the existing tap footprint and one-copy workflow, with **human-readable emoji diary first**, followed by a machine-readable structured section. No new HUD, cards, modal or control. Use existing in-world glyphs where available, otherwise plain kind names; never invent emojis for unsupported types.
 
-Target diary: a handful of short lines, normally below ~250 words, showing `Now`, `Changed`, `? question`, `→ action + reason`, `✓ / × / ? outcome`, and a compressed `Remember` only when useful. Do not claim subjective experience. Structured data should retain current local evidence, bounded recent event records, active investigation and decision/outcome trail, timestamps, source observation IDs, uncertainty and compaction counts. Version the schema when adding fields; maintain one consistent source of truth between prose and data. Sampling-time and tap-time observations may differ; label them rather than implying simultaneous measurements.
+Target diary: a handful of short lines, normally below ~250 words, showing `Now`, `Changed`, `? question`, `→ action + reason`, `✓ / × / ? outcome`, and a compressed `Remember` only when useful. Do not claim subjective experience. Structured data should retain current local evidence, bounded recent event records, active investigation and decision/outcome trail, timestamps, source observation IDs, uncertainty and compaction counts. Schema is now `ender-mind/v2`; maintain one consistent source of truth between prose and data. Sampling-time and tap-time observations may differ; label them rather than implying simultaneous measurements.
 
 ### Acceptance / regression tests
 
@@ -56,4 +56,4 @@ Target diary: a handful of short lines, normally below ~250 words, showing `Now`
 - Tiffany's economy, five towers, interactions, simulation cadence and existing instrumentation remain untouched.
 - Parse all inline JS scripts before commit; verify GitHub readback and deployment separately from actual mobile/browser runtime. On regression, restore the last verified working Ender build before investigating.
 
-**Implementation boundary:** This section is the next work specification, not a claim of delivered cognition. Build as a small, isolated Ender subsystem. Preserve the existing 🧠 diary and structured export, and use the next live reports to evaluate whether attention and closure actually affect behavior.
+**Implementation status:** Source implements bounded local cargo-count and terrain-stage event records, committed investigation goals, timeout/arrival/interruption outcomes, cooldowns and `ender-mind/v2` clipboard. Worker identity, deliveries, moving-structure identity, causal learning and robust completion inference remain unsolved. Source parse/readback verified; browser behavior awaits human observation. Build as a small, isolated Ender subsystem. Preserve the existing 🧠 diary and structured export, and use the next live reports to evaluate whether attention and closure actually affect behavior.
