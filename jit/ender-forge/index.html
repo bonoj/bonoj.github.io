@@ -99,7 +99,7 @@ function enderDiary(){
  'Outcome: '+(latest.map(o=>'T+'+o.t+' '+o.status+' — '+o.note).join(' | ')||'none yet'),
  'Remember: '+(landmarks.slice(0,6).map(v=>v.glyph+' @'+v.x+','+v.y+' ×'+v.n).join('; ')||'none')];
  const data={schema:'ender-mind/v2',t,self:snap.self,radius:ENDER_SENSE,visible:snap.entities,landmarks,events:enderMind.events.slice(-8),goal:g,outcomes:enderMind.outcomes.slice(-5),decisions:enderMind.decisions.slice(-3),samples:enderMind.samples,limits:'Local evidence; aggregate workers lack stable identity; moving structures uncertain; heuristic questions and goals.'};
- return lines.join('\\n')+'\\n\\n--- DATA ---\\n'+JSON.stringify(data);
+ return lines.join("\n")+"\n\n--- DATA ---\n"+JSON.stringify(data);
 }
 let remains=[];let fireIdols=[],fireScorpions=[],looseStone=[];
 // World Observer: non-destructive ecology telemetry; one switch, no Canvas interception.
