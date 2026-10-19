@@ -18,7 +18,7 @@ function enderTag(actor,kind,t,x,y,attributes={}){
  while(enderIdentity.records.size>ENDER_IDENTITY_CAP){const oldest=enderIdentity.records.keys().next().value;enderIdentity.records.delete(oldest)}
  return id;
 }
-function enderRemembered(){return [...enderIdentity.records.values()].sort((a,b)=>b.last-a.last).map(r=>({...r,visible:Math.hypot(r.x-ender.x,r.y-ender.y)<=ENDER_SENSE&&r.last===Math.round(elapsed/1000),position:'last-witnessed'}))}
+function enderRemembered(){return [...enderIdentity.records.values()].sort((a,b)=>b.last-a.last).map(r=>({...r,position:'last-witnessed; visibility not implied'}))}
 function enderSemanticEmit(type,actor,detail={}){
  if(!ENDER_SEMANTIC_ENABLED||!actor||!Number.isFinite(actor.x)||!Number.isFinite(actor.y))return;
  if(Math.hypot(actor.x-ender.x,actor.y-ender.y)>ENDER_SENSE)return;
