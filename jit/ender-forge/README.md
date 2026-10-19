@@ -2,7 +2,7 @@
 
 **Canonical:** https://bonoj.github.io/jit/ender-forge/  
 **Source:** `jit/ender-forge/index.html`  
-**Boundary:** Never modify `jit/evermore-2/` when working on Ender Forge. Its files are the immutable source baseline, not a development target. The copied CHRONICLE.md is historical Evermore II provenance; new Ender Forge experiments must be recorded distinctly. The underlying Tiffany game mechanics remain cloned by design.
+**Boundary:** Never modify `jit/evermore-2/` when working on Ender Forge. Its files are the immutable source baseline, not a development target. CHRONICLE.md is Ender Forge's compact genesis record; the complete ancestral Evermore II history remains linked there. Record new Forge experiments in its own Chronicle. The underlying Tiffany game mechanics remain cloned by design.
 
 **Publication:** The visible 8-character identifier is the SHA-256 fingerprint of the executing main inline script when no deployment stamp has replaced `BUILD = "pending"`. It is *not* necessarily the Git commit SHA. Verify published HTML and actual browser execution separately. No external assets or browser storage are used by this cloned single-file runtime. Shared repository deployment infrastructure remains shared; source paths are isolated.
 
