@@ -71,3 +71,74 @@ export function validateIntent(intent,observation){
   }
   return {ok:true,action:intent.action};
 }
+
+/* Learned target binding: score visible candidates directly, without constructing
+   an action menu. Only local sensor indices can be selected. */
+export const TARGET_FEATURES=["bias","worker","carrying","depot","tower","creep","near","distance","sameKind","risk"];
+export function encodeTarget(entity={},observation={}){
+  const kind=String(entity.kind||""),distance=Number(entity.distance);
+  const d=Number.isFinite(distance)?Math.max(0,distance):125;
+  const visible=Array.isArray(observation.visible)?observation.visible:[];
+  return Float32Array.from([1,kind.includes("worker")?1:0,entity.carrying?1:0,
+    kind.includes("depot")?1:0,kind==="tower"?1:0,
+    kind.includes("creep")||kind.includes("scorpion")?1:0,
+    d<40?1:0,clamp(d/125),
+    clamp(visible.filter(v=>v.kind===kind).length/8),clamp(observation.risk||0)]);
+}
+export class MicroTarget {
+  constructor(seed=741){
+    this.seed=seed>>>0;this.weights=Float32Array.from(TARGET_FEATURES,()=>{
+      this.seed=(Math.imul(this.seed,1664525)+1013904223)>>>0;
+      return (this.seed/4294967296-.5)*.01;
+    });this.steps=0;
+  }
+  score(entity,observation){
+    const x=encodeTarget(entity,observation);
+    return this.weights.reduce((sum,w,i)=>sum+w*x[i],0);
+  }
+  candidates(observation,action){
+    const visible=Array.isArray(observation?.visible)?observation.visible:[];
+    return visible.map((entity,index)=>({entity,index})).filter(({entity})=>
+      action==="APPROACH"||action==="FOLLOW"&&String(entity.kind||"").includes("worker"));
+  }
+  select(observation,action){
+    const candidates=this.candidates(observation,action);
+    if(!candidates.length)return null;
+    const best=candidates.reduce((a,b)=>this.score(a.entity,observation)>=this.score(b.entity,observation)?a:b);
+    return {target:best.index,score:this.score(best.entity,observation)};
+  }
+  train(examples,{epochs=100,rate=.06}={}){
+    if(!examples?.length)throw Error("Target training examples required");
+    let lastLoss=0;
+    for(let ep=0;ep<epochs;ep++)for(const {observation,action,target} of examples){
+      const c=this.candidates(observation,action);
+      if(c.length<2||!c.some(x=>x.index===target))throw Error("Need >=2 valid candidates and valid target");
+      const logits=c.map(x=>this.score(x.entity,observation));
+      const max=Math.max(...logits),exps=logits.map(v=>Math.exp(v-max));
+      const total=exps.reduce((a,b)=>a+b,0),probs=exps.map(x=>x/total);
+      const correct=c.findIndex(x=>x.index===target);
+      lastLoss=-Math.log(Math.max(1e-12,probs[correct]));
+      const gradient=new Float32Array(TARGET_FEATURES.length);
+      c.forEach((candidate,i)=>{
+        const x=encodeTarget(candidate.entity,observation),err=probs[i]-(i===correct?1:0);
+        for(let j=0;j<gradient.length;j++)gradient[j]+=err*x[j];
+      });
+      for(let j=0;j<this.weights.length;j++)this.weights[j]-=rate*gradient[j];
+      this.steps++;
+    }
+    return {steps:this.steps,lastLoss};
+  }
+  export(){return {schema:"ender-micro-target/v1",seed:this.seed,steps:this.steps,weights:[...this.weights]}}
+  static import(d){
+    if(d?.schema!=="ender-micro-target/v1"||d.weights?.length!==TARGET_FEATURES.length||
+      d.weights.some(x=>!Number.isFinite(x)))throw Error("Invalid target checkpoint");
+    const m=new MicroTarget(d.seed);m.weights=Float32Array.from(d.weights);m.steps=d.steps;return m;
+  }
+}
+export function decideIntent(policy,targetModel,observation){
+  const choice=policy.decide(observation);
+  if(choice.action!=="APPROACH"&&choice.action!=="FOLLOW")return validateIntent(choice,observation);
+  const binding=targetModel.select(observation,choice.action);
+  if(!binding)return {ok:true,action:"LOOK",fallback:"no-eligible-target"};
+  return validateIntent({action:choice.action,target:binding.target},observation);
+}
