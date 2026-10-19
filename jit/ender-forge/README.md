@@ -17,6 +17,8 @@
 
 **Next frontier:** [SPEC.md](./SPEC.md) authorizes five scoped turns: identity → relationships → purposeful investigation → deliberation → informed embodied action. Turns 1 and 2 have source implementations and partial browser witnesses, **not complete regression acceptance**. First add the exact executing fingerprint to compact/downloaded 🧠 reports and verify it against the displayed identifier; close Turn 1/2 tests (same-kind/replacement, locality, reset, memory eviction, tagged worker→depot association). Then Turn 3: one reversible identity-specific follow-carrier investigation using existing locomotion and honest closure on matched deposit/lost contact/obstruction/danger/timeout. Turn 4: evidence-grounded alternatives and counterfactual choice; Turn 5: browser-witnessed evidence→choice→physical movement. No unearned materials, second movement engine, extra UI, Tiffany changes, or shadow steering. [Chronicle](./CHRONICLE.md) holds T+48 analysis.
 
+**Latest source change:** Commit `e4fb0286` adds the displayed executing fingerprint to the 🧠 heading and JSON export. Source readback verified; browser confirmation still needed. This is a provenance fix, **not** completion of Turn 1/2 regressions or Turn 3 agency.
+
 **Delivery discipline:** Inspect latest source and branch before changes; keep edits scoped to Forge, verify source read-back, distinguish commit from deployment and actual browser execution, and log durable experimental discoveries in the Chronicle. Do not ask the human to operate the toolchain.
 
 ---
