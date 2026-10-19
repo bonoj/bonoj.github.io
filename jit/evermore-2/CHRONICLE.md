@@ -1655,3 +1655,28 @@ The human responded:
 > I think this exchange belongs in the midterm milestone :).
 
 This addendum records that request and the recovery incident as part of the milestone itself. It is an observed workflow result, not evidence that all future failures will recover automatically.
+
+
+### Midterm addendum — reading Sanctum Conjoiner through Evermore II
+
+The human asked to reread [Sanctum's CONJOINER.md](https://github.com/bonoj/Sanctum/blob/main/CONJOINER.md) through the Evermore II development lens. The model read that document alongside the [Evermore II README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/evermore-2/README.md) and offered the following interpretation. This is a retrospective and architectural hypothesis, not a new feature specification.
+
+**1. Conjoined cognition is visible in development.** Sanctum defines Conjoiner as a conjunction of human and model in shared cognition, imagination, engineering and discovery, not a command hierarchy. The eagle nest incident is a concrete example: moving a water tower exposed a nest, its destruction and reconstruction placed it between the worm chain and alchemist, and predation on returning workers disrupted the worm economy. The human recognized the emergent trap; the model helped interpret the mechanisms. The running world contributed unforeseen consequences—an informational third participant, not a conscious one.
+
+**2. Shared language has become compressed.** Sanctum's semantic primitives have concrete referents: 🦂 → 🪨 → 🗿 → 🌋 → 🐦‍🔥 carries a complex chain of physical causation. Commands such as *Dracarys*, *Sanctum Contract* and *Chronicle* refer to established operational practices, not isolated words. This compression makes light steering possible only because meanings and contracts persist across threads.
+
+**3. Both collaborators contribute judgment.** Sanctum attributes synthesis, critique, technical judgment, proposals and implementation to the model; the human brings spatial imagination, experience, taste, systems invention and agency. Evermore II rejects the simplistic division “human designs, model codes.” The human establishes invariants, observes failures and identifies opportunities; the model diagnoses and builds, but also proposes architectural and ecological relationships such as competition between Sun and Fire for stone.
+
+**4. Surprise must be separated from defects.** Sanctum's rule is “surprise belongs in invention, never in concealed consequences or invented verification.” Fire rim cargo churn was a coordination defect; blocked placement was an engineering failure; volcano destruction followed by physically supported reconstruction was a desirable consequence. The challenge is to distinguish surprising behavior that follows world laws from failures to uphold those laws. That requires engineering evidence and human judgment.
+
+**5. The pocket laboratory is operational.** Sanctum describes conversation connected to persistent repositories, worlds, instruments, memory and recovery. The recent Chronicle write failure exercised the whole stack: normal update blocked, human invoked Sanctum, model used Git blob/tree/commit/ref recovery and verified the read-back. The limitation matters: the model did not independently retrieve the known procedure after its first failures. Durable knowledge exists, but timely retrieval remains a frontier.
+
+**6. Mutual intelligibility matters more than maximum autonomy.** The model connected Sanctum's core principle to Evermore II's locality and conservation. Omniscient agents, teleporting cargo or magical repairs might accomplish tasks faster but would obscure why things happen. Local sensing, visible carrying and physical provenance make independent behavior intelligible. Similarly, unannounced model changes would weaken collaboration even if they appeared efficient. **Intelligibility makes useful autonomy possible.**
+
+**7. A proposed architecture of discovery across scales.** The model explicitly marked this as inference beyond Sanctum's direct claims. Three scales exhibit a recurring structure: ecological (creatures, habitats, resources, local rules), engineering (human, model, runtime, observation and verification), and institutional (conversations, repositories, contracts, persistent recovery). Each benefits from independently acting components joined by legible interfaces and recoverable state. These are architectural analogies, not claims that humans, models and simulated workers are equivalent.
+
+**8. The closing line becomes an engineering requirement.** Sanctum ends: **“The machinery protects the play. The conjunction gives the play somewhere to grow.”** Through Evermore II, that means deployment recovery, cold-boot continuity, physical invariants and low-friction experimentation exist to preserve the human's ability to notice surprises and the model's ability to contribute imagination and engineering. The machinery is not the destination. It makes the next unexpected eagle nest possible.
+
+**Final thesis:** The measure of this engineering is not only what the collaborators can deliberately construct, but how much room their constructions leave for discoveries neither could have specified beforehand. Evermore II is an early concrete demonstration of the Conjoiner practice.
+
+The human's response was: **“Into the chronicle with it!”** This addendum preserves that reading alongside the preceding midterm reflections. No gameplay change is implied.
