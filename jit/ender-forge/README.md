@@ -2,18 +2,18 @@
 
 **Canonical:** https://bonoj.github.io/jit/ender-forge/  
 **Source:** `jit/ender-forge/index.html`  
-**Working docs:** [Ender specification](./ENDER.md) · [Development chronicle](./CHRONICLE.md)  
+**Working docs:** [Ender specification](./SPEC.md) · [Development chronicle](./CHRONICLE.md)  
 **Boundary:** Never modify `jit/evermore-2/` when working on Ender Forge. Its files are the immutable source baseline, not a development target. CHRONICLE.md is Ender Forge's compact genesis record; the complete ancestral Evermore II history remains linked there. Record new Forge experiments in its own Chronicle. The underlying Tiffany game mechanics remain cloned by design.
 
 **Publication:** The visible 8-character identifier is the SHA-256 fingerprint of the executing main inline script when no deployment stamp has replaced `BUILD = "pending"`. It is *not* necessarily the Git commit SHA. Verify published HTML and actual browser execution separately. No external assets or browser storage are used by this cloned single-file runtime. Shared repository deployment infrastructure remains shared; source paths are isolated.
 
 ## Cold handoff — Ender frontier (19 October 2026)
 
-**Reading order:** [Sanctum Conjoiner](https://github.com/bonoj/Sanctum/blob/main/CONJOINER.md) → [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) → this README → [Ender specification](./ENDER.md) → [Forge Chronicle](./CHRONICLE.md) as needed → current [executable source](./index.html). The Chronicle holds the rationale and experiments; this README holds current constraints and the next decision. Do not treat a proposal as implemented behavior.
+**Reading order:** [Sanctum Conjoiner](https://github.com/bonoj/Sanctum/blob/main/CONJOINER.md) → [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) → this README → [Ender specification](./SPEC.md) → [Forge Chronicle](./CHRONICLE.md) as needed → current [executable source](./index.html). The Chronicle holds the rationale and experiments; this README holds current constraints and the next decision. Do not treat a proposal as implemented behavior.
 
 **Current checkpoint:** Forge is an isolated clone of Evermore II. Commit `22b62baa` introduced reversible tower selection: tap a land UI card again to deselect; tap an existing battlefield tower to select/deselect; with no land selected, an empty-field tap does not place or relocate a tower. This makes a neutral battlefield interaction possible. The human tested the interaction and accepted its current overlap tradeoff. GitHub source was read back; do not infer that Pages or the executing browser build was independently verified from that alone.
 
-**Ender frontier:** See [ENDER.md](./ENDER.md) for the active 🧠 Rose wandering-locus, local-perception and expedition-loop design. Ender is live as a wandering 🧠. Bounded local cognition, landmark revisits and a compact diary plus structured evidence are implemented; tap 🧠 to copy both. Browser verification of the new cognition build is pending. Eventual tower construction remains deferred. Record experimental evidence in the [Chronicle](./CHRONICLE.md).
+**Ender frontier:** See [SPEC.md](./SPEC.md) for the active 🧠 Rose wandering-locus, local-perception and expedition-loop design. Ender is live as a wandering 🧠. Bounded local cognition, landmark revisits and a compact diary plus structured evidence are implemented; tap 🧠 to copy both. Cognitive diary runtime was observed through T+109; the next event-attention frontier is specified but not implemented. Eventual tower construction remains deferred. Record experimental evidence in the [Chronicle](./CHRONICLE.md).
 
 **Delivery discipline:** Inspect latest source and branch before changes; keep edits scoped to Forge, verify source read-back, distinguish commit from deployment and actual browser execution, and log durable experimental discoveries in the Chronicle. Do not ask the human to operate the toolchain.
 
