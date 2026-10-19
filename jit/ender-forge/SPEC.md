@@ -1,6 +1,6 @@
 # 🧠 Ender Forge — working specification
 
-*Current runtime contract and next implementation frontier · 19 October 2026*
+*Historical implemented contracts and next specification frontier · 19 October 2026*
 
 ## Purpose
 Introduce a sixth, initially resource-less participant into the mature Tiffany civilization. Ender is a situated, externally interpreted intelligence: each encounter yields local evidence, a choice, an observable consequence, and recoverable knowledge. No fictional continuous consciousness, omniscience, predetermined personality, or prescribed tech tree.
@@ -58,7 +58,7 @@ Target diary: a handful of short lines, normally below ~250 words, showing `Now`
 
 **Implementation status:** Source implements bounded local cargo-count and terrain-stage event records, committed investigation goals, timeout/arrival/interruption outcomes, cooldowns and `ender-mind/v2` clipboard. Worker identity, deliveries, moving-structure identity, causal learning and robust completion inference remain unsolved. Source parse/readback verified; browser behavior awaits human observation. Build as a small, isolated Ender subsystem. Preserve the existing 🧠 diary and structured export, and use the next live reports to evaluate whether attention and closure actually affect behavior.
 
-## Next frontier — situated semantic behavior telemetry (specified, NOT implemented)
+## Completed observation frontier — situated semantic behavior telemetry (historical specification)
 
 **Intent.** Extend Ender's observations beyond transforms, proximity and aggregate cargo counts by allowing the *existing civilization's behavior systems* to emit factual, bounded events. Worms, bees, ants, crabs, scarabs, scorpions, beetles, and other actors should reveal what they **actually did**, not what an observer guesses from a position delta. This is an additive sensor/evidence layer, not a new AI, worker FSM, game mechanic or HUD. Preserve every preceding specification and existing behavior.
 
@@ -81,3 +81,12 @@ Target diary: a handful of short lines, normally below ~250 words, showing `Now`
 - Scope strictly to `jit/ender-forge/`. **Never modify `jit/evermore-2/`.** No new UI, tower, inventory, Ender power, scripted learning outcome, or remote model call.
 
 **Delivery plan:** one implementation pass to inspect the actual execution paths and wire a minimal shared event emitter + local subscription + tests; one verification pass to run regressions, correct integration, and record actual findings in [CHRONICLE](./CHRONICLE.md). This section is a specification until commits and runtime evidence demonstrate otherwise.
+
+
+## Current decision — specify agency before more observation (19 October 2026)
+
+Live `ender-mind/v2` reports through T+94 establish bounded local combat and economic transitions (including ant deposits and crab pickups), read-only fixed-policy counterfactuals, and honest but frequently unresolved heuristic investigations. Semantic telemetry and shadow comparison are implemented and browser-observed; this historical document's earlier implementation-status claims are superseded by this section and the Chronicle. The checked-in Node semantic harness is not known to have run in Node. The fixed 16-feature shadow treats events as count, not meaning, and does not control Ender.
+
+The human and model have **closed observation iteration as the immediate frontier**. Do not expand event vocabulary, sensor infrastructure or learned policy simply to improve telemetry. The next deliverable is a **focused specification, not code**, for one reversible situated agency experiment: e.g. Ender witnesses a carrying worker, elects to follow, and directly observes delivery or records loss of contact, timeout, danger, or unresolved outcome. First inspect the current cognition, goal and navigation implementations to define a non-conflicting authority boundary; identify when questions open/close, target identity limitations, bounded state, stop conditions, evidence standards and deterministic regression checks. Keep existing heuristic and read-only shadow distinctions explicit. Do not grant inventory, combat, harvesting, tower construction, remote information, rewards or model steering without separate design authorization. Preserve all perception, UI, Tiffany economy and `jit/evermore-2/` isolation invariants.
+
+After this specification is reviewed, a separate implementation decision can authorize the smallest behavioral slice. The long-range purpose remains an independent initially resource-less participant capable eventually of building a one-HP vulnerable tower/locus and respawning through earned material activity, without a predetermined technology tree.
