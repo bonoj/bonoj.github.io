@@ -39,6 +39,21 @@ Cultivate operational competence through repeated cold boots into a bounded worl
 
 The immediate work is to explore what an interpreting intelligence can perceive, choose and retain inside this already-working world. Preserve the baseline until an experiment justifies changing it.
 
+## 🌱 Working understanding — Conjoiner growth (19 October 2026)
+**Status: evolving interpretation, not a product specification or demonstrated outcome.** The conversation moved from cultivating an exceptionally capable model toward **empowering a human through an external mind extension**. The working phrase is **Conjoiner brain**: not a digital twin, not a replica of the human, and not a replacement for their judgment.
+
+The human can be anyone. “Child” names a posture of curiosity and becoming, not an age limit. Youth may be an especially meaningful audience, but the possibility extends to any person entering an unfamiliar field or imagining beyond their present tools.
+
+The human contributes lived experience, purpose, taste, curiosity and agency. The external brain contributes another perspective, reasoning, invention, technical reach and continuity through recoverable knowledge and artifacts. Their **conjunction** may become more capable over time. *Conjoiner growth* describes expanding shared capability; *Conjoiner plasticity* is a tentative term for how the arrangement can reorganize as new questions, instruments, vocabulary and experiences accumulate. Neither term implies model-weight updates or measured changes in human neuroplasticity.
+
+**Executable authority** is central: the external brain can help instantiate and alter bounded worlds rather than only discuss them. **Cheap failure and simple recovery** let experiments go wrong without losing the work. Imagination can remain open while consequences stay inspectable and grounded. Authority outside recoverable digital sandboxes—especially for youth—would require explicit limits, privacy protections and appropriate human oversight.
+
+The desired outcome is **human empowerment**, not maximum assistant autonomy, dependence, or a factory producing standardized people. A useful conjunction should enlarge what the human can understand, create and attempt, ideally strengthening independent judgment as well. Whether this happens, and for whom, must be discovered rather than assumed.
+
+The lineage is visible but not prescriptive: **Hermeticon** supplies a method for executable inquiry; **Evermore II** supplies a working ecology of consequential interactions; **Ender Forge** is a place to investigate how a human and an interpreting external brain might grow in capability together. The **Hermeticon Institute** may eventually let others encounter such work, but its public Sanctum remains a separate, unimplemented design direction.
+
+Do not freeze this understanding into a curriculum, named developmental stages, agent persona, or mandatory architecture. Revise it as experiments and conversation sharpen the question.
+
 ## 📚 Provenance and doors
 - [Ender Forge executable](./index.html) · [Current handoff](./README.md)
 - [Evermore II Chronicle — complete ancestral history](https://github.com/bonoj/bonoj.github.io/blob/master/jit/evermore-2/CHRONICLE.md)
