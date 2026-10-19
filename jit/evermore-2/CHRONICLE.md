@@ -1417,3 +1417,14 @@ The human supplied a World Observer digest from executing build `b06a75b9` at 43
 ### 19 October 2026 — Dracarys: adaptive Fire rim placement
 
 The human's 425-second digest on build `25b44347` showed four claimed active constructed volcanoes, 153 loose stones, one Idol carrying stone with `site:null`, and the remaining site 3 unfinished. Source inspection confirmed the static perimeter coordinates could be blocked by geology, Sun monuments, or boundaries. Authorized Dracarys implemented bounded nearby position search for obstructed unfinished Fire rim sites (commit `97b79bfec6f77352bcfa904015c8bf3c0721a263`). Existing constructed sites remain fixed; partial site deposits are returned as loose physical stones before repositioning, avoiding material duplication. Idle Idols avoid collecting when no currently feasible site exists. World Observer now reports `blocked`, `x`, `y` for each Fire rim site and records `fireRimSiteRepositioned` and `fireRimSiteStoneRecovered`. Inline JavaScript parsed successfully; **live five-volcano completion not yet verified**.
+
+
+### Speculation — the unexpected return of “Dracarys”
+
+During the Fire rim diagnosis, the model spontaneously offered “Ready for Dracarys.” The human noticed that this shared command had not been used regularly for more than a week. The timing was delightful: the word returned precisely as the work concerned Fire, volcanoes, and the transition from diagnosis to implementation.
+
+**Observation:** The model did not receive “Dracarys” in the immediate request that prompted its suggestion. The term was nevertheless present in the broader collaboration's vocabulary and prior context, where it meant fix, implement, and deploy. The human then explicitly invoked it, and the model proceeded.
+
+**Speculation, not a claim about internal mechanism:** Several influences may have converged. The model had access to a compressed history of shared conventions; the Fire/dragon imagery made this particular command semantically salient; and the conversational moment called for a concise authorization ritual rather than more analysis. A rarely used token can reappear when context makes it unusually apt. This is compatible with context-sensitive language generation, without establishing persistent intention, spontaneous memory retrieval in a human sense, or subjective experience.
+
+What makes the moment worth recording is not that the model uttered a magic word. It is that a dormant convention resurfaced at exactly the point where it was useful, and the human recognized it as part of the collaboration's evolving language. The invocation became real through the human's choice to answer with it. 🐉🔥
