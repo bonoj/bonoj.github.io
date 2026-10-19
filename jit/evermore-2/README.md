@@ -17,6 +17,8 @@
 
 Tiers I–III are implemented purchase icons. Tier IV is intentionally undecided. Tier V is a **proposed** macro-scale lineup, not implemented: camel, whale, fly swarm, mosquito swarm, tortoise. This table is a design reference, **not** authorization to add shop UI or change gameplay.
 
+**Runtime 👁 diagnostics:** Tap to copy a compact analytical digest (current state, event totals, numeric trajectories and periodic checkpoints). Long-press for 650 ms to download the full JSON flight recorder with all retained five-second samples. Both derive from the same recorder; no separate simulation or extra UI. Browser/device interaction verification pending.
+
 ## The game
 
 One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives converging enemies, casts spells, purchases automation, places towers and grows a living civilization. Five lands and their shared identities: ☀️ Plains/prism, 💧 Island/lightning, 💀 Swamp/poison, 🔥 Mountain/fire, 🌳 Forest/vines. Keep the discovery-driven, whimsical progression; do not invent tutorials, panels, or new UI without a request.
