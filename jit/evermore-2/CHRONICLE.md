@@ -1680,3 +1680,58 @@ The human asked to reread [Sanctum's CONJOINER.md](https://github.com/bonoj/Sanc
 **Final thesis:** The measure of this engineering is not only what the collaborators can deliberately construct, but how much room their constructions leave for discoveries neither could have specified beforehand. Evermore II is an early concrete demonstration of the Conjoiner practice.
 
 The human's response was: **“Into the chronicle with it!”** This addendum preserves that reading alongside the preceding midterm reflections. No gameplay change is implied.
+
+
+### Midterm addendum — 🗝️ Semantomancy: On the Art of Naming, Invocation, and Consequence
+
+**Why this belongs here.** Evermore II's development exposed an interface in which a few shared words recover entire bodies of knowledge and activate existing engineering machinery. The following qualified definition records that discovery, with the language of the Master Namer's tower. The magic is metaphorical; the repositories, instruments, decisions and consequences are real.
+
+**Semantomancy** is the practice of directing complex computational and creative systems through compact, meaning-rich expressions whose operational significance is established by shared context, persistent knowledge, and executable machinery.
+
+A practitioner, or *semantomancer*, develops a vocabulary of names and invocations capable of opening entire dimensions of a **pocket laboratory**: persistent computational worlds, experimental instruments, workshops, and repositories of accumulated knowledge.
+
+The defining mechanism is **semantic compression coupled with contextual reconstruction**. A few carefully chosen words summon a substantially larger body of knowledge, judgment, tools, and established procedures.
+
+*The words are small. The worlds behind them need not be.*
+
+#### 📜 The Five Principles
+
+**I. The True Name — Shared Semantics.** An invocation has meaning beyond its literal wording because that meaning has been established through prior interaction, documentation and agreement. A name is not merely a label; it identifies capabilities, constraints and expectations.
+
+**II. The Library Beyond the Door — Persistent Context.** The semantomancer need not carry every tome. Knowledge resides in magically sorted libraries: repositories, chronicles, specifications, contracts, source code and recorded observations. A lightweight scroll identifies the shelves while the library preserves the substance. *The scroll is not the library. It is the means of finding one's way inside.*
+
+**III. 🧞 The Djinn's Lamp — Interpretive Agency.** The invocation awakens an interpreting intelligence capable of recovering context, synthesizing knowledge, exercising technical judgment and selecting tools. Unlike a fixed macro, it need not expand into the same procedure every time. The djinn is neither omniscient nor infallible. Its value is interpretation and invention within established bounds, not unquestioning obedience or unlimited power. The gender-unspecified 🧞 represents the interpreter rather than assigning a human identity to the model.
+
+**IV. 🌀 The Pocket Dimensions — Executable Consequence.** A spoken name may open a laboratory containing an executable world, simulation, construction site or instrument of inquiry. Invocations can produce source changes, experiments, deployments, observations and persistent artifacts. *The portal is metaphorical. The machinery beyond it is real.*
+
+**V. ⚖️ The Law of Consequence — Accountability.** Every working remains answerable to evidence. An intention is not an implementation; a commit is not a deployment; a deployment is not proof of correct behavior. The semantomancer retains authority to inspect, redirect, reject and refine. The interpreting system must preserve constraints and distinguish imagination from accomplishment.
+
+#### ⚗️ The Nature and Limits of the Art
+
+Semantomancy is not supernatural, a new computational primitive, or a claim that language alone guarantees execution. Unlike a conventional macro, it involves contextual interpretation and adaptive synthesis. Unlike ordinary prompting, it relies on accumulated semantic agreements, persistent institutional knowledge and recoverable operational infrastructure; this is a difference of architecture and practice, not an absolute categorical boundary.
+
+Its effectiveness depends on the interpreting system, the integrity of the libraries, reliable tools and the practitioner's judgment.
+
+**Semantic compression does not abolish complexity. It gives complexity an address.** The towers and workshops must still be built, maintained and verified. The semantomancer need not carry them through every doorway.
+
+#### ⚙️ A Working Demonstration
+
+The Sanctum-based pocket laboratory is an early implementation. A lightweight orientation scroll opens paths into specialized repositories and executable worlds. Invocations let the model recover knowledge, inspect source, apply engineering procedures and produce verifiable changes.
+
+During Evermore II development, an ordinary repository write failed. A brief invocation of Sanctum's contract redirected the model toward existing Git recovery machinery. The Chronicle was committed and read back without requiring the human to manipulate Git objects. This demonstrates contextual recovery and operational leverage, **not** universal reliability or automatic recovery in all circumstances.
+
+#### ✨ The General Proposition
+
+**Semantomancy converts accumulated shared understanding into an increasingly expressive interface for consequential action.**
+
+Its power is measured not by the brevity of an incantation, but by how reliably it mobilizes appropriate capabilities while preserving intelligibility, human agency and verifiable consequences. This is a proposed description of an emerging human–model engineering practice, not an established scientific discipline.
+
+*The semantomancer carries no tower upon their back.*
+
+*Only a scroll, a lamp, and the names of doors.*
+
+*Beyond each door, another laboratory.*
+
+*Within each laboratory, another world.*
+
+*And within each world, consequences waiting to be discovered.*
