@@ -1,0 +1,17 @@
+import {MicroTrace} from "./mlm-trace.js";
+import {evaluateLocalOutcome} from "./mlm-outcomes.js";
+const obs=(x,seconds)=>({seconds,self:{x,y:100},entities:[]});
+const trace=new MicroTrace({capacity:2});
+const checks=[];
+checks.push(trace.begin(obs(0,1),{action:"ROAM"}).ok);
+checks.push(!trace.begin(obs(0,1),{action:"ROAM"}).ok);
+checks.push(trace.end(obs(30,4),evaluateLocalOutcome).record.outcome.status==="observed");
+checks.push(trace.begin(obs(30,4),{action:"LOOK"}).ok);
+checks.push(trace.end(obs(30,7),evaluateLocalOutcome).record.outcome.status==="unknown");
+checks.push(trace.begin(obs(30,7),{action:"ROAM"}).ok);
+checks.push(trace.end(obs(55,10),evaluateLocalOutcome).record.outcome.status==="observed");
+checks.push(trace.records.length===2&&trace.records[0].id===2);
+checks.push(trace.export().schema==="ender-micro-trace/v1");
+const result={schema:"ender-micro-trace-test/v1",passed:checks.filter(Boolean).length,total:checks.length,records:trace.records.map(x=>({id:x.id,action:x.intent.action,outcome:x.outcome.status,reward:x.outcome.reward}))};
+console.log(JSON.stringify(result,null,2));
+if(result.passed!==result.total)process.exitCode=1;
