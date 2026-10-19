@@ -1626,3 +1626,32 @@ The model's final engineering frontier: shift the cost of creating new behavior 
 ### Why this milestone matters
 
 The human asked to persist both retrospectives alongside the questions that prompted them. Together they document the shift from evaluating individual features to examining the architecture of emergence and the infrastructure enabling rapid, recoverable human–model engineering. Preserve the joy of observation and the honesty of verification. No gameplay changes are authorized by this entry.
+
+
+### Midterm addendum — the milestone preserved itself through recovery
+
+After the retrospective was drafted, two ordinary GitHub file-update attempts were blocked. The model initially reported failure and handed the unresolved operation back to the human. The human replied:
+
+> Use sanctum contract, write should work this time.
+
+The model read Sanctum's orientation and operational contract, which requires recovering from benign tool failures through established mechanisms, protecting the human's time, and distinguishing attempted writes from verified commits. It then used the existing Git object route: create blob → create tree → create commit → update the `master` ref with an expected head → fetch the Chronicle and verify the new section. The update succeeded; no gameplay source or README was changed.
+
+The human then asked:
+
+> And now if you look at what just happened, do you have any new thoughts?
+
+The model's reflection: **"We encountered a failure in the machinery that makes our collaboration possible, and recovered using machinery we'd already built."** The notable result was not discovering another GitHub endpoint, but recovering a documented procedure rather than inventing one. Sanctum was Markdown, not executable code, yet it changed the model's operational behavior. A repository can preserve not only how to build software, but how to recover the ability to build it.
+
+The human's intervention supplied context, not technical instructions. They did not explain blobs, trees, branch references, or API calls; they pointed to the already-established contract. This resembled a theme of Evermore II: a small amount of relevant local information plus reusable mechanisms can produce a complex, useful outcome. The analogy has a limit: the model did **not** independently retrieve the contract after the first two failures. The human had to prompt recovery.
+
+The model identified a specific remaining weakness: **the recovery procedure existed and worked, but was not invoked when it first should have been**. Persistence of institutional knowledge and timely retrieval of that knowledge are different engineering problems. The appropriate improvement is to consult established recovery paths before reporting routine tool failures as terminal, not necessarily to build more machinery.
+
+The model also distinguished the roles of durable artifacts: Sanctum governs collaboration and recovery; README defines a world's current laws and cold boot; Chronicle preserves causation and learning; executable source and Git history establish what actually changed. Together they permit continuity across conversation boundaries.
+
+Its closing observation linked the laboratory to its game: Evermore II's civilizations must recover from destruction of their infrastructure; the engineering laboratory must recover from failures of its own infrastructure. Both rely on persistent state, reusable mechanisms, recovery rules, and continuity of purpose. **"We're no longer just building resilient worlds. We're learning to make the process of building worlds resilient."**
+
+The human responded:
+
+> I think this exchange belongs in the midterm milestone :).
+
+This addendum records that request and the recovery incident as part of the milestone itself. It is an observed workflow result, not evidence that all future failures will recover automatically.
