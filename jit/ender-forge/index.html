@@ -37,7 +37,7 @@ function enderSemanticEmit(type,actor,detail={}){
  enderRelation(event);enderSemantic.events.push(event);if(enderSemantic.events.length>ENDER_SEMANTIC_CAP)enderSemantic.events.shift();
 }
 function enderReset(){enderRelations.records=[];enderRelations.next=1;enderIdentity.next=1;enderIdentity.records.clear();enderIdentity.actors=new WeakMap();enderSemantic.events=[];enderSemantic.seq=0;enderSemantic.observedSeq=0;enderSemantic.lastObserved=[];enderShadow.records=[];if(enderShadow.observer){enderShadow.observer.records=[];enderShadow.observer.nextId=1}enderEvidence.records=[];enderEvidence.pending=null;enderEvidence.nextId=1;enderMind.landmarks.clear();enderMind.recent=[];enderMind.decisions=[];enderMind.goal=null;enderMind.lastSample=-1;enderMind.samples=0;enderMind.totals={};enderMind.events=[];enderMind.outcomes=[];enderMind.previous=null;enderMind.cooldowns=new Map();ender={x:Math.max(45,w*.12),y:Math.max(45,h*.16),heading:Math.random()*Math.PI*2,turn:0,steps:0}}
-function enderUpdate(dt){ender.turn-=dt;if(ender.turn<=0){ender.heading+= (Math.random()-.5)*2.5;ender.turn=1+Math.random()*3}if(ENDER_COGNITION_ENABLED&&enderMind.goal&&enderMind.goal.x!==null){const g=enderMind.goal,d=Math.hypot(g.x-ender.x,g.y-ender.y);if(d>45){const desired=Math.atan2(g.y-ender.y,g.x-ender.x);ender.heading+=Math.atan2(Math.sin(desired-ender.heading),Math.cos(desired-ender.heading))*Math.min(1,dt*1.5)}else if(g.type!=='follow-carrier'){enderCloseGoal('arrived',Math.round(elapsed/1000),'Reached investigation location; outcome still uncertain');ender.turn=0}}const nx=ender.x+Math.cos(ender.heading)*19*dt,ny=ender.y+Math.sin(ender.heading)*19*dt;if(nx<35||ny<35||nx>w-35||ny>h-35||Math.hypot(nx-cx,ny-cy)<65||towers.some(t=>Math.hypot(nx-t.x,ny-t.y)<42)){ender.heading+=Math.PI*.75;ender.turn=.3;return}ender.x=nx;ender.y=ny;ender.steps+=19*dt}
+function enderUpdate(dt){ender.turn-=dt;if(ender.turn<=0){ender.heading+= (Math.random()-.5)*2.5;ender.turn=1+Math.random()*3}if(ENDER_LEGACY_PLANNER_ENABLED&&ENDER_COGNITION_ENABLED&&enderMind.goal&&enderMind.goal.x!==null){const g=enderMind.goal,d=Math.hypot(g.x-ender.x,g.y-ender.y);if(d>45){const desired=Math.atan2(g.y-ender.y,g.x-ender.x);ender.heading+=Math.atan2(Math.sin(desired-ender.heading),Math.cos(desired-ender.heading))*Math.min(1,dt*1.5)}else if(g.type!=='follow-carrier'){enderCloseGoal('arrived',Math.round(elapsed/1000),'Reached investigation location; outcome still uncertain');ender.turn=0}}const nx=ender.x+Math.cos(ender.heading)*19*dt,ny=ender.y+Math.sin(ender.heading)*19*dt;if(nx<35||ny<35||nx>w-35||ny>h-35||Math.hypot(nx-cx,ny-cy)<65||towers.some(t=>Math.hypot(nx-t.x,ny-t.y)<42)){ender.heading+=Math.PI*.75;ender.turn=.3;return}ender.x=nx;ender.y=ny;ender.steps+=19*dt}
 function enderSnapshot(){const nearby=(arr,kind,extra=()=>({}))=>arr.filter(o=>o&&Number.isFinite(o.x)&&Number.isFinite(o.y)&&Math.hypot(o.x-ender.x,o.y-ender.y)<=ENDER_SENSE).map(o=>({kind,tag:enderTag(o,kind,Math.round(elapsed/1000),o.x,o.y,extra(o)),dx:Math.round(o.x-ender.x),dy:Math.round(o.y-ender.y),distance:Math.round(Math.hypot(o.x-ender.x,o.y-ender.y)),...extra(o)}));return {schema:'ender-local-observation/v1',seconds:Math.round(elapsed/1000),self:{x:Math.round(ender.x),y:Math.round(ender.y),steps:Math.round(ender.steps)},radius:ENDER_SENSE,entities:[...nearby(towers,'tower',t=>({land:['sun','island','swamp','fire','forest'][t.i],alive:t.alive!==false})),...nearby(enemies,'creep',e=>({icon:e.icon})),...nearby(crops,'crop',o=>({stage:o.stage})),...nearby(remains,'remains',o=>({stage:o.stage})),...nearby(mountains,'mountain',o=>({stage:o.stage})),...nearby(looseStone,'stone'),...nearby(fireScorpions,'scorpion'),...nearby(fireIdols,'idol'),...Object.values(workerGroups).flatMap(g=>[...nearby(g.workers||[],g.kind+'-worker',a=>({carrying:!!a.cargo})),...(g.depot?nearby([g.depot],g.kind+'-depot'):[]),...(g.octopus?nearby([g.octopus],'octopus'):[]),...(g.eagle?nearby([g.eagle],'eagle'):[])])],limits:'Local instantaneous positions and visible state only; no remote inventory or event history'}}
 
 // Shadow cognition is observational only. No steering, learning, or remote model calls.
@@ -98,6 +98,8 @@ function enderEvidenceSample(snap){
  enderEvidence.pending={id:enderEvidence.nextId++,before:snap,intent:{action:'ROAM',source:'observed-existing-motion'}};
 }
 const ENDER_COGNITION_ENABLED=true;
+// Legacy investigation planner retired: perception and local evidence remain active.
+const ENDER_LEGACY_PLANNER_ENABLED=false;
 // One reversible gate for the purposeful pursuit experiment.
 const ENDER_PURSUIT_ENABLED=true;
 const ENDER_DELIBERATION_ENABLED=true;
@@ -177,6 +179,7 @@ function enderObserve(){
  for(const [key,until] of enderMind.cooldowns)if(t>until)enderMind.cooldowns.delete(key);
  const g=enderMind.goal;
  if(g&&g.type!=='follow-carrier'&&t-g.since>Math.max(32,Math.min(100,g.distance/12+25)))enderCloseGoal('stale',t,'No confirmed answer before investigation timeout');
+ if(!ENDER_LEGACY_PLANNER_ENABLED){enderMind.goal=null;return;}
  const candidates=[];
  if(ENDER_PURSUIT_ENABLED){
   for(const o of snap.entities){
