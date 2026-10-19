@@ -74,7 +74,9 @@ function enderObserve(){
  enderShadowSample(snap);
  const semanticNew=enderSemantic.events.filter(e=>e.seq>enderSemantic.observedSeq);
  enderSemantic.observedSeq=enderSemantic.seq;
- // Semantic events are retained as witnessed evidence, not injected into fixed-width learned features.
+ // Local semantic transitions are evidence, not rewards or learned-policy inputs.
+ for(const e of semanticNew){enderMind.events.push({t:e.t,type:'semantic-'+e.type,label:e.actor+' '+e.type+(e.resource?' '+e.resource:''),x:e.x,y:e.y,confidence:'instrumented local transition',seq:e.seq});}
+ if(enderMind.events.length>24)enderMind.events.splice(0,enderMind.events.length-24);
  const previous=enderMind.previous;
  for(const o of snap.entities){
   const glyph=enderIcon(o);counts[glyph]=(counts[glyph]||0)+1;
