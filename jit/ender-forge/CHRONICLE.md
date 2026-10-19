@@ -82,6 +82,56 @@ The existing five factions belong to Tiffany's mature ecology. The human can dev
 
 **Next-chat orientation:** read [README](./README.md), this Chronicle, and current source before designing. Preserve the working Evermore II baseline and **never edit `jit/evermore-2/`**. Discuss the first bounded Ender encounter and its observation/action/recovery contract before writing gameplay code. Keep the vision mutable: this is a possibility space to test, not doctrine.
 
+
+## 🧠 First embodiment — the wandering observer (19 October 2026)
+
+### From hypothesis to executable participant
+The sixth faction progressed from the preceding speculative frontier to a real, user-observed world object. Ender is a Rose (`#FF82B5`) 🧠, rendered with a legible tower-sized tap target, but **not** a tower. He begins at simulation second zero, near a world edge, with no inventory, workers, territory, economy, construction rights, combat, or access to Tiffany's resources. His movement is an autonomous, slow random walk (nominally 19 world units/second), with world-edge, sanctuary and tower avoidance. The human can build Tiffany's five-tower civilization while Ender continues to move. Ender does not yet deliberately navigate toward a model-selected destination.
+
+Tapping the brain copies `ender-local-observation/v1`: simulation seconds; Ender's absolute position and cumulative traveled distance (`steps`); a 125-world-unit sensory radius; and entities actually inside that radius, expressed as kinds, relative `dx/dy`, distances, and available visible attributes. The first implementation samples towers, creeps, crops, remains, mountains, loose stone, scorpions, Idols, workers and depots. This is **an instantaneous local snapshot**, not an event log, durable memory, global map, causal understanding, or autonomous LLM. There is no sixth shop button or new UI.
+
+The initial source change (`256c1b46`) introduced a fatal JavaScript syntax error in `resize()` by joining `ender.y+=dy` directly to the following `for` statement. A first attempted repair (`24225d34`) did not fix the actual failure. The subsequent repair (`45c34be7`) restored the missing semicolon; both inline scripts were then independently parsed using JavaScript compilation, and the human's next successful 🧠 observation confirmed actual browser execution. **Source parse, publication, and browser evidence remain distinct checks.** No general automated runtime test suite was established by this repair.
+
+### Method: a situated expedition, not an omniscient agent
+The human runs the world, taps 🧠 at intervals, and relays its raw local JSON to the model. The model interprets evidence, compares encounters, proposes hypotheses, and preserves findings in external records. Tiffany and her ecology continue independently; no knowledge or resources are silently transferred to Ender. A separate 👁 developer digest can describe global conditions for **the experimenters** but must never be attributed to Ender's senses.
+
+For every encounter, retain the timestamp, position, cumulative distance, exact entity kinds and relative geometry, sensory limits, and the distinction between observation and inference. A missing entity means only **not reported within this snapshot's radius**, not absent from the world. Relative offsets are measured from Ender's position at that moment; successive snapshots are not fixed-camera maps. Cumulative `steps` is path length, **not** displacement. We cannot reconstruct the path or infer what Ender passed between samples. Hypotheses about ecology, intent or causation require repeat observations and interventions, not a single suggestive arrangement.
+
+**Critical continuity distinction:** the model and Chronicle can remember all reports across turns; **Ender's running code currently cannot**. He has no encounter history, learned map, temporal recognition, purposeful action, or persistent cognition. A future bounded memory should distinguish previously witnessed evidence (with last-seen time and location) from what is visible now, without retroactively treating the following human-curated history as Ender's internal knowledge.
+
+### Encounter 1 — T+13: first contact with creeps
+Raw `ender-local-observation/v1`: self **(102, 267)**, cumulative path **247**, sensing radius **125**. Two nearby creeps:
+- 🐀: offset **(+18, −93)**, distance **94**; absolute snapshot position approximately **(120, 174)**.
+- 👹: offset **(−73, −72)**, distance **103**; absolute snapshot position approximately **(29, 195)**.
+
+No tower, crop, remains or mountain was reported inside the radius. Both creeps were northwest/north-northeast relative to Ender, but their movement, target, hostility toward Ender, and relationship to local ecology were **not observed**. The report established the first human-confirmed working 🧠 tap, bounded perception, and continuing movement.
+
+### Encounter 2 — T+52: sprouts, mushroom and Sun tower
+Raw local report: self **(213, 595)**, cumulative path **981**, radius **125**. **15 entities** were reported: one living **Sun tower** at **(+50, +79)**, distance **94**; **13 sprouts**; and one **mushroom** at **(+32, −18)**, distance **37**.
+
+The sprout offsets, in the order reported, were **(+106,+42), (−11,+124), (+12,+103), (+40,+11), (−28,+116), (+1,+58), (+16,+48), (+33,+61), (−48,+29), (+62,−9), (+79,−20), (−12,+35), (+69,+41)**. Their reported distances were **114, 125, 104, 41, 119, 58, 51, 69, 56, 63, 81, 37, 80**. No creep was reported locally.
+
+The human/model observed a materially different local neighborhood: dense sprouts and a mushroom near a Sun tower. **Association is not production or causation.** Since T+13, cumulative path increased by **734** units over **39** simulation seconds, consistent with the nominal wandering speed; straight-line displacement between sampled positions is about **346** units. No intermediate encounters are known.
+
+### Independent global context — 👁 at T+88
+The human separately supplied `tiffinity-world-digest/v1`, executing build **`6fc5ffb4`**, captured **2026-10-19T19:05:49.057Z**, with **18 history samples spanning seconds 0–85** and a current world state at **88 seconds**. This is **not Ender's local observation**.
+
+At T+88: **5 living towers**, **12 enemies**, **0 combat units**, **0 depots**, world area scale **2**; crops **65 sprouts + 2 trees**; remains **14 mushrooms + 5 bones**; **2 mountains**; zero clouds, Idols, fire scorpions and loose stone. All nine reported inventory categories (wood, wheat, ice, herbs, stone, mushrooms, bones, worms, rats) were **zero**. No labor or species population was reported; the event object was empty; `errors: []`. Checkpoints: T+0 zero towers/enemies and scale 1; T+60 five towers, five enemies and scale 2; T+85 five towers, 14 enemies and scale 2. Thus the world had substantial environmental material and all five towers but no observed labor economy in this digest. Empty event fields are not proof that no events occurred; they describe the recorder's output.
+
+### Encounter 3 — T+101: Swamp–Fire borderlands
+Raw local report: self **(239, 317)**, cumulative path **1919**, radius **125**. **Seven entities**:
+- Living **Swamp tower**: **(−24,+107)**, distance **109**, approximately **(215,424)**.
+- Living **Fire tower**: **(+83,−35)**, distance **90**, approximately **(322,282)**.
+- Three **bones**: **(−79,+20)** distance **82**; **(−44,−41)** distance **60**; **(−70,−38)** distance **80**.
+- Two **mountains**, both reported at `stage: 0`: **(+9,−90)** distance **90**; **(+28,+14)** distance **31**.
+
+No crops, mushrooms, or creeps were reported within the current radius. This contrasts with T+52's sprouts/mushroom/Sun neighborhood, suggesting spatially differentiated ecology worth investigating, **not proving** the towers generated nearby resources. From T+52 to T+101, cumulative path increased **938** units over **49** seconds; straight-line sampled-position displacement is approximately **279** units. The meandering path is unknown.
+
+### First synthesis and next experimental boundary
+Across **three local snapshots** at T+13, T+52 and T+101, the human and model have observed a wanderer traverse diverse neighborhoods: two creeps; a sprout-rich Sun area with a mushroom; and a bones-and-mountains area near Swamp and Fire. This is already a workable **human-mediated expedition**: embodied world position, bounded perception, continued autonomous motion, repeatable JSON reports, and externally preserved interpretation.
+
+The present experiment deliberately continues for a few turns **without changing gameplay**. The next design frontier, only when authorized, is **bounded temporal memory inside Ender**: encounters with first/last-seen times, locations and uncertainty; no remote sensing, no assumed persistence of entities, no privileged causal graph. Purposeful navigation, harvesting, combat and an earned fragile 1-HP tower remain separate future questions. Let the next observations challenge our hypotheses before prescribing a mind.
+
 ## 📚 Provenance and doors
 - [Ender Forge executable](./index.html) · [Current handoff](./README.md)
 - [Evermore II Chronicle — complete ancestral history](https://github.com/bonoj/bonoj.github.io/blob/master/jit/evermore-2/CHRONICLE.md)
