@@ -13,7 +13,7 @@
 
 **Current checkpoint:** Forge is an isolated clone of Evermore II. Commit `22b62baa` introduced reversible tower selection: tap a land UI card again to deselect; tap an existing battlefield tower to select/deselect; with no land selected, an empty-field tap does not place or relocate a tower. This makes a neutral battlefield interaction possible. The human tested the interaction and accepted its current overlap tradeoff. GitHub source was read back; do not infer that Pages or the executing browser build was independently verified from that alone.
 
-**Ender frontier:** See [ENDER.md](./ENDER.md) for the active 🧠 Rose wandering-locus, local-perception and expedition-loop design. No Ender runtime exists yet; eventual tower construction is deferred. Record experimental evidence in the [Chronicle](./CHRONICLE.md).
+**Ender frontier:** See [ENDER.md](./ENDER.md) for the active 🧠 Rose wandering-locus, local-perception and expedition-loop design. Ender is live as a wandering 🧠. Bounded local cognition, landmark revisits and a compact diary plus structured evidence are implemented; tap 🧠 to copy both. Browser verification of the new cognition build is pending. Eventual tower construction remains deferred. Record experimental evidence in the [Chronicle](./CHRONICLE.md).
 
 **Delivery discipline:** Inspect latest source and branch before changes; keep edits scoped to Forge, verify source read-back, distinguish commit from deployment and actual browser execution, and log durable experimental discoveries in the Chronicle. Do not ask the human to operate the toolchain.
 
