@@ -37,7 +37,7 @@ function enderSemanticEmit(type,actor,detail={}){
  enderRelation(event);enderSemantic.events.push(event);if(enderSemantic.events.length>ENDER_SEMANTIC_CAP)enderSemantic.events.shift();
 }
 function enderReset(){enderRelations.records=[];enderRelations.next=1;enderIdentity.next=1;enderIdentity.records.clear();enderIdentity.actors=new WeakMap();enderSemantic.events=[];enderSemantic.seq=0;enderSemantic.observedSeq=0;enderSemantic.lastObserved=[];enderShadow.records=[];if(enderShadow.observer){enderShadow.observer.records=[];enderShadow.observer.nextId=1}enderEvidence.records=[];enderEvidence.pending=null;enderEvidence.nextId=1;enderMind.landmarks.clear();enderMind.recent=[];enderMind.decisions=[];enderMind.goal=null;enderMind.lastSample=-1;enderMind.samples=0;enderMind.totals={};enderMind.events=[];enderMind.outcomes=[];enderMind.previous=null;enderMind.cooldowns=new Map();ender={x:Math.max(45,w*.12),y:Math.max(45,h*.16),heading:Math.random()*Math.PI*2,turn:0,steps:0}}
-function enderUpdate(dt){ender.turn-=dt;if(ender.turn<=0){ender.heading+= (Math.random()-.5)*2.5;ender.turn=1+Math.random()*3}if(ENDER_COGNITION_ENABLED&&enderMind.goal&&enderMind.goal.x!==null){const g=enderMind.goal,d=Math.hypot(g.x-ender.x,g.y-ender.y);if(d>45){const desired=Math.atan2(g.y-ender.y,g.x-ender.x);ender.heading+=Math.atan2(Math.sin(desired-ender.heading),Math.cos(desired-ender.heading))*Math.min(1,dt*1.5)}else{enderCloseGoal('arrived',Math.round(elapsed/1000),'Reached investigation location; outcome still uncertain');ender.turn=0}}const nx=ender.x+Math.cos(ender.heading)*19*dt,ny=ender.y+Math.sin(ender.heading)*19*dt;if(nx<35||ny<35||nx>w-35||ny>h-35||Math.hypot(nx-cx,ny-cy)<65||towers.some(t=>Math.hypot(nx-t.x,ny-t.y)<42)){ender.heading+=Math.PI*.75;ender.turn=.3;return}ender.x=nx;ender.y=ny;ender.steps+=19*dt}
+function enderUpdate(dt){ender.turn-=dt;if(ender.turn<=0){ender.heading+= (Math.random()-.5)*2.5;ender.turn=1+Math.random()*3}if(ENDER_COGNITION_ENABLED&&enderMind.goal&&enderMind.goal.x!==null){const g=enderMind.goal,d=Math.hypot(g.x-ender.x,g.y-ender.y);if(d>45){const desired=Math.atan2(g.y-ender.y,g.x-ender.x);ender.heading+=Math.atan2(Math.sin(desired-ender.heading),Math.cos(desired-ender.heading))*Math.min(1,dt*1.5)}else if(g.type!=='follow-carrier'){enderCloseGoal('arrived',Math.round(elapsed/1000),'Reached investigation location; outcome still uncertain');ender.turn=0}}const nx=ender.x+Math.cos(ender.heading)*19*dt,ny=ender.y+Math.sin(ender.heading)*19*dt;if(nx<35||ny<35||nx>w-35||ny>h-35||Math.hypot(nx-cx,ny-cy)<65||towers.some(t=>Math.hypot(nx-t.x,ny-t.y)<42)){ender.heading+=Math.PI*.75;ender.turn=.3;return}ender.x=nx;ender.y=ny;ender.steps+=19*dt}
 function enderSnapshot(){const nearby=(arr,kind,extra=()=>({}))=>arr.filter(o=>o&&Number.isFinite(o.x)&&Number.isFinite(o.y)&&Math.hypot(o.x-ender.x,o.y-ender.y)<=ENDER_SENSE).map(o=>({kind,tag:enderTag(o,kind,Math.round(elapsed/1000),o.x,o.y,extra(o)),dx:Math.round(o.x-ender.x),dy:Math.round(o.y-ender.y),distance:Math.round(Math.hypot(o.x-ender.x,o.y-ender.y)),...extra(o)}));return {schema:'ender-local-observation/v1',seconds:Math.round(elapsed/1000),self:{x:Math.round(ender.x),y:Math.round(ender.y),steps:Math.round(ender.steps)},radius:ENDER_SENSE,entities:[...nearby(towers,'tower',t=>({land:['sun','island','swamp','fire','forest'][t.i],alive:t.alive!==false})),...nearby(enemies,'creep',e=>({icon:e.icon})),...nearby(crops,'crop',o=>({stage:o.stage})),...nearby(remains,'remains',o=>({stage:o.stage})),...nearby(mountains,'mountain',o=>({stage:o.stage})),...nearby(looseStone,'stone'),...nearby(fireScorpions,'scorpion'),...nearby(fireIdols,'idol'),...Object.values(workerGroups).flatMap(g=>[...nearby(g.workers||[],g.kind+'-worker',a=>({carrying:!!a.cargo})),...(g.depot?nearby([g.depot],g.kind+'-depot'):[]),...(g.octopus?nearby([g.octopus],'octopus'):[]),...(g.eagle?nearby([g.eagle],'eagle'):[])])],limits:'Local instantaneous positions and visible state only; no remote inventory or event history'}}
 
 // Shadow cognition is observational only. No steering, learning, or remote model calls.
@@ -98,6 +98,8 @@ function enderEvidenceSample(snap){
  enderEvidence.pending={id:enderEvidence.nextId++,before:snap,intent:{action:'ROAM',source:'observed-existing-motion'}};
 }
 const ENDER_COGNITION_ENABLED=true;
+// One reversible gate for the purposeful pursuit experiment.
+const ENDER_PURSUIT_ENABLED=true;
 const enderMind={landmarks:new Map(),recent:[],decisions:[],goal:null,lastSample:-1,samples:0,totals:{},events:[],outcomes:[],previous:null,cooldowns:new Map()};
 const enderIcons={sun:'☀️',island:'💧',swamp:'💀',fire:'🔥',forest:'🌳',crop:'🌱',bones:'🦴',mushroom:'🍄',mountain:'🌋',stone:'🪨',scorpion:'🦂',idol:'🗿',ant:'🐜',eagle:'🦅',worm:'🪱',rat:'🐀'};
 function enderIcon(o){if(o.kind==='creep')return o.icon||'creep';if(o.kind==='tower')return enderIcons[o.land]||'tower';if(o.kind==='crop')return o.stage==='tree'?'🌳':'🌱';if(o.kind==='remains')return enderIcons[o.stage]||'remains';if(o.kind==='mountain')return '🌋';if(o.kind.endsWith('-worker')||o.kind.endsWith('-depot'))return enderIcons[o.kind.split('-')[0]]||o.kind;return enderIcons[o.kind]||o.kind}
@@ -119,6 +121,18 @@ function enderObserve(){
  // This prevents passive observation from silently changing Ender's movement decisions.
  enderSemantic.lastObserved=semanticNew.slice(-24);
  const previous=enderMind.previous;
+ // Pursuit uses only current local snapshot tags and locally witnessed events.
+ if(ENDER_PURSUIT_ENABLED&&enderMind.goal?.type==='follow-carrier'){
+  const g=enderMind.goal;
+  const delivered=semanticNew.find(e=>e.type==='deposit'&&e.tag===g.tag&&e.seq>g.startSeq);
+  const died=semanticNew.find(e=>e.type==='death'&&e.tag===g.tag&&e.seq>g.startSeq);
+  const seen=snap.entities.find(o=>o.tag===g.tag&&o.kind.endsWith('-worker'));
+  if(delivered)enderCloseGoal('answered',t,'Witnessed tagged '+g.tag+' deposit '+(delivered.resource||'cargo')+(delivered.depotTag?' at '+delivered.depotTag:'; depot unknown')+' (event '+delivered.seq+')');
+  else if(died)enderCloseGoal('danger',t,'Tagged worker '+g.tag+' died (event '+died.seq+')');
+  else if(!seen)enderCloseGoal('lost',t,'Tagged worker '+g.tag+' left local sight; no remote pursuit');
+  else if(t-g.since>24)enderCloseGoal('timed-out',t,'Following '+g.tag+' exceeded finite observation budget');
+  else {g.x=Math.round(ender.x+seen.dx);g.y=Math.round(ender.y+seen.dy);g.lastSeen=t;g.carrying=seen.carrying;}
+ }
  for(const o of snap.entities){
   const glyph=enderIcon(o);counts[glyph]=(counts[glyph]||0)+1;
   enderMind.totals[glyph]=(enderMind.totals[glyph]||0)+1;
@@ -161,8 +175,15 @@ function enderObserve(){
  if(enderMind.landmarks.size>36)for(const [key] of [...enderMind.landmarks.entries()].sort((a,b)=>a[1].last-b[1].last).slice(0,enderMind.landmarks.size-36))enderMind.landmarks.delete(key);
  for(const [key,until] of enderMind.cooldowns)if(t>until)enderMind.cooldowns.delete(key);
  const g=enderMind.goal;
- if(g&&t-g.since>Math.max(32,Math.min(100,g.distance/12+25)))enderCloseGoal('stale',t,'No confirmed answer before investigation timeout');
+ if(g&&g.type!=='follow-carrier'&&t-g.since>Math.max(32,Math.min(100,g.distance/12+25)))enderCloseGoal('stale',t,'No confirmed answer before investigation timeout');
  const candidates=[];
+ if(ENDER_PURSUIT_ENABLED){
+  for(const o of snap.entities){
+   if(!o.kind.endsWith('-worker')||!o.carrying||!o.tag)continue;
+   const key='follow:'+o.tag;
+   if(!enderMind.cooldowns.has(key))candidates.push({key,type:'follow-carrier',tag:o.tag,startSeq:enderSemantic.seq,label:'follow '+o.kind+' '+o.tag,question:'Where does '+o.tag+' take its cargo?',why:'Personally witnessed carrying worker '+o.tag,x:Math.round(ender.x+o.dx),y:Math.round(ender.y+o.dy),score:12});
+  }
+ }
  for(const e of events){
   const key=e.type+':'+e.label.split(' ')[0]+':'+Math.round(e.x/40)+':'+Math.round(e.y/40);
   if(!enderMind.cooldowns.has(key))candidates.push({key,label:'investigate '+e.label,question:'What explains '+e.label+'?',why:'Locally witnessed '+e.type,x:e.x,y:e.y,evidence:e,score:e.type==='terrain-change'?9:8});
