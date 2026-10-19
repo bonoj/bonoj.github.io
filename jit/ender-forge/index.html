@@ -41,16 +41,16 @@ function enderUpdate(dt){ender.turn-=dt;if(ender.turn<=0){ender.heading+= (Math.
 function enderSnapshot(){const nearby=(arr,kind,extra=()=>({}))=>arr.filter(o=>o&&Number.isFinite(o.x)&&Number.isFinite(o.y)&&Math.hypot(o.x-ender.x,o.y-ender.y)<=ENDER_SENSE).map(o=>({kind,tag:enderTag(o,kind,Math.round(elapsed/1000),o.x,o.y,extra(o)),dx:Math.round(o.x-ender.x),dy:Math.round(o.y-ender.y),distance:Math.round(Math.hypot(o.x-ender.x,o.y-ender.y)),...extra(o)}));return {schema:'ender-local-observation/v1',seconds:Math.round(elapsed/1000),self:{x:Math.round(ender.x),y:Math.round(ender.y),steps:Math.round(ender.steps)},radius:ENDER_SENSE,entities:[...nearby(towers,'tower',t=>({land:['sun','island','swamp','fire','forest'][t.i],alive:t.alive!==false})),...nearby(enemies,'creep',e=>({icon:e.icon})),...nearby(crops,'crop',o=>({stage:o.stage})),...nearby(remains,'remains',o=>({stage:o.stage})),...nearby(mountains,'mountain',o=>({stage:o.stage})),...nearby(looseStone,'stone'),...nearby(fireScorpions,'scorpion'),...nearby(fireIdols,'idol'),...Object.values(workerGroups).flatMap(g=>[...nearby(g.workers||[],g.kind+'-worker',a=>({carrying:!!a.cargo})),...(g.depot?nearby([g.depot],g.kind+'-depot'):[]),...(g.octopus?nearby([g.octopus],'octopus'):[]),...(g.eagle?nearby([g.eagle],'eagle'):[])])],limits:'Local instantaneous positions and visible state only; no remote inventory or event history'}}
 
 // Shadow cognition is observational only. No steering, learning, or remote model calls.
-const ENDER_SHADOW_ENABLED=true;
+const ENDER_SHADOW_ENABLED=false;
 const enderShadow={status:'loading',records:[],errors:[],observer:null};
 async function enderShadowInit(){
  if(!ENDER_SHADOW_ENABLED){enderShadow.status='disabled';return}
  try{
   const [module,models]=await Promise.all([
-   import('./mlm-shadow.js'),
-   fetch('./mlm-checkpoint.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('checkpoint-http-'+r.status);return r.json()})
+   import('./archive/mlm-shadow.js'),
+   fetch('./archive/mlm-checkpoint.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('checkpoint-http-'+r.status);return r.json()})
   ]);
-  const policyModule=await import('./mlm-policy.js');
+  const policyModule=await import('./archive/mlm-policy.js');
   if(models.schema!=='ender-micro-checkpoint/v1'||models.featureCount!==policyModule.FEATURES.length||models.targetFeatureCount!==policyModule.TARGET_FEATURES.length)throw Error('checkpoint-incompatible');
   enderShadow.observer=new module.MicroShadow({policy:policyModule.MicroPolicy.import(models.action),targets:policyModule.MicroTarget.import(models.target),capacity:24});
   enderShadow.status='ready';
