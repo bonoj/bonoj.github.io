@@ -23,7 +23,7 @@ One mobile viewport, one HTML/CSS/Canvas battlefield. 🧛‍♀️ Tiffany surv
 
 Tier I–III purchase icons are live; Tier IV undecided and Tier V **only proposed**. No new purchase UI is authorized. Tiffany starts with five hearts; ordinary kills grant two coins, every eighth kill one gem. Discovered currencies/materials remain visible in the two-row HUD. After two drones Tiffany cycles spells every two seconds independently of tower selection; five towers stop autocycle and enable her five-node in-world Mission Command ring (currently stubs). Five orbiting drones (radius 65, speed ±0.65) or towers unlock territory: second drone → 2× area; five drones **or** five towers → 4×; no 8×. Camera auto-fits; pinch/drag disabled. Drone engagement radius `w/(2*arenaScale)`. Tier II divisions recruit up to eight one-hit combat units per tower, roughly every five seconds, expiring after 24 seconds; recruitment continues after construction/ascension.
 
-## World map — living causal chains
+### Causal chains
 
 Arrows describe **actual world causes and transfers**, not new features. Use only game icons; use words for inventory, actions, and states without game icons.
 
