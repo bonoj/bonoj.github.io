@@ -33,7 +33,21 @@ void enderShadowInit();
 function enderShadowSample(snapshot){
  if(!ENDER_SHADOW_ENABLED||enderShadow.status!=='ready')return;
  try{
+  // Preserve the original baseline; compare semantic evidence only in a second,
+  // read-only counterfactual using the same fixed checkpoint and action grammar.
+  const localEvents=enderSemantic.events.filter(e=>e.seq>enderSemantic.observedSeq).slice(-5);
   const record=enderShadow.observer.observe(snapshot);
+  if(localEvents.length){
+   const observation={visible:snapshot.entities,events:localEvents};
+   const model=enderShadow.observer.policy;
+   const baseline=model.probabilities({visible:snapshot.entities});
+   const withEvents=model.probabilities(observation);
+   record.semanticComparison={schema:'ender-semantic-counterfactual/v1',
+    events:localEvents.map(e=>({seq:e.seq,type:e.type,actor:e.actor,source:e.source||null})),
+    baseline:baseline.map(v=>Math.round(v*10000)/10000),
+    eventAware:withEvents.map(v=>Math.round(v*10000)/10000),
+    limits:'Same fixed checkpoint, hypothetical input only; no action, reward or learning'};
+  }
   enderShadow.records.push(record);if(enderShadow.records.length>12)enderShadow.records.shift();
  }catch(e){enderShadow.status='unavailable';enderShadow.errors=[String(e?.message||e)]}
 }
