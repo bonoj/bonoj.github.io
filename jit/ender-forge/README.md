@@ -1,13 +1,23 @@
+# ⚙️ ENDER FORGE — independent JIT
+
+**Canonical:** https://bonoj.github.io/jit/ender-forge/  
+**Source:** `jit/ender-forge/index.html`  
+**Boundary:** Never modify `jit/evermore-2/` when working on Ender Forge. Its files are the immutable source baseline, not a development target. The copied CHRONICLE.md is historical Evermore II provenance; new Ender Forge experiments must be recorded distinctly. The underlying Tiffany game mechanics remain cloned by design.
+
+**Publication:** The visible 8-character identifier is the SHA-256 fingerprint of the executing main inline script when no deployment stamp has replaced `BUILD = "pending"`. It is *not* necessarily the Git commit SHA. Verify published HTML and actual browser execution separately. No external assets or browser storage are used by this cloned single-file runtime. Shared repository deployment infrastructure remains shared; source paths are isolated.
+
+---
+
 # TIFFINITY SURVIVORS™
 **EVERMORE GAMES™ · THERE'S ALWAYS MORE™**
 
-[Play](https://bonoj.github.io/jit/evermore-2/) · [Source](./index.html) · [Chronicle](./CHRONICLE.md)
+[Play](https://bonoj.github.io/jit/ender-forge/) · [Source](./index.html) · [Chronicle](./CHRONICLE.md)
 
 ## Identity and entrypoint
 
 One mobile viewport, one HTML/CSS/Canvas battlefield. 🧛‍♀️ Tiffany survives, casts spells, buys drones/divisions, places towers and grows five interdependent ecologies. **The human** owns and tests the world; **the model** collaborates on engineering; other real people are **test subjects**. Preserve those labels in docs.
 
-**Cold boot:** repo `bonoj/bonoj.github.io`, branch `master`, executable `jit/evermore-2/index.html`. Do not touch `jit/evermore/`. Read this contract and latest source before editing; fetch current blob SHA → surgical commit → read back → distinguish Git source, Pages publication and browser-executed content. The top-left fingerprint hashes executing inline content, **not** the Git commit SHA; tapping it grants development currency. No claim of live verification from syntax checks or a Git commit.
+**Cold boot:** repo `bonoj/bonoj.github.io`, branch `master`, executable `jit/ender-forge/index.html`. Do not touch `jit/evermore/`. Read this contract and latest source before editing; fetch current blob SHA → surgical commit → read back → distinguish Git source, Pages publication and browser-executed content. The top-left fingerprint hashes executing inline content, **not** the Git commit SHA; tapping it grants development currency. No claim of live verification from syntax checks or a Git commit.
 
 **👁 Observation:** tap to copy compact nondestructive digest; long-press (650 ms) for full JSON recorder with five-second history. `WORLD_OBSERVER_ENABLED` controls instrumentation. Observer reports are evidence, not a separate simulation. No verified green CI suite: the old Playwright/Actions suite was retired.
 
