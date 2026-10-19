@@ -1,0 +1,15 @@
+import {MicroEvidence} from "./mlm-evidence.js";
+import {evaluateLocalOutcome} from "./mlm-outcomes.js";
+const m=new MicroEvidence();
+const snap=(t,x,entities)=>({seconds:t,self:{x,y:100},entities});
+const tower={kind:"tower",land:"swamp",dx:80,dy:0};
+const a=m.observe(snap(1,100,[tower,{kind:"worm-worker",dx:5,dy:0}]));
+const b=m.observe(snap(4,130,[{...tower,dx:50},{kind:"worm-worker",dx:5,dy:0}]));
+const c=m.observe(snap(7,130,[{...tower,dx:180}]));
+const d=m.observe(snap(10,130,[{kind:"worm-depot",dx:20,dy:0}]));
+const movement=evaluateLocalOutcome(snap(1,0,[]),snap(4,50,[]),{action:"ROAM"});
+const novelty=evaluateLocalOutcome(snap(1,0,[]),snap(4,50,[{kind:"eagle"}]),{action:"LOOK"});
+const checks=[a.discoveries.length===3,b.discoveries.length===0,c.uncertainties.length===1,d.discoveries.length===2,m.export().structures.length===3,movement.reward===0,novelty.reward===0];
+const result={schema:"ender-micro-evidence-test/v1",passed:checks.filter(Boolean).length,total:checks.length,first:a.discoveries,repeat:b.discoveries,uncertain:c.uncertainties,movementReward:movement.reward,noveltyReward:novelty.reward};
+console.log(JSON.stringify(result,null,2));
+if(result.passed!==result.total)process.exitCode=1;
