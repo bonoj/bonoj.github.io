@@ -100,6 +100,7 @@ function enderEvidenceSample(snap){
 const ENDER_COGNITION_ENABLED=true;
 // One reversible gate for the purposeful pursuit experiment.
 const ENDER_PURSUIT_ENABLED=true;
+const ENDER_DELIBERATION_ENABLED=true;
 const enderMind={landmarks:new Map(),recent:[],decisions:[],goal:null,lastSample:-1,samples:0,totals:{},events:[],outcomes:[],previous:null,cooldowns:new Map()};
 const enderIcons={sun:'☀️',island:'💧',swamp:'💀',fire:'🔥',forest:'🌳',crop:'🌱',bones:'🦴',mushroom:'🍄',mountain:'🌋',stone:'🪨',scorpion:'🦂',idol:'🗿',ant:'🐜',eagle:'🦅',worm:'🪱',rat:'🐀'};
 function enderIcon(o){if(o.kind==='creep')return o.icon||'creep';if(o.kind==='tower')return enderIcons[o.land]||'tower';if(o.kind==='crop')return o.stage==='tree'?'🌳':'🌱';if(o.kind==='remains')return enderIcons[o.stage]||'remains';if(o.kind==='mountain')return '🌋';if(o.kind.endsWith('-worker')||o.kind.endsWith('-depot'))return enderIcons[o.kind.split('-')[0]]||o.kind;return enderIcons[o.kind]||o.kind}
@@ -195,13 +196,27 @@ function enderObserve(){
    if(!enderMind.cooldowns.has(key))candidates.push({key,label:'revisit '+v.glyph+' @'+v.x+','+v.y,question:'Is '+v.glyph+' still at this location?',why:'Recheck remembered location',x:v.x,y:v.y,score:2+Math.min(2,v.n/8)});
   }
  }
- candidates.sort((a,b)=>b.score-a.score);
+ // Deliberation: compare grounded options, favor witnessed labor over empty wandering.
+ // This does not consult hidden actors or change the read-only shadow.
+ if(ENDER_DELIBERATION_ENABLED){
+  for(const v of enderMind.landmarks.values()){
+   if(!v.kind.endsWith('-depot')||t-v.last>180)continue;
+   const d=Math.hypot(v.x-ender.x,v.y-ender.y);
+   if(d<65||d>650)continue;
+   const key='return:'+v.kind+':'+Math.round(v.x/16)+':'+Math.round(v.y/16);
+   if(enderMind.cooldowns.has(key))continue;
+   const deliveries=enderRelations.records.filter(r=>r.type==='deposit'&&r.depot&&enderIdentity.records.get(r.depot)?.kind===v.kind).length;
+   const score=4+Math.min(4,v.n/4)+Math.min(3,deliveries)+Math.min(2,d/200);
+   candidates.push({key,type:'return-depot',label:'return '+v.glyph+' @'+v.x+','+v.y,question:'Is labor still active near this remembered depot?',why:'Witnessed depot '+v.kind+' at T+'+v.last+' ('+v.n+' observations; '+deliveries+' retained deliveries)',x:v.x,y:v.y,score,evidence:{kind:v.kind,first:v.first,last:v.last,observations:v.n,deliveries}});
+  }
+ }
+ candidates.sort((a,b)=>b.score-a.score||String(a.key).localeCompare(String(b.key)));
  const best=candidates[0];
  if(enderMind.goal&&best&&best.score>(enderMind.goal.score||0)+5&&t-enderMind.goal.since>=9)enderCloseGoal('interrupted',t,'Higher-priority local change');
  if(!enderMind.goal){
-  const next=best||{key:'explore',label:'explore',question:'What is nearby?',why:'No unresolved candidate nearby',x:null,y:null,score:0};
+  const next=best||{key:'explore',label:'explore',question:'What is nearby?',why:'No locally supported destination',x:null,y:null,score:0};
   enderMind.goal={...next,since:t,distance:next.x===null?0:Math.hypot(next.x-ender.x,next.y-ender.y)};
-  enderMind.decisions.push({t,goal:next.label,why:next.why});if(enderMind.decisions.length>5)enderMind.decisions.shift();
+  enderMind.decisions.push({t,goal:next.label,why:next.why,...(ENDER_DELIBERATION_ENABLED?{alternatives:candidates.slice(0,4).map(c=>({key:c.key,label:c.label,score:Math.round(c.score*100)/100,evidence:c.evidence||null})),rejected:candidates.find(c=>c.key!==next.key)?.label||'explore/abstain'}:{})});if(enderMind.decisions.length>5)enderMind.decisions.shift();
  }
 }
 function enderDiary(){
