@@ -1,0 +1,201 @@
+// Shadow cognition is observational only. No steering, learning, or remote model calls.
+const ENDER_SHADOW_ENABLED=false;
+const enderShadow={status:'loading',records:[],errors:[],observer:null};
+async function enderShadowInit(){
+ if(!ENDER_SHADOW_ENABLED){enderShadow.status='disabled';return}
+ try{
+  const [module,models]=await Promise.all([
+   import('./archive/mlm-shadow.js'),
+   fetch('./archive/mlm-checkpoint.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('checkpoint-http-'+r.status);return r.json()})
+  ]);
+  const policyModule=await import('./archive/mlm-policy.js');
+  if(models.schema!=='ender-micro-checkpoint/v1'||models.featureCount!==policyModule.FEATURES.length||models.targetFeatureCount!==policyModule.TARGET_FEATURES.length)throw Error('checkpoint-incompatible');
+  enderShadow.observer=new module.MicroShadow({policy:policyModule.MicroPolicy.import(models.action),targets:policyModule.MicroTarget.import(models.target),capacity:24});
+  enderShadow.status='ready';
+ }catch(e){enderShadow.status='unavailable';enderShadow.errors=[String(e?.message||e)]}
+}
+void enderShadowInit();
+function enderShadowSample(snapshot){
+ if(!ENDER_SHADOW_ENABLED||enderShadow.status!=='ready')return;
+ try{
+  // Preserve the original baseline; compare semantic evidence only in a second,
+  // read-only counterfactual using the same fixed checkpoint and action grammar.
+  const localEvents=enderSemantic.events.filter(e=>e.seq>enderSemantic.observedSeq).slice(-5);
+  const record=enderShadow.observer.observe(snapshot);
+  if(localEvents.length){
+   const observation={visible:snapshot.entities,events:localEvents};
+   const model=enderShadow.observer.policy;
+   const baseline=model.probabilities({visible:snapshot.entities});
+   const withEvents=model.probabilities(observation);
+   record.semanticComparison={schema:'ender-semantic-counterfactual/v1',
+    events:localEvents.map(e=>({seq:e.seq,type:e.type,actor:e.actor,source:e.source||null})),
+    baseline:baseline.map(v=>Math.round(v*10000)/10000),
+    eventAware:withEvents.map(v=>Math.round(v*10000)/10000),
+    limits:'Same fixed checkpoint, hypothetical input only; no action, reward or learning'};
+  }
+  enderShadow.records.push(record);if(enderShadow.records.length>12)enderShadow.records.shift();
+ }catch(e){enderShadow.status='unavailable';enderShadow.errors=[String(e?.message||e)]}
+}
+// Passive local evidence only; no model inference or steering.
+const ENDER_EVIDENCE_ENABLED=true;
+const enderEvidence={records:[],pending:null,nextId:1};
+function enderEvidenceSample(snap){
+ if(!ENDER_EVIDENCE_ENABLED)return;
+ if(enderEvidence.pending){
+  const p=enderEvidence.pending;
+  const moved=Math.hypot(snap.self.x-p.before.self.x,snap.self.y-p.before.self.y);
+  const previous=new Set(p.before.entities.map(e=>e.kind));
+  const newlyVisible=[...new Set(snap.entities.map(e=>e.kind))].filter(k=>!previous.has(k));
+  const elapsedSeconds=snap.seconds-p.before.seconds;
+  const stepsDelta=snap.self.steps-p.before.self.steps;
+  const consistent=elapsedSeconds>0&&stepsDelta>=0&&moved<=stepsDelta+3;
+  const outcome={status:consistent?'observed':'unknown',reason:consistent?'motion-measured-not-rewarded':'motion-inconsistent-or-clock-uncertain',reward:0,moved,stepsDelta,elapsedSeconds,consistent,newlyVisible};
+  enderEvidence.records.push({id:p.id,at:p.before.seconds,until:snap.seconds,intent:p.intent,before:p.before,after:snap,outcome});
+  if(enderEvidence.records.length>24)enderEvidence.records.shift();
+ }
+ enderEvidence.pending={id:enderEvidence.nextId++,before:snap,intent:{action:'ROAM',source:'observed-existing-motion'}};
+}
+const ENDER_COGNITION_ENABLED=true;
+// Legacy investigation planner retired: perception and local evidence remain active.
+const ENDER_LEGACY_PLANNER_ENABLED=false;
+// One reversible gate for the purposeful pursuit experiment.
+const ENDER_PURSUIT_ENABLED=true;
+const ENDER_DELIBERATION_ENABLED=true;
+const enderMind={landmarks:new Map(),recent:[],decisions:[],goal:null,lastSample:-1,samples:0,totals:{},events:[],outcomes:[],previous:null,cooldowns:new Map()};
+const enderIcons={sun:'☀️',island:'💧',swamp:'💀',fire:'🔥',forest:'🌳',crop:'🌱',bones:'🦴',mushroom:'🍄',mountain:'🌋',stone:'🪨',scorpion:'🦂',idol:'🗿',ant:'🐜',eagle:'🦅',worm:'🪱',rat:'🐀'};
+function enderIcon(o){if(o.kind==='creep')return o.icon||'creep';if(o.kind==='tower')return enderIcons[o.land]||'tower';if(o.kind==='crop')return o.stage==='tree'?'🌳':'🌱';if(o.kind==='remains')return enderIcons[o.stage]||'remains';if(o.kind==='mountain')return '🌋';if(o.kind.endsWith('-worker')||o.kind.endsWith('-depot'))return enderIcons[o.kind.split('-')[0]]||o.kind;return enderIcons[o.kind]||o.kind}
+function enderCloseGoal(status,t,note){
+ const g=enderMind.goal;if(!g)return;
+ enderMind.outcomes.push({t,question:g.question||g.label,status,note,evidence:g.evidence||null});
+ if(enderMind.outcomes.length>8)enderMind.outcomes.shift();
+ enderMind.cooldowns.set(g.key||g.label,t+45);
+ enderMind.goal=null;
+}
+function enderObserve(){
+ if(!ENDER_COGNITION_ENABLED)return;
+ const t=Math.round(elapsed/1000),snap=enderSnapshot(),counts={},discoveries=[],events=[],cargo={};
+ enderEvidenceSample(snap);
+ enderShadowSample(snap);
+ const semanticNew=enderSemantic.events.filter(e=>e.seq>enderSemantic.observedSeq);
+ enderSemantic.observedSeq=enderSemantic.seq;
+ // Keep semantic evidence separate from heuristic triggers and fixed-width learned features.
+ // This prevents passive observation from silently changing Ender's movement decisions.
+ enderSemantic.lastObserved=semanticNew.slice(-24);
+ const previous=enderMind.previous;
+ // Pursuit uses only current local snapshot tags and locally witnessed events.
+ if(ENDER_PURSUIT_ENABLED&&enderMind.goal?.type==='follow-carrier'){
+  const g=enderMind.goal;
+  const delivered=semanticNew.find(e=>e.type==='deposit'&&e.tag===g.tag&&e.seq>g.startSeq);
+  const died=semanticNew.find(e=>e.type==='death'&&e.tag===g.tag&&e.seq>g.startSeq);
+  const seen=snap.entities.find(o=>o.tag===g.tag&&o.kind.endsWith('-worker'));
+  if(delivered)enderCloseGoal('answered',t,'Witnessed tagged '+g.tag+' deposit '+(delivered.resource||'cargo')+(delivered.depotTag?' at '+delivered.depotTag:'; depot unknown')+' (event '+delivered.seq+')');
+  else if(died)enderCloseGoal('danger',t,'Tagged worker '+g.tag+' died (event '+died.seq+')');
+  else if(!seen)enderCloseGoal('lost',t,'Tagged worker '+g.tag+' left local sight; no remote pursuit');
+  else if(t-g.since>24)enderCloseGoal('timed-out',t,'Following '+g.tag+' exceeded finite observation budget');
+  else {g.x=Math.round(ender.x+seen.dx);g.y=Math.round(ender.y+seen.dy);g.lastSeen=t;g.carrying=seen.carrying;}
+ }
+ for(const o of snap.entities){
+  const glyph=enderIcon(o);counts[glyph]=(counts[glyph]||0)+1;
+  enderMind.totals[glyph]=(enderMind.totals[glyph]||0)+1;
+  if(o.kind.endsWith('-worker')){
+   const a=cargo[o.kind]||(cargo[o.kind]={carrying:0,total:0});
+   a.total++;if(o.carrying)a.carrying++;
+  }
+  if(o.kind==='tower'||o.kind.endsWith('-depot')||o.kind==='mountain'){
+   const x=Math.round(ender.x+o.dx),y=Math.round(ender.y+o.dy),key=o.kind+':'+(o.land||'')+':'+Math.round(x/8)+':'+Math.round(y/8),old=enderMind.landmarks.get(key);
+   if(old){
+    if(o.kind==='mountain'&&old.stage!==undefined&&old.stage!==o.stage)
+     events.push({t,type:'terrain-change',label:glyph+' stage '+old.stage+'→'+o.stage,x,y,confidence:'position-matched; identity uncertain'});
+    old.last=t;old.n++;old.x=x;old.y=y;old.stage=o.stage;
+   }else{
+    enderMind.landmarks.set(key,{glyph,kind:o.kind,x,y,stage:o.stage,first:t,last:t,n:1});
+    discoveries.push(glyph+' @'+x+','+y);
+   }
+  }
+ }
+ if(previous){
+  for(const [kind,a] of Object.entries(cargo)){
+   const before=previous.cargo[kind];
+   if(before&&a.carrying!==before.carrying)
+    events.push({t,type:'cargo-count-change',label:kind+' carrying '+before.carrying+'→'+a.carrying,x:snap.self.x,y:snap.self.y,confidence:'local population count; individual identity unknown'});
+   else if(a.carrying>0&&(!before||before.carrying===0))
+    events.push({t,type:'cargo-seen',label:kind+' carrying ×'+a.carrying,x:snap.self.x,y:snap.self.y,confidence:'observed locally; pickup/delivery unknown'});
+  }
+ }
+ enderMind.previous={t,cargo};
+ enderMind.samples++;
+ const signature=Object.entries(counts).sort((a,b)=>a[0].localeCompare(b[0])).map(([k,n])=>k+'×'+n).join(' ')||'empty';
+ const prev=enderMind.recent[enderMind.recent.length-1];
+ if(discoveries.length||!prev||prev.signature!==signature){
+  enderMind.recent.push({t,signature,news:discoveries.slice(0,3).join('; ')});
+  if(enderMind.recent.length>8)enderMind.recent.shift();
+ }
+ for(const e of events)enderMind.events.push(e);
+ if(enderMind.events.length>12)enderMind.events.splice(0,enderMind.events.length-12);
+ for(const [key,v] of enderMind.landmarks)if(t-v.last>Math.min(900,180+v.n*60))enderMind.landmarks.delete(key);
+ if(enderMind.landmarks.size>36)for(const [key] of [...enderMind.landmarks.entries()].sort((a,b)=>a[1].last-b[1].last).slice(0,enderMind.landmarks.size-36))enderMind.landmarks.delete(key);
+ for(const [key,until] of enderMind.cooldowns)if(t>until)enderMind.cooldowns.delete(key);
+ const g=enderMind.goal;
+ if(g&&g.type!=='follow-carrier'&&t-g.since>Math.max(32,Math.min(100,g.distance/12+25)))enderCloseGoal('stale',t,'No confirmed answer before investigation timeout');
+ if(!ENDER_LEGACY_PLANNER_ENABLED){enderMind.goal=null;return;}
+ const candidates=[];
+ if(ENDER_PURSUIT_ENABLED){
+  for(const o of snap.entities){
+   if(!o.kind.endsWith('-worker')||!o.carrying||!o.tag)continue;
+   const key='follow:'+o.tag;
+   if(!enderMind.cooldowns.has(key))candidates.push({key,type:'follow-carrier',tag:o.tag,startSeq:enderSemantic.seq,label:'follow '+o.kind+' '+o.tag,question:'Where does '+o.tag+' take its cargo?',why:'Personally witnessed carrying worker '+o.tag,x:Math.round(ender.x+o.dx),y:Math.round(ender.y+o.dy),score:12});
+  }
+ }
+ for(const e of events){
+  const key=e.type+':'+e.label.split(' ')[0]+':'+Math.round(e.x/40)+':'+Math.round(e.y/40);
+  if(!enderMind.cooldowns.has(key))candidates.push({key,label:'investigate '+e.label,question:'What explains '+e.label+'?',why:'Locally witnessed '+e.type,x:e.x,y:e.y,evidence:e,score:e.type==='terrain-change'?9:8});
+ }
+ for(const v of enderMind.landmarks.values()){
+  const d=Math.hypot(v.x-ender.x,v.y-ender.y);
+  if(t-v.last>18&&d>65&&d<500){
+   const key='revisit:'+v.kind+':'+Math.round(v.x/16)+':'+Math.round(v.y/16);
+   if(!enderMind.cooldowns.has(key))candidates.push({key,label:'revisit '+v.glyph+' @'+v.x+','+v.y,question:'Is '+v.glyph+' still at this location?',why:'Recheck remembered location',x:v.x,y:v.y,score:2+Math.min(2,v.n/8)});
+  }
+ }
+ // Deliberation: compare grounded options, favor witnessed labor over empty wandering.
+ // This does not consult hidden actors or change the read-only shadow.
+ if(ENDER_DELIBERATION_ENABLED){
+  for(const v of enderMind.landmarks.values()){
+   if(!v.kind.endsWith('-depot')||t-v.last>180)continue;
+   const d=Math.hypot(v.x-ender.x,v.y-ender.y);
+   if(d<65||d>650)continue;
+   const key='return:'+v.kind+':'+Math.round(v.x/16)+':'+Math.round(v.y/16);
+   if(enderMind.cooldowns.has(key))continue;
+   const deliveries=enderRelations.records.filter(r=>r.type==='deposit'&&r.depot&&enderIdentity.records.get(r.depot)?.kind===v.kind).length;
+   const score=4+Math.min(4,v.n/4)+Math.min(3,deliveries)+Math.min(2,d/200);
+   candidates.push({key,type:'return-depot',label:'return '+v.glyph+' @'+v.x+','+v.y,question:'Is labor still active near this remembered depot?',why:'Witnessed depot '+v.kind+' at T+'+v.last+' ('+v.n+' observations; '+deliveries+' retained deliveries)',x:v.x,y:v.y,score,evidence:{kind:v.kind,first:v.first,last:v.last,observations:v.n,deliveries}});
+  }
+ }
+ candidates.sort((a,b)=>b.score-a.score||String(a.key).localeCompare(String(b.key)));
+ const best=candidates[0];
+ if(enderMind.goal&&best&&best.score>(enderMind.goal.score||0)+5&&t-enderMind.goal.since>=9)enderCloseGoal('interrupted',t,'Higher-priority local change');
+ if(!enderMind.goal){
+  const next=best||{key:'explore',label:'explore',question:'What is nearby?',why:'No locally supported destination',x:null,y:null,score:0};
+  enderMind.goal={...next,since:t,distance:next.x===null?0:Math.hypot(next.x-ender.x,next.y-ender.y)};
+  enderMind.decisions.push({t,goal:next.label,why:next.why,...(ENDER_DELIBERATION_ENABLED?{alternatives:candidates.slice(0,4).map(c=>({key:c.key,label:c.label,score:Math.round(c.score*100)/100,evidence:c.evidence||null})),rejected:candidates.find(c=>c.key!==next.key)?.label||'explore/abstain'}:{})});if(enderMind.decisions.length>5)enderMind.decisions.shift();
+ }
+}
+function enderDiary(){
+ if(!ENDER_COGNITION_ENABLED)return JSON.stringify(enderSnapshot());
+ const snap=enderSnapshot(),t=snap.seconds,counts={};
+ for(const o of snap.entities){const g=enderIcon(o);counts[g]=(counts[g]||0)+1}
+ const visible=Object.entries(counts).map(([g,n])=>g+'×'+n).join(' ')||'nothing';
+ const landmarks=[...enderMind.landmarks.values()].sort((a,b)=>b.last-a.last).slice(0,10);
+ const g=enderMind.goal,latest=enderMind.outcomes.slice(-2);
+ const executingBuild=document.querySelector('#build-id')?.textContent?.trim()||'unverified';
+ const lines=['🧠 ENDER · BUILD '+executingBuild+' · T+'+t+' · ('+snap.self.x+','+snap.self.y+') · '+snap.self.steps+' walked',
+ 'Now: '+visible,
+ 'Witnessed: '+(enderSemantic.events.slice(-3).map(e=>'T+'+e.t+' '+e.actor+' '+e.type+(e.resource?' '+e.resource:'')).join(' | ')||'no semantic events'),
+ 'Changed: '+(enderMind.events.slice(-3).map(e=>'T+'+e.t+' '+e.label).join(' | ')||'no confirmed local changes'),
+ '? '+(g?.question||'What is nearby?'),
+ '→ '+(g?.label||'explore')+' ('+(g?.why||'')+')',
+ 'Outcome: '+(latest.map(o=>'T+'+o.t+' '+o.status+' — '+o.note).join(' | ')||'none yet'),
+ 'Remember: '+(landmarks.slice(0,6).map(v=>v.glyph+' @'+v.x+','+v.y+' ×'+v.n).join('; ')||'none')];
+ const data={schema:'ender-mind/v2',build:{executing:executingBuild,source:'displayed inline-script SHA-256 fingerprint',verified: /^[0-9a-f]{8}$/.test(executingBuild)},relationships:{schema:'ender-local-relationships/v1',capacity:ENDER_RELATION_CAP,records:enderRelations.records.slice(-24),limits:'Local authoritative events only; deposit destination requires witnessed depot association; no inference of unobserved outcomes'},identity:{schema:'ender-local-identity/v1',capacity:ENDER_IDENTITY_CAP,records:enderRemembered(),limits:'Opaque witnessed identities and last-seen positions only; visibility must be re-established; no offscreen tracking'},semantic:{schema:'ender-local-events/v1',enabled:ENDER_SEMANTIC_ENABLED,events:enderSemantic.events.slice(-24),limits:'Confirmed transitions inside sensing radius at event time; no remote replay'},shadow:{schema:'ender-micro-shadow/v1',status:enderShadow.status,records:enderShadow.records.slice(-8),errors:enderShadow.errors,limits:'Predictions only; existing heuristic controls Ender; no model training or reward'},evidence:{schema:'ender-passive-evidence/v1',records:enderEvidence.records.slice(-12),limits:'Existing motion, not model-selected actions; no causal outcome proof'},t,self:snap.self,radius:ENDER_SENSE,visible:snap.entities,landmarks,events:enderMind.events.slice(-8),goal:g,outcomes:enderMind.outcomes.slice(-5),decisions:enderMind.decisions.slice(-3),samples:enderMind.samples,limits:'Local evidence and witnessed actor tags; moving structures and missing outcomes remain uncertain; heuristic questions and goals.'};
+ return lines.join("\n")+"\n\n--- DATA ---\n"+JSON.stringify(data);
+}
