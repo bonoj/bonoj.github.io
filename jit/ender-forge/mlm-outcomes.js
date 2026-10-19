@@ -10,7 +10,7 @@ export function evaluateLocalOutcome(before,after,intent,{arrivalRadius=30}={}){
   if(![a.x,a.y,b.x,b.y].every(finite))return unknown("invalid-position");
   const moved=distance(a,b);
   if(intent.action==="ROAM"){
-    if(moved>=20)return {status:"observed",reward:.25,reason:"measured-displacement",evidence:{moved}};
+    if(moved>=20)return {status:"observed",reward:0,reason:"measured-displacement-not-achievement",evidence:{moved}};
     return unknown("insufficient-displacement; may be blocked or waiting");
   }
   if(intent.action==="WAIT"){
@@ -20,7 +20,7 @@ export function evaluateLocalOutcome(before,after,intent,{arrivalRadius=30}={}){
   if(intent.action==="LOOK"){
     const prev=new Set((before.entities||[]).map(x=>x.kind));
     const newKinds=[...new Set((after.entities||[]).map(x=>x.kind))].filter(k=>!prev.has(k));
-    if(newKinds.length)return {status:"observed",reward:.3,reason:"new-visible-kind",evidence:{newKinds}};
+    if(newKinds.length)return {status:"observed",reward:0,reason:"new-visible-kind-not-attributed-to-action",evidence:{newKinds}};
     return unknown("no-new-visible-kind; not proof of failed observation");
   }
   if(intent.action==="APPROACH"||intent.action==="FOLLOW"){
@@ -31,9 +31,9 @@ export function evaluateLocalOutcome(before,after,intent,{arrivalRadius=30}={}){
     if(intent.action==="FOLLOW")return unknown("worker-identity-and-motion-untracked");
     const beforeDistance=distance(a,target),afterDistance=distance(b,target);
     if(beforeDistance-afterDistance>=12&&afterDistance<beforeDistance)
-      return {status:"observed",reward:Math.min(.5,(beforeDistance-afterDistance)/100),reason:"closer-to-anchored-location",evidence:{beforeDistance,afterDistance}};
+      return {status:"observed",reward:0,reason:"closer-to-anchored-location-not-achievement",evidence:{beforeDistance,afterDistance}};
     if(afterDistance<=arrivalRadius)
-      return {status:"observed",reward:.15,reason:"arrived-at-anchored-location",evidence:{afterDistance}};
+      return {status:"observed",reward:0,reason:"arrived-at-anchored-location-not-achievement",evidence:{afterDistance}};
     return unknown("no-confirmed-progress; target-may-have-moved");
   }
   return unknown("unsupported-action");
