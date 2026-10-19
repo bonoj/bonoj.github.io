@@ -7,6 +7,13 @@
 
 **Publication:** The visible 8-character identifier is the SHA-256 fingerprint of the executing main inline script when no deployment stamp has replaced `BUILD = "pending"`. It is *not* necessarily the Git commit SHA. Verify published HTML and actual browser execution separately. No external assets or browser storage are used by this cloned single-file runtime. Shared repository deployment infrastructure remains shared; source paths are isolated.
 
+
+## Archive boundary — next Ender
+
+The previous fixed, read-only neural experiment is retired from active development and stored in [archive/](./archive/): `mlm-policy.js`, `mlm-shadow.js`, and `mlm-checkpoint.json`. The live `index.html` has `ENDER_SHADOW_ENABLED=false`; its legacy adapter remains inert pending a separate, tested cognition refactor. Do not mistake the archived classifier or its synthetic action vocabulary for the next Ender's policy. Its files are preserved for archaeology, not as an implementation requirement.
+
+**Next Ender's direction:** physical-world emoji/entities and a handful of executable verbs; persistent goal of earning and building its own vulnerable tower; local perception, legitimate material transfers, goal-conditioned learned intent selection, and eventually delegation to fleet controllers. No free resources or privileged command of Tiffany's workers. The current heuristic investigation/pursuit/deliberation system remains in `index.html` as legacy behavior, **not** the intended intelligence. Do not remove it without a separate behavior-preserving or deliberately scoped replacement and verification.
+
 ## Cold handoff — Ender frontier (19 October 2026)
 
 **Reading order:** [Sanctum Conjoiner](https://github.com/bonoj/Sanctum/blob/main/CONJOINER.md) → [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) → this README → [Ender specification](./SPEC.md) → [Forge Chronicle](./CHRONICLE.md) as needed → current [executable source](./index.html). The Chronicle holds the rationale and experiments; this README holds current constraints and the next decision. Do not treat a proposal as implemented behavior.
