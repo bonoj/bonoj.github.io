@@ -56,7 +56,7 @@ function enderDiary(){
  const build=document.querySelector('#build-id')?.textContent?.trim()||'unverified';
  const events=enderSemantic.events.slice(-24);
  const data={schema:'ender-wanderer/v1',build:{executing:build,source:'displayed inline-script SHA-256 fingerprint',verified:/^[0-9a-f]{8}$/.test(build)},t,self:snap.self,radius:ENDER_SENSE,visible:snap.entities,identity:{records:enderRemembered(),capacity:ENDER_IDENTITY_CAP},relationships:{records:enderRelations.records.slice(-24),capacity:ENDER_RELATION_CAP},semantic:{enabled:ENDER_SEMANTIC_ENABLED,events},samples:enderSenses.samples,control:{mode:'random-walk',policy:null,goal:null,actions:[]},limits:'Local sightings and witnessed events only; no goal, planner, learned policy, physical interactions, or remote knowledge.'};
- return '🐉 ENDER · BUILD '+build+' · T+'+t+' · ('+snap.self.x+','+snap.self.y+') · '+snap.self.steps+' walked\\nNow: '+visible+'\\nWitnessed: '+(events.slice(-3).map(e=>'T+'+e.t+' '+e.type).join(' | ')||'none')+'\\nControl: random walk; no brain\\n\\n--- DATA ---\\n'+JSON.stringify(data);
+ return '🐉 ENDER · BUILD '+build+' · T+'+t+' · ('+snap.self.x+','+snap.self.y+') · '+snap.self.steps+' walked\nNow: '+visible+'\nWitnessed: '+(events.slice(-3).map(e=>'T+'+e.t+' '+e.type).join(' | ')||'none')+'\nControl: random walk; no brain\n\n--- DATA ---\n'+JSON.stringify(data);
 }
 let remains=[];let fireIdols=[],fireScorpions=[],looseStone=[];
 // World Observer: non-destructive ecology telemetry; one switch, no Canvas interception.
