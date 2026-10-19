@@ -1,16 +1,12 @@
 # ⚙️ Ender Forge — Genesis Chronicle
-*19 October 2026 · The conditions for an Ender to be born*
+*19 October 2026 · Genesis*
 
 ## Why this world exists
-The human and the model distinguished two feedback loops:
+**Can an interpreting intelligence, situated in a persistent executable world, develop increasingly effective judgment through experimentation, observation and accumulated knowledge?**
 
-**Ender Wiggin loop:** recover the whole field → identify a high-leverage move → act within constraints → observe actual consequences → preserve learning so the next cycle begins better informed.
+Ender Forge exists to explore that question, not to prescribe the intelligence's personality, trajectory or eventual capabilities. Persistent context, tools and evidence may help successive model invocations build upon verified discoveries without changing model weights. Whether and how that works remains an experimental question.
 
-**Ralph Wiggum loop:** ignore the field → make a locally plausible move → confuse activity with progress → hand failures back to the human → repeat with more friction.
-
-The proposal is not to prompt a model to impersonate Ender Wiggin, nor to claim intelligence can be guaranteed by a particular environment. It is to **engineer the conditions in which situated, accountable, increasingly competent behavior can be cultivated, observed and reproduced**. The capability belongs partly to the model and partly to the persistent world, knowledge, tools, constraints and evidence it can recover. Separate invocations can inherit verified discoveries without changing model weights.
-
-Ender Forge begins as a byte-for-byte gameplay clone of the known-working Evermore II world, subsequently given its own JIT identity and handoff. The inherited ecology is **experimental substrate**, not the Forge's purpose. Do not restart or redesign it merely to establish a new laboratory.
+Ender Forge begins as a gameplay clone of the known-working Evermore II world, subsequently given its own JIT identity and handoff. The inherited ecology is **experimental substrate**, not the Forge's purpose. Do not restart or redesign it merely to establish a new laboratory.
 
 ## 🗝️ Semantomancy — the interface
 **Semantomancy** is the practice of directing complex computational and creative systems through compact, meaning-rich expressions whose operational significance is established by shared context, persistent knowledge and executable machinery. Its mechanism is **semantic compression coupled with contextual reconstruction**.
@@ -39,13 +35,13 @@ The inherited runtime is a useful laboratory because actions have consequences a
 - Ender Forge and Evermore II share the repository's GitHub Pages infrastructure but have separate JIT source paths. **Never edit `jit/evermore-2/` during Forge work.**
 
 ## 🧪 Experimental frontier — not yet implemented
-Cultivate operational competence through repeated cold boots into a bounded world. Candidate measurements: correct context retrieval without prompting; appropriate choice of existing tools; high-leverage intervention; verification against world evidence; preservation of useful learning; recovery from ordinary failures without transferring avoidable work to the human. Compare against deliberately reduced context or machinery to test what actually helps. **No experimental harness, training pipeline, competence metric or autonomous Ender has yet been built.**
+Cultivate operational competence through repeated cold boots into a bounded world. Candidate measurements: correct context retrieval without prompting; appropriate choice of existing tools; high-leverage intervention; verification against world evidence; preservation of useful learning; recovery from ordinary failures without transferring avoidable work to the human. Compare against deliberately reduced context or machinery to test what actually helps. **No experimental harness, training pipeline, competence metric or autonomous agent has yet been built.**
 
-The immediate work is to decide what an Ender must perceive, choose and remember inside this already-working world. Preserve the baseline until an experiment justifies changing it.
+The immediate work is to explore what an interpreting intelligence can perceive, choose and retain inside this already-working world. Preserve the baseline until an experiment justifies changing it.
 
 ## 📚 Provenance and doors
 - [Ender Forge executable](./index.html) · [Current handoff](./README.md)
 - [Evermore II Chronicle — complete ancestral history](https://github.com/bonoj/bonoj.github.io/blob/master/jit/evermore-2/CHRONICLE.md)
 - [Sanctum Conjoiner](https://github.com/bonoj/Sanctum/blob/main/CONJOINER.md) · [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) (private, where access is authorized)
 
-*The Forge begins with an inherited world, an accountable interpreter, and a question: can the next invocation start wiser than the last?*
+*The Forge begins with an inherited world, an accountable interpreter, and a question: what might the next invocation discover?*
