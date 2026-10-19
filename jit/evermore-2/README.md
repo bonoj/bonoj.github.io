@@ -5,6 +5,18 @@
 
 **Identity convention:** the project owner is **the human**, the collaborator is **the model**, and other real people are **test subjects**. Use these labels in documentation; fictional characters and technical identifiers retain their names.
 
+## Icon progression — at a glance
+
+| Land | Tier I | Tier II | Tier III | Tier IV | Tier V |
+|---|---|---|---|---|---|
+| ☀️ Plains | ✨️ | 👼 | 🪲 | TBD | 🐪 |
+| 💧 Island | ⚡️ | 🪼 | 🐙 | TBD | 🐋 |
+| 💀 Swamp | 🫧 | 👻 | 🐀 | TBD | 🪰 |
+| 🔥 Mountain | ☄️ | 🐦‍🔥 | 🦂 | TBD | 🦟 |
+| 🌳 Forest | 🌿 | 🦌 | 🦅 | TBD | 🐢 |
+
+Tiers I–III are implemented purchase icons. Tier IV is intentionally undecided. Tier V is a **proposed** macro-scale lineup, not implemented: camel, whale, fly swarm, mosquito swarm, tortoise. This table is a design reference, **not** authorization to add shop UI or change gameplay.
+
 ## The game
 
 One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives converging enemies, casts spells, purchases automation, places towers and grows a living civilization. Five lands and their shared identities: ☀️ Plains/prism, 💧 Island/lightning, 💀 Swamp/poison, 🔥 Mountain/fire, 🌳 Forest/vines. Keep the discovery-driven, whimsical progression; do not invent tutorials, panels, or new UI without a request.
