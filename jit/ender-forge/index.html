@@ -15,7 +15,10 @@ function enderEvidenceSample(snap){
   const moved=Math.hypot(snap.self.x-p.before.self.x,snap.self.y-p.before.self.y);
   const previous=new Set(p.before.entities.map(e=>e.kind));
   const newlyVisible=[...new Set(snap.entities.map(e=>e.kind))].filter(k=>!previous.has(k));
-  const outcome={status:moved>=20?'observed':'unknown',reason:moved>=20?'measured-displacement':'insufficient-displacement',reward:moved>=20?.25:0,moved,newlyVisible};
+  const elapsedSeconds=snap.seconds-p.before.seconds;
+  const stepsDelta=snap.self.steps-p.before.self.steps;
+  const consistent=elapsedSeconds>0&&stepsDelta>=0&&moved<=stepsDelta+3;
+  const outcome={status:consistent?'observed':'unknown',reason:consistent?'motion-measured-not-rewarded':'motion-inconsistent-or-clock-uncertain',reward:0,moved,stepsDelta,elapsedSeconds,consistent,newlyVisible};
   enderEvidence.records.push({id:p.id,at:p.before.seconds,until:snap.seconds,intent:p.intent,before:p.before,after:snap,outcome});
   if(enderEvidence.records.length>24)enderEvidence.records.shift();
  }
