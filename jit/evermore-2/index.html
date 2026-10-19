@@ -126,8 +126,9 @@ function fireRimUpdate(dt){
  for(const idol of [...fireIdols]){
   if(idol.cargo){
    if(!idol.site||idol.site.mountain||fireRimBlocked(idol.site)){if(idol.site?.claimed===idol)idol.site.claimed=null;idol.site=null}
-   if(!idol.site){idol.site=fireRimSites.find(p=>!p.mountain&&!p.claimed&&!fireRimBlocked(p))||null;if(idol.site)idol.site.claimed=idol}
-   if(!idol.site){fireRimRelease(idol);continue}
+   if(!idol.site){idol.site=fireRimSites.find(p=>!p.mountain&&!fireRimBlocked(p))||null}
+   // Multiple haulers may serve one site. Never drop cargo just because another Idol is delivering.
+   if(!idol.site){if(fireRimSites.every(p=>p.mountain))fireRimRelease(idol);continue}
    if(moveWorker(idol,idol.site.x,idol.site.y,42,dt,16)){
     const p=idol.site;p.stone++;idol.cargo=false;p.claimed=null;idol.site=null;observeEvent('fireRimStoneDelivered');
     if(p.stone===3){
