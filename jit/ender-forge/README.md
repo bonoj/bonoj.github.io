@@ -6,6 +6,18 @@
 
 **Publication:** The visible 8-character identifier is the SHA-256 fingerprint of the executing main inline script when no deployment stamp has replaced `BUILD = "pending"`. It is *not* necessarily the Git commit SHA. Verify published HTML and actual browser execution separately. No external assets or browser storage are used by this cloned single-file runtime. Shared repository deployment infrastructure remains shared; source paths are isolated.
 
+## Cold handoff — Ender frontier (19 October 2026)
+
+**Reading order:** [Sanctum Conjoiner](https://github.com/bonoj/Sanctum/blob/main/CONJOINER.md) → [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) → this README → [Forge Chronicle](./CHRONICLE.md), especially **Proposed frontier — the sixth faction** → current [executable source](./index.html). The Chronicle holds the rationale and experiments; this README holds current constraints and the next decision. Do not treat a proposal as implemented behavior.
+
+**Current checkpoint:** Forge is an isolated clone of Evermore II. Commit `22b62baa` introduced reversible tower selection: tap a land UI card again to deselect; tap an existing battlefield tower to select/deselect; with no land selected, an empty-field tap does not place or relocate a tower. This makes a neutral battlefield interaction possible. The human tested the interaction and accepted its current overlap tradeoff. GitHub source was read back; do not infer that Pages or the executing browser build was independently verified from that alone.
+
+**Next frontier:** Explore **tap-to-inspect** as a general interaction, beginning with an Ender wanderer entering a mature five-faction civilization from an edge. Ender is **not implemented**. At arrival it has no tower, workers, territory, inventory, privileged knowledge, or access to Tiffany's resources. An eventual Ender tower would be earned through actual world interactions, have 1 HP, remain vulnerable to ordinary creeps, and support some still-undecided recovery/respawn mechanism. No sixth shop button, prescribed personality, scripted tech tree, new toolbar or gratuitous UI.
+
+**Next design decision:** Determine the smallest inspection contract: which world entities can be hit-tested, what bounded state a tap reveals, how inspection stays separate from command/placement, and how a later model invocation can observe → choose one legitimate action → see its consequence → persist learning. Discuss before building an agent or tower. Preserve the existing working ecology and all matter/claim/recovery invariants. Never edit `jit/evermore-2/`.
+
+**Delivery discipline:** Inspect latest source and branch before changes; keep edits scoped to Forge, verify source read-back, distinguish commit from deployment and actual browser execution, and log durable experimental discoveries in the Chronicle. Do not ask the human to operate the toolchain.
+
 ---
 
 # TIFFINITY SURVIVORS™
