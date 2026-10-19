@@ -145,3 +145,38 @@ export function decideIntent(policy,targetModel,observation){
   if(!binding)return {ok:true,action:"LOOK",fallback:"no-eligible-target"};
   return validateIntent({action:choice.action,target:binding.target},observation);
 }
+
+/* Bounded episodic learner. Consequences arrive from an external observer, not
+   invented by the policy. No per-turn menus; fixed action protocol. */
+export class MicroExperience {
+  constructor(policy,{capacity=32,rate=.03}={}){
+    if(!(policy instanceof MicroPolicy))throw Error("MicroPolicy required");
+    this.policy=policy;this.capacity=Math.max(1,Math.min(256,capacity|0));
+    this.rate=rate;this.history=[];this.pending=null;this.rewards=0;
+  }
+  begin(observation,intent){
+    if(this.pending)return {ok:false,reason:"pending-outcome"};
+    if(!intent||!ACTIONS.includes(intent.action))return {ok:false,reason:"invalid-action"};
+    this.pending={features:[...encodeObservation(observation)],action:intent.action};
+    return {ok:true};
+  }
+  resolve({reward,done=true}={}){
+    if(!this.pending)return {ok:false,reason:"no-pending-action"};
+    if(!Number.isFinite(reward)||reward< -1||reward>1)return {ok:false,reason:"invalid-reward"};
+    const item={...this.pending,reward};
+    this.history.push(item);if(this.history.length>this.capacity)this.history.shift();
+    this.rewards+=reward;this.pending=null;
+    if(reward!==0){
+      const a=ACTIONS.indexOf(item.action),x=Float32Array.from(item.features);
+      const p=this.policy.probabilities(x);
+      // Signed REINFORCE-style gradient; negative outcomes reduce selected action likelihood.
+      for(let k=0;k<ACTIONS.length;k++){
+        const delta=this.rate*reward*((k===a?1:0)-p[k]);
+        for(let j=0;j<x.length;j++)this.policy.weights[k][j]+=delta*x[j];
+      }
+      this.policy.steps++;
+    }
+    return {ok:true,reward,history:this.history.length};
+  }
+  snapshot(){return {schema:"ender-micro-experience/v1",history:this.history.map(x=>({...x,features:[...x.features]})),pending:this.pending?{...this.pending,features:[...this.pending.features]}:null,rewards:this.rewards}}
+}
