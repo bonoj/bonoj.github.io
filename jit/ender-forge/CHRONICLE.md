@@ -52,6 +52,15 @@ The desired outcome is **human empowerment**, not maximum assistant autonomy, de
 
 The lineage is visible but not prescriptive: **Hermeticon** supplies a method for executable inquiry; **Evermore II** supplies a working ecology of consequential interactions; **Ender Forge** is a place to investigate how a human and an interpreting external brain might grow in capability together. The **Hermeticon Institute** may eventually let others encounter such work, but its public Sanctum remains a separate, unimplemented design direction.
 
+### Possible crafts and future vocabulary
+The human imagined **cyberpilot**, **cybercontroller**, and **semantomancer** as possible job titles in a world where human–model conjunctions become ordinary. These are **speculative names for emerging practices**, not established occupations, fixed roles, a taxonomy, or a forecast.
+
+A *cyberpilot* might steer complex intelligent or executable systems without manually directing every part. A *cybercontroller* might focus on their state, coordination, boundaries, evidence and accountable intervention. A *semantomancer* might use language, shared context and recoverable executable machinery to invoke, compose, test and evolve capabilities. Their boundaries may overlap, dissolve or prove unhelpful; **Conjoiner** could describe a broader relationship rather than another credential.
+
+One possibility is that accessible external cognitive machinery shifts some expertise from memorizing implementation details toward asking incisive questions, exercising judgment, imagining structures, understanding systems, and verifying consequences. It need not erase technical depth; it may change who can begin, how they learn, and what new forms of mastery emerge.
+
+These titles are invitations to notice nascent crafts, **not doctrine to teach or identities to impose**. First explore what people actually do with the Forge. Let useful language follow the practice.
+
 Do not freeze this understanding into a curriculum, named developmental stages, agent persona, or mandatory architecture. Revise it as experiments and conversation sharpen the question.
 
 ## 📚 Provenance and doors
