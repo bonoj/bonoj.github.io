@@ -15,6 +15,8 @@
 
 **Ender frontier (decision 19 October 2026):** Ender is a wandering 🧠 with bounded local cognition, landmark revisits, investigation goals, factual local semantic combat/logistics events, and a read-only fixed micro-policy shadow; tap 🧠 for diary and `ender-mind/v2` evidence. Human browser observations through T+94 confirm the semantic counterfactual executes, with negligible probability shifts and no learning or shadow steering. **Stop expanding observation as the active workstream.** Next: review the now-written [follow-carrier agency slice](./SPEC.md) against current cognition/navigation. Before implementation choose observation-only actor association (ephemeral locally sensed token versus uniquely visible carrier) and experiment-switch default; then authorize a bounded implementation separately. No implementation is authorized by this handoff alone. The longer-term independent material tower remains deferred. See [SPEC.md](./SPEC.md) and the latest [Chronicle decision](./CHRONICLE.md).
 
+**Next frontier:** The [five-turn identity-to-agency roadmap](./SPEC.md) is approved: identity, relationships, investigation, informed choice, then observable action by Turn 5. [Chronicle](./CHRONICLE.md) records the reasoning. Next engineering task is **Turn 1: bounded, fallible entity identity**. No runtime work was done during roadmap planning.
+
 **Delivery discipline:** Inspect latest source and branch before changes; keep edits scoped to Forge, verify source read-back, distinguish commit from deployment and actual browser execution, and log durable experimental discoveries in the Chronicle. Do not ask the human to operate the toolchain.
 
 ---
