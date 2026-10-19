@@ -173,3 +173,8 @@ Sprout offsets: **(−92,+31), (−15,+110), (−82,+67), (−46,+57), (−53,+3
 - [Sanctum Conjoiner](https://github.com/bonoj/Sanctum/blob/main/CONJOINER.md) · [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) (private, where access is authorized)
 
 *The Forge begins with an inherited world, an accountable interpreter, and a question: what might the next invocation discover?*
+
+## 🧠 Cognitive diary implemented — first bounded experiment (19 October 2026)
+Following seven manually relayed snapshots, the human authorized Ender to observe continuously, compact memory, and develop non-human-authored goals. Commits `635ca619` and `496269dc` added a self-contained local sampler (~3 seconds), bounded landmark/encounter/decision memory, simple novelty-driven landmark revisits, and physical steering toward remembered locations. 🧠 now copies **one artifact**: a terse emoji field diary followed by structured `ender-mind/v1` evidence. This is not free-form model reasoning: diary statements are deterministic renderings of observations and goal transitions, with uncertainty limits in structured data. Landmarks expire; repeat sightings strengthen retention; mobile entities have no fabricated identities. No tower, resource acquisition, new UI or changes to Tiffany were added.
+
+**Verification:** both inline JavaScript scripts passed syntax compilation before each commit. Browser behavior, clipboard output, long-run compaction and movement remain to be verified with a human-supplied runtime report. Preserve the previous working commit `45c34be7` as a known recovery point if a regression is observed. This is a new experimental frontier, not a claim that emergent reasoning has been achieved.
