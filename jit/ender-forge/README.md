@@ -8,11 +8,11 @@
 **Publication:** The visible 8-character identifier is the SHA-256 fingerprint of the executing main inline script when no deployment stamp has replaced `BUILD = "pending"`. It is *not* necessarily the Git commit SHA. Verify published HTML and actual browser execution separately. No external assets or browser storage are used by this cloned single-file runtime. Shared repository deployment infrastructure remains shared; source paths are isolated.
 
 
-## Archive boundary — next Ender
+## Clean wanderer baseline — 19 October 2026
 
-The previous fixed, read-only neural experiment is retired from active development and stored in [archive/](./archive/): `mlm-policy.js`, `mlm-shadow.js`, and `mlm-checkpoint.json`. The live `index.html` has `ENDER_SHADOW_ENABLED=false`; its legacy adapter remains inert pending a separate, tested cognition refactor. Do not mistake the archived classifier or its synthetic action vocabulary for the next Ender's policy. Its files are preserved for archaeology, not as an implementation requirement.
+Ender's active source is a **brainless random walker**: obstacle-avoiding movement, local snapshot, witnessed identity/provenance, and an observation report (`ender-wanderer/v1`). No goal, heuristic planner, shadow inference, model weights, physical acquisition, or construction. The prior heuristic cognition and diary are preserved in [archive/legacy-ender-cognition.js.txt](./archive/legacy-ender-cognition.js.txt), alongside the old neural experiment. Archive files are not imported by the runtime.
 
-**Next Ender's direction:** physical-world emoji/entities and a handful of executable verbs; persistent goal of earning and building its own vulnerable tower; local perception, legitimate material transfers, goal-conditioned learned intent selection, and eventually delegation to fleet controllers. No free resources or privileged command of Tiffany's workers. The heuristic investigation/pursuit/deliberation system remains in `index.html` for archaeology but is **disabled** by `ENDER_LEGACY_PLANNER_ENABLED=false`; perception, identity, semantic events, and evidence remain enabled. Ender currently wanders without goal-directed steering. The next implementation must supply an executable physical action and a goal-conditioned policy, not re-enable worm investigation. Do not claim tower progress from this cleanup.
+The earlier `ender-mind/v2` report and the turn-by-turn planner descriptions in SPEC/CHRONICLE are historical, not current runtime contracts. Do not reintroduce the investigation loop. Next Ender must acquire materials under the world's existing physical rules, using a small executable verb set and goal-conditioned policy. Preserve Tiffany and verify deployment before claiming browser behavior.
 
 ## Cold handoff — Ender frontier (19 October 2026)
 
