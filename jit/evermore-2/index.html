@@ -12,7 +12,7 @@ function observeCensus(){
  const stages=a=>a.reduce((o,p)=>(o[p.stage]=(o[p.stage]||0)+1,o),{});
  const labor={};
  for(const g of groups){if(!g.alive)continue;labor[g.kind]={idle:0,travel:0,chop:0,carry:0,unload:0};for(const a of g.workers){const k=a.fsm?.state||'idle';labor[g.kind][k]=(labor[g.kind][k]||0)+1}}
- return {seconds:Math.round(elapsed/1000),species,habitats:{crops:stages(crops),remains:stages(remains),mountains:stages(mountains),clouds:rainClouds.length,fireIdols:fireIdols.length,sun:{reliquary:!!workerGroups.scarab?.alive,scarabs:(workerGroups.scarab?.workers||[]).map(a=>({role:a.role,hp:a.hp,cargo:!!a.cargo})),sites:sunSites.map(p=>({id:p.id,status:p.status,inhabited:!!p.inhabitant,blocked:sunBlocked(p)}))},fireScorpions:fireScorpions.map(a=>({stone:a.rocks,meals:{...a.meals},objective:a.rocks===3?"rat":Object.keys(a.meals).filter(k=>!a.meals[k]),target:a.target?.kind||a.target?.stage||null})),looseStone:looseStone.length,fireRim:{sites:fireRimSites.map(p=>({id:p.id,stone:p.stone,built:!!p.mountain,active:p.mountain?.stage===0,claimed:!!p.mountain?.fireClaim})),idols:fireIdols.map(a=>({cargo:a.cargo,rockTarget:!!a.rock,site:a.site?.id??null})),wildMountains:mountains.filter(m=>!m.fireBuilt).length}},labor,inventory:{...resources},world:{enemies:enemies.length,combatUnits:units.length,aliveTowers:towers.filter(t=>t.alive!==false).length,aliveDepots:groups.filter(g=>g.alive).length,areaScale:arenaScale}}
+ return {seconds:Math.round(elapsed/1000),species,habitats:{crops:stages(crops),remains:stages(remains),mountains:stages(mountains),clouds:rainClouds.length,fireIdols:fireIdols.length,sun:{reliquary:!!workerGroups.scarab?.alive,scarabs:(workerGroups.scarab?.workers||[]).map(a=>({role:a.role,hp:a.hp,cargo:!!a.cargo})),sites:sunSites.map(p=>({id:p.id,status:p.status,inhabited:!!p.inhabitant,blocked:sunBlocked(p)}))},fireScorpions:fireScorpions.map(a=>({stone:a.rocks,meals:{...a.meals},objective:a.rocks===3?"rat":Object.keys(a.meals).filter(k=>!a.meals[k]),target:a.target?.kind||a.target?.stage||null})),looseStone:looseStone.length,fireRim:{sites:fireRimSites.map(p=>({id:p.id,stone:p.stone,built:!!p.mountain,active:p.mountain?.stage===0,claimed:!!p.mountain?.fireClaim,blocked:!p.mountain&&fireRimBlocked(p),x:Math.round(p.x),y:Math.round(p.y)})),idols:fireIdols.map(a=>({cargo:a.cargo,rockTarget:!!a.rock,site:a.site?.id??null})),wildMountains:mountains.filter(m=>!m.fireBuilt).length}},labor,inventory:{...resources},world:{enemies:enemies.length,combatUnits:units.length,aliveTowers:towers.filter(t=>t.alive!==false).length,aliveDepots:groups.filter(g=>g.alive).length,areaScale:arenaScale}}
 }
 function observeSample(){if(!WORLD_OBSERVER_ENABLED||elapsed/1000-observer.lastSample<5)return;observer.lastSample=elapsed/1000;observer.history.push(observeCensus());if(observer.history.length>120)observer.history.shift()}
 function observeReport(){observeSample();return {schema:'tiffinity-world-observer/v1',build:document.querySelector('#build-id').textContent,capturedAt:new Date().toISOString(),events:{...observer.events},current:observeCensus(),history:observer.history.slice(),errors:observer.errors.slice(-10)}}
@@ -106,6 +106,25 @@ function fireRimBlocked(p){
  sunSites.some(q=>q.status==='built'&&Math.hypot(q.x-p.x,q.y-p.y)<44)||
  fireRimSites.some(q=>q!==p&&q.mountain&&Math.hypot(q.x-p.x,q.y-p.y)<42);
 }
+function fireRimReposition(p){
+ if(p.mountain||!fireRimBlocked(p))return true;
+ const t=towers.find(t=>t.i===3);if(!t)return false;
+ const original={x:p.x,y:p.y},angle=-Math.PI/2+p.id*2*Math.PI/5;
+ for(const offset of [0,.12,-.12,.24,-.24,.36,-.36,.48,-.48,.60,-.60,.72,-.72,.84,-.84,1,-1]){
+  for(const radius of [118,135,100,152,84,168]){
+   const x=t.x+Math.cos(angle+offset)*radius,y=t.y+Math.sin(angle+offset)*radius;
+   p.x=x;p.y=y;
+   if(!fireRimBlocked(p)&&!fireRimSites.some(q=>q!==p&&Math.hypot(q.x-x,q.y-y)<42)){
+    if(p.stone){
+     for(let i=0;i<p.stone;i++)looseStone.push({x:original.x+rand(-8,8),y:original.y+rand(-8,8)});
+     p.stone=0;observeEvent('fireRimSiteStoneRecovered');
+    }
+    observeEvent('fireRimSiteRepositioned');return true;
+   }
+  }
+ }
+ p.x=original.x;p.y=original.y;return false;
+}
 function fireRimRelease(idol,drop=true){
  if(idol.rock?.workerClaim===idol)idol.rock.workerClaim=null;
  if(idol.site?.claimed===idol)idol.site.claimed=null;
@@ -125,8 +144,8 @@ function fireRimUpdate(dt){
  if(!fireRimSites.length)fireRimPlan();
  for(const idol of [...fireIdols]){
   if(idol.cargo){
-   if(!idol.site||idol.site.mountain||fireRimBlocked(idol.site)){if(idol.site?.claimed===idol)idol.site.claimed=null;idol.site=null}
-   if(!idol.site){idol.site=fireRimSites.find(p=>!p.mountain&&!fireRimBlocked(p))||null}
+   if(!idol.site||idol.site.mountain||!fireRimReposition(idol.site)){if(idol.site?.claimed===idol)idol.site.claimed=null;idol.site=null}
+   if(!idol.site){idol.site=fireRimSites.find(p=>!p.mountain&&fireRimReposition(p))||null}
    // Multiple haulers may serve one site. Never drop cargo just because another Idol is delivering.
    if(!idol.site){if(fireRimSites.every(p=>p.mountain))fireRimRelease(idol);continue}
    if(moveWorker(idol,idol.site.x,idol.site.y,42,dt,16)){
@@ -142,6 +161,7 @@ function fireRimUpdate(dt){
    continue;
   }
   if(fireRimSites.every(p=>p.mountain))continue;
+  if(!fireRimSites.some(p=>!p.mountain&&fireRimReposition(p)))continue;
   if(idol.rock&&!looseStone.includes(idol.rock)){idol.rock=null}
   if(!idol.rock){
    let best=null,dist=Infinity;
