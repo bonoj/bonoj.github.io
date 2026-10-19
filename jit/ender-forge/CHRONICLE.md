@@ -132,6 +132,41 @@ Across **three local snapshots** at T+13, T+52 and T+101, the human and model ha
 
 The present experiment deliberately continues for a few turns **without changing gameplay**. The next design frontier, only when authorized, is **bounded temporal memory inside Ender**: encounters with first/last-seen times, locations and uncertainty; no remote sensing, no assumed persistence of entities, no privileged causal graph. Purposeful navigation, harvesting, combat and an earned fragile 1-HP tower remain separate future questions. Let the next observations challenge our hypotheses before prescribing a mind.
 
+## 🧠 Expedition continuation — empty territory, creeps, and first repeated landmark (19 October 2026)
+
+The human continued the **unchanged** wandering/snapshot experiment. These four further reports are local instantaneous observations, not Ender's stored memories. All coordinates below use the same world axes; relative offsets are from Ender's location at capture. The nominal sensory radius remained **125**. No gameplay changes or additional cognitive faculties were introduced.
+
+### Encounter 4 — T+183: empty local field
+Self **(723,205)**, cumulative path **3,465**, **zero entities** reported. The observation does **not** establish a barren biome or a globally empty area; it only establishes that none of the sensor's enumerated entity types was within range at this instant. Since T+101, Ender accumulated **1,546** path units over **82** seconds; endpoint displacement was about **497** units. The path between observations and any intermediate encounters are unknown.
+
+### Encounter 5 — T+237: three nearby creeps
+Self **(649,658)**, cumulative path **4,505**. Three 👹 creeps:
+- offset **(−44,+10)**, distance **46**, approximate absolute position **(605,668)**;
+- offset **(+8,−48)**, distance **49**, approximate absolute position **(657,610)**;
+- offset **(+76,−88)**, distance **117**, approximate absolute position **(725,570)**.
+
+No tower, crop, worker, depot, or material was reported locally. Since T+183: **1,040** more path units over **54** seconds; endpoint displacement approximately **459** units. Two creeps were within 50 units, but the snapshot cannot show pursuit, attack intent, or whether they react to Ender. Ender's current code has no creep-response cognition or threat avoidance.
+
+### Encounter 6 — T+256: first workers and depots
+Self **(639,374)**, cumulative path **4,861**. **Fourteen** entities: **10 sprouts**, **2 ant workers** (both `carrying:false`), **1 ant depot**, **1 eagle depot**. Ant workers at **(−69,−49)** distance **84** and **(−84,−43)** distance **94**. Ant depot **(−83,−28)** distance **88**, yielding absolute **(556,346)**. Eagle depot **(−91,+34)** distance **97**, yielding absolute **(548,408)**.
+
+Sprout offsets: **(−37,+13), (−104,−29), (−68,−39), (−75,−58), (−54,+1), (−41,−12), (−90,−6), (−71,+49), (−91,−44), (−41,−71)**. All reported at stage `sprout`. No creeps were reported. Since T+237: **356** additional path units over **19** seconds; endpoint displacement approximately **284** units. The coexistence of ants, infrastructure and vegetation invites a labor hypothesis, but neither harvesting nor delivery was observed.
+
+### Encounter 7 — T+270: a repeated ant-depot landmark
+Self **(617,278)**, cumulative path **5,122**. **Sixteen** entities: **12 sprouts**, **3 ant workers** (all `carrying:false`), **1 ant depot**. Ant depot **(−61,+68)** distance **91**, absolute **(556,346)** — **the exact same world position** independently reconstructed from T+256. Ant workers: **(−79,+76)** distance **109** (absolute **538,354**); **(−47,+82)** distance **94** (absolute **570,360**); **(−44,+54)** distance **70** (absolute **573,332**). Individual worker identities are not provided, so we cannot assert that these are the same ants as before.
+
+Sprout offsets: **(−92,+31), (−15,+110), (−82,+67), (−46,+57), (−53,+38), (−104,−16), (−32,+98), (−19,+84), (−68,+90), (−69,+52), (−19,+25), (−47,+78)**; all stage `sprout`. No eagle depot was reported within this snapshot, consistent with its last-observed absolute position **(548,408)** now lying roughly **146** units from Ender, outside radius **125**; this is **not** evidence of destruction. Since T+256: **261** additional path units over **14** seconds; endpoint displacement approximately **98** units.
+
+### What these observations establish
+- Ender's sensory reports now cover **seven encounters** (T+13, 52, 101, 183, 237, 256, 270), including an empty reading, close creeps, and a functioning-looking labor neighborhood.
+- **First repeatable geographic landmark:** the ant depot was observed at **(556,346)** at both T+256 and T+270, despite Ender's changed position. This is stronger evidence of local structural persistence than a single snapshot.
+- **First temporal labor comparison:** visible ant workers increased from **two to three** across the two snapshots, and their reported locations differ. This demonstrates changing *visible worker configurations*, not worker births or tracked individual trajectories.
+- **No cargo transfer witnessed:** every observed ant worker had `carrying:false`. We have not yet seen harvest, transport, or delivery.
+- **No creep pursuit established:** three creeps at T+237 were absent from T+256's local field, but the reports cannot determine whether they followed Ender or simply remained elsewhere.
+- **Still no endogenous memory:** all cross-time recognition and interpretation belongs to the human, the model and this Chronicle. Ender's code only senses the present. Bounded in-world memory, if later authorized, should preserve observed positions, first/last-seen times, uncertainty, and entity identity limits without leaking the global 👁 view.
+
+**Next observational opportunity:** another snapshot near the ant depot could capture cargo or worker-depot interactions. Continue the unmodified experiment until the human chooses a new intervention.
+
 ## 📚 Provenance and doors
 - [Ender Forge executable](./index.html) · [Current handoff](./README.md)
 - [Evermore II Chronicle — complete ancestral history](https://github.com/bonoj/bonoj.github.io/blob/master/jit/evermore-2/CHRONICLE.md)
