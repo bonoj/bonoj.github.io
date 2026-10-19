@@ -1,13 +1,19 @@
 # TIFFINITY SURVIVORS™
 **EVERMORE GAMES™ · THERE'S ALWAYS MORE™**
 
-[Play](https://bonoj.github.io/jit/evermore-2/) · [Game source](./index.html) · [Development chronicle](./CHRONICLE.md)
+[Play](https://bonoj.github.io/jit/evermore-2/) · [Source](./index.html) · [Chronicle](./CHRONICLE.md)
 
-**Identity convention:** the project owner is **the human**, the collaborator is **the model**, and other real people are **test subjects**. Use these labels in documentation; fictional characters and technical identifiers retain their names.
+## Identity and entrypoint
 
-## Icon progression — at a glance
+One mobile viewport, one HTML/CSS/Canvas battlefield. 🧛‍♀️ Tiffany survives, casts spells, buys drones/divisions, places towers and grows five interdependent ecologies. **The human** owns and tests the world; **the model** collaborates on engineering; other real people are **test subjects**. Preserve those labels in docs.
 
-| Land | Tier I | Tier II | Tier III | Tier IV | Tier V |
+**Cold boot:** repo `bonoj/bonoj.github.io`, branch `master`, executable `jit/evermore-2/index.html`. Do not touch `jit/evermore/`. Read this contract and latest source before editing; fetch current blob SHA → surgical commit → read back → distinguish Git source, Pages publication and browser-executed content. The top-left fingerprint hashes executing inline content, **not** the Git commit SHA; tapping it grants development currency. No claim of live verification from syntax checks or a Git commit.
+
+**👁 Observation:** tap to copy compact nondestructive digest; long-press (650 ms) for full JSON recorder with five-second history. `WORLD_OBSERVER_ENABLED` controls instrumentation. Observer reports are evidence, not a separate simulation. No verified green CI suite: the old Playwright/Actions suite was retired.
+
+## World map — progression and causal chains
+
+| Land | Tier I | Tier II | Tier III | Tier IV | Tier V (proposed) |
 |---|---|---|---|---|---|
 | ☀️ Plains | ✨️ | 👼 | 🪲 | TBD | 🐪 |
 | 💧 Island | ⚡️ | 🪼 | 🐙 | TBD | 🐋 |
@@ -15,22 +21,9 @@
 | 🔥 Mountain | ☄️ | 🐦‍🔥 | 🦂 | TBD | 🦟 |
 | 🌳 Forest | 🌿 | 🦌 | 🦅 | TBD | 🐢 |
 
-Tiers I–III are implemented purchase icons. Tier IV is intentionally undecided. Tier V is a **proposed** macro-scale lineup, not implemented: camel, whale, fly swarm, mosquito swarm, tortoise. This table is a design reference, **not** authorization to add shop UI or change gameplay.
+Tier I–III purchase icons are live; Tier IV undecided and Tier V **only proposed**. No new purchase UI is authorized. Tiffany starts with five hearts; ordinary kills grant two coins, every eighth kill one gem. Discovered currencies/materials remain visible in the two-row HUD. After two drones Tiffany cycles spells every two seconds independently of tower selection; five towers stop autocycle and enable her five-node in-world Mission Command ring (currently stubs). Five orbiting drones (radius 65, speed ±0.65) or towers unlock territory: second drone → 2× area; five drones **or** five towers → 4×; no 8×. Camera auto-fits; pinch/drag disabled. Drone engagement radius `w/(2*arenaScale)`. Tier II divisions recruit up to eight one-hit combat units per tower, roughly every five seconds, expiring after 24 seconds; recruitment continues after construction/ascension.
 
-**Runtime 👁 diagnostics:** Tap to copy a compact analytical digest (current state, event totals, numeric trajectories and periodic checkpoints). Long-press for 650 ms to download the full JSON flight recorder with all retained five-second samples. Both derive from the same recorder; no separate simulation or extra UI. Browser/device interaction verification pending.
-
-## The game
-
-One mobile viewport, one HTML/CSS/Canvas file. Tiffany 🧛‍♀️ survives converging enemies, casts spells, purchases automation, places towers and grows a living civilization. Five lands and their shared identities: ☀️ Plains/prism, 💧 Island/lightning, 💀 Swamp/poison, 🔥 Mountain/fire, 🌳 Forest/vines. Keep the discovery-driven, whimsical progression; do not invent tutorials, panels, or new UI without a request.
-
-- **Economy and HUD:** five starting hearts; ordinary kills award 2 coins and every eighth kill a gem. Health is visible immediately; kills, coins, gems, wheat, wood, ice, herbs, stone and mushrooms appear only after first earned/delivered and remain discovered for that run. Fixed two-row HUD with reserved aligned slots, no wave indicator. The discreet top-left **executing-content fingerprint** is computed from the loaded page's inline scripts and styles, not fetched from the latest GitHub commit. It changes when delivered executable content changes, and can be tapped for development currency. It is **not a Git commit SHA**; a new GitHub commit alone cannot change this label on a stale page.
-- **Drones and territory:** five distinct purchasable orbiting drones, one per land, radius 65, angular speed ±0.65 rad/s. Second drone doubles world area; five drones **or** five towers expands to 4× starting area, never twice. Drone engagement radius is half the visible horizontal world span: `w/(2*arenaScale)`.
-- **Towers and Tiffany:** after two drones, Tiffany autocasts through land spells every 2 seconds independently of the player's selected tower-placement land. Tap arena to place or relocate one tower per land (five max); towers cast localized effects. At five towers, autocycle stops and tapping Tiffany toggles the five-icon Mission Command ring (currently stubs).
-- **Armies and civilians:** five drones unlock the same shop slots for Cherubs, Auditors, Notaries, Phoenixes, Arborists. Each purchased division recruits up to eight one-hit combat units from its living matching tower, roughly every five seconds; recruits expire after 24 seconds and retain distinct attacks. Cherubs remain **combat-only**. Arborists additionally own 🛖/🐜 logging ants, Cherubs 🍯/🐝 wheat harvesters, Auditors 🐚/🦀 mountain miners, and Notaries ⚗️/🪱 mushroom harvesters. Each depot has up to three workers using shared FSM, claims, movement, and equipped-actor rig; materials are earned on delivery.
-- **Ecology:** Plains and Forest towers plant sprouts; Island water matures wheat/trees; Swamp withers plants and killed enemies leave bones that decay to mushrooms; Mountain fire burns plants/mushrooms and spawns volcanoes. Water/Forest/Fire pulses drive mountain succession. Shared crop cap 100, geological cap 12. Keep all systems in the **same battlefield**, not separate interior games.
-- **Destruction/recovery:** enemy contact consumes the attacker and destroys one-hit towers, civilian depots and workers without kill currency. Towers recover after five seconds at their current coordinates; depots recover after five seconds at a valid site relative to their associated tower's current position. Living depots replenish workers every 1.5 seconds up to three. No duplicate land purchases, no overlapping building fallback.
-
-## Living causal chains — icon-first handoff
+## World map — living causal chains
 
 Arrows describe **actual world causes and transfers**, not new features. Use only game icons; use words for inventory, actions, and states without game icons.
 
@@ -47,24 +40,20 @@ Arrows describe **actual world causes and transfers**, not new features. Use onl
 - **Fire construction:** 🔥 Tier III → 🦂 armor loss → loose 🪨 → 🗿 Idol collects and carries → three deliveries per site → 🌋 (five tower-relative sites) → 🐦‍🔥 claims → permanent 🔥 and defensive projectiles. Unbuilt blocked sites adapt position; shared construction destinations prevent cargo churn. Tower relocation → 🌋 collapse → physical 🪨 returned → rebuild. No separate volcanic ground creep-damage mechanic.
 - **Recovery:** enemy contact → tower/depot/worker death → existing recovery/respawn and ordinary combat/labor resume. Preserve physical drops and exclusive resource claims, not magical resource credits.
 
-**Observed lifecycle (19 October 2026, executing build `de2eb2af`):** five Fire volcanoes built, then all five collapsed after relocation and five rebuilt; all five current sites active and Phoenix-claimed. 10 builds, 5 collapses, 32 stone pickups, 30 deliveries, 2 drops, 9 cumulative claims, 146 projectiles, one site reposition, zero observer errors. Sun simultaneously held five built, inhabited monuments. `32 = 30 + 2` supports carried-stone accounting, not a formal whole-world conservation proof. Two Idols retained stale rock targets at saturation; cleanup remains open.
+## Invariants — laws of the world
 
-**Contract:** one mobile battlefield and existing shop; no new UI, invented resource icons, omniscient targeting, remote credits, free construction, duplicate resource claims, or parallel worker FSM. Source is executable truth. Historical exact specifications, superseded proposals, and implementation decisions are preserved verbatim in [the chronicle](./CHRONICLE.md).
+- **Real matter:** actual source object → exclusive claim → travel → harvest/pickup → visible cargo → physical delivery/drop → inventory or construction. No duplicated claims, remote credits, free materials, or unearned construction. Scorpion stone armor and Sun/Fire structures transfer physical stone. Shared crop cap 100; geological cap 12.
+- **Autonomy and locality:** preserve existing shared worker FSM, equipped-actor pivots, target-claim cleanup, local encounters and competing ecological interests. Scarabs detect scorpions only within 160 world units; no omniscient agents. A carrying scarab finishes delivery; multiple Idols can deliver to one unfinished rim site.
+- **Recovery and continuity:** enemies consume themselves when destroying one-hit towers, workers and depots, without kill currency. Towers recover after five seconds at their positions; depots after five seconds at valid tower-relative sites; living depots replenish up to three workers at roughly 1.5-second intervals. Ordinary combat recruitment continues after monuments and rims are occupied.
+- **Presentation:** existing one-page mobile battlefield and shop only; preserve emoji legibility, current land icons and discoverable HUD. Use **in-game icons only** in causal diagrams; otherwise words. No new UI, invented inventory icons, duplicate depots, parallel worker machinery or unrequested mechanics.
+- **Verification:** distinguish source parse, deployed Pages and observed runtime. Prefer direct 👁 evidence; don't resurrect retired red CI or destructive performance instrumentation. Preserve conservative targeting prefilter and emoji rather than speculative SVG/performance rewrites.
 
-## Cold-boot handoff
+## Frontier — verified, unresolved, deferred
 
-**Read this handoff and causal map first; consult [CHRONICLE.md](./CHRONICLE.md) for historical detail.** Repository `bonoj/bonoj.github.io`, branch `master`; game `jit/evermore-2/index.html`. Leave `jit/evermore/` untouched. Read latest source and blob SHA before changing it. Persist surgical changes, read back, and distinguish source commit, Pages deployment, and browser-executed code. Cache-bust when necessary. Do not claim tests or device verification that did not happen.
+**Verified in human-supplied runtime observation (`de2eb2af`, 19 October 2026):** five Sun monuments built and inhabited; Fire constructed five volcanoes, collapsed them on relocation and rebuilt five, all Phoenix-claimed. The full event ledger and causal/debugging analysis live in the [chronicle](./CHRONICLE.md). This is strong observed lifecycle evidence, **not** a formal global material-conservation proof.
 
+**Open checks:** stone conservation across destruction/relocation; Sun blocked-site arrival/credit, tower movement and Reliquary recovery; cargo drop on death; scorpion meal/armor edge cases; two Idols observed retaining stale rock targets after the rim was complete. Do not interpret open checks as permission to add features.
 
-**Testing:** the old Playwright/Actions regression suite was retired after persistent red runs. Do not claim green CI or revive it without a working verified harness. Favor rapid experiments, direct observation, and early reversion when an experiment does not converge.
+**Deferred:** save/restore remains unimplemented. Preserve durable world truth (progression, positions, ecology, geology, inventory, workers/cargo/journeys) and reconstruct ephemeral claims/timers when a future design is authorized. No save UI or radial-command node is approved. Retired optimization experiments stay retired. The [chronicle](./CHRONICLE.md) preserves the full original specifications, save/restore design reasoning, rejected proposals and development evidence; source remains executable truth.
 
-**Optimization disposition (18 October 2026):** old performance instrumentation retired; speculative performance work and emoji-to-SVG migration deferred. Keep the conservative targeting prefilter, retain emoji fidelity and all population/behavior, and revisit only against an observed problem or a specific creative asset objective. Detailed rationale, experiments, limitations, and reversal criteria are in the chronicle. The JIT Assets ant/axe/log study is an independent archived specimen, not a game dependency.
-
-**Deferred roadmap — save and restore (not implemented):** Persistence is deliberately deferred while the game's durable vocabulary evolves rapidly. When revisited, first inspect `reset()`, startup, entity hydration, relationships and timers. Preserve **durable world truth**: towers/buildings and exact locations; cultivated crop/tree patches and ecology; geological features; economy, purchases and progression; civilian workers including their positions, cargo, home and journey/destination so long-distance crab marches are not erased. Reconstruct current FSM internals, claims/path caches and callbacks rather than freezing obsolete code. Enemy positions, projectiles and transient combat need not persist; combat recruits can be reconsidered. Prefer minimal versioned snapshots and forward-compatible defaults/migrations with recoverable originals, not exact build-SHA coupling. No save UI or Tiffany radial node is authorized. Tiffany's five-node command radial stays entirely in-world for discoverable gameplay, not an embedded settings menu. The top-left build-number tap remains the currency/gem development cheat until persistence actually replaces its utility. Avoid imposing schema migration/cognitive overhead on every rapid feature. Plan and obtain the human's approval before implementation; do not restore retired Runtime Eyes. See chronicle for reasoning.
-
-
-
-**Remaining verification frontier:** Focused tests for cargo/stone conservation through arbitrary destruction and relocation, Sun tower movement and Reliquary recovery, cargo drop on death, and stale Idol rock claims. Keep scarabs' local 160-world-unit scorpion discovery radius; do not grant omniscient targeting. No new UI or mechanics are authorized by this status.
-
-**Cadence:** Play → notice → invent → ship → verify → play again. ➡️ means advance from this state. Detailed development history, experiments, discarded directions and measurement results live in the [chronicle](./CHRONICLE.md).
-
+**Cadence:** Play → notice → invent → ship → verify → play again. `➡️` means advance; `Dracarys` means authorized fix/implement/deploy. Read the chronicle selectively when a causal decision needs archaeology.
