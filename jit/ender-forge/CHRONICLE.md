@@ -63,6 +63,25 @@ These titles are invitations to notice nascent crafts, **not doctrine to teach o
 
 Do not freeze this understanding into a curriculum, named developmental stages, agent persona, or mandatory architecture. Revise it as experiments and conversation sharpen the question.
 
+## 🌒 Proposed frontier — the sixth faction (19 October 2026)
+**Status: working hypothesis and cold-boot handoff; no sixth faction, Ender agent, or expedition harness is implemented.** This proposal follows the Conjoiner-growth discussion. Do not mistake it for observed runtime behavior or a locked feature specification.
+
+The existing five factions belong to Tiffany's mature ecology. The human can develop towers, workers, materials and ecological relationships; Tiffany herself is small, with powerful but discoverable interactions. A sixth faction could enter **without a sixth shop button, purchasable tower, scripted tech tree or prescribed personality**. Its identity would emerge from what an external interpreting intelligence manages to do in the same consequential world.
+
+**First scene:** let the human establish a mature civilization. A lone **Ender wanderer arrives from an edge** and encounters it as a stranger. Ender begins with **no tower, inventory, workers, territory, privileged knowledge, or access to Tiffany's resources**. The world and its observable evidence are the starting conditions, not a gift of control. Ender might eventually construct its **own tower**, earned through interaction with the world rather than granted at spawn. How it obtains materials, what it tries, and what it discovers remain open experimental questions.
+
+**Tower possibility:** a physical, visible locus for Ender's activity, with **1 HP**, vulnerable to ordinary creeps like other towers, and some form of **respawning/recovery structure** compatible with existing world rules. Its construction must respect real sources, claims, movement and consequences; no free credits or invented materials. The exact tower cost, recovery mechanism, wanderer death/reentry behavior, and permissible actions are **undecided**, not implementation instructions.
+
+**Two kinds of continuity:** the wanderer and tower are mortal world objects, subject to ordinary loss and recovery. Ender's accumulated observations, hypotheses, and useful discoveries would live in recoverable external artifacts, not in a fictional continuously conscious model. An expedition should be able to return to the world, see what actually happened, and act again. Distinguish model proposals, committed code, deployed content, and browser-observed events.
+
+**Relationship to Tiffany:** the possibility of using her shared economy was considered, then deliberately set aside for the beginning. **Start with access to nothing.** Future exchange, cooperation, competition or resource sharing might emerge or be explicitly authorized, but should not be silently assumed.
+
+**Smallest meaningful experiment to design next:** decide how a model invocation can observe a bounded slice of the mature world, choose one genuinely permitted action for a resource-less wanderer, witness its consequence, and preserve an intelligible record for the next invocation. The eventual first tower is a motivating possibility, **not a required first-step outcome**. Avoid inventing a sixth-faction UI or implementing a whole civilization before establishing this encounter.
+
+**Known baseline:** the human supplied a 👁 digest from executing build `c4071a56` at 173 simulation seconds (19 October 2026): five towers, eight depots, Sun monuments 4/5 with one blocked site, Fire rim sites 5/5 built with one unclaimed, 85 eagle worm captures and deliveries, 79 octopus mushroom conversions, and `errors: []`. This demonstrates an active, partially observed ecology; it does **not** prove all conservation or lifecycle invariants. The screenshot shows `ENDER FORGE` and the subtitle `TIFFINITY SURVIVORS · FORGE BASELINE`. Neither proves Ender autonomy.
+
+**Next-chat orientation:** read [README](./README.md), this Chronicle, and current source before designing. Preserve the working Evermore II baseline and **never edit `jit/evermore-2/`**. Discuss the first bounded Ender encounter and its observation/action/recovery contract before writing gameplay code. Keep the vision mutable: this is a possibility space to test, not doctrine.
+
 ## 📚 Provenance and doors
 - [Ender Forge executable](./index.html) · [Current handoff](./README.md)
 - [Evermore II Chronicle — complete ancestral history](https://github.com/bonoj/bonoj.github.io/blob/master/jit/evermore-2/CHRONICLE.md)
