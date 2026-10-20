@@ -45,3 +45,7 @@ The app lives in one standalone HTML file with inline CSS/JavaScript and no back
 - [VET.md](VET.md) — provider audit, implementation seams and acceptance plan
 - [CHRONICLE.md](CHRONICLE.md) — verbatim human–model turn archive and build chronology
 - [Hormuz JIT](../hormuz/) — original regional instrument, independent of Lattice
+
+## Ingestion campaign — turn 1/10
+
+The [53-channel manifest](channels.json) is committed as `lattice-channels/v1`: 53 unique stable IDs, 17 provider/adapter groups, each currently `SPECIFIED` with no browser-verification claim. This is inventory plumbing, not 53 working integrations. Existing runtime remains `lattice/02` and unchanged. Next: bind manifest to reusable parsers and normalized observations, add deterministic fixtures, then exercise browser-origin source tests. Preserve [SPEC](SPEC.md) acceptance and [CHRONICLE](CHRONICLE.md) history.
