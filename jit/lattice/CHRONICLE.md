@@ -816,3 +816,7 @@ Globe accuracy, richer world navigation, derived composites, WorldSpec generatio
 
 ```
 </details>
+
+## Antarctic polar expansion — 2026-10-20
+
+The human requested Antarctic observations from AMRDC, NSIDC, SOOS and AADC, all inspectable in the Antarctica UI, with synthesis. The model added two new intake feeds through the existing governor (commits `32502be3`, `a81bb9a1`): NSIDC G02135 v4 daily Antarctic sea-ice extent CSV, preserving latest observation date, archive length and previous-record delta; and a 12-location Open-Meteo multi-coordinate polar weather query, preserving each modeled temperature, wind and pressure record with site coordinates. Antarctica cards expose an **INSPECT POLAR RECORDS** control with structured JSON for both. Synthesis is explicitly limited to sea-ice change between archive records and model temperature range across 12 sites; model values are not passed off as instruments. The UI links to AMRDC AWS, SOOSmap and AADC AWS as **external source portals only**, not live ingested data. This is a partial implementation of the requested four-family integration: AMRDC, SOOS and AADC machine-readable intake remains unimplemented pending endpoint, terms and browser-CORS verification. The AADC public page lists current observations but archive is updated monthly; NSIDC documentation reports a temporary AMSR2 processing outage around 20–21 October 2026. No browser-origin proof of the new feeds exists yet. Do not claim all four source families are integrated. Preserve the source distinction in future synthesis.
