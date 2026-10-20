@@ -4,7 +4,7 @@
 
 ## Status
 
-**Executable visual shell, not yet a playable spacecraft simulation.** Single-file HTML/CSS/Canvas committed to `master`; source inspected 20 October 2026. The published GitHub Pages runtime has **not been independently verified**. Earlier Icarus module-dashboard concepts were superseded by this lighthugger shell; their design reasoning and human turns remain in the Chronicle.
+**Executable prototype with Supabase observer transport.** Single-file HTML/CSS/Canvas committed to `master`; source inspected 20 October 2026. The published GitHub Pages runtime has **not been independently verified**. Earlier Icarus module-dashboard concepts were superseded by this lighthugger shell; their design reasoning and human turns remain in the Chronicle.
 
 ## What the current executable does
 
@@ -12,8 +12,8 @@
 - Spawns small diagonal meteor streaks periodically, advances them across the canvas and removes offscreen particles.
 - Applies an **approximate point-distance hit test** in a small forward region near the ship, rather than colliding with the rendered hull/shield outline. Each registered hit increments `impacts`, subtracts **0.14** from the initial `ice = 100` (floor 0), and logs an `ice-ablation` event. The ice is a scalar reserve; its rendered geometry does **not** erode.
 - Tracks simulation seconds and a bounded event log (latest 2,500 events). **⏸ / ▶** pauses/resumes time and debris advancement; **↻** resets the run, ice, impacts and particles.
-- **👁** downloads JSON with schema `lighthugger-shell-observer/v1`: `sourceCommit`, `runSeconds`, `paused`, `impacts`, `ice`, `events`, and an explicit shell-only geometry caveat. Filename: `icarus-<sha>-<dts>.json`, where `sha` is the eight-character build badge identifier or `unverified` and `dts` is a filesystem-safe UTC timestamp.
-- Displays an eight-character source revision badge, resolved at runtime from the GitHub API's latest commit touching `jit/icarus/index.html`. **This is not a deployment-stamped identity**: when Pages lags, the displayed revision may differ from the actual HTML executing. On lookup failure it displays `unverified`.
+- **👁 long-press** downloads JSON with schema `lighthugger-shell-observer/v1`: `sourceCommit`, `runSeconds`, `paused`, `impacts`, `ice`, `events`, and an explicit shell-only geometry caveat. Filename: `icarus-<sha>-<dts>.json`, where `sha` is the eight-character build badge identifier or `unverified` and `dts` is a filesystem-safe UTC timestamp.
+- **👁 tap** posts a bounded `icarus-memory/v1` observation directly to Hermeticon Memory (`icarus/observations`), GETs recent events, and checks the returned ID. Shows `👁 SAVED #id` or `👁 OFFLINE`; no clipboard needed. Public endpoint and observations are anonymous/untrusted. The source is committed; browser round-trip is not yet independently verified.\n- Displays an eight-character source revision badge, resolved at runtime from the GitHub API's latest commit touching `jit/icarus/index.html`. **This is not a deployment-stamped identity**: when Pages lags, the displayed revision may differ from the actual HTML executing. On lookup failure it displays `unverified`.
 
 ## Not implemented
 
