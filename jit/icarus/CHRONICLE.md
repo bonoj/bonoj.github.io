@@ -144,3 +144,9 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Model action:** Changed 👁 to download a complete JSON file via browser Blob and download link, rather than copying potentially overlong text into chat. Commit `e64eca4d7a1c7033916f51d144eb3e813e8112ee`. The report preview remains available. Live Pages behavior not verified.
 
 **Design question:** What should the player actually witness and influence that produces delight, curiosity, and emergent stories?
+
+
+### Human turn — initial visual language
+> “We want single page clean design no words as initial design language.”
+
+**Design canon (new constraint):** Single mobile viewport, no document/page scroll, no dashboard cards, no instructional prose, no visible text labels as the initial presentation. The ship and its crew are the UI: legible emojis, spatial arrangement, movement, material transfer, heat, air, fire and damage. Tapping a module should reveal or focus it without navigating away. Controls are icon-only and minimal. 👁 instrumentation must not dominate the scene; invoke it discreetly and download the full JSON. Visible bars and text should not substitute for physical phenomena. This is a direction for the **next design**, not a claim the current deployed prototype already complies. Do not rebuild until authorized.
