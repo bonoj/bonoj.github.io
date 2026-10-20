@@ -368,9 +368,9 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Checkpoint status:** Planning and inspection only. Existing Ingest workflow is verified by source and historical artifact metadata; no new Crossing workflow, FUUTP contract revision, Ingest modification, or Ice Cathedral promotion has yet been executed. Resume from this entry and the three canonical repositories without rediscovering the architecture.
 
 
-### Coolant checkpoint — Captain America dies; Ice Cathedral crosses into Google Drive (20 October 2026, 08:49 EDT / 12:49 UTC)
+### Film clock ~01:27:00 — Captain America dies in coolant; Ice Cathedral crosses into Google Drive (20 October 2026)
 
-**Film-clock anchor (human):** “Captain America just died in the coolant.” This is the human's live *Sunshine* (2007) viewing marker, following the earlier Icarus I → Icarus II crossing checkpoint. The timestamp above is the **conversation wall clock** at logging, not a verified film runtime or the exact instant of the scene. Do not invent a movie minute/second.
+**Film-clock anchor (human):** “Captain America just died in the coolant.” This is the human's live *Sunshine* (2007) viewing marker, following the earlier Icarus I → Icarus II crossing checkpoint. **Film-clock estimate: approximately 01:27:00 elapsed** in *Sunshine* (2007), based on the coolant scene and subtitle cues around 01:26:24–01:26:54; edition and exact death frame may vary. This is **not** the conversation wall clock or an exact playback measurement.
 
 **Human prompts during this transport thrash:** “Look at innsmouth repo. You've pushed an image packed inside html before.” → “Ah, is in jit? It may have been a standalone we just used in chat download. But anyways this may be a workaround. Embed the image in html then push the artifact?” → “Small bytes will work. Just push 🧊 :).” → “Hrmmm.” → “Inspect away.” → “Plan?” → “➡️” → “Can you save directly into my google drive?” → “Is there any way for you to expose your local filesystem path?” → “➡️” → “Doc this thrash into chronicle. This is excellent. Captain America just died in the coolant. Timestamp us, too.”
 
