@@ -2,6 +2,12 @@
 
 ## 20 October 2026 · From SIGINT concept to a browser-native maritime observatory
 
+### Original human request — verbatim POC brief
+
+> For now just deploy a jit hormuz that pulls in a bunch of different public telemetry from the region. Get shipping shit and vessel traffic, too, if it's available. Don't slam endpoints with requests. Once every 5 seconds should be safe as long as that supports a full day (realistically no user would leave it running, and it's tied to their ip anyways not our static site).
+
+This is the original request, preserved **verbatim** as the benchmark for evaluating the first Hormuz proof of concept, including in a potential Anduril-facing demonstration. It specifies the desired result and operational restraint without prescribing a framework, backend, architecture, or detailed implementation plan. The model's delivered artifact can be evaluated against it; the request alone is not proof that every browser feed worked. The five-second suggestion was implemented as a due-check scheduler rather than five-second polling of every endpoint.
+
 ### Request
 
 The human requested a JIT named **Hormuz**, deployed immediately, that ingests a broad set of public telemetry for the Strait of Hormuz, including commercial shipping and vessel traffic where available. The human explicitly ruled out using Supabase to store telemetry snapshots: **the static site should ingest directly from source endpoints**. A five-second cadence was suggested as an upper-frequency check, with the proviso that it not overwhelm providers, including during a hypothetical full day of foreground operation.
