@@ -922,3 +922,22 @@ Cobb invites Ariadne to spend five more minutes dreaming. Scene-relative timing 
 Human runtime observation: Icarus build 34f1608d at simulation second 31.1, seed 741, 384x694. There were 77 meteors spawned, 44 hits, 17 ice chunks destroyed, 79 ice chunks active, four successful manufactured-and-hauled ice installations, 12 active workers, and 12 cannon interceptions. Water deliveries: 9. Precursor transfers: 4. Plants grown: 2; trees matured: 1. All eight bays alive and powered. No reported violations. Cannons had 16 and 20 rounds left. Net ice attrition: 13 chunks.
 
 Next construction priority: make the five currently visual hull masses actual damage-bearing structures; connect supports, material recovery, and cannon sensing to physical state. Preserve functioning logistics and compact eyes.
+
+
+---
+
+## Hermeticon Memory — the first autonomous observation round trip (20 October 2026)
+
+The human rejected clipboard and file shuttling: **“Why not hit icarus. Instead of me shuttling files or copying clipboard.”** The model located the existing JIT world at `bonoj/bonoj.github.io/jit/icarus/` and connected its existing 👁 observer directly to the shared Hermeticon Memory backend, rather than building another transport harness.
+
+**Endpoint:** `https://iqglyokmcobegledbfcm.supabase.co/functions/v1/memory/v1/data/icarus/observations`. 👁 tap serializes a bounded `icarus-memory/v1` observation (build, seconds, counters, chains, violations, modules, ice totals, recent events), POSTs it, then GETs recent events and checks for the returned ID and schema. 👁 long-press continues to download the detailed JSON. The transport has a 4,096-byte payload limit; this is **not** the older 65,000-character clipboard contract. The shared backend handoff and its canonical read/verification instructions live at [../../backend/README.md](../../backend/README.md).
+
+**First live test:** the human reported only `👁 SENDING`. The model initially attempted `execute_sql` for database inspection and encountered an explicit safety-tool block. It also initially queried a nonexistent `edge_logs` table. After consulting [Sanctum's operational contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) and [Gate](https://github.com/bonoj/Gate/blob/main/README.md), the model recovered using the supported Supabase `query_logs` interface and the actual unified `logs` table, filtering `source = 'function_edge_logs'`. Logs confirmed `OPTIONS 204` at 15:15:26 UTC, `POST 201` at 15:15:27, and `GET 200` at 15:15:27. This established server-side write and read traffic, not yet the client's ID comparison.
+
+**UX correction and retrieval:** the `SENDING` toast originally vanished after 1.3 seconds, potentially before the request finished. The model changed the toast to persist through completion and show `👁 SAVED #id` or `👁 OFFLINE`. The existing eight-character build badge became a read-only recall control: tapping it GETs the latest stored observation and displays `👁 LAST #id · Ns` or `👁 NO MEMORY`. Recall does not restore simulation state. Source was read back after commits; public browser execution was not claimed until human observation.
+
+**Second live test and acceptance:** the human reported **`SAVED #4`**, confirming the client received a receipt and matched its event on readback. Independently, Supabase logs recorded `POST 201` at 15:27:05 UTC and `GET 200` at 15:27:06 UTC. The human then tapped the badge and reported **`LAST #4 5.5s`**, confirming retrieval of the previously persisted observation, including its original simulation timestamp. This proves the application-level write/read/recall path. The human moved **no files or clipboard payloads**.
+
+**Boundary:** the stored observation is anonymous, public, and untrusted; this is world telemetry, not authenticated save-state. The observed badge recall proves a separate GET after saving; a browser reload between those two actions was not explicitly reported. Do not inflate the evidence into verified state restoration, full cross-device continuity, or guaranteed retention. The remaining future work is backend retention/quota cleanup and reusable integration for other JIT worlds, without diverting from the Application Forge.
+
+**Milestone: shared world memory transport operational.** Model-side observation uses the documented Supabase log interface; the human is no longer a telemetry courier.
