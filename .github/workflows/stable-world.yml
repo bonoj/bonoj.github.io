@@ -105,9 +105,9 @@ jobs:
           from pathlib import Path
           import re
           html=Path('site/jit/lattice/index.html').read_text()
-          scripts=re.findall(r'<script(?:\\s[^>]*)?>([\\s\\S]*?)</script>',html)
+          scripts=re.findall(r'<script(?:\s[^>]*)?>([\s\S]*?)</script>',html)
           assert scripts, 'Lattice inline script missing'
-          Path('/tmp/lattice-runtime.js').write_text('\\n'.join(scripts))
+          Path('/tmp/lattice-runtime.js').write_text('\n'.join(scripts))
           PY
           node --check /tmp/lattice-runtime.js
       - uses: actions/upload-pages-artifact@v3
