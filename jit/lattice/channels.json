@@ -815,8 +815,21 @@
       "requestGroup": "iss",
       "source": "https://api.wheretheiss.at/v1/satellites/25544",
       "cadence": "10s",
-      "status": "CODED",
-      "evidence": [],
+      "status": "BROWSER_VERIFIED",
+      "evidence": [
+        {
+          "capturedAt": "2026-10-20T20:24:53.223Z",
+          "build": "lattice/02",
+          "sourceUrl": "https://api.wheretheiss.at/v1/satellites/25544",
+          "observedAt": "2026-10-20T20:24:51.000Z",
+          "fetchedAt": "2026-10-20T20:24:51.915Z",
+          "field": "altitude",
+          "value": 421.13687947394,
+          "unit": "km",
+          "transport": "3/3 successful; 0 failed",
+          "scope": "User-supplied browser eye snapshot; one successful extraction; does not establish sustained reliability"
+        }
+      ],
       "blocker": null,
       "field": "altitude",
       "unit": "km",
