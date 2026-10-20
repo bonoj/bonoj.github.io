@@ -1,33 +1,71 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#070c17"><title>LIGHTHUGGER · JIT</title><style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#070c17;color:#d9e6ef;font-family:system-ui,sans-serif}button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}.world{position:relative;width:100%;height:100dvh;overflow:hidden;background:radial-gradient(ellipse at 74% 50%,#3b231b 0%,#151321 29%,#070c17 75%)}canvas{position:absolute;inset:0;width:100%;height:100%;display:block}.hud{position:absolute;inset:0;pointer-events:none}.top{position:absolute;top:calc(env(safe-area-inset-top) + 10px);left:12px;right:12px;display:flex;justify-content:space-between;align-items:center}.bottom{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 12px);left:12px;right:12px;display:flex;justify-content:space-between;align-items:center}.hud button{pointer-events:auto;border:1px solid #8ba4bd4d;background:#101b2b99;border-radius:11px;min-width:44px;min-height:40px;font-size:22px;backdrop-filter:blur(8px)}#build{font:600 12px ui-monospace,monospace;letter-spacing:.05em;padding:9px 11px;min-width:94px;color:#bdd5e8}#status{font-size:19px;letter-spacing:5px;opacity:.85}#eye{font-size:24px}#pause{font-size:21px}#toast{position:absolute;bottom:68px;left:16px;right:16px;text-align:center;font:12px ui-monospace,monospace;opacity:0;transition:opacity .2s;pointer-events:none}#toast.show{opacity:.8}</style></head><body><main class="world"><canvas id="scene" aria-label="Lighthugger crossing a stellar debris field"></canvas><div class="hud"><div class="top"><button id="build" aria-label="Executing source commit" title="GitHub source revision">········</button><span id="status">✦ ✦ ✦</span><button id="eye" aria-label="Download observation report">👁</button></div><div class="bottom"><button id="pause" aria-label="Pause or resume">⏸</button><span>🧊　☀️　🚀</span><button id="reset" aria-label="Reset voyage">↻</button></div><div id="toast"></div></div></main><script>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080e19"><title>ICARUS · ICE HAULERS</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080e19;color:#e2f0f8;font-family:system-ui,sans-serif}button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}.world{position:relative;width:100%;height:100dvh;overflow:hidden}canvas{position:absolute;inset:0;width:100%;height:100%;display:block}.hud{position:absolute;inset:0;pointer-events:none}.top{position:absolute;top:calc(env(safe-area-inset-top) + 8px);left:10px;right:10px;display:flex;justify-content:space-between;align-items:center;gap:7px}.bottom{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 9px);left:9px;right:9px;display:flex;flex-direction:column;gap:6px}.row{display:flex;gap:6px;align-items:center;justify-content:space-between}.hud button{pointer-events:auto;border:1px solid #8ba4bd66;background:#101b2bba;border-radius:10px;min-height:40px;padding:6px 11px;font-size:19px;backdrop-filter:blur(7px)}button.active{background:#346181dd;border-color:#a7e5ff}#build{font:600 11px ui-monospace,monospace;min-width:85px}#stats{font:10px ui-monospace,monospace;color:#b7d6e8;text-align:center;text-shadow:0 1px 5px #000}.policy{flex:1;font-size:13px!important;padding:8px 3px!important;white-space:nowrap}#toast{position:absolute;bottom:116px;left:15px;right:15px;text-align:center;font:12px ui-monospace,monospace;color:#d2eaf8;opacity:0;pointer-events:none}#toast.show{opacity:1}
+</style></head><body><main class="world"><canvas id="scene" aria-label="Solar horizon, structural spine, ice shield and autonomous ice hauling drones"></canvas><div class="hud"><div class="top"><button id="build" title="Source revision (not deployment attestation)">········</button><span id="stats">ICE 40 · COVER 0%</span><button id="eye" title="Export observation">👁</button></div><div class="bottom"><div class="row"><button id="pause">⏸</button><button id="orientation" title="Rotate shield orientation">↗️ ARC</button><button id="layer" title="Select next shield layer">🧊 L1</button><button id="reset">↻</button></div><div class="row"><button class="policy active" data-policy="expand">🛸 EXPAND</button><button class="policy" data-policy="repair">🔧 REPAIR</button><button class="policy" data-policy="shelter">🛡️ SHELTER</button></div></div><div id="toast"></div></div></main>
+<script>
 (()=>{'use strict';
 const canvas=document.getElementById('scene'),ctx=canvas.getContext('2d'),$=id=>document.getElementById(id);
-let W=1,H=1,dpr=1,last=0,paused=false,seconds=0,frame=0,impacts=0,ice=100,events=[],particles=[],stars=[],revision=null;
-function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);stars=Array.from({length:95},(_,i)=>({x:(i*73.27%101)/101*W,y:(i*31.19%97)/97*H,r:.3+(i%4)*.25}))}
-addEventListener('resize',resize);resize();
-function log(type,detail={}){events.push({t:+seconds.toFixed(2),type,...detail});if(events.length>2500)events.shift()}
-function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2200)}
-function reset(){seconds=0;frame=0;impacts=0;ice=100;particles=[];events=[];paused=false;$('pause').textContent='⏸';log('reset')}
-function ship(){const unit=Math.min(W/470,H/420,1.35),x=W*.45,y=H*.53;ctx.save();ctx.translate(x,y);ctx.scale(unit,unit);ctx.rotate(-Math.PI/2);
-const body=ctx.createLinearGradient(-26,0,26,0);body.addColorStop(0,'#263f52');body.addColorStop(.24,'#9bb9c4');body.addColorStop(.55,'#e3d8c4');body.addColorStop(1,'#334b62');
-ctx.fillStyle='#1c3044';ctx.strokeStyle='#99adba';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-198);ctx.bezierCurveTo(32,-173,28,-120,26,115);ctx.lineTo(17,152);ctx.lineTo(-17,152);ctx.lineTo(-26,115);ctx.bezierCurveTo(-28,-120,-32,-173,0,-198);ctx.closePath();ctx.fill();ctx.stroke();
-ctx.fillStyle=body;ctx.fillRect(-20,-123,40,235);
-for(let i=0;i<15;i++){const yy=-115+i*16;ctx.fillStyle=i%3===0?'#b7a48c':'#526b7c';ctx.fillRect(-25,yy,50,3);ctx.fillStyle='#89d3e0';ctx.fillRect(-9,yy+5,18,2)}
-ctx.fillStyle='#bde8fa';ctx.beginPath();ctx.ellipse(0,-157,21,38,0,0,Math.PI*2);ctx.fill();
-ctx.fillStyle='#7ac2e0';ctx.fillRect(-12,45,24,45);ctx.fillStyle='#e5ae77';ctx.fillRect(-21,99,42,18);
-ctx.fillStyle='#a4d9f0';ctx.beginPath();ctx.moveTo(-18,151);ctx.lineTo(-10,175+Math.sin(seconds*13)*5);ctx.lineTo(0,163);ctx.lineTo(10,180+Math.cos(seconds*11)*6);ctx.lineTo(18,151);ctx.fill();
-ctx.fillStyle='#d1f4ff';ctx.font='22px system-ui';ctx.textAlign='center';ctx.fillText('🧊',0,-179);
-ctx.restore();return{x,y,unit}}
-function draw(dt){ctx.clearRect(0,0,W,H);ctx.fillStyle='#d9e8ff';for(const s of stars){ctx.globalAlpha=.25+.35*Math.sin(seconds*.3+s.x);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,7);ctx.fill()}ctx.globalAlpha=1;
-const sunX=W*.83,sunY=H*.47,rad=Math.min(W,H)*.12;const glow=ctx.createRadialGradient(sunX,sunY,4,sunX,sunY,rad*3.5);glow.addColorStop(0,'#ffe0a688');glow.addColorStop(.24,'#e58e3e66');glow.addColorStop(1,'#e58e3e00');ctx.fillStyle=glow;ctx.fillRect(sunX-rad*3.5,sunY-rad*3.5,rad*7,rad*7);ctx.fillStyle='#ffe5aa';ctx.beginPath();ctx.arc(sunX,sunY,rad,0,7);ctx.fill();
-const s=ship();
-if(!paused){if(frame++%13===0){const yy=(frame*47%Math.max(H,1));particles.push({x:-15,y:yy,vx:1.6+frame%3,vy:.8+frame%5*.13,r:1.5+frame%3})}for(const p of particles){p.x+=p.vx*dt*60;p.y+=p.vy*dt*60;if(Math.hypot(p.x-s.x,p.y-s.y)<19*s.unit&&p.y<s.y){impacts++;ice=Math.max(0,ice-.14);log('ice-ablation',{x:Math.round(p.x),y:Math.round(p.y),ice:+ice.toFixed(2)});p.x=W+100}}particles=particles.filter(p=>p.x<W+20&&p.y<H+20)}
-for(const p of particles){ctx.strokeStyle='#e4b884';ctx.lineWidth=p.r;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.vx*7,p.y-p.vy*7);ctx.stroke()}
-ctx.fillStyle='#c5d6e9';ctx.font='11px ui-monospace,monospace';ctx.textAlign='center';ctx.globalAlpha=.55;ctx.fillText('↑',s.x,s.y-245*s.unit);ctx.globalAlpha=1}
-function loop(t){const dt=Math.min((t-last)/1000||0,.05);last=t;if(!paused)seconds+=dt;draw(dt);requestAnimationFrame(loop)}reset();requestAnimationFrame(loop);
-$('pause').onclick=()=>{paused=!paused;$('pause').textContent=paused?'▶':'⏸';log(paused?'pause':'resume')};$('reset').onclick=reset;
-$('eye').onclick=()=>{log('observation-download');const data={schema:'lighthugger-shell-observer/v1',sourceCommit:revision,runSeconds:+seconds.toFixed(2),paused,impacts,ice,events,geometry:'shell-only; visual meteor vectors and preliminary ice ablation; not a full physical collision simulation'};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='icarus-'+(revision?revision.slice(0,8):'unverified')+'-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);toast('👁 ↓')};
-async function resolveBuild(){try{const u='https://api.github.com/repos/bonoj/bonoj.github.io/commits?path=jit%2Ficarus%2Findex.html&per_page=1';const response=await fetch(u,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});if(!response.ok)throw Error('API '+response.status);const commits=await response.json();if(!commits[0]?.sha)throw Error('missing commit');revision=commits[0].sha;$('build').textContent=revision.slice(0,8);$('build').title='Source commit '+revision}catch(e){$('build').textContent='unverified';$('build').title=String(e)}}resolveBuild();$('build').onclick=()=>toast(revision?revision.slice(0,8):'unverified');
+let W=1,H=1,D=1,last=0,elapsed=0,paused=false,policy='expand',layer=0,orientation=0,stock=42,hits=0,hullHits=0,events=[],meteors=[],drones=[],sites=[],revision=null,frame=0;
+const layers=[{radius:119,n:31},{radius:147,n:37},{radius:175,n:43}];
+const rand=(a,b)=>a+Math.random()*(b-a);
+function log(type,extra={}){events.push({t:+elapsed.toFixed(1),type,...extra});if(events.length>600)events.shift()}
+function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1500)}
+function geometry(){const k=Math.min(W/350,H/650);return{k,cx:W*.5,cy:H*.36,bayY:H*.59}}
+function point(s){const g=geometry(),a=Math.PI+(s.i/(s.n-1))*Math.PI+orientation*.28;return{x:g.cx+Math.cos(a)*s.r*g.k,y:g.cy+Math.sin(a)*s.r*g.k}}
+function reset(){elapsed=0;frame=0;stock=42;hits=0;hullHits=0;events=[];meteors=[];sites=[];layer=0;orientation=0;policy='expand';paused=false;
+ layers.forEach((l,li)=>{for(let i=0;i<l.n;i++)sites.push({i,n:l.n,li,r:l.radius+(i%5-2)*2.5,hp:0,assigned:null})});
+ const g=geometry();drones=[0,1].map(id=>({id,x:g.cx+(id?48:-48)*g.k,y:g.bayY,carry:false,site:null,phase:'idle',hp:3}));
+ $('pause').textContent='⏸';document.querySelectorAll('.policy').forEach(b=>b.classList.toggle('active',b.dataset.policy==='expand'));updateButtons();log('reset')}
+function updateButtons(){$('layer').textContent='🧊 L'+(layer+1);$('orientation').textContent=['↗️ ARC','⬆️ ARC','↖️ ARC'][orientation+1];const built=sites.filter(s=>s.hp>0).length;$('stats').textContent='ICE '+stock+' · COVER '+Math.round(built/sites.length*100)+'% · ☄ '+hits+' · HULL '+hullHits}
+function selectSite(d){const free=sites.filter(s=>s.hp===0&&s.assigned===null&&(s.li===layer||policy==='repair'&&s.li<=layer));if(!free.length)return null;
+ free.sort((a,b)=>{const score=s=>{const p=point(s),near=sites.filter(o=>o.hp>0&&Math.hypot(point(o).x-p.x,point(o).y-p.y)<35).length;return (policy==='repair'?near*4:0)+(s.li===layer?2:0)-Math.abs(s.i/(s.n-1)-.5)*3+Math.random()*.5};return score(b)-score(a)});return free[0]}
+function move(d,x,y,dt){const dx=x-d.x,dy=y-d.y,dist=Math.hypot(dx,dy),step=70*geometry().k*dt;if(dist<step){d.x=x;d.y=y;return true}d.x+=dx/dist*step;d.y+=dy/dist*step;return false}
+function update(dt){elapsed+=dt;frame++;
+ const g=geometry();
+ if(frame%39===0){meteors.push({x:rand(W*.08,W*.92),y:H*.065,vx:rand(-7,7)*g.k,vy:rand(64,92)*g.k})}
+ for(const m of meteors){m.x+=m.vx*dt;m.y+=m.vy*dt;
+ for(const s of sites){if(s.hp<=0)continue;const p=point(s);if(Math.hypot(p.x-m.x,p.y-m.y)<12*g.k){s.hp--;hits++;log('ice-impact',{layer:s.li,index:s.i,remaining:s.hp});m.y=H+100;break}}
+ if(m.y>H*.46&&m.y<H*.48&&Math.abs(m.x-g.cx)<18*g.k){hullHits++;log('hull-impact');m.y=H+100}
+ for(const d of drones)if(d.hp>0&&Math.hypot(m.x-d.x,m.y-d.y)<9*g.k){d.hp--;log('drone-impact',{id:d.id,hp:d.hp});m.y=H+100}
+ }
+ meteors=meteors.filter(m=>m.y<H*.86);
+ for(const d of drones){if(d.hp<=0)continue;const bx=g.cx+(d.id?48:-48)*g.k,by=g.bayY;
+ if(policy==='shelter'){if(d.site){d.site.assigned=null;d.site=null}d.carry=false;d.phase='return'}
+ if(d.phase==='idle'){if(stock>0){const s=selectSite(d);if(s){s.assigned=d.id;d.site=s;d.phase='load'}}}
+ if(d.phase==='load'){if(move(d,bx,by,dt)){d.carry=true;d.phase='haul';log('ice-loaded',{drone:d.id})}}
+ if(d.phase==='haul'){const p=point(d.site);if(move(d,p.x,p.y+13*g.k,dt)){if(d.site.hp===0&&stock>0){d.site.hp=2;stock--;log('ice-placed',{drone:d.id,layer:d.site.li,index:d.site.i,stock})}d.site.assigned=null;d.site=null;d.carry=false;d.phase='return'}}
+ if(d.phase==='return'){if(move(d,bx,by,dt))d.phase='idle'}
+ }
+ updateButtons()}
+function draw(){ctx.clearRect(0,0,W,H);const g=geometry(),k=g.k;
+ const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#302633');bg.addColorStop(.32,'#192436');bg.addColorStop(.8,'#080e19');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ // Curved gentle solar light: no facing solar disk.
+ const glow=ctx.createRadialGradient(W*.5,-H*.1,10,W*.5,-H*.1,H*.9);glow.addColorStop(0,'#ffdf9b77');glow.addColorStop(.35,'#e6a66033');glow.addColorStop(1,'#c57d4200');ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
+ ctx.strokeStyle='#f7c77b88';ctx.lineWidth=5*k;ctx.beginPath();ctx.moveTo(-W*.12,H*.13);ctx.quadraticCurveTo(W*.5,-H*.085,W*1.12,H*.13);ctx.stroke();
+ ctx.strokeStyle='#f7c77b16';ctx.lineWidth=19*k;ctx.stroke();
+ ctx.font=(12*k)+'px ui-monospace,monospace';ctx.textAlign='center';ctx.fillStyle='#f8dcb9';ctx.fillText('☀ SOLAR HORIZON',W*.5,H*.095);
+ // industrial spine / temporary hull nodes
+ ctx.strokeStyle='#8198aa';ctx.lineWidth=8*k;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(g.cx,H*.41);ctx.lineTo(g.cx,H*.78);ctx.stroke();
+ for(const [y,w] of [[.46,41],[.56,76],[.67,59],[.76,42]]){ctx.fillStyle='#405b70';ctx.strokeStyle='#b2c7d5';ctx.lineWidth=2*k;ctx.beginPath();ctx.roundRect(g.cx-w*k/2,H*y-14*k,w*k,28*k,7*k);ctx.fill();ctx.stroke();ctx.fillStyle='#ebd29c';ctx.beginPath();ctx.arc(g.cx,H*y,7*k,0,7);ctx.fill()}
+ // bays and tether anchors
+ for(const id of [0,1]){const x=g.cx+(id?48:-48)*k;ctx.fillStyle='#75c8e7';ctx.beginPath();ctx.roundRect(x-21*k,g.bayY-17*k,42*k,34*k,8*k);ctx.fill();ctx.font=(19*k)+'px system-ui';ctx.fillText('🛸',x,g.bayY+7*k)}
+ // attachment sites are positions, not a prebuilt solid shield
+ for(const s of sites){if(s.li>layer||s.hp>0)continue;const p=point(s);ctx.fillStyle='#a3d9ed33';ctx.beginPath();ctx.arc(p.x,p.y,2*k,0,7);ctx.fill()}
+ for(const s of sites){if(s.hp<=0)continue;const p=point(s);ctx.fillStyle='#9bd8f333';ctx.strokeStyle='#9de0f7a8';ctx.lineWidth=1.6*k;ctx.beginPath();ctx.arc(p.x,p.y,16*k,0,7);ctx.fill();ctx.stroke();ctx.font=(23*k)+'px system-ui';ctx.fillText('🧊',p.x,p.y+8*k)}
+ for(const d of drones){ctx.font=(19*k)+'px system-ui';ctx.fillText(d.hp<=0?'💥':'🛸',d.x,d.y+7*k);if(d.carry){ctx.font=(15*k)+'px system-ui';ctx.fillText('🧊',d.x,d.y-12*k)}if(d.site&&d.hp>0){const p=point(d.site);ctx.strokeStyle='#78d4f799';ctx.lineWidth=1.4*k;ctx.setLineDash([5*k,6*k]);ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.setLineDash([])}}
+ for(const m of meteors){ctx.strokeStyle='#f8b77c';ctx.lineWidth=2*k;ctx.beginPath();ctx.moveTo(m.x,m.y);ctx.lineTo(m.x-m.vx*.17,m.y-12*k);ctx.stroke()}
+ ctx.font=(12*k)+'px ui-monospace,monospace';ctx.fillStyle='#98b3c6';ctx.fillText('AFT · STRUCTURAL SPINE',g.cx,H*.81);
+}
+function loop(t){const dt=Math.min((t-last)/1000||0,.05);last=t;if(!paused)update(dt);draw();requestAnimationFrame(loop)}
+function resize(){D=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=Math.round(W*D);canvas.height=Math.round(H*D);ctx.setTransform(D,0,0,D,0,0)}
+addEventListener('resize',resize);resize();reset();requestAnimationFrame(loop);
+$('pause').onclick=()=>{paused=!paused;$('pause').textContent=paused?'▶':'⏸';log(paused?'pause':'resume')};
+$('reset').onclick=reset;
+$('layer').onclick=()=>{layer=(layer+1)%3;log('layer-selected',{layer});updateButtons()};
+$('orientation').onclick=()=>{orientation=orientation===1?-1:orientation+1;log('orientation-selected',{orientation});updateButtons()};
+document.querySelectorAll('.policy').forEach(b=>b.onclick=()=>{policy=b.dataset.policy;document.querySelectorAll('.policy').forEach(x=>x.classList.toggle('active',x===b));log('policy',{policy});updateButtons()});
+$('eye').onclick=()=>{log('observation-export');const data={schema:'icarus-ice-haulers/v1',sourceRevision:revision,seconds:+elapsed.toFixed(2),policy,selectedLayer:layer,orientation,stock,hits,hullHits,sites:sites.filter(s=>s.hp>0).map(s=>({layer:s.li,index:s.i,hp:s.hp})),drones:drones.map(d=>({id:d.id,hp:d.hp,phase:d.phase,carrying:d.carry})),events,limits:'Prototype: discrete attachment slots, schematic hull and simplified debris interception; sunlight is visual, no thermal physics or actual towing tension.'};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='icarus-'+(revision?revision.slice(0,8):'unverified')+'-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);toast('👁 EXPORTED')};
+async function resolveBuild(){try{const res=await fetch('https://api.github.com/repos/bonoj/bonoj.github.io/commits?path=jit%2Ficarus%2Findex.html&per_page=1',{cache:'no-store'});if(!res.ok)throw Error('GitHub '+res.status);revision=(await res.json())[0]?.sha||null;$('build').textContent=revision?revision.slice(0,8):'unverified'}catch(e){$('build').textContent='unverified'}}resolveBuild();$('build').onclick=()=>toast('SOURCE REVISION · NOT LIVE ATTESTATION');
 })();
 </script></body></html>
