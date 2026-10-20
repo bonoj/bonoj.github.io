@@ -162,3 +162,24 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Control principle:** The human sets ship priorities, target zones and defense/repair intent; autonomous specialists claim tools, traverse, choose local tasks and respond to conditions. The player commands objectives and tradeoffs rather than tapping a crew member to drive it. Prefer physically visible phenomena to bars, buttons and labels. This is exploratory design canon, not a completed implementation.
 
 **Unresolved:** Which ship subsystems intercept/deflect meteors, what commands can be expressed with icon-only UI, and which minimal storm/repair interaction makes a compelling first playable world. No rebuild authorized by this turn.
+
+
+### Human turn — lighthugger pivot
+> “Now go wider. Fuck icarus, let's build a lighthugger. Look at nostalgias actual human crew.”
+
+**Concept:** Move beyond a small ship and generic repair team to a vast, partly unknowable lighthugger inspired by Alastair Reynolds's *Nostalgia for Infinity*. Literary crew reference: John Brannigan, Yuuji Sajaki, Ilia Volyova, Abdul Hegazi, Sula Kjarval, Sudjic, Boris Nagorny and Ana Khouri. Their asymmetrical capabilities, rivalries, histories, agendas and relationship to the ship matter more than standardized astronaut roles. The vessel may have dormant regions, fabrication, forgotten machinery, hidden dangers and eventually agency of its own. A handful of autonomous people constitute a tiny society within an immense machine. Possible arc: survive → reclaim → manufacture → defend → awaken. Ender-style strategic locus of control, not direct actor control. This is inspiration, not a claim that any of these characters or systems are implemented.
+
+### Human turn — directional doctrine (canonical)
+> “Doc that. And remember... the enemy's gate is down. A sun is our greatest enemy and also our greatest ally. Ablative ice is our friend. It is always forward.”
+
+**The enemy's gate is down.** Orientation is relative to the vessel's forward vector, not a fixed screen up/down. Attack vectors, intercept arcs, sunward exposure and maneuvering must have spatial meaning.
+
+**The Sun is our greatest enemy and ally.** Stellar flux threatens through radiation and heating, but also offers energy and strategic opportunity. Position, orientation, shielding and timing determine the tradeoff.
+
+**Ablative ice is our friend.** Ice is finite physical mass, strategically placed to absorb radiation, heat and micrometeor impacts through sacrificial loss. Thickness, mass, placement, transport, consumption and replenishment should have consequences; never implement it as a free regenerating health bar.
+
+**It is always forward.** Keep a directional sense of voyage and an external horizon. Threats arrive from meaningful vectors. The ship advances; decisions are made under continued travel, not inside a static disaster dashboard.
+
+**Presentation and agency remain:** one clean mobile viewport, initially wordless, emoji/geometry/animation instead of text UI; autonomous crew with competing priorities, strategic commands rather than manual actor steering. Tower defense × FTL × RimWorld, with lighthugger scale and the possibility that the vessel itself becomes an agent.
+
+**Status:** design documented only; no new executable authorized or claimed.
