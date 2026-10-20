@@ -134,3 +134,13 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Model action:** Established this running log and fidelity contract. Future work should append user reports, actions, findings, fixes, build identifiers, and verified observations without losing the human's words.
 
 **Current frontier:** Await the human's first 👁 observation; analyze actual interactions and failures, then decide which coupled physical systems merit the next iteration. Keep README compact; use this chronicle for the messy, valuable development record.
+
+
+### Human turn — observer overflow and boredom
+> “Message too long. Shit. Switch to download report. But I was bored by the whole premise. So before we build, why do you supposed I was bored?”
+
+**Model interpretation (hypothesis, not established user motive):** The demo presented four numerical controls masquerading as ship modules. Punctures, repairs and heat were primarily meter changes; no visible breach, fluid, airflow, cargo, travel, autonomous diagnosis or surprising consequences. The lone crew emoji behaved like a progress bar. The human wanted a tiny living civilization with external spectacle and discoverable causal systems, not a damage-control dashboard. **Do not build a replacement until discussing and validating this diagnosis with the human.**
+
+**Model action:** Changed 👁 to download a complete JSON file via browser Blob and download link, rather than copying potentially overlong text into chat. Commit `e64eca4d7a1c7033916f51d144eb3e813e8112ee`. The report preview remains available. Live Pages behavior not verified.
+
+**Design question:** What should the player actually witness and influence that produces delight, curiosity, and emergent stories?
