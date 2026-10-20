@@ -376,3 +376,73 @@ Potential transparent *zip* composites: wave stress + coastal wind; seismicity +
 - NASA API catalog: https://api.nasa.gov/
 
 **Research caveat:** Some provider roots in the inventory (especially BOM, Geoscience Australia, and selected shipping/risk services) are discovery entrypoints rather than verified JSON request URLs. Their eligibility is unresolved. Distinct channels are not necessarily independently sourced. This document authorizes a source-audit-first implementation, not claims of 53 active live streams.
+
+
+---
+
+## Implementation campaign — October 20, 2026 (continuation)
+
+This section records the subsequent development and human-provided runtime evidence. Unlike the initial verbatim archive above, this is a synthesized engineering chronicle. **Commits prove repository changes; human 👁 snapshots prove what actually ran in the browser.** Neither is interchangeable. Time is UTC unless stated otherwise.
+
+### 53-channel inventory and normalization (turns 1–3 of 10)
+
+- **Inventory:** `6d08658` introduced `channels.json` with 53 numbered candidates, 17 adapter families, source/provider identities, and explicit statuses; `9ec73b5` updated the README.
+- **Extraction mappings:** `1afbd79` coded 25 of 53 channel field/unit/kind/sample mappings; the other 28 remained specified candidates, not live implementations.
+- **Pure normalization seam:** `8d619b3` added `normalize.mjs`; `422c2e4` added `normalize.test.mjs`; `2af8ff2` recorded handoff. `b79b115` expanded deterministic malformed/null/TLE/polar fixtures; `45cca4f` documented the expansion. This test file was authored but **no successful complete test run was recorded**. `node --check` of a local copy of the module was reported; syntax validation is not runtime verification.
+- Core observation envelope: channel/provider IDs, kind, point geometry when known, observed/fetched times, value/unit, `quality:'unverified'`, source URL, transform version. Do not confuse browser extraction verification with source quality assurance.
+- ISS channel 53 ground-track candidate was **not** proved by the latitude fixture; a positions-array endpoint and real ground-track interpretation still need implementation and testing.
+
+### Runtime normalization integration (turn 4)
+
+- `de60cf325afd5e0dddeb2c2ec48d925ebc3ad63e` wired an inline copy of the normalization logic into the existing `index.html` request governor, without a second fetch engine. `b7fae88499b6afa71c6d5c5bdc2bf54132789683` checkpointed the README.
+- The 👁 JSON gained `ingestion.mapped`, `ingestion.normalized`, and `ingestion.errors`. Normalization executes after successful JSON fetch and existing family parser. Only a mapping whose adapter and exact sample point match the existing region request is captured.
+- Architectural debt: the HTML inline normalizer duplicates `normalize.mjs`; source divergence must be prevented or resolved. `CODED` means extraction implemented, **not** browser verified.
+
+### First real browser evidence, 20:24:53Z
+
+- Human-provided `lattice-eye/v1`, static build `lattice/02`, world view: ISS/USGS/EONET **3 started, 3 succeeded, 0 failed**.
+- Numbered channel **51**, ISS altitude, normalized to **421.13687947394 km**, source observation 20:24:51Z, fetch 20:24:51.915Z, source `https://api.wheretheiss.at/v1/satellites/25544`. This verified the browser integration of one numbered extraction, **not** 25.
+- Manifest marked channel 51 `BROWSER_VERIFIED` with evidence in `c51f4390`; README evidence in `a4da251c`. The observation's `quality:'unverified'` remained correct: transport/extraction verified, source quality not independently certified.
+
+### Sample-specific ingestion attempt (turn 5)
+
+- `184f152e870aa4ea554d8395d3e1686154bddbab` added 16 Open-Meteo request groups covering 22 mapped weather, marine and air-quality channels, grouped by adapter and sample coordinates. These were intended to be enqueued via the existing governor only on a 👁 full batch; `b87826f` updated the README.
+- **Important discrepancy:** subsequent human snapshots of full batches at **20:29:44Z** and **21:02:22Z** showed **no `sample01`–`sample16` endpoints or view records**. Their successful numbered observations came from *existing* region-family requests. The new grouped request wiring was therefore **not demonstrated operational**, despite the commit. Investigate queue/ordering and whether the deployed source executes the intended batch, rather than claiming all 22 newly wired channels are live.
+- Snapshot at **20:28:55Z** was an initial world view: 3/3 successful, only ISS channel 51 normalized; not a completed full batch.
+
+### Full-batch evidence, 20:29:44Z
+
+- Human-provided world/ISS-selection 👁: **35 requests started, 31 succeeded, 4 failed, 6 deduplicated, 28 cache hits, zero queued**.
+- Ten unique numbered channels yielded normalized records: **20, 22, 23, 24, 34, 35, 36, 47, 51, 52**. Source URLs and values in the supplied snapshot prove one browser-origin extraction each, not all 53 channels or continuous uptime. Examples: channel 20 European temperature 10.5°C, channel 23 PM2.5 14.7 µg/m³, channel 35 Hormuz wave height 0.12 m, channel 47 McMurdo temperature −12°C, channel 52 ISS TLE line 1 string.
+- Errors: US NWS alerts returned **HTTP 400** at `/alerts/active?status=actual&limit=100`; marine family at Europe, Africa and Oceania sample centers returned **No marine coverage**; channel **21** extraction returned **Missing numeric wind_gusts_10m** because the standard weather request omitted that field.
+- Three family-level successful fetches cannot be counted as browser verification of corresponding numbered earthquake/EONET channels without per-channel extraction.
+
+### Build identity defect and repair (turn 6)
+
+- Human identified that `build:'lattice/02'` was a meaningless static label: 👁 must mirror a real build SHA provided by the model/publisher. This was a recurring usability failure and should not recur.
+- Intermediate manual stamp: code revision `2ec999c0bfd4676b970493f552180668ac3c26c3`, stamp commit `b2c678db16aeb49b1812b6d8bd0e16c32e430924`. Human 👁 at **20:46:45Z** reported `build:'2ec999c0'`, verifying that interim identity reached the browser, but the process was still manual.
+- Permanent publisher stamping: `36824793` changed Lattice's source token to `VERSION='pending'` and footer `BUILD · pending`; `9d6929691795a855acf91da177d4c40dd1690290` extended the **existing** `.github/workflows/stable-world.yml` Pages assembly. It replaces both tokens with the deployed `GITHUB_SHA[:8]` and emits `jit/lattice/build.json` containing the full deployed SHA. No second publisher or cache-busting mechanism.
+- **Human browser verification at 21:02:22Z:** 👁 `build:'9d692969'` exactly matched the publishing commit's short SHA. This verifies automatic stamping for that deployment. Future deployments should be checked by the same SHA contract, not hand-edited build numbers.
+
+### Repeat full-batch evidence, 21:02:22Z
+
+- Human-selected Asia view after full batch: **35 started, 31 succeeded, 4 failed, 9 deduplicated, 51 cache hits, 0 queued**. Again ten numbered normalized channels **20, 22, 23, 24, 34, 35, 36, 47, 51, 52**; ingestion error **21 missing wind_gusts_10m**.
+- Same NWS HTTP 400 and same three no-marine-coverage errors. No grouped `sampleNN` endpoints were present. This is repeatable evidence of both functioning existing ingestion and unverified new group wiring.
+- The snapshot's ISS altitude was **427.87017376413 km** observed 21:02:03Z; channel 52 TLE extracted; sample values updated normally. `quality:'unverified'` remains a source-quality flag, not a build-verification failure.
+
+### Targeted source fixes (turn 7)
+
+- `d5b3d664bb043a2db551c364121ee501dac9860a` changed **four** runtime seams: (1) place 16 grouped sample requests ahead of the continent-wide batch; (2) add `wind_gusts_10m` to the regular Open-Meteo weather request; (3) remove `status=actual` from the NWS active-alerts URL; (4) move Europe/Africa/Oceania marine request samples from known inland/unsupported points toward coastal coordinates.
+- **All four fixes are committed but not yet browser-verified.** Priority reordering alone does not prove the grouped samples execute. Coastal coordinates are hypotheses until actual source responses confirm coverage. The NWS parameter change may not fully solve HTTP 400 or browser CORS.
+- No publisher, build-stamping or cache-control changes in this source-repair commit.
+
+### Current truth and cold-boot continuation
+
+1. **Campaign position: seven substantive turns completed of an intended ten (flexible 8–12).** This chronicle update is documentation, not an extra implementation turn.
+2. The manifest has 53 candidates; 25 mappings originally coded; channel 51 explicitly marked browser verified in manifest; human evidence now supports successful browser extraction for **10 distinct numbered channels**, but the manifest statuses for the other nine were not yet reconciled. Avoid asserting that all 25 are browser verified.
+3. Existing 35-request global/continent batch runs under governor limits (2 global concurrent, 1 per host, bounded queue, timeout/retry). The dedicated 16-group batch has **not** appeared in supplied 👁 evidence; do not count it as operational.
+4. Next: inspect the first full 👁 batch on deployment of `d5b3d664` (automatically stamped SHA). Verify `sampleNN` endpoints actually appear, whether queue capacity/host pacing permits them, and whether the NWS, gust and marine fixes clear their observed errors. If not, inspect and repair the precise request wiring rather than inventing cache-busting or asking the human to debug.
+5. Then reconcile manifest statuses against observed per-channel records; execute deterministic Node fixtures and add tests for grouped samples, parsing and governor invariants; expand the remaining 28 candidates only when their source shapes and usage conditions are genuinely validated.
+6. Preserve the standalone mobile UI, canonical `https://bonoj.github.io/jit/lattice/`, existing Pages workflow, exact SHA build identity, public/civilian scope, and `jit/hormuz` independence. Do not manufacture observations, conflate models with instruments, or add unnecessary UI.
+
+**References:** [SPEC](SPEC.md) · [README](README.md) · [channel manifest](channels.json) · [normalizer](normalize.mjs) · [tests](normalize.test.mjs) · [runtime](index.html) · [publisher](../../.github/workflows/stable-world.yml).
