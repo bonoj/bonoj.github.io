@@ -16,9 +16,9 @@
 
 <badge color="success"><icon name="check" size="xs" inline/> VET committed</badge>
 
-**[Read \`jit/lattice/VET.md\`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/lattice/VET.md)**
+**[Read `jit/lattice/VET.md`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/lattice/VET.md)**
 
-Commit: \`3e053218\`
+Commit: `3e053218`
 
 I reviewed the Lattice specification against Hormuz's actual source and public API documentation, then persisted the implementation contracts and cold-boot instructions.
 
@@ -54,7 +54,7 @@ Next cold boot can go directly from **VET → implementation → tests → deplo
 
 The first worldwide Lattice executable is committed.
 
-<text color="secondary" size="xs">Build \`061f90de\` · Earth + Orbit</text>
+<text color="secondary" size="xs">Build `061f90de` · Earth + Orbit</text>
 
 [Open Lattice](https://bonoj.github.io/jit/lattice/)
 
@@ -64,7 +64,7 @@ The globe, source scheduler, and regional selection are implemented in one brows
 
 **Source readback passed:** all six adapter families are present in the committed executable.
 
-GitHub's publication workflow has started for \`061f90de\`, but it was still running at the last check. I couldn't independently verify the public page or live browser feeds yet, so I'm not calling the deployment confirmed.
+GitHub's publication workflow has started for `061f90de`, but it was still running at the last check. I couldn't independently verify the public page or live browser feeds yet, so I'm not calling the deployment confirmed.
 
 [Open Lattice](https://bonoj.github.io/jit/lattice/) · [Source](https://github.com/bonoj/bonoj.github.io/blob/master/jit/lattice/index.html) · [Publication workflow](https://github.com/bonoj/bonoj.github.io/actions/runs/39461801533)
 
@@ -80,9 +80,9 @@ The worldwide world is built. The remaining gate is **live publication and runti
 
 ## Artifact ledger (supplementary; not part of the verbatim conversation)
 
-- VET specification and implementation handoff: [VET.md](VET.md), commit \`3e053218e49721cdb046c80f7edf4fac3aa3f5e0\`.
-- Worldwide candidate source inventory: [SPEC.md](SPEC.md), commit \`ff632477dedbd46d7fc992058894b6448f122f29\`.
-- Executable: [index.html](index.html), commit \`061f90de787322e64029be1e0bf846a387b5d7a4\`.
-- Initial Lattice JIT entrypoint created in commit \`9820dfb547caa568a127365bb3c47ed88680e3ce\`.
+- VET specification and implementation handoff: [VET.md](VET.md), commit `3e053218e49721cdb046c80f7edf4fac3aa3f5e0`.
+- Worldwide candidate source inventory: [SPEC.md](SPEC.md), commit `ff632477dedbd46d7fc992058894b6448f122f29`.
+- Executable: [index.html](index.html), commit `061f90de787322e64029be1e0bf846a387b5d7a4`.
+- Initial Lattice JIT entrypoint created in commit `9820dfb547caa568a127365bb3c47ed88680e3ce`.
 - The deployment workflow for the executable was reported *in progress* at the time of the model's last observation. No later success or live-browser verification is implied.
 - The exact messages above are conversation evidence; the ledger is separate operational context.
