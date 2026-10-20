@@ -1,5 +1,7 @@
 # ICARUS — Sunshine movie-to-game experiment
 
+[Development Chronicle](./CHRONICLE.md) — origin, design reasoning, Rocinante-inspired crew/tools/failures, and provisional dev canon.
+
 ## Status
 **Concept only. No playable implementation authorized yet.** This README records the premise, approved candidate emoji bank, and first conceptual design. Do not interpret proposals as implemented features or permission to build.
 
