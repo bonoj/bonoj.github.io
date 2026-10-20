@@ -31,6 +31,8 @@ No actual ship translation, propulsion, trajectory, orbital/stellar physics, phy
 
 **Presentation:** one mobile viewport, no parent scroll, minimal icon-only HUD. **Agency:** eventual autonomous crew and strategic ship-level priorities, not manual actor driving. **Inspirations:** *Sunshine*, Reynolds's *Nostalgia for Infinity*, and tower defense × FTL × RimWorld × Ender-style commander control. These are **design direction, not shipped mechanics**.
 
+**Shared memory operations:** [Hermeticon Memory backend handoff](../../backend/README.md) is authoritative for endpoint reads, Supabase log verification, and failure recovery. Do not duplicate its procedure here.
+
 ## Working contract
 
 - Append new requests and implementation/verification status to [SPEC.md](./SPEC.md).
