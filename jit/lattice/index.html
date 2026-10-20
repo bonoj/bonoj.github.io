@@ -58,8 +58,8 @@ const antarcticSites=[
 {name:'Neumayer',lat:-70.67,lon:-8.27},{name:'Scott Base',lat:-77.85,lon:166.77}
 ];
 channels.antarcticIce={label:'Antarctic sea ice · satellite',provider:'NSIDC Sea Ice Index v4 · satellite-derived',responseType:'rawtext',cadence:86400000,build:()=> 'https://noaadata.apps.nsidc.org/NOAA/G02135/south/daily/data/S_seaice_extent_daily_v4.0.csv',parse:rows=>{
- const lines=rows.trim().split(/\\r?\\n/);let latest=null,previous=null;
- for(const line of lines){const m=line.match(/^\\s*(\\d{4})[,;\\s]+(\\d{1,2})[,;\\s]+(\\d{1,2})[,;\\s]+([\\d.]+)/);if(!m)continue;const extent=Number(m[4]);if(!Number.isFinite(extent)||extent<=0)continue;previous=latest;latest={date:m[1]+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0'),extent};}
+ const lines=rows.trim().split(/\r?\n/);let latest=null,previous=null;
+ for(const line of lines){const m=line.match(/^\s*(\d{4})[,;\s]+(\d{1,2})[,;\s]+(\d{1,2})[,;\s]+([\d.]+)/);if(!m)continue;const extent=Number(m[4]);if(!Number.isFinite(extent)||extent<=0)continue;previous=latest;latest={date:m[1]+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0'),extent};}
  if(!latest)throw Error('NSIDC CSV lacks valid dated extent');const change=previous?(latest.extent-previous.extent).toFixed(3):null;
  return {value:latest.extent.toFixed(3)+' million km²',extra:'Satellite-derived extent'+(change===null?'':' · previous sample Δ '+change+' million km²')+' · '+lines.length+' archive rows',time:latest.date,kind:'satellite-derived',archiveRows:lines.length,change,source:'NSIDC G02135 v4'};}};
 channels.antarcticStations={label:'Polar station network · 12 sites',provider:'Open-Meteo · model estimates, NOT station instruments',cadence:3600000,build:()=> 'https://api.open-meteo.com/v1/forecast?latitude='+antarcticSites.map(p=>p.lat).join(',')+'&longitude='+antarcticSites.map(p=>p.lon).join(',')+'&current=temperature_2m,wind_speed_10m,surface_pressure&timezone=GMT',parse:j=>{
