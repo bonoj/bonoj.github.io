@@ -150,3 +150,15 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 > “We want single page clean design no words as initial design language.”
 
 **Design canon (new constraint):** Single mobile viewport, no document/page scroll, no dashboard cards, no instructional prose, no visible text labels as the initial presentation. The ship and its crew are the UI: legible emojis, spatial arrangement, movement, material transfer, heat, air, fire and damage. Tapping a module should reveal or focus it without navigating away. Controls are icon-only and minimal. 👁 instrumentation must not dominate the scene; invoke it discreetly and download the full JSON. Visible bars and text should not substitute for physical phenomena. This is a direction for the **next design**, not a claim the current deployed prototype already complies. Do not rebuild until authorized.
+
+
+### Human turn — meteor pressure and commander locus
+> “Look at evermore-2 readme. And pay close attention to vectored meteor. We can do angled micrometeor storms as one external pressure. This could be a tower defense ftl rimworld mashup. Prefer no direct actor control. Locus of control. Think ender battle commander.”
+
+**Source inspected:** `jit/evermore-2/README.md` at blob `9386745d263b966d12a46797daed6870053c42e1`. Its world contract establishes one mobile Canvas battlefield, real physical source/claim/transport/delivery, local autonomous worker FSMs, recovery, emoji legibility and observation discipline. Its 🔥 land uses ☄️ meteors; the README itself does **not** detail meteor vector math, so implementation specifics must be inspected in source before reuse. Do not claim a vectored meteor implementation was verified by reading README alone.
+
+**Emerging Icarus direction:** Single-screen wordless external spacecraft; angled micrometeor storms are a natural directional pressure. Projectiles should have trajectories, strike real hull/shield geometry or miss, and create localized physical damage, breaches, fires, lost atmosphere, disabled components and crew repair journeys. Design synthesis: tower defense (directional waves and defenses) × FTL (compartments and ship systems) × RimWorld (autonomous work and cascading incidents), commanded through an Ender-style **locus of control**, not direct actor steering.
+
+**Control principle:** The human sets ship priorities, target zones and defense/repair intent; autonomous specialists claim tools, traverse, choose local tasks and respond to conditions. The player commands objectives and tradeoffs rather than tapping a crew member to drive it. Prefer physically visible phenomena to bars, buttons and labels. This is exploratory design canon, not a completed implementation.
+
+**Unresolved:** Which ship subsystems intercept/deflect meteors, what commands can be expressed with icon-only UI, and which minimal storm/repair interaction makes a compelling first playable world. No rebuild authorized by this turn.
