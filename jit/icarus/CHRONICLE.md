@@ -260,3 +260,14 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Emergent loop:** **Directional threat → local ice erosion → hull/node exposure → human policy choice → autonomous repair, allocation or transport → new physical shield state → next threat.** A meaningful policy loop requires real resource scarcity and visible structural consequences. This is the first coherent bridge between the Tiffany/Ender spatial emoji ecology and the lighthugger's strategic command ambition. Specific controls, supply chains, collision rules, and implementation scope remain open.
 
 **Model action:** Captured the operational direction in [SPEC.md](./SPEC.md). The current executable remains the prior visual shell; no new physics or game mechanics have been shipped or browser-verified in this turn.
+
+
+### The first shelter — drone bays, ice arc, solar horizon (20 October 2026)
+
+**Human:** “We need drone bays. And a way for ice to be positioned into a solar shield via drones. So they naturally want to build an arc to protect drones and activity after. Think frozen soldiers in the battle room. Do we want sun at top? I think sun at top as a curve gives us a place for text if we need it.”
+
+**Model synthesis:** A curved Sun at the top of the mobile screen, with a longitudinal industrial hull below. Two drone bays launch autonomous haulers. They retrieve finite ice, carry it to local attachment sites and grow a messy arch that shades their own work cavity. Individual chunks are cover like frozen soldiers in the *Ender's Game* battle room: each changes future routes, exposures and defensive geometry. The first arc is dangerous to build; shelter makes subsequent construction safer. Threats can remove individual chunks and re-expose the bays. The solar horizon can frame sparse contextual messages without cluttering the playfield.
+
+**Human:** “Oh hell yes. That's beautiful. Doc this and then build it here in chat.”
+
+**Action:** Preserve this design in SPEC and build a self-contained interactive **in-chat** prototype. No GitHub Pages executable changes are implied. The desired core loop is finite ice → autonomous drone transport/placement → physical canopy cover → altered risk and further construction/repair.
