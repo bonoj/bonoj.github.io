@@ -27,6 +27,7 @@ for(const c of cases){
    Candidate failures are visible diagnostics; they do not mask the established baseline. */
 const candidates=[
  {id:'coops',url:'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?date=latest&station=8518750&product=water_level&datum=MLLW&units=metric&time_zone=gmt&format=json&application=lattice',check:j=>Array.isArray(j.data)&&j.data.some(x=>x.t&&Number.isFinite(Number(x.v)))},
+ {id:'coopstemp',url:'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?date=latest&station=8518750&product=water_temperature&units=metric&time_zone=gmt&format=json&application=lattice',check:j=>Array.isArray(j.data)&&j.data.some(x=>x.t&&x.v!==''&&Number.isFinite(Number(x.v)))},
  {id:'usgswater',url:'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=01646500&parameterCd=00060,00065&siteStatus=all',check:j=>Array.isArray(j.value?.timeSeries)&&j.value.timeSeries.some(x=>x.values?.[0]?.value?.some(v=>v.value!==''&&Number.isFinite(Number(v.value))))},
  {id:'ndbc',url:'https://www.ndbc.noaa.gov/data/realtime2/41009.txt',text:true,check:t=>/^#?YY\s+MM\s+DD\s+hh\s+mm\b/m.test(t)&&/\b(WVHT|PRES)\b/.test(t)},
  {id:'emsc',url:'https://www.seismicportal.eu/fdsnws/event/1/query?format=json&limit=100&orderby=time&minlatitude=34&maxlatitude=72&minlongitude=-25&maxlongitude=45',check:j=>Array.isArray(j.features)},
@@ -59,6 +60,9 @@ assert(html.includes('for(const g of latticeSampleGroups)enqueue(g.id'),'Batch m
 assert(html.includes('sampleGroupsSuccessful:'),'Runtime eye must expose successful sample collection');
 assert(html.includes('function latticeCollectRecords(id,j,url)'),'Structured event collector missing');
 assert(html.includes('channels.coops={label:'),'NOAA CO-OPS source must exist');
+assert(html.includes('channels.coopstemp={label:'),'NOAA water temperature source missing');
+assert(html.includes("{id:'coopstemp',region:'na'}"),'NOAA water temperature not scheduled');
+assert(html.includes("if(id==='coopstemp')"),'NOAA water temperature extraction missing');
 assert(html.includes('channels.usgswater={label:'),'USGS Water source missing');
 assert(html.includes('channels.ndbc={label:'),'NOAA NDBC source missing');
 assert(html.includes('channels.emsc={label:'),'EMSC source missing');
