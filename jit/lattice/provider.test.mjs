@@ -24,6 +24,7 @@ for(const c of cases){
 }
 
 const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
+assert(!html.includes('if(!ids.includes(\'iss\'))ids.push(\'iss\')'),'Do not poll ISS outside the selected view');
 assert(html.includes('wake=setTimeout(drain,'),'Governor must wake a host-throttled queue');
 assert(!html.includes('for(const r of regions)for(const id of r.channels)enqueue(id,r)'),'Do not fan out all continents in background batch');
 const match=html.match(/const latticeSampleGroups=(\[[^;]+\]);/);
