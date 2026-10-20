@@ -38,7 +38,10 @@ assert(html.includes('for(const g of latticeSampleGroups)enqueue(g.id'),'Batch m
 assert(html.includes('sampleGroupsSuccessful:'),'Runtime eye must expose successful sample collection');
 assert(html.includes("c.id!=='51'&&c.id!=='53'"),'ISS position must feed both altitude and ground-track channels');
 assert(html.includes("c.id==='53'&&Number.isFinite(j.longitude)"),'ISS ground-track geometry must use live coordinates');
-assert(/function tick\(\)\{[^}]*for\(const g of latticeSampleGroups\)enqueue\(g.id/.test(html),'Periodic collection must refresh every validated sample group');
+assert(html.includes('function tick(){if(document.hidden||!navigator.onLine)return;collectVacuum();'),'Periodic tick must refresh vacuum feeds');
+assert(html.includes('function collectVacuum(){for(const g of latticeSampleGroups)enqueue(g.id'),'Vacuum must gather all tested sample groups');
+assert(html.includes('for(const f of latticeGlobalFeeds)enqueue(f.id'),'Vacuum must gather global feeds independent of selection');
+for(const id of ['quakes','events','alerts','floods','river','iss','tles'])assert(html.includes("{id:'"+id+"',region:"),'Missing global feed '+id);
 const activeGroups=groups.filter(g=>g.channelIds.some(id=>runtimeActive.has(id)));
 assert.equal(activeGroups.length,5,'Expected five active provider sample groups');
 console.log('Active runtime sample groups:',activeGroups.map(g=>g.id).join(','));
