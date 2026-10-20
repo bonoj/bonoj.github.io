@@ -409,3 +409,16 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Film-clock marker:** *Sunshine* (2007) credits rolling — **end of film / approximately 01:47:00 runtime** (theatrical runtime commonly listed as 107 minutes; exact credit onset is not verified). This is a **film-relative timestamp**, not a wall-clock timestamp. The human's observation of credits rolling is authoritative; do not invent an exact playback frame.
 
 **End-of-film checkpoint:** Ice Cathedral reference image is now present byte-for-byte in GitHub as [ice-cathedral.png](./ice-cathedral.png), Git blob `b7ad5c4be284bdb927684e6bb284102772582ff5`, renamed without re-encoding at commit `b80471db31084c73ff0c989ccd28b560857eb596`. The full autonomous systems build is specified but not yet built. The film jam concludes with an image, a working executable shell from earlier development, and a concrete next-build specification. The deferred transport experiment no longer blocks development.
+
+
+### 20 October 2026 — film clock: credits complete; Earth saved
+
+The human confirms the credits have now finished: “Earth has been saved.” This supersedes the earlier credits-rolling marker. Exact credit-end timecode was not provided; do not infer one.
+
+During the credits, the Ice Cathedral systems specification was committed as fc9f776f. The first autonomous implementation followed at ae96c5c1. The human supplied a 36.8-second live eye report: 96 meteors spawned, 63 hits, 20 ice chunks destroyed, 12 pushers spawned, four ice chunks produced and placed, three plants grown, two trees matured, and zero reported invariant violations. The observation exposed duplicate ice placement and an erosion rate exceeding replenishment.
+
+Commit 07eca833 then introduced immediate destruction of modules struck by meteors, severed module links and consequent system interruptions, exclusive ice-placement reservations, and new eye behavior: tap copies a thin geometry/simulation snapshot; long press downloads full history. Source readback was confirmed; the newer build has not yet been observed live.
+
+Next frontier: inspect the new geometry snapshot and develop a more compelling asymmetric ship silhouette while testing destructive cascades.
+
+**Film checkpoint: CREDITS COMPLETE. EARTH SAVED.**
