@@ -27,7 +27,7 @@ const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
 const match=html.match(/const latticeSampleGroups=(\[[^;]+\]);/);
 assert(match,'Runtime sample-group registry missing');
 const groups=JSON.parse(match[1]);
-assert.equal(groups.length,16);
+assert.equal(groups.length,15);
 const byId=new Map(manifest.channels.map(c=>[c.id,c]));
 for(const g of groups){
  for(const id of g.channelIds){
