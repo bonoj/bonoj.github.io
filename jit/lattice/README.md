@@ -49,3 +49,7 @@ The app lives in one standalone HTML file with inline CSS/JavaScript and no back
 ## Ingestion campaign — turn 1/10
 
 The [53-channel manifest](channels.json) is committed as `lattice-channels/v1`: 53 unique stable IDs, 17 provider/adapter groups, each currently `SPECIFIED` with no browser-verification claim. This is inventory plumbing, not 53 working integrations. Existing runtime remains `lattice/02` and unchanged. Next: bind manifest to reusable parsers and normalized observations, add deterministic fixtures, then exercise browser-origin source tests. Preserve [SPEC](SPEC.md) acceptance and [CHRONICLE](CHRONICLE.md) history.
+
+## Ingestion campaign — turn 2/10
+
+[channels.json](channels.json) retains 53 stable IDs; 25 Open-Meteo/ISS field extraction mappings are now `CODED` (not SOURCE_TESTED or BROWSER_VERIFIED). [normalize.mjs](normalize.mjs) provides pure normalization and manifest validation; [normalize.test.mjs](normalize.test.mjs) contains deterministic fixtures for the mapped fields, missing-value rejection, and 53-ID integrity. Tests are committed but **not yet executed**; browser runtime and governor remain unchanged at `lattice/02`. Next: execute tests, resolve any failures, integrate normalization through the existing governor without a second fetch path, then implement remaining provider mappings. No UI or publication changes.
