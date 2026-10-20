@@ -302,3 +302,14 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Human:** “Haha. Hit the chronicle with these turns.”
 
 **Model action:** Appended this plan and the human's prompts to the Chronicle for cold-boot recovery. Final raster generation remains pending human go-ahead.
+
+
+### Film-clock checkpoint — crossing from Icarus I back to Icarus II (20 October 2026)
+
+**Human:** “Houston, we have a winner. Shelby and captain America are crossing back from icarus i to ii now. Time stamp us in chronicle.”
+
+**Film scene anchor:** In *Sunshine* (2007), the human reports Capa (“Shelby” in the human/model running nickname) and the character nicknamed “Captain America” crossing back from **Icarus I** to **Icarus II**. This is a **scene-relative timestamp**, not a measured wall-clock or playback time. Precise film minute/second was not independently verified; do not invent one. It occurs after the oxygen-garden fire checkpoint previously recorded around subtitle time 00:36:32.
+
+**Design milestone:** The model generated the first full portrait raster of the **Ice Cathedral**: colossal modular longitudinal lighthugger, crowded irregular arc of individual blue-white ice masses, articulated hauling arms and drones, monumental annular midship structure, asymmetrical industrial machinery, deep aft spine and engines, and a warm curved solar horizon above. The human declared: **“Houston, we have a winner.”** This raster is the accepted visual direction and candidate geometry-extraction reference; no executable geometry has yet been extracted from it.
+
+**Timing interpretation:** The movie continues to serve as the development jam clock. Record this scene anchor now; derive a precise runtime later only from a verified source or the human's actual player timestamp.
