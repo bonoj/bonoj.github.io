@@ -36,6 +36,8 @@ const runtimeActive=new Set(JSON.parse(activeMatch[1].replaceAll("'",'"')));
 assert.deepEqual([...runtimeActive].sort(),manifest.channels.filter(c=>c.disposition==='ACTIVE').map(c=>c.id).sort(),'Runtime polling and manifest dispositions diverged');
 assert(html.includes('for(const g of latticeSampleGroups)enqueue(g.id'),'Batch must gather all pretested sample groups');
 assert(html.includes('sampleGroupsSuccessful:'),'Runtime eye must expose successful sample collection');
+assert(html.includes("c.id!=='51'&&c.id!=='53'"),'ISS position must feed both altitude and ground-track channels');
+assert(html.includes("c.id==='53'&&Number.isFinite(j.longitude)"),'ISS ground-track geometry must use live coordinates');
 assert(/function tick\(\)\{[^}]*for\(const g of latticeSampleGroups\)enqueue\(g.id/.test(html),'Periodic collection must refresh every validated sample group');
 const activeGroups=groups.filter(g=>g.channelIds.some(id=>runtimeActive.has(id)));
 assert.equal(activeGroups.length,5,'Expected five active provider sample groups');
