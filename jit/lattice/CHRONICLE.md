@@ -8,6 +8,8 @@
 
 ### Pair 1 — VET
 
+**Human timestamp (reported):** 2026-10-20 12:47 Eastern Daylight Time (EDT; UTC−04:00). The human supplied the label “EST”; October 20 in Pennsylvania observes EDT.
+
 **Human (verbatim)**
 
 > Take one turn to verify everything and lay yourself clean implementation hooks and persist in a new doc called vet.
@@ -44,6 +46,8 @@ Next cold boot can go directly from **VET → implementation → tests → deplo
 
 ### Pair 2 — Dracarys build
 
+**Human timestamp (reported):** 2026-10-20 12:50 Eastern Daylight Time (EDT; UTC−04:00). The human supplied the label “EST”; local civil time was EDT.
+
 **Human (verbatim)**
 
 > I took a submariner shower. Build and deploy. Dracarys.
@@ -74,6 +78,8 @@ The worldwide world is built. The remaining gate is **live publication and runti
 
 ### Current archival instruction — human verbatim
 
+**Human timestamp (reported):** 2026-10-20 12:55 Eastern Daylight Time (EDT; UTC−04:00).
+
 > Add chronicle. Preserve all turn pairs verbatim from "Take one turn to verify everything and lay yourself clean implementation hooks and persist in a new doc called vet."
 
 **Archive boundary:** this instruction is recorded verbatim. The model's response to this current turn cannot be reproduced as a *completed prior turn pair* at the moment the chronicle is committed. Do not invent it.
@@ -86,3 +92,9 @@ The worldwide world is built. The remaining gate is **live publication and runti
 - Initial Lattice JIT entrypoint created in commit `9820dfb547caa568a127365bb3c47ed88680e3ce`.
 - The deployment workflow for the executable was reported *in progress* at the time of the model's last observation. No later success or live-browser verification is implied.
 - The exact messages above are conversation evidence; the ledger is separate operational context.
+
+## Publication verification — 2026-10-20 12:57 EDT
+
+The GitHub Actions workflow for executable commit `061f90de787322e64029be1e0bf846a387b5d7a4` completed with **success**, as independently checked through GitHub's workflow API (`run 39461801533`, `status=completed`, `conclusion=success`, `updated_at=2026-10-20T16:57:03Z` = **12:57:03 EDT**). This verifies a successful publishing workflow at the requested minute, **not an independently loaded public page or successful client-side telemetry fetch**. Public URL: https://bonoj.github.io/jit/lattice/ . Do not conflate successful workflow with browser runtime verification.
+
+**Timestamp convention:** human-reported times are preserved as 12:47, 12:50, 12:55, and 12:57 in US Eastern local time. The requested abbreviation EST is historically incorrect on October 20, 2026: daylight saving time is still in effect, so the accurate abbreviation is EDT (UTC−04:00).
