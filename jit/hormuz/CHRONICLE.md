@@ -6,7 +6,7 @@
 
 > For now just deploy a jit hormuz that pulls in a bunch of different public telemetry from the region. Get shipping shit and vessel traffic, too, if it's available. Don't slam endpoints with requests. Once every 5 seconds should be safe as long as that supports a full day (realistically no user would leave it running, and it's tied to their ip anyways not our static site).
 
-This is the original request, preserved **verbatim** as the benchmark for evaluating the first Hormuz proof of concept, including in a potential Anduril-facing demonstration. It specifies the desired result and operational restraint without prescribing a framework, backend, architecture, or detailed implementation plan. The model's delivered artifact can be evaluated against it; the request alone is not proof that every browser feed worked. The five-second suggestion was implemented as a due-check scheduler rather than five-second polling of every endpoint.
+This is the original request, preserved **verbatim** as the benchmark for evaluating the first Hormuz proof of concept, as a standalone demonstration. It specifies the desired result and operational restraint without prescribing a framework, backend, architecture, or detailed implementation plan. The model's delivered artifact can be evaluated against it; the request alone is not proof that every browser feed worked. The five-second suggestion was implemented as a due-check scheduler rather than five-second polling of every endpoint.
 
 ### Request
 
