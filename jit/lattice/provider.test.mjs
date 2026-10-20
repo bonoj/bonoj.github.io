@@ -40,6 +40,9 @@ assert(html.includes('function latticeCollectRecords(id,j,url)'),'Structured eve
 assert(html.includes('channels.coops={label:'),'NOAA CO-OPS source must exist');
 assert(html.includes('channels.usgswater={label:'),'USGS Water source missing');
 assert(html.includes('channels.ndbc={label:'),'NOAA NDBC source missing');
+assert(html.includes('channels.emsc={label:'),'EMSC source missing');
+assert(html.includes("{id:'emsc',region:'eu'}"),'EMSC must be in continuous vacuum');
+assert(html.includes("if(id==='emsc')"),'EMSC event extraction missing');
 assert(html.includes("{id:'ndbc',region:'na'}"),'NDBC must be scheduled in vacuum');
 assert(html.includes("if(id==='ndbc')"),'NDBC records must be extracted');
 assert(html.includes("responseType==='text'?latticeParseNdbc(body):JSON.parse(body)"),'NDBC text transport missing');
