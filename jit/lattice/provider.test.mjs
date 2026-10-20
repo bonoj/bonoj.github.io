@@ -28,7 +28,7 @@ for(const c of cases){
 const candidates=[
  {id:'coops',url:'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?date=latest&station=8518750&product=water_level&datum=MLLW&units=metric&time_zone=gmt&format=json&application=lattice',check:j=>Array.isArray(j.data)&&j.data.some(x=>x.t&&Number.isFinite(Number(x.v)))},
  {id:'usgswater',url:'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=01646500&parameterCd=00060,00065&siteStatus=all',check:j=>Array.isArray(j.value?.timeSeries)&&j.value.timeSeries.some(x=>x.values?.[0]?.value?.some(v=>v.value!==''&&Number.isFinite(Number(v.value))))},
- {id:'ndbc',url:'https://www.ndbc.noaa.gov/data/realtime2/41009.txt',text:true,check:t=>/^#?YY\\s+MM\\s+DD\\s+hh\\s+mm\\b/m.test(t)&&/\\b(WVHT|PRES)\\b/.test(t)},
+ {id:'ndbc',url:'https://www.ndbc.noaa.gov/data/realtime2/41009.txt',text:true,check:t=>/^#?YY\s+MM\s+DD\s+hh\s+mm\b/m.test(t)&&/\b(WVHT|PRES)\b/.test(t)},
  {id:'emsc',url:'https://www.seismicportal.eu/fdsnws/event/1/query?format=json&limit=100&orderby=time&minlatitude=34&maxlatitude=72&minlongitude=-25&maxlongitude=45',check:j=>Array.isArray(j.features)},
  {id:'bom',url:'https://www.bom.gov.au/fwo/IDN60901/IDN60901.94767.json',check:j=>Array.isArray(j.observations?.data)}
 ];
