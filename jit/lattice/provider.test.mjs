@@ -29,6 +29,14 @@ assert(!html.includes('for(const r of regions)for(const id of r.channels)enqueue
 const match=html.match(/const latticeSampleGroups=(\[[^;]+\]);/);
 assert(match,'Runtime sample-group registry missing');
 const groups=JSON.parse(match[1]);
+const activeMatch=html.match(/const latticeEnabledIds=new Set\((\[[^;]+\])\);/);
+assert(activeMatch,'Runtime active channel registry missing');
+const runtimeActive=new Set(JSON.parse(activeMatch[1].replaceAll("'",'"')));
+assert.deepEqual([...runtimeActive].sort(),manifest.channels.filter(c=>c.disposition==='ACTIVE').map(c=>c.id).sort(),'Runtime polling and manifest dispositions diverged');
+assert(html.includes('g.channelIds.some(id=>latticeEnabledIds.has(id))'),'Batch must filter deferred sample groups');
+const activeGroups=groups.filter(g=>g.channelIds.some(id=>runtimeActive.has(id)));
+assert.equal(activeGroups.length,5,'Expected five active provider sample groups');
+console.log('Active runtime sample groups:',activeGroups.map(g=>g.id).join(','));
 assert.equal(groups.length,15);
 const byId=new Map(manifest.channels.map(c=>[c.id,c]));
 for(const g of groups){
