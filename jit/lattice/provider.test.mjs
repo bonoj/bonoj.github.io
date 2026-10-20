@@ -40,7 +40,7 @@ for(const g of groups){
  const url=base+'?latitude='+g.sample[0]+'&longitude='+g.sample[1]+'&current='+g.fields.join(',')+'&timezone=GMT';
  try{
   const res=await fetch(url,{signal:AbortSignal.timeout(15000)});
-  assert(res.ok,`HTTP ${res.status}: ${(await res.text()).slice(0,160)}`);
+  if(!res.ok)throw Error(`HTTP ${res.status}: ${(await res.text()).slice(0,160)}`);
   const data=await res.json();
   assert(data.current&&typeof data.current==='object','Missing current');
   for(const field of g.fields)assert(typeof data.current[field]==='number'&&Number.isFinite(data.current[field]),`Missing numeric ${field}`);
