@@ -271,3 +271,10 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Human:** “Oh hell yes. That's beautiful. Doc this and then build it here in chat.”
 
 **Action:** Preserve this design in SPEC and build a self-contained interactive **in-chat** prototype. No GitHub Pages executable changes are implied. The desired core loop is finite ice → autonomous drone transport/placement → physical canopy cover → altered risk and further construction/repair.
+
+
+### Image becomes a hauling system (20 October 2026)
+
+**Human:** Supplied a rendered screenshot with gentle golden curved solar horizon, broad blue-halo arc of 🧊 chunks, tethered drone bays and a minimal spine. “Let's push this into the build. I want this exact ice system. Ship nodes and design are placeholders. And that arc is just one shield orientation/configuration. There might be several different layers of shield available. Drones are there to push ice. Which gives us ishimura tethers and canterbury ice hauling as well.”
+
+**Model action:** Replaced the original schematic rocket shell with a mobile full-screen ice-hauler prototype: ambient curved solar horizon, multiple selectable shield arcs/layers, autonomous drone delivery, finite chunks and localized debris impacts. Source commit `fc4595d4`. The industrial hull remains schematic as requested. No independent live browser execution confirmation. The screenshot remains the visual target; simulated tether tension, thermal exposure and freeform ice packing are not yet implemented.
