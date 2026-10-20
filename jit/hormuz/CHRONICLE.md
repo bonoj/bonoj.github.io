@@ -57,6 +57,12 @@ The first instrument integrates five independently scheduled source families:
 
 The initial JIT implements the **collection and presentation foundation** of Alembic. It does **not** yet implement full metric provenance/drill-down, historical replay, genuine AIS vessel tracks, calibrated geography, a general zip/derived-metric engine, or physically faithful coupled simulation. Those are future possibilities, not shipped capabilities.
 
+### Measured turnaround — two minutes
+
+The human reported the wall-clock interval for the initial request-to-artifact turnaround as **11:56–11:58 on 20 October 2026: two minutes**. This is a human-observed timing of the initial executable delivery, not a separately instrumented build-duration measurement. It does **not** include later chronicle writing or independent browser/runtime verification.
+
+The notable result: a conversational request became a committed, inspectable single-file maritime observatory—with five public telemetry source integrations, per-provider polling, and a mobile visualization—within that reported two-minute window. The architecture required no new backend or deployment pipeline.
+
 ### Publication and evidence
 
 - Executable created on the site repository's `master` branch: **`7ad970b1`**.
