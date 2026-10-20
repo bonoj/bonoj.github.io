@@ -2,13 +2,93 @@
 
 ## Verbatim conversation archive
 
-**Scope:** complete visible user–assistant turn pairs beginning with the user's request “Take one turn to verify everything and lay yourself clean implementation hooks and persist in a new doc called vet.” These are preserved as authored messages, including their rendered-response source markup where present. Tool calls and tool results are not conversation turn pairs and are not reproduced here. The present request to add this chronicle is documented after the completed pairs.
+**Scope:** complete visible user–assistant turn pairs beginning with the worldwide Lattice SPEC request, immediately preceding the VET request. These are preserved as authored messages, including their rendered-response source markup where present. Tool calls and tool results are not conversation turn pairs and are not reproduced here. The present request to add this chronicle is documented after the completed pairs.
 
 ---
 
-### Pair 1 — VET
+### Pair 1 — Worldwide Lattice specification
 
-**Human timestamp (reported):** 2026-10-20 12:47 Eastern Daylight Time (EDT; UTC−04:00). The human supplied the label “EST”; October 20 in Pennsylvania observes EDT.
+**Human timestamp (reported):** 2026-10-20 12:47 Eastern local time (EDT, UTC−04:00). The human originally labeled this “EST”; local civil time was EDT.
+
+**Human (verbatim)**
+
+> Take hormuz and make jit lattice spec. Worldwide. Give it way more data streams. Spec it. Find 50 different public telemetry streams. Include all continents including Antarctica and iss as another.
+
+**Model (verbatim; consecutive visible final messages joined in original order)**
+
+<badge color="success"><icon name="check" size="xs" inline/> Specification committed</badge>
+
+# 🌍 LATTICE — Earth + Orbit
+
+[Read the worldwide JIT specification](https://github.com/bonoj/bonoj.github.io/blob/master/jit/lattice/SPEC.md)
+
+Built from Hormuz's architecture, I've committed a specification for **53 distinct public telemetry channels**, spanning all seven continents and the International Space Station.
+
+<box gap={2}>
+  <AsyncImage query="NASA Blue Marble full Earth planet from space high resolution" aspectRatio="16:9" width="100%"/>
+  <grid columns={2} gap={2}>
+    {#each [{name:"North America",n:12},{name:"South America",n:7},{name:"Europe",n:8},{name:"Africa",n:6},{name:"Asia",n:8},{name:"Oceania",n:5},{name:"Antarctica",n:4},{name:"ISS / Orbit",n:3}] as item}
+      <box border radius="lg" padding={3} gap={1}>
+        <text color="secondary" size="xs">{item.name}</text>
+        <title size="xl" tabularNums>{item.n} <text color="secondary" size="xs" inline>channels</text></title>
+      </box>
+    {/each}
+  </grid>
+</box>
+
+The 53 are distinct observation channels, not 53 independently operated APIs. The specification includes source entrypoints, proposed polling intervals, data contracts, and verification requirements. It does **not** claim they're all working browser integrations yet.
+
+## The architecture
+
+<box border radius="xl" padding={3} gap={2}>
+  <box background="surface-secondary" radius="md" padding={3} align="center" gap={1}>
+    <icon name="globe-2" size="xl"/>
+    **One interactive Earth**
+    <caption>Seven continents + ISS orbital layer</caption>
+  </box>
+  <row justify="center">
+    <icon name="arrow-down"/>
+  </row>
+  <grid columns={3} gap={2}>
+    {#each ["Weather","Oceans","Earthquakes","Rivers","Wildfires","Air quality","Maritime","Orbit"] as name}
+      <box background="surface-secondary" radius="md" padding={2} align="center">
+        <text size="xs" weight="medium" textAlign="center">{name}</text>
+      </box>
+    {/each}
+  </grid>
+  <row justify="center">
+    <icon name="arrow-down"/>
+  </row>
+  <box background="surface-secondary" radius="md" padding={3} align="center" gap={1}>
+    **Shared world engine**
+    <caption>Normalize · Timestamp · Compose · Visualize</caption>
+  </box>
+  <row justify="center">
+    <icon name="arrow-down"/>
+  </row>
+  <box border radius="md" padding={3} align="center" gap={1}>
+    **Executable regional worlds**
+    <caption>Generated from reusable WorldSpecs</caption>
+  </box>
+</box>
+
+The ISS layer includes position, altitude, velocity, and orbital data from a documented public API. <Cite ref="turn292416search1"/> NASA EONET supplies a candidate global natural-events layer. <Cite ref="turn292416search6"/>
+
+The key design decision is that **a region is a configuration of the world engine, not another application to build**.
+
+No Supabase. No new mandatory backend. No pretending forecasts are measurements or synthetic tracks are observed traffic.
+
+The specification also defines a repeatable benchmark for generating 50 regional worlds, with actual feed success, deployment time, and human intervention measured separately.
+
+**Commit:** `ff632477`
+
+The specification is committed; the worldwide executable has not been deployed yet. 🐉
+
+---
+
+### Pair 2 — VET
+
+**Human timestamp (reported):** 2026-10-20 12:50 Eastern local time (EDT; UTC−04:00).
 
 **Human (verbatim)**
 
@@ -44,9 +124,9 @@ Next cold boot can go directly from **VET → implementation → tests → deplo
 
 ---
 
-### Pair 2 — Dracarys build
+### Pair 3 — Dracarys build
 
-**Human timestamp (reported):** 2026-10-20 12:50 Eastern Daylight Time (EDT; UTC−04:00). The human supplied the label “EST”; local civil time was EDT.
+**Human timestamp (reported):** 2026-10-20 12:55 Eastern local time (EDT; UTC−04:00).
 
 **Human (verbatim)**
 
@@ -78,7 +158,7 @@ The worldwide world is built. The remaining gate is **live publication and runti
 
 ### Current archival instruction — human verbatim
 
-**Human timestamp (reported):** 2026-10-20 12:55 Eastern Daylight Time (EDT; UTC−04:00).
+**Human timestamp:** not independently established; occurs after the 12:55 Dracarys request. Do not assign 12:55 to this turn.
 
 > Add chronicle. Preserve all turn pairs verbatim from "Take one turn to verify everything and lay yourself clean implementation hooks and persist in a new doc called vet."
 
@@ -86,6 +166,7 @@ The worldwide world is built. The remaining gate is **live publication and runti
 
 ## Artifact ledger (supplementary; not part of the verbatim conversation)
 
+- Worldwide SPEC request was the first turn at 12:47 EDT, followed by VET at 12:50 and Dracarys at 12:55.
 - VET specification and implementation handoff: [VET.md](VET.md), commit `3e053218e49721cdb046c80f7edf4fac3aa3f5e0`.
 - Worldwide candidate source inventory: [SPEC.md](SPEC.md), commit `ff632477dedbd46d7fc992058894b6448f122f29`.
 - Executable: [index.html](index.html), commit `061f90de787322e64029be1e0bf846a387b5d7a4`.
@@ -97,4 +178,4 @@ The worldwide world is built. The remaining gate is **live publication and runti
 
 The GitHub Actions workflow for executable commit `061f90de787322e64029be1e0bf846a387b5d7a4` completed with **success**, as independently checked through GitHub's workflow API (`run 39461801533`, `status=completed`, `conclusion=success`, `updated_at=2026-10-20T16:57:03Z` = **12:57:03 EDT**). This verifies a successful publishing workflow at the requested minute, **not an independently loaded public page or successful client-side telemetry fetch**. Public URL: https://bonoj.github.io/jit/lattice/ . Do not conflate successful workflow with browser runtime verification.
 
-**Timestamp convention:** human-reported times are preserved as 12:47, 12:50, 12:55, and 12:57 in US Eastern local time. The requested abbreviation EST is historically incorrect on October 20, 2026: daylight saving time is still in effect, so the accurate abbreviation is EDT (UTC−04:00).
+**Timestamp convention:** the three human turns are reported as SPEC 12:47, VET 12:50, Dracarys 12:55; the GitHub publication workflow succeeded at 12:57:03. The later Chronicle request has no verified minute. The requested abbreviation EST is historically incorrect on October 20, 2026: daylight saving time is still in effect, so the accurate abbreviation is EDT (UTC−04:00).
