@@ -383,3 +383,16 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **What changed:** A path previously presumed inaccessible across environments was accepted by the Google Drive connector. The repeated statements that the local filesystem was an absolute connector boundary were **too broad**. The decisive step was trying the direct upload with the real path, not creating another transport protocol. This is a concrete Sanctum lesson: test a plausible legitimate operation before theorizing that it cannot work; preserve the exact tool output and qualify verification separately.
 
 **Current state at timestamp:** Ice Cathedral exists in Google Drive as `ice-cathedral.png`, reported size 2,796,225 bytes. **It is not yet in the ICARUS GitHub repository.** The next experiment can fetch the Drive binary/file reference and establish an authorized route into Ingest/GitHub; do not assert that Drive URLs are public or directly fetchable by GitHub Actions without testing permissions. Preserve original bytes; don't let optional post-write verification block authorized progress, but never claim verified equality without comparing bytes. No ICARUS executable modification occurred.
+
+
+### Film clock — Icarus bomb activates; transport experiment parked (20 October 2026)
+
+**Human:** “Fuck the transport for now. We partial won already by getting it into google drive. Link me to the icarus in git?”
+
+**Decision:** Stop spending the movie jam on the remaining Google Drive → GitHub image-transport seam. The Ice Cathedral PNG was successfully uploaded to Google Drive (file ID `1ish7Ko05VgK4Tk8GcUzV9LJCuzW9tAvq`, reported 2,796,225 bytes), a real partial victory. GitHub binary promotion and byte-for-byte verification remain unproven; these are deferred, not abandoned. The film and the executable Icarus experience take priority over infrastructure thrash. Preserve the transport investigation above for later recovery without rediscovery.
+
+**Human:** “Uploaded img. Let's rename it appropriately and doc decision to move on and why in chronicle. Shelby and Cassie are inside the spinning icarus bomb now. It is activating.”
+
+**Film-clock scene anchor:** Shelby and Cassie are inside the spinning Icarus bomb; activation has begun. This is a scene-relative marker reported by the human, not a verified exact playback timestamp. The prior coolant-death marker remains earlier in the same viewing.
+
+**Image naming intent:** The accepted visual is **Ice Cathedral**; canonical descriptive target remains `jit/icarus/reference/ice-cathedral.png`. The human reports an image upload, but the uploaded GitHub filename and binary destination have not yet been independently identified in this checkpoint. Do not claim a rename or GitHub image readback without evidence. Resume the Icarus world, not the transport experiment.
