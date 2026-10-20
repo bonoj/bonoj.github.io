@@ -26,9 +26,9 @@ The app lives in one standalone HTML file with inline CSS/JavaScript and no back
 
 Data contracts and reusable WorldSpec interfaces are **planned**, not implemented. The existing code stores parsed display-oriented records, not the full normalized observation contract specified in [VET.md](VET.md). Some selected regions request the same global EONET/ISS endpoint and share a `@global` record key.
 
-## Next required implementation: universal transport governor
+## Universal endpoint transport — implemented baseline
 
-[TRANSPORT_CONTRACT.md](TRANSPORT_CONTRACT.md) is the mandatory design contract for **every** endpoint. It is currently **specified, not implemented**. Before adding new providers, implement its single governed request path, migrate all six adapters, and test rate limiting, deduplication, retry/backoff, caching, offline/hidden behavior, and source provenance. No endpoint-owned fetch or scheduler. Keep Hormuz untouched.
+The executable now routes all six adapter families through a single `governor` with one `fetch` call site. It deduplicates by canonical URL, shares in-flight requests, enforces two global concurrent requests and one per host, queues requests, preserves stale last-good data, applies exponential failure backoff and HTTP 429/503 Retry-After, pauses while hidden/offline, and resumes on reconnect. 👁 includes transport counters. **Verification:** committed source readback and JavaScript syntax passed; live browser/API/CORS behavior and deterministic fake-clock tests remain unverified. This is a baseline, not a fully validated transport guarantee. See Chronicle for implementation history.
 
 ## Known engineering issues — prioritized
 
@@ -42,7 +42,7 @@ Data contracts and reusable WorldSpec interfaces are **planned**, not implemente
 
 ## Cold-boot protocol
 
-1. Read **this README**, then [TRANSPORT_CONTRACT.md](TRANSPORT_CONTRACT.md) (mandatory next implementation), [VET.md](VET.md) (audit + precise implementation seams), [SPEC.md](SPEC.md) (53 candidate channels and regional coverage), [CHRONICLE.md](CHRONICLE.md) (verbatim historical decisions), and the actual [index.html](index.html). For global workflow conventions read [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) and [Gate](https://github.com/bonoj/Gate/blob/main/README.md).
+1. Read **this README**, then this README's universal endpoint transport section (mandatory next implementation), [VET.md](VET.md) (audit + precise implementation seams), [SPEC.md](SPEC.md) (53 candidate channels and regional coverage), [CHRONICLE.md](CHRONICLE.md) (verbatim historical decisions), and the actual [index.html](index.html). For global workflow conventions read [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) and [Gate](https://github.com/bonoj/Gate/blob/main/README.md).
 2. Confirm the repository's current source commit and public deployment state; **do not assume** `061f90de` remains the newest executable build. Never mistake an Actions success for verified browser behavior.
 3. Make the next smallest coherent functional improvement **in this JIT only**. Preserve all working regions and feeds. Prefer source accuracy and observable consequences over additional cards.
 4. Run tests and real-browser smoke checks where tooling permits; record exact evidence and limitations. If a tool or source fails, inspect and recover via Gate rather than asking the human to manually shuttle files.
@@ -55,7 +55,6 @@ Data contracts and reusable WorldSpec interfaces are **planned**, not implemente
 
 ## References
 
-- [TRANSPORT_CONTRACT.md](TRANSPORT_CONTRACT.md) — mandatory endpoint transport governor, specified but not yet implemented
 - [SPEC.md](SPEC.md) — proposed worldwide inventory and architecture
 - [VET.md](VET.md) — provider audit, implementation seams and acceptance plan
 - [CHRONICLE.md](CHRONICLE.md) — verbatim human–model turn archive and build chronology
