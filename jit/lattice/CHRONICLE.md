@@ -228,3 +228,8 @@ The contract separates **endpoint declaration → transport governor → normali
 ### Why this matters
 
 The previous six-adapter implementation was a coherent one-turn vertical slice, not completion of the requested 53-channel worldwide inventory. Scaling should not multiply custom fetch loops, provider load, or failure modes. The intended property is compositional: a 54th endpoint receives good behavior by registering with the same transport, without inventing a scheduler of its own.
+
+
+### Dracarys — implementation and consolidation (2026-10-20)
+
+Human: **“We don't need a separate document. Implementat it verify working.”** After a blocked first write, the human invoked **“Sanctum contract and dracarys.”** The model read Sanctum CONTRACT and Gate README, recovered using a smaller GitHub Contents update, and committed the transport governor in `49540de89fb9c98f85577990137ca2a36bd199d3`. The implementation retains six adapters and a single fetch call site, adds canonical-URL deduplication, bounded queue, global/host concurrency controls, backoff, Retry-After, stale preservation, online recovery, and 👁 counters. Source readback confirmed the governor and all six adapter definitions; JavaScript syntax compilation passed. **No live browser request verification or deterministic fake-clock transport tests have been demonstrated.** The earlier standalone transport contract was folded into README and removed in commit `223d1841008cd5edaffc956afe919cf9be775aad`. Do not confuse source validation with runtime verification. The original transport contract's more ambitious controls (fairness guarantees, comprehensive host rate windows, provider policy validation, and deterministic test suite) remain incomplete.
