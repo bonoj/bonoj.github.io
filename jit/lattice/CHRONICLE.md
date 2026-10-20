@@ -469,3 +469,9 @@ This section records the subsequent development and human-provided runtime evide
 - `0dd4a643` narrowed `governor.batch()` from all-region legacy fan-out to the 15 server-tested sample groups plus the currently selected region's channels. This reduces unnecessary requests without disabling the existing regional cards.
 - The same commit fixed host-throttle queue liveness: when pending jobs are blocked only by host pacing, `drain()` now schedules a timer for the earliest eligible host rather than relying on another fetch completion or five-second tick.
 - `47a1cf3f` added regression guards that require the wake timer and prohibit the old all-region batch loop. GitHub Actions run `39499542112` showed both deterministic and live provider steps passing. Browser execution of this particular build remains unverified; do not confuse server-side test success with deployed browser evidence.
+
+### Active-only polling consolidation — 2026-10-20
+
+- `5bfe01b0` introduced an explicit runtime `latticeEnabledIds` set containing the 10 evidence-backed ACTIVE channel IDs. The batch now queues only sample groups intersecting this set, **five** of the 15 tested groups, plus the currently selected legacy view. Deferred groups remain in source and test coverage but no longer consume automatic sample polling.
+- `ca151baa` added CI assertions that runtime enabled IDs match `channels.json` ACTIVE dispositions and that batch filtering is present. The live provider probes still exercise **all 15** configured sample groups so deferred integrations can be reconsidered with evidence.
+- Distinction: legacy selected-view cards continue to use their existing adapters, including sources not represented by ACTIVE numbered channels. This change gates the **sample batch**, not every possible network request. Runtime/browser proof of the latest commit is still pending.
