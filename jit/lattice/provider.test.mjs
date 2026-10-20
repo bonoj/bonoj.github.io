@@ -22,4 +22,31 @@ for(const c of cases){
   console.log('PASS',c.id,res.status,c.fields.join(','));
  }catch(e){failures++;console.error('FAIL',c.id,e.message)}
 }
+
+const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
+const match=html.match(/const latticeSampleGroups=(\[[^;]+\]);/);
+assert(match,'Runtime sample-group registry missing');
+const groups=JSON.parse(match[1]);
+assert.equal(groups.length,16);
+const byId=new Map(manifest.channels.map(c=>[c.id,c]));
+for(const g of groups){
+ for(const id of g.channelIds){
+  const c=byId.get(id);
+  assert(c,`Unknown channel ${id}`);
+  assert.equal(c.adapter,g.adapter,`Adapter mismatch ${id}`);
+  assert(g.fields.includes(c.field),`Missing mapped field ${id} / ${c.field}`);
+ }
+ const base=g.adapter==='weather'?'https://api.open-meteo.com/v1/forecast':g.adapter==='marine'?'https://marine-api.open-meteo.com/v1/marine':'https://air-quality-api.open-meteo.com/v1/air-quality';
+ const url=base+'?latitude='+g.sample[0]+'&longitude='+g.sample[1]+'&current='+g.fields.join(',')+'&timezone=GMT';
+ try{
+  const res=await fetch(url,{signal:AbortSignal.timeout(15000)});
+  assert(res.ok,`HTTP ${res.status}: ${(await res.text()).slice(0,160)}`);
+  const data=await res.json();
+  assert(data.current&&typeof data.current==='object','Missing current');
+  for(const field of g.fields)assert(typeof data.current[field]==='number'&&Number.isFinite(data.current[field]),`Missing numeric ${field}`);
+  console.log('PASS',g.id,g.channelIds.join(','),g.sample.join(','));
+ }catch(e){failures++;console.error('FAIL',g.id,g.channelIds.join(','),e.message)}
+}
+console.log('Lattice sample-group audit:',groups.length,'groups,',groups.reduce((n,g)=>n+g.channelIds.length,0),'channel mappings;',failures,'failed checks');
 if(failures)process.exitCode=1;
+
