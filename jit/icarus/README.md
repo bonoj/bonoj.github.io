@@ -1,53 +1,39 @@
-# ICARUS — Sunshine movie-to-game experiment
+# ICARUS — Lighthugger JIT
 
-[Development Chronicle](./CHRONICLE.md) — origin, design reasoning, Rocinante-inspired crew/tools/failures, and provisional dev canon.
+**Live target:** https://bonoj.github.io/jit/icarus/ · **Executable:** [index.html](./index.html) · **Change queue:** [SPEC.md](./SPEC.md) · **Development history:** [CHRONICLE.md](./CHRONICLE.md)
 
 ## Status
-**Concept only. No playable implementation authorized yet.** This README records the premise, approved candidate emoji bank, and first conceptual design. Do not interpret proposals as implemented features or permission to build.
 
-## Premise
-**Maintain a dying spacecraft approaching the Sun.** A movie-to-game experiment: create a playable, movie-inspired game in the time it takes to watch *Sunshine* (2007). The film is the development clock, but the clock has **not** started. Preserve the joy of watching and discovering mechanics; avoid building a general-purpose framework first.
+**Executable visual shell, not yet a playable spacecraft simulation.** Single-file HTML/CSS/Canvas committed to `master`; source inspected 20 October 2026. The published GitHub Pages runtime has **not been independently verified**. Earlier Icarus module-dashboard concepts were superseded by this lighthugger shell; their design reasoning and human turns remain in the Chronicle.
 
-Play **from outside** the spacecraft, side-on, with legible emojis. The ship is a tiny vulnerable, interconnected civilization approaching the Sun. Prefer simultaneous visibility of its compartments and their interactions over walking through detailed interiors or constructing a dashboard simulator. The Sun might grow larger as the journey progresses; movement model remains undecided.
+## What the current executable does
 
-## First conceptual design — Icarus II
-A modest exterior-visible ship, with a large Sun-facing shield and connected compartments. This is conceptual anatomy, **not** final geometry:
+- Draws a large stylized ribbed lighthugger in a fixed position, with a blue ice nose, engine exhaust, starfield, Sun and forward arrow. The Sun and ship are **visuals**, not simulated orbital bodies or propulsion.
+- Spawns small diagonal meteor streaks periodically, advances them across the canvas and removes offscreen particles.
+- Applies an **approximate point-distance hit test** in a small forward region near the ship, rather than colliding with the rendered hull/shield outline. Each registered hit increments `impacts`, subtracts **0.14** from the initial `ice = 100` (floor 0), and logs an `ice-ablation` event. The ice is a scalar reserve; its rendered geometry does **not** erode.
+- Tracks simulation seconds and a bounded event log (latest 2,500 events). **⏸ / ▶** pauses/resumes time and debris advancement; **↻** resets the run, ice, impacts and particles.
+- **👁** downloads JSON with schema `lighthugger-shell-observer/v1`: `sourceCommit`, `runSeconds`, `paused`, `impacts`, `ice`, `events`, and an explicit shell-only geometry caveat. Filename: `icarus-<sha>-<dts>.json`, where `sha` is the eight-character build badge identifier or `unverified` and `dts` is a filesystem-safe UTC timestamp.
+- Displays an eight-character source revision badge, resolved at runtime from the GitHub API's latest commit touching `jit/icarus/index.html`. **This is not a deployment-stamped identity**: when Pages lags, the displayed revision may differ from the actual HTML executing. On lookup failure it displays `unverified`.
 
-```text
-       ship / aft                         Sun / forward
-  [ 🌱 GARDEN ]—[ 🧑‍🚀 HABITAT ]—[ 🧊 COOLANT ]—🛡️  ☀️
-                    ⚡ shared power / atmosphere / heat
-```
+## Not implemented
 
-- **🌱 Garden:** 💧 + 🔆 + 🌱 → plant growth and breathable atmosphere; overheating can cause 🔥, threatening life support.
-- **🧊 Coolant:** 🛢️ + ⚙️ + 🔋 circulate coolant; faults raise 🌡️ and threaten connected machinery.
-- **🛡️ Solar shield:** orientation determines exposure; misalignment causes localized heat and damage.
-- **🧑‍🚀 Crew:** autonomous local actors travel through 🚪 connections, carry supplies, repair failures, and respond to hazards.
-- **Coupling:** garden, coolant, shield, power, and crew affect one another; consequences should be visible and causally earned, not abstract meters alone.
-- **First possible playable slice, NOT approved for implementation:** one astronaut, garden, coolant pump, shield. Victory condition and ship movement remain open.
+No actual ship translation, propulsion, trajectory, orbital/stellar physics, physical ice mass or shield geometry loss, accurate collision geometry, localized hull damage, heating, radiation, power, compartments, atmosphere, resource transport, crew, autonomous work, repair, defense strategy, or player command locus. No meaningful win/loss or emergent ship survival system. **Visual animation and a numeric ice counter are the entire current simulation.**
 
-## Candidate foundations — inspect before choosing
-- `bonoj/bonoj.github.io/jit/evermore-2/`: single mobile viewport HTML/CSS/Canvas; autonomous agents, plants, water, fire, physical material transfers. Favor its external, legible 2D presentation; **do not** import Tiffany's entire civilization by default.
-- Hermeticon / Genesis: 3D terrain, populations, environmental interactions; potential ideas, not an integration commitment.
-- Orbital Construction: Astra's existing detailed modular spacecraft exteriors, ports and greebling. Interior mode is not ready; the desired game remains externally played. May serve as visual/structural reference without requiring a 3D engine.
+## Design invariants for future work
 
-Do not modify these source worlds for this concept. No new game UI or executable has been requested.
+> **The enemy's gate is down.** Orient threats and defenses by the ship's forward vector, not screen gravity.
+>
+> **A sun is our greatest enemy and also our greatest ally.** Heat and radiation threaten; stellar energy can help.
+>
+> **Ablative ice is our friend.** Finite physical shield material should be lost where impacts occur.
+>
+> **It is always forward.** Preserve an advancing voyage and meaningful directional threats.
 
-## Approved candidate emoji bank
-The human selected these candidates from a larger bank. They are approved **candidates**, not mandatory features. Do not silently reintroduce rejected icons.
+**Presentation:** one mobile viewport, no parent scroll, minimal icon-only HUD. **Agency:** eventual autonomous crew and strategic ship-level priorities, not manual actor driving. **Inspirations:** *Sunshine*, Reynolds's *Nostalgia for Infinity*, and tower defense × FTL × RimWorld × Ender-style commander control. These are **design direction, not shipped mechanics**.
 
-Spacecraft & structure: 🚀 🛰️ 🛡️ ⚙️ 🔩 🔧 🪛 🔨 🧰 ⛓️ 🪜 🚪 🪟 🧱 🧲 📡 🪞 🛞 🧯
-Sun, space & physics: ☀️ 🌟 ✨ 💫 🌑 🌍 🪐 ☄️ 🔆 🔅 🔥 💥 ⚡ 🌡️ ☢️ 🌈
-Garden & life support: 🌱 🌿 🪴 🌳 🌲 🌴 🍀 🌾 🌻 🌼 🌺 🌷 🍄 🫘 🪺 🐝 🦋 🐛 🪱 💧 💦 🚿 🫧 🫁 🧬 🦠 🍃
-Coolant & mechanical hazards: 🧊 ❄️ 🥶 💨 🌪️ 🌀 ♨️ 🌊 🫗 🛢️ 🧪 ⚗️ 🧫 🔋 🪫 🔌 💡 🕯️ ⏳ ⏱️ 🚨
-Crew & survival: 🧑‍🚀 👩‍🚀 👨‍🚀 👩‍🔬 👨‍🔧 🧑‍🔧 👩‍✈️ 🧑‍🚒 👤 👥 🫀 ❤️ 💔 🩸 🩹 💊 🆘 ⚠️ ☠️ 💀
-Navigation, commands & instruments: 🧭 🎯 📍 🗺️ 📐 📏 📊 📈 📉 📟 🖥️ 💻 📱 🎛️ 🎚️ 🔘 🔴 🟢 🟡 🔵 ⏸️ ▶️ 🔄 🔁 🔒 🔓 👁️ 📷 🔭 📻 🔊
+## Working contract
 
-## Open design decisions
-- Ship silhouette and screen motion (moving ship vs centered ship / growing Sun).
-- Exact compartment graph, actor behavior, and coupling rules.
-- Which existing shell to inherit, if any.
-- Scope and objective of the first playable experiment.
-
-## Working principle
-**One film. One game. One deadline.** But for now: **README only, no playable anything.**
+- Append new requests and implementation/verification status to [SPEC.md](./SPEC.md).
+- Record discussion, experiments, historical concepts, film-clock checkpoints, and abandoned approaches in [CHRONICLE.md](./CHRONICLE.md).
+- Preserve existing JIT worlds (especially `jit/evermore-2/` and `jit/ender-forge/`); don't mutate them while working on Icarus.
+- Distinguish **source committed**, **Pages published**, and **browser execution observed**. Never claim one proves the others.
