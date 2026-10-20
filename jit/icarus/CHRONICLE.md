@@ -396,3 +396,16 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Film-clock scene anchor:** Shelby and Cassie are inside the spinning Icarus bomb; activation has begun. This is a scene-relative marker reported by the human, not a verified exact playback timestamp. The prior coolant-death marker remains earlier in the same viewing.
 
 **Image naming intent:** The accepted visual is **Ice Cathedral**; canonical descriptive target remains `jit/icarus/reference/ice-cathedral.png`. The human reports an image upload, but the uploaded GitHub filename and binary destination have not yet been independently identified in this checkpoint. Do not claim a rename or GitHub image readback without evidence. Resume the Icarus world, not the transport experiment.
+
+
+### Film clock 01:47:00 — credits roll; Ice Cathedral systems specification (20 October 2026)
+
+**Human:** “Using that image, we create a build that has evermore ii style downward vectored micro meteorite storm attack. Start the ship with full ablative ice. Give it the asymmetrical system modules layout. No gameplay is needed, just bays that spawn ice pushers up to reasonable swarm, meteorites destroy exposed modules, ice is spawned from 🧊 bay. 🌱 bay does something with 💧🌳. 🔥💥 for threats. ⚙️⚗️ for other bays. Instrument. Make systems chains. Spec into spec doc first.”
+
+**Model action:** Appended a detailed autonomous Ice Cathedral systems build specification to [SPEC.md](./SPEC.md), commit `fc9f776fc0ddbc3bfc2ff9ef6ef94179e334c3d4`. It establishes image-informed asymmetric ship bays, a full discrete ablative ice canopy, downward vectored meteor storms with physical collisions, bounded autonomous ice-pusher swarm and hauling, linked ⚙️→💧→{🌱→🌳,⚗️→🧊→pushers→shield} production chains, localized 🔥/💥 destruction, deterministic 👁 instrumentation, and explicit acceptance/verification boundaries. **This is specification only, not an implemented or deployed simulation.**
+
+**Human:** “Now push create a chronicle entry for spec as credits roll for the timestamp.”
+
+**Film-clock marker:** *Sunshine* (2007) credits rolling — **end of film / approximately 01:47:00 runtime** (theatrical runtime commonly listed as 107 minutes; exact credit onset is not verified). This is a **film-relative timestamp**, not a wall-clock timestamp. The human's observation of credits rolling is authoritative; do not invent an exact playback frame.
+
+**End-of-film checkpoint:** Ice Cathedral reference image is now present byte-for-byte in GitHub as [ice-cathedral.png](./ice-cathedral.png), Git blob `b7ad5c4be284bdb927684e6bb284102772582ff5`, renamed without re-encoding at commit `b80471db31084c73ff0c989ccd28b560857eb596`. The full autonomous systems build is specified but not yet built. The film jam concludes with an image, a working executable shell from earlier development, and a concrete next-build specification. The deferred transport experiment no longer blocks development.
