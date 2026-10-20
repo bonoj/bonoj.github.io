@@ -437,3 +437,16 @@ Next frontier: inspect the new geometry snapshot and develop a more compelling a
 **Next design frontier:** Keep the causal, destructible bays but replace the current hub-and-spokes silhouette with a compelling asymmetrical vessel: a substantial longitudinal spine, clustered machinery, off-axis protrusions, real armor attachment and vulnerable external systems. Separate powered/supplied/producing/stalled status in 👁; retain lethal module hits and spatially consequential cascades. Preserve tap-to-copy thin snapshot and long-press full recording.
 
 **Milestone: RUNTIME EYES — HUMAN-VALIDATED VISUAL RECONSTRUCTION.**
+
+
+### Inception polish clock — Saito offers Cobb a deal (20 October 2026, 09:33 EDT checkpoint)
+
+**Human:** “Now in chronicle add the inception polish clock. Saito just offered Cobb a deal. Find our current timer and time remind :). We must take a leap of faith.”
+
+**New film-clock start:** *Inception* (2010) is now the **polish clock** for Icarus, following the completed *Sunshine* build/design jam. The human reports the opening scene in which Saito offers Cobb a deal: a **scene-relative checkpoint**, not a frame-verified playback time. This is the new active cinematic deadline; do not carry over the *Sunshine* clock.
+
+**Wall-clock observation:** Current local time queried at **2026-10-20 09:33:50 EDT (UTC−04:00)**. This is the observation timestamp, not necessarily the instant the scene began. *Inception*'s theatrical runtime is approximately **148 minutes (2h28m)**. Since the deal scene is near the beginning, the **remaining polish window is roughly two hours and change**, not a precisely measured countdown. If playback continues uninterrupted, credits would be around **late morning / approximately noon EDT**, with uncertainty due to the unknown current film timecode, playback pauses, and credit onset. For precise remaining time, request the on-screen timecode rather than invent one.
+
+**Polish mission:** Take a leap of faith: evolve the currently functional but schematic Icarus into the agreed **Living Shipyard**—a partially skeletal lighthugger with a true ice cathedral, coherent hull and support topology, physical materials, autonomous construction, point-defense and solar/meteor exposure. Preserve existing observed behavior and the new compact 👁 contract (**strictly <65,000 serialized UTF-16 units**, reconstructible geometry, chain causality, current state; long press full recorder). The design is specified, **not yet authorized as an executable implementation** by this clock entry alone.
+
+**Film-clock milestone: INCEPTION — SAITO'S OFFER. THE LEAP OF FAITH.**
