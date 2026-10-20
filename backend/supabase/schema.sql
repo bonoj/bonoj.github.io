@@ -10,7 +10,7 @@ returns bigint language plpgsql security definer set search_path = '' as $$
 declare n integer; new_id bigint;
 begin
  if p_namespace !~ '^[A-Za-z0-9_-]{1,64}$' or p_key !~ '^[A-Za-z0-9_-]{1,64}$' or pg_catalog.octet_length(p_payload::text)>4096 then raise exception 'invalid input'; end if;
- insert into public.quotas(namespace,minute,count) values(p_namespace,p_minute,1)
+ insert into public.quotas(namespace,minute,count) values(p_namespace,date_trunc('minute',now()),1)
  on conflict(namespace,minute) do update set count=public.quotas.count+1 returning count into n;
  if n>30 then raise exception 'rate limited' using errcode='P0001'; end if;
  insert into public.events(namespace,item_key,payload) values(p_namespace,p_key,p_payload) returning id into new_id;
