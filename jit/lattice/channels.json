@@ -880,7 +880,7 @@
       "cadence": "1h",
       "status": "CODED",
       "evidence": [],
-      "blocker": null,
+      "blocker": "Provider response lacks wave_height at configured polar coordinate",
       "field": "wave_height",
       "unit": "m",
       "kind": "model",
@@ -889,7 +889,7 @@
         0
       ],
       "disposition": "DEFERRED",
-      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
+      "dispositionReason": "Real GitHub Actions provider probe returned no numeric wave_height at Antarctic sample (-65,0) on 2026-10-20; runtime sample16 disabled pending viable coverage"
     },
     {
       "id": "50",
