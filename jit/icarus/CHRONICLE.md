@@ -193,3 +193,12 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Model action:** Replaced `jit/icarus/index.html` (existing canonical URL) with a one-screen wordless **Lighthugger shell**: Canvas vector vessel, Sun, incoming angled meteor streaks, rudimentary local ice-ablation counter, pause/reset, downloadable 👁 JSON and top-left 8-character build badge. The badge fetches the most recent commit touching this executable from the GitHub commits API, rather than displaying an unrelated script-content fingerprint. It reports `unverified` if lookup fails; this avoids inventing a build number. **Executable source commit: `228651a9600769ec78d892fd467c6dbaa704a8f4`; expected badge `228651a9`.** Source readback confirmed. GitHub Pages deployment and browser execution not independently verified. Canonical URL remains https://bonoj.github.io/jit/icarus/ .
 
 **Scope honesty:** Shell is a visual foundation, not yet a real ship architecture, a functional tower defense, a lighthugger-sized society, or a rigorous physical simulation. Micrometeor vectors and ice impacts are preliminary. No direct actor control or verbose HUD. Subsequent work should preserve matching commit/badge contract and clean viewport.
+
+
+### Film-clock checkpoint — EVA
+
+**Human:** “Cassie just put Shelby in the suit, he's heading outside. Find our timestamp and our remaining time. Doc it :).”
+
+**Timestamp:** Approximately 00:29:00–00:30:12 of *Sunshine* (2007). Subtitles mark airlock opening at 29:16, helmet camera at 29:58, and EVA exit at 30:12. Approximately 77–78 minutes remain in the 107-minute feature. Scene-based estimate, not a measured playback clock.
+
+**Source:** https://www.subtitlecat.com/subs/31/Sunshine.2007.1080p.BluRay.H264.AAC-RARBG.eng.html
