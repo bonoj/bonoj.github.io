@@ -63,7 +63,7 @@ assert(html.includes('channels.usgswater={label:'),'USGS Water source missing');
 assert(html.includes('channels.ndbc={label:'),'NOAA NDBC source missing');
 assert(html.includes('channels.emsc={label:'),'EMSC source missing');
 assert(html.includes('channels.bom={label:'),'BOM source missing');
-assert(html.includes("{id:'bom',region:'oc'}"),'BOM must be in global vacuum');
+assert(!html.includes("{id:'bom',region:'oc'}"),'BOM HTTP 403 candidate must not be continuously scheduled');
 assert(html.includes("if(id==='bom')"),'BOM record extraction missing');
 assert(html.includes("{id:'emsc',region:'eu'}"),'EMSC must be in continuous vacuum');
 assert(html.includes("if(id==='emsc')"),'EMSC event extraction missing');
