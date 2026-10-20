@@ -422,3 +422,18 @@ Commit 07eca833 then introduced immediate destruction of modules struck by meteo
 Next frontier: inspect the new geometry snapshot and develop a more compelling asymmetric ship silhouette while testing destructive cascades.
 
 **Film checkpoint: CREDITS COMPLETE. EARTH SAVED.**
+
+
+### Runtime eyes — geometry recognized from a compact observation (20 October 2026)
+
+**Human observation:** The human pasted a compact `icarus-eye/v2` snapshot from build `07eca833`, 11.8 simulation seconds, seed 741, viewport 384 × 694. After the model drew a schematic from those coordinates, the human confirmed: **“That is exactly what I see on screen. You have runtime eyes.”** This establishes a successful model/human correspondence between instrumented state and visible composition; it does not imply the model independently viewed or executed the browser.
+
+**Observed system:** 41 meteorites, 18 impacts, five ice chunks destroyed, 87 remaining, 12 pushers spawned, one module destroyed, one fire started, three links severed, one fire quenched; zero reported violations. The destroyed module was 💧 at normalized position (0.19, 0.62). ⚙️ at (0.50, 0.51) remained powered; ⚗️ (0.76, 0.46), 🧊 (0.26, 0.32), 🌱 (0.78, 0.68), 🌳 (0.61, 0.83), and both 🛰️ bays at (0.24, 0.48) and (0.77, 0.58) survived. Water production stopped, threatening downstream processing and future ice manufacture when available material is exhausted. All twelve workers were in seek state at their two bay locations, with no loose ice to haul.
+
+**The model's diagram:** A dark portrait schematic, with a simplified crescent of pale-blue solid ice circles across the upper third of the view. Below it, a central ⚙️ power bay anchors long grey structural spokes. 🧊 sits above-left near the crown; ⚗️ extends to the right; the two 🛰️ hangar bays occupy left and right midship; 🌱 and 🌳 form an offset lower-right pair. The 💧 bay lies lower-left, drawn as a red-framed damaged square, visually isolated because its three links have been severed. Each surviving bay appears as a blue-grey rectangular module with a pale border and its emoji centered. The overall shape is an open network of modules connected by thin straight struts, **not yet a continuous industrial hull**. The ice canopy reads as a separate blue arc rather than physical cladding. The diagram intentionally sampled the 87 ice positions rather than drawing every chunk, and did not represent all collisions, timing, or module dimensions.
+
+**Why it matters:** The model reconstructed a spatially recognizable view from a compact clipboard payload alone. The human independently confirmed the reconstruction matched the on-screen composition. This validates the thin 👁 interface as a development instrument: normalized geometry, topology, unit positions, and operational state are sufficient for the model to reason about visual structure without requiring a screenshot. The model can now design against observed geometry rather than inventing an unseen ship.
+
+**Next design frontier:** Keep the causal, destructible bays but replace the current hub-and-spokes silhouette with a compelling asymmetrical vessel: a substantial longitudinal spine, clustered machinery, off-axis protrusions, real armor attachment and vulnerable external systems. Separate powered/supplied/producing/stalled status in 👁; retain lethal module hits and spatially consequential cascades. Preserve tap-to-copy thin snapshot and long-press full recording.
+
+**Milestone: RUNTIME EYES — HUMAN-VALIDATED VISUAL RECONSTRUCTION.**
