@@ -278,3 +278,27 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Human:** Supplied a rendered screenshot with gentle golden curved solar horizon, broad blue-halo arc of 🧊 chunks, tethered drone bays and a minimal spine. “Let's push this into the build. I want this exact ice system. Ship nodes and design are placeholders. And that arc is just one shield orientation/configuration. There might be several different layers of shield available. Drones are there to push ice. Which gives us ishimura tethers and canterbury ice hauling as well.”
 
 **Model action:** Replaced the original schematic rocket shell with a mobile full-screen ice-hauler prototype: ambient curved solar horizon, multiple selectable shield arcs/layers, autonomous drone delivery, finite chunks and localized debris impacts. Source commit `fc4595d4`. The industrial hull remains schematic as requested. No independent live browser execution confirmation. The screenshot remains the visual target; simulated tether tension, thermal exposure and freeform ice packing are not yet implemented.
+
+
+### The Ice Cathedral — five ship lineages and a canonical geometry raster (20 October 2026)
+
+**Human:** “Let's do a raster which we can pull geometry from. We want to merge rocinante, ishimura, event horizon, icarus ii, and nostalgia for infinity into one vessel. And we want the foward ice shield to suggest reconfigurability with an arced ice shield as its standard configuration. Let's use our sun horizon layout as the composition. Plan your raster gen here first so we know what to expect. We want beautiful with engineering diagram feeling but no text.”
+
+**Model design proposal:** *ICARUS — The Ice Cathedral*. A coherent, massive lighthugger, not a collage of five familiar ships. The raster is intended as **extractable geometry reference** for future hull nodes, edges, drone bays, attachment sites and moving masses—not mere promotional art.
+
+**Visual lineages:**
+- *Rocinante* — functional hard-SF engineering, armored mechanisms, docking and attitude-control interfaces.
+- *USG Ishimura* — exposed industrial skeleton, bridges, suspended modules, asymmetric mining/cargo architecture.
+- *Event Horizon* — dark cathedral-like ribs and a monumental segmented annular mechanism.
+- *Icarus II* — gold illumination against cold machinery, vast sacrificial shielding, fragile activity in shadow.
+- *Nostalgia for Infinity* — enormous ancient longitudinal vessel, accumulated modifications, dormant or mysterious systems, tiny active crew relative to its scale.
+
+**Planned image:** Portrait, approximately 2:3, three-quarter orthographic-like view, nearly vertical forward-up spine with visible depth and modest perspective distortion. Gentle curved amber **solar horizon** at top, not a looming frontal solar disk. Upper third: a crowded, irregular, materially discrete blue-white ice canopy in its **standard arced configuration**, with individual chunks, attachment sockets and multiple depths. It must read as *reconfigurable*: this is one formation, not a permanent hull shell. Working drones move ice between staging racks and the canopy. Under the arc: sheltered paired drone bays and cargo booms. Down the spine: separate industrial modules, a prominent segmented ring/cathedral structure, tanks, radiators, reactors and aft engine cluster. Hull mass is asymmetric but the load-bearing spine is visually unambiguous. Distinct material vocabulary: translucent ice, gunmetal, ceramic armor, brass-gold light and cyan working lights.
+
+**Negative constraints:** No text, labels, measurement annotations, arrows, decorative guide lines, UI, borders, watermarks, perfect identical-block semicircle or recognizable copy of a single reference vessel. Preserve negative space and clear structural connections so geometry can be traced into executable nodes later.
+
+**Model artifact:** A schematic in-chat SVG composition/massing diagram was shown alongside five visual-reference searches. It was **not** the requested final raster, and no image-generation or executable change occurred in that turn.
+
+**Human:** “Haha. Hit the chronicle with these turns.”
+
+**Model action:** Appended this plan and the human's prompts to the Chronicle for cold-boot recovery. Final raster generation remains pending human go-ahead.
