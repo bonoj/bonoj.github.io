@@ -2,7 +2,7 @@
 
 Live target: https://bonoj.github.io/jit/hormuz/
 
-Single-file browser-only observatory; source: [index.html](index.html). Inspired by [Hermeticon Alembic SIGINT](https://github.com/bonoj/Hermeticon/blob/main/codex/alembic/sigint.md). No Supabase or proxy. The human explicitly authorized deployment on 20 October 2026.
+Single-file browser-only observatory; source: [index.html](index.html). Development history and Alembic specification synthesis: [CHRONICLE.md](CHRONICLE.md). Inspired by [Hermeticon Alembic SIGINT](https://github.com/bonoj/Hermeticon/blob/main/codex/alembic/sigint.md). No Supabase or proxy. The human explicitly authorized deployment on 20 October 2026.
 
 ## Sources and polling
 
