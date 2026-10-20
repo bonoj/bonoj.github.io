@@ -475,3 +475,9 @@ This section records the subsequent development and human-provided runtime evide
 - `5bfe01b0` introduced an explicit runtime `latticeEnabledIds` set containing the 10 evidence-backed ACTIVE channel IDs. The batch now queues only sample groups intersecting this set, **five** of the 15 tested groups, plus the currently selected legacy view. Deferred groups remain in source and test coverage but no longer consume automatic sample polling.
 - `ca151baa` added CI assertions that runtime enabled IDs match `channels.json` ACTIVE dispositions and that batch filtering is present. The live provider probes still exercise **all 15** configured sample groups so deferred integrations can be reconsidered with evidence.
 - Distinction: legacy selected-view cards continue to use their existing adapters, including sources not represented by ACTIVE numbered channels. This change gates the **sample batch**, not every possible network request. Runtime/browser proof of the latest commit is still pending.
+
+### Selected-view polling and handoff cleanup — 2026-10-20
+
+- `48b19b9f` removed implicit ISS polling from the periodic tick on views that do not include ISS. ISS remains available on World and ISS views, and selected-view cards retain their own provider requests. `73b38eca` adds a regression guard against restoring implicit ISS polling.
+- `05fbbbb5` prepended a concise operational handoff to README; historical campaign notes are explicitly preserved below rather than mistaken for current state. The new top section distinguishes numbered ACTIVE/DEFERRED candidates, tested-but-deferred sample groups, and selected-view legacy feeds.
+- Remaining truth boundary: CI provider probes are server-side; the newest source commits have not been proven in a browser session. Avoid claiming every legacy provider is disposition-gated or that 53 channels are live.
