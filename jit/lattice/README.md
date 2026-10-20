@@ -1,3 +1,21 @@
+# Lattice — operational handoff (2026-10-20)
+
+**Canonical:** https://bonoj.github.io/jit/lattice/ · **Source:** `jit/lattice/index.html` · **Manifest:** [channels.json](channels.json) · **Chronicle:** [CHRONICLE.md](CHRONICLE.md).
+
+Lattice is a mobile-first global/ISS telemetry viewer. The **53 numbered channels are candidates**, not 53 promised live endpoints. Ten have human-provided browser normalization evidence and are marked `ACTIVE`; 43 remain `DEFERRED`. There are 25 implemented normalization mappings, including one explicitly browser-verified manifest status. A channel's `CODED` status is **not** proof of browser operation or data quality.
+
+**Transport contract:** one in-browser governor, HTTPS-only, max 2 concurrent requests / 1 per host, bounded queue, pacing wake-up, timeout/backoff, URL dedup and cache. Initial batch fetches only the five sample groups intersecting ACTIVE IDs, plus the currently selected region's legacy cards. The periodic tick fetches only selected-view cards; there is no implicit ISS poll on unrelated views. Fifteen provider-tested sample groups / 21 mapped fields remain available in source for future promotion; deferred groups are not automatically queued. The selected-view legacy cards are distinct from numbered channels and may use additional providers.
+
+**Evidence:** GitHub Actions [Lattice provider checks](https://github.com/bonoj/bonoj.github.io/actions/workflows/lattice-checks.yml) runs deterministic normalization/manifest guards and real HTTP/schema checks for six representative providers and all 15 sample groups. Antarctic wave channel 49 was deferred after a missing numeric wave value at (-65, 0); its request group was removed. Server-side probe success does not prove browser CORS or live rendering. Latest commits should be verified via CI and deployed build SHA; no invented cache-busting or manual build labels.
+
+**Development invariants:** Preserve the existing [stable-world publisher](../../.github/workflows/stable-world.yml), SHA-stamped HTML and `build.json`, canonical URL, standalone UI, and independent Hormuz project. Do not introduce a second transport, expose keys, substitute different scientific variables, or classify channels ACTIVE without browser evidence. The inline normalizer currently duplicates `normalize.mjs`; keep them aligned until a tested single-source build is implemented.
+
+**Next:** inspect the newest CI run; confirm Pages publication; add source-grounded browser-level automated smoke checks if supported; then decide which deferred providers merit promotion or removal. Do not ask the human to debug endpoint plumbing. Detailed history and the ten-turn campaign are retained in [CHRONICLE.md](CHRONICLE.md).
+
+---
+
+## Historical campaign notes (superseded by the operational handoff above)
+
 # Lattice — Earth + Orbit
 
 **Cold-boot handoff and authoritative implemented-state README.** Read this first. Live target: **https://bonoj.github.io/jit/lattice/**. Source: [index.html](index.html). Latest observed source change: `2bdee2286bbca7cb086aa8cb970be17166796d1e` (2026-10-20). Browser-observed `lattice/02`; see evidence below.
