@@ -441,7 +441,15 @@ Next frontier: inspect the new geometry snapshot and develop a more compelling a
 
 ### Inception polish clock — Saito's offer
 
-**Film-clock checkpoint:** *Inception* (2010), early scene in which Saito offers Cobb a deal. This starts the **Icarus polish phase** after the *Sunshine* build jam. Record progress against **movie scenes and credits only**; no wall-clock timestamps, inferred start times, or countdown estimates.
+**Film-clock checkpoint:** *Inception* (2010), early scene in which Saito offers Cobb a deal. This starts the **Icarus polish phase** after the *Sunshine* build jam.
+
+| Film clock | Position |
+| --- | --- |
+| Current movie time | **Approximately 00:08** (scene-based estimate; not frame-verified) |
+| Total runtime | **02:28** (148 minutes) |
+| Time remaining | **Approximately 02:20** (148 − 8 minutes; estimate) |
+
+Advance this table when the human reports a new scene or movie timecode. **Movie-relative time only**: never record wall-clock timestamps or infer actual playback progress from elapsed real-world time.
 
 **Polish rules:** Evolve the existing Icarus prototype into the agreed **Living Shipyard**: partially skeletal lighthugger, physical ice cathedral, coherent keel and structural supports, autonomous material hauling and construction, point defense, and directional meteor/solar exposure. Preserve the functioning causal chains and damage propagation. 👁 tap stays strictly below 65,000 serialized characters while retaining reconstructible geometry, module dependencies, and current system state; long-press retains full detail. The film checkpoint records the design deadline, **not authorization to implement**.
 
