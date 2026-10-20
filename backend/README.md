@@ -1,17 +1,18 @@
-# Static-world memory
+# Hermeticon Memory — shared backend
 
-GitHub source for a shared Cloudflare Worker + D1 JSON event store. **Source committed; service NOT provisioned or deployed.** No Cloudflare connection or provisioning tool is currently available to the model.
+**Live deployment:** Supabase project `Hermeticon Memory` (`iqglyokmcobegledbfcm`), Edge Function `memory` version 2, reported ACTIVE on 2026-10-20. GitHub is source authority.
 
-Contract:
-- `POST /v1/data/:namespace/:key` with a JSON object appends an immutable event.
-- `GET /v1/data/:namespace/:key?limit=50` reads newest events.
-- `GET /health` reports process health (does not test database connectivity).
-- `OPTIONS` provides browser CORS preflight.
+**Endpoint:** `https://iqglyokmcobegledbfcm.supabase.co/functions/v1/memory`
 
-Anonymous writes are untrusted: this is suitable for telemetry and public experiments, **not authoritative save-state or confidential data**. Never send PII or secrets. Public reads expose everything stored. Requests are limited to 4 KiB, namespaces and keys to 64 URL-safe characters, and a coarse 30 writes/minute/namespace. This is not strong anti-abuse protection: namespaces can be rotated, and the quota table needs retention cleanup. Add platform-level rate limiting and data retention before public launch. GET is bounded to 100 events. No delete or overwrite.
+- `POST /v1/data/{namespace}/{key}` with a JSON object appends an event.
+- `GET /v1/data/{namespace}/{key}?limit=50` returns latest events (maximum 100).
+- `GET /health` reports function health, not database connectivity.
+- `OPTIONS` allows browser CORS.
 
-## Provisioning boundary
+Source: [supabase/index.ts](supabase/index.ts), [supabase/schema.sql](supabase/schema.sql). The original Cloudflare [worker.js](worker.js) and [schema.sql](schema.sql) are **superseded, not deployed**.
 
-Requires a Cloudflare account authorized for API deployment, a D1 database bound to Worker variable `DB`, applying `schema.sql`, and a Worker route/domain. None is yet configured or verified. Do not represent the GitHub commit as a live endpoint. Once an authorized deployment tool is available, create D1, apply schema, deploy Worker, and smoke-test POST then GET from an independent browser origin.
+**Verification:** database RPC append and SQL readback succeeded for `smoke/roundtrip` payload `{"value":42}`. Function deployment ACTIVE v2. **External HTTP POST/GET remains unverified** because the available local HTTP runtime cannot resolve the public domain. Do not claim browser-tested until an independent HTTP test succeeds.
 
-The first clients can be Application Forge and JIT worlds; the API has no knowledge of either.
+**Security boundary:** public, anonymous, untrusted, append-only events; public reads. No PII, secrets, authoritative saves, or authentication. Maximum 4096-byte JSON object, URL-safe namespace/key maximum 64 chars, coarse 30 writes per minute per namespace (atomic database RPC). This quota is bypassable by namespace rotation. Before wider launch add edge rate limiting, retention and quota pruning, and abuse monitoring. The service-role key stays in Supabase server environment only, never in browser code or GitHub.
+
+**Operating rule:** future backend changes originate in GitHub, deploy through connected Supabase tools, then independently verify live behavior. Preserve other worlds.
