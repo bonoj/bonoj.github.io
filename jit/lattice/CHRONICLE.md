@@ -156,6 +156,24 @@ The worldwide world is built. The remaining gate is **live publication and runti
 
 ---
 
+### Pair 3 — Post-build functionality snapshot (retrospective annotation, not verbatim dialogue)
+
+**Evidence:** [README.md](README.md), first authoritative cold-boot handoff committed as `ad55cbcec15e42d63c7c03f035a18ff0af037b12`; implementation [index.html](index.html) at `061f90de787322e64029be1e0bf846a387b5d7a4`. This snapshot documents what Pair 3 **actually delivered**; it is not part of either speaker's verbatim messages above.
+
+**Executable delivered:** mobile-first, standalone HTML/CSS/Canvas/JavaScript Earth + ISS observatory with a UTC clock, regional telemetry cards, and source-state displays. Seven continent selectors (North America, South America, Europe, Africa, Asia, Oceania, Antarctica), plus World and ISS views. The globe is an orthographic schematic with stylized hand-authored coast outlines, graticule, continent markers and visible-hemisphere ISS marker. Region selection recenters the globe; there is **no automatic globe rotation, free dragging, or canvas gesture navigation**.
+
+**Six coded public-data adapter families:** (1) Open-Meteo weather forecast/model (temperature, wind, humidity, precipitation requested); (2) Open-Meteo marine model (wave height, SST, ocean current velocity); (3) Open-Meteo air-quality model (PM2.5, NO₂, dust); (4) USGS ComCat regional M2.5+ earthquake reports, seven-day window and 1,000-event cap; (5) NASA EONET curated *global* open-event list, 100-event cap; (6) Where the ISS At position, altitude, velocity and timestamp. Continental weather/marine/air views sample **one fixed point each**, not continental grids; inland marine sample points can fail. EONET is global, not filtered by selected region. No live AIS/vessel positions.
+
+**Scheduler:** every five seconds checks which feeds are due; it does **not** fetch every feed every five seconds. Weather 15 minutes; marine, air quality, earthquakes and EONET 30 minutes; ISS 60 seconds. At most two requests launched per scheduler pass; concurrent same-host requests suppressed; 12-second timeout; hidden-tab pause and visible-tab resume. No proven 429 Retry-After handling, true exponential backoff, request cache/deduplication across regions, or conditional requests. ↻ runs due-check, not force-refresh.
+
+**Instrumentation:** 👁 toggles a **local-only** JSON observer (`lattice-eye/v1`) showing build label `lattice/01`, UTC, selected region, ISS state, request counts and feed status/error records. No Supabase, no backend, no POST/GET memory loop, no persistent telemetry storage. A single `EYE_ENABLED` code switch gates the inspector.
+
+**Verification boundary:** source committed and GitHub publishing workflow later succeeded at **12:57:03 EDT** (workflow `39461801533`), but neither live public-page loading nor browser fetch/CORS success for the six adapters was independently verified in this work. The 53-channel SPEC remains a **candidate inventory**, not 53 active channels. The build footer is a static `LATTICE/01` label, not a source SHA. No deterministic adapter test suite or reusable WorldSpec engine was demonstrated.
+
+**Cold boot:** [README.md](README.md) is authoritative for current functionality, known issues, invariants, and next steps. [VET.md](VET.md) holds source audit and implementation hooks; [SPEC.md](SPEC.md) the future candidate catalog; this chronicle the historical record. Do not substitute the retrospective snapshot for the verbatim Pair 3 dialogue.
+
+---
+
 ### Current archival instruction — human verbatim
 
 **Human timestamp:** not independently established; occurs after the 12:55 Dracarys request. Do not assign 12:55 to this turn.
