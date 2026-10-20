@@ -1,109 +1,65 @@
-# Icarus — working specification and change queue
+# Icarus — active specification
 
-**Canonical:** https://bonoj.github.io/jit/icarus/ · [Executable](./index.html) · [Chronicle](./CHRONICLE.md)
+**Executable:** https://bonoj.github.io/jit/icarus/ · [Chronicle](./CHRONICLE.md) · [Ice Cathedral reference](./ice-cathedral.png)
 
-Append requested changes here as the human identifies them. This is the operational change queue, not a retrospective changelog. Mark each item **Requested**, **Shipped (source)**, or **Observed (live)**. Never claim live verification based solely on a GitHub write. Keep Icarus and Ender Forge changes isolated.
+This is the **forward-looking design contract**, not the development diary. Completed experiments and film-clock history live in the Chronicle. The human and model will discuss and agree the final ship design **before implementation**. Do not silently treat a proposed design as authorized.
 
-## 2026-10-20
+## Proven baseline — observed live
 
-### 👁 Export filename — Shipped (source); live unverified
-- Human: “Eye is just your icarus report. So name it icarus-<sha>-<dts>?”
-- Export format: `icarus-<sha>-<dts>.json`.
-- `sha`: first eight characters of the source revision resolved for `jit/icarus/index.html` by the existing build badge; `unverified` if unavailable. `dts`: UTC ISO timestamp with colon and period characters replaced by hyphens.
-- Source implementation commit: `9360e80d`.
-- Existing JSON payload schema remains `lighthugger-shell-observer/v1`; filename change only.
-- **Known build-identity limitation:** revision currently comes from GitHub's latest-file-commit API at runtime, not an immutable deployment stamp. A lagging Pages deployment may display a revision other than the HTML actually executing. Fix build stamping separately if required; don't claim exact executable identity based on this API alone.
+- Build `ae96c5c1`: autonomous meteor storms, eight asymmetric bays, full initial discrete ice canopy, 12 ice pushers, water/garden/processing/ice chains. The 36.8-second observer trace proved actual water delivery, growth, ice manufacture, hauling and placement; also exposed duplicate placement and unfavorable erosion rate.
+- Build `07eca833`: lethal meteor-to-module collision, severed connections, exclusive ice destination reservations, 👁 tap-to-copy compact geometry snapshot, 👁 long-press full JSON download.
+- Human-provided `icarus-eye/v2` snapshot at 11.8 s, seed 741, viewport 384 × 694: 41 meteors, 18 hits, 5 ice destroyed, 87 ice surviving, 12 pushers, one destroyed 💧 bay, three severed links, no reported violations. The water bay at (0.19, 0.62) died while the remaining modules stayed powered but became vulnerable to downstream feedstock starvation.
+- The model reconstructed a dark portrait hub-and-spokes schematic from the compact coordinates: a pale-blue ice crescent across the top, ⚙️ central, 🧊 upper-left, ⚗️ right, paired 🛰️ midship, 🌱/🌳 lower-right, dead 💧 isolated lower-left. **The human confirmed this exactly matched the running screen.** Compact 👁 geometry is therefore a validated visual-development instrument, not merely telemetry.
+- GitHub source commits and human runtime observations are distinct evidence. The build badge currently resolves the latest GitHub file revision; it is not an immutable deployed-build attestation.
 
-## Conventions
-- Append human-requested changes in order; don't silently discard unresolved items.
-- Preserve the single-screen, icon-first mobile experience and the four lighthugger doctrines.
-- Source readback verifies a commit; only the browser verifies published execution.
+## Current assignment — final Ice Cathedral ship design (DISCUSSION, not yet authorized to build)
 
+Create a **badass, unmistakably industrial, asymmetrical lighthugger** with an elongated structural spine and dense working masses, inspired by the broad silhouette language of the USG Ishimura but not copying its asset. The [Ice Cathedral image](./ice-cathedral.png) is the visual reference. The human wants to be blown away by the finished ship **and** wants genuine ablative protection, not a cosmetic blue crescent. Preserve causal systems from the observed baseline. **Do not modify the executable until the final build is agreed in chat.**
 
-### Lighthugger policy-control playfield — Requested (not implemented)
-- **Human:** “Alright. Now then. Reorienting. We want a playable dashboard for lighthugger policy control. Ablative ice can be a clustered forward emoji clutter.”
-- **Visual references:** Human provided screenshots of Tiffany Survivors and Ender Forge: one mobile viewport, dense spatial emoji populations and material clusters, strong center playfield, prominent icon-only controls. Use as presentation inspiration, not authorization to copy their underlying systems.
-- **Target:** Ship is the battlefield; dashboard is a compact **policy** command surface, not a numerical engineering panel or direct actor joystick.
-- **Ice:** A visible forward-facing cluster of individual 🧊 elements, with spatially localized meteor interception and consumptive loss. The cluster should become visibly perforated, rather than decrementing only a scalar reserve.
-- **First playable causal loop:** incoming directional meteors → local ice interception/erosion → openings/exposure → player changes policy → autonomous response/consequences. Make policies materially consequential and observable; do not invent specific policy controls or resource-generation shortcuts before choosing their rules.
-- **Status:** Direction recorded; implementation and verification pending. Preserve current shell until the playable slice is specified or authorized.
+### Non-negotiable geometry and causality
 
+1. **Portrait, forward up.** Warm curved solar horizon at top, without a literal sun disk or decorative arc stroke. The vessel extends down/aft through the viewport; silhouette must remain legible on a phone.
+2. **Physical ship, not a network diagram.** Replace bare hub-and-spokes with a coherent, substantial asymmetric hull: a main longitudinal structural keel/spine, varied connected hull compartments, offset industrial assemblies, machinery and visible drone/processing infrastructure. Every bay has a meaningful spatial footprint and attachment, not just an emoji at a point. Exposed machinery is vulnerable. Structural connections have explicit topology and failure consequences.
+3. **True ablative shield.** The initial ice is a crowded, irregular, opaque cluster of individually simulated 🧊 chunks with solid blue footprints. Ice has position, collision size, HP, origin, support/attachment and physical occupancy. No single shield-health bar, alpha-only glow, decorative halo, dashed guide line, ghost slot or invulnerable drawn ice outline. A meteor is intercepted **only** if its swept physical trajectory intersects an existing intact ice chunk **before** reaching hull. Impacts damage/remove that chunk; resulting holes expose the actual geometry behind it. Hits on exposed modules destroy them immediately (current established rule).
+4. **Shield must cover the vessel, not merely sit above it.** Design armor placement and meteor incidence together. For each bay, account for threat direction, forward/side exposure, ice occlusion, and possible breach routes. No claim of protection without actual ray/segment interception tests. Irregular crown, shoulder armor and selective lateral cladding are candidates for discussion; do not silently lock their shapes.
+5. **No magical repairs.** Ice is finite physical material: ⚙️ power → 💧 circulation → ⚗️ precursor → 🧊 physical chunk at source → 🛰️ worker claims, loads, transports and installs it. 🌱 competes for water and grows 🌳. Destroyed sources and broken links interrupt real transfers; no production without supply.
+6. **Real consequences.** Vectored downward micrometeor storms with angled left/right components, continuous swept collision, earliest actual target along path, localized impact/fire, destroyed bay wrecks, severed physical connections and downstream stalls. Drone bodies and carried ice are vulnerable. Preserve deterministic fixed-step seeded reset and meaningful event provenance.
+7. **Autonomy, not gameplay.** No joystick, player policies, shop, win/lose overlay or invented controls. Only unobtrusive pause, reset, and 👁. Cap active pushers around 12, adjusted only for legibility/performance.
 
-### Structural lighthugger and emerging core loop — Requested (not implemented)
-- **Human:** “We want messy as hell ice system around a locus informed by hull. So let's think about a lighthugger is. I see a string of nodes. It's a lot like the usg ishimura.” Follow-up: “Doc this. I think we're finding our core loop.”
-- **Ship form:** A long **string of structural nodes**, an industrial spine with asymmetrically attached working masses and modules; **USG Ishimura** is a silhouette/visual-language reference, not a literal asset or a requirement to reproduce its design. Lighthugger scale and partly dormant spaces remain design context.
-- **Topology:** Nodes represent physical hull/compartment/machinery loci and damage/attachment state. Edges represent actual connections that may eventually carry structure, energy, heat, materials, and crew. Define each connection's supported consequences before implementation; do not assume every edge carries every resource.
-- **Ice system:** Messy, irregular forward **emoji clutter** (🧊), spatially attached to forward hull loci and potentially other chunks. Individual chunks can overlap visually, shelter others, be struck and lost, and leave holes. Clusters may detach when a supporting structural node/connection fails. Ice is finite matter, not a replenishing health bar; precise generation, collision, attachment and supply rules are still to be chosen.
-- **Presentation candidate:** Vertical ship spine on portrait mobile, **forward at top**, engines aft, ice crown toward incoming debris, compact policy bar below. This orientation is a **model proposal**, not yet a human-locked invariant; the ship's physical forward vector remains authoritative.
-- **Emerging core loop:** **directional threats → localized ice loss → exposed hull nodes → human policy adjustment → autonomous crew/material response → changed protection and survival consequences**. The commander acts at policy/locus level, not as a joystick for individuals. Policy choices must compete over real constraints; no free shield restoration.
-- **First implementation frontier:** Choose the smallest playable vertical slice that exhibits an actual causal change in geometry/structure and a meaningful policy tradeoff. Exact policy commands, repair/supply mechanisms, and node/edge physics are open.
-- **Status:** Requested design, not shipped. Existing shell's numeric ice reserve and approximate collision are placeholders.
+### Visual contract
 
+- Industrial vessel should be identifiable **even if emoji icons are hidden**: distinct bow, spine, midship machinery, protruding structures, asymmetrical silhouette, aft engineering mass.
+- Large readable bay icons belong **inside or on physical modules**, not as disconnected labels.
+- Ice must appear densely packed and solid, with legible individual chunks and localized holes. It must visibly surround or armor the forward hull and exposed shoulder machinery, while allowing selected aft equipment to remain vulnerable.
+- Visual layering is meaningful: meteors in front of shield, shield in front of sheltered hull, workers/cargo moving through real gaps, structural hull beneath. No purely illustrative collision proxy that differs from rendered geometry.
+- Use the Ice Cathedral image for composition, not as a collision mesh or pasted background. Ship, ice, workers, fire and impacts must be drawn from live state.
+- Single-page, no parent scroll, mobile-first. Preserve a coherent dark-space/ice/industrial palette and avoid HUD clutter.
 
-### Solar-horizon ice arc and drone construction — Requested; in-chat prototype authorized (20 October 2026)
-- **Human:** “We need drone bays. And a way for ice to be positioned into a solar shield via drones. So they naturally want to build an arc to protect drones and activity after. Think frozen soldiers in the battle room. Do we want sun at top? I think sun at top as a curve gives us a place for text if we need it.” Then: “Oh hell yes. That's beautiful. Doc this and then build it here in chat.”
-- **Orientation:** Sun as a curved horizon at the **top** of portrait playfield, leaving an arc for sparse contextual text. Forward is sunward/up; structural spine extends downward/aft.
-- **Topology:** Hull nodes on a longitudinal spine; paired drone bays; forward ice attachments form an irregular curved canopy with an interior sheltered work cavity.
-- **Physical loop:** Finite ice inventory → drone retrieves a chunk → travels to an attachment site → installs a real chunk → occludes incoming sunlight/debris for zones behind it. Damage removes individual chunks and may expose drones/bays, creating repair work.
-- **Autonomy:** Drone policy selects work priorities and sheltered routes; player commands policy, not individual drones. Favor emergent protection arcs from candidate placement scoring over pre-scripted instant semicircle construction.
-- **First prototype:** In-chat interactive demonstration authorized. This does **not** authorize deploying changes to `jit/icarus/index.html` yet. Clearly distinguish illustrative sun/shadow rules from validated physics.
+### 👁 contract — two distinct observation scales
 
+- **Tap:** copy a **thin** `icarus-eye/v2`-compatible spatial snapshot, small enough to paste in chat. Include exact normalized module locations, HP, links, active ice positions/HP, workers/cargo/targets, meteor positions/velocities, chain health, short recent event tail, seed, time, build and viewport. Expand only where needed for geometry comprehension: hull footprints, orientation, armor attachment/occlusion, module exposure, powered/supplied/producing/stalled state. Do not dump full event history on tap.
+- **Long press:** download full JSON history with event provenance, IDs, all ice and modules (including dead), resource transfers, workers, collisions, destroyed connections, counters, invariant violations and truncation counters.
+- One instrumentation switch should be capable of disabling runtime eyes without changing simulation dynamics. Runtime geometry must be faithfully representable by the thin eye report. The model should be able to reconstruct the rendered vessel from it and compare that reconstruction with the human's screen.
+- Retain the existing build-identity caveat until actual execution SHA stamping is fixed.
 
-### First deployed ice-hauling slice — Source shipped, live unverified
-- **Human reference:** supplied screenshot of a broad, translucent blue-halo ice arc, gentle curved golden solar horizon, simple vertical spine and paired tethered drone bays. Requested this exact ice system in the executable, with ship nodes/design placeholders; multiple shield orientations and layers; drone-pushed ice with Ishimura-style tethers and Canterbury-style hauling.
-- **Implemented in `index.html` at `fc4595d4`:** curved gentle solar illumination (not a forward-facing solar disk), three selectable arc orientations, three discrete ice-arc layers, finite ice stock, two autonomous hauling drones, visible tether/haul paths, individual emoji chunks with hit points, falling debris interception, hull hits, policy buttons (expand/repair/shelter), pause/reset, and 👁 JSON observation.
-- **Prototype limitations:** ice is placed at precomputed arc slots rather than emergent force-based packing; tethers are drawn paths without tension; solar light has no thermal/radiation consequences; hull modules and bays are schematic; repair policy chooses vacant slots rather than hauling displaced chunks; no real shield shadow computation or resource mining. User explicitly permits placeholder ship geometry, **not** placeholder ice as a scalar.
-- **Verification:** GitHub source commit exists; GitHub Pages/browser execution has not been independently confirmed. Runtime build badge queries latest source-file commit and is not a deploy attestation.
+### Acceptance tests for the final build
 
+1. **Spatial shielding:** deterministic meteor rays strike outer ice first; removing a particular piece permits a repeatable strike on the module behind it. Lateral rays can reach deliberately unshielded parts. No shield-hit credit for a miss.
+2. **Lethal exposed hit:** an unblocked meteor striking a bay kills it on that hit, visibly leaves wreckage, and interrupts actual connections/resources. No invulnerable hidden module center.
+3. **Logistics:** produced ice begins at 🧊; one worker owns one chunk and one placement reservation; cargo travels with worker; placement changes subsequent collision results; no overlap, teleport or phantom stock.
+4. **Cascade:** destruction of 💧 stops downstream supply and eventually ice manufacture; severing links can isolate modules; surviving powered modules may nevertheless be stalled for lack of material.
+5. **Visual correspondence:** compact 👁 describes the actual hull footprints, ice geometry and module positions well enough to reconstruct the on-screen silhouette. Human compares it with the live display.
+6. **Regression:** no negative inventories, orphan claims, double placement, uncontrolled populations, production from dead bays, or tunneling meteors; stable mobile frame rate and reset reproducibility.
+7. **Verification:** JS syntax, GitHub readback, preserved reference image and live human 👁 after deployment. Do not claim browser verification from source readback.
 
-### Ice arc visual fidelity correction — SPEC FIRST; implementation pending
-- **Human:** “Examine arc vs what was in screenshot. Don't want lines, opacity changes. Concrete. Spec first.”
-- **Reference:** Human-supplied portrait image: one dense, almost continuous crown of large, overlapping 🧊 emoji cubes with conspicuous pale-blue circular footprints. It curves above the temporary ship spine; two bays sit below. Screenshot is the visual acceptance target for the ice system, not the hull's final design.
-- **Current mismatch:** Implementation draws thin solar curve and guide-like empty slot dots, dashed drone-to-site tethers, small sparse ice emoji, translucent circular halos and alpha-composited decorative lighting. Arc looks like plotted coordinates rather than a crowded physical accumulation. Current three layers are discrete concentric precomputed slot sets.
-- **Concrete visual contract:** Each chunk is a fully legible, opaque 🧊 emoji with a consistent, visibly solid blue circular footprint/border; use **opaque fills** and explicit geometry, not alpha-based halos, opacity shifts, ghost layers or dotted guide slots. Render densely enough that neighboring footprints and cubes overlap into a near-continuous irregular crown as in the reference. Preserve individual chunk identities, hit state, physical position and removal; no instant solid arc stroke or single shield-health number.
-- **No lines:** Remove decorative arc strokes, dotted/ghost attachment guides, and dashed destination lines. A tether, if depicted, must be an actual connection between a drone and a chunk during a hauling operation, with concrete endpoints and a reason to exist; no always-on guide/path line. Do not confuse the solar horizon's soft curved *field of light* with a literal drawn stroke.
-- **Solar horizon:** Keep the gentle curved warm light at the top without a forward-facing Sun disk; render it as background illumination, not a drawn outline or opacity-changing overlay. This instruction concerns appearance, not permission to invent solar thermal physics.
-- **Layer/orientation:** Preserve the possibility of multiple shields and orientations, but show **only actually placed ice**. Switching selected layer must not imply prebuilt ghost geometry. Placement, damage and repositioning should change actual chunk coordinates.
-- **Drone action:** Drone visibly picks up/pushes a real chunk, moves it to its target, and releases it; the chunk must travel with the drone rather than teleport into existence at a slot. Tethers belong to physical hauling behavior, not navigational annotation.
-- **Acceptance:** At normal phone size, screenshot-like dense ice crown, full-opacity emoji and solid footprints, no guide/dash lines or transparency-based shield visualization; individual impacts make clear holes, drones physically move the cubes, and the arc is one possible arrangement rather than the universal shield shape.
-- **Status:** Specification only. Do not change executable until requested.
+## Decisions to make together before building
 
+**Hull:** exact silhouette, length and width, mass distribution, bow, central keel, aft engines, asymmetry and exposed equipment.
 
-### Ice Cathedral autonomous systems — SPEC FIRST; implementation not started (20 October 2026)
+**Armor:** shape of initial shield, whether shoulder/lateral coverage extends along hull, how chunks attach and what support loss does; threat-angle envelope and how protection is demonstrated.
 
-**Human:** “Using that image, we create a build that has evermore ii style downward vectored micro meteorite storm attack. Start the ship with full ablative ice. Give it the asymmetrical system modules layout. No gameplay is needed, just bays that spawn ice pushers up to reasonable swarm, meteorites destroy exposed modules, ice is spawned from 🧊 bay. 🌱 bay does something with 💧🌳. 🔥💥 for threats. ⚙️⚗️ for other bays. Instrument. Make systems chains. Spec into spec doc first.”
+**Materials and motion:** how much ice production can offset storms, how workers route through hull/armor, whether wreckage or detached armor remains physically interactive.
 
-**Visual authority:** [Ice Cathedral](./ice-cathedral.png), original binary preserved in GitHub, 2,796,225 bytes, Git blob `b7ad5c4be284bdb927684e6bb284102772582ff5`. Treat it as the composition and silhouette reference: dense irregular forward ice canopy, elongated asymmetric industrial spine, protruding bays, equipment and clustered modules. Draw a legible schematic interpretation in the existing Canvas; do not pretend the raster itself provides collision meshes. Forward/sunward is up; downward-angled meteor streams arrive from above, with real velocity vectors and streak orientation.
+**Presentation:** visual density and rendering language at 384 × 694, readability of 🧊 and modules, and how to show active causal flows without decorative guides.
 
-**Scope:** Autonomous observable ecosystem, **no gameplay, policy controls, win/lose, shop or direct actor input**. Single mobile viewport, no parent scroll, icon-first. Keep pause/reset and discreet 👁. Do not alter Evermore II. Replace the placeholder scalar ice/shield shell with discrete world objects and explicit causal links. No decorative dashed guide lines, translucent ghost ice or invisible resource credits.
-
-**Physical layout and starting conditions**
-- An elongated, visually asymmetric node-and-edge spine; distinct offset bays for 🧊, 🌱, 💧, 🌳, ⚙️ and ⚗️, with readable icons and attachment points. Each bay has location, integrity, exposure, and connected status; losing a structural connection can isolate dependent bays. Avoid a neat symmetric grid.
-- Start with a **full, irregular, dense ablative 🧊 crown** protecting forward modules, not a percentage counter. Individual opaque blue-footprinted cubes have positions, collision radii, integrity and support/attachment identity. Meteor impact removes or damages the struck chunk and opens a real spatial hole; surviving chunks remain where they are.
-- 🧊 bay produces **new physical ice chunks** from a bounded supply/production process; new chunks appear at the bay's output, never at remote shield positions. The source may replenish on a timer only while operational and supplied with its input; log each production. This is an explicitly modeled production rule, not an unexplained free shield reset.
-
-**Worker swarm and physical delivery**
-- Ice-pusher bays spawn autonomous small 🛰️/🤖 pushers to a modest **global cap of ~10–16** (start with 12; adjust for phone legibility/performance), with local cooldown and replacement after destruction. No infinite spawn burst. Workers claim exactly one available ice chunk and one vacant/damaged shield destination; exclusive claims expire or release on death, bay loss, or invalid target.
-- Visible chain: bay spawns pusher → pusher finds 🧊 at source → moves to it → attaches/pushes actual chunk → transports it along a path → places it in an exposed crown gap → releases claim → repeats. Cargo position follows the worker throughout transit; no teleportation, remote repair or phantom ice. Prefer scoring destinations by shielding exposed modules, distance and local damage over a fixed scripted sequence.
-- Pushers are physical targets. ☄️ can destroy exposed pushers or their carried ice; dead pushers release cargo/claims and operational bays replenish to cap. Preserve legible size and movement at normal phone scale.
-
-**Directional threats and damage**
-- Evermore II-inspired **vectored micrometeor storm**: clustered bursts with downward velocity and an angled horizontal component (both left and right incidence over time). Projectiles move through world space, collide in travel order with ice, drones, modules or structural nodes, and may miss. Use swept segment/circle or equivalent continuous collision handling so fast particles do not tunnel through small objects. A hit is consumed or explicitly fragments; never double-hit silently.
-- Ice intercepts first where geometry actually overlaps. If a path passes through a gap, it can strike an exposed bay, destroy it after local damage, break a connection, and stop its production/worker function. 🔥 fire and 💥 impact are spatial hazards/events, not purely decorative particles. A destroyed bay must remain visibly destroyed, stop its output and alter dependent chains; no automatic magical restoration.
-- Storm cadence allows the viewer to watch construction and loss. Avoid saturating the scene into illegibility; cap active meteors and effect particles. No global random HP subtraction.
-
-**Other bay chains — simple, concrete and observable**
-- **💧 → 🌱 → 🌳:** 💧 bay creates finite water packets, delivered or locally transferred to 🌱 bay; 🌱 consumes water to grow sprouts; mature 🌱 becomes 🌳 biomass or a visible tree element near the garden. Damage to 💧 stops irrigation; plants wilt or stop growing; damage to 🌱 interrupts growth. No arbitrary inventory credit.
-- **⚙️ → 🧊 / 💧 / workers:** ⚙️ power/machinery bay produces a bounded operational pulse/capacity; ice production, water cycling and worker spawning require an intact connection to it. Destruction of ⚙️ visibly stalls dependent chains. Make any storage or buffering explicit if implemented.
-- **⚗️ → 🧊:** ⚗️ processing bay accepts an observable feedstock (e.g. 💧 packets) and transforms it into a bounded coolant/ice precursor delivered to 🧊 bay; 🧊 consumes that precursor to create chunks. Never claim real chemical fidelity. If this duplicates the water loop, show competition for 💧 packets between garden and ice production; allocation can be a simple autonomous rule, not a user policy.
-- **🔥 / 💥:** impact on vulnerable powered modules may ignite localized 🔥, spreading only through physically adjacent connected modules or nearby 🌳 biomass; fire damages local integrity until extinguished by finite 💧 contact or fuel exhaustion. 💥 is the impact/destruction event and may produce loose debris. Keep causal provenance in events.
-
-**Explicit dependency graph:** ⚙️ power → 💧 circulation → {🌱 growth → 🌳 biomass, ⚗️ processing → 🧊 production → pusher transport → ice canopy}; ☄️ → 🧊 erosion / 💥 exposed bay damage → 🔥 local spread → loss of power, water, growth or ice defense. Broken links interrupt actual transfer and production. Prefer a few complete chains over many independent emoji animations.
-
-**👁 observation and verification**
-- One binary code switch enables/disables all runtime instrumentation. Export `icarus-<sha>-<dts>.json` (retain the current build-identity caveat until fixed). Include schema version, runtime/build identity, seed, elapsed time, event counts, bounded recent event history, and final snapshot: bay coordinates/types/HP/links, ice chunks (initial/produced/placed/destroyed), workers (spawned/active/lost, task/cargo), meteor storm vectors and collisions, packets/resources, growth stages, fire state and stopped chains. Include dropped-event/truncation counters.
-- Record event provenance: stormSpawn → meteorHitIce or meteorHitModule → iceDestroyed/moduleDestroyed → chainInterrupted; powerPulse → waterProduced → delivered → plantGrown or precursorProduced → iceProduced → claimed → hauled → placed. Exports must distinguish an event from inferred effects and retain enough identifiers to reconcile counts.
-- Deterministic seeded reset and fixed-step simulation preferred for reproducible traces. Assert practical invariants: no double claims, no teleporting ice, no production by destroyed/unpowered bays, no negative resource counts, no invisible damage, and active population ≤ cap. Instrumentation must not change simulation results.
-- Verify JS syntax, Git source readback and unchanged image SHA before reporting source shipped. Pages and actual phone/browser execution require separate evidence; do not claim live based on commit alone.
-
-**Implementation sequence after authorization:** (1) draw image-informed asymmetric ship/bays and full discrete ice; (2) add swept vectored storms and local destruction; (3) add bounded ice-pusher swarm and physical ice logistics; (4) wire ⚙️/💧/🌱/🌳/⚗️/🧊 dependencies; (5) 👁 events, seeded replay and invariant checks; (6) deploy and inspect. **Current status: specification committed only; no executable modification authorized by this spec-first request.**
+**Status: SPEC CLEANED; FINAL DESIGN DISCUSSION NEXT. NO FINAL BUILD AUTHORIZED YET.**
