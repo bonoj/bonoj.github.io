@@ -38,6 +38,9 @@ assert(html.includes('for(const g of latticeSampleGroups)enqueue(g.id'),'Batch m
 assert(html.includes('sampleGroupsSuccessful:'),'Runtime eye must expose successful sample collection');
 assert(html.includes('function latticeCollectRecords(id,j,url)'),'Structured event collector missing');
 assert(html.includes('channels.coops={label:'),'NOAA CO-OPS source must exist');
+assert(html.includes('channels.usgswater={label:'),'USGS Water source missing');
+assert(html.includes("{id:'usgswater',region:'na'}"),'USGS Water must run globally');
+assert(html.includes("if(id==='usgswater')"),'USGS Water structured observations missing');
 assert(html.includes("{id:'coops',region:'na'}"),'NOAA source must be in continuous vacuum');
 assert(html.includes("if(id==='coops')"),'NOAA observation normalization must exist');
 assert(html.includes('latticeCollectRecords(j.id,payload,j.url)'),'Provider responses must enter record collector');
