@@ -1,12 +1,36 @@
-# LATTICE — Worldwide public-telemetry world specification
+# Lattice — 53-channel ingestion contract
 
-**Status:** specification only; no deployed JIT or validated 50-feed browser ingestion. **Proposed target:** `https://bonoj.github.io/jit/lattice/`. **Origin:** extend the existing Hormuz JIT's browser-only, independently scheduled, source-aware design. Not Anduril Lattice, not a clone or claim of equivalent capability. Working name only.
+**Authority:** This document specifies the target, not the currently implemented state. [README](README.md) records implemented behavior; [CHRONICLE](CHRONICLE.md) preserves historical decisions and prior specification text. [VET](VET.md) contains the initial provider audit.
 
-## Mission
+## Objective
 
-A worldwide, phone-first, explorable observatory with seven continents and an eighth orbital layer for the International Space Station. One Earth, one UTC clock, multiple independent public environmental and civilian information channels. The world is the interface, not fifty disconnected dashboard cards. Tap a continent, region, station, stream, or orbital pass; follow source, freshness, measurement units, and uncertainty. No military asset tracking, targeting, or operational tasking.
+Integrate and independently verify every eligible channel in the 53-channel candidate inventory before expanding human-facing tooling. A channel is a distinct signal, not necessarily an independent HTTP request. Never claim all 53 are live until evidence supports each claim. Unsupported channels remain explicit BLOCKED or UNAVAILABLE entries, with cause and next action.
 
-**Deliverable:** one static GitHub Pages JIT, using direct browser requests where allowed, no Supabase, no credentials embedded in JavaScript, no mandatory backend. If a stream needs authentication, disallows cross-origin browser fetches, or lacks an approved redistribution license, show it as *candidate / unavailable* until a compliant public substitute is selected. Do not fabricate live data.
+## Non-negotiable implementation boundaries
+
+- Preserve the existing standalone browser-only JIT, canonical URL, mobile-first single-page world, Hormuz isolation, and shared GitHub Pages publisher. No new cache-busting mechanism or shared-workflow changes.
+- No Supabase, embedded secrets, unauthorized scraping, synthetic observations, live military tracking, or blanket five-second polling.
+- All network access uses the existing governor: host concurrency, deduplication, cadence, bounded response, timeout, Retry-After, backoff, last-good cache, and hidden/offline suspension. One upstream response may satisfy many channels.
+- Distinguish observed, reported, modeled, forecast, predicted and derived data. Preserve time, units, location, source URL, attribution, licensing and missingness. Forecast is not measurement; ISS ground track is predicted, not observed.
+- Do not expand visual UX while ingesting. Existing 👁 is a diagnostic snapshot, not a demand for new controls.
+
+## Machine-readable manifest and channel contract
+
+Maintain one versioned manifest keyed by the exact numeric channel IDs 01–53, recording: id, region, channel name, provider, adapter, endpoint builder/parameters, request group, cadence, auth/terms/CORS classification, parser, fields, units, geographic sample/extent, signal kind, attribution, and verification status. IDs are stable; revisions never silently substitute a different phenomenon. Mark regional samples as samples, not continent-wide observations. Coalesce shared provider queries where safe.
+
+Normalize records to: `{channelId, providerId, kind, geometry, observedAt, publishedAt, fetchedAt, validAt, value, unit, quality, sourceUrl, transformVersion}`. Nullable fields remain null; no default zero for absent data. Multi-value payloads may create multiple records. Carry provenance through all transforms.
+
+## Verification ladder
+
+Each channel independently advances through `SPECIFIED → CODED → SOURCE_TESTED → BROWSER_VERIFIED`. A committed source file or a successful provider response outside the browser is not browser verification. Separately record `BLOCKED_AUTH`, `BLOCKED_CORS`, `BLOCKED_TERMS`, `UNAVAILABLE`, and `ERROR`, with timestamp and evidence. Verification evidence includes response status/content type, parsed fields, valid units and timestamp, sample location, source age, attribution, and browser origin/CORS result. A successful empty query can prove transport/schema, not an active event.
+
+## Execution and acceptance
+
+1. Inventory existing ten coded adapter families and all 53 requested channels. Reuse, do not fork, the governor and parsers. Add deterministic fixtures and tests for parsers, missing values, regional filters, polar/antimeridian coordinates, timestamps, batching, deduplication, and 429/503 recovery.
+2. Implement the full manifest and normalized adapter mapping. First prioritize shared Open-Meteo, USGS, EONET, ISS, NWS and UK EA groups; then NOAA CO-OPS, USGS Water, NDBC, EMSC, Geoscience Australia and BOM, using verified endpoints and legally permitted browser access.
+3. Investigate NASA FIRMS, hormuz.now and Eagle Intelligence individually for auth, browser CORS, data meaning, licensing and endpoint validity. Do not bypass provider controls or silently replace those channels. Document a substitute as a proposed SPEC revision if necessary.
+4. Exercise the real browser on the canonical origin. Collect per-channel proof, not only per-provider proof. Distinguish no events from broken parsing. Preserve last-good state and expose diagnostic failures via 👁 without adding UI clutter.
+5. Acceptance: all 53 IDs accounted for; every eligible channel coded, fixture-tested and browser-verified; each ineligible channel explicitly blocked with evidence; no fake green statuses; no regression to working World/ISS feeds; source, deployment and browser identity recorded separately.
 
 ## Source inventory: 53 distinct telemetry channels
 
@@ -68,58 +92,11 @@ A *channel* is a distinct measured/reported variable, feed category, or regional
 | 52 | ISS / orbit | ISS orbital TLE | Where the ISS At | JSON | 6h | https://api.wheretheiss.at/v1/satellites/25544/tles |
 | 53 | ISS / orbit | ISS ground-track positions | Where the ISS At | JSON | 1m | https://api.wheretheiss.at/v1/satellites/25544/positions |
 
-## Earth and orbit design
 
-1. **Earth viewport:** rotating globe with continent and ocean silhouettes, selectable region boundaries, legible day/night and daylight overlay; never imply an illustrative map is navigationally calibrated.
-2. **Seven continental lenses:** North America, South America, Europe, Africa, Asia, Oceania (Australia), Antarctica. Include a separate ocean/chokepoint focus when a selected stream spans continents.
-3. **ISS orbital lens:** visible ISS position, timestamp, altitude, ground-track prediction derived from published TLE when supported. Distinguish current position, predicted path, and stale ephemeris; never draw interpolated/predicted coordinates as observed.
-4. **World clock:** one UTC timebase; each observation has its own event/valid time, publication time (if known), client-fetch time, age, and forecast lead when applicable.
-5. **Interaction:** globe → region → source → observation → evidence. Cross-layer questions should be answerable, e.g. wind and waves at a coastal point, earthquakes near a volcano, river level during flood warnings, ISS pass over a storm. Correlation is not causation.
-6. **Modes:** LIVE (actual retrieved data), REPLAY (licensed stored/historical records if available), WHAT-IF (clearly synthetic). Initial implementation should prioritize LIVE with conspicuous unavailable states.
+## Deferred until ingestion acceptance
 
-## Data contract and adapters
+Globe accuracy, richer world navigation, derived composites, WorldSpec generation, 50-region benchmarks, replay and human tooling. These are not prerequisites for source ingestion.
 
-Each adapter exports `id, label, provider, docsUrl, endpointBuilder, geographicCoverage, geometryType, fields, units, attribution, licenseStatus, authRequirement, corsStatus, minPollMs, cacheTtlMs, parse, validate, normalize`. Normalized events include `streamId, observedAt, publishedAt?, fetchedAt, validUntil?, geometry?, value, unit, kind: observed|model|forecast|reported|derived|synthetic, quality, uncertainty?, rawSourceUrl, transformVersion`. Store small bounded client-side buffers only, not unbounded archives. Unknown field is unknown, not zero. Per-stream state: LIVE, STALE, BLOCKED, ERROR, NOT CONFIGURED, CANDIDATE.
+## References
 
-**Important:** weather forecast grids and marine model fields are *model/forecast*, not physical sensor readings; EONET is curated event metadata, not raw satellite pixel measurements; AIS-visible counts are incomplete and do not represent all shipping; TLE propagation is predicted orbit, not continuous instrument telemetry. A worldwide lens must not erase these differences.
-
-## Network discipline
-
-A 5-second scheduler checks *due times*, not 53 requests every five seconds. Default provider budgets: 1 in-flight request per host, modest staggered startup (2–5 seconds between providers), conditional requests when supported, provider-specific TTL, exponential backoff on 429/5xx/network failure, pause on hidden tab, catch up only overdue streams on return, and cap per-session requests. High-frequency ISS 10-second location fetch is opt-in when orbital lens is visible; elsewhere use 60 seconds or suspend. Shared responses should feed multiple channels rather than multiply requests (e.g. one Open-Meteo request for multiple weather variables). If a feed needs a key or violates public browser terms, leave it disabled and document why. Respect provider terms over suggested cadence.
-
-## Composition engine (the actual research frontier)
-
-Each regional world is an instance of a common `WorldSpec` with extent, layers, sources, transforms, visual grammar, and provenance. A model can produce a new WorldSpec for an unfamiliar region, validate it, and render it without hand-coding a new app. Fifty worlds in ten minutes is a **target benchmark**, not a demonstrated result. Measure spec-generation latency, adapter reuse, valid live feeds, runtime failures, human interventions, and truthfulness of labels. Distinguish generated artifact, deployed artifact, and verified functioning observatory.
-
-Potential transparent *zip* composites: wave stress + coastal wind; seismicity + nearby curated volcanic reports; flood alerts + observed river stage; wildfire reports + modeled wind. Each derived metric must expose constituent observations, time alignment, missingness, units, transformations, and uncertainty. Do not synthesize a single unexplained risk score.
-
-## Phased acceptance
-
-**Phase 0 — source audit:** classify all 53 channels as documented, browser-CORS-verified, requires-key, licensing-review, or unavailable; publish a machine-readable manifest with honest status. For initial providers, verify actual live response samples and fields, not just documentation.
-
-**Phase 1 — vertical slice:** globe, all seven continent selectors, ISS orbit, 8–12 genuinely responding distinct channels across at least five providers; mobile smoke test; source timestamps and failures visible.
-
-**Phase 2 — breadth:** all 53 candidate channels evaluated; integrate every legally/browser-accessible channel, clearly mark unsupported channels. Ensure every continent and ISS has at least one verified functioning feed; no silent substitutions.
-
-**Phase 3 — composition:** cross-stream derived metrics with provenance, region WorldSpec instantiation, bounded replay, repeatable 50-region build benchmark and observed metrics.
-
-## Original Hormuz invariants retained
-
-- Static-first and browser-ingested; **Supabase is unrelated**.
-- Source-specific polling; five-second *due check*, not five-second polling of everything.
-- Missing data never replaced with fake observations.
-- Synthetic movement and derived signals visibly distinct from source data.
-- Phone-first, readable, no invented UI clutter, single coherent world.
-- Public civilian/open-science information only; no sensitive collection reconstruction or military tracking.
-
-## References and research notes
-
-- Hormuz source: https://github.com/bonoj/bonoj.github.io/blob/master/jit/hormuz/index.html
-- Hormuz README: https://github.com/bonoj/bonoj.github.io/blob/master/jit/hormuz/README.md
-- Hormuz Chronicle: https://github.com/bonoj/bonoj.github.io/blob/master/jit/hormuz/CHRONICLE.md
-- Alembic working note: https://github.com/bonoj/Hermeticon/blob/main/codex/alembic/sigint.md
-- NASA EONET docs: https://eonet.gsfc.nasa.gov/docs/v3
-- ISS API docs: https://ord.wheretheiss.at/w/developer
-- NASA API catalog: https://api.nasa.gov/
-
-**Research caveat:** Some provider roots in the inventory (especially BOM, Geoscience Australia, and selected shipping/risk services) are discovery entrypoints rather than verified JSON request URLs. Their eligibility is unresolved. Distinct channels are not necessarily independently sourced. This document authorizes a source-audit-first implementation, not claims of 53 active live streams.
+[README](README.md) · [VET](VET.md) · [CHRONICLE](CHRONICLE.md) · [Runtime](index.html) · [Sanctum contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md)
