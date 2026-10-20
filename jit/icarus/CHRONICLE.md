@@ -232,3 +232,14 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Human:** “Doc that current functionality across clean readme and chronicle the noise.”
 
 **Model action:** Replaced the stale concept-only README with a compact source-grounded current runtime contract, explicit absent mechanics, four directional doctrines, and working links. The Chronicle remains the detailed record of earlier module-dashboard experiments, emoji vocabulary, Rocinante/Ender/Nostalgia inspirations, film checkpoints, the Shelby name war, and other exploration. The SPEC remains the running request queue. **No executable changed in this documentation pass.** Source commit for README: `794089a3`. GitHub Pages execution was not independently verified.
+
+
+### Film-clock checkpoint — oxygen garden fire (20 October 2026)
+
+**Human:** “Oxygen garden is burning. Chroncle our clock so I know how tight this is becoming.”
+
+**Scene anchor:** Icarus announces the fire in the oxygen garden at approximately **00:36:32** of *Sunshine* (2007), based on the English subtitle timing. Relative to the prior EVA checkpoint (~00:29:00–00:30:12), the film has advanced about 6–7 minutes. At a roughly **107-minute** feature runtime, approximately **70 minutes remain**. These are scene-based estimates, not the user's measured playback clock or wall-clock development duration.
+
+**Source:** https://www.subtitlecat.com/subs/31/Sunshine.2007.1080p.BluRay.H264.AAC-RARBG.eng.html ; feature length reference: https://www.tvguide.com/movies/sunshine/2000042793/ .
+
+**Engineering pressure:** The film is now demonstrating coupled failure—ship orientation and shield repair alongside a fire in the oxygen garden—while the current Icarus executable remains only a visual shell with diagonal debris, approximate impacts and a scalar ice reserve. Do not claim a simulated oxygen garden or cascading fire exists. This checkpoint documents tightening remaining film time, not authorization for unrequested implementation.
