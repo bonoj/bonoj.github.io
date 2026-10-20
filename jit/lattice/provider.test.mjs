@@ -37,6 +37,9 @@ assert.deepEqual([...runtimeActive].sort(),manifest.channels.filter(c=>c.disposi
 assert(html.includes('for(const g of latticeSampleGroups)enqueue(g.id'),'Batch must gather all pretested sample groups');
 assert(html.includes('sampleGroupsSuccessful:'),'Runtime eye must expose successful sample collection');
 assert(html.includes('function latticeCollectRecords(id,j,url)'),'Structured event collector missing');
+assert(html.includes('channels.coops={label:'),'NOAA CO-OPS source must exist');
+assert(html.includes("{id:'coops',region:'na'}"),'NOAA source must be in continuous vacuum');
+assert(html.includes("if(id==='coops')"),'NOAA observation normalization must exist');
 assert(html.includes('latticeCollectRecords(j.id,payload,j.url)'),'Provider responses must enter record collector');
 assert(html.includes('recordCollections:[...latticeEventCollections]'),'Eye must expose bounded record collection counts');
 for(const id of ['quakes','events','alerts','floods','river'])assert(html.includes("if(id==='"+id+"')"),'Missing record adapter '+id);
