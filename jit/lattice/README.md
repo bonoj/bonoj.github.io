@@ -18,6 +18,10 @@ On ➡️ expand real ingestion: prefer bounded network-wide or geographically d
 - Manifest: 53 candidates, 10 marked ACTIVE from browser normalization evidence, 43 DEFERRED. This classification does **not** gate all ingestion. Coded mappings and CI probes do not imply browser verification.
 - GitHub Actions [run 39507745587](https://github.com/bonoj/bonoj.github.io/actions/runs/39507745587) passed server-side probes for six endpoints in four new provider families and all 15 Open-Meteo sample groups. This is **not** proof of browser CORS or current deployed intake. Earlier human 👁 build `aba52136` evidenced 13/15 sample groups LIVE and 23/25 normalized mappings at that moment.
 
+## Antarctic polar slice
+
+Antarctica UI now has inspectable NSIDC daily sea-ice extent (CSV v4) and a 12-site Open-Meteo modeled weather array, including record dates, coordinates and limited synthesis. AMRDC, SOOS and AADC appear as explicitly labeled **external research portals**, not ingested instrument records. New feeds are coded but not yet browser-verified; a successful source fetch must be confirmed before claiming LIVE. Finish instrument-network integration when machine-readable access and browser policy are validated.
+
 ## Next advance
 
 Expand actual geographic footprint and independent sources. Prefer multi-station CO-OPS, USGS Water and NDBC network ingestion where source policy and request budgets permit; diversify across South America, Africa, Asia, Oceania and polar regions. Evaluate new international provider families rather than repeatedly extending a convenient US station. Confirm source payload, schema, attribution, and browser compatibility without blocking unrelated ingestion.
