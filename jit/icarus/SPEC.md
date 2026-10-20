@@ -488,3 +488,32 @@ That's the specification I'd propose for our final build. It remains a discussio
 | Dependency failures | Power and stored resources are distinguished from ongoing supply |
 
 **Status: proposal preserved and extensively diagrammed; executable unchanged.**
+
+
+## 👁 Compact runtime eyes — hard payload contract (20 October 2026)
+
+**Human requirement:** A 👁 tap must **never** grow ridiculously long: its clipboard payload must be **strictly less than 65,000 characters**, while always retaining enough information for the model to understand and reason about (1) actual rendered geometry, (2) module-chain interactions and dependencies, and (3) the current operational state. This requirement overrides any earlier suggestion to expand the tap report without bounds. 👁 long-press remains the full downloadable recorder.
+
+### Non-negotiable budget and prioritization
+
+- **Hard limit:** \`JSON.stringify(compactSnapshot()).length < 65000\` JavaScript UTF-16 code units, including all punctuation and keys. Target **≤ 32,000** units in normal operation to leave room for future complexity. Count the **final serialized clipboard string**, not an estimate based on object counts.
+- **No unbounded arrays on tap.** Never append complete event histories, entire worker paths, per-frame history, full meteor trails, or arbitrarily growing debris/ice lists. Long press contains those.
+- **Preserve essential truth first, then compress detail:** (1) identity/time/viewport/coordinate transform; (2) all active and destroyed **major** modules, hull/support topology, structural and service edges, and collision footprints; (3) chain availability, production/stall reasons, buffers and key inventories; (4) actual shield coverage, breaches and directional exposure; (5) workers, active construction jobs and physical cargo/claims; (6) summarized threats, damage and short event tail. Do not sacrifice modules, connections or causal state to preserve decorative detail.
+- **Geometry must be reconstructible:** compact exact or appropriately quantized normalized positions and dimensions for major hull polygons/segments, module footprints, exposed equipment, rack/support anchors and occlusion-relevant shield chunks. Include orientation, velocity incidence and solar vector in the same coordinate frame. If an object class exceeds its budget, replace fine detail with **bounded spatial bins / contour / occupancy / coverage representation**, plus representative live samples and aggregate counts. Include resolution, quantization and omission metadata so the model knows what is and is not exact. Never claim omitted individual chunks were represented exactly.
+- **Chains must be explainable:** each module reports identity, HP, structural attachment, power, supplied/producing/stalled status and **stall reason**, essential inputs/outputs, inventory buffers and relevant upstream/downstream links. Record link type (structural/electrical/fluid/material/data) and whether it is intact. Distinguish *powered* from *supplied*, *supplied* from *producing*, and *producing* from *buffered stock*.
+- **Current state must be legible:** elapsed time, seed, build, counters and rates over a bounded interval, threats and vectors, active fire/heat/shadow/exposure, worker count by task/phase, important claims and deliveries, pending build sites, cannon coverage/target/ammo, live/destroyed counts, last important causal events. Every bounded or sampled field must disclose total count and how sampling/aggregation was performed.
+- **Graceful degradation:** construct snapshot in priority tiers, serialize, measure, and shrink only lower-priority collections deterministically until below the hard limit. If still oversized, switch to a **minimal emergency report** preserving all major module and chain summaries, bounding the geometry via coarser spatial representation, and include \`truncated:true\`, \`omitted\` counts, \`representation\` descriptions and a reason. Never silently truncate raw JSON text, emit invalid JSON, or discard critical chain/geometry context.
+- **Oversized major topology:** if even the complete major-module list cannot fit, emit grouped topology/footprint summaries with deterministic IDs and explicitly declare lost precision; the hard cap still wins. Full fidelity remains available through long-press.
+- **Deterministic ordering:** stable IDs and sorted spatial/importance ordering, numeric coordinate precision appropriate to phone pixels, compact key names where useful, and bounded recent-event tail (e.g. last 12–20 meaningful events, not simply the last 20 meteor spawns). Group repetitive events into counters. Avoid repeating static descriptions per entity.
+- **Self-audit fields:** include \`eyeBudget:{limit:65000,length:<actual final string length>,truncated:boolean,omitted:{...}}\`. Because including the length field can change serialized length, compute until it stabilizes. The copied string is the measured string; enforce a final assertion before clipboard write. An implementation must not fall back to copying a full recorder on tap.
+- **Instrumentation invariant:** turning eyes off must not alter simulation dynamics; snapshot generation must not mutate claims, random state, object order or resources. Tap must remain fast on a phone.
+
+### Acceptance / regression checks
+
+1. Exercise a fresh ship, peak meteor storm, maximum ice, maximal worker swarm, widespread destruction, many wrecks/salvage pieces, and a long-running session. **Every tap produces valid JSON strictly under 65,000 UTF-16 units**.
+2. For each test snapshot, the model can reconstruct the meaningful hull silhouette and shield occlusion, identify which modules are actually exposed, trace why an ice foundry or cannon is operating or stalled, and identify the next possible worker actions without requiring the full recorder.
+3. Validate serialization and \`eyeBudget.length\` against the **actual** copied text. Report exact omitted counts and coarsening; no silent information loss.
+4. Confirm long-press downloads the detailed history and does not accidentally trigger tap-to-copy.
+5. Confirm deterministic reset and no simulation state change from taking a snapshot.
+
+**Status: SPECIFICATION ONLY. Executable implementation is separately authorized and verified.**
