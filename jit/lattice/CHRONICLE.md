@@ -558,3 +558,261 @@ The human asked what worldwide access Lattice actually has, then challenged why 
 Verified CI evidence: <https://github.com/bonoj/bonoj.github.io/actions/runs/39507745587> completed successfully after adding NOAA wind. The source probes passed for **six endpoints across four new provider families**: NOAA CO-OPS water level, water temperature and wind, USGS Water, NOAA NDBC and EMSC. All 15 Open-Meteo sample groups passed; BOM continued to return HTTP 403 and is excluded from scheduling. HTTP/schema checks **do not prove browser CORS or live normalized record intake**.
 
 README updated in commits `5c42e220` and `a624c591` to document the present reach, verified boundaries, disabled BOM candidate and new operational priority. No runtime transport, UI or publisher was changed in this documentation turn. **Next operation: distribute NOAA/USGS/NDBC station intake geographically, then add independent international sources; test real responses and avoid unverified availability claims.**
+
+
+---
+
+## Documentation consolidation — 2026-10-20
+
+The human directed: “Clean readme and dump it in chronicle. Clean spec and dump it there, too.” The model identified duplicated historical README campaign notes and SPEC's obsolete 53-channel acceptance gate as sources of repeated mission drift. The two **complete pre-cleanup documents** are archived below verbatim, before replacing their operational versions. The new concise README and SPEC retain the maximum-vacuum objective, evidence boundaries, transport/publisher invariants and global source-expansion mandate.
+
+<details><summary>Full previous README.md (pre-cleanup)</summary>
+
+```markdown
+# Lattice — operational handoff (2026-10-20)
+
+**Canonical:** https://bonoj.github.io/jit/lattice/ · **Source:** `jit/lattice/index.html` · **Manifest:** [channels.json](channels.json) · **Chronicle:** [CHRONICLE.md](CHRONICLE.md).
+
+Lattice is a mobile-first global/ISS telemetry viewer. The **53 numbered channels are candidates**, not 53 promised live endpoints. Ten have human-provided browser normalization evidence and are marked `ACTIVE`; 43 remain `DEFERRED`. There are 25 implemented normalization mappings, including one explicitly browser-verified manifest status. A channel's `CODED` status is **not** proof of browser operation or data quality.
+
+**Transport contract:** one in-browser governor, HTTPS-only, max 2 concurrent requests / 1 per host, bounded queue, pacing wake-up, timeout/backoff, URL dedup and cache. Initial batch now gathers **all 15 previously provider-tested sample groups**, including deferred channel mappings, plus the currently selected region's legacy cards. The periodic tick fetches only selected-view cards; there is no implicit ISS poll on unrelated views. The 15 sample groups cover 21 numbered mappings; their collection does not automatically promote channels to ACTIVE. 👁 reports configured, successful and pending sample-group counts. The selected-view legacy cards are distinct from numbered channels and may use additional providers.
+
+**Evidence:** GitHub Actions [Lattice provider checks](https://github.com/bonoj/bonoj.github.io/actions/workflows/lattice-checks.yml) runs deterministic normalization/manifest guards, existing representative-provider checks, candidate HTTP/schema probes, and all 15 sample groups. Antarctic wave channel 49 was deferred after a missing numeric wave value at (-65, 0); its request group was removed. Server-side probe success does not prove browser CORS or live rendering. Latest commits should be verified via CI and deployed build SHA; no invented cache-busting or manual build labels.
+
+**Development invariants:** Preserve the existing [stable-world publisher](../../.github/workflows/stable-world.yml), SHA-stamped HTML and `build.json`, canonical URL, standalone UI, and independent Hormuz project. Do not introduce a second transport, expose keys, substitute different scientific variables, or classify channels ACTIVE without browser evidence. The inline normalizer currently duplicates `normalize.mjs`; keep them aligned until a tested single-source build is implemented.
+
+**Next:** expand verified station geography and independent provider coverage, then validate browser-origin intake; preserve the existing governor and publication machinery. Do not ask the human to debug endpoint plumbing. Detailed history and the ten-turn campaign are retained in [CHRONICLE.md](CHRONICLE.md).
+
+## Governing target and current geographic footprint
+
+**MAXIMUM VACUUM** is the overriding development objective; see [SPEC.md](SPEC.md). Collect the greatest practical breadth and depth of legitimate public civilian Earth/orbital observations. The 53-channel manifest is an audit backlog, **not a ceiling or a mandate to optimize one region**. On ➡️ prioritize **new independent provider families and broader geographic/record coverage**, not repeated single-station additions, UI, persistence, replay, instrumentation or publishing changes absent an actual intake blocker.
+
+**Current intake, as coded (not blanket browser-verified):**
+
+| Reach | Source | Current collection |
+| --- | --- | --- |
+| Global | USGS ComCat, NASA EONET | Earthquakes and natural events |
+| Global orbit | Where the ISS At / TLE | ISS position and orbital elements |
+| Worldwide sampled | Open-Meteo weather, marine and air | 15 fixed geographic sample groups, 21 numbered mappings; **not** dense global coverage |
+| Europe / surroundings | EMSC seismic portal | Bounded earthquake-event query |
+| United States | NWS | Active weather alerts |
+| England | UK Environment Agency | Flood warnings and river observations |
+| New York Harbor | NOAA CO-OPS | Water level, water temperature, wind speed/direction/gust at **one** station: The Battery, 8518750 |
+| Potomac River | USGS Water | Discharge and gauge height at **one** station: 01646500 |
+| Atlantic offshore | NOAA NDBC | Wave height and pressure at **one** buoy: 41009 |
+| Australia | BOM candidate | **Disabled** from collection: HTTP 403 in live probe; adapter retained but not claimed working |
+
+**Verified evidence:** [GitHub Actions run 39507745587](https://github.com/bonoj/bonoj.github.io/actions/runs/39507745587) completed successfully. Live server-side HTTP/schema probes passed for **six endpoints across four new source families** (CO-OPS water level, temperature and wind; USGS Water; NDBC; EMSC). BOM returned 403. All 15 Open-Meteo sample groups passed. These are **server-side** checks; browser CORS, continuously received normalized records and end-to-end deployment are separate evidence levels. No inference of global coverage from provider branding.
+
+**Next ➡️:** Expand the **geographic footprint**, not another Battery product. Reuse proven station-family adapters to ingest multiple geographically distributed stations (coasts, watersheds, offshore buoys) with bounded host pacing and attributable observations. Seek independent sources in Africa, South America, Asia, Oceania and polar regions; verify actual payload and browser accessibility. Treat the existing source list as an expanding floor, not an endpoint quota.
+
+---
+
+## Historical campaign notes (superseded by the operational handoff above)
+
+# Lattice — Earth + Orbit
+
+**Cold-boot handoff and authoritative implemented-state README.** Read this first. Live target: **https://bonoj.github.io/jit/lattice/**. Source: [index.html](index.html). Latest observed source change: `2bdee2286bbca7cb086aa8cb970be17166796d1e` (2026-10-20). Browser-observed `lattice/02`; see evidence below.
+
+## What this is
+
+A mobile-first, single-page, browser-only, explorable Earth and ISS public-signal observatory. The *world* is the interface, not 50 disconnected dashboards. It is an initial executable slice of the [worldwide 53-channel candidate specification](SPEC.md), **not a 53-channel implementation**, an operational command platform, or a verified replacement for any existing product.
+
+The app lives in one standalone HTML file with inline CSS/JavaScript and no backend. It does **not** use Supabase. It leaves the [Hormuz JIT](../hormuz/) untouched.
+
+## Implemented state — 2026-10-20
+
+- **Runtime:** one standalone mobile-first HTML/CSS/Canvas/JS page with nine selectable views (World, seven continents, ISS), schematic orthographic globe, source cards, UTC clock, ↻ and 👁. Coastlines are illustrative, not accurate geodata; canvas is not draggable.
+- **Ten coded adapter families:** Open-Meteo weather, marine and air quality; USGS earthquakes; NASA EONET natural events; Where the ISS At current position and ISS TLE; US NWS active alerts; UK Environment Agency flood warnings and river-level stations. These are coded adapters, **not ten browser-verified feeds**. Regional sampling is sparse, marine samples can be inland, and EONET remains global. [SPEC.md](SPEC.md) catalogs 53 candidates, not 53 active feeds.
+- **Universal transport governor:** one fetch path, URL deduplication, two concurrent requests globally, one per host, queue cap, 12-second timeout, bounded body, Retry-After handling on 429/503, failure backoff, last-good cache, hidden/offline suspension and recovery. Five-second due-check, not five-second polling. `governor.batch()` queues configured channels across all regions; `snapshot()` reports request statistics, endpoint states and views. Batch may take time and does not certify endpoint success.
+- **👁 clipboard-only:** one tap copies the current `lattice-eye/v1` snapshot synchronously, **then** starts the background batch; a later tap copies accumulated results. No JSON tray or 45-second wait. The single `EYE_ENABLED` switch gates the instrument. No backend, Supabase, or persistent telemetry collection.
+- **Build label:** `lattice/02` in footer and 👁, manually maintained; **not** a source SHA or automatic cache buster. Canonical URL is unchanged. Do not invent fingerprinting, query-string cache busting, or publisher changes. Follow the existing JIT Chaos publication contract and protected-root invariant before any shared workflow change.
+
+## Evidence and handoff checkpoint
+
+- Latest source change for 👁: commit `2bdee2286bbca7cb086aa8cb970be17166796d1e` (synchronous copy before nonblocking batch). GitHub readback verified; JS syntax passed; single fetch call site confirmed.
+- **Human-observed browser runtime:** `lattice/02`, UTC `2026-10-20T19:26:04.927Z`. Clipboard successfully returned JSON; World ISS, USGS and EONET were LIVE, three requests succeeded, zero failures, zero queued/active. This confirms the observed browser's clipboard and three World adapters, **not** the ten-family cross-region batch.
+- Batch behavior is the immediate unfinished verification: 👁 first captures current state then queues the batch. Allow requests to finish and tap 👁 again; examine `batch.endpoints`, `batch.views`, failures and CORS/schema errors. Do not infer cross-region success from the first three-endpoint report.
+- **Publication:** Chaos README and ASTRA_CONJOINER describe the shared stable-root Pages workflow and protected-root rules. The workflow configuration/run history was not accessible during the latest inspection. No evidence yet justifies modifying the shared publisher; no new cache scheme has been authorized. A GitHub commit, Pages deployment and browser-executing build are distinct evidence levels.
+
+## Data flow
+
+`Region selection → channels → governor enqueue/dedup/host pacing → provider fetch/parse → records → cards/globe → 👁 snapshot`. Batch requests use the same governor, not a separate fetch path. The normalized WorldSpec architecture in [VET.md](VET.md) remains future work.
+
+## Next actions — cold boot
+
+1. **Verify batch:** inspect the next browser 👁 JSON after background collection; classify all ten adapter families as PASS/ERROR/BLOCKED/NOT REQUESTED. Fix actual CORS/schema errors rather than expanding the candidate catalog blindly.
+2. **Preserve publication:** canonical https://bonoj.github.io/jit/lattice/ ; inspect existing shared Pages workflow only if a real publication failure occurs. Do not change protected root or unrelated JITs. Build label `lattice/02` is manual; maintain consistency between footer and 👁 until the human requests another scheme.
+3. **Improve coverage and fidelity:** accurate attributed coastlines, offshore marine sample points, observation timestamps and provenance, normalized contracts, deterministic parser/transport tests, and eventual reusable WorldSpecs. Keep the world central, mobile-first, and API-friendly.
+4. **Cold boot reading order:** this README → [index.html](index.html) → [CHRONICLE.md](CHRONICLE.md) for historical decisions → [VET.md](VET.md) and [SPEC.md](SPEC.md) for planned architecture. For publishing, inspect [Chaos README](../chaos/README.md) and [ASTRA_CONJOINER](../chaos/ASTRA_CONJOINER.md); for GitHub write recovery consult [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) and [Gate](https://github.com/bonoj/Gate/blob/main/README.md).
+5. Make minimal changes only in `jit/lattice/`; test, commit, read back, and distinguish source/deployment/browser evidence. Keep implementation state in README and development history in Chronicle.
+
+## Invariants
+
+**Public civilian and environmental data only.** No live military tracking. No fake AIS, no synthetic values labeled observed. Preserve data-source attribution, uncertainty and age. No secrets in browser source. No Supabase for raw telemetry. No backend required. No blanket five-second network polling. Keep mobile-first single-page presentation and clear operational states. Keep the world itself central to the UX. Maintain distinct labels for **specified, coded, committed, published, browser-verified**.
+
+## References
+
+- [SPEC.md](SPEC.md) — proposed worldwide inventory and architecture
+- [VET.md](VET.md) — provider audit, implementation seams and acceptance plan
+- [CHRONICLE.md](CHRONICLE.md) — verbatim human–model turn archive and build chronology
+- [Hormuz JIT](../hormuz/) — original regional instrument, independent of Lattice
+
+## Ingestion campaign — turn 1/10
+
+The [53-channel manifest](channels.json) is committed as `lattice-channels/v1`: 53 unique stable IDs, 17 provider/adapter groups, each currently `SPECIFIED` with no browser-verification claim. This is inventory plumbing, not 53 working integrations. Existing runtime remains `lattice/02` and unchanged. Next: bind manifest to reusable parsers and normalized observations, add deterministic fixtures, then exercise browser-origin source tests. Preserve [SPEC](SPEC.md) acceptance and [CHRONICLE](CHRONICLE.md) history.
+
+## Ingestion campaign — turn 2/10
+
+[channels.json](channels.json) retains 53 stable IDs; 25 Open-Meteo/ISS field extraction mappings are now `CODED` (not SOURCE_TESTED or BROWSER_VERIFIED). [normalize.mjs](normalize.mjs) provides pure normalization and manifest validation; [normalize.test.mjs](normalize.test.mjs) contains deterministic fixtures for the mapped fields, missing-value rejection, and 53-ID integrity. Tests are committed but **not yet executed**; browser runtime and governor remain unchanged at `lattice/02`. Next: execute tests, resolve any failures, integrate normalization through the existing governor without a second fetch path, then implement remaining provider mappings. No UI or publication changes.
+
+## Ingestion campaign — turn 3/10
+
+Expanded deterministic regression cases for null/NaN numeric fields, malformed TLE pairs, Antarctic sample geometry and model-kind classification in [normalize.test.mjs](normalize.test.mjs). Manifest integrity and 25 mapped fixture inputs were statically inspected. **Node execution was not achieved** because the local test runtime could not retrieve GitHub sources; this is not a green test result. The browser governor and public UI remain unchanged. Next priority: execute tests in a runtime with the repository sources available, then integrate normalized observations through the existing governor with a safe rollback boundary.
+
+## Ingestion campaign — turn 4/10
+
+Committed runtime integration at `de60cf32`: the existing governor's **successful response path** now captures normalized observations for matching manifest samples (and ISS position/TLE), without a second fetch path or new controls. 👁 includes `ingestion.normalized` and per-channel extraction errors. This is an additive diagnostic seam, not 25 verified feeds: existing regional samples often differ from the manifest, and channel 53 ground-track positions are not wired. Browser-origin execution and Node fixture suite remain **unverified**; source-level inspection and local `node --check` of the separate normalization module are not equivalent to browser verification. Next: execute deterministic tests against repository files, check the live origin, then align grouped provider sample points and add proper provider endpoints. Preserve the canonical URL, publisher and existing build identity; no cache-busting changes.
+
+## Browser evidence — 2026-10-20 20:24:53 UTC
+
+Human-supplied `lattice-eye/v1`, build `lattice/02`: World region issued three successful requests (ISS position, global USGS earthquakes, NASA EONET), zero failures. Normalization emitted channel **51** ISS altitude 421.13687947394 km, observed 20:24:51Z and fetched 20:24:51.915Z; zero ingestion errors. This is browser-origin evidence for one extraction, not all 25 mappings, and not a claim of source quality or long-term uptime. Channels 01/18/etc. are **not** browser-verified by the global aggregate views because the numbered region-specific filters are not implemented. Manifest status for 51 updated to BROWSER_VERIFIED with evidence. Next: align source samples and verify further numbered channels without changing the shared publisher.
+
+## Ingestion campaign — turn 5/10
+
+Runtime commit `184f152e` adds 16 grouped Open-Meteo sample requests covering 22 mapped weather, marine and air-quality channels (shared by provider and coordinates). These are enqueued **only by the existing 👁 batch** through the original governor, not as an extra periodic poller. Each response attempts per-channel normalization with extraction errors visible in `ingestion.errors`; successful observations appear in `ingestion.normalized`. ISS channel 51 remains the only browser-verified numbered channel from supplied evidence. Grouped sample fetches, polar/marine coverage, and current-field availability **await browser evidence**. Existing UI and publisher unchanged. Next: inspect post-batch 👁 results and fix actual source/parse issues; do not equate queued requests with success.
+
+```
+</details>
+
+<details><summary>Full previous SPEC.md (pre-cleanup)</summary>
+
+```markdown
+# Lattice — 53-channel ingestion contract
+
+**Authority:** This document specifies the target, not the currently implemented state. [README](README.md) records implemented behavior; [CHRONICLE](CHRONICLE.md) preserves historical decisions and prior specification text. [VET](VET.md) contains the initial provider audit.
+
+## Governing priority — MAXIMUM VACUUM (human directive, 2026-10-20)
+
+**This section overrides any conflicting implementation sequence, acceptance gate, quota, or next-step recommendation elsewhere in this document, VET, README, or CHRONICLE.** The primary objective is to ingest the maximum useful breadth and depth of legitimate public civilian Earth and orbital telemetry. The 53-channel inventory is a **minimum audit backlog, never an ingestion ceiling**. Source diversity, geographic reach, independent phenomena, and useful record coverage outrank presentation, catalog bookkeeping, and infrastructure polish.
+
+### Mandatory work order
+
+1. **Expand real ingestion first.** Implement and exercise previously untouched eligible source families: NOAA CO-OPS, USGS Water, NDBC, EMSC, Geoscience Australia, BOM, NWS forecast grids; then pursue additional public sources beyond the original 53. Reuse the existing USGS, EONET, NWS, UK EA, Open-Meteo and ISS responses to capture additional distinct signals without redundant requests. Prefer genuinely independent sources over merely multiplying sampled variables.
+2. **Confirm data gathering as part of each addition.** Run actual HTTP/schema checks and deterministic adapter tests; record precise source/deployment/browser evidence separately. When browser-origin CORS remains untested, label it unverified rather than treating CI as browser proof. Preserve useful raw record coverage where permitted; never invent a successful sample.
+3. **Continue expanding.** An eligible, tested source is a reason to add the next source, not to stop for polishing. Record inaccessible, empty, key-gated, terms-restricted, or invalid candidates with evidence and move on. Do not force an arbitrary channel count or spend turns repeatedly re-auditing already-working plumbing.
+
+### Explicit anti-distraction rules
+
+- **Do not pivot to persistence, replay, historical comparison, visualization, globe geometry, WorldSpecs, UX controls, dashboards, cosmetic refactoring, or telemetry-report redesign while eligible unintegrated sources remain.** These are deferred work, not the next frontier.
+- **Do not make the 53-channel verification ladder a blocking prerequisite to expanding ingestion.** Maintain honest status as integrations proceed; do not devote an entire development turn to promotion or manifest grooming in place of acquiring new sources.
+- **Do not replace the existing governor, CI, publisher, cache policy, or instrumentation without a demonstrated defect that blocks intake.** Fix genuine blockers minimally, then return immediately to source expansion.
+- **Do not treat aggregate transport success, a configured endpoint, a queued request, or a passing static assertion as proof of successful normalized data.** Prefer successful source payloads and extracted records. Respect provider terms, quotas, CORS and the no-secrets browser constraint.
+- **Do not ask the human to debug provider plumbing or manually repeat routine endpoint tests.** Use the existing automation and tests, and ask for browser evidence only when genuinely necessary.
+- **No artificial quotas, milestone ceilings, or premature declarations of completion.** The work continues while useful eligible sources remain.
+
+### Definition of a productive development turn
+
+A normal advance (➡️) should **add and test at least one previously unintegrated independent provider/source family or materially expand the real records/geography ingested by an existing provider**. If that cannot be achieved, report the concrete blocker and the next eligible source; do not substitute unrelated infrastructure work. Keep the operational handoff concise and update the chronicle only with material evidence.
+
+## Objective
+
+Integrate and independently verify every eligible channel in the 53-channel candidate inventory before expanding human-facing tooling. A channel is a distinct signal, not necessarily an independent HTTP request. Never claim all 53 are live until evidence supports each claim. Unsupported channels remain explicit BLOCKED or UNAVAILABLE entries, with cause and next action.
+
+## Non-negotiable implementation boundaries
+
+- Preserve the existing standalone browser-only JIT, canonical URL, mobile-first single-page world, Hormuz isolation, and shared GitHub Pages publisher. No new cache-busting mechanism or shared-workflow changes.
+- No Supabase, embedded secrets, unauthorized scraping, synthetic observations, live military tracking, or blanket five-second polling.
+- All network access uses the existing governor: host concurrency, deduplication, cadence, bounded response, timeout, Retry-After, backoff, last-good cache, and hidden/offline suspension. One upstream response may satisfy many channels.
+- Distinguish observed, reported, modeled, forecast, predicted and derived data. Preserve time, units, location, source URL, attribution, licensing and missingness. Forecast is not measurement; ISS ground track is predicted, not observed.
+- Do not expand visual UX while ingesting. Existing 👁 is a diagnostic snapshot, not a demand for new controls.
+
+## Machine-readable manifest and channel contract
+
+Maintain one versioned manifest keyed by the exact numeric channel IDs 01–53, recording: id, region, channel name, provider, adapter, endpoint builder/parameters, request group, cadence, auth/terms/CORS classification, parser, fields, units, geographic sample/extent, signal kind, attribution, and verification status. IDs are stable; revisions never silently substitute a different phenomenon. Mark regional samples as samples, not continent-wide observations. Coalesce shared provider queries where safe.
+
+Normalize records to: `{channelId, providerId, kind, geometry, observedAt, publishedAt, fetchedAt, validAt, value, unit, quality, sourceUrl, transformVersion}`. Nullable fields remain null; no default zero for absent data. Multi-value payloads may create multiple records. Carry provenance through all transforms.
+
+## Verification ladder
+
+Each channel independently advances through `SPECIFIED → CODED → SOURCE_TESTED → BROWSER_VERIFIED`. A committed source file or a successful provider response outside the browser is not browser verification. Separately record `BLOCKED_AUTH`, `BLOCKED_CORS`, `BLOCKED_TERMS`, `UNAVAILABLE`, and `ERROR`, with timestamp and evidence. Verification evidence includes response status/content type, parsed fields, valid units and timestamp, sample location, source age, attribution, and browser origin/CORS result. A successful empty query can prove transport/schema, not an active event.
+
+## Execution and acceptance
+
+1. Inventory existing ten coded adapter families and all 53 requested channels. Reuse, do not fork, the governor and parsers. Add deterministic fixtures and tests for parsers, missing values, regional filters, polar/antimeridian coordinates, timestamps, batching, deduplication, and 429/503 recovery.
+2. Implement the full manifest and normalized adapter mapping. First prioritize shared Open-Meteo, USGS, EONET, ISS, NWS and UK EA groups; then NOAA CO-OPS, USGS Water, NDBC, EMSC, Geoscience Australia and BOM, using verified endpoints and legally permitted browser access.
+3. Investigate NASA FIRMS, hormuz.now and Eagle Intelligence individually for auth, browser CORS, data meaning, licensing and endpoint validity. Do not bypass provider controls or silently replace those channels. Document a substitute as a proposed SPEC revision if necessary.
+4. Exercise the real browser on the canonical origin. Collect per-channel proof, not only per-provider proof. Distinguish no events from broken parsing. Preserve last-good state and expose diagnostic failures via 👁 without adding UI clutter.
+5. Acceptance: all 53 IDs accounted for; every eligible channel coded, fixture-tested and browser-verified; each ineligible channel explicitly blocked with evidence; no fake green statuses; no regression to working World/ISS feeds; source, deployment and browser identity recorded separately.
+
+## Source inventory: 53 distinct telemetry channels
+
+A *channel* is a distinct measured/reported variable, feed category, or regional query; **53 channels do not mean 53 independent organizations or APIs**. Multiple channels deliberately reuse well-documented APIs and query different variables/regions. All below are *candidate integrations*, not 53 verified functioning browser feeds. Exact query parameters, CORS, license, response schema, geography, temporal resolution, and limits must be verified per adapter before claiming live.
+
+| # | Geography | Telemetry channel | Provider | Response | Proposed minimum cadence | Documentation / entrypoint |
+|---:|---|---|---|---|---|---|
+| 01 | North America | USGS ComCat earthquakes | USGS FDSN | JSON | 30m | https://earthquake.usgs.gov/fdsnws/event/1/ |
+| 02 | North America | NOAA CO-OPS water levels | NOAA CO-OPS | JSON | 6m | https://api.tidesandcurrents.noaa.gov/api/prod/ |
+| 03 | North America | NOAA CO-OPS tidal predictions | NOAA CO-OPS | JSON | 12h | https://api.tidesandcurrents.noaa.gov/api/prod/ |
+| 04 | North America | NOAA CO-OPS water temperature | NOAA CO-OPS | JSON | 30m | https://api.tidesandcurrents.noaa.gov/api/prod/ |
+| 05 | North America | NOAA CO-OPS wind observations | NOAA CO-OPS | JSON | 15m | https://api.tidesandcurrents.noaa.gov/api/prod/ |
+| 06 | North America | NWS active weather alerts | NWS | GeoJSON | 5m | https://api.weather.gov/alerts/active |
+| 07 | North America | NWS forecast grid | NWS | JSON | 30m | https://api.weather.gov/ |
+| 08 | North America | USGS NWIS river discharge | USGS Water Services | JSON | 15m | https://waterservices.usgs.gov/nwis/iv/ |
+| 09 | North America | USGS NWIS gage height | USGS Water Services | JSON | 15m | https://waterservices.usgs.gov/nwis/iv/ |
+| 10 | North America | NOAA NDBC buoy wave height | NDBC | text | 15m | https://www.ndbc.noaa.gov/data/realtime2/ |
+| 11 | North America | NOAA NDBC buoy pressure | NDBC | text | 15m | https://www.ndbc.noaa.gov/data/realtime2/ |
+| 12 | North America | NASA FIRMS fire detections | NASA FIRMS | CSV | 30m | https://firms.modaps.eosdis.nasa.gov/api/ |
+| 13 | South America | Open-Meteo Amazon rainfall | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 14 | South America | Open-Meteo Amazon humidity | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 15 | South America | Open-Meteo Andes snowfall | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 16 | South America | Open-Meteo Patagonia wind | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 17 | South America | USGS Andes seismic events | USGS FDSN | GeoJSON | 30m | https://earthquake.usgs.gov/fdsnws/event/1/ |
+| 18 | South America | NASA EONET South America wildfires | NASA EONET | JSON | 30m | https://eonet.gsfc.nasa.gov/api/v3/events |
+| 19 | South America | NASA EONET South America volcanoes | NASA EONET | JSON | 1h | https://eonet.gsfc.nasa.gov/api/v3/events |
+| 20 | Europe | Open-Meteo European air temperature | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 21 | Europe | Open-Meteo European wind gusts | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 22 | Europe | Open-Meteo European precipitation | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 23 | Europe | Open-Meteo air quality PM2.5 | Open-Meteo AQ | JSON | 1h | https://air-quality-api.open-meteo.com/v1/air-quality |
+| 24 | Europe | Open-Meteo air quality NO2 | Open-Meteo AQ | JSON | 1h | https://air-quality-api.open-meteo.com/v1/air-quality |
+| 25 | Europe | EMSC earthquake reports | EMSC | JSON | 30m | https://www.seismicportal.eu/fdsnws/event/1/ |
+| 26 | Europe | UK Environment Agency flood monitoring levels | EA Flood Monitoring | JSON | 15m | https://environment.data.gov.uk/flood-monitoring/ |
+| 27 | Europe | UK Environment Agency flood warnings | EA Flood Monitoring | JSON | 15m | https://environment.data.gov.uk/flood-monitoring/id/floods |
+| 28 | Africa | Open-Meteo Sahel temperature | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 29 | Africa | Open-Meteo Sahel precipitation | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 30 | Africa | Open-Meteo Sahara dust proxy | Open-Meteo AQ | JSON | 1h | https://air-quality-api.open-meteo.com/v1/air-quality |
+| 31 | Africa | USGS East African Rift earthquakes | USGS FDSN | GeoJSON | 30m | https://earthquake.usgs.gov/fdsnws/event/1/ |
+| 32 | Africa | NASA EONET African fires | NASA EONET | JSON | 1h | https://eonet.gsfc.nasa.gov/api/v3/events |
+| 33 | Africa | Open-Meteo Gulf of Guinea wave height | Open-Meteo Marine | JSON | 1h | https://marine-api.open-meteo.com/v1/marine |
+| 34 | Asia | Open-Meteo Hormuz surface wind | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 35 | Asia | Open-Meteo Hormuz wave height | Open-Meteo Marine | JSON | 1h | https://marine-api.open-meteo.com/v1/marine |
+| 36 | Asia | Open-Meteo Hormuz ocean currents | Open-Meteo Marine | JSON | 1h | https://marine-api.open-meteo.com/v1/marine |
+| 37 | Asia | Hormuz.now aggregate commercial crossings | hormuz.now | JSON | 1m | https://hormuz.now/data |
+| 38 | Asia | Eagle Intelligence maritime risk status | Eagle Intelligence | JSON | 5m | https://eagleintelmari.com/api/hormuz-status |
+| 39 | Asia | USGS Japan-region seismic events | USGS FDSN | GeoJSON | 30m | https://earthquake.usgs.gov/fdsnws/event/1/ |
+| 40 | Asia | NASA EONET Asian volcanoes | NASA EONET | JSON | 1h | https://eonet.gsfc.nasa.gov/api/v3/events |
+| 41 | Asia | Open-Meteo Bay of Bengal cyclone wind fields | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 42 | Oceania | Geoscience Australia earthquakes | Geoscience Australia | GeoJSON candidate | 30m | https://earthquakes.ga.gov.au/ |
+| 43 | Oceania | Australia BOM observations | BOM | JSON candidate | 30m | https://api.weather.bom.gov.au/ |
+| 44 | Oceania | Open-Meteo Great Barrier Reef SST | Open-Meteo Marine | JSON | 1h | https://marine-api.open-meteo.com/v1/marine |
+| 45 | Oceania | Open-Meteo Tasman Sea wave height | Open-Meteo Marine | JSON | 1h | https://marine-api.open-meteo.com/v1/marine |
+| 46 | Oceania | USGS New Zealand region earthquakes | USGS FDSN | GeoJSON | 30m | https://earthquake.usgs.gov/fdsnws/event/1/ |
+| 47 | Antarctica | Open-Meteo McMurdo air temperature | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 48 | Antarctica | Open-Meteo South Pole wind speed | Open-Meteo | JSON | 1h | https://api.open-meteo.com/v1/forecast |
+| 49 | Antarctica | Open-Meteo Antarctic coastal waves | Open-Meteo Marine | JSON | 1h | https://marine-api.open-meteo.com/v1/marine |
+| 50 | Antarctica | USGS Antarctic seismic events | USGS FDSN | GeoJSON | 1h | https://earthquake.usgs.gov/fdsnws/event/1/ |
+| 51 | ISS / orbit | ISS current geolocation and altitude | Where the ISS At | JSON | 10s | https://api.wheretheiss.at/v1/satellites/25544 |
+| 52 | ISS / orbit | ISS orbital TLE | Where the ISS At | JSON | 6h | https://api.wheretheiss.at/v1/satellites/25544/tles |
+| 53 | ISS / orbit | ISS ground-track positions | Where the ISS At | JSON | 1m | https://api.wheretheiss.at/v1/satellites/25544/positions |
+
+
+## Deferred until ingestion acceptance
+
+Globe accuracy, richer world navigation, derived composites, WorldSpec generation, 50-region benchmarks, replay and human tooling. These are not prerequisites for source ingestion.
+
+## References
+
+[README](README.md) · [VET](VET.md) · [CHRONICLE](CHRONICLE.md) · [Runtime](index.html) · [Sanctum contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md)
+
+```
+</details>
