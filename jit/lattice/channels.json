@@ -1,6 +1,6 @@
 {
   "schema": "lattice-channels/v1",
-  "purpose": "Manifest defines 53 candidates; CODED denotes extraction mapping only, not a verified source or browser",
+  "purpose": "53 candidates with independent implementation status and runtime disposition. ACTIVE requires observed normalized browser response; DEFERRED is excluded from future integration priority until tested.",
   "channels": [
     {
       "id": "01",
@@ -13,7 +13,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "02",
@@ -26,7 +28,9 @@
       "cadence": "6m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "03",
@@ -39,7 +43,9 @@
       "cadence": "12h",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "04",
@@ -52,7 +58,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "05",
@@ -65,7 +73,9 @@
       "cadence": "15m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "06",
@@ -78,7 +88,9 @@
       "cadence": "5m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "NWS alerts returned HTTP 400 in browser; requires provider test before reactivation"
     },
     {
       "id": "07",
@@ -91,7 +103,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "08",
@@ -104,7 +118,9 @@
       "cadence": "15m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "09",
@@ -117,7 +133,9 @@
       "cadence": "15m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "10",
@@ -130,7 +148,9 @@
       "cadence": "15m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "11",
@@ -143,7 +163,9 @@
       "cadence": "15m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "12",
@@ -156,7 +178,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "13",
@@ -176,7 +200,9 @@
       "sample": [
         -3,
         -60
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "14",
@@ -196,7 +222,9 @@
       "sample": [
         -3,
         -60
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "15",
@@ -216,7 +244,9 @@
       "sample": [
         -15,
         -70
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "16",
@@ -236,7 +266,9 @@
       "sample": [
         -50,
         -73
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "17",
@@ -249,7 +281,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "18",
@@ -262,7 +296,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "19",
@@ -275,7 +311,9 @@
       "cadence": "1h",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "20",
@@ -295,7 +333,9 @@
       "sample": [
         51,
         0
-      ]
+      ],
+      "disposition": "ACTIVE",
+      "dispositionReason": "Browser observation of normalized response on 2026-10-20; source fidelity remains subject to provenance caveats"
     },
     {
       "id": "21",
@@ -315,7 +355,9 @@
       "sample": [
         51,
         0
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "22",
@@ -335,7 +377,9 @@
       "sample": [
         51,
         0
-      ]
+      ],
+      "disposition": "ACTIVE",
+      "dispositionReason": "Browser observation of normalized response on 2026-10-20; source fidelity remains subject to provenance caveats"
     },
     {
       "id": "23",
@@ -355,7 +399,9 @@
       "sample": [
         51,
         0
-      ]
+      ],
+      "disposition": "ACTIVE",
+      "dispositionReason": "Browser observation of normalized response on 2026-10-20; source fidelity remains subject to provenance caveats"
     },
     {
       "id": "24",
@@ -375,7 +421,9 @@
       "sample": [
         51,
         0
-      ]
+      ],
+      "disposition": "ACTIVE",
+      "dispositionReason": "Browser observation of normalized response on 2026-10-20; source fidelity remains subject to provenance caveats"
     },
     {
       "id": "25",
@@ -388,7 +436,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "26",
@@ -401,7 +451,9 @@
       "cadence": "15m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "27",
@@ -414,7 +466,9 @@
       "cadence": "15m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "28",
@@ -434,7 +488,9 @@
       "sample": [
         15,
         0
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "29",
@@ -454,7 +510,9 @@
       "sample": [
         15,
         0
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "30",
@@ -474,7 +532,9 @@
       "sample": [
         23,
         12
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "31",
@@ -487,7 +547,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "32",
@@ -500,7 +562,9 @@
       "cadence": "1h",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "33",
@@ -520,7 +584,9 @@
       "sample": [
         3,
         -2
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "34",
@@ -540,7 +606,9 @@
       "sample": [
         26.55,
         56.35
-      ]
+      ],
+      "disposition": "ACTIVE",
+      "dispositionReason": "Browser observation of normalized response on 2026-10-20; source fidelity remains subject to provenance caveats"
     },
     {
       "id": "35",
@@ -560,7 +628,9 @@
       "sample": [
         26.55,
         56.35
-      ]
+      ],
+      "disposition": "ACTIVE",
+      "dispositionReason": "Browser observation of normalized response on 2026-10-20; source fidelity remains subject to provenance caveats"
     },
     {
       "id": "36",
@@ -580,7 +650,9 @@
       "sample": [
         26.55,
         56.35
-      ]
+      ],
+      "disposition": "ACTIVE",
+      "dispositionReason": "Browser observation of normalized response on 2026-10-20; source fidelity remains subject to provenance caveats"
     },
     {
       "id": "37",
@@ -593,7 +665,9 @@
       "cadence": "1m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Unverified third-party endpoint and access terms; do not poll until vetted"
     },
     {
       "id": "38",
@@ -606,7 +680,9 @@
       "cadence": "5m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Unverified third-party endpoint and access terms; do not poll until vetted"
     },
     {
       "id": "39",
@@ -619,7 +695,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "40",
@@ -632,7 +710,9 @@
       "cadence": "1h",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "41",
@@ -652,7 +732,9 @@
       "sample": [
         16,
         88
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "42",
@@ -665,7 +747,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "43",
@@ -678,7 +762,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "44",
@@ -698,7 +784,9 @@
       "sample": [
         -18,
         147
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "45",
@@ -718,7 +806,9 @@
       "sample": [
         -40,
         155
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "46",
@@ -731,7 +821,9 @@
       "cadence": "30m",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "47",
@@ -751,7 +843,9 @@
       "sample": [
         -77.85,
         166.67
-      ]
+      ],
+      "disposition": "ACTIVE",
+      "dispositionReason": "Browser observation of normalized response on 2026-10-20; source fidelity remains subject to provenance caveats"
     },
     {
       "id": "48",
@@ -771,7 +865,9 @@
       "sample": [
         -89.9,
         0
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "49",
@@ -791,7 +887,9 @@
       "sample": [
         -65,
         0
-      ]
+      ],
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     },
     {
       "id": "50",
@@ -804,7 +902,9 @@
       "cadence": "1h",
       "status": "SPECIFIED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Candidate only; no tested numbered-channel integration"
     },
     {
       "id": "51",
@@ -834,7 +934,9 @@
       "field": "altitude",
       "unit": "km",
       "kind": "calculated",
-      "sample": null
+      "sample": null,
+      "disposition": "ACTIVE",
+      "dispositionReason": "Browser observation of normalized response on 2026-10-20; source fidelity remains subject to provenance caveats"
     },
     {
       "id": "52",
@@ -851,7 +953,9 @@
       "field": "line1",
       "unit": null,
       "kind": "calculated",
-      "sample": null
+      "sample": null,
+      "disposition": "ACTIVE",
+      "dispositionReason": "Browser observation of normalized response on 2026-10-20; source fidelity remains subject to provenance caveats"
     },
     {
       "id": "53",
@@ -868,7 +972,9 @@
       "field": "latitude",
       "unit": "degrees",
       "kind": "calculated",
-      "sample": null
+      "sample": null,
+      "disposition": "DEFERRED",
+      "dispositionReason": "Extraction mapping exists but dedicated provider sample has not been browser-verified"
     }
   ]
 }
