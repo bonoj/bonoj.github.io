@@ -1,6 +1,6 @@
 # ICARUS — Development Chronicle
 
-**Status: design canon (provisional), 20 October 2026.** This is a record of the human/model design conversation, not an implementation report. [README](./README.md) is the current compact contract, approved emoji bank, and initial conceptual anatomy. No playable implementation is authorized; the film clock has not started. Proposed behaviors below are **design canon for exploration**, not proven mechanics or permission to build.
+**Historical development record, updated 20 October 2026.** This document preserves human/model turns, superseded concepts, the movie-clock jam, and design exploration. For the authoritative **current executable behavior**, read [README](./README.md); for the running request queue, read [SPEC](./SPEC.md). Earlier statements below that the film had not started or no executable existed are historical and were superseded. Proposed mechanics remain proposals unless verified in current source.
 
 ## Film-clock milestone — Mace versus Capa (approximately 00:10–00:12)
 
@@ -221,3 +221,14 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Human:** “Fischer, yeah. Still does not compute. Better doc our name war in chronicle. Shelby wins.”
 
 **Verdict:** **Shelby wins.** The human's nickname for Cillian Murphy's character aboard Icarus II is Shelby, regardless of the film credits. Canonical film identities remain Robert Capa (*Sunshine*), Robert Fischer (*Inception*), and Thomas Shelby (*Peaky Blinders*). Preserve this as a playful human-model naming convention, not a claim about the film's actual character names.
+
+
+### Documentation cleanup — actual executable versus historical design (20 October 2026)
+
+**Human:** “Okay what does the ship actually do right now?”
+
+**Model source-based assessment:** The current shell draws a fixed-position lighthugger, Sun, starfield, animated engine plume and diagonal meteor streaks; a rough proximity hit test registers impacts and subtracts 0.14 from a scalar ice reserve initially 100. It logs events, pauses/resets, and exports 👁 JSON. No physical shield erosion, hull topology, travel, crew, compartments, heat/radiation, repairs, or autonomous economy exists. The visual shell should not be represented as a physically coupled spacecraft.
+
+**Human:** “Doc that current functionality across clean readme and chronicle the noise.”
+
+**Model action:** Replaced the stale concept-only README with a compact source-grounded current runtime contract, explicit absent mechanics, four directional doctrines, and working links. The Chronicle remains the detailed record of earlier module-dashboard experiments, emoji vocabulary, Rocinante/Ender/Nostalgia inspirations, film checkpoints, the Shelby name war, and other exploration. The SPEC remains the running request queue. **No executable changed in this documentation pass.** Source commit for README: `794089a3`. GitHub Pages execution was not independently verified.
