@@ -23,6 +23,27 @@ for(const c of cases){
  }catch(e){failures++;console.error('FAIL',c.id,e.message)}
 }
 
+/* Probe newly coded independent feeds with actual HTTP and source-specific payload checks.
+   Candidate failures are visible diagnostics; they do not mask the established baseline. */
+const candidates=[
+ {id:'coops',url:'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?date=latest&station=8518750&product=water_level&datum=MLLW&units=metric&time_zone=gmt&format=json&application=lattice',check:j=>Array.isArray(j.data)&&j.data.some(x=>x.t&&Number.isFinite(Number(x.v)))},
+ {id:'usgswater',url:'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=01646500&parameterCd=00060,00065&siteStatus=all',check:j=>Array.isArray(j.value?.timeSeries)&&j.value.timeSeries.some(x=>x.values?.[0]?.value?.some(v=>v.value!==''&&Number.isFinite(Number(v.value))))},
+ {id:'ndbc',url:'https://www.ndbc.noaa.gov/data/realtime2/41009.txt',text:true,check:t=>/^#?YY\\s+MM\\s+DD\\s+hh\\s+mm\\b/m.test(t)&&/\\b(WVHT|PRES)\\b/.test(t)},
+ {id:'emsc',url:'https://www.seismicportal.eu/fdsnws/event/1/query?format=json&limit=100&orderby=time&minlatitude=34&maxlatitude=72&minlongitude=-25&maxlongitude=45',check:j=>Array.isArray(j.features)},
+ {id:'bom',url:'https://www.bom.gov.au/fwo/IDN60901/IDN60901.94767.json',check:j=>Array.isArray(j.observations?.data)}
+];
+let candidatePass=0;
+for(const c of candidates){
+ try{
+  const res=await fetch(c.url,{signal:AbortSignal.timeout(15000),headers:{'User-Agent':'Lattice-source-probe (https://github.com/bonoj/bonoj.github.io)','Accept':c.text?'text/plain':'application/json'}});
+  assert(res.ok,'HTTP '+res.status);
+  const data=c.text?await res.text():await res.json();
+  assert(c.check(data),'invalid source payload');
+  candidatePass++;
+  console.log('SOURCE_PASS',c.id,'HTTP',res.status,c.text?'text':'json');
+ }catch(e){console.warn('SOURCE_UNVERIFIED',c.id,e.message)}
+}
+console.log('Independent source probes:',candidatePass,'/',candidates.length,'HTTP/schema verified; browser CORS remains unverified');
 const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
 assert(!html.includes('if(!ids.includes(\'iss\'))ids.push(\'iss\')'),'Do not poll ISS outside the selected view');
 assert(html.includes('wake=setTimeout(drain,'),'Governor must wake a host-throttled queue');
