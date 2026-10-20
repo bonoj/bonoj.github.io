@@ -243,3 +243,20 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Source:** https://www.subtitlecat.com/subs/31/Sunshine.2007.1080p.BluRay.H264.AAC-RARBG.eng.html ; feature length reference: https://www.tvguide.com/movies/sunshine/2000042793/ .
 
 **Engineering pressure:** The film is now demonstrating coupled failure—ship orientation and shield repair alongside a fire in the oxygen garden—while the current Icarus executable remains only a visual shell with diagonal debris, approximate impacts and a scalar ice reserve. Do not claim a simulated oxygen garden or cascading fire exists. This checkpoint documents tightening remaining film time, not authorization for unrequested implementation.
+
+
+### The Ishimura lens — from ship silhouette to physical policy loop (20 October 2026)
+
+**Human:** “Alright. Now then. Reorienting. We want a playable dashboard for lighthugger policy control. Ablative ice can be a clustered forward emoji clutter.” The human supplied Tiffany Survivors and Ender Forge screenshots showing dense, spatial emoji worlds, visible resources and icon-first mobile control surfaces.
+
+**Model synthesis:** The ship itself is the battlefield, with policy controls acting as a command locus rather than direct crew control. The forward shield should be a visible cluttered population of individual ice chunks. Meteor impacts should alter the material arrangement and expose actual hull, not merely subtract from a scalar.
+
+**Human:** “We want messy as hell ice system around a locus informed by hull. So let's think about a lighthugger is. I see a string of nodes. It's a lot like the usg ishimura.”
+
+**Model synthesis:** Replace the sleek single-piece rocket concept with a huge industrial, asymmetric, longitudinal **string of nodes**. The *Dead Space* USG Ishimura offers a reference for exposed structural machinery and modular mass, not a ship to copy. The hull is a graph: nodes are structural/functional loci, edges connect them; chunks of ice attach around forward hull nodes and possibly one another. Shielding becomes irregular geometry and a material inventory with locality. A supporting node's destruction might release an entire still-intact ice cluster. Proposed portrait composition places the spine vertically with forward at top and an ice crown; this is a model recommendation, not a locked human choice.
+
+**Human:** “Doc this. I think we're finding our core loop.”
+
+**Emergent loop:** **Directional threat → local ice erosion → hull/node exposure → human policy choice → autonomous repair, allocation or transport → new physical shield state → next threat.** A meaningful policy loop requires real resource scarcity and visible structural consequences. This is the first coherent bridge between the Tiffany/Ender spatial emoji ecology and the lighthugger's strategic command ambition. Specific controls, supply chains, collision rules, and implementation scope remain open.
+
+**Model action:** Captured the operational direction in [SPEC.md](./SPEC.md). The current executable remains the prior visual shell; no new physics or game mechanics have been shipped or browser-verified in this turn.
