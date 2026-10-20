@@ -24,6 +24,8 @@ for(const c of cases){
 }
 
 const html=readFileSync(new URL('./index.html',import.meta.url),'utf8');
+assert(html.includes('wake=setTimeout(drain,'),'Governor must wake a host-throttled queue');
+assert(!html.includes('for(const r of regions)for(const id of r.channels)enqueue(id,r)'),'Do not fan out all continents in background batch');
 const match=html.match(/const latticeSampleGroups=(\[[^;]+\]);/);
 assert(match,'Runtime sample-group registry missing');
 const groups=JSON.parse(match[1]);
