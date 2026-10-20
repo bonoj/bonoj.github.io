@@ -38,3 +38,12 @@ Append requested changes here as the human identifies them. This is the operatio
 - **Emerging core loop:** **directional threats → localized ice loss → exposed hull nodes → human policy adjustment → autonomous crew/material response → changed protection and survival consequences**. The commander acts at policy/locus level, not as a joystick for individuals. Policy choices must compete over real constraints; no free shield restoration.
 - **First implementation frontier:** Choose the smallest playable vertical slice that exhibits an actual causal change in geometry/structure and a meaningful policy tradeoff. Exact policy commands, repair/supply mechanisms, and node/edge physics are open.
 - **Status:** Requested design, not shipped. Existing shell's numeric ice reserve and approximate collision are placeholders.
+
+
+### Solar-horizon ice arc and drone construction — Requested; in-chat prototype authorized (20 October 2026)
+- **Human:** “We need drone bays. And a way for ice to be positioned into a solar shield via drones. So they naturally want to build an arc to protect drones and activity after. Think frozen soldiers in the battle room. Do we want sun at top? I think sun at top as a curve gives us a place for text if we need it.” Then: “Oh hell yes. That's beautiful. Doc this and then build it here in chat.”
+- **Orientation:** Sun as a curved horizon at the **top** of portrait playfield, leaving an arc for sparse contextual text. Forward is sunward/up; structural spine extends downward/aft.
+- **Topology:** Hull nodes on a longitudinal spine; paired drone bays; forward ice attachments form an irregular curved canopy with an interior sheltered work cavity.
+- **Physical loop:** Finite ice inventory → drone retrieves a chunk → travels to an attachment site → installs a real chunk → occludes incoming sunlight/debris for zones behind it. Damage removes individual chunks and may expose drones/bays, creating repair work.
+- **Autonomy:** Drone policy selects work priorities and sheltered routes; player commands policy, not individual drones. Favor emergent protection arcs from candidate placement scoring over pre-scripted instant semicircle construction.
+- **First prototype:** In-chat interactive demonstration authorized. This does **not** authorize deploying changes to `jit/icarus/index.html` yet. Clearly distinguish illustrative sun/shadow rules from validated physics.
