@@ -202,3 +202,22 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Timestamp:** Approximately 00:29:00–00:30:12 of *Sunshine* (2007). Subtitles mark airlock opening at 29:16, helmet camera at 29:58, and EVA exit at 30:12. Approximately 77–78 minutes remain in the 107-minute feature. Scene-based estimate, not a measured playback clock.
 
 **Source:** https://www.subtitlecat.com/subs/31/Sunshine.2007.1080p.BluRay.H264.AAC-RARBG.eng.html
+
+
+### The Name War — Shelby wins
+
+**Human:** “What's Shelby's name? In the movie.”
+
+**Model:** “Robert Capa”, played by Cillian Murphy in *Sunshine* (2007).
+
+**Human:** “Capa, right. He's still Shelby.”
+
+**Model:** “Robert Capa on the Icarus II. Thomas Shelby in our hearts.”
+
+**Human:** “He's also inception. What was his name there?”
+
+**Model:** “Robert Fischer” — Cillian Murphy's character in *Inception* (2010).
+
+**Human:** “Fischer, yeah. Still does not compute. Better doc our name war in chronicle. Shelby wins.”
+
+**Verdict:** **Shelby wins.** The human's nickname for Cillian Murphy's character aboard Icarus II is Shelby, regardless of the film credits. Canonical film identities remain Robert Capa (*Sunshine*), Robert Fischer (*Inception*), and Thomas Shelby (*Peaky Blinders*). Preserve this as a playful human-model naming convention, not a claim about the film's actual character names.
