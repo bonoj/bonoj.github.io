@@ -95,7 +95,7 @@ Roles are **specialties, not exclusive permissions**. Any surviving crew member 
 
 **Player control remains open.** One attractive direction is controlling ship-wide priorities while crew members autonomously diagnose and respond. Direct commands are an alternative, not yet rejected. The fun may be observing small astronauts improvise, cooperate and make mistakes. Avoid turning the experience into a passive spreadsheet.
 
-## 6. Next decisions, without premature implementation
+## 6. Initial design questions (historical, before prototype)
 
 - Establish a ship silhouette and external screen composition.
 - Decide whether the ship moves or the Sun grows in frame.
@@ -105,4 +105,32 @@ Roles are **specialties, not exclusive permissions**. Any surviving crew member 
 - Choose the minimal reusable shell after source inspection; protect original worlds.
 - Only when authorized, start the film/game clock and implement a playable slice.
 
-**Do not claim this chronicle describes running code. No playable anything yet.** Continue documenting discoveries here; keep README lean and authoritative.
+**Historical note:** At this point in the chronology there was no executable. The first JIT prototype was subsequently committed; see the running log below.
+
+
+## 7. Running development log — preserve human turns
+
+**Logging contract (human request):** “Keep chronicle running as we go, it can get noisy and we can compact it later. Let's keep human turns legible.”
+
+From here onward, append chronologically. Keep the human's words **verbatim in clearly marked Human turn blocks** whenever feasible; distinguish the model's interpretation, work performed, observations, and remaining uncertainties. Prefer completeness over premature compression. Compaction can happen later, with human-turn fidelity preserved. Never rewrite a human request as if it were the model's idea. Do not claim deployments are live until verified.
+
+### Human turn — start playable exploration
+> “Okay. Give me a playable demo in chat that covers a few different possible systems. I can tap modules to explore them.”
+
+**Model action:** Built an in-chat interactive systems sandbox with four tappable modules (garden, habitat, coolant, shield), top-level oxygen/heat/power, time-stepped simulation, and repair dispatch. The in-chat build did not work for the human.
+
+### Human turn — switch to JIT and instrument
+> “Build in chat failed. Deploy it to the jit instead. Instrument it deeply with copy pasta 👁. I'll bring you report of all my interactions.”
+
+**Model action:** Created `jit/icarus/index.html` in `bonoj/bonoj.github.io` master. Commit `fb0ba1e2a0e63f07fbddd998ad5c380964c9dc28`. Source readback confirmed. Canonical target: https://bonoj.github.io/jit/icarus/ . **Live GitHub Pages serving was not verified.**
+
+**Prototype mechanics:** External ship profile, four tappable modules, time-based O₂/heat/power; irrigation/reseeding/fire, puncture/isolation/repair, pump toggle/coolant refill, shield damage/realignment/EVA. One simulated engineer traverses to assigned repair; finite spare parts. This is an exploratory systems lab, not a full crew ecology or accurate physics model.
+
+**👁 Observer contract:** `icarus-systems-observer/v1`; includes run ID, capture time, build field (currently `unstamped` until deployment stamping exists), elapsed simulation seconds, selected module, final state, events, interaction records, per-second tick records and deltas, snapshots. Up to 3000 trace records; a truncation flag indicates cap. Copy uses clipboard API with visible selectable JSON fallback. The human will paste observations into chat for interpretation. **Important limitation:** no independently verified live deployment or real browser test yet.
+
+### Human turn — chronicle discipline
+> “Keep chronicle running as we go, it can get noisy and we can compact it later. Let's keep human turns legible.”
+
+**Model action:** Established this running log and fidelity contract. Future work should append user reports, actions, findings, fixes, build identifiers, and verified observations without losing the human's words.
+
+**Current frontier:** Await the human's first 👁 observation; analyze actual interactions and failures, then decide which coupled physical systems merit the next iteration. Keep README compact; use this chronicle for the messy, valuable development record.
