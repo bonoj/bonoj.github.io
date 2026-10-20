@@ -183,3 +183,13 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Presentation and agency remain:** one clean mobile viewport, initially wordless, emoji/geometry/animation instead of text UI; autonomous crew with competing priorities, strategic commands rather than manual actor steering. Tower defense × FTL × RimWorld, with lighthugger scale and the possibility that the vessel itself becomes an agent.
 
 **Status:** design documented only; no new executable authorized or claimed.
+
+
+### Human turn — flash deployment with matching SHA
+> “Bingo bango. Flash the existing deployment with a shell build configured for painless deployment. Use jit ender-forge to guide the way. The sha you give me here should be the sha I see there.”
+
+**Source inspection:** Read `jit/ender-forge/README.md` and executable. Ender Forge uses a fallback fingerprint of executing inline JS; its README explicitly warns that this is not a Git commit SHA. The human instead requests the exact same **Git commit SHA** in chat and in the runtime.
+
+**Model action:** Replaced `jit/icarus/index.html` (existing canonical URL) with a one-screen wordless **Lighthugger shell**: Canvas vector vessel, Sun, incoming angled meteor streaks, rudimentary local ice-ablation counter, pause/reset, downloadable 👁 JSON and top-left 8-character build badge. The badge fetches the most recent commit touching this executable from the GitHub commits API, rather than displaying an unrelated script-content fingerprint. It reports `unverified` if lookup fails; this avoids inventing a build number. **Executable source commit: `228651a9600769ec78d892fd467c6dbaa704a8f4`; expected badge `228651a9`.** Source readback confirmed. GitHub Pages deployment and browser execution not independently verified. Canonical URL remains https://bonoj.github.io/jit/icarus/ .
+
+**Scope honesty:** Shell is a visual foundation, not yet a real ship architecture, a functional tower defense, a lighthugger-sized society, or a rigorous physical simulation. Micrometeor vectors and ice impacts are preliminary. No direct actor control or verbose HUD. Subsequent work should preserve matching commit/badge contract and clean viewport.
