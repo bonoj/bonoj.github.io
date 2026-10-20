@@ -49,6 +49,15 @@ jobs:
               assert source_html.count(marker)==1, 'Chaos build stamp missing or ambiguous'
               chaos_html.write_text(source_html.replace(marker, 'var BUILD = "'+deployed_sha+'";'))
               (chaos/'build.json').write_text(json.dumps({'sha':deployed_sha})+'\\n')
+          lattice=site/'jit/lattice'
+          lattice_html=lattice/'index.html'
+          if lattice_html.is_file():
+              source_html=lattice_html.read_text()
+              marker="VERSION='pending'"
+              footer='BUILD · pending'
+              assert source_html.count(marker)==1 and source_html.count(footer)==1, 'Lattice identity stamp missing or ambiguous'
+              lattice_html.write_text(source_html.replace(marker,"VERSION='"+deployed_sha[:8]+"'").replace(footer,'BUILD · '+deployed_sha[:8]))
+              (lattice/'build.json').write_text(json.dumps({'sha':deployed_sha})+'\\n')
           evermore=site/'jit/evermore-2'
           evermore_html=evermore/'index.html'
           if evermore_html.is_file():
