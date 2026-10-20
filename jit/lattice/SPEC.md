@@ -2,6 +2,29 @@
 
 **Authority:** This document specifies the target, not the currently implemented state. [README](README.md) records implemented behavior; [CHRONICLE](CHRONICLE.md) preserves historical decisions and prior specification text. [VET](VET.md) contains the initial provider audit.
 
+## Governing priority — MAXIMUM VACUUM (human directive, 2026-10-20)
+
+**This section overrides any conflicting implementation sequence, acceptance gate, quota, or next-step recommendation elsewhere in this document, VET, README, or CHRONICLE.** The primary objective is to ingest the maximum useful breadth and depth of legitimate public civilian Earth and orbital telemetry. The 53-channel inventory is a **minimum audit backlog, never an ingestion ceiling**. Source diversity, geographic reach, independent phenomena, and useful record coverage outrank presentation, catalog bookkeeping, and infrastructure polish.
+
+### Mandatory work order
+
+1. **Expand real ingestion first.** Implement and exercise previously untouched eligible source families: NOAA CO-OPS, USGS Water, NDBC, EMSC, Geoscience Australia, BOM, NWS forecast grids; then pursue additional public sources beyond the original 53. Reuse the existing USGS, EONET, NWS, UK EA, Open-Meteo and ISS responses to capture additional distinct signals without redundant requests. Prefer genuinely independent sources over merely multiplying sampled variables.
+2. **Confirm data gathering as part of each addition.** Run actual HTTP/schema checks and deterministic adapter tests; record precise source/deployment/browser evidence separately. When browser-origin CORS remains untested, label it unverified rather than treating CI as browser proof. Preserve useful raw record coverage where permitted; never invent a successful sample.
+3. **Continue expanding.** An eligible, tested source is a reason to add the next source, not to stop for polishing. Record inaccessible, empty, key-gated, terms-restricted, or invalid candidates with evidence and move on. Do not force an arbitrary channel count or spend turns repeatedly re-auditing already-working plumbing.
+
+### Explicit anti-distraction rules
+
+- **Do not pivot to persistence, replay, historical comparison, visualization, globe geometry, WorldSpecs, UX controls, dashboards, cosmetic refactoring, or telemetry-report redesign while eligible unintegrated sources remain.** These are deferred work, not the next frontier.
+- **Do not make the 53-channel verification ladder a blocking prerequisite to expanding ingestion.** Maintain honest status as integrations proceed; do not devote an entire development turn to promotion or manifest grooming in place of acquiring new sources.
+- **Do not replace the existing governor, CI, publisher, cache policy, or instrumentation without a demonstrated defect that blocks intake.** Fix genuine blockers minimally, then return immediately to source expansion.
+- **Do not treat aggregate transport success, a configured endpoint, a queued request, or a passing static assertion as proof of successful normalized data.** Prefer successful source payloads and extracted records. Respect provider terms, quotas, CORS and the no-secrets browser constraint.
+- **Do not ask the human to debug provider plumbing or manually repeat routine endpoint tests.** Use the existing automation and tests, and ask for browser evidence only when genuinely necessary.
+- **No artificial quotas, milestone ceilings, or premature declarations of completion.** The work continues while useful eligible sources remain.
+
+### Definition of a productive development turn
+
+A normal advance (➡️) should **add and test at least one previously unintegrated independent provider/source family or materially expand the real records/geography ingested by an existing provider**. If that cannot be achieved, report the concrete blocker and the next eligible source; do not substitute unrelated infrastructure work. Keep the operational handoff concise and update the chronicle only with material evidence.
+
 ## Objective
 
 Integrate and independently verify every eligible channel in the 53-channel candidate inventory before expanding human-facing tooling. A channel is a distinct signal, not necessarily an independent HTTP request. Never claim all 53 are live until evidence supports each claim. Unsupported channels remain explicit BLOCKED or UNAVAILABLE entries, with cause and next action.
