@@ -6,11 +6,34 @@ Lattice is a mobile-first global/ISS telemetry viewer. The **53 numbered channel
 
 **Transport contract:** one in-browser governor, HTTPS-only, max 2 concurrent requests / 1 per host, bounded queue, pacing wake-up, timeout/backoff, URL dedup and cache. Initial batch now gathers **all 15 previously provider-tested sample groups**, including deferred channel mappings, plus the currently selected region's legacy cards. The periodic tick fetches only selected-view cards; there is no implicit ISS poll on unrelated views. The 15 sample groups cover 21 numbered mappings; their collection does not automatically promote channels to ACTIVE. 👁 reports configured, successful and pending sample-group counts. The selected-view legacy cards are distinct from numbered channels and may use additional providers.
 
-**Evidence:** GitHub Actions [Lattice provider checks](https://github.com/bonoj/bonoj.github.io/actions/workflows/lattice-checks.yml) runs deterministic normalization/manifest guards and real HTTP/schema checks for six representative providers and all 15 sample groups. Antarctic wave channel 49 was deferred after a missing numeric wave value at (-65, 0); its request group was removed. Server-side probe success does not prove browser CORS or live rendering. Latest commits should be verified via CI and deployed build SHA; no invented cache-busting or manual build labels.
+**Evidence:** GitHub Actions [Lattice provider checks](https://github.com/bonoj/bonoj.github.io/actions/workflows/lattice-checks.yml) runs deterministic normalization/manifest guards, existing representative-provider checks, candidate HTTP/schema probes, and all 15 sample groups. Antarctic wave channel 49 was deferred after a missing numeric wave value at (-65, 0); its request group was removed. Server-side probe success does not prove browser CORS or live rendering. Latest commits should be verified via CI and deployed build SHA; no invented cache-busting or manual build labels.
 
 **Development invariants:** Preserve the existing [stable-world publisher](../../.github/workflows/stable-world.yml), SHA-stamped HTML and `build.json`, canonical URL, standalone UI, and independent Hormuz project. Do not introduce a second transport, expose keys, substitute different scientific variables, or classify channels ACTIVE without browser evidence. The inline normalizer currently duplicates `normalize.mjs`; keep them aligned until a tested single-source build is implemented.
 
-**Next:** confirm the latest CI and Pages publication, establish browser-level evidence for sample-group intake, and expand the intake catalog beyond the 15 already-tested groups where provider access is demonstrated. Do not ask the human to debug endpoint plumbing. Do not ask the human to debug endpoint plumbing. Detailed history and the ten-turn campaign are retained in [CHRONICLE.md](CHRONICLE.md).
+**Next:** expand verified station geography and independent provider coverage, then validate browser-origin intake; preserve the existing governor and publication machinery. Do not ask the human to debug endpoint plumbing. Detailed history and the ten-turn campaign are retained in [CHRONICLE.md](CHRONICLE.md).
+
+## Governing target and current geographic footprint
+
+**MAXIMUM VACUUM** is the overriding development objective; see [SPEC.md](SPEC.md). Collect the greatest practical breadth and depth of legitimate public civilian Earth/orbital observations. The 53-channel manifest is an audit backlog, **not a ceiling or a mandate to optimize one region**. On ➡️ prioritize **new independent provider families and broader geographic/record coverage**, not repeated single-station additions, UI, persistence, replay, instrumentation or publishing changes absent an actual intake blocker.
+
+**Current intake, as coded (not blanket browser-verified):**
+
+| Reach | Source | Current collection |
+| --- | --- | --- |
+| Global | USGS ComCat, NASA EONET | Earthquakes and natural events |
+| Global orbit | Where the ISS At / TLE | ISS position and orbital elements |
+| Worldwide sampled | Open-Meteo weather, marine and air | 15 fixed geographic sample groups, 21 numbered mappings; **not** dense global coverage |
+| Europe / surroundings | EMSC seismic portal | Bounded earthquake-event query |
+| United States | NWS | Active weather alerts |
+| England | UK Environment Agency | Flood warnings and river observations |
+| New York Harbor | NOAA CO-OPS | Water level, water temperature, wind speed/direction/gust at **one** station: The Battery, 8518750 |
+| Potomac River | USGS Water | Discharge and gauge height at **one** station: 01646500 |
+| Atlantic offshore | NOAA NDBC | Wave height and pressure at **one** buoy: 41009 |
+| Australia | BOM candidate | **Disabled** from collection: HTTP 403 in live probe; adapter retained but not claimed working |
+
+**Verified evidence:** [GitHub Actions run 39507745587](https://github.com/bonoj/bonoj.github.io/actions/runs/39507745587) completed successfully. Live server-side HTTP/schema probes passed for **five endpoints across four new source families** (CO-OPS water level, temperature and wind; USGS Water; NDBC; EMSC: **six endpoints**, counting all three CO-OPS products). BOM returned 403. All 15 Open-Meteo sample groups passed. These are **server-side** checks; browser CORS, continuously received normalized records and end-to-end deployment are separate evidence levels. No inference of global coverage from provider branding.
+
+**Next ➡️:** Expand the **geographic footprint**, not another Battery product. Reuse proven station-family adapters to ingest multiple geographically distributed stations (coasts, watersheds, offshore buoys) with bounded host pacing and attributable observations. Seek independent sources in Africa, South America, Asia, Oceania and polar regions; verify actual payload and browser accessibility. Treat the existing source list as an expanding floor, not an endpoint quota.
 
 ---
 
