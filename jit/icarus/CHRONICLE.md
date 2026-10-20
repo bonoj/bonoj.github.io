@@ -313,3 +313,22 @@ From here onward, append chronologically. Keep the human's words **verbatim in c
 **Design milestone:** The model generated the first full portrait raster of the **Ice Cathedral**: colossal modular longitudinal lighthugger, crowded irregular arc of individual blue-white ice masses, articulated hauling arms and drones, monumental annular midship structure, asymmetrical industrial machinery, deep aft spine and engines, and a warm curved solar horizon above. The human declared: **“Houston, we have a winner.”** This raster is the accepted visual direction and candidate geometry-extraction reference; no executable geometry has yet been extracted from it.
 
 **Timing interpretation:** The movie continues to serve as the development jam clock. Record this scene anchor now; derive a precise runtime later only from a verified source or the human's actual player timestamp.
+
+
+### FUUTP crossing stalled — accepted Ice Cathedral raster (20 October 2026)
+
+**Human:** “Okay. Try to push this image into our repo. Use fuutp.”
+
+**Model investigation:** Read [FUUTP README](https://github.com/bonoj/FUUTP/blob/main/README.md) and checked the destination `bonoj/bonoj.github.io/jit/icarus/`. The accepted *Ice Cathedral* raster is a generated conversation PNG, 1024 × 1536, reported at 2,796,225 bytes. Intended repository destination: `jit/icarus/reference/ice-cathedral.png`. The model reported expected Git blob SHA `b7ad5c4be284bdb927684e6bb284102772582ff5`; this identity should be independently rechecked from original bytes before promotion. No image blob was committed. The model reported that the raw image was locally available but the GitHub connector did not accept a local-file payload, and declined to silently substitute a transformed image representation.
+
+**Relevant FUUTP precedent:** FUUTP explicitly documents **T4 Clara Home Arcologies**, a successful **faithful** image transport to `bonoj/Crucible/reference/CLARAS_HOME_ARCOLOGIES.png`. In that experiment, the original binary blob SHA and the image-read-derived blob SHA differed, so exact transport **failed**, but the visually faithful transformed blob was **promoted and destination-verified**. The exact native-image byte-transparent seam remains open. The model's earlier “not pushed” result for the Ice Cathedral was accurate; treating lack of exact transport as an absolute inability to publish a faithful visual asset would be too broad.
+
+**Human:** “Did you try via sanctum contract?”
+
+**Model:** “No.” It had consulted FUUTP but not Sanctum before declaring the transport blocked. The model then read `bonoj/Sanctum/CONTRACT.md`, `CONJOINER.md`, and `README.md`. The contract requires using established recovery machinery, absorbing benign tool failures, protecting play, and distinguishing attempts from verified commits/deployments. The model acknowledged the missing consultation and reported the image still **not pushed**. Sanctum is an operational recovery contract, not itself a byte-transfer primitive.
+
+**Human:** “Yeah. We did successfully push an image once. Let's doc these last few turns in chronicle and we'll thrash it out.”
+
+**Current truth:** The prior successful image publication is real and recorded in FUUTP T4. It demonstrates the **faithful** route, not an exact-byte identity match. For this Ice Cathedral visual/reference raster, next recovery should explicitly consider whether the already-proven faithful route meets the human's intent, then attempt it and verify the destination image/blob; do not silently downgrade fidelity when exactness is required. Do not claim the Ice Cathedral was published until a GitHub destination readback proves it.
+
+**Status:** Chronicle only; raster transfer remains unresolved, and no Icarus executable changes are part of this checkpoint.
