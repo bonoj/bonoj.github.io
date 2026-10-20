@@ -1,6 +1,6 @@
 {
   "schema": "lattice-channels/v1",
-  "purpose": "Candidate inventory; no channel is browser-verified by this manifest",
+  "purpose": "Manifest defines 53 candidates; CODED denotes extraction mapping only, not a verified source or browser",
   "channels": [
     {
       "id": "01",
@@ -167,9 +167,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "precipitation",
+      "unit": "mm",
+      "kind": "model",
+      "sample": [
+        -3,
+        -60
+      ]
     },
     {
       "id": "14",
@@ -180,9 +187,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "relative_humidity_2m",
+      "unit": "%",
+      "kind": "model",
+      "sample": [
+        -3,
+        -60
+      ]
     },
     {
       "id": "15",
@@ -193,9 +207,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "snowfall",
+      "unit": "cm",
+      "kind": "model",
+      "sample": [
+        -15,
+        -70
+      ]
     },
     {
       "id": "16",
@@ -206,9 +227,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "wind_speed_10m",
+      "unit": "km/h",
+      "kind": "model",
+      "sample": [
+        -50,
+        -73
+      ]
     },
     {
       "id": "17",
@@ -258,9 +286,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "temperature_2m",
+      "unit": "°C",
+      "kind": "model",
+      "sample": [
+        51,
+        0
+      ]
     },
     {
       "id": "21",
@@ -271,9 +306,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "wind_gusts_10m",
+      "unit": "km/h",
+      "kind": "model",
+      "sample": [
+        51,
+        0
+      ]
     },
     {
       "id": "22",
@@ -284,9 +326,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "precipitation",
+      "unit": "mm",
+      "kind": "model",
+      "sample": [
+        51,
+        0
+      ]
     },
     {
       "id": "23",
@@ -297,9 +346,16 @@
       "requestGroup": "air",
       "source": "https://air-quality-api.open-meteo.com/v1/air-quality",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "pm2_5",
+      "unit": "µg/m³",
+      "kind": "model",
+      "sample": [
+        51,
+        0
+      ]
     },
     {
       "id": "24",
@@ -310,9 +366,16 @@
       "requestGroup": "air",
       "source": "https://air-quality-api.open-meteo.com/v1/air-quality",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "nitrogen_dioxide",
+      "unit": "µg/m³",
+      "kind": "model",
+      "sample": [
+        51,
+        0
+      ]
     },
     {
       "id": "25",
@@ -362,9 +425,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "temperature_2m",
+      "unit": "°C",
+      "kind": "model",
+      "sample": [
+        15,
+        0
+      ]
     },
     {
       "id": "29",
@@ -375,9 +445,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "precipitation",
+      "unit": "mm",
+      "kind": "model",
+      "sample": [
+        15,
+        0
+      ]
     },
     {
       "id": "30",
@@ -388,9 +465,16 @@
       "requestGroup": "air",
       "source": "https://air-quality-api.open-meteo.com/v1/air-quality",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "dust",
+      "unit": "µg/m³",
+      "kind": "model",
+      "sample": [
+        23,
+        12
+      ]
     },
     {
       "id": "31",
@@ -427,9 +511,16 @@
       "requestGroup": "marine",
       "source": "https://marine-api.open-meteo.com/v1/marine",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "wave_height",
+      "unit": "m",
+      "kind": "model",
+      "sample": [
+        3,
+        -2
+      ]
     },
     {
       "id": "34",
@@ -440,9 +531,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "wind_speed_10m",
+      "unit": "km/h",
+      "kind": "model",
+      "sample": [
+        26.55,
+        56.35
+      ]
     },
     {
       "id": "35",
@@ -453,9 +551,16 @@
       "requestGroup": "marine",
       "source": "https://marine-api.open-meteo.com/v1/marine",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "wave_height",
+      "unit": "m",
+      "kind": "model",
+      "sample": [
+        26.55,
+        56.35
+      ]
     },
     {
       "id": "36",
@@ -466,9 +571,16 @@
       "requestGroup": "marine",
       "source": "https://marine-api.open-meteo.com/v1/marine",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "ocean_current_velocity",
+      "unit": "km/h",
+      "kind": "model",
+      "sample": [
+        26.55,
+        56.35
+      ]
     },
     {
       "id": "37",
@@ -531,9 +643,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "wind_speed_10m",
+      "unit": "km/h",
+      "kind": "model",
+      "sample": [
+        16,
+        88
+      ]
     },
     {
       "id": "42",
@@ -570,9 +689,16 @@
       "requestGroup": "marine",
       "source": "https://marine-api.open-meteo.com/v1/marine",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "sea_surface_temperature",
+      "unit": "°C",
+      "kind": "model",
+      "sample": [
+        -18,
+        147
+      ]
     },
     {
       "id": "45",
@@ -583,9 +709,16 @@
       "requestGroup": "marine",
       "source": "https://marine-api.open-meteo.com/v1/marine",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "wave_height",
+      "unit": "m",
+      "kind": "model",
+      "sample": [
+        -40,
+        155
+      ]
     },
     {
       "id": "46",
@@ -609,9 +742,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "temperature_2m",
+      "unit": "°C",
+      "kind": "model",
+      "sample": [
+        -77.85,
+        166.67
+      ]
     },
     {
       "id": "48",
@@ -622,9 +762,16 @@
       "requestGroup": "weather",
       "source": "https://api.open-meteo.com/v1/forecast",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "wind_speed_10m",
+      "unit": "km/h",
+      "kind": "model",
+      "sample": [
+        -89.9,
+        0
+      ]
     },
     {
       "id": "49",
@@ -635,9 +782,16 @@
       "requestGroup": "marine",
       "source": "https://marine-api.open-meteo.com/v1/marine",
       "cadence": "1h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "wave_height",
+      "unit": "m",
+      "kind": "model",
+      "sample": [
+        -65,
+        0
+      ]
     },
     {
       "id": "50",
@@ -661,9 +815,13 @@
       "requestGroup": "iss",
       "source": "https://api.wheretheiss.at/v1/satellites/25544",
       "cadence": "10s",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "altitude",
+      "unit": "km",
+      "kind": "calculated",
+      "sample": null
     },
     {
       "id": "52",
@@ -674,9 +832,13 @@
       "requestGroup": "iss",
       "source": "https://api.wheretheiss.at/v1/satellites/25544/tles",
       "cadence": "6h",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "line1",
+      "unit": null,
+      "kind": "calculated",
+      "sample": null
     },
     {
       "id": "53",
@@ -687,9 +849,13 @@
       "requestGroup": "iss",
       "source": "https://api.wheretheiss.at/v1/satellites/25544/positions",
       "cadence": "1m",
-      "status": "SPECIFIED",
+      "status": "CODED",
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "field": "latitude",
+      "unit": "degrees",
+      "kind": "calculated",
+      "sample": null
     }
   ]
 }
