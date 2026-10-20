@@ -2,70 +2,60 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080e19"><title>ICARUS · ICE HAULERS</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080e19;color:#e2f0f8;font-family:system-ui,sans-serif}button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}.world{position:relative;width:100%;height:100dvh;overflow:hidden}canvas{position:absolute;inset:0;width:100%;height:100%;display:block}.hud{position:absolute;inset:0;pointer-events:none}.top{position:absolute;top:calc(env(safe-area-inset-top) + 8px);left:10px;right:10px;display:flex;justify-content:space-between;align-items:center;gap:7px}.bottom{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 9px);left:9px;right:9px;display:flex;flex-direction:column;gap:6px}.row{display:flex;gap:6px;align-items:center;justify-content:space-between}.hud button{pointer-events:auto;border:1px solid #8ba4bd66;background:#101b2bba;border-radius:10px;min-height:40px;padding:6px 11px;font-size:19px;backdrop-filter:blur(7px)}button.active{background:#346181dd;border-color:#a7e5ff}#build{font:600 11px ui-monospace,monospace;min-width:85px}#stats{font:10px ui-monospace,monospace;color:#b7d6e8;text-align:center;text-shadow:0 1px 5px #000}.policy{flex:1;font-size:13px!important;padding:8px 3px!important;white-space:nowrap}#toast{position:absolute;bottom:116px;left:15px;right:15px;text-align:center;font:12px ui-monospace,monospace;color:#d2eaf8;opacity:0;pointer-events:none}#toast.show{opacity:1}
-</style></head><body><main class="world"><canvas id="scene" aria-label="Solar horizon, structural spine, ice shield and autonomous ice hauling drones"></canvas><div class="hud"><div class="top"><button id="build" title="Source revision (not deployment attestation)">········</button><span id="stats">ICE 40 · COVER 0%</span><button id="eye" title="Export observation">👁</button></div><div class="bottom"><div class="row"><button id="pause">⏸</button><button id="orientation" title="Rotate shield orientation">↗️ ARC</button><button id="layer" title="Select next shield layer">🧊 L1</button><button id="reset">↻</button></div><div class="row"><button class="policy active" data-policy="expand">🛸 EXPAND</button><button class="policy" data-policy="repair">🔧 REPAIR</button><button class="policy" data-policy="shelter">🛡️ SHELTER</button></div></div><div id="toast"></div></div></main>
+</style></head><body><main class="world"><canvas id="scene" aria-label="Solar horizon, structural spine, ice shield and autonomous ice hauling drones"></canvas><div class="hud"><div class="top"><button id="build" title="Source revision (not deployment attestation)">········</button><span id="stats">🧊 · ☄️</span><button id="eye" title="Export observation">👁</button></div><div class="bottom"><div class="row"><button id="pause">⏸</button><button id="reset">↻</button></div></div><div id="toast"></div></div></main>
 <script>
 (()=>{'use strict';
-const canvas=document.getElementById('scene'),ctx=canvas.getContext('2d'),$=id=>document.getElementById(id);
-let W=1,H=1,D=1,last=0,elapsed=0,paused=false,policy='expand',layer=0,orientation=0,stock=42,hits=0,hullHits=0,events=[],meteors=[],drones=[],sites=[],revision=null,frame=0;
-const layers=[{radius:119,n:31},{radius:147,n:37},{radius:175,n:43}];
-const rand=(a,b)=>a+Math.random()*(b-a);
-function log(type,extra={}){events.push({t:+elapsed.toFixed(1),type,...extra});if(events.length>600)events.shift()}
-function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1500)}
-function geometry(){const k=Math.min(W/350,H/650);return{k,cx:W*.5,cy:H*.36,bayY:H*.59}}
-function point(s){const g=geometry(),a=Math.PI+(s.i/(s.n-1))*Math.PI+orientation*.28;return{x:g.cx+Math.cos(a)*s.r*g.k,y:g.cy+Math.sin(a)*s.r*g.k}}
-function reset(){elapsed=0;frame=0;stock=42;hits=0;hullHits=0;events=[];meteors=[];sites=[];layer=0;orientation=0;policy='expand';paused=false;
- layers.forEach((l,li)=>{for(let i=0;i<l.n;i++)sites.push({i,n:l.n,li,r:l.radius+(i%5-2)*2.5,hp:0,assigned:null})});
- const g=geometry();drones=[0,1].map(id=>({id,x:g.cx+(id?48:-48)*g.k,y:g.bayY,carry:false,site:null,phase:'idle',hp:3}));
- $('pause').textContent='⏸';document.querySelectorAll('.policy').forEach(b=>b.classList.toggle('active',b.dataset.policy==='expand'));updateButtons();log('reset')}
-function updateButtons(){$('layer').textContent='🧊 L'+(layer+1);$('orientation').textContent=['↗️ ARC','⬆️ ARC','↖️ ARC'][orientation+1];const built=sites.filter(s=>s.hp>0).length;$('stats').textContent='ICE '+stock+' · COVER '+Math.round(built/sites.length*100)+'% · ☄ '+hits+' · HULL '+hullHits}
-function selectSite(d){const free=sites.filter(s=>s.hp===0&&s.assigned===null&&(s.li===layer||policy==='repair'&&s.li<=layer));if(!free.length)return null;
- free.sort((a,b)=>{const score=s=>{const p=point(s),near=sites.filter(o=>o.hp>0&&Math.hypot(point(o).x-p.x,point(o).y-p.y)<35).length;return (policy==='repair'?near*4:0)+(s.li===layer?2:0)-Math.abs(s.i/(s.n-1)-.5)*3+Math.random()*.5};return score(b)-score(a)});return free[0]}
-function move(d,x,y,dt){const dx=x-d.x,dy=y-d.y,dist=Math.hypot(dx,dy),step=70*geometry().k*dt;if(dist<step){d.x=x;d.y=y;return true}d.x+=dx/dist*step;d.y+=dy/dist*step;return false}
-function update(dt){elapsed+=dt;frame++;
- const g=geometry();
- if(frame%39===0){meteors.push({x:rand(W*.08,W*.92),y:H*.065,vx:rand(-7,7)*g.k,vy:rand(64,92)*g.k})}
- for(const m of meteors){m.x+=m.vx*dt;m.y+=m.vy*dt;
- for(const s of sites){if(s.hp<=0)continue;const p=point(s);if(Math.hypot(p.x-m.x,p.y-m.y)<12*g.k){s.hp--;hits++;log('ice-impact',{layer:s.li,index:s.i,remaining:s.hp});m.y=H+100;break}}
- if(m.y>H*.46&&m.y<H*.48&&Math.abs(m.x-g.cx)<18*g.k){hullHits++;log('hull-impact');m.y=H+100}
- for(const d of drones)if(d.hp>0&&Math.hypot(m.x-d.x,m.y-d.y)<9*g.k){d.hp--;log('drone-impact',{id:d.id,hp:d.hp});m.y=H+100}
- }
- meteors=meteors.filter(m=>m.y<H*.86);
- for(const d of drones){if(d.hp<=0)continue;const bx=g.cx+(d.id?48:-48)*g.k,by=g.bayY;
- if(policy==='shelter'){if(d.site){d.site.assigned=null;d.site=null}d.carry=false;d.phase='return'}
- if(d.phase==='idle'){if(stock>0){const s=selectSite(d);if(s){s.assigned=d.id;d.site=s;d.phase='load'}}}
- if(d.phase==='load'){if(move(d,bx,by,dt)){d.carry=true;d.phase='haul';log('ice-loaded',{drone:d.id})}}
- if(d.phase==='haul'){const p=point(d.site);if(move(d,p.x,p.y+13*g.k,dt)){if(d.site.hp===0&&stock>0){d.site.hp=2;stock--;log('ice-placed',{drone:d.id,layer:d.site.li,index:d.site.i,stock})}d.site.assigned=null;d.site=null;d.carry=false;d.phase='return'}}
- if(d.phase==='return'){if(move(d,bx,by,dt))d.phase='idle'}
- }
- updateButtons()}
-function draw(){ctx.clearRect(0,0,W,H);const g=geometry(),k=g.k;
- const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#302633');bg.addColorStop(.32,'#192436');bg.addColorStop(.8,'#080e19');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
- // Curved gentle solar light: no facing solar disk.
- const glow=ctx.createRadialGradient(W*.5,-H*.1,10,W*.5,-H*.1,H*.9);glow.addColorStop(0,'#ffdf9b77');glow.addColorStop(.35,'#e6a66033');glow.addColorStop(1,'#c57d4200');ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
- ctx.strokeStyle='#f7c77b88';ctx.lineWidth=5*k;ctx.beginPath();ctx.moveTo(-W*.12,H*.13);ctx.quadraticCurveTo(W*.5,-H*.085,W*1.12,H*.13);ctx.stroke();
- ctx.strokeStyle='#f7c77b16';ctx.lineWidth=19*k;ctx.stroke();
- ctx.font=(12*k)+'px ui-monospace,monospace';ctx.textAlign='center';ctx.fillStyle='#f8dcb9';ctx.fillText('☀ SOLAR HORIZON',W*.5,H*.095);
- // industrial spine / temporary hull nodes
- ctx.strokeStyle='#8198aa';ctx.lineWidth=8*k;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(g.cx,H*.41);ctx.lineTo(g.cx,H*.78);ctx.stroke();
- for(const [y,w] of [[.46,41],[.56,76],[.67,59],[.76,42]]){ctx.fillStyle='#405b70';ctx.strokeStyle='#b2c7d5';ctx.lineWidth=2*k;ctx.beginPath();ctx.roundRect(g.cx-w*k/2,H*y-14*k,w*k,28*k,7*k);ctx.fill();ctx.stroke();ctx.fillStyle='#ebd29c';ctx.beginPath();ctx.arc(g.cx,H*y,7*k,0,7);ctx.fill()}
- // bays and tether anchors
- for(const id of [0,1]){const x=g.cx+(id?48:-48)*k;ctx.fillStyle='#75c8e7';ctx.beginPath();ctx.roundRect(x-21*k,g.bayY-17*k,42*k,34*k,8*k);ctx.fill();ctx.font=(19*k)+'px system-ui';ctx.fillText('🛸',x,g.bayY+7*k)}
- // attachment sites are positions, not a prebuilt solid shield
- for(const s of sites){if(s.li>layer||s.hp>0)continue;const p=point(s);ctx.fillStyle='#a3d9ed33';ctx.beginPath();ctx.arc(p.x,p.y,2*k,0,7);ctx.fill()}
- for(const s of sites){if(s.hp<=0)continue;const p=point(s);ctx.fillStyle='#9bd8f333';ctx.strokeStyle='#9de0f7a8';ctx.lineWidth=1.6*k;ctx.beginPath();ctx.arc(p.x,p.y,16*k,0,7);ctx.fill();ctx.stroke();ctx.font=(23*k)+'px system-ui';ctx.fillText('🧊',p.x,p.y+8*k)}
- for(const d of drones){ctx.font=(19*k)+'px system-ui';ctx.fillText(d.hp<=0?'💥':'🛸',d.x,d.y+7*k);if(d.carry){ctx.font=(15*k)+'px system-ui';ctx.fillText('🧊',d.x,d.y-12*k)}if(d.site&&d.hp>0){const p=point(d.site);ctx.strokeStyle='#78d4f799';ctx.lineWidth=1.4*k;ctx.setLineDash([5*k,6*k]);ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.setLineDash([])}}
- for(const m of meteors){ctx.strokeStyle='#f8b77c';ctx.lineWidth=2*k;ctx.beginPath();ctx.moveTo(m.x,m.y);ctx.lineTo(m.x-m.vx*.17,m.y-12*k);ctx.stroke()}
- ctx.font=(12*k)+'px ui-monospace,monospace';ctx.fillStyle='#98b3c6';ctx.fillText('AFT · STRUCTURAL SPINE',g.cx,H*.81);
-}
-function loop(t){const dt=Math.min((t-last)/1000||0,.05);last=t;if(!paused)update(dt);draw();requestAnimationFrame(loop)}
-function resize(){D=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;canvas.width=Math.round(W*D);canvas.height=Math.round(H*D);ctx.setTransform(D,0,0,D,0,0)}
-addEventListener('resize',resize);resize();reset();requestAnimationFrame(loop);
-$('pause').onclick=()=>{paused=!paused;$('pause').textContent=paused?'▶':'⏸';log(paused?'pause':'resume')};
-$('reset').onclick=reset;
-$('layer').onclick=()=>{layer=(layer+1)%3;log('layer-selected',{layer});updateButtons()};
-$('orientation').onclick=()=>{orientation=orientation===1?-1:orientation+1;log('orientation-selected',{orientation});updateButtons()};
-document.querySelectorAll('.policy').forEach(b=>b.onclick=()=>{policy=b.dataset.policy;document.querySelectorAll('.policy').forEach(x=>x.classList.toggle('active',x===b));log('policy',{policy});updateButtons()});
-$('eye').onclick=()=>{log('observation-export');const data={schema:'icarus-ice-haulers/v1',sourceRevision:revision,seconds:+elapsed.toFixed(2),policy,selectedLayer:layer,orientation,stock,hits,hullHits,sites:sites.filter(s=>s.hp>0).map(s=>({layer:s.li,index:s.i,hp:s.hp})),drones:drones.map(d=>({id:d.id,hp:d.hp,phase:d.phase,carrying:d.carry})),events,limits:'Prototype: discrete attachment slots, schematic hull and simplified debris interception; sunlight is visual, no thermal physics or actual towing tension.'};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='icarus-'+(revision?revision.slice(0,8):'unverified')+'-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);toast('👁 EXPORTED')};
-async function resolveBuild(){try{const res=await fetch('https://api.github.com/repos/bonoj/bonoj.github.io/commits?path=jit%2Ficarus%2Findex.html&per_page=1',{cache:'no-store'});if(!res.ok)throw Error('GitHub '+res.status);revision=(await res.json())[0]?.sha||null;$('build').textContent=revision?revision.slice(0,8):'unverified'}catch(e){$('build').textContent='unverified'}}resolveBuild();$('build').onclick=()=>toast('SOURCE REVISION · NOT LIVE ATTESTATION');
+const c=document.getElementById('scene'),x=c.getContext('2d'),E=id=>document.getElementById(id),OBS=true;
+let W,H,K,last=0,acc=0,time=0,paused=false,seed=741,events=[],counts={},meteors=[],ice=[],workers=[],packets=[],fires=[],plants=[],bays=[],links=[],next=0,storm=0,build='unverified',dropped=0,violations=[];
+const rnd=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296},rr=(a,b)=>a+(b-a)*rnd(),id=()=>++next;
+const log=(type,extra={})=>{if(!OBS)return;counts[type]=(counts[type]||0)+1;if(events.length>=2400){events.shift();dropped++}events.push({t:+time.toFixed(2),type,...extra})};
+const pos=(a,b)=>({x:a,y:b}),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y),alive=b=>b&&b.hp>0,by=t=>bays.find(b=>b.type===t),powered=b=>alive(b)&&alive(by('⚙️'))&&connected(b,by('⚙️'));
+function connected(a,b){if(!a||!b)return false;const seen=new Set([a.id]),q=[a.id];while(q.length){const v=q.shift();if(v===b.id)return true;for(const l of links)if(l.hp>0&&(l.a===v||l.b===v)){const n=l.a===v?l.b:l.a;if(!seen.has(n)){seen.add(n);q.push(n)}}}return false}
+function reset(){seed=741;next=0;time=0;acc=0;storm=0;events=[];counts={};meteors=[];ice=[];workers=[];packets=[];fires=[];plants=[];violations=[];dropped=0;paused=false;E('pause').textContent='⏸';
+const defs=[['⚙️',0,0.51],['🧊',-0.24,0.32],['⚗️',0.26,0.46],['💧',-0.31,0.62],['🌱',0.28,0.68],['🌳',0.11,0.83],['🛰️',-0.26,0.48],['🛰️',0.27,0.58]];
+bays=defs.map(([type,px,py],i)=>({id:id(),type,x:.5+px,y:py,hp:type==='⚙️'?9:5,cap:5,timer:rr(0,2),inventory:0,spawn:0,index:i}));
+links=[[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[3,2],[2,1],[3,4],[4,5]].map(([a,b])=>({id:id(),a:bays[a].id,b:bays[b].id,hp:3}));
+for(let i=0;i<92;i++){const angle=Math.PI*1.05+i/91*Math.PI*.90,r=.26+rr(-.035,.035),px=.5+Math.cos(angle)*r,py=.29+Math.sin(angle)*r*.62;ice.push({id:id(),x:px,y:py,hp:2,placed:true,initial:true,claimed:null})}
+log('reset',{ice:ice.length,bays:bays.length})}
+const P=o=>({x:o.x*W,y:o.y*H}),rad=(v)=>v*K;
+function hitSegment(a,b,p,r){const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1)));return {t,d:Math.hypot(a.x+dx*t-p.x,a.y+dy*t-p.y)}}
+function destroyBay(b){b.hp=0;log('moduleDestroyed',{bay:b.id,type:b.type});fires.push({id:id(),x:b.x,y:b.y,life:8});log('fireStarted',{bay:b.id});for(const l of links)if(l.a===b.id||l.b===b.id){l.hp=0;log('linkSevered',{link:l.id})}}
+function step(dt){time+=dt;storm-=dt;if(storm<=0){storm=rr(2.5,5);const vx=rr(-.22,.22);for(let i=0;i<rr(7,17);i++){const m={id:id(),x:rr(-.1,1.1),y:rr(-.14,.02),vx:vx+rr(-.045,.045),vy:rr(.20,.38)};meteors.push(m);log('meteorSpawn',{id:m.id,vx:m.vx,vy:m.vy})}log('storm',{vx})}
+for(const m of meteors){const a=P(m);m.x+=m.vx*dt;m.y+=m.vy*dt;const b=P(m),targets=[];
+for(const v of ice)if(v.hp>0&&v.placed){const h=hitSegment(a,b,P(v),rad(11));if(h.d<rad(11))targets.push({t:h.t,o:v,kind:'ice'})}
+for(const v of bays)if(v.hp>0){const h=hitSegment(a,b,P(v),rad(17));if(h.d<rad(17))targets.push({t:h.t,o:v,kind:'bay'})}
+for(const v of workers)if(v.hp>0){const h=hitSegment(a,b,P(v),rad(8));if(h.d<rad(8))targets.push({t:h.t,o:v,kind:'worker'})}
+targets.sort((a,b)=>a.t-b.t);if(targets.length){const z=targets[0],v=z.o;m.dead=true;v.hp--;log('meteorHit',{meteor:m.id,target:v.id,kind:z.kind});if(v.hp<=0){if(z.kind==='ice'){log('iceDestroyed',{id:v.id});v.claimed=null}else if(z.kind==='bay')destroyBay(v);else{log('workerDestroyed',{id:v.id});if(v.cargo){v.cargo.claimed=null;v.cargo.x=v.x;v.cargo.y=v.y;v.cargo.placed=false}}}}}
+meteors=meteors.filter(m=>!m.dead&&m.y<1.12&&m.x>-.3&&m.x<1.3);
+const power=by('⚙️'),water=by('💧'),chem=by('⚗️'),foundry=by('🧊'),garden=by('🌱'),forest=by('🌳');
+for(const b of bays){if(!alive(b))continue;b.timer-=dt;if(b.timer>0)continue;b.timer+=b.type==='🛰️'?1.8:2.8;
+if(b.type==='💧'&&powered(b)){packets.push({id:id(),kind:'💧',x:b.x,y:b.y,age:0});log('waterProduced',{bay:b.id})}
+if(b.type==='⚙️')log('powerPulse',{bay:b.id});
+if(b.type==='🛰️'&&powered(b)&&workers.filter(w=>w.hp>0).length<12){workers.push({id:id(),x:b.x,y:b.y,hp:2,home:b.id,cargo:null,target:null,phase:'seek'});log('workerSpawn',{bay:b.id})}
+if(b.type==='🧊'&&powered(b)&&b.inventory>0&&ice.filter(v=>v.hp>0&&!v.placed).length<24){b.inventory--;ice.push({id:id(),x:b.x,y:b.y,hp:2,placed:false,initial:false,claimed:null});log('iceProduced',{bay:b.id})}}
+for(const p of packets){p.age+=dt;if(p.dead)continue;const options=[garden,chem].filter(b=>powered(b));if(!options.length)continue;const target=options[(Math.floor(p.id/2))%options.length];const dx=target.x-p.x,dy=target.y-p.y,d=Math.hypot(dx,dy),v=.10*dt;if(d<v){p.dead=true;log('waterDelivered',{to:target.type});if(target===chem){chem.inventory++;log('precursorProduced');if(powered(foundry)&&chem.inventory>0){chem.inventory--;foundry.inventory++;log('precursorDelivered',{to:'🧊'})}}else{garden.inventory++;if(garden.inventory>=2){garden.inventory-=2;plants.push({id:id(),x:garden.x+rr(-.055,.055),y:garden.y+rr(-.035,.035),age:0});log('plantGrown')}}}else{p.x+=dx/d*v;p.y+=dy/d*v}}
+packets=packets.filter(p=>!p.dead);
+for(const p of plants){p.age+=dt;if(p.age>9&&!p.tree&&powered(forest)){p.tree=true;log('treeMatured',{id:p.id})}}
+for(const w of workers){if(w.hp<=0)continue;const home=bays.find(b=>b.id===w.home);if(!alive(home)||!powered(home)){w.phase='stranded';continue}if(w.phase==='seek'){const v=ice.find(v=>v.hp>0&&!v.placed&&v.claimed===null);if(v){v.claimed=w.id;w.cargo=v;w.phase='pickup';log('iceClaimed',{worker:w.id,ice:v.id})}}if(w.phase==='pickup'&&w.cargo){const v=w.cargo,dx=v.x-w.x,dy=v.y-w.y,d=Math.hypot(dx,dy),s=.12*dt;if(d<s){w.phase='haul';w.target=chooseGap();log('iceLoaded',{worker:w.id,ice:v.id})}else{w.x+=dx/d*s;w.y+=dy/d*s}}if(w.phase==='haul'&&w.cargo){const target=w.target||chooseGap(),dx=target.x-w.x,dy=target.y-w.y,d=Math.hypot(dx,dy),s=.09*dt;if(d<s){w.x=target.x;w.y=target.y;w.cargo.x=w.x;w.cargo.y=w.y;w.cargo.placed=true;w.cargo.claimed=null;log('icePlaced',{worker:w.id,ice:w.cargo.id});w.cargo=null;w.phase='return'}else{w.x+=dx/d*s;w.y+=dy/d*s;w.cargo.x=w.x;w.cargo.y=w.y}}if(w.phase==='return'){const dx=home.x-w.x,dy=home.y-w.y,d=Math.hypot(dx,dy),s=.13*dt;if(d<s)w.phase='seek';else{w.x+=dx/d*s;w.y+=dy/d*s}}}
+for(const f of fires){f.life-=dt;for(const b of bays)if(alive(b)&&dist(f,b)<.05){b.hp-=dt*.25;if(b.hp<=0)destroyBay(b)}for(const p of packets)if(!p.dead&&dist(f,p)<.035){p.dead=true;f.life-=2;log('fireQuenched',{fire:f.id})}}fires=fires.filter(f=>f.life>0);
+if(workers.filter(w=>w.hp>0).length>12)violations.push('swarm-cap');if(ice.some(v=>v.claimed!==null&&!workers.some(w=>w.id===v.claimed&&w.hp>0)))violations.push('orphan-claim');
+if(Math.floor(time*2)%4===0)E('stats').textContent='🧊 '+ice.filter(v=>v.hp>0&&v.placed).length+' · 🛰️ '+workers.filter(w=>w.hp>0).length+' · ☄️ '+(counts.meteorHit||0)}
+function chooseGap(){let best=null,score=-Infinity;for(let i=0;i<120;i++){const a=Math.PI*1.05+i/119*Math.PI*.9,r=.26,point={x:.5+Math.cos(a)*r,y:.29+Math.sin(a)*r*.62};const nearest=Math.min(...ice.filter(v=>v.hp>0&&v.placed).map(v=>dist(v,point)),1);const s=nearest+rr(0,.004);if(s>score){score=s;best=point}}return best||pos(.5,.15)}
+function draw(){x.clearRect(0,0,W,H);const bg=x.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#453029');bg.addColorStop(.32,'#1c2938');bg.addColorStop(1,'#050c17');x.fillStyle=bg;x.fillRect(0,0,W,H);x.fillStyle='#f3c78d';x.beginPath();x.ellipse(W/2,-H*.19,W*.75,H*.25,0,0,Math.PI*2);x.fill();
+x.strokeStyle='#8ca6b5';x.lineWidth=rad(9);x.beginPath();x.moveTo(W*.5,H*.29);x.lineTo(W*.51,H*.92);x.stroke();
+for(const l of links)if(l.hp>0){const a=bays.find(b=>b.id===l.a),b=bays.find(b=>b.id===l.b);x.strokeStyle='#708d9f';x.lineWidth=rad(3);x.beginPath();x.moveTo(a.x*W,a.y*H);x.lineTo(b.x*W,b.y*H);x.stroke()}
+for(const b of bays){const p=P(b);x.fillStyle=alive(b)?'#344e63':'#422b30';x.strokeStyle=alive(b)?'#b0c4d0':'#d45b46';x.lineWidth=rad(2);x.beginPath();x.roundRect(p.x-rad(19),p.y-rad(18),rad(38),rad(36),rad(6));x.fill();x.stroke();emoji(alive(b)?b.type:'💥',p.x,p.y,23)}
+for(const v of ice)if(v.hp>0&&v.placed){const p=P(v);x.fillStyle='#72b8df';x.strokeStyle='#d0f4ff';x.lineWidth=rad(1.5);x.beginPath();x.arc(p.x,p.y,rad(13),0,Math.PI*2);x.fill();x.stroke();emoji('🧊',p.x,p.y,20)}
+for(const v of ice)if(v.hp>0&&!v.placed){const p=P(v);emoji('🧊',p.x,p.y,18)}
+for(const p of packets)emoji('💧',p.x*W,p.y*H,12);for(const p of plants)emoji(p.tree?'🌳':'🌱',p.x*W,p.y*H,16);
+for(const w of workers)if(w.hp>0)emoji('🛰️',w.x*W,w.y*H,15);for(const f of fires)emoji('🔥',f.x*W,f.y*H,19);
+for(const m of meteors){const p=P(m);x.strokeStyle='#ffc080';x.lineWidth=rad(2);x.beginPath();x.moveTo(p.x,p.y);x.lineTo(p.x-m.vx*W*.10,p.y-m.vy*H*.10);x.stroke();emoji('💥',p.x,p.y,8)}}
+function emoji(e,a,b,size){x.font=rad(size)+'px system-ui';x.textAlign='center';x.textBaseline='middle';x.fillText(e,a,b)}
+function resize(){W=innerWidth;H=innerHeight;K=Math.min(W/390,H/780);const d=Math.min(devicePixelRatio||1,2);c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0)}
+function loop(t){const dt=Math.min((t-last)/1000||0,.1);last=t;if(!paused){acc+=dt;let n=0;while(acc>=1/60&&n++<7){step(1/60);acc-=1/60}}draw();requestAnimationFrame(loop)}
+E('pause').onclick=()=>{paused=!paused;E('pause').textContent=paused?'▶':'⏸';log(paused?'pause':'resume')};E('reset').onclick=reset;
+E('eye').onclick=()=>{const report={schema:'icarus-cathedral-observer/v1',build,seed,seconds:+time.toFixed(2),counts,dropped,violations,bays,links,ice:ice.map(v=>({id:v.id,x:v.x,y:v.y,hp:v.hp,placed:v.placed,initial:v.initial,claimed:v.claimed})),workers:workers.map(w=>({id:w.id,hp:w.hp,phase:w.phase,cargo:w.cargo?.id||null})),meteors,packets,plants,fires,events};const a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));a.href=u;a.download='icarus-'+build+'-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1500)};
+async function resolve(){try{const r=await fetch('https://api.github.com/repos/bonoj/bonoj.github.io/commits?path=jit%2Ficarus%2Findex.html&per_page=1',{cache:'no-store'});build=(await r.json())[0].sha.slice(0,8)}catch{}E('build').textContent=build}E('build').onclick=()=>{};
+addEventListener('resize',resize);resize();reset();resolve();requestAnimationFrame(loop);
 })();
 </script></body></html>
