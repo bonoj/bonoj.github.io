@@ -197,3 +197,34 @@ The worldwide world is built. The remaining gate is **live publication and runti
 The GitHub Actions workflow for executable commit `061f90de787322e64029be1e0bf846a387b5d7a4` completed with **success**, as independently checked through GitHub's workflow API (`run 39461801533`, `status=completed`, `conclusion=success`, `updated_at=2026-10-20T16:57:03Z` = **12:57:03 EDT**). This verifies a successful publishing workflow at the requested minute, **not an independently loaded public page or successful client-side telemetry fetch**. Public URL: https://bonoj.github.io/jit/lattice/ . Do not conflate successful workflow with browser runtime verification.
 
 **Timestamp convention:** the three human turns are reported as SPEC 12:47, VET 12:50, Dracarys 12:55; the GitHub publication workflow succeeded at 12:57:03. The later Chronicle request has no verified minute. The requested abbreviation EST is historically incorrect on October 20, 2026: daylight saving time is still in effect, so the accurate abbreviation is EDT (UTC−04:00).
+
+
+---
+
+## Transport-governor frontier — 2026-10-20 (time not independently verified)
+
+### Human direction (verbatim)
+
+> Inspect the hormuz good api call behavior vs lattice.
+
+> Lattice needs one contract for any endpoint to use. Good behavior forced.
+
+> Let's add to chronicle.
+
+### Source inspection and architectural synthesis
+
+The model read the executable `jit/hormuz/index.html` and `jit/lattice/index.html`, not only their README files. Hormuz's fixed-source collector uses a five-second **due-check**, per-source cadence, 12-second abort timeout, hidden-tab pause, explicit online recovery, and capped exponential retry backoff. Lattice retains due-checks and timeouts, adds multi-region channels and host-level in-flight suppression, but introduces a linear retry-delay expression instead of exponential backoff; shares EONET/ISS request keys globally while retaining redundant world/ISS USGS identities; lacks an explicit online listener; and skips busy-host work until a later scheduler pass rather than maintaining a proper queue. This was a **static source inspection, not measured browser network traffic**.
+
+The model initially recommended a transport-hardening pass. The human sharpened that into a stronger invariant: **one contract for every endpoint, with good behavior enforced by the machinery rather than expected from adapter authors.** This is not merely a patch to the six existing adapters. It is the admission contract for all future telemetry sources.
+
+### Persisted design decision
+
+[TRANSPORT_CONTRACT.md](TRANSPORT_CONTRACT.md) created in commit `2c2f8aa83ebc39c185d6233a9ad963009bc9a8ad`. [README.md](README.md) updated to make the contract the mandatory next cold-boot implementation in commit `725d7b8173525900ea07e03a9e16cd5e20365d2a`.
+
+The contract separates **endpoint declaration → transport governor → normalized observations → world**. Adapters declare request construction, source policy and parsing; only the governor may perform network I/O. Its required controls include validated registration; canonical request identities; cross-view deduplication; per-endpoint and per-host budgets; bounded fair queues and concurrency; capped exponential backoff with jitter and Retry-After; timeout and abort; offline/hidden pause with controlled resumption; bounded caching and stale-data preservation; provenance and source timestamps; and centrally inspectable 👁 request statistics. Manual refresh cannot bypass provider limits. Tests must exercise failure and rate-limit scenarios under fake clocks and fake fetch, including 50+ registered channels.
+
+**Verification boundary:** these controls are **specified and committed as documentation, not implemented or tested in Lattice's executable**. The six current adapters still use their original scheduler. Next model must implement the governor, migrate all six adapters, prove deterministic transport invariants, then resume source expansion. Hormuz remains untouched. Do not claim that the contract already enforces anything at runtime.
+
+### Why this matters
+
+The previous six-adapter implementation was a coherent one-turn vertical slice, not completion of the requested 53-channel worldwide inventory. Scaling should not multiply custom fetch loops, provider load, or failure modes. The intended property is compositional: a 54th endpoint receives good behavior by registering with the same transport, without inventing a scheduler of its own.
