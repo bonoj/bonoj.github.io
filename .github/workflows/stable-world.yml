@@ -99,7 +99,17 @@ jobs:
           print('PINNED RELEASE',sha)
           PY
       - name: Syntax check
-        run: find site/arcana site/athanor site/codex -type f -name '*.js' -print0 | xargs -0 -n 1 node --check
+        run: |
+          find site/arcana site/athanor site/codex -type f -name '*.js' -print0 | xargs -0 -n 1 node --check
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          html=Path('site/jit/lattice/index.html').read_text()
+          scripts=re.findall(r'<script(?:\\s[^>]*)?>([\\s\\S]*?)</script>',html)
+          assert scripts, 'Lattice inline script missing'
+          Path('/tmp/lattice-runtime.js').write_text('\\n'.join(scripts))
+          PY
+          node --check /tmp/lattice-runtime.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
@@ -120,6 +130,10 @@ jobs:
                   assert data['sha']==sha,(data,sha)
                   with urllib.request.urlopen('https://bonoj.github.io/?verify='+sha+'&attempt='+str(i),timeout=15) as r: html=r.read().decode()
                   assert 'HERMETICON' in html and 'location.replace' not in html
+                  with urllib.request.urlopen('https://bonoj.github.io/jit/lattice/build.json?verify='+os.environ['GITHUB_SHA']+'&attempt='+str(i),timeout=15) as r: lattice_build=json.load(r)
+                  assert lattice_build['sha']==os.environ['GITHUB_SHA'], ('Lattice stale deployment',lattice_build)
+                  with urllib.request.urlopen('https://bonoj.github.io/jit/lattice/index.html?verify='+os.environ['GITHUB_SHA']+'&attempt='+str(i),timeout=15) as r: lattice_html=r.read().decode()
+                  assert 'BUILD · '+os.environ['GITHUB_SHA'][:8] in lattice_html, 'Lattice HTML stamp stale'
                   # Validate immutable assets as well as the entry document.
                   with urllib.request.urlopen('https://bonoj.github.io/athanor/compose.js?v='+sha,timeout=15) as r: module=r.read().decode()
                   assert len(module)>100 and 'import' in module
