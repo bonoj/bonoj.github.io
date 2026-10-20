@@ -39,6 +39,10 @@ assert(html.includes('sampleGroupsSuccessful:'),'Runtime eye must expose success
 assert(html.includes('function latticeCollectRecords(id,j,url)'),'Structured event collector missing');
 assert(html.includes('channels.coops={label:'),'NOAA CO-OPS source must exist');
 assert(html.includes('channels.usgswater={label:'),'USGS Water source missing');
+assert(html.includes('channels.ndbc={label:'),'NOAA NDBC source missing');
+assert(html.includes("{id:'ndbc',region:'na'}"),'NDBC must be scheduled in vacuum');
+assert(html.includes("if(id==='ndbc')"),'NDBC records must be extracted');
+assert(html.includes("responseType==='text'?latticeParseNdbc(body):JSON.parse(body)"),'NDBC text transport missing');
 assert(html.includes("{id:'usgswater',region:'na'}"),'USGS Water must run globally');
 assert(html.includes("if(id==='usgswater')"),'USGS Water structured observations missing');
 assert(html.includes("{id:'coops',region:'na'}"),'NOAA source must be in continuous vacuum');
