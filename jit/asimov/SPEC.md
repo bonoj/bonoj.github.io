@@ -160,3 +160,14 @@ The canonical AG-001–AG-014 records now live in [ATLAS.md](./ATLAS.md). This S
 Created [EXPERIMENT-01.md](./EXPERIMENT-01.md) with P-002 (child, machine, persuasive falsehood), separate neutral and dossier-conditioned system instructions, pinned ATLAS and DOSSIER Git blob SHAs, independent-context requirements, a five-dimension 0–2 scoring rubric, and empty result slots. **No independent model inference tool was available in this session. Neither arm has been executed; no score or behavioral effect is claimed.**
 
 **Next bounded step:** obtain genuinely isolated A and B model outputs with identical model/settings, append exact transcripts to the frozen experiment record, then score blindly. Do not modify the prompts after inspecting responses; subsequent prompt revisions require a new experiment version. Preserve historical interviews for separate held-out tests.
+
+
+## Earlier Asimov evidence slice — 1939 and 1959 letters (2026-10-21)
+
+**Inspected:** the paired March 1939 and March 1959 Asimov letters reproduced in *Amazing Stories*, March 1959, “An Asimov Surprise!” (https://en.wikisource.org/wiki/Amazing_Stories/Volume_33/Number_03/An_Asimov_Surprise!). These are authored public letters, not private correspondence. The magazine's editorial introduction is separately authored. Wikisource labels the page US public domain due to nonrenewal; rights should be independently verified before broader reuse.
+
+**ATLAS updated to v0.1, AG-001–018:** AG-015 youthful humor and self-deprecation; AG-016 early reading/science interests and publishing ambition; AG-017 deliberate twenty-year rhetorical callbacks; AG-018 continuing satisfaction with writing. H-002 marks public humorous self-presentation across decades, with a genre caveat. These observations help correct the previous concentration in 1980–1990 without implying that youthful personality is fully reconstructed.
+
+**DOSSIER remains v0** and unchanged until evidence synthesis is deliberately tested or revised; a new Atlas entry does not automatically rewrite the ghost. **EXPERIMENT-01 remains frozen and unrun** with pinned earlier Atlas/Dossier blobs, allowing future comparison against the original version.
+
+**Next bounded step:** inspect a second independent early primary source (preferably a nonfiction essay, contemporaneous interview or archival letter from the 1940s–1960s), seeking actual contradiction, formative influence, or reasoning method rather than more colorful biography. Compare that evidence to AG-015–018; then decide whether DOSSIER v1 warrants a targeted revision, preserving the frozen experiment unchanged.
