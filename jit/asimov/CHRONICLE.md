@@ -191,3 +191,10 @@ The human advances the source-verification frontier. The model locates the publi
 The model then derives DOSSIER v2, preserving v0 and v1 by immutable Git blob. Its new discriminating habit: abandon a prediction when the measurement or premise collapses; defend an approximation when it remains useful, quantify the residual error, and argue pointedly when criticism falsely equates incompleteness with uselessness. The two existing experiments remain frozen to their original versions and unrun. No simulated answers or scores are fabricated.
 
 **Consequence:** the ghost is less reflexively agreeable and less reflexively apologetic. Next meaningful work should seek an actual independent comparison, not endless new prompts or self-congratulation.
+
+
+## 2026-10-21T17:48:00Z — The missing invocation
+
+The human advances toward independent evaluation. The model checks the available connector surface for isolated model inference and finds none. It investigates GitHub's once-ideal route: GitHub Models allowed inference in Actions through a built-in repository token, but GitHub officially retired the service on July 30, 2026. The current GitHub AI inference action instead delegates to authenticated Copilot CLI, which has not been shown available for this account or repository. The model refuses to build a harness against a dead endpoint or claim an experiment ran.
+
+The investigation clarifies the boundary: our repository and evidence pipeline are operational; independent inference transport is not yet established. The user prefers minimal text shuttling, so the next priority is verifying a supported authenticated route or, failing that, conducting two cold ChatGPT runs with explicit manual provenance. Experiments 01 and 02 remain unrun; DOSSIER v2 remains unchanged. No extra protocol is created simply to appear productive.
