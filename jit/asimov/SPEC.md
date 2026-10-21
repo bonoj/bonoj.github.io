@@ -42,3 +42,22 @@ Resurrection, consciousness emulation, authenticated voice or likeness, unrestri
 **Next bounded turn:** identify a first small set of strong Asimov primary sources, with dates, access locators, reliability and rights status. Persist a source inventory and explicitly distinguish inspected material from candidate sources. Then select a single historically grounded question to begin extracting the ghost's reasoning profile. Do not fabricate a corpus or begin UI work.
 
 **Completion test for each turn:** verify any new source or claim, update this section to distinguish completed versus pending work and specify the next step, append a dated CHRONICLE entry, and change README only if its cold-boot frontier or invariants have changed.
+
+
+## Cognitive Atlas and model strategy — 2026-10-21
+
+**Decision:** start with a general-purpose model conditioned on a compact, source-grounded Ghost Dossier. Do not train a micromodel initially. The objective is reconstructing intellectual behavior, not merely imitating prose.
+
+**Six evidence dimensions:** (1) biography and formative relationships; (2) worldview including science, humanism, education, politics, religion and technology; (3) reasoning, analogies, objection handling and uncertainty; (4) personality, humor, curiosity and temperament; (5) written and spoken voice; (6) evolution of beliefs across decades. Distinguish autobiography's self-presentation, interviews' spontaneous register, nonfiction's explanatory reasoning and fiction's themes; never automatically assign a character's beliefs to the author.
+
+**Seventh evaluation dimension:** predictive behavior. Hold back historical interview answers and test whether the ghost anticipates their substance, argument structure and uncertainty without access to the answers. Do not score mere stylistic resemblance as fidelity.
+
+**Candidate primary sources, not yet inspected:** *In Memory Yet Green*, *In Joy Still Felt*, *I, Asimov: A Memoir*, dated explanatory essays and interviews. Record date, edition, locator, evidence class, reliability, and rights/access status. Do not presume published texts are public domain or training-licensed.
+
+**Architecture A (first):** general model plus versioned dossier. **B (second):** dossier plus retrievable primary evidence when needed. **C (optional):** fine-tuned micromodel trained only on appropriately usable data, evaluated against A/B for both voice and reasoning fidelity. Fine-tuning may worsen factual grounding.
+
+**Cognitive Atlas v0:** target 20–30 propositions, each with dated source locator, direct/secondary/inferred classification, confidence, contradictions, and rights status. Uninspected claims remain hypotheses. Probe atlas-conditioned and baseline model answers, reserving held-out interview material.
+
+**Just completed:** model strategy and Cognitive Atlas v0 specification, not an actual atlas or trained model.
+
+**Next bounded turn:** inspect and verify a first small group of Asimov primary sources, record bibliographic and rights details, and extract the first evidence-backed propositions. Do not build an interface or backend.
