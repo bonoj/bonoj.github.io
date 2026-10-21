@@ -280,3 +280,8 @@ The human supplies a spontaneous three-turn Ghost continuation comparing Michael
 ## 2026-10-21T20:39:00Z — The fourth eye opens
 
 The human points out that Experiment 04 was only a repository protocol, not a usable instrument, and authorizes the model to advance. The model creates and populates `04.html` with a mobile-first single-chat cockpit, pinned v2 Dossier initialization, five prompts, editable deviation branches, persistent local capture, and JSON export. GitHub source readback verifies the artifact. Live Pages and device use remain to be checked; no model inference is claimed.
+
+
+## 2026-10-21T22:18:00Z — The phantom turn was cache
+
+The human resolves Eye 04's unexplained second Turn 1 response: the instrument had to be rebooted, but a stale cache prevented a clean repeat. The extra response was a capture artifact, not a spontaneous human deviation. The model updates the provenance and retains five intended turns as the analytic unit. The behavioral findings remain unchanged; future Eyes should make build identity and recovery unambiguous without imposing manual cache rituals.
