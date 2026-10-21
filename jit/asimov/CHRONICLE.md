@@ -85,3 +85,10 @@ The human advances from evidence gathering to the first conversational probe. Th
 The invented answer challenges the definition of a mind, distinguishes instrumental amplification from new personhood, introduces an original telescope analogy, and turns toward intellectual independence and responsibility. Its resistance to simply endorsing the project's premise is promising as a design property, but neither the language nor the analogy is authenticated Asimov testimony.
 
 **Critical limitation:** this was a single demonstration by the model already exposed to the atlas and the human's project, not an isolated baseline-versus-conditioned experiment. No held-out answer exists for the counterfactual. A convincing performance therefore provides no measured historical fidelity. The next experiment needs isolated, logged model calls; otherwise the work should continue to be described as demonstrations.
+
+
+## 2026-10-21T17:37:00Z — Atlas becomes a real artifact
+
+The human asks whether Atlas is the right name for what we are compiling. The model distinguishes the evidence map (Atlas), its eventual compact model-facing synthesis (Dossier), and the disclosed conversational reconstruction (Ghost). This avoids confusing documented claims with interpretation or performance.
+
+A standalone ATLAS.md is created with all fourteen provisional propositions, source register, cross-source hypothesis H-001, and human–machine tension T-001. SPEC now points to ATLAS as canonical rather than duplicating proposition definitions, and README's cold boot includes the new artifact. No model training or independent fidelity evaluation is implied. Next: derive the first dossier and design an isolated probe.
