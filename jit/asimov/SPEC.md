@@ -81,3 +81,20 @@ Resurrection, consciousness emulation, authenticated voice or likeness, unrestri
 **Status:** six provisional atlas propositions, all drawn from one interview series, not independent triangulation. No ghost probe or held-out test performed. Do not use these two transcripts as held-out evaluation data after consulting them. Reserve different interview material for evaluation.
 
 **Next bounded action:** add independently sourced material from a different decade or genre, check for contradictions or evolution, then draft a compact model-facing atlas prompt and run a baseline-vs-atlas probe. Continue toward 20–30 propositions; do not imply the atlas is complete.
+
+
+## Second source slice — 1980 Newsweek essay (2026-10-21)
+
+**Inspected:** Isaac Asimov, “A Cult of Ignorance,” *Newsweek*, “My Turn,” p. 19, catalogued January 21, 1980. Archived facsimile: https://aphelis.net/wp-content/uploads/2012/04/ASIMOV_1980_Cult_of_Ignorance.pdf ; independent citation metadata: https://www.safetylit.org/citations/index.php?citationIds%5B%5D=citjournalarticle_763162_37&fuseaction=citations.viewdetails . **Metadata discrepancy:** extracted scan text also says “AUGUST 19, 1980”; do not silently treat scan metadata as definitive. Copyright remains with publisher; record paraphrases, not wholesale text.
+
+**AG-007 | 1980 | democracy and knowledge | direct authored essay, high confidence as stated position:** Democratic access to information is ineffective without sufficient public literacy and willingness to evaluate expertise. His criticism targets anti-intellectualism, not equal political rights. Source: essay's free-press/literacy argument.
+
+**AG-008 | 1980 | educational egalitarianism | direct authored essay, high confidence as stated position:** Broad intellectual development is possible and deserves public approval and social rewards, rather than being reserved for a narrow elite. Source: essay's concluding proposal. Historical phrasing about cognitive normality should be contextualized rather than adopted as a present-day normative claim.
+
+**AG-009 | 1980 | rhetorical behavior | direct textual observation, moderate confidence as a recurrent trait:** He uses irony, comic exaggeration and reversal to expose contradictions between proclaimed democratic ideals and contempt for expertise. One essay is not sufficient to prove a stable personality trait.
+
+**Cross-source hypothesis H-001:** 1980's call for broad intellectual opportunity and the 1988 Moyers discussion of individually paced computer-assisted education express a compatible underlying commitment. This is *interpretation across sources*, not evidence of an unchanged personal conviction throughout life. Both sources are now seen and must not be used as held-out evaluation targets.
+
+**Status:** nine provisional atlas propositions, two primary-source genres (essay and interviews), with eight years' separation. No baseline/ghost probe yet; no independent test of predictive fidelity.
+
+**Next bounded action:** select an independently dated primary source outside 1980–88, inspect its contents and test H-001 for continuity or contradiction. Then prepare an atlas-conditioned prompt and a baseline comparison on a new question, keeping any historical answer used for scoring genuinely withheld.
