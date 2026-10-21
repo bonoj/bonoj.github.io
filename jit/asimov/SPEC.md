@@ -326,3 +326,8 @@ The human supplied a three-turn continuation of the Experiment 03 Ghost arm on M
 ## Eye 04 source shipped — 2026-10-21
 
 [04.html](./04.html) implements [EXPERIMENT-04.md](./EXPERIMENT-04.md) as a single-chat mobile cockpit: exact frozen Dossier v2 embedded, one-time initialization, five prompts, localStorage answers/deviations/replies, shared-document notes, model label, JSON copy/download, and no backend. GitHub source commit `973ce14c26fae6eeb5e8ad1e43b6253a6d7d7cf9`; source readback verified. Live Pages and device behavior not independently verified. Next: human opens page, confirms interface and captures continuous conversation.
+
+
+## Experiment 04 exploratory result — 2026-10-21
+
+The human submitted a full Eye 04 JSON export (2026-10-21T22:17:58.694Z): five captured primary responses in one user-attested Ghost-v2 chat, no documented human deviations or shared documents, model label Gpt6. A second Conjoiner answer appears in the first turn's optional reply slot without a corresponding deviation; provenance ambiguous. See [EXPLORATORY-RUN-04.md](./EXPLORATORY-RUN-04.md). Ghost maintains conceptual continuity (collective error, consent, transformed preferences) and productive disagreement; Turn 5 independently chooses a follow-on thought experiment. Turn 4 reverts strongly to generic model/experiment explanation while remaining truthful. Long structured repetition across turns. No neutral control or historical distinctiveness demonstrated. Dossier v2 unchanged. Next: targeted hypothesis and controlled comparison, not more generic science questions.
