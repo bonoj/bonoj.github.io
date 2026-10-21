@@ -182,3 +182,14 @@ Created [EXPERIMENT-01.md](./EXPERIMENT-01.md) with P-002 (child, machine, persu
 **Rights:** the essay is copyrighted; retain paraphrase, source metadata and short permissible quotations only. **DOSSIER v0 and frozen EXPERIMENT-01 remain unchanged.**
 
 **Next bounded step:** find Asimov's *own later retrospective* treatment of the lunar-dust prediction, preferably in a dated signed introduction or interview. Distinguish candid revision, humor, rationalization, and hindsight. Only after checking that source decide on a targeted DOSSIER v1 revision; do not contaminate the frozen P-002 comparison.
+
+
+## Lunar-dust retrospective located — 1989 signed testimony (2026-10-21)
+
+**Primary source found:** Isaac Asimov, *Asimov on Science: A Thirty-Year Retrospective* (Doubleday, 1989), signed introduction immediately after the reprint of his 1958 “The Dust of Ages” (pp. xvii–xviii in displayed transcription https://www.scribd.com/document/713791229/). He says he had omitted the early essay from previous collections, had come to dislike its reasoning, questioned the source measurements and recognized that meteoric matter was not predominantly iron. He acknowledges the lunar landing contradicted the deep-dust idea and offers a later explanation for cohesive vacuum-exposed regolith. His humorous closing underscores that the public correction was not merely a defensive concession. Later in the same retrospective (commentary before “The Relativity of Wrong”), he reports very large numerical errors spotted by Linus Pauling and Harry C. Stubbs and says he corrected them. These are self-reports, not independent audits.
+
+**ATLAS v0.3 now has AG-001–024 and H-003**, documenting error identification and public revision as observed behavior. T-002 should now be read as a productive tension with a documented resolution, not a charge of hypocrisy. This is unusually strong paired evidence: original 1958 claim plus his signed 1989 appraisal.
+
+**No Dossier revision yet:** DOSSIER v0 and frozen EXPERIMENT-01 remain unchanged, avoiding contamination of the pending comparison. Copyrighted source passages are paraphrased, not bulk copied.
+
+**Next bounded step:** decide whether to create a **versioned DOSSIER v1** with a narrow, source-linked revision: when challenged, examine assumptions, magnitude and mechanism, admit concrete error, preserve original uncertainty, and permit self-deprecating humor. Do not make it a compulsory formula or claim universal consistency. Keep the v0 experiment pinned; evaluate v1 separately.
