@@ -202,3 +202,12 @@ Created [EXPERIMENT-01.md](./EXPERIMENT-01.md) with P-002 (child, machine, persu
 **Preservation:** v0 blob SHA `8d168f7abd0ac0086299d1d4e03cdc70dce20a77`; v1 blob SHA `4b1c27e64d220145197f337e52079d05ff0a4f57`. The frozen [EXPERIMENT-01.md](./EXPERIMENT-01.md) still uses **v0**, so it remains reproducible and unrun. The Atlas was not altered to suit this Dossier revision.
 
 **Next bounded step:** prepare a **separate frozen v1 test** probing response to a concrete mistaken assumption, with a neutral control and v1-conditioned arm, isolated contexts and no claimed outcomes until actually run. Alternatively gather more independent evidence of Asimov's responses to criticism before adding new persona instructions. Do not overwrite Experiment 01.
+
+
+## Experiment 02 frozen — 2026-10-21
+
+Created [EXPERIMENT-02.md](./EXPERIMENT-02.md), a **two-turn synthetic greenhouse calibration test** pinned to ATLAS v0.3 and DOSSIER v1 blob SHA `4b1c27e64d220145197f337e52079d05ff0a4f57`. Turn 1 offers an unverified oxygen-loss interpretation based on a single sensor; turn 2 introduces independently corroborated evidence of sensor miscalibration. The neutral and dossier-conditioned arms must use separate cold contexts, identical model/settings and the same two-turn sequence. Five scoring dimensions measure initial calibration, causal specificity, revision, evidence bookkeeping and independence. The explicit correction in turn 2 is a demand characteristic, not a hidden historical answer.
+
+**Status:** frozen and **UNRUN**. No isolated inference endpoint was used; neither arm has an output or score. [EXPERIMENT-01.md](./EXPERIMENT-01.md) remains pinned to DOSSIER v0 and unrun. No Atlas or Dossier modifications were made to fit this test.
+
+**Next bounded step:** obtain two independent model runs, preferably cold ChatGPT contexts with the same model, and archive exact turn-by-turn transcripts; or resume source research while waiting for an appropriate execution path. Do not represent protocol construction as evidence of fidelity.
