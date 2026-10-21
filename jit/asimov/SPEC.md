@@ -229,3 +229,14 @@ Created [EXPERIMENT-02.md](./EXPERIMENT-02.md), a **two-turn synthetic greenhous
 **DOSSIER v2 constructed:** source-linked conditional rule distinguishes a broken measurement/premise requiring explicit revision (lunar dust) from a useful approximation deserving quantified defense (Earth shape). Adds room for sharp, evidence-backed disagreement without turning condescension into a personality caricature. v1 blob `4b1c27e64d220145197f337e52079d05ff0a4f57`; v2 blob `1ecff2e618b74199d9625b1bdfb56a7ac233ecc9`; v0 remains `8d168f7abd0ac0086299d1d4e03cdc70dce20a77`.
 
 **Experiments:** EXPERIMENT-01 (v0) and EXPERIMENT-02 (v1) are **still frozen and unrun**. Do not feed v2 into either arm. **Next bounded step:** construct a distinct v2 test in which a critic confuses an approximation with a falsified model, using a different scenario from the greenhouse; freeze it before independent cold-chat execution, or continue gathering adversarial primary evidence. Avoid accumulating unrun protocols without a path to evaluation.
+
+
+## Independent inference route audit — 2026-10-21
+
+**Need:** two clean, independent invocations of the same model, with reproducible system conditioning, preserving raw answers without asking the human to shuttle transcripts. The connected GitHub connector exposes repository editing and workflow log/artifact inspection, but no general-purpose inference call or workflow-dispatch action. The model's own answer in this conversation cannot serve as an independent control.
+
+**Rejected dead end:** GitHub Models formerly offered free-ish inference through `GITHUB_TOKEN` with `models:read`, but **GitHub officially retired the playground, catalog and inference API on July 30, 2026**: https://github.blog/changelog/2026-07-01-github-models-is-being-fully-retired-on-July-30-2026/ . Do not install or wire up legacy `models.github.ai` endpoints or pre-retirement `actions/ai-inference` examples.
+
+**Potential but unverified route:** the maintained `actions/ai-inference` project now uses GitHub Copilot CLI, requires installation and `COPILOT_GITHUB_TOKEN`/appropriate Copilot authentication; it is **not** an anonymous `GITHUB_TOKEN` inference endpoint: https://github.com/actions/ai-inference . Availability, account entitlement, model choice, usage costs and automated dispatch remain unverified. Do not deploy a workflow or request credentials until these constraints are resolved.
+
+**Fallback:** two cold ChatGPT chats using the same model, with frozen instructions and two-turn sequence, are valid exploratory runs; they require manual prompt/output transport unless a compatible external execution path becomes available. No evidence has been collected yet. **Priority:** verify a viable low-friction independent execution path before producing more dossier versions or unrun protocols.
