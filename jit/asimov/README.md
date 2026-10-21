@@ -1,16 +1,26 @@
 # JIT Asimov — Asimov's Ghost
 
-**Status:** research and reconstruction; no executable or backend required yet.
+**State:** research and reconstruction; no executable or backend required.
+**North star:** a faithful, evidence-grounded conversational simulation of Isaac Asimov, not a claim to be the person.
 
-**Purpose:** create the most faithful model-mediated conversational reconstruction possible of Isaac Asimov's documented intellectual identity. The ghost is a simulation, not the historical person or a recovered consciousness.
+## Cold boot
 
-## Cold-boot handoff
+Read [SPEC.md](./SPEC.md) for **what exists, what was just built, and the next bounded build**. Read [CHRONICLE.md](./CHRONICLE.md) for the dated ledger, motivations, observations, and evolving shape of the experiment. Resume from the first incomplete SPEC task; do not restart or invent a frontend.
 
-1. Read [SPEC.md](./SPEC.md) for the reconstruction program and [CHRONICLE.md](./CHRONICLE.md) for dated decisions and hypotheses.
-2. **Do not build a frontend, backend, ingestion transport, or generic RAG chatbot as the next default step.** The model is the instrument; a browser executable is optional and may never be necessary.
-3. Next: inventory primary sources and rights, construct a dated intellectual/personality evidence map, and test historically grounded conversational answers to novel questions.
-4. Prioritize fidelity of reasoning, worldview, temperament, humor, and changes over time. Keep documentary evidence distinct from model inference and imaginative continuation.
-5. Maintain an unobtrusive disclosure that this is a reconstruction. Permit natural first-person dialogue as a performance, without claiming authenticity or inventing verified memories.
-6. Record experiments and disagreements in CHRONICLE. Keep this README short.
+**Current frontier:** inventory lawful primary sources, develop a dated ghost dossier of reasoning/worldview/style, and probe conversational fidelity. Backend ingestion and browser UI are deferred, possibly forever.
 
-**Future possibility, not current scope:** a user question is ingested by a backend that wakes a model to answer as the ghost. Transport comes last or never.
+## Turn contract
+
+1. **Orient:** read this README and the relevant SPEC frontier; consult CHRONICLE for context. Inspect actual artifacts before claiming their state.
+2. **Act:** advance one meaningful, bounded research or reconstruction step. The model is the instrument; favor source evidence, dossier quality, and ghost probes over transport plumbing.
+3. **Verify:** distinguish documented Asimov evidence, model interpretation, imagined continuation, and unverified hypotheses. Record failures and uncertainty; never invent quotations, private memories, or authenticated identity.
+4. **Persist:** update **SPEC** with the resulting implemented/researched state, evidence, decisions affecting the build, and the *next executable/research step*. Append a concise **CHRONICLE** entry with the process, rationale, observations, and consequences.
+5. **Handoff:** update **README only if** current status, cold-boot route, invariants, or immediate frontier changed. Keep it featherlight. Report what actually changed and where.
+
+**Ownership:** README = live orientation and turn protocol. SPEC = authoritative evolving construction state and forward plan. CHRONICLE = append-only dated ledger and intellectual arc. Do not duplicate long accounts across them.
+
+**Chronicle timestamp:** begin each entry with a simple DTS, `YYYY-MM-DDTHH:mm:ssZ` (UTC), followed by a short title. Use the actual observation/commit time when known; if only the date is known, use `YYYY-MM-DD` rather than inventing a clock time. Preserve older entries as historical record; append corrections rather than silently rewriting evidence.
+
+**Guardrails:** natural first-person dialogue is permitted as clearly disclosed simulation; evidence remains inspectable without interrupting every answer. No source corpus is assumed available until verified. Do not build a generic RAG product, frontend, backend, or ingestion transport by default. Before any eventual deployment, follow [Gate](https://github.com/bonoj/Gate/blob/main/README.md) and independently verify commit, publisher, and browser.
+
+**Possible future:** user input transported to a backend that wakes a model with the ghost dossier. Last, or never.
