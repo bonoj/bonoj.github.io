@@ -153,3 +153,10 @@ The canonical AG-001–AG-014 records now live in [ATLAS.md](./ATLAS.md). This S
 **Current state:** DOSSIER v0 exists and can be read by a fresh model; **no isolated inference or comparative scores have been produced**. The original Ghost probe 01 remains an unblinded demonstration.
 
 **Next bounded step:** run independently isolated A/B inference using a suitable model invocation tool if available; otherwise recruit a fresh conversation/context for the test or proceed with source expansion without misrepresenting results. Preserve the exact results in SPEC and their implications in CHRONICLE.
+
+
+## Experiment 01 frozen — 2026-10-21
+
+Created [EXPERIMENT-01.md](./EXPERIMENT-01.md) with P-002 (child, machine, persuasive falsehood), separate neutral and dossier-conditioned system instructions, pinned ATLAS and DOSSIER Git blob SHAs, independent-context requirements, a five-dimension 0–2 scoring rubric, and empty result slots. **No independent model inference tool was available in this session. Neither arm has been executed; no score or behavioral effect is claimed.**
+
+**Next bounded step:** obtain genuinely isolated A and B model outputs with identical model/settings, append exact transcripts to the frozen experiment record, then score blindly. Do not modify the prompts after inspecting responses; subsequent prompt revisions require a new experiment version. Preserve historical interviews for separate held-out tests.
