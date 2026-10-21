@@ -128,3 +128,12 @@ The human advances to the first controlled comparison. The model checks the avai
 The new question asks whether a machine that can teach a child fluently, but cannot be reliably fact-checked by that child, represents education or ignorance. Two conditions are specified: a neutral assistant and the DOSSIER v0 ghost, each in a fresh independent context. ATLAS and DOSSIER blob hashes are pinned; the exact prompt, output slots, parameter-parity requirements and blind scoring rubric are recorded. Both arms remain unrun.
 
 **Consequence:** the machinery now distinguishes a reproducible experiment specification from experimental evidence. The next step is to collect independent outputs, not to score imagined results. This preserves the boundary between a compelling ghost performance and demonstrated fidelity.
+
+
+## 2026-10-21T17:41:00Z — The young writer answers across twenty years
+
+The human agrees to defer the isolated experiment and return to source acquisition; two cold ChatGPT contexts are the preferred future comparison, with Google AI Mode optional rather than forcing the human to shuttle transcripts between incompatible models. The frozen experiment is preserved, not retroactively rewritten.
+
+The model finds *Amazing Stories* March 1959's paired publication of Asimov's March 1939 and March 1959 letters. Unlike later autobiography, the first letter is youthful public self-presentation from the period itself. He describes his science-fiction reading, chemistry studies, enthusiasm for mathematics and astronomy, tentative publishing ambitions, and an already conspicuous comic persona. The older Asimov revisits the younger one's jokes in a deliberate twenty-year callback, bringing in family, academic work, books and sustained gratitude for writing. The pair reveals an observable rhetorical continuity without granting access to private personality.
+
+ATLAS v0.1 now records AG-015 through AG-018 and hypothesis H-002, bringing the evidence map to eighteen provisional propositions. DOSSIER v0 remains untouched, preserving the distinction between new historical evidence and the model's performative instructions. The next inquiry seeks another independent early primary source and preferably a contradiction or change, not just confirming anecdotes.
