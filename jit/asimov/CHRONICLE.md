@@ -13,3 +13,14 @@ The model recognizes its earlier inversion: it had prioritized a browser interfa
 **Research tensions:** natural first-person presence versus clear simulation disclosure; historical fidelity versus plausible extrapolation; source transparency versus uninterrupted conversation; stable persona versus real changes across a lifetime.
 
 **Next inquiry:** identify the strongest available primary sources, begin a dated evidence map of worldview and reasoning habits, and run the first ghost probes. No claims of fidelity have yet been validated against held-out material.
+
+
+## 2026-10-21 — The first contract-compliant handoff
+
+The human requests that the newly codified README turn process be enforced immediately, rather than remaining aspirational. The model inspects the three existing documents, confirms that the README contains the five-stage turn contract, and identifies the gap: SPEC lacked an explicit completed/current/next construction state, while CHRONICLE did not yet record the adoption of the process.
+
+**Action:** SPEC receives an honest baseline and one bounded next research step. CHRONICLE receives this dated entry. README remains unchanged because its current orientation and frontier are already accurate.
+
+**Evidence and limits:** this is a documentation and continuity milestone, not a source-ingestion, ghost-fidelity, or browser-execution result. No timestamp more precise than the known date is asserted.
+
+**Consequence:** each subsequent turn must leave SPEC as the current build authority and CHRONICLE as the append-only account of how and why it changed; README stays featherlight.
