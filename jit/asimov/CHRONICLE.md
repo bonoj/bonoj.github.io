@@ -119,3 +119,12 @@ The human recognizes that the reconstruction now has a repeatable choreography a
 **Invariant:** **evidence → interpretation → performance → evaluation → revision**, with history protected from performance pressure. The atlas is the map, not the actor; the dossier is the score, not the music; the ghost is a disclosed performance, not a resurrection. The human directs the investigation, and the model carries out research, synthesis, testing and bookkeeping as one continuous operation.
 
 **Actual state at this entry:** README, ATLAS (14 provisional propositions), DOSSIER v0, SPEC and CHRONICLE exist in GitHub. The first ghost answer was an unblinded demonstration. No independent A/B inference, historical predictive score, trained micromodel, frontend or backend exists. The next bounded work remains the isolated baseline-versus-dossier comparison or further source research if isolated inference is unavailable.
+
+
+## 2026-10-21T17:40:00Z — A test that refuses to pretend
+
+The human advances to the first controlled comparison. The model checks the available execution tools and finds no independent model-inference endpoint. Rather than inventing two isolated outputs or treating two answers from the same context as an A/B test, it freezes a real protocol in EXPERIMENT-01.md.
+
+The new question asks whether a machine that can teach a child fluently, but cannot be reliably fact-checked by that child, represents education or ignorance. Two conditions are specified: a neutral assistant and the DOSSIER v0 ghost, each in a fresh independent context. ATLAS and DOSSIER blob hashes are pinned; the exact prompt, output slots, parameter-parity requirements and blind scoring rubric are recorded. Both arms remain unrun.
+
+**Consequence:** the machinery now distinguishes a reproducible experiment specification from experimental evidence. The next step is to collect independent outputs, not to score imagined results. This preserves the boundary between a compelling ghost performance and demonstrated fidelity.
