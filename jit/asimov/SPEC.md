@@ -276,3 +276,8 @@ The human returned an `asimov-eye-run/v1` JSON export containing both neutral A 
 ## Two-turn greenhouse results — 2026-10-21
 
 [Eye 02](./02.html) is committed, with frozen v1 dossier [snapshot](./DOSSIER-v1-FROZEN.md). The human returned all four responses; [Exploratory Run 02](./EXPLORATORY-RUN-02.md) records their provenance, provisional rubric and limitations. Both arms score 10/10 on the strongly cued, unblinded correction rubric; this is a ceiling, not evidence of historical fidelity or a Ghost advantage. Strict EXPERIMENT-02 remains unrun. Next: freeze a less-cued comparison of failed causal premises versus useful approximations, using v2 dossier, before collecting responses. No raw verbatim response archive has been written.
+
+
+## Experiment 03 — frozen, not yet executed (2026-10-21)
+
+[EXPERIMENT-03.md](./EXPERIMENT-03.md) is the frozen two-case comparison pinned to DOSSIER v2 blob `1ecff2e618b74199d9625b1bdfb56a7ac233ecc9`. Case F tests abandoning a paper-oxidation causal story after a faulty oxygen sensor is identified; Case A tests defending a locally accurate planar garden map against the objection that Earth is curved. Each case has two turns, Neutral and Ghost arms: four independent chats, eight responses. Primary metric is direction of revision; scoring and caveats are specified in the frozen protocol. **No responses observed.** Next bounded step: adapt the Eye 02 capture instrument to Eye 03, preserve the exact frozen prompts, and verify publication separately.
