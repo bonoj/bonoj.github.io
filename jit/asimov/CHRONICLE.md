@@ -210,3 +210,8 @@ The resulting plan is intentionally narrow: if authentication is authorized, sta
 ## 2026-10-21T18:35:00Z — The first two doors
 
 The human advances beyond the blocked GitHub Actions route. The model creates a compact cold-chat launch card, preserving the original frozen experiment and its pinned dossier version. It explicitly refuses to conflate ordinary first-user-message prompting with genuine system-role conditioning: this fallback is an exploratory comparison, not a rigorous substitute. The card separates independent chats and provides the question, instructions, and provenance requirements without adding infrastructure or paid services. No answers or scores yet exist.
+
+
+## 2026-10-21T18:36:00Z — The blob becomes a door
+
+On the human's next advance, the model inspects the cold-run launch path and identifies a friction point: the prior card linked a Git blob SHA as if it were a commit, an unreliable navigation path for a phone. It fetches the immutable v0 dossier through the GitHub blob API, publishes an accessible frozen copy, and checks that GitHub computes the identical SHA for the copy. The launch card now points directly to the verified snapshot. No experiment outputs exist; this step fixes reproducibility and removes an avoidable manual archaeology task.
