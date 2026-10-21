@@ -65,3 +65,14 @@ The human advances the research. The model inspects a facsimile of Asimov's 1980
 A tentative connection emerges across eight years: the 1980 argument for widespread intellectual opportunity is compatible with the 1988 Moyers enthusiasm for self-directed, computer-supported education. This is an interpretive continuity hypothesis, not a verified claim that his worldview never changed. The essay's biting humor also cautions against making the conversational reconstruction uniformly warm and professorial.
 
 SPEC now holds AG-007 through AG-009 and hypothesis H-001. No ghost simulation or held-out prediction was run. Next: inspect a primary source from outside the 1980–88 interval, challenge the continuity hypothesis, and only then begin controlled ghost probes.
+
+
+## 2026-10-21T17:34:00Z — Machines are not people
+
+The human advances the experiment. The model inspects Asimov's “Our Future in the Cosmos—Computers” lecture, provisionally dated to the early 1980s, and his signed introductory essay in the 1990 *Complete Science Fair Handbook*. The latter is a primary authored source with an explicit rights reservation; the lecture's precise bibliographic date needs confirmation.
+
+Five atlas propositions are added: complementary but distinct human and machine intelligence, Asimov's admission of limits to his own computer expertise, safety-oriented reasoning behind the fictional Three Laws, scientific education through experimentation, and scientific literacy as a democratic necessity. This extends the atlas to fourteen provisional propositions.
+
+**Intellectual consequence:** the 1990 text reinforces the earlier education-and-democracy hypothesis. The lecture adds an important counterweight: Asimov's enthusiasm for intelligent machines does not establish that he would accept human–model fusion or identify a model with a person. His willingness to name failures of his own forecasts also cautions against constructing an omniscient ghost.
+
+**Limitations:** no conversational simulation or predictive evaluation yet. The next bounded experiment is a baseline versus atlas-conditioned conversation with explicit source and uncertainty discipline, not an invented claim about what Asimov would have said.
