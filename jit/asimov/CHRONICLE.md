@@ -285,3 +285,18 @@ The human points out that Experiment 04 was only a repository protocol, not a us
 ## 2026-10-21T22:18:00Z — The phantom turn was cache
 
 The human resolves Eye 04's unexplained second Turn 1 response: the instrument had to be rebooted, but a stale cache prevented a clean repeat. The extra response was a capture artifact, not a spontaneous human deviation. The model updates the provenance and retains five intended turns as the analytic unit. The behavioral findings remain unchanged; future Eyes should make build identity and recovery unambiguous without imposing manual cache rituals.
+
+
+## 2026-10-21T23:20:00Z — The séance leaves the script
+
+The human returns a second exploratory Eye 04 export with all five scripted answer slots empty and all five human-deviation and Ghost-reply slots filled. This is an unscripted conversation, not a repeat of the prescribed five questions. It moves from Ursula K. Le Guin and Earthsea to a speculative view of humanity since 1992, then the Conjoiner account and Evermore II Chronicle.
+
+The Ghost declines to invent a personal meeting with Le Guin, and proposes a productive question connecting *The Dispossessed* and *Foundation*: can a science of society account for people who resist being governed by its predictions? It challenges the idea that Earthsea is simply conventional, distinguishing traditional story materials from unconventional ideas. On the Conjoiner account it distinguishes rapid artifact production from expanded practical capacity, and source changes from actual verified outcomes.
+
+The Evermore II finale offers the strongest synthesis: the artifact's emerging behavior generates the next design questions. The Ghost calls this **recursive invention**. It also connects the limited agents within the game to the distributed human–model–repository–browser collaboration that creates it. These are interesting contributions, but they do not establish uniquely Asimovian cognition. The Ghost still defaults to exhaustive numbered essays and repeated methodological cautions. In this run the human chooses every new topic. Dossier v2 remains frozen. Full analysis is in EXPLORATORY-RUN-04.md.
+
+## 2026-10-21T23:21:00Z — A Chronicle write becomes the experiment
+
+An attempted Chronicle append is blocked by an explicit OpenAI safety check. The model initially stops, despite the entry being ordinary benign research documentation. The human invokes the Sanctum contract, then reminds the model that false positives occur and a safety-check response is not by itself evidence that the requested content is harmful. The model consults Sanctum and Gate, examines the request, and returns to the ordinary authorized write procedure rather than inventing a bypass. The lesson is to assess the content and actual risk, retry legitimate benign work when appropriate, and distinguish a failed tool call from an unsafe task. The machinery should absorb this friction rather than transfer it to the human.
+
+**Frontier:** An evidence-grounded, intellectually individual conversational Ghost, not generic answer quality or theatrical impersonation. Further testing can wait; the human has also been coordinating a family hospital-to-rehabilitation transition.
