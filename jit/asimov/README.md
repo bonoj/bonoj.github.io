@@ -13,7 +13,6 @@ Read [SPEC.md](./SPEC.md) for **what exists, what was just built, and the next b
 
 **Standing authorization:** when the human asks to advance, investigate, decide, revise, or probe Asimov's Ghost (including `➡️`), complete the research/build step **and** its documentation in the same turn without waiting for separate instructions to update SPEC or CHRONICLE. Do not turn documentation into an approval gate. A conversational question that materially changes the design also triggers persistence; trivial acknowledgments do not.
 
-
 1. **Orient:** read this README and the relevant SPEC frontier; consult CHRONICLE for context. Inspect actual artifacts before claiming their state.
 2. **Act:** advance one meaningful, bounded research or reconstruction step. The model is the instrument; favor source evidence, dossier quality, and ghost probes over transport plumbing.
 3. **Verify:** distinguish documented Asimov evidence, model interpretation, imagined continuation, and unverified hypotheses. Record failures and uncertainty; never invent quotations, private memories, or authenticated identity.
@@ -22,7 +21,7 @@ Read [SPEC.md](./SPEC.md) for **what exists, what was just built, and the next b
 
 **Ownership:** README = live orientation and turn protocol. SPEC = authoritative evolving construction state and forward plan. CHRONICLE = append-only dated ledger and intellectual arc. Do not duplicate long accounts across them.
 
-**Chronicle timestamp:** begin each entry with a simple DTS, `YYYY-MM-DDTHH:mm:ssZ` (UTC), followed by a short title. Every entry must have a UTC DTS. Use the actual time when available; otherwise estimate from the known session timeline and mark the DTS **estimated**. Never silently present an estimate as an observed timestamp. Preserve older entries as historical record; append corrections rather than silently rewriting evidence.
+**Chronicle append format:** append each new entry at the end as `## YYYY-MM-DDTHH:mm:00Z — Title` (UTC). Minute precision is sufficient; seconds stay `00`. Do not rewrite or insert between previous entries. Preserve historical entries; add corrections in new entries.
 
 **Guardrails:** natural first-person dialogue is permitted as clearly disclosed simulation; evidence remains inspectable without interrupting every answer. No source corpus is assumed available until verified. Do not build a generic RAG product, frontend, backend, or ingestion transport by default. Before any eventual deployment, follow [Gate](https://github.com/bonoj/Gate/blob/main/README.md) and independently verify commit, publisher, and browser.
 
