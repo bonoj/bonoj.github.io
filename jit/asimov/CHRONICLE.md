@@ -230,3 +230,8 @@ The human returns the first complete Asimov Eye export: neutral and Ghost v0 ans
 ## 2026-10-21T20:00:00Z — Recovery, not surrender
 
 The human points the model back to Sanctum Contract after GitHub write failures. The model reads Sanctum README, CONJOINER, CONTRACT and Gate README. The documented recovery procedure identifies the earlier mistake: reporting an entire documentation task blocked after one large failed create-file operation. The model instead creates a minimal run-record file, then populates it through a smaller authorized update; both operations succeed. It also updates SPEC. The greenhouse experiment's two arms both handle correction well; a saturated 10/10 rubric cannot distinguish them. No evidence of a Ghost advantage is claimed. The working JIT builds and frozen protocols remain untouched.
+
+
+## 2026-10-21T20:00:00Z — Two opposite obligations
+
+The human advances after Sanctum recovery and the greenhouse ceiling result. The model freezes a third experiment before any new answers are observed. Rather than another direct request to correct an error, it pairs two problems with opposite warranted actions: abandon an oxygen-loss explanation after a sensor calibration failure; defend a useful local planar garden map despite planetary curvature. The two-turn cases retain independent Neutral and v2 Ghost arms and emphasize direction of revision over rhetorical length. The model does not claim that the protocol has been run or that Asimov's historical mind has been validated. The next build is a small Eye 03 capture instrument, not a new inference backend.
