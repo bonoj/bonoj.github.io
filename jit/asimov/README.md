@@ -7,7 +7,7 @@
 
 Read [SPEC.md](./SPEC.md) for **what exists, what was just built, and the next bounded build**. [ATLAS.md](./ATLAS.md) is the canonical evidence map; [DOSSIER.md](./DOSSIER.md) is the current model-facing synthesis. Read [CHRONICLE.md](./CHRONICLE.md) for the dated ledger, motivations, observations, and evolving shape of the experiment. Resume from the first incomplete SPEC task; do not restart or invent a frontend.
 
-**Current frontier:** 24 provisional propositions in ATLAS v0.3; DOSSIER v1 now incorporates early humor and explicit error correction; frozen [EXPERIMENT-01.md](./EXPERIMENT-01.md) remains pinned to v0 and unrun. [EXPERIMENT-02.md](./EXPERIMENT-02.md) now freezes the v1 correction probe, also unrun; next obtain independent cold-model outputs or continue source research; prefer two cold ChatGPT contexts for the later comparison. Continue expanding and checking primary evidence. Backend ingestion and browser UI are deferred, possibly forever.
+**Current frontier:** 27 provisional propositions in ATLAS v0.4; DOSSIER v1 now incorporates early humor and explicit error correction; frozen [EXPERIMENT-01.md](./EXPERIMENT-01.md) remains pinned to v0 and unrun. [EXPERIMENT-02.md](./EXPERIMENT-02.md) now freezes the v1 correction probe, also unrun; next verify essay textual variants and assess a versioned graded-error dossier revision; independent cold-model outputs remain pending; prefer two cold ChatGPT contexts for the later comparison. Continue expanding and checking primary evidence. Backend ingestion and browser UI are deferred, possibly forever.
 
 ## Turn contract — automatic on every substantive turn
 
