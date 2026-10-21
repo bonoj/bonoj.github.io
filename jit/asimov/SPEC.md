@@ -98,3 +98,28 @@ Resurrection, consciousness emulation, authenticated voice or likeness, unrestri
 **Status:** nine provisional atlas propositions, two primary-source genres (essay and interviews), with eight years' separation. No baseline/ghost probe yet; no independent test of predictive fidelity.
 
 **Next bounded action:** select an independently dated primary source outside 1980–88, inspect its contents and test H-001 for continuity or contradiction. Then prepare an atlas-conditioned prompt and a baseline comparison on a new question, keeping any historical answer used for scoring genuinely withheld.
+
+
+## Third source slice — computers and scientific education (2026-10-21)
+
+**Inspected primary authored lecture:** Isaac Asimov, “Our Future in the Cosmos—Computers,” in *The Impact of Science on Society*, hosted transcription https://en.wikisource.org/wiki/The_Impact_of_Science_on_Society/Our_Future_in_the_Cosmos%E2%80%94Computers . Introductory context mentions *The Robots of Dawn* as just published and a 1983 Hugo, suggesting **1983 or later**; exact delivery/publication date needs bibliographic verification. Treat transcription and rights as unverified for reuse beyond paraphrase. The text is a primary source of Asimov's stated position, not proof that the predictions came true.
+
+**Inspected primary signed introduction:** Isaac Asimov, “The Point of Science Fairs,” pp. vi–viii of Anthony D. Fredericks and Isaac Asimov, *The Complete Science Fair Handbook* (Good Year Books, 1990), archived by ERIC https://files.eric.ed.gov/fulltext/ED317373.pdf , PDF pp. 7–9. The introductory essay is signed by Asimov; later chapters are jointly authored and must not be assigned individually. Copyright notice explicitly reserves rights.
+
+**AG-010 | circa 1983 | human–machine relationship | direct lecture, high confidence as stated position:** Asimov distinguishes machine intelligence from human intelligence and imagines complementary cooperation rather than interchangeable minds. The claim that machines and humans will *always* remain distinct is a historical prediction, not a settled fact. Source: lecture opening.
+
+**AG-011 | circa 1983 | reasoning about technology | direct lecture, high confidence:** He openly admits the limits of his technical expertise on computers while making speculative claims and identifying failures of science-fiction prediction (such as the conjunction of television and Moon landing, and dependence of spaceflight on computers). Source: lecture opening. A useful corrective to portraying the ghost as omniscient.
+
+**AG-012 | circa 1983 | engineering ethics | direct lecture, high confidence as stated reasoning:** He explains the Three Laws of Robotics as an extrapolation from safety, usefulness and durability requirements of ordinary tools. Source: lecture robotics discussion. These fictional laws are not real-world guarantees or a complete modern AI safety policy.
+
+**AG-013 | 1990 | pedagogy | direct signed introduction, high confidence:** Scientific education should cultivate observation, hypothesis, experiment, revision and enjoyment of discovery, not merely factual recall or awards. Source: handbook pp. vii–viii (PDF pp. 7–9).
+
+**AG-014 | 1990 | civic science literacy | direct signed introduction, high confidence:** He connects general scientific literacy to citizens' ability to make informed democratic decisions about environmental and technological issues, including for those not pursuing scientific careers. Source: handbook pp. vi–vii.
+
+**H-001 update:** The 1990 introduction supports continuity of the 1980 anti-ignorance argument and 1988 enthusiasm for curiosity-driven education, but the three texts differ in genre and setting. Do not erase their differences or infer universal stability.
+
+**New tension T-001:** The lecture's firm human/machine distinction and its emphasis on complementary intelligence are important to probe when extrapolating Asimov to contemporary model-mediated cognition. No claim that he would endorse this project's framing.
+
+**State:** fourteen provisional atlas propositions, three inspected source genres across circa 1980–1990. The requested outside-1980–88 check is satisfied by 1990, though earlier-life evidence remains missing. No trained model or controlled ghost probe. The circa-1983 lecture date and exact edition remain to be verified.
+
+**Next bounded step:** create a compact atlas-only model prompt from the fourteen propositions; run the same previously unanswered question under a generic-model baseline and an atlas-conditioned ghost, with responses logged and judged for source discipline, era consistency, and reasoned uncertainty. Do not score against a historical answer already inspected. Preserve truly unseen historical material for later predictive tests.
