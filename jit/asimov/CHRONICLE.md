@@ -40,3 +40,10 @@ The proposed evidence map spans biography, worldview, reasoning, personality, vo
 A seventh dimension, **predictive behavior**, is proposed as a test: withhold actual historical answers and assess whether the reconstruction predicts their reasoning and substance. Three possible systems remain: general model plus dossier; model plus dossier and evidence retrieval; and a later fine-tuned micromodel compared against both. The immediate experimental artifact is a 20–30-proposition Cognitive Atlas with chronology, provenance, confidence and contradictions.
 
 The human directs the model to put the actionable expansion in SPEC and preserve the remainder of the discussion here. SPEC now records the approach and next bounded source-acquisition task. No source corpus was inspected, no model was trained, and no fidelity claim was established. README remains unchanged because its cold-boot contract is still accurate.
+
+
+## 2026-10-21T15:03:00Z (estimated) — Documentation becomes automatic
+
+The human requests that cold-boot recovery require no repeated instruction to update SPEC and CHRONICLE. The model clarifies the standing turn contract in README: substantive advancement or decisions automatically update the authoritative SPEC and append a timestamped CHRONICLE entry in the same turn. README changes only when orientation or invariants change. Persistence is verified by reading back and checking commits; failures follow existing recovery rules rather than being silently omitted.
+
+**Consequence:** documentation is an intrinsic part of executing each meaningful Asimov turn, not a separate human-requested task. No ghost corpus or fidelity result is implied by this workflow change.
