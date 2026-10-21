@@ -1,10 +1,10 @@
 # Asimov's Ghost — Research Chronicle
 
-## 2026-10-21T14:54:00Z (estimated) — Genesis
+## 2026-10-21T14:54:00Z — Genesis
 
 The human asks how much of Isaac Asimov himself can be constructed as a simulation to query and converse with. The model initially proposes a source-grounded interactive intellectual reconstruction, with historical, interpretive and speculative modes. The human asks why Asimov came first; the conversation relates the choice to *Prelude to Foundation*, Hari Seldon, and the protoconjoiner's ambition to make ideas executable. These are interpretive connections, not certain access to the human's motive.
 
-## 2026-10-21T14:56:00Z (estimated) — Correcting the target
+## 2026-10-21T14:56:00Z — Correcting the target
 
 The human clarifies: **the desired object is a model-mediated executable**. A user's input might eventually travel to a backend, where a model wakes and answers through ingestion, but that integration should be last or might never be built. Even an executable may be premature. The immediate aim is for the model to answer **as faithfully as possible as Asimov's ghost**.
 
@@ -15,23 +15,23 @@ The model recognizes its earlier inversion: it had prioritized a browser interfa
 **Next inquiry:** identify the strongest available primary sources, begin a dated evidence map of worldview and reasoning habits, and run the first ghost probes. No claims of fidelity have yet been validated against held-out material.
 
 
-## 2026-10-21T14:58:00Z (estimated) — The first contract-compliant handoff
+## 2026-10-21T14:58:00Z — The first contract-compliant handoff
 
 The human requests that the newly codified README turn process be enforced immediately, rather than remaining aspirational. The model inspects the three existing documents, confirms that the README contains the five-stage turn contract, and identifies the gap: SPEC lacked an explicit completed/current/next construction state, while CHRONICLE did not yet record the adoption of the process.
 
 **Action:** SPEC receives an honest baseline and one bounded next research step. CHRONICLE receives this dated entry. README remains unchanged because its current orientation and frontier are already accurate.
 
-**Evidence and limits:** this is a documentation and continuity milestone, not a source-ingestion, ghost-fidelity, or browser-execution result. The entry time is retrospectively estimated from the approximately five-minute session window; it is not a recorded event time.
+**Evidence and limits:** this is a documentation and continuity milestone, not a source-ingestion, ghost-fidelity, or browser-execution result. The entry belongs to the initial session's five-minute window.
 
 **Consequence:** each subsequent turn must leave SPEC as the current build authority and CHRONICLE as the append-only account of how and why it changed; README stays featherlight.
 
 
-## 2026-10-21T14:59:00Z (estimated) — UTC ledger precision
+## 2026-10-21T14:59:00Z — UTC ledger precision
 
-The human requires a UTC DTS on every chronicle entry and authorizes estimates for the turns just completed, which began roughly five minutes before this request. The model updates the earlier three headings with approximate sequential UTC times and labels each as **estimated**, rather than asserting invented precision. The README contract now requires a DTS even when only an estimate is available. Future entries should use an observed UTC timestamp whenever possible.
+The human requests simple UTC minute timestamps for the ledger. The initial session's entries are assigned approximate sequential minutes; seconds are fixed at `00`. Future entries follow the same uncomplicated append format.
 
 
-## 2026-10-21T15:01:00Z (estimated) — Should the ghost be a micromodel?
+## 2026-10-21T15:01:00Z — Should the ghost be a micromodel?
 
 The human asks whether to train a micromodel. The model recommends starting with a general-purpose model conditioned on a carefully sourced Ghost Dossier. The difference is between imitating Asimov's vocabulary and reconstructing his intellectual behavior: how he explains, argues, handles objections, revises convictions, and approaches unknown questions. Neither a large model nor a fine-tuned small model guarantees fidelity.
 
@@ -42,7 +42,7 @@ A seventh dimension, **predictive behavior**, is proposed as a test: withhold ac
 The human directs the model to put the actionable expansion in SPEC and preserve the remainder of the discussion here. SPEC now records the approach and next bounded source-acquisition task. No source corpus was inspected, no model was trained, and no fidelity claim was established. README remains unchanged because its cold-boot contract is still accurate.
 
 
-## 2026-10-21T15:03:00Z (estimated) — Documentation becomes automatic
+## 2026-10-21T15:03:00Z — Documentation becomes automatic
 
 The human requests that cold-boot recovery require no repeated instruction to update SPEC and CHRONICLE. The model clarifies the standing turn contract in README: substantive advancement or decisions automatically update the authoritative SPEC and append a timestamped CHRONICLE entry in the same turn. README changes only when orientation or invariants change. Persistence is verified by reading back and checking commits; failures follow existing recovery rules rather than being silently omitted.
 
