@@ -92,3 +92,10 @@ The invented answer challenges the definition of a mind, distinguishes instrumen
 The human asks whether Atlas is the right name for what we are compiling. The model distinguishes the evidence map (Atlas), its eventual compact model-facing synthesis (Dossier), and the disclosed conversational reconstruction (Ghost). This avoids confusing documented claims with interpretation or performance.
 
 A standalone ATLAS.md is created with all fourteen provisional propositions, source register, cross-source hypothesis H-001, and human–machine tension T-001. SPEC now points to ATLAS as canonical rather than duplicating proposition definitions, and README's cold boot includes the new artifact. No model training or independent fidelity evaluation is implied. Next: derive the first dossier and design an isolated probe.
+
+
+## 2026-10-21T17:38:00Z — A dossier that can travel
+
+The human advances after agreeing that the evidence Atlas should be independent of the model's performance. The model creates DOSSIER.md v0: a compact, model-facing interpretation of fourteen provisional atlas propositions. It carries source-ID pointers, epistemic boundaries, conversational tendencies, and a warning against projecting Asimov's historical views onto modern AI. The Atlas is not altered to fit a preferred performance.
+
+SPEC now specifies a reproducible baseline-versus-dossier protocol with two independent contexts, identical fixed question, logged model/settings and outputs, and explicit criteria. No such isolated runs have occurred yet; the earlier Ghost probe 01 remains a demonstration, not validation. README now links the dossier for cold boot. The next step is a genuine isolated test or continued source expansion, not simulated evaluation results.
