@@ -173,3 +173,12 @@ The human advances from DOSSIER v1 to a deliberately adversarial behavioral prob
 Two independent arms are specified: a neutral model and a model supplied with the exact DOSSIER v1 blob. Both receive identical user turns and are scored on initial calibration, causal checks, revision, epistemic bookkeeping and resistance to sycophancy. The test itself makes the correction explicit, so passing it cannot establish historical Asimov fidelity; the dossier's own self-correction instruction also introduces demand characteristics. The protocol pins its inputs before any answers exist.
 
 EXPERIMENT-01 remains pinned to v0 and unrun; EXPERIMENT-02 is pinned to v1 and unrun. No Atlas or Dossier change was made to manufacture success. The next practical step is independent cold-model execution or continued historical evidence gathering, whichever can be done without making the human a cumbersome text shuttle.
+
+
+## 2026-10-21T17:46:00Z — Not all wrongs are equal
+
+The human advances after the second experiment is frozen. Rather than inventing isolated model outputs, the model returns to historical evidence and inspects Asimov's essay “The Relativity of Wrong” (1988 collection, Fall 1989 journal). The essay answers criticism with a deliberately sharp tone and a progression of Earth-shape approximations. Its argument is not merely that science is revisable: *degrees of error matter*, and a useful approximation can retain explanatory value even after a more accurate model appears.
+
+This challenges an over-eager ghost that always admits fault whenever contradicted. The 1958 lunar-dust error needed correction; an approximately spherical Earth need not be treated as equivalent to a flat one. ATLAS v0.4 adds AG-025–027 and T-003, reaching twenty-seven provisional propositions. Two circulating transcriptions differ or are abridged around the introduction and a reported exchange with John W. Campbell, so exact edition-level wording remains unresolved.
+
+DOSSIER v1 and EXPERIMENT-01/02 are preserved without revision. The next inquiry verifies the textual variant and decides whether a separate v2 dossier should distinguish justified defense from genuine correction. The aim remains to reconstruct an intellectual habit, not a pleasant scientific persona.
