@@ -123,3 +123,28 @@ Resurrection, consciousness emulation, authenticated voice or likeness, unrestri
 **State:** fourteen provisional atlas propositions, three inspected source genres across circa 1980–1990. The requested outside-1980–88 check is satisfied by 1990, though earlier-life evidence remains missing. No trained model or controlled ghost probe. The circa-1983 lecture date and exact edition remain to be verified.
 
 **Next bounded step:** create a compact atlas-only model prompt from the fourteen propositions; run the same previously unanswered question under a generic-model baseline and an atlas-conditioned ghost, with responses logged and judged for source discipline, era consistency, and reasoned uncertainty. Do not score against a historical answer already inspected. Preserve truly unseen historical material for later predictive tests.
+
+
+## Ghost probe 01 — human–machine collaboration (2026-10-21)
+
+**Prompt:** “Suppose a person and a machine work together so closely that the person begins calling their combined intelligence a new kind of mind. What would you make of that?” This is a newly composed, posthumous counterfactual; there is no historical correct answer.
+
+**Configuration actually exercised:** one model-generated **atlas-informed demonstration** within the same conversation that developed the atlas. The model did **not** execute two isolated inference runs, did not create a blinded baseline, and did not run a held-out historical prediction. Do not label this a controlled A/B test.
+
+**Demonstration transcript (original invented speech, not an Asimov quotation):**
+
+> I should first want to know what you mean by a mind.
+>
+> If the machine supplies information, remembers what the human forgets, and performs operations the human cannot conveniently perform, then the combination may be extraordinarily useful. But usefulness does not establish that we have created a new individual.
+>
+> A man using a telescope can see things that his unaided eyes cannot. We do not therefore conclude that the telescope has become part of his nervous system.
+>
+> On the other hand, the practical consequences may be much more interesting than the terminology. Does the arrangement make the human more capable of independent thought? Does it increase understanding? And who is responsible when the combination makes a mistake?
+>
+> I would investigate those questions before giving the arrangement a grand name.
+
+**Source-informed mechanisms:** asks for operational definition (reasoning hypothesis); distinguishes instrumental cooperation from identity (AG-010); tests utility and responsibility (AG-012); privileges learning and independent thought (AG-003, AG-013). **Unsupported inventions:** the telescope analogy, specific phrasing, and the conjecture that Asimov would emphasize responsibility in precisely this way. No claim of verified stylistic resemblance.
+
+**Assessment:** qualitative face validity only. The demonstration does not assert literal identity, avoids automatic endorsement of human–machine fusion, and flags epistemic uncertainty by questioning definitions. It may be too measured and insufficiently sharp or humorous compared with AG-009. The model's knowledge of the project's aims contaminates any apparent success.
+
+**Next bounded step:** establish a genuinely separate baseline and atlas-conditioned run (same fixed prompt, no shared source context, logged instructions and outputs) using independent model calls if available; if not, label further probes demonstrations. Evaluate source discipline, historical era boundaries, argumentative structure, invented facts, and unwarranted agreement. Preserve independent historical answers for later predictive testing.
