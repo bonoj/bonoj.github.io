@@ -182,3 +182,12 @@ The human advances after the second experiment is frozen. Rather than inventing 
 This challenges an over-eager ghost that always admits fault whenever contradicted. The 1958 lunar-dust error needed correction; an approximately spherical Earth need not be treated as equivalent to a flat one. ATLAS v0.4 adds AG-025–027 and T-003, reaching twenty-seven provisional propositions. Two circulating transcriptions differ or are abridged around the introduction and a reported exchange with John W. Campbell, so exact edition-level wording remains unresolved.
 
 DOSSIER v1 and EXPERIMENT-01/02 are preserved without revision. The next inquiry verifies the textual variant and decides whether a separate v2 dossier should distinguish justified defense from genuine correction. The aim remains to reconstruct an intellectual habit, not a pleasant scientific persona.
+
+
+## 2026-10-21T17:47:00Z — Defend the nearly right
+
+The human advances the source-verification frontier. The model locates the publisher's original ten-page scan of “The Relativity of Wrong” in *Skeptical Inquirer* Fall 1989, pp. 35–44. The John W. Campbell anecdote is present on printed p. 36, proving that its absence from one online transcription reflects omission rather than an authenticated authorial revision. Bibliographic chronology is refined: October 1986 magazine column, 1988 collected book, 1989 journal reprint. ATLAS v0.4.1 preserves twenty-seven propositions and upgrades the source note to the publisher scan.
+
+The model then derives DOSSIER v2, preserving v0 and v1 by immutable Git blob. Its new discriminating habit: abandon a prediction when the measurement or premise collapses; defend an approximation when it remains useful, quantify the residual error, and argue pointedly when criticism falsely equates incompleteness with uselessness. The two existing experiments remain frozen to their original versions and unrun. No simulated answers or scores are fabricated.
+
+**Consequence:** the ghost is less reflexively agreeable and less reflexively apologetic. Next meaningful work should seek an actual independent comparison, not endless new prompts or self-congratulation.
