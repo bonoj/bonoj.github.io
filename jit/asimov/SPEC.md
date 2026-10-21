@@ -286,3 +286,8 @@ The human returned an `asimov-eye-run/v1` JSON export containing both neutral A 
 ## Eye 03 shipped — 2026-10-21
 
 [03.html](./03.html) implements frozen [EXPERIMENT-03.md](./EXPERIMENT-03.md): F failed-premise and A useful-approximation cases, each with Neutral/Ghost v2 arms and two turns. Four separate chats, eight locally persisted answer slots, exact pinned v2 dossier embedded in B prompts, model label, copy/open, JSON export. [DOSSIER-v2-FROZEN.md](./DOSSIER-v2-FROZEN.md) matches blob `1ecff2e618b74199d9625b1bdfb56a7ac233ecc9` byte for byte. Source commit `6cb26f048584ba5fd095f3db123972a05150ede4`; GitHub source readback verified. Live Pages and device interaction are **not** verified. No model inference has been run. Next: verify on phone, collect four independent two-turn chats, export raw JSON and evaluate without assuming a Ghost advantage.
+
+
+## Experiment 03 result (2026-10-21)
+
+Human supplied all eight answers in four independent exploratory chats, GPT-6 user-reported. Both arms correctly abandoned the faulty-sensor explanation in the museum case and defended the useful local garden map; unblinded rubric ceiling 20/20 each. One concrete neutral arithmetic error: arc/chord difference at 100 m stated ~1 micrometer; formula gives ~1 nanometer. No causal Dossier advantage established. Strict protocol remains unrun. Verbatim raw outputs remain in conversation; archive separately. Next test needs less-cued problems and blind scoring.
