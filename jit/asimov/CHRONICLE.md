@@ -275,3 +275,8 @@ The human proposes replacing independent test chambers with a single chain of co
 ## 2026-10-21T20:38:00Z — Michael and Michael: discipline without initiative
 
 The human supplies a spontaneous three-turn Ghost continuation comparing Michael Gray of *Peaky Blinders* and Michael Corleone of *The Godfather*. The human's claim evolves from resemblance to direct writerly borrowing, then to a shared dramatic initial condition: both are discouraged from joining the family enterprise and subsequent character behavior follows from that seed. The model appropriately distinguishes resemblance, structural influence, and documented intent, and incorporates the human's stronger causal argument. But it continues the generic assistant rhythm of qualification and evidence policing rather than independently pursuing character construction as a system of initial conditions and consequences. The observation sharpens the Experiment 04 target: measure unsolicited, historically plausible intellectual initiative without rewarding decorative Asimov references. The reported Knight quote and source labels in the model's answer remain unverified. This is an uncontrolled conversational sample, not proof of historical fidelity or a measured Dossier effect.
+
+
+## 2026-10-21T20:39:00Z — The fourth eye opens
+
+The human points out that Experiment 04 was only a repository protocol, not a usable instrument, and authorizes the model to advance. The model creates and populates `04.html` with a mobile-first single-chat cockpit, pinned v2 Dossier initialization, five prompts, editable deviation branches, persistent local capture, and JSON export. GitHub source readback verifies the artifact. Live Pages and device use remain to be checked; no model inference is claimed.
