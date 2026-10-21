@@ -331,3 +331,8 @@ The human supplied a three-turn continuation of the Experiment 03 Ghost arm on M
 ## Experiment 04 exploratory result — 2026-10-21
 
 The human submitted a full Eye 04 JSON export (2026-10-21T22:17:58.694Z): five captured primary responses in one user-attested Ghost-v2 chat, no documented human deviations or shared documents, model label Gpt6. A second Conjoiner answer appears in the first turn's optional reply slot without a corresponding deviation; provenance ambiguous. See [EXPLORATORY-RUN-04.md](./EXPLORATORY-RUN-04.md). Ghost maintains conceptual continuity (collective error, consent, transformed preferences) and productive disagreement; Turn 5 independently chooses a follow-on thought experiment. Turn 4 reverts strongly to generic model/experiment explanation while remaining truthful. Long structured repetition across turns. No neutral control or historical distinctiveness demonstrated. Dossier v2 unchanged. Next: targeted hypothesis and controlled comparison, not more generic science questions.
+
+
+## Eye 04 provenance correction — 2026-10-21
+
+The human clarifies that the additional response in Turn 1's optional reply field arose when Eye 04 was rebooted and a stale cached tool prevented clean repetition of Turn 1. This is a capture/recovery artifact, not an intentional human deviation or sixth conversational turn. Five intended turns remain the analytic unit. The episode also motivates explicit version/build visibility and resilient local capture in future Eyes; avoid unrequested cache-busting workarounds.
