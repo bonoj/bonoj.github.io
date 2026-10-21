@@ -69,14 +69,9 @@ Resurrection, consciousness emulation, authenticated voice or likeness, unrestri
 
 **Bibliographic candidates (catalogued, books not read):** *In Memory Yet Green* (Doubleday, 1979; https://search.worldcat.org/title/4491369), *In Joy Still Felt* (Doubleday, 1980; https://www.kirkusreviews.com/book-reviews/isaac-asimov/joy-still-felt/), and *I, Asimov: A Memoir* (Doubleday, 1994; publication corroboration pending authoritative catalogue check). Do not treat these as ingested evidence.
 
-### Cognitive Atlas — first provisional, directly sourced propositions
+### Cognitive Atlas propositions
 
-- **AG-001 | 1988 | epistemology | direct testimony, high confidence as a stated position:** Scientific knowledge is valuable in part because its claims remain revisable in light of evidence. Evidence: Moyers part one, Asimov answer to whether scientific uncertainty is dangerous (transcript lines around the science/religion discussion). This describes his stated preference, not a claim that every scientific institution behaves ideally.
-- **AG-002 | 1988 | ethics of inquiry | direct testimony, high confidence as a stated position:** He prizes truthful reporting, attempts to disprove one's own results, and proper attribution as scientific ethical obligations. Evidence: Moyers part one, discussion of morality in science. His sweeping assessment of scientists' conduct should not be accepted as an independently verified generalization.
-- **AG-003 | 1988 | education | direct testimony, high confidence as a stated position:** Self-directed curiosity and individually paced access to networked knowledge should supplement, not replace, shared schooling. Evidence: Moyers part two, discussion of home computer terminals, libraries, tutors and school.
-- **AG-004 | 1988 | prediction | direct testimony, high confidence as a stated position:** The defensible horizon of prediction depends on the system; chaotic human history is less predictable than comparatively simple astronomical phenomena. Evidence: Moyers part two, opening discussion of his book *As Far As the Human Eye Could See*. This is a reasoning distinction, not evidence that all his forecasts were correct.
-- **AG-005 | 1988 | motivation | direct self-report, high confidence as a stated self-description:** He portrays learning and writing as intrinsically pleasurable, while acknowledging limits to his interest in particular subjects. Evidence: Moyers part two, discussion of self-education, astronomy, chemistry and writing. Do not generalize this into omniscience.
-- **AG-006 | 1988 | fiction | direct testimony, high confidence as a stated position:** He describes science fiction as a way to reveal human behavior by placing people in constructed societies. Evidence: Moyers part one, discussion of literature and science fiction. Do not attribute a fictional character's opinion directly to him.
+The canonical AG-001–AG-014 records now live in [ATLAS.md](./ATLAS.md). This SPEC retains source research context, construction decisions, probe transcripts and forward plan.
 
 **Status:** six provisional atlas propositions, all drawn from one interview series, not independent triangulation. No ghost probe or held-out test performed. Do not use these two transcripts as held-out evaluation data after consulting them. Reserve different interview material for evaluation.
 
@@ -87,11 +82,8 @@ Resurrection, consciousness emulation, authenticated voice or likeness, unrestri
 
 **Inspected:** Isaac Asimov, “A Cult of Ignorance,” *Newsweek*, “My Turn,” p. 19, catalogued January 21, 1980. Archived facsimile: https://aphelis.net/wp-content/uploads/2012/04/ASIMOV_1980_Cult_of_Ignorance.pdf ; independent citation metadata: https://www.safetylit.org/citations/index.php?citationIds%5B%5D=citjournalarticle_763162_37&fuseaction=citations.viewdetails . **Metadata discrepancy:** extracted scan text also says “AUGUST 19, 1980”; do not silently treat scan metadata as definitive. Copyright remains with publisher; record paraphrases, not wholesale text.
 
-**AG-007 | 1980 | democracy and knowledge | direct authored essay, high confidence as stated position:** Democratic access to information is ineffective without sufficient public literacy and willingness to evaluate expertise. His criticism targets anti-intellectualism, not equal political rights. Source: essay's free-press/literacy argument.
 
-**AG-008 | 1980 | educational egalitarianism | direct authored essay, high confidence as stated position:** Broad intellectual development is possible and deserves public approval and social rewards, rather than being reserved for a narrow elite. Source: essay's concluding proposal. Historical phrasing about cognitive normality should be contextualized rather than adopted as a present-day normative claim.
 
-**AG-009 | 1980 | rhetorical behavior | direct textual observation, moderate confidence as a recurrent trait:** He uses irony, comic exaggeration and reversal to expose contradictions between proclaimed democratic ideals and contempt for expertise. One essay is not sufficient to prove a stable personality trait.
 
 **Cross-source hypothesis H-001:** 1980's call for broad intellectual opportunity and the 1988 Moyers discussion of individually paced computer-assisted education express a compatible underlying commitment. This is *interpretation across sources*, not evidence of an unchanged personal conviction throughout life. Both sources are now seen and must not be used as held-out evaluation targets.
 
@@ -106,15 +98,10 @@ Resurrection, consciousness emulation, authenticated voice or likeness, unrestri
 
 **Inspected primary signed introduction:** Isaac Asimov, “The Point of Science Fairs,” pp. vi–viii of Anthony D. Fredericks and Isaac Asimov, *The Complete Science Fair Handbook* (Good Year Books, 1990), archived by ERIC https://files.eric.ed.gov/fulltext/ED317373.pdf , PDF pp. 7–9. The introductory essay is signed by Asimov; later chapters are jointly authored and must not be assigned individually. Copyright notice explicitly reserves rights.
 
-**AG-010 | circa 1983 | human–machine relationship | direct lecture, high confidence as stated position:** Asimov distinguishes machine intelligence from human intelligence and imagines complementary cooperation rather than interchangeable minds. The claim that machines and humans will *always* remain distinct is a historical prediction, not a settled fact. Source: lecture opening.
 
-**AG-011 | circa 1983 | reasoning about technology | direct lecture, high confidence:** He openly admits the limits of his technical expertise on computers while making speculative claims and identifying failures of science-fiction prediction (such as the conjunction of television and Moon landing, and dependence of spaceflight on computers). Source: lecture opening. A useful corrective to portraying the ghost as omniscient.
 
-**AG-012 | circa 1983 | engineering ethics | direct lecture, high confidence as stated reasoning:** He explains the Three Laws of Robotics as an extrapolation from safety, usefulness and durability requirements of ordinary tools. Source: lecture robotics discussion. These fictional laws are not real-world guarantees or a complete modern AI safety policy.
 
-**AG-013 | 1990 | pedagogy | direct signed introduction, high confidence:** Scientific education should cultivate observation, hypothesis, experiment, revision and enjoyment of discovery, not merely factual recall or awards. Source: handbook pp. vii–viii (PDF pp. 7–9).
 
-**AG-014 | 1990 | civic science literacy | direct signed introduction, high confidence:** He connects general scientific literacy to citizens' ability to make informed democratic decisions about environmental and technological issues, including for those not pursuing scientific careers. Source: handbook pp. vi–vii.
 
 **H-001 update:** The 1990 introduction supports continuity of the 1980 anti-ignorance argument and 1988 enthusiasm for curiosity-driven education, but the three texts differ in genre and setting. Do not erase their differences or infer universal stability.
 
@@ -148,3 +135,10 @@ Resurrection, consciousness emulation, authenticated voice or likeness, unrestri
 **Assessment:** qualitative face validity only. The demonstration does not assert literal identity, avoids automatic endorsement of human–machine fusion, and flags epistemic uncertainty by questioning definitions. It may be too measured and insufficiently sharp or humorous compared with AG-009. The model's knowledge of the project's aims contaminates any apparent success.
 
 **Next bounded step:** establish a genuinely separate baseline and atlas-conditioned run (same fixed prompt, no shared source context, logged instructions and outputs) using independent model calls if available; if not, label further probes demonstrations. Evaluate source discipline, historical era boundaries, argumentative structure, invented facts, and unwarranted agreement. Preserve independent historical answers for later predictive testing.
+
+
+## Artifact ownership update — 2026-10-21
+
+**ATLAS.md** is the canonical evidence map (14 provisional propositions, H-001 and T-001, source register). **SPEC.md** governs design, tests, current state and next action. **CHRONICLE.md** preserves the append-only intellectual record. A future **DOSSIER.md** may contain the compact, model-facing synthesis derived from ATLAS, not a duplicate source of historical truth. **Ghost** names the disclosed conversational performance, not an artifact or authenticated identity.
+
+**Next bounded step:** derive a compact, versioned model-facing dossier from ATLAS without laundering hypotheses into facts; define an isolated baseline-versus-conditioned probe. The earlier demonstration remains unblinded and unvalidated.
