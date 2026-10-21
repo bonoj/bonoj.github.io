@@ -29,3 +29,14 @@ The human requests that the newly codified README turn process be enforced immed
 ## 2026-10-21T14:59:00Z (estimated) — UTC ledger precision
 
 The human requires a UTC DTS on every chronicle entry and authorizes estimates for the turns just completed, which began roughly five minutes before this request. The model updates the earlier three headings with approximate sequential UTC times and labels each as **estimated**, rather than asserting invented precision. The README contract now requires a DTS even when only an estimate is available. Future entries should use an observed UTC timestamp whenever possible.
+
+
+## 2026-10-21T15:01:00Z (estimated) — Should the ghost be a micromodel?
+
+The human asks whether to train a micromodel. The model recommends starting with a general-purpose model conditioned on a carefully sourced Ghost Dossier. The difference is between imitating Asimov's vocabulary and reconstructing his intellectual behavior: how he explains, argues, handles objections, revises convictions, and approaches unknown questions. Neither a large model nor a fine-tuned small model guarantees fidelity.
+
+The proposed evidence map spans biography, worldview, reasoning, personality, voice and changes over time. Autobiography offers first-person self-description but is also self-presentation; nonfiction reveals explanatory habits; interviews reveal conversational register; fiction reveals recurring interests but cannot be treated as the author's own beliefs. The candidate starting books are *In Memory Yet Green*, *In Joy Still Felt*, and *I, Asimov: A Memoir*, followed by essays and dated interviews.
+
+A seventh dimension, **predictive behavior**, is proposed as a test: withhold actual historical answers and assess whether the reconstruction predicts their reasoning and substance. Three possible systems remain: general model plus dossier; model plus dossier and evidence retrieval; and a later fine-tuned micromodel compared against both. The immediate experimental artifact is a 20–30-proposition Cognitive Atlas with chronology, provenance, confidence and contradictions.
+
+The human directs the model to put the actionable expansion in SPEC and preserve the remainder of the discussion here. SPEC now records the approach and next bounded source-acquisition task. No source corpus was inspected, no model was trained, and no fidelity claim was established. README remains unchanged because its cold-boot contract is still accurate.
