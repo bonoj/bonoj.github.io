@@ -31,3 +31,14 @@ Measure factual attribution, period consistency, consistency of argument, resemb
 ## Non-goals
 
 Resurrection, consciousness emulation, authenticated voice or likeness, unrestricted copying of copyrighted material, generic search UX, premature deployment, or an arbitrary numerical claim about how much of the person has been recovered.
+
+
+## Construction state and immediate frontier (2026-10-21)
+
+**Established:** the reconstruction goal, source/provenance boundaries, conversational disclosure, research sequence, evaluation criteria, and the README turn contract. The README, SPEC and CHRONICLE exist and have distinct ownership. **Not established:** an ingested source corpus, verified evidence map, ghost dossier, actual ghost responses, fidelity tests, frontend or backend. Documentation is not evidence that those artifacts exist.
+
+**Just completed:** the five-stage turn contract (Orient → Act → Verify → Persist → Handoff) and document ownership were codified in README. This SPEC now tracks the state and next work; CHRONICLE records the reason for adopting the contract.
+
+**Next bounded turn:** identify a first small set of strong Asimov primary sources, with dates, access locators, reliability and rights status. Persist a source inventory and explicitly distinguish inspected material from candidate sources. Then select a single historically grounded question to begin extracting the ghost's reasoning profile. Do not fabricate a corpus or begin UI work.
+
+**Completion test for each turn:** verify any new source or claim, update this section to distinguish completed versus pending work and specify the next step, append a dated CHRONICLE entry, and change README only if its cold-boot frontier or invariants have changed.
