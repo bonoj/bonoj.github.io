@@ -99,3 +99,23 @@ A standalone ATLAS.md is created with all fourteen provisional propositions, sou
 The human advances after agreeing that the evidence Atlas should be independent of the model's performance. The model creates DOSSIER.md v0: a compact, model-facing interpretation of fourteen provisional atlas propositions. It carries source-ID pointers, epistemic boundaries, conversational tendencies, and a warning against projecting Asimov's historical views onto modern AI. The Atlas is not altered to fit a preferred performance.
 
 SPEC now specifies a reproducible baseline-versus-dossier protocol with two independent contexts, identical fixed question, logged model/settings and outputs, and explicit criteria. No such isolated runs have occurred yet; the earlier Ghost probe 01 remains a demonstration, not validation. README now links the dossier for cold boot. The next step is a genuine isolated test or continued source expansion, not simulated evaluation results.
+
+
+## 2026-10-21T17:39:00Z — The machinery learns its dance
+
+The human recognizes that the reconstruction now has a repeatable choreography and asks to preserve it. The model names the sequence explicitly: **README orients; ATLAS grounds; DOSSIER interprets; the model performs the Ghost; SPEC measures and directs; CHRONICLE remembers.** This is not a linear production line alone: evaluation and new evidence feed back into the next dossier revision, while the atlas changes only when warranted by evidence.
+
+**The dance, turn by turn:**
+
+1. **Cold boot:** read README, inspect SPEC's live frontier, consult the ATLAS for provenance and the DOSSIER for the current invocation contract; use CHRONICLE to recover why decisions were made.
+2. **Encounter:** the human asks a question or advances research. The model determines whether this is evidence acquisition, synthesis, a conversational demonstration, or a controlled experiment. It does not automatically build an app.
+3. **Ground:** new historical claims are checked against dated sources and assigned provenance, confidence and limits in ATLAS. Contradictions are retained. An attractive ghost answer is never sufficient reason to rewrite history.
+4. **Compose:** DOSSIER is revised as a compact, versioned, *derived* interpretation of the atlas. Source evidence, inference and posthumous speculation remain distinguishable.
+5. **Converse or probe:** a model may perform a clearly disclosed Ghost. Ordinary conversation explores usefulness; isolated baseline-versus-dossier runs test whether conditioning changes behavior. A single persuasive answer is not a measured fidelity result.
+6. **Inspect:** compare reasoning, historical boundaries, uncertainty, invented claims, unwarranted agreement and, when genuinely held out, predictive resemblance to documented Asimov answers. Failure is useful evidence about the reconstruction method, not grounds to doctor the atlas.
+7. **Persist and verify:** SPEC records actual state, tests and next bounded step; CHRONICLE appends the human's intent, observations, decisions and consequences with UTC minute DTS; README changes only when cold-boot routing or invariants change. Read back GitHub writes and verify commits.
+8. **Re-enter:** the next model, even in a cold thread, can reconstruct the same dance without the human repeating its rules.
+
+**Invariant:** **evidence → interpretation → performance → evaluation → revision**, with history protected from performance pressure. The atlas is the map, not the actor; the dossier is the score, not the music; the ghost is a disclosed performance, not a resurrection. The human directs the investigation, and the model carries out research, synthesis, testing and bookkeeping as one continuous operation.
+
+**Actual state at this entry:** README, ATLAS (14 provisional propositions), DOSSIER v0, SPEC and CHRONICLE exist in GitHub. The first ghost answer was an unblinded demonstration. No independent A/B inference, historical predictive score, trained micromodel, frontend or backend exists. The next bounded work remains the isolated baseline-versus-dossier comparison or further source research if isolated inference is unavailable.
