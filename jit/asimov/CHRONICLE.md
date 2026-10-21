@@ -215,3 +215,8 @@ The human advances beyond the blocked GitHub Actions route. The model creates a 
 ## 2026-10-21T18:36:00Z — The blob becomes a door
 
 On the human's next advance, the model inspects the cold-run launch path and identifies a friction point: the prior card linked a Git blob SHA as if it were a commit, an unreliable navigation path for a phone. It fetches the immutable v0 dossier through the GitHub blob API, publishes an accessible frozen copy, and checks that GitHub computes the identical SHA for the copy. The launch card now points directly to the verified snapshot. No experiment outputs exist; this step fixes reproducibility and removes an avoidable manual archaeology task.
+
+
+## 2026-10-21T19:34:00Z — A small eye for the experiment
+
+The human rejects repeated copy-paste choreography and asks for a JIT tool that makes independent comparison effortless. The model builds a standalone smartphone-first cockpit in `jit/asimov/index.html`: paired Neutral and Ghost cards, frozen v0 dossier embedded in the Ghost prompt, copy-and-open actions, answer capture, local persistence, and portable JSON export. No server, API key, paid inference, or new GitHub workflow. The model explicitly respects the browser boundary: it cannot secretly operate ChatGPT or collect chat outputs. The practical gain is that the human need not assemble or recover experiment instructions; only the two cross-app answer transfers remain. The executable is committed; live browser verification remains pending. No experiment has run and no comparative evidence is claimed.
