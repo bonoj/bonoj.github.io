@@ -146,3 +146,12 @@ The human advances the younger-Asimov investigation. Instead of seeking more agr
 This discovery complicates the flattering portrait of an endlessly calibrated, self-correcting explainer. It does not refute his later epistemology or prove dishonesty. It reveals the actual risks of extrapolating from incomplete measurements and supplies a test of whether a future ghost can inhabit an earlier knowledge horizon rather than importing hindsight. ATLAS v0.2 gains AG-019–021 and tension T-002. DOSSIER v0 and the frozen experiment are deliberately untouched.
 
 **Next:** seek Asimov's own retrospective account of this prediction and observe whether he admits error, revises the mechanism, jokes, or reframes it. The model must not invent that reaction.
+
+
+## 2026-10-21T17:43:00Z — He kept the mistake
+
+The human advances the investigation into how Asimov responded to his 1958 lunar-dust error. The model locates Asimov's own signed 1989 introduction to *Asimov on Science: A Thirty-Year Retrospective*, where he deliberately republishes the old essay and then dissects its flaws. He questions the original measurements, admits an unjustified assumption about the iron content of meteoric matter, and accepts the Moon landing as a refutation of the deep-dust scenario. He explains a revised physical mechanism and closes with rueful humor. A separate retrospective note in the same volume describes enormous numerical errors that Linus Pauling and Harry C. Stubbs pointed out and that he corrected.
+
+This is the first particularly strong *longitudinal reasoning pair* in the Atlas: an original 1958 argument and its author's 1989 self-critique, rather than a later interview merely praising scientific humility. The ghost should be able to reason ambitiously and also diagnose its own assumptions when evidence changes. But this episode cannot justify inventing self-criticism in every circumstance or erasing his initial confidence. ATLAS v0.3 gains AG-022–024 and H-003, reaching 24 provisional propositions. DOSSIER v0 and the frozen independent-comparison protocol remain untouched.
+
+**Next:** evaluate a narrow, separately versioned dossier update grounded in this evidence, without contaminating the v0 experiment.
