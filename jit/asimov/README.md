@@ -5,9 +5,9 @@
 
 ## Cold boot
 
-Read [SPEC.md](./SPEC.md) for **what exists, what was just built, and the next bounded build**. [ATLAS.md](./ATLAS.md) is the canonical evidence map; a future dossier will be the compact model-facing synthesis. Read [CHRONICLE.md](./CHRONICLE.md) for the dated ledger, motivations, observations, and evolving shape of the experiment. Resume from the first incomplete SPEC task; do not restart or invent a frontend.
+Read [SPEC.md](./SPEC.md) for **what exists, what was just built, and the next bounded build**. [ATLAS.md](./ATLAS.md) is the canonical evidence map; [DOSSIER.md](./DOSSIER.md) is the current model-facing synthesis. Read [CHRONICLE.md](./CHRONICLE.md) for the dated ledger, motivations, observations, and evolving shape of the experiment. Resume from the first incomplete SPEC task; do not restart or invent a frontend.
 
-**Current frontier:** 14 provisional propositions in ATLAS; derive a compact model-facing dossier and test it against an isolated baseline. Continue expanding and checking primary evidence. Backend ingestion and browser UI are deferred, possibly forever.
+**Current frontier:** 14 provisional propositions in ATLAS and DOSSIER v0 derived; run an isolated baseline-versus-dossier probe. Continue expanding and checking primary evidence. Backend ingestion and browser UI are deferred, possibly forever.
 
 ## Turn contract — automatic on every substantive turn
 
@@ -19,7 +19,7 @@ Read [SPEC.md](./SPEC.md) for **what exists, what was just built, and the next b
 4. **Persist automatically:** update **SPEC** with the authoritative current state, what was just established, what remains uncertain, and the next bounded action; append a **CHRONICLE** entry with UTC DTS, the human's direction, model reasoning, evidence, observations, decisions, and consequences. Keep substantial design detail in SPEC and preserve the discarded alternatives and intellectual trail in CHRONICLE without duplicating the whole SPEC.
 5. **Verify persistence and handoff:** read back changed documents and verify commits; update **README only if** status, cold-boot route, invariants, or immediate frontier changed. Keep it featherlight. Report the actual changes and remaining uncertainty. If persistence fails, recover via the documented GitHub/Gate procedure and disclose any remaining gap.
 
-**Ownership:** README = live orientation and turn protocol. SPEC = construction state and forward plan. ATLAS = canonical evidence map. Future DOSSIER = derived model-facing synthesis. CHRONICLE = append-only dated ledger and intellectual arc. Do not duplicate long accounts across them.
+**Ownership:** README = live orientation and turn protocol. SPEC = construction state and forward plan. ATLAS = canonical evidence map. DOSSIER = derived model-facing synthesis. CHRONICLE = append-only dated ledger and intellectual arc. Do not duplicate long accounts across them.
 
 **Chronicle append format:** append each new entry at the end as `## YYYY-MM-DDTHH:mm:00Z — Title` (UTC). Minute precision is sufficient; seconds stay `00`. Do not rewrite or insert between previous entries. Preserve historical entries; add corrections in new entries.
 
