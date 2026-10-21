@@ -9,13 +9,16 @@ Read [SPEC.md](./SPEC.md) for **what exists, what was just built, and the next b
 
 **Current frontier:** inventory lawful primary sources, develop a dated ghost dossier of reasoning/worldview/style, and probe conversational fidelity. Backend ingestion and browser UI are deferred, possibly forever.
 
-## Turn contract
+## Turn contract — automatic on every substantive turn
+
+**Standing authorization:** when the human asks to advance, investigate, decide, revise, or probe Asimov's Ghost (including `➡️`), complete the research/build step **and** its documentation in the same turn without waiting for separate instructions to update SPEC or CHRONICLE. Do not turn documentation into an approval gate. A conversational question that materially changes the design also triggers persistence; trivial acknowledgments do not.
+
 
 1. **Orient:** read this README and the relevant SPEC frontier; consult CHRONICLE for context. Inspect actual artifacts before claiming their state.
 2. **Act:** advance one meaningful, bounded research or reconstruction step. The model is the instrument; favor source evidence, dossier quality, and ghost probes over transport plumbing.
 3. **Verify:** distinguish documented Asimov evidence, model interpretation, imagined continuation, and unverified hypotheses. Record failures and uncertainty; never invent quotations, private memories, or authenticated identity.
-4. **Persist:** update **SPEC** with the resulting implemented/researched state, evidence, decisions affecting the build, and the *next executable/research step*. Append a concise **CHRONICLE** entry with the process, rationale, observations, and consequences.
-5. **Handoff:** update **README only if** current status, cold-boot route, invariants, or immediate frontier changed. Keep it featherlight. Report what actually changed and where.
+4. **Persist automatically:** update **SPEC** with the authoritative current state, what was just established, what remains uncertain, and the next bounded action; append a **CHRONICLE** entry with UTC DTS, the human's direction, model reasoning, evidence, observations, decisions, and consequences. Keep substantial design detail in SPEC and preserve the discarded alternatives and intellectual trail in CHRONICLE without duplicating the whole SPEC.
+5. **Verify persistence and handoff:** read back changed documents and verify commits; update **README only if** status, cold-boot route, invariants, or immediate frontier changed. Keep it featherlight. Report the actual changes and remaining uncertainty. If persistence fails, recover via the documented GitHub/Gate procedure and disclose any remaining gap.
 
 **Ownership:** README = live orientation and turn protocol. SPEC = authoritative evolving construction state and forward plan. CHRONICLE = append-only dated ledger and intellectual arc. Do not duplicate long accounts across them.
 
