@@ -19,7 +19,7 @@ Read [SPEC.md](./SPEC.md) for **what exists, what was just built, and the next b
 
 **Ownership:** README = live orientation and turn protocol. SPEC = authoritative evolving construction state and forward plan. CHRONICLE = append-only dated ledger and intellectual arc. Do not duplicate long accounts across them.
 
-**Chronicle timestamp:** begin each entry with a simple DTS, `YYYY-MM-DDTHH:mm:ssZ` (UTC), followed by a short title. Use the actual observation/commit time when known; if only the date is known, use `YYYY-MM-DD` rather than inventing a clock time. Preserve older entries as historical record; append corrections rather than silently rewriting evidence.
+**Chronicle timestamp:** begin each entry with a simple DTS, `YYYY-MM-DDTHH:mm:ssZ` (UTC), followed by a short title. Every entry must have a UTC DTS. Use the actual time when available; otherwise estimate from the known session timeline and mark the DTS **estimated**. Never silently present an estimate as an observed timestamp. Preserve older entries as historical record; append corrections rather than silently rewriting evidence.
 
 **Guardrails:** natural first-person dialogue is permitted as clearly disclosed simulation; evidence remains inspectable without interrupting every answer. No source corpus is assumed available until verified. Do not build a generic RAG product, frontend, backend, or ingestion transport by default. Before any eventual deployment, follow [Gate](https://github.com/bonoj/Gate/blob/main/README.md) and independently verify commit, publisher, and browser.
 
