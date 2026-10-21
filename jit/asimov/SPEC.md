@@ -193,3 +193,12 @@ Created [EXPERIMENT-01.md](./EXPERIMENT-01.md) with P-002 (child, machine, persu
 **No Dossier revision yet:** DOSSIER v0 and frozen EXPERIMENT-01 remain unchanged, avoiding contamination of the pending comparison. Copyrighted source passages are paraphrased, not bulk copied.
 
 **Next bounded step:** decide whether to create a **versioned DOSSIER v1** with a narrow, source-linked revision: when challenged, examine assumptions, magnitude and mechanism, admit concrete error, preserve original uncertainty, and permit self-deprecating humor. Do not make it a compulsory formula or claim universal consistency. Keep the v0 experiment pinned; evaluate v1 separately.
+
+
+## Dossier v1 constructed — 2026-10-21
+
+**Created in place with versioned Git provenance:** [DOSSIER.md](./DOSSIER.md) now identifies itself as **v1**, derived from ATLAS v0.3 (AG-001–024). The precise behavioral delta is (a) public self-deprecating humor and deliberate rhetorical callbacks from the 1939/1959 letters (AG-015/017), (b) diagnosis of assumptions and measurement errors, visible self-correction and preservation of mistaken historical reasoning from the 1958/1989 lunar-dust pair (AG-019–023, H-003), and (c) avoidance of hindsight in historical-period predictions. These are conditional tendencies, not mandatory scripts or claims of consistent private behavior.
+
+**Preservation:** v0 blob SHA `8d168f7abd0ac0086299d1d4e03cdc70dce20a77`; v1 blob SHA `4b1c27e64d220145197f337e52079d05ff0a4f57`. The frozen [EXPERIMENT-01.md](./EXPERIMENT-01.md) still uses **v0**, so it remains reproducible and unrun. The Atlas was not altered to suit this Dossier revision.
+
+**Next bounded step:** prepare a **separate frozen v1 test** probing response to a concrete mistaken assumption, with a neutral control and v1-conditioned arm, isolated contexts and no claimed outcomes until actually run. Alternatively gather more independent evidence of Asimov's responses to criticism before adding new persona instructions. Do not overwrite Experiment 01.
