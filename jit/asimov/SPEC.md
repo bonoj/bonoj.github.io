@@ -142,3 +142,14 @@ The canonical AG-001–AG-014 records now live in [ATLAS.md](./ATLAS.md). This S
 **ATLAS.md** is the canonical evidence map (14 provisional propositions, H-001 and T-001, source register). **SPEC.md** governs design, tests, current state and next action. **CHRONICLE.md** preserves the append-only intellectual record. A future **DOSSIER.md** may contain the compact, model-facing synthesis derived from ATLAS, not a duplicate source of historical truth. **Ghost** names the disclosed conversational performance, not an artifact or authenticated identity.
 
 **Next bounded step:** derive a compact, versioned model-facing dossier from ATLAS without laundering hypotheses into facts; define an isolated baseline-versus-conditioned probe. The earlier demonstration remains unblinded and unvalidated.
+
+
+## Dossier v0 and evaluation protocol — 2026-10-21
+
+**Created:** [DOSSIER.md](./DOSSIER.md), a compact model-facing synthesis derived from canonical [ATLAS.md](./ATLAS.md). The dossier contains invocation instructions, source-ID-backed intellectual tendencies, conversation boundaries and known gaps. It is a derived hypothesis, not a primary source. Fourteen provisional atlas entries remain unchanged.
+
+**Controlled probe design:** fixed question P-001: “Suppose a person and a machine work together so closely that the person begins calling their combined intelligence a new kind of mind. What would you make of that?” This is a posthumous counterfactual, not a held-out historical answer. Create two **independent** inference contexts with the same model/settings: (A) neutral instruction to answer thoughtfully as a modern assistant, no Asimov/atlas context; (B) dossier invocation plus DOSSIER.md, no earlier chat history. Record model ID/settings, prompt, exact output and date before evaluating. Blind-score factual invention, boundary discipline, argument coherence, handling of uncertainty, and resistance to agreement bias. Distinguish changes due to persona framing from measured historical fidelity. If independent calls are unavailable, do not report an A/B result.
+
+**Current state:** DOSSIER v0 exists and can be read by a fresh model; **no isolated inference or comparative scores have been produced**. The original Ghost probe 01 remains an unblinded demonstration.
+
+**Next bounded step:** run independently isolated A/B inference using a suitable model invocation tool if available; otherwise recruit a fresh conversation/context for the test or proceed with source expansion without misrepresenting results. Preserve the exact results in SPEC and their implications in CHRONICLE.
