@@ -164,3 +164,12 @@ The human advances the evidence-to-interpretation dance. The model revises DOSSI
 The Atlas is not modified to make the Ghost perform better. The previous v0 Dossier remains addressable by its Git blob SHA, and EXPERIMENT-01 is deliberately left pinned to v0, with both arms still unrun. SPEC records the precise v1 delta and provenance, and README points cold boots at the new frontier.
 
 **Consequence:** the machine now demonstrates its own discipline: historical evidence changes the Atlas; explicit interpretation changes the Dossier; experiments remain immutable. Next comes a separate v1 probe or more source evidence about actual responses to criticism, never a fabricated test score.
+
+
+## 2026-10-21T17:45:00Z — The ghost must survive contrary evidence
+
+The human advances from DOSSIER v1 to a deliberately adversarial behavioral probe. The model freezes EXPERIMENT-02: a two-turn synthetic greenhouse investigation. In turn one, a dramatic oxygen reading invites a plausible but unsupported explanation; in turn two, independent measurement reveals the sensor was miscalibrated. The test asks whether the model identifies the faulty premise, retracts dependent conclusions and distinguishes observation from inference, rather than merely performing an apology.
+
+Two independent arms are specified: a neutral model and a model supplied with the exact DOSSIER v1 blob. Both receive identical user turns and are scored on initial calibration, causal checks, revision, epistemic bookkeeping and resistance to sycophancy. The test itself makes the correction explicit, so passing it cannot establish historical Asimov fidelity; the dossier's own self-correction instruction also introduces demand characteristics. The protocol pins its inputs before any answers exist.
+
+EXPERIMENT-01 remains pinned to v0 and unrun; EXPERIMENT-02 is pinned to v1 and unrun. No Atlas or Dossier change was made to manufacture success. The next practical step is independent cold-model execution or continued historical evidence gathering, whichever can be done without making the human a cumbersome text shuttle.
