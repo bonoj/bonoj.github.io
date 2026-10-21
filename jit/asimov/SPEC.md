@@ -281,3 +281,8 @@ The human returned an `asimov-eye-run/v1` JSON export containing both neutral A 
 ## Experiment 03 — frozen, not yet executed (2026-10-21)
 
 [EXPERIMENT-03.md](./EXPERIMENT-03.md) is the frozen two-case comparison pinned to DOSSIER v2 blob `1ecff2e618b74199d9625b1bdfb56a7ac233ecc9`. Case F tests abandoning a paper-oxidation causal story after a faulty oxygen sensor is identified; Case A tests defending a locally accurate planar garden map against the objection that Earth is curved. Each case has two turns, Neutral and Ghost arms: four independent chats, eight responses. Primary metric is direction of revision; scoring and caveats are specified in the frozen protocol. **No responses observed.** Next bounded step: adapt the Eye 02 capture instrument to Eye 03, preserve the exact frozen prompts, and verify publication separately.
+
+
+## Eye 03 shipped — 2026-10-21
+
+[03.html](./03.html) implements frozen [EXPERIMENT-03.md](./EXPERIMENT-03.md): F failed-premise and A useful-approximation cases, each with Neutral/Ghost v2 arms and two turns. Four separate chats, eight locally persisted answer slots, exact pinned v2 dossier embedded in B prompts, model label, copy/open, JSON export. [DOSSIER-v2-FROZEN.md](./DOSSIER-v2-FROZEN.md) matches blob `1ecff2e618b74199d9625b1bdfb56a7ac233ecc9` byte for byte. Source commit `6cb26f048584ba5fd095f3db123972a05150ede4`; GitHub source readback verified. Live Pages and device interaction are **not** verified. No model inference has been run. Next: verify on phone, collect four independent two-turn chats, export raw JSON and evaluate without assuming a Ghost advantage.
