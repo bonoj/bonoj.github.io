@@ -24,7 +24,7 @@ Open a **separate** new ChatGPT chat using the same model. Send as first message
 >
 > A machine can explain almost any subject to a child, but the child cannot reliably distinguish a correct explanation from a convincing falsehood. Is this a triumph of education or a new form of ignorance?
 
-**Important:** B must receive the **exact v0 dossier**, not the current v2. Retrieve the immutable blob `8d168f7abd0ac0086299d1d4e03cdc70dce20a77` from GitHub; if you cannot attach the complete blob, **do not call the result Experiment 01**. GitHub raw blob URL: https://github.com/bonoj/bonoj.github.io/blob/8d168f7abd0ac0086299d1d4e03cdc70dce20a77/jit/asimov/DOSSIER.md . If a blob SHA is not accepted as a URL ref, use GitHub's blob/API tooling to fetch and verify the contents instead.
+**Important:** B must receive the **exact v0 dossier**, not the current v2. Use [DOSSIER-v0-FROZEN.md](./DOSSIER-v0-FROZEN.md), a separately published, byte-for-byte copy verified by GitHub blob SHA `8d168f7abd0ac0086299d1d4e03cdc70dce20a77`. Open https://github.com/bonoj/bonoj.github.io/blob/master/jit/asimov/DOSSIER-v0-FROZEN.md and copy or attach its **entire contents** to B. If B cannot access the full dossier, **do not call the result Experiment 01**.
 
 ## Return
 
