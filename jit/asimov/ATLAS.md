@@ -1,6 +1,6 @@
 # Asimov Cognitive Atlas
 
-**Status:** provisional evidence map, not a trained model or an authenticated personality. **Version:** v0.2, 21 propositions. The model-facing Ghost Dossier is a future derived artifact; the Ghost is the resulting disclosed conversational reconstruction.
+**Status:** provisional evidence map, not a trained model or an authenticated personality. **Version:** v0.3, 24 propositions. The model-facing Ghost Dossier is a future derived artifact; the Ghost is the resulting disclosed conversational reconstruction.
 
 ## Contract
 
@@ -33,6 +33,10 @@ The atlas records dated, attributed claims, observed reasoning habits, tensions 
 - **AG-020 | 1958 | explanatory rhetoric | direct authored essay, high confidence:** He moves from familiar household dust through physical mechanisms and rough quantitative extrapolation to a vivid hypothetical spacecraft sinking out of sight. This is observed argumentative structure in one science column, not a guaranteed response template. Same source.
 - **AG-021 | 1958 / later evidence | fallibility and prediction | primary forecast plus independent historical correction, high confidence in discrepancy:** The dramatic deep-dust landing scenario did not occur in subsequent lunar exploration. This does not establish that he insisted the entire lunar surface was uniformly deep dust, nor that he ignored every competing hypothesis. The original essay's uncertainty language must be preserved. Sources: 1958 essay, later lunar exploration record and contemporary discussion of competing models.
 
+- **AG-022 | 1989 retrospective on 1958 | explicit self-correction | direct signed introduction, high confidence as stated account:** Asimov republishes “The Dust of Ages” despite having omitted it from earlier collections, saying he had grown dissatisfied with its assumptions and questioned the accuracy of Pettersson's underlying dust measurements. Source: *Asimov on Science: A Thirty-Year Retrospective* (1989), introduction pp. xvii–xviii, immediately following the reproduced essay.
+- **AG-023 | 1989 retrospective on 1958 | diagnosis of error | direct signed introduction, high confidence as self-analysis:** He explicitly identifies his mistaken generalization that meteoric matter was mostly iron, acknowledges lunar exploration contradicted the deep-dust scenario, and offers an account of why vacuum-exposed lunar dust can cohere. The explanation is his retrospective account, not an independent verification of all lunar-regolith physics. Same source.
+- **AG-024 | 1989 retrospective | correction and humor | direct signed commentary, high confidence:** He recounts large numerical errors corrected after intervention by Linus Pauling and Harry C. Stubbs (Hal Clement), acknowledges correcting them, and uses rueful humor. The numerical magnitudes are Asimov's self-report, not independently audited here. Source: 1989 collection, commentary preceding “The Relativity of Wrong,” p. 343.
+
 ## Cross-source interpretation
 
 **H-001 — Educational opportunity:** The 1980 essay on anti-intellectualism, 1988 Moyers interviews about self-directed learning, and 1990 science-fair introduction are compatible with a commitment to broad scientific literacy. Interpretive hypothesis, not proof of an unchanged lifelong belief.
@@ -43,7 +47,11 @@ The atlas records dated, attributed claims, observed reasoning habits, tensions 
 
 **T-002 — The fallible explainer:** AG-019–021 put pressure on a simplistic reading of AG-001 and AG-011. Asimov's later commitment to revisable knowledge coexists with an earlier memorable extrapolation that proved wrong. The ghost should neither import future knowledge into historical predictions nor deliberately mimic factual error; it should acknowledge what could and could not be known at a given date.
 
+**H-003 — Fallibility as practice, not slogan:** The 1989 signed retrospective directly supports the hypothesis that Asimov could revisit, identify and publicly correct earlier mistakes while preserving the intellectual record. The 1958 lunar prediction and 1989 reappraisal form a particularly useful dated pair; do not infer perfect self-correction in every context.
+
 ## Source register
+
+- **1989:** Isaac Asimov, *Asimov on Science: A Thirty-Year Retrospective* (Doubleday, first edition August 1989), signed introduction pp. xiii–xviii and later error commentary around p. 343. Readable transcription of copyrighted book: https://www.scribd.com/document/713791229/ ; no wholesale reuse or training rights assumed. Specific introduction passage follows reprint of the 1958 essay.
 
 - **1958-11:** Asimov, “The Dust of Ages,” *The Magazine of Fantasy & Science Fiction*. Bibliographic index: https://www.asimovonline.com/oldsite/Essays/f_and_sf_essays.html ; publisher bibliography: https://fandsf.com/bibliography/fsfsciencewhat01.htm ; reprinted in *Asimov on Science: A Thirty-Year Retrospective* (1989), introduction, archival preview https://www.scribd.com/document/713791229/ . Original essay wording consulted through reproduced text; publication is copyrighted, no bulk reuse authorization. Independent contemporaneous alternative: *Time*, 1958-05-12, https://content.time.com/time/subscriber/article/0,33009,863444-2,00.html .
 
@@ -59,4 +67,4 @@ The atlas records dated, attributed claims, observed reasoning habits, tensions 
 
 ## Boundaries
 
-All 21 propositions remain provisional; some characterize a stated belief rather than a verified external fact. Most propositions still cluster in 1980–1990; the 1939 and 1959 letters offer early public voice but not intimate biography, contradictory evidence, or a controlled conversational sample. No isolated model comparison or held-out predictive validation has been performed. For the first demonstration and its invented speech, see SPEC's Ghost probe 01; do not mistake it for a source.
+All 24 propositions remain provisional; some characterize a stated belief rather than a verified external fact. Most propositions still cluster in 1980–1990; the 1939 and 1959 letters offer early public voice but not intimate biography, contradictory evidence, or a controlled conversational sample. No isolated model comparison or held-out predictive validation has been performed. For the first demonstration and its invented speech, see SPEC's Ghost probe 01; do not mistake it for a source.
