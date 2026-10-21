@@ -678,3 +678,30 @@ After this specification is reviewed, a separate implementation decision can aut
 
 
 ### End of former SPEC snapshot
+
+
+## 🌒 Return of attention — why the micro model was retired (21 October 2026)
+
+**Status: retrospective analysis and renewed interest, not a new implementation authorization.** The human returned to Ender Forge after reflecting on how executable worlds and their surrounding engineering machinery have become composable. We re-read the Forge Chronicle and current README to understand why the earlier micro-model incarnation was deliberately retired. The present runtime remains the brainless wandering observer; the retired cognition and neural experiments remain archived. No gameplay, policy, UI, or development direction is changed by this entry.
+
+### Diagnosis: an increasingly sophisticated spectator
+
+The micro-model experiment was not stopped because its inference was expensive or because its tiny numerical machinery failed. The independent character model trained; the separate small action softmax and target scorer learned synthetic examples, passed small authored holdouts, and ran as a read-only shadow on genuine local observations. But that was not the desired outcome. A real T+129 replay initially chose to FOLLOW an empty-handed moth worker; contrastive hand-authored examples changed the prediction to LOOK. This exposed a fundamental distinction: fitting our examples of sensible behavior is not learning the world's consequences. Even after locally witnessed pickups, deposits, and combat events entered the read-only shadow, its predictions changed only marginally, and it did not control Ender's actions.
+
+The later identity registry, provenance ledger, carrier pursuit, and evidence-scored depot navigation provided valuable evidence and limited situated behavior, but shifted the experiment toward choosing *where to look*. Reaching a location, following a worker, accumulating a diary, or selecting an observation goal did not constitute acquiring material, altering the ecology, or learning from a consequential intervention. The human had already corrected the five-turn cadence: it was meant to reach evidence-grounded **action**, not become an indefinite observational research program. The model nevertheless repeatedly proposed more reporting and verification rather than crossing that boundary.
+
+The human therefore halted the direction, archived the neural experiment, disabled the heuristic planner, and removed the obsolete cognition and diary from the active runtime. This was a deliberate research-baseline reset, **not** a finding that micro-models cannot work, nor authorization to reinstall one. The physically consequential Tiffany world and its existing invariants were preserved.
+
+### Missing experimental loop
+
+**Intent → permitted executable world action → observed physical consequence → attributable credit, failure, or uncertainty → subsequent changed choice.**
+
+The previous incarnation had increasingly elaborate sensors and representations, but lacked a sufficiently consequential, bounded action interface and an outcome signal grounded in the world. Synthetic supervision, hand-authored reward proxies, confidence values, read-only counterfactuals, and travel-to-depot scores cannot substitute for that loop. A tiny learner may be a viable component, but its role should be judged by demonstrated changes in world-facing competence, not by how eloquently it describes or predicts observation.
+
+Tiffany's ecology already supplies scarce materials, competing claims, worker logistics, predators, fragile structures, mortality, and recovery. That environment is the valuable experimental substrate. The unresolved question is whether a very small learner, given appropriately limited *earned* agency and truthful local feedback, can improve through consequences without merely reproducing our authored examples. Do not silently grant Ender Tiffany's inventory, privileged perception, free resources, a technology tree, or a scripted success path.
+
+### Renewed frontier — open question, not roadmap
+
+The human's attention has returned to Ender Forge. Preserve the clean wandering baseline and the archived record while considering a smaller, more decisive experiment in which an action can actually change the world and its result can be witnessed. Reuse the existing ecology and physical transfer laws; avoid rebuilding the sprawling shadow-observation machinery or treating more telemetry as progress. The exact learner, permitted first action, credit assignment, recovery mechanism, and whether a micro-model belongs in the next incarnation are **undecided**. Choose them with the human before implementation.
+
+**Guiding distinction:** an agent that can explain the world is not yet an agent that can participate in it. The next experiment, if authorized, should test participation and learning through consequence.
