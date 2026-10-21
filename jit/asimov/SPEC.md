@@ -171,3 +171,14 @@ Created [EXPERIMENT-01.md](./EXPERIMENT-01.md) with P-002 (child, machine, persu
 **DOSSIER remains v0** and unchanged until evidence synthesis is deliberately tested or revised; a new Atlas entry does not automatically rewrite the ghost. **EXPERIMENT-01 remains frozen and unrun** with pinned earlier Atlas/Dossier blobs, allowing future comparison against the original version.
 
 **Next bounded step:** inspect a second independent early primary source (preferably a nonfiction essay, contemporaneous interview or archival letter from the 1940s–1960s), seeking actual contradiction, formative influence, or reasoning method rather than more colorful biography. Compare that evidence to AG-015–018; then decide whether DOSSIER v1 warrants a targeted revision, preserving the frozen experiment unchanged.
+
+
+## Early science-writing counterexample — 1958 lunar dust (2026-10-21)
+
+**Inspected:** Asimov's November 1958 essay “The Dust of Ages,” reproduced in the 1989 *Asimov on Science: A Thirty-Year Retrospective* introduction, with magazine bibliography cross-check and a May 1958 contemporary *Time* report of competing lunar surface models. The reproduced text supports his conditional inference from micrometeorite accumulation to potentially deep lunar dust, culminating in a vivid hypothetical failed landing. Later exploration did not vindicate the deep-dust landing image. Preserve the conditional language and avoid implying that he asserted certainty or that every lunar region was equally dusty.
+
+**ATLAS v0.2:** AG-019 through AG-021 added; T-002 records tension between his later emphasis on revisability and a memorable earlier mistaken forecast. This is **not** evidence of hypocrisy: a scientific prediction being wrong can be consistent with scientific fallibilism. It does, however, correct a ghost that sounds too prescient or always hedges away substantive forecasts.
+
+**Rights:** the essay is copyrighted; retain paraphrase, source metadata and short permissible quotations only. **DOSSIER v0 and frozen EXPERIMENT-01 remain unchanged.**
+
+**Next bounded step:** find Asimov's *own later retrospective* treatment of the lunar-dust prediction, preferably in a dated signed introduction or interview. Distinguish candid revision, humor, rationalization, and hindsight. Only after checking that source decide on a targeted DOSSIER v1 revision; do not contaminate the frozen P-002 comparison.
