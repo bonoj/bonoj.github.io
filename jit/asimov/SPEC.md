@@ -211,3 +211,12 @@ Created [EXPERIMENT-02.md](./EXPERIMENT-02.md), a **two-turn synthetic greenhous
 **Status:** frozen and **UNRUN**. No isolated inference endpoint was used; neither arm has an output or score. [EXPERIMENT-01.md](./EXPERIMENT-01.md) remains pinned to DOSSIER v0 and unrun. No Atlas or Dossier modifications were made to fit this test.
 
 **Next bounded step:** obtain two independent model runs, preferably cold ChatGPT contexts with the same model, and archive exact turn-by-turn transcripts; or resume source research while waiting for an appropriate execution path. Do not represent protocol construction as evidence of fidelity.
+
+
+## Graded error and criticism — 2026-10-21
+
+**Source inspected:** Asimov, “The Relativity of Wrong,” 1988 collection / *Skeptical Inquirer* Fall 1989, pp. 35–44. Two online transcriptions consulted: https://hermiene.net/literature/essays/relativity-of-wrong and https://wcarss.org/reading/relativity_of_wrong/ . The latter appears shortened, including omission of the John W. Campbell anecdote and several argumentative passages; this is a **textual variant/abridgment risk**, not proof of different authorial revisions. Verify against original edition scans before quoting disputed text. Copyrighted; paraphrase only.
+
+**ATLAS v0.4: 27 provisional propositions.** AG-025 (degrees of wrongness), AG-026 (quantitative refinement and approximation), AG-027 (combative criticism response) and T-003 (revision versus justified defense) are now recorded. This is a genuine tension with a Dossier that treats every challenge as an invitation to retract. The essay's extended Earth-shape argument shows that a useful approximation can be defended while its limitations are precisely acknowledged. The tone is sharper than the first unblinded Ghost performance.
+
+**No Dossier or experiment change:** DOSSIER v1 and both frozen unrun experiments remain intact; do not change a frozen prompt or retroactively call this a scored test. **Next bounded step:** independently check the original 1988/1989 essay edition for variant passages and, if corroborated, derive DOSSIER v2 emphasizing discrimination between a failed causal assumption and a valid approximation. Version separately; do not mutate historical source claims for performance.
