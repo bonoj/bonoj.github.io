@@ -1,17 +1,15 @@
-# JIT Asimov — Chronicle
+# Asimov's Ghost — Research Chronicle
 
 ## October 21, 2026 — Genesis
 
-The human asks how much of **Isaac Asimov himself** could be simulated as someone to query and converse with. The model distinguishes a rich reconstruction of his public intellectual record from any recovery of consciousness, private memory, or the actual person.
+The human asks how much of Isaac Asimov himself can be constructed as a simulation to query and converse with. The model initially proposes a source-grounded interactive intellectual reconstruction, with historical, interpretive and speculative modes. The human asks why Asimov came first; the conversation relates the choice to *Prelude to Foundation*, Hari Seldon, and the protoconjoiner's ambition to make ideas executable. These are interpretive connections, not certain access to the human's motive.
 
-The human asks why Asimov came first. The conversation connects Asimov to the human's formative experience of *Prelude to Foundation*, Hari Seldon, and a laboratory devoted to making thought executable. This interpretation is meaningful but is not proof of the human's private motive.
+## October 21, 2026 — Correcting the target
 
-The proposed experiment separates **Historical** (documented sources), **Interpretive** (reasoning anchored to those sources), and **Speculative** (clearly marked imagined dialogue). A time coordinate avoids flattening changing beliefs into a single persona. A curated corpus with provenance comes before freeform impersonation.
+The human clarifies: **the desired object is a model-mediated executable**. A user's input might eventually travel to a backend, where a model wakes and answers through ingestion, but that integration should be last or might never be built. Even an executable may be premature. The immediate aim is for the model to answer **as faithfully as possible as Asimov's ghost**.
 
-**Research question:** how closely can an inspectable system approximate a historical thinker's *documented reasoning* without obscuring the boundary between evidence and invention?
+The model recognizes its earlier inversion: it had prioritized a browser interface and retrieval product over the intellectual reconstruction itself. The revised north star is a conversationally credible, evidence-constrained continuation of Asimov's thinking. A curated ghost dossier and repeated model probes come before any transport layer.
 
-**Hypotheses, not results:** source grounding and mode separation may outperform a generic persona prompt; held-out historical interviews may help evaluate fidelity.
+**Research tensions:** natural first-person presence versus clear simulation disclosure; historical fidelity versus plausible extrapolation; source transparency versus uninterrupted conversation; stable persona versus real changes across a lifetime.
 
-**Decision:** establish JIT Asimov with a focused handoff, build spec, and chronological record. Start small, respect rights, and record real browser evidence rather than assuming deployment.
-
-**Current evidence:** documentation only; no verified corpus, live conversation engine, or evaluation yet.
+**Next inquiry:** identify the strongest available primary sources, begin a dated evidence map of worldview and reasoning habits, and run the first ghost probes. No claims of fidelity have yet been validated against held-out material.
