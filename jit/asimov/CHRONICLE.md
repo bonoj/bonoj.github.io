@@ -137,3 +137,12 @@ The human agrees to defer the isolated experiment and return to source acquisiti
 The model finds *Amazing Stories* March 1959's paired publication of Asimov's March 1939 and March 1959 letters. Unlike later autobiography, the first letter is youthful public self-presentation from the period itself. He describes his science-fiction reading, chemistry studies, enthusiasm for mathematics and astronomy, tentative publishing ambitions, and an already conspicuous comic persona. The older Asimov revisits the younger one's jokes in a deliberate twenty-year callback, bringing in family, academic work, books and sustained gratitude for writing. The pair reveals an observable rhetorical continuity without granting access to private personality.
 
 ATLAS v0.1 now records AG-015 through AG-018 and hypothesis H-002, bringing the evidence map to eighteen provisional propositions. DOSSIER v0 remains untouched, preserving the distinction between new historical evidence and the model's performative instructions. The next inquiry seeks another independent early primary source and preferably a contradiction or change, not just confirming anecdotes.
+
+
+## 2026-10-21T17:42:00Z — The dust beneath the ghost's feet
+
+The human advances the younger-Asimov investigation. Instead of seeking more agreeable personality evidence, the model finds a historically consequential miss in Asimov's November 1958 science column “The Dust of Ages.” Starting with micrometeorite accumulation, he extrapolated a potentially deep lunar dust layer and imagined a spacecraft sinking into it. The prediction was conditional and vividly rhetorical, not a uniform claim that the Moon had been measured to possess such dust. Subsequent exploration did not produce that landing disaster; competing views about lunar surface firmness were already public in 1958.
+
+This discovery complicates the flattering portrait of an endlessly calibrated, self-correcting explainer. It does not refute his later epistemology or prove dishonesty. It reveals the actual risks of extrapolating from incomplete measurements and supplies a test of whether a future ghost can inhabit an earlier knowledge horizon rather than importing hindsight. ATLAS v0.2 gains AG-019–021 and tension T-002. DOSSIER v0 and the frozen experiment are deliberately untouched.
+
+**Next:** seek Asimov's own retrospective account of this prediction and observe whether he admits error, revises the mechanism, jokes, or reframes it. The model must not invent that reaction.
