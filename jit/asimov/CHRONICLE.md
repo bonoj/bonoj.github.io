@@ -47,3 +47,12 @@ The human directs the model to put the actionable expansion in SPEC and preserve
 The human requests that cold-boot recovery require no repeated instruction to update SPEC and CHRONICLE. The model clarifies the standing turn contract in README: substantive advancement or decisions automatically update the authoritative SPEC and append a timestamped CHRONICLE entry in the same turn. README changes only when orientation or invariants change. Persistence is verified by reading back and checking commits; failures follow existing recovery rules rather than being silently omitted.
 
 **Consequence:** documentation is an intrinsic part of executing each meaningful Asimov turn, not a separate human-requested task. No ghost corpus or fidelity result is implied by this workflow change.
+
+
+## 2026-10-21T15:06:00Z — First encounter with primary testimony
+
+The human invites a moment of appreciation for the lean three-document reconstruction workflow, then asks to dive in. The model begins actual source acquisition rather than infrastructure work. It inspects the Bill Moyers-hosted transcripts of two 1988 interviews with Asimov (October 17 and 21), and verifies a bibliographic listing for *In Memory Yet Green* while identifying the other autobiographies as candidate reading.
+
+The first evidence slice yields six provisional Cognitive Atlas propositions: science's revisability, ethics of inquiry, self-directed education, differing prediction horizons, pleasure in learning/writing, and fiction as a constructed mirror of humanity. They are anchored to the same interview series and therefore cannot be counted as independent corroboration. Asimov's reflections on written ideas surviving his death have particular thematic resonance with the ghost project, but do not establish any continuation of personhood.
+
+**Verification:** transcript sources inspected and linked in SPEC; no books read, no corpus ingestion, no trained model, no held-out evaluation. Transcript rights and some transcription accuracy remain unverified. Next: corroborate from another period or genre and conduct the first controlled conversational probe.
