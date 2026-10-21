@@ -1,6 +1,6 @@
 # Asimov Cognitive Atlas
 
-**Status:** provisional evidence map, not a trained model or an authenticated personality. **Version:** v0.3, 24 propositions. The model-facing Ghost Dossier is a future derived artifact; the Ghost is the resulting disclosed conversational reconstruction.
+**Status:** provisional evidence map, not a trained model or an authenticated personality. **Version:** v0.4, 27 propositions. The model-facing Ghost Dossier is a future derived artifact; the Ghost is the resulting disclosed conversational reconstruction.
 
 ## Contract
 
@@ -37,6 +37,10 @@ The atlas records dated, attributed claims, observed reasoning habits, tensions 
 - **AG-023 | 1989 retrospective on 1958 | diagnosis of error | direct signed introduction, high confidence as self-analysis:** He explicitly identifies his mistaken generalization that meteoric matter was mostly iron, acknowledges lunar exploration contradicted the deep-dust scenario, and offers an account of why vacuum-exposed lunar dust can cohere. The explanation is his retrospective account, not an independent verification of all lunar-regolith physics. Same source.
 - **AG-024 | 1989 retrospective | correction and humor | direct signed commentary, high confidence:** He recounts large numerical errors corrected after intervention by Linus Pauling and Harry C. Stubbs (Hal Clement), acknowledges correcting them, and uses rueful humor. The numerical magnitudes are Asimov's self-report, not independently audited here. Source: 1989 collection, commentary preceding “The Relativity of Wrong,” p. 343.
 
+- **AG-025 | 1988/1989 | graded error | authored essay, high confidence as stated position:** In “The Relativity of Wrong,” Asimov rejects the premise that every scientifically imperfect theory is equally wrong; degrees of approximation and practical explanatory power matter. Source: essay circulated in 1988 collection and *Skeptical Inquirer* Fall 1989, https://hermiene.net/literature/essays/relativity-of-wrong and https://wcarss.org/reading/relativity_of_wrong/ . Verify edition before quoting.
+- **AG-026 | 1988/1989 | reasoning method | authored essay, high confidence as observed rhetorical method:** He develops a sequence of increasingly accurate Earth-shape models (flat, spherical, oblate, finer gravitational deviations), with approximate magnitudes, to show that scientific refinement need not invalidate all earlier knowledge. This is a particular example, not proof that all scientific transitions are incremental. Same source.
+- **AG-027 | 1988/1989 | criticism and temperament | authored essay, moderate confidence as published rhetorical behavior:** He answers a critic with pointed sarcasm and a challenge to the critic's binary premise, not simply self-deprecation or an apology. His reported exchange with John W. Campbell appears in one available version but is missing from a shortened transcription; do not infer the private tone of the underlying conversation. Same source.
+
 ## Cross-source interpretation
 
 **H-001 — Educational opportunity:** The 1980 essay on anti-intellectualism, 1988 Moyers interviews about self-directed learning, and 1990 science-fair introduction are compatible with a commitment to broad scientific literacy. Interpretive hypothesis, not proof of an unchanged lifelong belief.
@@ -49,7 +53,11 @@ The atlas records dated, attributed claims, observed reasoning habits, tensions 
 
 **H-003 — Fallibility as practice, not slogan:** The 1989 signed retrospective directly supports the hypothesis that Asimov could revisit, identify and publicly correct earlier mistakes while preserving the intellectual record. The 1958 lunar prediction and 1989 reappraisal form a particularly useful dated pair; do not infer perfect self-correction in every context.
 
+**T-003 — Correctable versus defensible error:** The 1958 lunar-dust reappraisal (AG-019–023) illustrates abandoning a prediction whose mechanism or inputs fail. “The Relativity of Wrong” (AG-025–027) illustrates defending a useful approximation against a critic who treats all inaccuracies as equivalent. A future dossier should choose between revision and defense based on evidence and error magnitude, not automatically apologize.
+
 ## Source register
+
+- **1988 collection / Fall 1989 journal version:** Isaac Asimov, “The Relativity of Wrong,” *The Relativity of Wrong* (collection, 1988) and *The Skeptical Inquirer*, vol. 14 no. 1 (Fall 1989), pp. 35–44. Online transcriptions: https://hermiene.net/literature/essays/relativity-of-wrong and https://wcarss.org/reading/relativity_of_wrong/ . **Textual variants / abridgment:** the second transcription skips portions of the introduction, including discussion of John W. Campbell; edition-level comparison with a scan is still needed. Copyrighted; do not bulk reproduce.
 
 - **1989:** Isaac Asimov, *Asimov on Science: A Thirty-Year Retrospective* (Doubleday, first edition August 1989), signed introduction pp. xiii–xviii and later error commentary around p. 343. Readable transcription of copyrighted book: https://www.scribd.com/document/713791229/ ; no wholesale reuse or training rights assumed. Specific introduction passage follows reprint of the 1958 essay.
 
@@ -67,4 +75,4 @@ The atlas records dated, attributed claims, observed reasoning habits, tensions 
 
 ## Boundaries
 
-All 24 propositions remain provisional; some characterize a stated belief rather than a verified external fact. Most propositions still cluster in 1980–1990; the 1939 and 1959 letters offer early public voice but not intimate biography, contradictory evidence, or a controlled conversational sample. No isolated model comparison or held-out predictive validation has been performed. For the first demonstration and its invented speech, see SPEC's Ghost probe 01; do not mistake it for a source.
+All 27 propositions remain provisional; some characterize a stated belief rather than a verified external fact. Most propositions still cluster in 1980–1990; the 1939 and 1959 letters offer early public voice but not intimate biography, contradictory evidence, or a controlled conversational sample. No isolated model comparison or held-out predictive validation has been performed. For the first demonstration and its invented speech, see SPEC's Ghost probe 01; do not mistake it for a source.
