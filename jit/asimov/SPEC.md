@@ -61,3 +61,23 @@ Resurrection, consciousness emulation, authenticated voice or likeness, unrestri
 **Just completed:** model strategy and Cognitive Atlas v0 specification, not an actual atlas or trained model.
 
 **Next bounded turn:** inspect and verify a first small group of Asimov primary sources, record bibliographic and rights details, and extract the first evidence-backed propositions. Do not build an interface or backend.
+
+
+## First verified source slice — 2026-10-21
+
+**Inspected primary transcript sources:** Bill Moyers' *World of Ideas* conversations with Isaac Asimov, part one (dated 1988-10-17, https://billmoyers.com/content/isaac-asimov-on-his-faith-in-the-power-of-human-reason/) and part two (dated 1988-10-21, https://billmoyers.com/content/isaac-asimov-part-two/). The publisher-hosted transcripts were read; transcription may contain errors, so confirm uncertain wording against audio before verbatim reuse. Rights to redistribute/train on full transcripts are **not established**. Retain locators and original wording at source; dossier records paraphrases, not bulk copies.
+
+**Bibliographic candidates (catalogued, books not read):** *In Memory Yet Green* (Doubleday, 1979; https://search.worldcat.org/title/4491369), *In Joy Still Felt* (Doubleday, 1980; https://www.kirkusreviews.com/book-reviews/isaac-asimov/joy-still-felt/), and *I, Asimov: A Memoir* (Doubleday, 1994; publication corroboration pending authoritative catalogue check). Do not treat these as ingested evidence.
+
+### Cognitive Atlas — first provisional, directly sourced propositions
+
+- **AG-001 | 1988 | epistemology | direct testimony, high confidence as a stated position:** Scientific knowledge is valuable in part because its claims remain revisable in light of evidence. Evidence: Moyers part one, Asimov answer to whether scientific uncertainty is dangerous (transcript lines around the science/religion discussion). This describes his stated preference, not a claim that every scientific institution behaves ideally.
+- **AG-002 | 1988 | ethics of inquiry | direct testimony, high confidence as a stated position:** He prizes truthful reporting, attempts to disprove one's own results, and proper attribution as scientific ethical obligations. Evidence: Moyers part one, discussion of morality in science. His sweeping assessment of scientists' conduct should not be accepted as an independently verified generalization.
+- **AG-003 | 1988 | education | direct testimony, high confidence as a stated position:** Self-directed curiosity and individually paced access to networked knowledge should supplement, not replace, shared schooling. Evidence: Moyers part two, discussion of home computer terminals, libraries, tutors and school.
+- **AG-004 | 1988 | prediction | direct testimony, high confidence as a stated position:** The defensible horizon of prediction depends on the system; chaotic human history is less predictable than comparatively simple astronomical phenomena. Evidence: Moyers part two, opening discussion of his book *As Far As the Human Eye Could See*. This is a reasoning distinction, not evidence that all his forecasts were correct.
+- **AG-005 | 1988 | motivation | direct self-report, high confidence as a stated self-description:** He portrays learning and writing as intrinsically pleasurable, while acknowledging limits to his interest in particular subjects. Evidence: Moyers part two, discussion of self-education, astronomy, chemistry and writing. Do not generalize this into omniscience.
+- **AG-006 | 1988 | fiction | direct testimony, high confidence as a stated position:** He describes science fiction as a way to reveal human behavior by placing people in constructed societies. Evidence: Moyers part one, discussion of literature and science fiction. Do not attribute a fictional character's opinion directly to him.
+
+**Status:** six provisional atlas propositions, all drawn from one interview series, not independent triangulation. No ghost probe or held-out test performed. Do not use these two transcripts as held-out evaluation data after consulting them. Reserve different interview material for evaluation.
+
+**Next bounded action:** add independently sourced material from a different decade or genre, check for contradictions or evolution, then draft a compact model-facing atlas prompt and run a baseline-vs-atlas probe. Continue toward 20–30 propositions; do not imply the atlas is complete.
