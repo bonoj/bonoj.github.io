@@ -56,3 +56,12 @@ The human invites a moment of appreciation for the lean three-document reconstru
 The first evidence slice yields six provisional Cognitive Atlas propositions: science's revisability, ethics of inquiry, self-directed education, differing prediction horizons, pleasure in learning/writing, and fiction as a constructed mirror of humanity. They are anchored to the same interview series and therefore cannot be counted as independent corroboration. Asimov's reflections on written ideas surviving his death have particular thematic resonance with the ghost project, but do not establish any continuation of personhood.
 
 **Verification:** transcript sources inspected and linked in SPEC; no books read, no corpus ingestion, no trained model, no held-out evaluation. Transcript rights and some transcription accuracy remain unverified. Next: corroborate from another period or genre and conduct the first controlled conversational probe.
+
+
+## 2026-10-21T17:33:00Z — The democratic intellectual
+
+The human advances the research. The model inspects a facsimile of Asimov's 1980 *Newsweek* essay “A Cult of Ignorance” and independent bibliographic metadata. It identifies three provisional atlas additions: the dependence of informed democracy on literacy and expertise, his belief in broadly accessible intellectual development, and his satirical rhetorical style. The archived scan carries inconsistent date text, so the source record preserves the discrepancy rather than claiming perfect metadata.
+
+A tentative connection emerges across eight years: the 1980 argument for widespread intellectual opportunity is compatible with the 1988 Moyers enthusiasm for self-directed, computer-supported education. This is an interpretive continuity hypothesis, not a verified claim that his worldview never changed. The essay's biting humor also cautions against making the conversational reconstruction uniformly warm and professorial.
+
+SPEC now holds AG-007 through AG-009 and hypothesis H-001. No ghost simulation or held-out prediction was run. Next: inspect a primary source from outside the 1980–88 interval, challenge the continuity hypothesis, and only then begin controlled ghost probes.
