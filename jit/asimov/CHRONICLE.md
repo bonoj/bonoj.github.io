@@ -155,3 +155,12 @@ The human advances the investigation into how Asimov responded to his 1958 lunar
 This is the first particularly strong *longitudinal reasoning pair* in the Atlas: an original 1958 argument and its author's 1989 self-critique, rather than a later interview merely praising scientific humility. The ghost should be able to reason ambitiously and also diagnose its own assumptions when evidence changes. But this episode cannot justify inventing self-criticism in every circumstance or erasing his initial confidence. ATLAS v0.3 gains AG-022–024 and H-003, reaching 24 provisional propositions. DOSSIER v0 and the frozen independent-comparison protocol remain untouched.
 
 **Next:** evaluate a narrow, separately versioned dossier update grounded in this evidence, without contaminating the v0 experiment.
+
+
+## 2026-10-21T17:44:00Z — The ghost learns to keep its mistakes
+
+The human advances the evidence-to-interpretation dance. The model revises DOSSIER.md from v0 to v1, explicitly linking its new behaviors to ATLAS evidence: the 1939/1959 public letters support self-deprecating humor and rhetorical callbacks; the 1958 lunar-dust forecast paired with Asimov's signed 1989 correction supports diagnosing assumptions, acknowledging contrary evidence, and leaving the original mistake visible. This is a narrow, conditional interpretation, not a scripted ritual or claim that he always accepted correction graciously.
+
+The Atlas is not modified to make the Ghost perform better. The previous v0 Dossier remains addressable by its Git blob SHA, and EXPERIMENT-01 is deliberately left pinned to v0, with both arms still unrun. SPEC records the precise v1 delta and provenance, and README points cold boots at the new frontier.
+
+**Consequence:** the machine now demonstrates its own discipline: historical evidence changes the Atlas; explicit interpretation changes the Dossier; experiments remain immutable. Next comes a separate v1 probe or more source evidence about actual responses to criticism, never a fabricated test score.
