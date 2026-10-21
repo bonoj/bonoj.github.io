@@ -256,3 +256,8 @@ Created [EXPERIMENT-02.md](./EXPERIMENT-02.md), a **two-turn synthetic greenhous
 ## Cold-chat launch route — 2026-10-21
 
 A [COLD-RUN.md](./COLD-RUN.md) launch card now provides separate clean-chat prompts for the frozen Experiment 01 control and dossier arms. The actual immutable v0 dossier must be attached to B; v2 is not a substitute. Crucial limitation: ChatGPT consumer chats cannot guarantee exact system-role conditioning or sampling parameter parity, so any results using this card are **exploratory**, not a completed strict frozen experiment. Neither arm has been run. A previously attempted automated workflow creation was blocked; do not imply that Copilot Free has been independently exercised. Next: receive two genuine independent outputs, record provenance, and score blind without manufacturing results.
+
+
+## Frozen dossier materialized for mobile cold run — 2026-10-21
+
+The original v0 Git blob `8d168f7abd0ac0086299d1d4e03cdc70dce20a77` was fetched directly and copied into [DOSSIER-v0-FROZEN.md](./DOSSIER-v0-FROZEN.md). GitHub reports the same blob SHA for the new file, verifying byte-for-byte equivalence. The cold-run card now links to this real file instead of incorrectly using a Git blob ID as a commit/ref. No test has run. Next: two cold chats, exact dossier supplied to B, record raw outputs and provenance.
