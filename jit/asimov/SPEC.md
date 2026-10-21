@@ -271,3 +271,8 @@ The original v0 Git blob `8d168f7abd0ac0086299d1d4e03cdc70dce20a77` was fetched 
 ## First paired exploratory results — 2026-10-21
 
 The human returned an `asimov-eye-run/v1` JSON export containing both neutral A and v0 Ghost B answers, captured at 19:42:55Z and 19:45:13Z. See [EXPLORATORY-RUN-01.md](./EXPLORATORY-RUN-01.md) for the descriptive comparison. Both responses converge on access-versus-discernment; B adds a concrete thought experiment, institutional responsibility, and caveats against universal skepticism, but is substantially longer. The model label was `null`, and no settings or true system-role parity were verified. Thus this is exploratory evidence, not a strict or blind score, and not proof of historical fidelity. The raw text currently resides in the human-provided conversation JSON; request the JSON file for lossless repository archival. **Next:** improve cockpit provenance (model required/warn), archive raw export, then test differentiation with a held-out historically discriminating question rather than repeating a generic educational prompt.
+
+
+## Two-turn greenhouse results — 2026-10-21
+
+[Eye 02](./02.html) is committed, with frozen v1 dossier [snapshot](./DOSSIER-v1-FROZEN.md). The human returned all four responses; [Exploratory Run 02](./EXPLORATORY-RUN-02.md) records their provenance, provisional rubric and limitations. Both arms score 10/10 on the strongly cued, unblinded correction rubric; this is a ceiling, not evidence of historical fidelity or a Ghost advantage. Strict EXPERIMENT-02 remains unrun. Next: freeze a less-cued comparison of failed causal premises versus useful approximations, using v2 dossier, before collecting responses. No raw verbatim response archive has been written.
