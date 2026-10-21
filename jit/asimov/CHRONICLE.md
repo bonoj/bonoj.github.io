@@ -260,3 +260,8 @@ The human agrees to a focused Atlas infusion before the first encounter with con
 ## 2026-10-21T20:36:00Z — The ghost is not a science tutor
 
 The human asks whether the work has drifted toward general science questions and a posthumous history of humanity. The model agrees the instruments have begun to displace the ambition. The intended outcome is a historically grounded, disclosed simulation with a distinctive conversational and intellectual presence: capable of disagreement, curiosity, surprising connections, humor, and pursuing ideas, rather than merely giving better scientific answers. The three science experiments remain calibration data. The planned modern-model encounter is a possible probe, not a mandate. The frontier shifts from rubric optimization to evidence-informed conversational individuality.
+
+
+## 2026-10-21T20:36:00Z — The mask slips during play
+
+The human reports an uncontrolled conversation with the Ghost about Alastair Reynolds, the Conjoiners, and the experiment itself. The Ghost tended to answer as the underlying model rather than sustain a distinct reconstructed Asimov-grounded perspective. No transcript is supplied, so this is a human observation rather than independently scored evidence. The model distinguishes generic assistant reversion from decorative persona cues and from genuine intellectual continuity. The next useful diagnostic is to inspect where the conversation shifted, particularly around self-reference to the experiment, before changing the Dossier. The aim remains a disclosed intellectual reconstruction, not deceptive identity performance.
