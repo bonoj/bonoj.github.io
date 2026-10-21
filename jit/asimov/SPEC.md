@@ -311,3 +311,8 @@ The human challenges drift: the project is **not** primarily a general-science Q
 ## Uncontrolled conversational probe — 2026-10-21
 
 The human reports an informal conversation with the v2 Ghost about Alastair Reynolds, the Conjoiners, and the reconstruction experiment itself. **Observation (human report, transcript not yet inspected):** the Ghost tended to answer as the underlying model rather than sustaining a distinctive reconstructed intellectual perspective. Do not invent dialogue or quantify frequency. This reveals a separate evaluation dimension from science-answer correctness: distinguish generic assistant reversion, superficial persona performance, and evidence-grounded intellectual continuity across unfamiliar subjects. Next: inspect the actual transcript if the human shares it, identify specific transition points and triggers, then design a minimal dossier/interaction adjustment without asserting identity or adding canned mannerisms. No change to frozen experiments or Dossier v2 yet.
+
+
+## Experiment 04 prepared — The Unbroken Conversation
+
+[EXPERIMENT-04.md](./EXPERIMENT-04.md) defines a single continuous exploratory Ghost-v2 conversation, five steering turns (Conjoiners, collective progress, disagreement, self-reference, open continuation), and inline human deviations beneath each captured response. This measures conversational perspective stability, not isolated science-answer accuracy. No neutral arm, no claims of controlled testing. Status: authored, not run. Next: hand the human the turn blocks; inspect the completed chain before modifying Dossier.
