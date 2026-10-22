@@ -384,3 +384,16 @@ Four new organization-level unique emails confirmed Gmail SENT:
 4. Karen Katz Exhibit Design kkatzexhibitdesign@gmail.com `1a164af8ad8f7ee4` https://www.kkatzexhibitdesign.com/
 Six attempted emails returned Gmail FORBIDDEN and were NOT SENT; do not retry automatically: Exhibitscape Studio amy@exhibitscape.studio; Entech Innovative Engineering admin.marketing@entechinnovative.com; expLoring exhibits & engagement betsy@exploringexhibits.com; Hands On! Studio greg@hostudio.net; Museum EXP hello@museumexp.com; MindSplash blindsay@mindsplash.net. All six are published in Association of Children's Museums supplier directory https://childrensmuseums.org/resources/products-services-directory/ .
 **Cumulative 96 Gmail SENT; zero applications.** Ten-per-turn user target was not reached because Gmail returned FORBIDDEN. Do not work around provider restrictions. No delivery/reply/paid contract verified.
+
+## Outreach log — 2026-10-22 · tranche 17: eight SENT; one FORBIDDEN
+New distinct organizations with published contact addresses; individualized paid collaboration pitches:
+1. Segno Studio segnosound@gmail.com `1a164b15f7791021` https://segnostudio.com/
+2. MELT mail@bymelt.com `1a164b16510a6d23` https://www.bymelt.com/contact
+3. WavePlay Studios hello@waveplay.studio `1a164b16c6ee5c17` https://www.waveplaystudios.com/contact
+4. GSP.studio / Greg St. Pierre greg@gsp.studio `1a164b177f44aea0` https://gsp.studio/about
+5. Kaija Studio hello@kaijastudio.com `1a164b17e3ef284a` https://kaijastudio.com/
+6. Nullshima Studio hello@nullshimastudio.com `1a164b184a8369ba` https://nullshimastudio.com/
+7. Immersiv Studios hello@immersivstudios.com `1a164b18c6e015d3` https://www.immersivstudios.com/en
+8. Exosphere Studio hello@exosphere.studio `1a164b1944a71105` https://www.exosphere.studio/
+Tengent hello@tengent.studio returned Gmail FORBIDDEN; NOT sent, do not retry automatically. Lightlayer Studio hello@lightlayer.studio was researched but NOT attempted after provider refusal. Source https://tengent.studio/en/ and https://www.lightlayer.studio/.
+**Cumulative 104 Gmail-confirmed SENT, zero applications.** No evidence of actual delivery, reply, or paid engagement. Stopped upon Gmail permission refusal; do not work around sending restriction.
