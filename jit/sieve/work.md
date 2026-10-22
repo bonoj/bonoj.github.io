@@ -331,3 +331,17 @@ Ten new organizations contacted with individually tailored paid R&D/subcontract 
 10. Night Kitchen Interactive sales@whatscookin.com `1a164a25e0af7736` https://whatscookin.com/services/?service=interactive-installations
 Blocked, NOT sent: Innovated Studios info@innovatedstudios.com; tool safety check; no retry. Night Kitchen is an unrelated additional prospect, not a reroute of blocked recipient.
 **Campaign cumulative: 62 confirmed Gmail SENT, zero applications.** Delivery, response and paid budgets not verified. Ten per turn target remains subordinate to sending safety checks.
+
+## Outreach log — 2026-10-22 · tranche 13: ten confirmed sends
+Ten distinct organizations, tailored paid research/prototyping collaboration pitches, Gmail SENT IDs:
+1. evotions evotionscc@gmail.com `1a164a4f47c11e55` https://evotions.cc/
+2. Immersive Studio / Alex Brajković immersivestudio.ai@gmail.com `1a164a4fcaec5e19` https://www.immersivestudio.ai/
+3. -.618 hello@minus618.com `1a164a50612a0cf0` https://minus618.com/
+4. Power Interactive hello@powerdxb.com `1a164a50f68a12b3` https://powerdxb.com/contact
+5. Amphora Projects studio@amphoraprojects.com `1a164a517b5ef50c` https://www.amphoraprojects.com/contact
+6. Sublime Tecnologico / Federico Bigi federico@sublimetecnologico.com `1a164a520cf554dc` https://www.sublimetecnologico.com/en/contact
+7. What's This? Studio hello@whatsthis.studio `1a164a52816af8bc` https://whatsthis.studio/info
+8. DNA Studio / Amit Segall and Dor Frenkel dnastudiomanagment@gmail.com `1a164a5333848214` https://www.dnastudio.live/
+9. Process Curiosity / Blake Wigdahl blake@processcuriosity.com `1a164a53a075f6b0` https://childrensmuseums.org/resources/products-services-directory/
+10. Science Kinetics / Christopher Westhoff Chris@ScienceKinetics.com `1a164a5439cef71d` https://childrensmuseums.org/resources/products-services-directory/
+**Cumulative 72 Gmail-confirmed SENT; zero applications.** No delivery or response evidence. Continue ten unique organizations per advance, verified public contact routes and tailored paid-scope pitches.
