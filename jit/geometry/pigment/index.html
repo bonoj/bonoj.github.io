@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#080c14"><title>Pigment</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c14;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}</style><canvas id="paint"></canvas><script>
+const c=document.getElementById('paint'),ctx=c.getContext('2d',{alpha:false}),N=85,TAU=Math.PI*2;let w,h,dpr,agents=[],pointer=null,held=false,last=performance.now(),time=0;
+function resize(){const old=document.createElement('canvas');old.width=c.width;old.height=c.height;if(c.width)old.getContext('2d').drawImage(c,0,0);w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,2);c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#080c14';ctx.fillRect(0,0,w,h);if(old.width)ctx.drawImage(old,0,0,old.width,old.height,0,0,w,h)}
+function seed(){agents=Array.from({length:N},(_,i)=>{const a=i*2.399963,r=Math.sqrt(i/N)*Math.min(w,h)*.24;return{x:w*.5+Math.cos(a)*r,y:h*.5+Math.sin(a)*r,vx:Math.cos(a+1)*.9,vy:Math.sin(a+1)*.9,fx:0,fy:0,hue:175+(i%23)*2.6}})}
+resize();seed();addEventListener('resize',resize);
+function loc(e){return{x:e.clientX,y:e.clientY}}c.addEventListener('pointerdown',e=>{c.setPointerCapture(e.pointerId);held=true;pointer=loc(e)});c.addEventListener('pointermove',e=>{if(held)pointer=loc(e)});for(const ev of ['pointerup','pointercancel'])c.addEventListener(ev,()=>{held=false;pointer=null});
+function frame(now){const dt=Math.min((now-last)/16.67,2);last=now;time+=dt*.01667;
+ctx.fillStyle='rgba(8,12,20,.009)';ctx.fillRect(0,0,w,h);
+const scale=Math.min(w,h)/650;
+for(let i=0;i<N;i++){const a=agents[i];let ax=0,ay=0,cx=0,cy=0,sx=0,sy=0,n=0;
+for(let j=0;j<N;j++){if(i===j)continue;const b=agents[j],dx=b.x-a.x,dy=b.y-a.y,d2=dx*dx+dy*dy;if(d2>15000*scale*scale||d2<.01)continue;n++;ax+=b.vx;ay+=b.vy;cx+=b.x;cy+=b.y;if(d2<850*scale*scale){sx-=dx/(d2+15);sy-=dy/(d2+15)}}
+let fx=0,fy=0;if(n){const al=Math.hypot(ax,ay)||1;fx+=(ax/al*1.5-a.vx)*.055;fy+=(ay/al*1.5-a.vy)*.055;fx+=(cx/n-a.x)*.00035;fy+=(cy/n-a.y)*.00035;fx+=sx*12;fy+=sy*12}
+fx+=(w*.5-a.x)*.00012;fy+=(h*.5-a.y)*.00012;fx+=Math.sin(time*1.2+i*1.7)*.012;fy+=Math.cos(time*.9+i*2.1)*.012;
+if(pointer){const dx=pointer.x-a.x,dy=pointer.y-a.y,dist=Math.hypot(dx,dy)+1;const pull=held?Math.min(.22,1600/(dist*dist+8000)):.0;fx+=dx/dist*pull;fy+=dy/dist*pull}
+a.fx=fx;a.fy=fy}
+for(const a of agents){const ox=a.x,oy=a.y;a.vx+=a.fx*dt;a.vy+=a.fy*dt;const speed=Math.hypot(a.vx,a.vy)||1;if(speed>2.8){a.vx*=2.8/speed;a.vy*=2.8/speed}a.x+=a.vx*dt;a.y+=a.vy*dt;
+if(a.x<0||a.x>w)a.vx+=(w*.5-a.x)*.005;if(a.y<0||a.y>h)a.vy+=(h*.5-a.y)*.005;
+const hue=a.hue+20*Math.sin(time*.25);ctx.strokeStyle='hsla('+hue+',65%,68%,.16)';ctx.lineWidth=.55+Math.min(1.4,speed*.22);ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(a.x,a.y);ctx.stroke();
+ctx.fillStyle='hsla('+hue+',75%,85%,.55)';ctx.beginPath();ctx.arc(a.x,a.y,1.2,0,TAU);ctx.fill()}
+requestAnimationFrame(frame)}requestAnimationFrame(frame);
+</script></html>
