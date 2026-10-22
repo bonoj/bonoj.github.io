@@ -94,6 +94,60 @@ See [patrons.md](./patrons.md) for prospect ranking and outreach tracker; [jobs.
 
 **Proposed relationship:** independent inventor-in-residence; continuous exploratory mandate; periodic demonstrations; optional commissions negotiated separately; protected preexisting IP; no mandatory incorporation; physical presence only if mutually useful.
 
+## Worldwide location filter — Berkeley climate, Boulder heat ceiling
+
+The target is **a patron who permits the inventor to live in a pleasant city**, not necessarily a local institution. Cool summers are favored; cold winters are welcome. Summer heat comparable to or worse than Boulder is a drawback. Avoid equating a residency listing with an unrestricted patronage offer.
+
+**Climate reference:** Berkeley July average high ~74°F (NOAA); Boulder summer highs generally in the 80s. Source: https://www.currentresults.com/Weather/California/city-temperature-july.php and https://www.colorado.edu/isss/scholars/community-resources/boulders-climate .
+
+### Cities to investigate, ranked by climate and opportunity overlap
+
+| Priority | City / region | Typical warm-season high | Why it belongs | Constraints |
+|---|---|---|---|---|
+| 1 | **Berkeley / San Francisco Bay, USA** | Berkeley July ~74°F | Ideal climate; Astera, Foresight SF Node, established private science patrons | High cost; SF microclimates; Astera in Emeryville |
+| 2 | **Vancouver, Canada** | July ~72°F | Near-Berkeley summer; interdisciplinary creative-technology ecosystem | Much wetter/darker winter; work authorization |
+| 3 | **Edinburgh / Scottish Borders, UK** | Edinburgh July roughly mid-60s°F | Cold-friendly; fully funded creative residencies and unusually explicit maker patronage at Hugo Burge Foundation | Creative-art rather than software focus; UK visa |
+| 4 | **Berlin, Germany** | July ~75°F | Foresight AI Node, BIFOLD AI+art residency, private foundation support | Hot spells; some programs require Berlin residence or nomination |
+| 5 | **Copenhagen, Denmark** | July ~70°F | Excellent cool climate and creative coding/design scene | Fewer confirmed substantial independent-inventor patrons; immigration |
+| 6 | **Amsterdam, Netherlands** | July ~72°F | Cool, walkable, strong research/design ecosystem | Concrete discretionary patrons still to identify |
+| 7 | **Wellington, New Zealand** | Jan/Feb ~69°F | Mild oceanic climate and artistic residency ecosystem | Wind, distance, visas; patron capital not established |
+| 8 | **Stockholm, Sweden** | July ~71°F | Cool summers, technical capital and research culture | Dark winters, local patron evidence pending |
+| 9 | **Oslo, Norway** | July ~71°F | Cool summers, winters welcome, research capital | Independent-inventor sponsor evidence pending |
+| 10 | **Helsinki, Finland** | July ~73°F | Cool summers and technical research culture | Winter darkness, direct sponsor evidence pending |
+| 11 | **Zurich, Switzerland** | July ~77°F | Dense science/engineering capital | Warmer than Berkeley, expensive, immigration |
+| 12 | **Boulder, Colorado, USA** | Summer highs in the 80s°F | Familiar, tolerated heat, independent science and engineering community | Summer heat; direct sponsor identification pending |
+
+European July normals: https://www.currentresults.com/Weather/Europe/Cities/temperature-july.php . Vancouver normals: https://climate.weather.gc.ca/climate_normals/results_1991_2020_e.html?climate_id=1108395&dispBack=0&lstProvince=BC&searchMethod=contains&searchType=stnName&txtCentralLatMin=0&txtCentralLatSec=0&txtCentralLongMin=0&txtCentralLongSec=0&txtStationName=bella+coola . Wellington normals: https://figure.nz/chart/suDfDLV40cwPuZWq-0IpEaxsJzA6XOb8N .
+
+### New evidence-backed patrons, residency sponsors, and introducers
+
+| Location | Named person / organization | What is documented | Fit / how to use |
+|---|---|---|---|
+| **San Francisco and Berlin** | **Allison Duettmann**, CEO, Foresight Institute | Leads grants, fellowships and prizes; Foresight operates AI Nodes in both cities with grant funding, compute, and research community. Public AI Node contacts listed by city | **High priority direct conversation** about independent model-mediated experimental infrastructure, not a timed RFP. https://foresight.org/about/ ; https://foresight.org/grants/ai-science-safety-nodes-rfp/ |
+| **San Francisco and Berlin** | **Christine Peterson**, Foresight co-founder | Founded frontier-science institute; current senior fellow | Strong intellectual introduction; funding discretion not established. https://foresight.org/about/ |
+| **Berlin** | **Schering Foundation + BIFOLD directors Volker Markl / Klaus-Robert Müller** | Foundation has a published €35m endowment; sponsors BIFOLD's one-year AI artist-in-residence program, with prior funded artists | **Documented sponsor** of creative AI residency. Existing program is Berlin-focused and nomination-based; explore a bespoke introduction. Public collaborator contact katharina.jung@tu-berlin.de. https://www.bifold.berlin/about-us/artist-in-residence |
+| **Scottish Borders / Edinburgh region** | **Hugo Burge Foundation leadership** | Fully funded creative residencies through the year; distributed over £400k in grants in 2025 | **Documented maker patronage** but current foundation—not Hugo Burge personally, who died in 2023. Explore independent creative-technology residence; do not wait for intake. https://www.hugoburgefoundation.org/about ; https://www.hugoburgefoundation.org/residencies |
+| **Vancouver / Surrey** | **Meta creation Lab / Institut français du Canada** | Hosted a four-week 2026 creative AI residency with accommodation and collaborations | Evidence of a local AI-art host, **not** substantial long-term patronage. https://www.institutfrancais.ca/en/appels-a-projets/artist-residency-artificial-muse-vancouversurrey |
+| **Berlin** | **HTW Berlin IUNO** | AI+XR artistic fellowship with world models, embodied AI, agentic AI, immersive interaction; Berlin-based applicants | Strong *intellectual fit* but restricted project/selection, not direct patronage. https://iuno.fki.htw-berlin.de/en/open-call-ai-xr-2027/ |
+| **Wellington** | **Te Whare Hēra Artist Residency** | Supports independent contemporary artists researching, experimenting and creating new work | Creative residency evidence; scale and technical patron fit unverified. https://www.tewharehera.ac.nz/ |
+| **Copenhagen** | **Andreas Refsgaard** | Publicly documented creative coder combining AI, algorithms, and playful interaction | **Peer / introducer only**, not known funder. https://www.andreasrefsgaard.dk/about/ |
+| **Heilbronn, Germany** | **IPAI Foundation Science Residency** | Fully funded salary, self-managed project budget, visa/relocation support | Worth investigating as a serious structured research residence, but warm-summer climate less ideal and program requirements apply. https://ipai-foundation.ai/en/science-residency/ |
+
+### Priority hypotheses
+
+1. **Foresight (Allison Duettmann)** is the strongest *new* match: concrete support for small independent AI-for-science builders in two compatible cities, plus evidence of flexible infrastructure. Not a confirmed personal patron.
+2. **Schering Foundation / BIFOLD** is the strongest documented **AI + creative worlds residency** outside the US; however it is a defined program, not an open-ended individual arrangement.
+3. **Hugo Burge Foundation** is unusually explicit about supporting creators simply to make work in a beautiful, cool setting. Technical mandate and sustained financial scale need testing.
+4. **Vancouver, Copenhagen, Wellington, and Nordic capitals** are attractive places to live, but do **not** yet have equally convincing identified discretionary patrons. Do not inflate them into confirmed funding prospects.
+
+### Residency logistics that cannot be assumed
+
+- Right to work / visa sponsorship, especially outside the US.
+- Tax residence, health insurance, housing, and whether support is salary, grant, stipend, or personal patronage.
+- IP ownership, open publication, independent side projects, and exclusivity.
+- Whether physical attendance is mandatory, optional, or not required.
+- Whether the patron is able to decide year-round, outside an intake cycle.
+
 ## Verification limits
 
 Research reflects publicly available descriptions reviewed 2026-10-22. Program conditions, openings, leadership, and contact routes can change. The list is a **curated landscape**, not an exhaustive global registry or evidence that any listed person has offered patronage. Individual contact routes and decision authority must be verified before outreach.
