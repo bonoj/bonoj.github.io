@@ -316,3 +316,18 @@ Ten distinct organizations, official published contacts, individually tailored p
 9. BLTN Studios info@bltnstudios.net `1a1649c7fe2a011a` https://www.bltnstudios.net/
 10. Hella Lit Studios info@hellalitstudios.com `1a1649c859d8aab4` https://www.hellalitstudios.com/about-contact
 **Cumulative 52 Gmail-confirmed SENT; zero applications.** Gmail SENT is not delivery, interest or paid work. Continue deduplication by organization, not only recipient address. Ten per advance turn remains requested.
+
+## Outreach log — 2026-10-22 · tranche 12: ten confirmed sends
+Ten new organizations contacted with individually tailored paid R&D/subcontract pitches. Gmail SENT IDs:
+1. Creative Technologies Inc. info@cretecinc.com `1a164a1cc6e9fbe1` https://www.cretecinc.com/
+2. Immersive Studios info@immersivestudios.com `1a164a1d252694ca` https://immersivestudios.com/contact/
+3. Immersive Design Studios contact@immersivedesignstudios.com `1a164a1ddbc61ae8` https://canvaspowered.com/contact/
+4. Atomic Carrots / Nora Pinell-Hernandez nora@atomiccarrots.com `1a164a1e4964dfda` https://atomiccarrots.com/
+5. Whirlwind Creative / David david@whirlwindcreative.com `1a164a1f12cc0101` https://whirlwindcreative.com/
+6. Patten Studio info@pattenstudio.com `1a164a20469a875d` https://www.pattenstudio.com/about/
+7. Hexagon Misfit hello@hexagonmisfit.com `1a164a211386354f` https://hexagonmisfit.com/
+8. Antaraal Studio hello@antaraalstudio.com `1a164a21e5ab6b06` https://antaraalstudio.com/
+9. ArtProject hello@artprojectllc.com `1a164a22fd65785e` https://artprojectllc.com/
+10. Night Kitchen Interactive sales@whatscookin.com `1a164a25e0af7736` https://whatscookin.com/services/?service=interactive-installations
+Blocked, NOT sent: Innovated Studios info@innovatedstudios.com; tool safety check; no retry. Night Kitchen is an unrelated additional prospect, not a reroute of blocked recipient.
+**Campaign cumulative: 62 confirmed Gmail SENT, zero applications.** Delivery, response and paid budgets not verified. Ten per turn target remains subordinate to sending safety checks.
