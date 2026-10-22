@@ -430,3 +430,17 @@ Ten new distinct organizations; published contacts; tailored paid bounded collab
 9. Working Studio / Scott Wolfram scott@workingstudio.com `1a164b332f59c150` https://childrensmuseums.org/resources/products-services-directory/
 10. Kanics Inclusive Design / Ingrid Kanics imkanics@mindspring.com `1a164b33a12c71ed` https://childrensmuseums.org/resources/products-services-directory/
 **Cumulative 114 Gmail-confirmed SENT; zero applications.** No delivery, response or budget commitments verified. Prior Gmail FORBIDDEN did not recur this turn. Continue organization-level deduplication and ten new contacts per advance when permitted.
+
+## Outreach log — 2026-10-22 · tranche 19: two SENT; one safety-blocked; seven researched only
+1. GTAnalysis info@gtanalysis.com — `SENT` Gmail `1a164b87d91abc6c`; exploratory turbine/digital-twin data-quality instrumentation, explicitly not certified operational control. Source https://www.gtanalysis.com/contact/
+2. AOPDS sales@aopds.com — `SENT` Gmail `1a164b8838854023`; bounded engineering model-validation visualization. Source https://aopds.com/contact-us/
+3. VETS Info@vetsllc.org — `BLOCKED` by OpenAI safety check; NOT sent; do not retry or route around. Source https://vetsmbse.com/contact/
+Researched and `RESEARCHED_NOT_SENT` after safety block; no email attempts:
+- Flutter & Wow Museum Projects info@flutterwow.com https://www.flutterwow.com/contact-us — observatory and participatory exhibit prototype.
+- ETCxDesign / Emma Thorne-Christy emma@etcxdesign.com https://www.etcxdesign.com/ — digital exhibit specialist subcontract.
+- Hüttinger Interactive Exhibitions info@huettinger.de https://exh.huettinger.de/Contact/ — interactive science exhibit prototypes.
+- OLTA / Terence terence@olta.art https://olta.art/ — persistent generative art behaviors.
+- DALA Projects hello@dalaprojects.com https://www.dalaprojects.com/phenomena — science-of-illusions interactive exhibits.
+- Freakuency hello@freakuency.studio https://www.freakuency.studio/ — sound/space/code responsive installation.
+- Limn Research hello@limnresearch.com https://limnresearch.com/collections/exhibits — interactive optics and fluid science exhibits.
+**Cumulative: 116 Gmail-confirmed SENT, zero applications.** No delivery, replies or budgets confirmed. Ten-per-turn target not met because a safety block halted further sending. Do not automatically retry blocked recipient.
