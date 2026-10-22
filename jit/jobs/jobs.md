@@ -74,14 +74,40 @@ Updated: 2026-10-22. **Goal: $250K–$500K annual total compensation; experiment
 - **Application preparation:** Simulation engineering CV and rigorous validation examples; **major gaps** in industrial physics/robotics production credentials and location.
 - **Assessment:** **Hold** unless a US requisition appears. Included to preserve the NVIDIA target honestly.
 
+## Additional verified direct applications — October 22
+
+### Google DeepMind — Research Engineer, Advancing Agent Quality
+- **Apply:** https://www.google.com/about/careers/applications/jobs/results/115133712500171462-research-engineer-advancing-agent-quality-deepmind
+- **Location:** Mountain View, CA.
+- **Base:** $174,000–$252,000 + 15% bonus target + equity.
+- **Requirements:** 2 years agentic AI workflows, 1 year ML/deep learning, Python and ML framework, software engineering/cloud development.
+- **Work:** Agent evaluation environments, generated verifiers, trajectory diagnostics, harness improvement.
+- **Prepare:** Canonical resume; Sanctum agent/harness architecture example; reproducible observations and evaluation case study. ML depth is a gap. Employer application may require Google profile; form fields not inspected.
+
+### Anthropic — Software Engineer, Research Tools
+- **Apply:** https://job-boards.greenhouse.io/anthropic/jobs/4981828008
+- **Location:** San Francisco / New York / Seattle.
+- **Annual salary:** $300,000–$405,000.
+- **Requirements:** High-agency full-stack engineering, research workflow tooling, interfaces, experiment orchestration; posting says no ML/research experience required.
+- **Work:** Reusable research platforms, visualization, experiment orchestration, sandboxed execution, researcher UX.
+- **Prepare:** Resume; live JIT worlds; concise architecture case study of Sanctum, eyes, handoff and deployment; direct examples of researcher-friendly UX. Employer application form field inventory not verified.
+- **Fit:** Excellent.
+
+### Anthropic — Staff Research Engineer, Multi-Agent Scaling
+- **Apply:** https://job-boards.greenhouse.io/anthropic/jobs/5442680008
+- **Location:** San Francisco / New York / Seattle.
+- **Annual salary:** $500,000–$850,000 (above target ceiling).
+- **Requirements:** Significant software/research engineering, independent experimental design, quantitative analysis, large agent-team orchestration; no academic publication or formal credential necessary.
+- **Work:** Run and interpret multi-agent scaling experiments, build evaluation infrastructure, diagnose long-horizon behavior.
+- **Prepare:** Resume and detailed experimental case study with observations and limits; distinguish conjoined workflow from proven large-scale agent-team evaluation. Form fields not inspected.
+- **Fit:** Strong experimental approach; large-scale distributed research is a gap.
+
 ## Original targets without verified individual applications
 
 These are **NOT applications**. Do not present generic careers links as though they were requisitions.
 
 | Target | Status | Needed |
 |---|---|---|
-| Google DeepMind — Research Engineer, Agents/World Models | Specific matching requisition not verified | Individual Google Careers job ID, exact criteria, pay, location |
-| Anthropic — Research Engineer, Agentic Systems | Specific matching requisition not verified | Individual job ID and direct Apply URL |
 | Meta Reality Labs — Principal Interactive/Embodied AI | Specific matching requisition not verified | Individual job ID and direct Apply URL |
 | Microsoft Research — Principal Research Software Engineer | Specific matching requisition not verified | Individual job ID and direct Apply URL |
 | Disney Imagineering — Principal R&D Interactive Experiences | Specific matching requisition not verified | Individual job ID and direct Apply URL |
