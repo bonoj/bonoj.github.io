@@ -1,1 +1,23 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JIT Brain</title><body><main><h1>JIT Brain</h1><p>Inference transport probe</p></main></body></html>
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JIT Brain</title>
+<style> :root{color-scheme:dark;font:15px system-ui;background:#10141a;color:#e5edf5}body{margin:0}main{max-width:760px;margin:auto;padding:20px;display:grid;gap:14px}textarea,pre,input{box-sizing:border-box;width:100%;border:1px solid #334155;border-radius:12px;background:#19212b;color:inherit;padding:12px;font:inherit}textarea{min-height:100px}pre{white-space:pre-wrap;overflow-wrap:anywhere;min-height:100px}button{background:#d5ae6b;border:0;border-radius:10px;padding:12px;font-weight:700}button:disabled{opacity:.5}small{color:#94a3b8}</style>
+<main><h1>🧠 JIT Brain</h1><small>Static anonymous inference experiment · brain/01</small><label>Endpoint <input id="endpoint" value="https://vireonix.ai/v1/chat/completions"></label><label>Payload <textarea id="prompt">Reply with exactly 741.</textarea></label><button id="send">Send → Brain</button><small id="status">Idle</small><pre id="reply"></pre><details><summary>Diagnostics</summary><pre id="diagnostics"></pre></details></main>
+<script>
+const $=id=>document.getElementById(id);
+$('send').onclick=async()=>{
+ const t=performance.now(),ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),25000);
+ $('send').disabled=true;$('status').textContent='Requesting';$('reply').textContent='';
+ try{
+  const endpoint=$('endpoint').value;
+  if(!/^https:\/\//.test(endpoint))throw Error('HTTPS endpoint required');
+  const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'auto',messages:[{role:'user',content:$('prompt').value}]}),signal:ctrl.signal});
+  const raw=await response.text();let data;try{data=JSON.parse(raw)}catch{throw Error('Non-JSON response: '+raw.slice(0,300))}
+  $('diagnostics').textContent=JSON.stringify({http:response.status,body:data},null,2);
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const answer=data.choices?.[0]?.message?.content;
+  if(typeof answer!=='string')throw Error('No response text');
+  $('reply').textContent=answer;$('status').textContent='Complete';
+ }catch(e){$('status').textContent='Failed';$('reply').textContent=String(e)}
+ finally{clearTimeout(timer);$('send').disabled=false;$('status').textContent+=' · '+Math.round(performance.now()-t)+'ms'}
+};
+</script></html>
