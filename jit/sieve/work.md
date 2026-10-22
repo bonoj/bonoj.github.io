@@ -345,3 +345,18 @@ Ten distinct organizations, tailored paid research/prototyping collaboration pit
 9. Process Curiosity / Blake Wigdahl blake@processcuriosity.com `1a164a53a075f6b0` https://childrensmuseums.org/resources/products-services-directory/
 10. Science Kinetics / Christopher Westhoff Chris@ScienceKinetics.com `1a164a5439cef71d` https://childrensmuseums.org/resources/products-services-directory/
 **Cumulative 72 Gmail-confirmed SENT; zero applications.** No delivery or response evidence. Continue ten unique organizations per advance, verified public contact routes and tailored paid-scope pitches.
+
+## Outreach log — 2026-10-22 · tranche 14: ten confirmed sends
+Ten new distinct organizations contacted with individually tailored paid technical collaboration pitches. All returned Gmail SENT:
+1. RenderHeads hello@renderheads.com `1a164acbefa70cc7` https://renderheads.com/
+2. CityMoS info@citymos.net `1a164accfbfb8676` https://citymos.net/collaborate/
+3. AC Dynamics / Alain Chevalier alain.chevalier@acdynamics.eu `1a164acd9eb38c15` https://acdynamics.eu/
+4. MW Creative Tech info@mwcreativetech.com `1a164ace549a2a3f` https://mwcreativetech.com/
+5. Syntrivora contact@syntrivora.com `1a164acf9cd6ad98` https://www.syntrivora.com/contact/
+6. Axis Advanced Engineering contact@axisfea.com `1a164ad036031e60` https://axisfea.com/contact/
+7. Blue Rhino Design / Aylin Doyle aylin@bluerhinodesign.com `1a164ad0d24bed25` https://childrensmuseums.org/resources/products-services-directory/
+8. Roto / Dana Russell drussell@roto.com `1a164ad158f71aa2` https://childrensmuseums.org/resources/products-services-directory/
+9. Ideum info@ideum.com `1a164ad2117eb930` https://childrensmuseums.org/resources/products-services-directory/
+10. xibitworx / Chip Thompson chip@xibitworx.com `1a164ad2987d18f7` https://childrensmuseums.org/resources/products-services-directory/
+
+**Campaign cumulative: 82 Gmail-confirmed SENT, zero applications.** This confirms Gmail acceptance only, not delivery, replies, or a purchase commitment. Continue deduplication by organization, and prioritize paid fixed-scope collaboration with credible budget holders.
