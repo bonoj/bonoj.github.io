@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#080c14"><title>Resonance</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c14;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}</style><canvas id="world"></canvas><script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+const canvas=document.querySelector('canvas'),renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0x080c14);
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(39,1,.1,100);camera.position.set(0,2,16);camera.lookAt(0,0,0);scene.add(new THREE.AmbientLight(0x9cb7d4,1.5));const lamp=new THREE.DirectionalLight(0xffffff,2.5);lamp.position.set(-4,7,9);scene.add(lamp);
+const U=64,V=18,N=U*V,R=1.8,r=.63,colors=[0x70c5d9,0xd6a5cf],rings=[];
+const dummy=new THREE.Object3D(),temp=new THREE.Vector3();
+for(let id=0;id<2;id++){const positions=new Float32Array(N*3),indices=[],edges=[];for(let i=0;i<U;i++)for(let j=0;j<V;j++){const a=i*V+j,b=((i+1)%U)*V+j,c=i*V+(j+1)%V,d=((i+1)%U)*V+(j+1)%V;indices.push(a,b,c,b,d,c);edges.push(a,b,a,c)}
+const geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.BufferAttribute(positions,3).setUsage(THREE.DynamicDrawUsage));geom.setIndex(indices);
+const group=new THREE.Group();scene.add(group);
+group.add(new THREE.Mesh(geom,new THREE.MeshStandardMaterial({color:colors[id],metalness:.6,roughness:.33,transparent:true,opacity:.24,side:THREE.DoubleSide,depthWrite:false})));
+const linePositions=new Float32Array(edges.length*3),lineGeom=new THREE.BufferGeometry();lineGeom.setAttribute('position',new THREE.BufferAttribute(linePositions,3).setUsage(THREE.DynamicDrawUsage));group.add(new THREE.LineSegments(lineGeom,new THREE.LineBasicMaterial({color:colors[id],transparent:true,opacity:.48})));
+const beadGeo=new THREE.SphereGeometry(.038,7,6),beads=new THREE.InstancedMesh(beadGeo,new THREE.MeshStandardMaterial({color:0xd6edf4,metalness:.75,roughness:.22}),N);group.add(beads);
+rings.push({id,group,positions,geom,edges,linePositions,lineGeom,beads,phase:id?2.5:0,frequency:id?2.06:1.72,pulse:0,impact:0,impactAngle:0});}
+let last=performance.now(),t=0,rotX=.36,rotY=.18,drag=false,px=0,py=0,moved=false;
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}addEventListener('resize',resize);resize();
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);drag=true;moved=false;px=e.clientX;py=e.clientY;const selected=e.clientX<innerWidth/2?0:1;rings[selected].impact=1;rings[selected].impactAngle=Math.random()*Math.PI*2});
+canvas.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-px,dy=e.clientY-py;if(Math.hypot(dx,dy)>1)moved=true;rotY+=dx*.008;rotX+=dy*.008;px=e.clientX;py=e.clientY});
+for(const ev of ['pointerup','pointercancel'])canvas.addEventListener(ev,()=>drag=false);
+function frame(now){const dt=Math.min((now-last)/1000,.04);last=now;t+=dt;
+const delta=Math.atan2(Math.sin(rings[1].phase-rings[0].phase),Math.cos(rings[1].phase-rings[0].phase));
+const proximity=.5+.5*Math.cos(t*.23),coupling=.18+.32*proximity;
+rings[0].phase+=dt*(rings[0].frequency+coupling*Math.sin(delta));rings[1].phase+=dt*(rings[1].frequency-coupling*Math.sin(delta));
+for(const ring of rings){ring.impact*=Math.exp(-dt*1.6);const other=rings[1-ring.id];ring.pulse+=(other.impact*.5-ring.pulse)*Math.min(1,dt*1.4);
+const shift=(ring.id?1:-1)*(2.35-.48*proximity);
+ring.group.position.set(shift,ring.id?.35:-.35,ring.id?-.5:.5);
+ring.group.rotation.y=(ring.id?-.22:.22)+Math.sin(t*.25+ring.id)*.12;
+for(let i=0;i<U;i++){const u=i/U*Math.PI*2;const wave=u*3-ring.phase*2.1,contraction=.31*Math.pow(.5+.5*Math.cos(wave),6)+ring.impact*.25*Math.exp(-Math.pow(Math.atan2(Math.sin(u-ring.impactAngle),Math.cos(u-ring.impactAngle))/.42,2))+ring.pulse*.09*Math.pow(.5+.5*Math.cos(u*2-other.phase),4);
+for(let j=0;j<V;j++){const v=j/V*Math.PI*2,k=(i*V+j)*3,rr=r*(1-contraction),rad=R+rr*Math.cos(v),x=rad*Math.cos(u),y=rad*Math.sin(u),z=rr*Math.sin(v)+.11*Math.sin(u*2-t*.6);ring.positions[k]=x;ring.positions[k+1]=y;ring.positions[k+2]=z;dummy.position.set(x,y,z);dummy.updateMatrix();ring.beads.setMatrixAt(i*V+j,dummy.matrix)}}
+ring.geom.attributes.position.needsUpdate=true;ring.geom.computeVertexNormals();ring.beads.instanceMatrix.needsUpdate=true;for(let e=0;e<ring.edges.length;e++){const k=ring.edges[e]*3;ring.linePositions[e*3]=ring.positions[k];ring.linePositions[e*3+1]=ring.positions[k+1];ring.linePositions[e*3+2]=ring.positions[k+2]}ring.lineGeom.attributes.position.needsUpdate=true;}
+scene.rotation.set(rotX+.05*Math.sin(t*.18),rotY+t*.045,0);renderer.render(scene,camera);requestAnimationFrame(frame)}requestAnimationFrame(frame);
+</script></html>
