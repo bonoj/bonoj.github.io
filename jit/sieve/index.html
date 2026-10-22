@@ -1,0 +1,547 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#140d23"><title>SIEVE · ENDER FORGE</title><style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#100b1d;color:#fff0d8;font-family:system-ui,sans-serif}body{display:flex;justify-content:center}.app{width:min(100%,520px);display:flex;flex-direction:column;height:100dvh;max-height:100dvh;overflow:hidden;background:linear-gradient(#23132e,#100b1d)}header{flex:none;padding:5px 14px 2px;text-align:center;position:relative}.build-id{position:absolute;left:7px;top:5px;font-size:12px;font-weight:600;color:#b49ab9;letter-spacing:.04em;background:none;border:0;padding:0;cursor:default;touch-action:manipulation;appearance:none;font-family:inherit}h1{font-size:clamp(19px,5vw,28px);margin:0;color:#ffdc88;letter-spacing:.05em}.runtime-eye{touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;position:absolute;right:8px;top:3px;border:0;background:none;color:#fff;font-size:23px;padding:0 3px;cursor:pointer}header p{margin:1px 0 2px;font-size:11px;color:#d8b9dc;letter-spacing:.15em}.hud{height:65px;flex:none;position:relative;padding:3px 8px;font-size:clamp(11px,2.8vw,14px);font-weight:750;font-variant-numeric:tabular-nums;overflow:hidden}.hud-row{position:absolute;left:7px;right:7px;display:grid;align-items:center;justify-items:center;min-width:0;transition:transform .3s ease,opacity .3s ease}.hud-primary{top:18px;grid-template-columns:repeat(4,minmax(0,1fr));transform:translateY(0)}.hud-materials{top:39px;grid-template-columns:repeat(6,minmax(0,1fr));opacity:0;pointer-events:none}.hud.has-materials .hud-primary{transform:translateY(-12px)}.hud.has-materials .hud-materials{opacity:1}.hud-slot{min-width:0;max-width:100%;white-space:nowrap;font-size:inherit}.hud-slot:not(.discovered){visibility:hidden}@media(prefers-reduced-motion:reduce){.hud-row{transition:none}}.arena{position:relative;width:100%;flex:1 1 0;min-height:0;max-height:none}canvas{width:100%;height:100%;display:block;touch-action:none}.spells,.shop{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;padding:4px 9px}.shop{padding-bottom:10px}.game-button{box-sizing:border-box;min-width:0;width:100%;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;overflow:hidden;border:1px solid #72557b;border-radius:12px;background:#281c35;color:#f8eddd;padding:3px 2px;cursor:pointer;font-size:11px;line-height:1}.game-button .button-icon{display:block;flex:none;font-weight:normal;line-height:1.2}.spell .button-icon{font-size:26px}.buy .button-icon{font-size:21px}.game-button .button-price{display:block;flex:none;font-size:9px;line-height:1.2;color:#f7d7a1;white-space:nowrap}.buy{background:#231d36;border-color:#766080}.spell.active{background:#533553;border-color:#ffdd83;box-shadow:0 0 14px #f5bc7255}.buy:disabled{opacity:.55}.buy.owned{background:#294334;border-color:#8ddba0}button{font:inherit}.hint{display:none}#notice{position:absolute;top:12px;left:5%;right:5%;min-height:44px;text-align:center;pointer-events:none;color:#ffe49b;font-size:clamp(12px,3.3vw,16px);font-weight:750;line-height:1.35;text-shadow:0 2px 8px black;white-space:pre-line}
+</style><style>
+#sieveToggle{position:absolute;right:39px;top:3px;z-index:51;border:0;background:transparent;color:#ffe0a2;font-size:22px;padding:0 4px}
+#sieveLayer{position:absolute;z-index:45;inset:94px 8px 132px;background:linear-gradient(150deg,#15182cf5,#100d1bf8);border:1px solid #b58b64;border-radius:15px;box-shadow:0 12px 35px #000b;display:flex;flex-direction:column;overflow:hidden}
+#sieveLayer[hidden]{display:none}#sieveTop{padding:12px 13px 8px;flex:none;border-bottom:1px solid #ffffff19}#sieveTop strong{font:700 18px Georgia,serif;color:#ffda92;letter-spacing:.09em}#sieveTop small{display:block;color:#a9afc7;font:10px system-ui;margin-top:4px}
+#sieveSearch{width:100%;margin-top:10px;background:#0c1220;border:1px solid #826e78;border-radius:9px;color:#fff3df;padding:12px;font:14px system-ui;outline:none}
+#sieveFilters{display:flex;gap:6px;margin-top:9px}#sieveFilters button{flex:1;background:#242039;color:#d5c4b8;border:1px solid #61526d;border-radius:8px;padding:9px 2px;font-size:11px}#sieveFilters button.active{background:#604264;color:#fff2c5;border-color:#edcb87}
+#sieveCards{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:10px;display:flex;flex-direction:column;gap:10px}
+.sieveCard{background:linear-gradient(135deg,#26233d,#161c2b);border:1px solid #6e637e;border-radius:13px;padding:12px;position:relative}
+.sieveCard h2{font:700 15px/1.25 system-ui;margin:4px 0;color:#fff1da;padding-right:14px}.sieveCard .org{font:700 10px system-ui;letter-spacing:.15em;color:#d6b57d}.sieveCard .money{font:700 16px system-ui;color:#8ce6b4;margin:7px 0}.sieveCard .why{font:12px/1.4 system-ui;color:#d8d6e2;margin:6px 0}.sieveCard .caution{font:11px/1.35 system-ui;color:#d5adac;margin:7px 0}.sieveCard .actions{display:flex;gap:7px;margin-top:10px}.sieveCard a,.sieveCard button{flex:1;text-align:center;border-radius:9px;border:1px solid #b99a6d;background:#3b3140;color:#ffe8ba;padding:11px 5px;text-decoration:none;font:700 12px system-ui;min-height:42px}.sieveCard button{flex:0 0 44px}.sieveCard .status{font:10px system-ui;color:#a9b3c8}
+#sieveEmpty{font:13px system-ui;color:#b9b5c8;text-align:center;padding:25px}#sieveCount{font:10px monospace;color:#bcae9e;margin-top:6px}
+</style></head><body><main class="app"><header><button type="button" class="build-id" id="build-id" title="Dev funds: +9999 coins, +999 gems, at least 99 of every material">local</button><h1>⚙️ ENDER FORGE</h1><button id="runtime-eye" class="runtime-eye" aria-label="Tap to copy diagnostics, long press to download full log" title="Tap: copy digest; hold: download full log">👁</button><p>TIFFINITY SURVIVORS · FORGE BASELINE</p><button id="sieveToggle" aria-label="Toggle job search" title="Sieve · opportunities">🔎</button><section id="sieveLayer" aria-label="Sieve job search"><div id="sieveTop"><strong>✦ SIEVE · THE HUNT</strong><small>WORLDS WANTED · LIVE SOURCES · OCT 22 2026</small><input id="sieveSearch" placeholder="Search worlds, simulation, studios…" aria-label="Search jobs"><div id="sieveFilters"><button data-filter="all" class="active">✦ ALL</button><button data-filter="world">🌍 WORLDS</button><button data-filter="systems">⚙ SYSTEMS</button></div><div id="sieveCount"></div></div><div id="sieveCards"></div></section></header><div class="hud" id="hud"><div class="hud-row hud-primary"><span class="hud-slot discovered" id="hp">💜 5</span><span class="hud-slot" id="kills"></span><span class="hud-slot" id="money"></span><span class="hud-slot" id="gems"></span></div><div class="hud-row hud-materials"><span class="hud-slot" id="wheat"></span><span class="hud-slot" id="wood"></span><span class="hud-slot" id="ice"></span><span class="hud-slot" id="herbs"></span><span class="hud-slot" id="stone"></span><span class="hud-slot" id="mushrooms"></span><span class="hud-slot" id="bones"></span><span class="hud-slot" id="worms"></span><span class="hud-slot" id="rats"></span></div></div><div class="arena"><canvas id="game" aria-label="Stationary Tiffany survival game"></canvas><div id="notice"></div></div><div class="hint"><span id="spellHint">CHOOSE A LAND · TAP TIFFANY TO CAST</span></div><div class="spells" id="spells"><button class="game-button spell active" data-n="0" aria-label="Plains"><span class="button-icon" aria-hidden="true">☀️</span></button><button class="game-button spell" data-n="1" aria-label="Island"><span class="button-icon" aria-hidden="true">💧</span></button><button class="game-button spell" data-n="2" aria-label="Swamp"><span class="button-icon" aria-hidden="true">💀</span></button><button class="game-button spell" data-n="3" aria-label="Mountain"><span class="button-icon" aria-hidden="true">🔥</span></button><button class="game-button spell" data-n="4" aria-label="Forest"><span class="button-icon" aria-hidden="true">🌳</span></button></div><div class="hint">DRONE DIVISION · UPGRADE A LAND TO AUTOPILOT</div><div class="shop" id="shop"><button class="game-button buy" data-n="0" aria-label="Prism"><span class="button-icon" aria-hidden="true">☀️</span><small class="button-price">🪙 20</small></button><button class="game-button buy" data-n="1" aria-label="Chain"><span class="button-icon" aria-hidden="true">💧</span><small class="button-price">🪙 30</small></button><button class="game-button buy" data-n="2" aria-label="Leech"><span class="button-icon" aria-hidden="true">💀</span><small class="button-price">🪙 45 · 💎 1</small></button><button class="game-button buy" data-n="3" aria-label="Rocket"><span class="button-icon" aria-hidden="true">🔥</span><small class="button-price">🪙 60 · 💎 1</small></button><button class="game-button buy" data-n="4" aria-label="Vines"><span class="button-icon" aria-hidden="true">🌳</span><small class="button-price">🪙 75 · 💎 2</small></button></div></main><script>
+(()=>{'use strict';const c=document.querySelector('#game'),ctx=c.getContext('2d'),arena=c.parentElement,colors=['#ffe1a0','#79caff','#c08beb','#ff8457','#87d78b'],names=['PLAIN OF JUDGMENT','ISLAND OF REPOSSESSION','SWAMP OF COMPLIANCE','MOUNTAIN OF HOSTILE ACQUISITION','FOREST OF COMPOUND INTEREST'];let ender={x:65,y:65,heading:0,turn:0,steps:0},enderNotice='';const ENDER_COLOR='#FF82B5',ENDER_SENSE=125;let w=400,h=450,cx=200,cy=225,arenaScale=1,viewScale=1,cameraX=200,cameraY=225,selected=0,castSpell=0,rotationClock=0,commandRing=false,towers=[],enemies=[],fx=[],rings=[],zones=[],drones=[],shots=[],coins=0,gems=0,hp=5,kills=0,elapsed=0,spawnClock=0,last=0,lastCast=-10000,invuln=0,over=false,noticeTime=0;const costs=[[20,0],[30,0],[45,1],[60,1],[75,2]],armyCosts=[[120,2],[140,2],[100,3],[150,3],[160,3]],armyNames=['Cherubs','Auditors','Notaries','Phoenixes','Arborists'],armyIcons=['👼','🪼','👻','🐦‍🔥','🦌'],tier3Costs=[['wheat',250,10],['ice',250,10],['stone',250,10],['bones',250,10],['wood',250,10]];let tier3=[],armies=[],units=[];const ENDER_SEMANTIC_ENABLED=true,ENDER_SEMANTIC_CAP=48;
+const enderSemantic={seq:0,events:[],observedSeq:0,lastObserved:[]};
+// Ender-local identity: witness-only tags, never remote actor queries.
+const ENDER_IDENTITY_CAP=64;
+const enderIdentity={next:1,records:new Map(),actors:new WeakMap()};
+function enderTag(actor,kind,t,x,y,attributes={}){
+ if(!actor||!Number.isFinite(x)||!Number.isFinite(y))return null;
+ if(Math.hypot(x-ender.x,y-ender.y)>ENDER_SENSE)return null;
+ let id=enderIdentity.actors.get(actor);
+ if(!id){id='e'+enderIdentity.next++;enderIdentity.actors.set(actor,id)}
+ let record=enderIdentity.records.get(id);
+ if(!record){record={id,kind,first:t,last:t,x:Math.round(x),y:Math.round(y),confidence:'witnessed',observations:0};enderIdentity.records.set(id,record)}
+ record.last=t;record.x=Math.round(x);record.y=Math.round(y);record.observations++;record.attributes={...attributes};
+ // Eviction removes memory, not a living actor's opaque token; reacquisition is still witnessed.
+ while(enderIdentity.records.size>ENDER_IDENTITY_CAP){const oldest=enderIdentity.records.keys().next().value;enderIdentity.records.delete(oldest)}
+ return id;
+}
+function enderRemembered(){return [...enderIdentity.records.values()].sort((a,b)=>b.last-a.last).map(r=>({...r,position:'last-witnessed; visibility not implied'}))}
+// Bounded provenance: only locally witnessed transitions become facts.
+const ENDER_RELATION_CAP=48;
+const enderRelations={records:[],next:1};
+function enderRelation(event){
+ if(!event.tag||!['pickup','deposit','death','fatal-hit'].includes(event.type))return;
+ const record={id:enderRelations.next++,seq:event.seq,t:event.t,subject:event.tag,type:event.type,resource:event.resource||null,quantity:event.quantity||null,source:event.source||null,status:'observed',depot:event.depotTag||null,provenance:'local-semantic-event'};
+ // A delivery relationship requires a depot witnessed at event time, not a later guess.
+ if(event.type==='deposit'&&!event.depotTag)record.status='observed-deposit; destination-unknown';
+ enderRelations.records.push(record);
+ if(enderRelations.records.length>ENDER_RELATION_CAP)enderRelations.records.splice(0,enderRelations.records.length-ENDER_RELATION_CAP);
+}
+function enderSemanticEmit(type,actor,detail={}){
+ if(!ENDER_SEMANTIC_ENABLED||!actor||!Number.isFinite(actor.x)||!Number.isFinite(actor.y))return;
+ if(Math.hypot(actor.x-ender.x,actor.y-ender.y)>ENDER_SENSE)return;
+ const t=Math.round(elapsed/1000),tag=enderTag(actor,actor.kind||'scorpion',t,actor.x,actor.y);const depot=type==='deposit'&&actor.group?.depot&&Math.hypot(actor.x-actor.group.depot.x,actor.y-actor.group.depot.y)<=19.1?actor.group.depot:null;const depotTag=depot?enderTag(depot,(actor.group.kind||actor.kind)+'-depot',t,depot.x,depot.y):null;const event={seq:++enderSemantic.seq,t,type,actor:actor.kind||'scorpion',tag,x:Math.round(actor.x),y:Math.round(actor.y),...detail,...(depotTag?{depotTag}:{})};
+ enderRelation(event);enderSemantic.events.push(event);if(enderSemantic.events.length>ENDER_SEMANTIC_CAP)enderSemantic.events.shift();
+}
+function enderReset(){enderRelations.records=[];enderRelations.next=1;enderIdentity.next=1;enderIdentity.records.clear();enderIdentity.actors=new WeakMap();enderSemantic.events=[];enderSemantic.seq=0;enderSemantic.observedSeq=0;enderSemantic.lastObserved=[];enderSenses.lastSample=-1;enderSenses.samples=0;ender={x:Math.max(45,w*.12),y:Math.max(45,h*.16),heading:Math.random()*Math.PI*2,turn:0,steps:0}}
+function enderUpdate(dt){ender.turn-=dt;if(ender.turn<=0){ender.heading+= (Math.random()-.5)*2.5;ender.turn=1+Math.random()*3}const nx=ender.x+Math.cos(ender.heading)*19*dt,ny=ender.y+Math.sin(ender.heading)*19*dt;if(nx<35||ny<35||nx>w-35||ny>h-35||Math.hypot(nx-cx,ny-cy)<65||towers.some(t=>Math.hypot(nx-t.x,ny-t.y)<42)){ender.heading+=Math.PI*.75;ender.turn=.3;return}ender.x=nx;ender.y=ny;ender.steps+=19*dt}
+function enderSnapshot(){const nearby=(arr,kind,extra=()=>({}))=>arr.filter(o=>o&&Number.isFinite(o.x)&&Number.isFinite(o.y)&&Math.hypot(o.x-ender.x,o.y-ender.y)<=ENDER_SENSE).map(o=>({kind,tag:enderTag(o,kind,Math.round(elapsed/1000),o.x,o.y,extra(o)),dx:Math.round(o.x-ender.x),dy:Math.round(o.y-ender.y),distance:Math.round(Math.hypot(o.x-ender.x,o.y-ender.y)),...extra(o)}));return {schema:'ender-local-observation/v1',seconds:Math.round(elapsed/1000),self:{x:Math.round(ender.x),y:Math.round(ender.y),steps:Math.round(ender.steps)},radius:ENDER_SENSE,entities:[...nearby(towers,'tower',t=>({land:['sun','island','swamp','fire','forest'][t.i],alive:t.alive!==false})),...nearby(enemies,'creep',e=>({icon:e.icon})),...nearby(crops,'crop',o=>({stage:o.stage})),...nearby(remains,'remains',o=>({stage:o.stage})),...nearby(mountains,'mountain',o=>({stage:o.stage})),...nearby(looseStone,'stone'),...nearby(fireScorpions,'scorpion'),...nearby(fireIdols,'idol'),...Object.values(workerGroups).flatMap(g=>[...nearby(g.workers||[],g.kind+'-worker',a=>({carrying:!!a.cargo})),...(g.depot?nearby([g.depot],g.kind+'-depot'):[]),...(g.octopus?nearby([g.octopus],'octopus'):[]),...(g.eagle?nearby([g.eagle],'eagle'):[])])],limits:'Local instantaneous positions and visible state only; no remote inventory or event history'}}
+
+// Brainless Ender: local senses and factual reporting, never action selection.
+const enderSenses={lastSample:-1,samples:0};
+function enderObserve(){
+ const snap=enderSnapshot();
+ enderSemantic.lastObserved=enderSemantic.events.filter(e=>e.seq>enderSemantic.observedSeq).slice(-24);
+ enderSemantic.observedSeq=enderSemantic.seq;
+ enderSenses.samples++;
+ return snap;
+}
+function enderDiary(){
+ const snap=enderSnapshot(),t=snap.seconds;
+ const counts={};for(const o of snap.entities){counts[o.kind]=(counts[o.kind]||0)+1}
+ const visible=Object.entries(counts).map(([kind,n])=>kind+'×'+n).join(' ')||'nothing';
+ const build=document.querySelector('#build-id')?.textContent?.trim()||'unverified';
+ const events=enderSemantic.events.slice(-24);
+ const data={schema:'ender-wanderer/v1',build:{executing:build,source:'displayed inline-script SHA-256 fingerprint',verified:/^[0-9a-f]{8}$/.test(build)},t,self:snap.self,radius:ENDER_SENSE,visible:snap.entities,identity:{records:enderRemembered(),capacity:ENDER_IDENTITY_CAP},relationships:{records:enderRelations.records.slice(-24),capacity:ENDER_RELATION_CAP},semantic:{enabled:ENDER_SEMANTIC_ENABLED,events},samples:enderSenses.samples,control:{mode:'random-walk',policy:null,goal:null,actions:[]},limits:'Local sightings and witnessed events only; no goal, planner, learned policy, physical interactions, or remote knowledge.'};
+ return '🐉 ENDER · BUILD '+build+' · T+'+t+' · ('+snap.self.x+','+snap.self.y+') · '+snap.self.steps+' walked\nNow: '+visible+'\nWitnessed: '+(events.slice(-3).map(e=>'T+'+e.t+' '+e.type).join(' | ')||'none')+'\nControl: random walk; no brain\n\n--- DATA ---\n'+JSON.stringify(data);
+}
+let remains=[];let fireIdols=[],fireScorpions=[],looseStone=[];
+// World Observer: non-destructive ecology telemetry; one switch, no Canvas interception.
+const WORLD_OBSERVER_ENABLED=true;
+const observer={history:[],events:{},lastSample:-Infinity,errors:[]};
+function observeEvent(type,n=1){if(WORLD_OBSERVER_ENABLED)observer.events[type]=(observer.events[type]||0)+n}
+function observeCensus(){
+ const groups=Object.values(workerGroups),species={};
+ for(const g of groups){species[g.kind]=g.alive?g.workers.length:0;if(g.kind==='crab')species.octopus=g.alive&&g.octopus?1:0;if(g.kind==='eagle')species.eagle=g.alive&&g.eagle?1:0}
+ const stages=a=>a.reduce((o,p)=>(o[p.stage]=(o[p.stage]||0)+1,o),{});
+ const labor={};
+ for(const g of groups){if(!g.alive)continue;labor[g.kind]={idle:0,travel:0,chop:0,carry:0,unload:0};for(const a of g.workers){const k=a.fsm?.state||'idle';labor[g.kind][k]=(labor[g.kind][k]||0)+1}}
+ return {seconds:Math.round(elapsed/1000),species,habitats:{crops:stages(crops),remains:stages(remains),mountains:stages(mountains),clouds:rainClouds.length,fireIdols:fireIdols.length,sun:{reliquary:!!workerGroups.scarab?.alive,scarabs:(workerGroups.scarab?.workers||[]).map(a=>({role:a.role,hp:a.hp,cargo:!!a.cargo})),sites:sunSites.map(p=>({id:p.id,status:p.status,inhabited:!!p.inhabitant,blocked:sunBlocked(p)}))},fireScorpions:fireScorpions.map(a=>({stone:a.rocks,meals:{...a.meals},objective:a.rocks===3?"rat":Object.keys(a.meals).filter(k=>!a.meals[k]),target:a.target?.kind||a.target?.stage||null})),looseStone:looseStone.length,fireRim:{sites:fireRimSites.map(p=>({id:p.id,stone:p.stone,built:!!p.mountain,active:p.mountain?.stage===0,claimed:!!p.mountain?.fireClaim,blocked:!p.mountain&&fireRimBlocked(p),x:Math.round(p.x),y:Math.round(p.y)})),idols:fireIdols.map(a=>({cargo:a.cargo,rockTarget:!!a.rock,site:a.site?.id??null})),wildMountains:mountains.filter(m=>!m.fireBuilt).length}},labor,inventory:{...resources},world:{enemies:enemies.length,combatUnits:units.length,aliveTowers:towers.filter(t=>t.alive!==false).length,aliveDepots:groups.filter(g=>g.alive).length,areaScale:arenaScale}}
+}
+function observeSample(){if(!WORLD_OBSERVER_ENABLED||elapsed/1000-observer.lastSample<5)return;observer.lastSample=elapsed/1000;observer.history.push(observeCensus());if(observer.history.length>120)observer.history.shift()}
+function observeReport(){observeSample();return {schema:'tiffinity-world-observer/v1',build:document.querySelector('#build-id').textContent,capturedAt:new Date().toISOString(),events:{...observer.events},current:observeCensus(),history:observer.history.slice(),errors:observer.errors.slice(-10)}}
+// Preserve the full flight recorder; clipboard gets a bounded analytical digest.
+function observeDigest(){
+ const report=observeReport(),history=report.history;
+ const keys=['species','inventory','world'];
+ const trajectories={};
+ for(const section of keys){
+  const first=history[0]?.[section]||{},last=report.current[section]||{};
+  for(const key of Object.keys(last)){
+   if(typeof last[key]!=='number')continue;
+   const values=history.map(h=>h[section]?.[key]).filter(Number.isFinite);
+   if(!values.length)continue;
+   trajectories[section+'.'+key]={start:values[0],end:last[key],min:Math.min(...values,last[key]),max:Math.max(...values,last[key])};
+  }
+ }
+ const checkpoints=history.filter((h,i)=>i===0||i===history.length-1||i%12===0).map(h=>({seconds:h.seconds,species:h.species,inventory:h.inventory,world:h.world}));
+ return {schema:'tiffinity-world-digest/v1',build:report.build,capturedAt:report.capturedAt,historySamples:history.length,historySeconds:history.length?[history[0].seconds,history[history.length-1].seconds]:[],events:report.events,current:report.current,trajectories,checkpoints,errors:report.errors,fullHistory:'long-press 👁 to download full JSON'};
+}
+const runtimeEye=document.querySelector('#runtime-eye');
+runtimeEye.hidden=!WORLD_OBSERVER_ENABLED;
+if(WORLD_OBSERVER_ENABLED){
+ let holdTimer=null,held=false,startX=0,startY=0;
+ function cancelEyeHold(){if(holdTimer!==null){clearTimeout(holdTimer);holdTimer=null}}
+ function downloadEye(){
+  const data=JSON.stringify(observeReport()),blob=new Blob([data],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');
+  link.href=url;link.download='tiffinity-observer-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';
+  document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ }
+ runtimeEye.addEventListener('pointerdown',e=>{if(e.button!==0)return;held=false;startX=e.clientX;startY=e.clientY;cancelEyeHold();holdTimer=setTimeout(()=>{holdTimer=null;held=true;downloadEye()},650)});
+ runtimeEye.addEventListener('pointermove',e=>{if(Math.hypot(e.clientX-startX,e.clientY-startY)>12)cancelEyeHold()});
+ runtimeEye.addEventListener('pointerup',cancelEyeHold);
+ runtimeEye.addEventListener('pointercancel',()=>{cancelEyeHold();held=false});
+ runtimeEye.addEventListener('contextmenu',e=>e.preventDefault());
+ runtimeEye.addEventListener('click',async e=>{if(held){e.preventDefault();held=false;return}try{await navigator.clipboard.writeText(JSON.stringify(observeDigest()))}catch(err){observer.errors.push(String(err))}});
+}
+function swampRemains(e){const t=towers.find(t=>t.i===2&&t.alive!==false);if(t&&Math.hypot(e.x-t.x,e.y-t.y)<Math.min(w,h)*.23)remains.push({x:e.x,y:e.y,stage:'bones',decayAt:elapsed/1000+rand(25,30),burnAt:0})}function swampWither(t,R){const now=elapsed/1000;for(const p of crops)if(!p.burnAt&&!p.witherAt&&Math.hypot(p.x-t.x,p.y-t.y)<R){p.witherAt=now+rand(2,4);p.growAt=0;releasePlantClaim(p)}}
+function releasePlantClaim(p){if(p.workerClaim){p.workerClaim.target=null;p.workerClaim.tree=null;p.workerClaim=null}}
+function remainsUpdate(){const now=elapsed/1000;for(const p of remains){if(p.stage==='bones'&&now>=p.decayAt)p.stage='mushroom';if(p.burnAt&&now>=p.burnAt&&p.workerClaim)releaseClaim(p.workerClaim)}remains=remains.filter(p=>!p.burnAt||now<p.burnAt)}function remainsDraw(){ctx.textAlign='center';ctx.textBaseline='middle';for(const p of remains){const kind=p.stage==='bones'?'bones':'mushrooms';ctx.font=spriteFont(materialSize[kind]);ctx.fillText(materialIcons[kind],p.x,p.y)}}let crops=[],cropClock=0,forestClock=0;const cropRadius=13,holyRadius=65;
+function plantSprout(source){const tower=towers.find(t=>t.i===source&&t.alive!==false);if(!tower||crops.length>=100)return;for(let tries=0;tries<12;tries++){const a=rand(0,Math.PI*2),r=rand(25,115),x=tower.x+Math.cos(a)*r,y=tower.y+Math.sin(a)*r;if(x<cropRadius||y<cropRadius||x>w-cropRadius||y>h-cropRadius||Math.hypot(x-cx,y-cy)<holyRadius||crops.some(p=>Math.hypot(x-p.x,y-p.y)<17))continue;crops.push({x,y,source,stage:'sprout',growAt:0,phase:rand(0,7)});break}}
+function cropSpawn(dt){if(over)return;cropClock+=dt;forestClock+=dt;if(cropClock>=.65){cropClock=0;plantSprout(0)}if(forestClock>=3.5){forestClock=0;plantSprout(4)}}
+function waterPlants(t,R){for(const p of crops)if(p.stage==='sprout'&&!p.growAt&&Math.hypot(p.x-t.x,p.y-t.y)<R)p.growAt=elapsed/1000+rand(p.source===4?5:1.5,p.source===4?10:4)}
+function cropGrow(){const now=elapsed/1000;for(const p of crops)if(p.witherAt&&now>=p.witherAt){remains.push({x:p.x,y:p.y,stage:'mushroom',decayAt:0,burnAt:0});p.withered=true}crops=crops.filter(p=>!p.withered);for(const p of crops)if(p.burnAt&&now>=p.burnAt){if(rainCovered(p.x,p.y))p.burnAt=0;else p.burned=true};crops=crops.filter(p=>!p.burned);for(const p of crops)if(p.growAt&&!p.witherAt&&now>=p.growAt){p.stage=p.source===4?'tree':'wheat';p.growAt=0}}
+function firePlants(t,R){for(const p of crops)if(!rainCovered(p.x,p.y)&&!p.burnAt&&!p.witherAt&&Math.hypot(p.x-t.x,p.y-t.y)<R)p.burnAt=elapsed/1000+rand(.6,2.5);for(const p of remains)if(p.stage==='mushroom'&&!p.burnAt&&Math.hypot(p.x-t.x,p.y-t.y)<R)p.burnAt=elapsed/1000+rand(.6,2.5)}
+let rainClouds=[];const RAIN_RADIUS=58;function rainCovered(x,y){return rainClouds.some(c=>Math.hypot(x-c.x,y-c.y)<=c.r)}function cloudFly(c,home,dt,speed,radius){const a={x:c.flyX,y:c.flyY,wander:c.wander,facing:c.facing};lazyWander(a,home,dt,speed,radius);c.flyX=a.x;c.flyY=a.y;c.wander=a.wander;c.facing=a.facing}
+function rainUpdate(dt){for(const c of rainClouds){c.life-=dt;if(c.life<=0)continue;cloudFly(c,{x:c.x,y:c.y},dt,42,c.r*.48);c.visualX=c.flyX;c.visualY=c.flyY;waterPlants(c,c.r);mountainPulse({i:1,x:c.x,y:c.y},c.r)}rainClouds=rainClouds.filter(c=>c.life>0)}function rainDraw(){ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=spriteFont(24);for(const c of rainClouds)ctx.fillText('🌧️',c.visualX,c.visualY-5)}
+let mountains=[],volcanoClock=0;const volcanoBurnRadius=36;
+// Fire rim sites use the existing physical loose-stone ledger; wild geology remains independent.
+let fireRimSites=[];
+function mountainSpawn(dt){if(!towers.some(t=>t.i===3&&t.alive!==false))return;volcanoClock+=dt;if(volcanoClock<16||mountains.filter(m=>!m.fireBuilt).length>=12)return;volcanoClock=0;const t=towers.find(t=>t.i===3&&t.alive!==false);for(let tries=0;tries<16;tries++){const a=rand(0,Math.PI*2),r=rand(35,95),x=t.x+Math.cos(a)*r,y=t.y+Math.sin(a)*r;if(x<25||y<25||x>w-25||y>h-25||Math.hypot(x-cx,y-cy)<holyRadius||mountains.some(m=>Math.hypot(m.x-x,m.y-y)<42))continue;mountains.push({x,y,stage:0,nextStage:-1,changeAt:0});break}}
+function mountainPulse(t,R){for(const m of mountains){if((m.fireClaim&&t.i===1)||m.changeAt||Math.hypot(m.x-t.x,m.y-t.y)>=R||(t.i===3&&rainCovered(m.x,m.y)))continue;const next=t.i===3?(m.stage!==0?0:-1):t.i===1?(m.stage===0?1:m.stage===2?3:-1):t.i===4&&m.stage===1?2:-1;if(next>=0){m.nextStage=next;m.changeAt=elapsed/1000+rand(2,5)}}}
+function mountainUpdate(dt){mountainSpawn(dt);const now=elapsed/1000;for(const m of mountains){if(m.changeAt&&now>=m.changeAt){if(m.nextStage===1&&m.fireClaim){m.changeAt=0;m.nextStage=-1;continue}if(m.nextStage===0&&rainCovered(m.x,m.y)){m.changeAt=0;m.nextStage=-1;continue}m.stage=m.nextStage;m.changeAt=0;m.nextStage=-1}if(m.stage===0){if(m.fireClaim){m.fireCool=Math.max(0,(m.fireCool||0)-dt);if(m.fireCool<=0){const e=target(m.x,m.y,170);if(e){const dx=e.x-m.x,dy=e.y-m.y;shots.push({x:m.x,y:m.y,tx:e.x,ty:e.y,vx:dx*2.3,vy:dy*2.3,life:.42,color:colors[3],angle:Math.atan2(dy,dx)-3*Math.PI/4});m.fireCool=1.8;observeEvent('fireRimProjectile')}}}crops=crops.filter(p=>rainCovered(p.x,p.y)||Math.hypot(p.x-m.x,p.y-m.y)>volcanoBurnRadius);remains=remains.filter(p=>p.stage!=='mushroom'||Math.hypot(p.x-m.x,p.y-m.y)>volcanoBurnRadius)}}}
+const VISUAL_SIZE=Object.freeze({micro:12,small:19,medium:24,actor:27,worldFeature:30,hero:49,towerIcon:21,cargo:25});
+const spriteFont=(size,bold=false)=>(bold?'bold ':'')+size+'px system-ui';
+function mountainDraw(){ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=spriteFont(VISUAL_SIZE.worldFeature);for(const m of mountains){ctx.fillText(['🌋','🗻','⛰️','🏔️'][m.stage],m.x,m.y);if(m.fireClaim){ctx.font=spriteFont(VISUAL_SIZE.medium);ctx.fillText('🔥',m.x,m.y-25);ctx.font=spriteFont(VISUAL_SIZE.worldFeature)}}for(const p of fireRimSites)if(p.stone>0&&!p.mountain){ctx.font=spriteFont(19);for(let i=0;i<p.stone;i++)ctx.fillText('🪨',p.x+(i-1)*14,p.y-7)}}
+
+ // Fire Tier III: one autonomous scorpion per idol; three meals turn a scorpion into a new idol.
+ // Stone is physical armor/cargo. Crabs and their geological targets remain unchanged.
+ function spawnFireScorpion(idol){
+  const a={idol,x:idol.x+rand(-12,12),y:idol.y+rand(-12,12),rocks:0,meals:{mushroom:false,bones:false,worm:false},target:null,phase:rand(0,7),facing:1,wander:null,attackCooldown:0};
+  idol.scorpion=a;fireScorpions.push(a);observeEvent('fireScorpionSpawn');return a;
+ }
+ function createFireIdol(x,y){
+  const idol={x,y,scorpion:null,rock:null,cargo:false,site:null,facing:1};
+  fireIdols.push(idol);spawnFireScorpion(idol);observeEvent('fireIdolBirth');burst(x,y,colors[3],12);return idol;
+ }
+ function startFireIdol(){
+  if(fireIdols.length)return true;
+  const t=towers.find(t=>t.i===3&&t.alive!==false),site=buildingSite(t);
+  if(!site)return false;
+  createFireIdol(site.x,site.y);return true;
+ }
+ function fireScorpionDie(a,source='unknown'){
+  if(a.target?.workerClaim===a)a.target.workerClaim=null;
+  looseStone.push({x:a.x,y:a.y});
+  fireScorpions.splice(fireScorpions.indexOf(a),1);
+  if(a.idol?.scorpion===a)a.idol.scorpion=null;
+  observeEvent('fireScorpionDeath');enderSemanticEmit('death',a,{source});burst(a.x,a.y,colors[3],9);
+ }
+
+// Autonomous Fire rim construction: one real rock per journey, three deliveries per volcano.
+function fireRimPlan(){
+ const t=towers.find(t=>t.i===3);if(!t||fireRimSites.length)return;
+ fireRimSites=Array.from({length:5},(_,id)=>{const a=-Math.PI/2+id*2*Math.PI/5;return {id,x:t.x+Math.cos(a)*118,y:t.y+Math.sin(a)*118,stone:0,mountain:null,claimed:null}});
+}
+function fireRimBlocked(p){
+ return p.x<28||p.y<28||p.x>w-28||p.y>h-28||
+ Math.hypot(p.x-cx,p.y-cy)<SANCTUARY_CLEARANCE+20||
+ mountains.some(m=>m!==p.mountain&&Math.hypot(m.x-p.x,m.y-p.y)<42)||
+ sunSites.some(q=>q.status==='built'&&Math.hypot(q.x-p.x,q.y-p.y)<44)||
+ fireRimSites.some(q=>q!==p&&q.mountain&&Math.hypot(q.x-p.x,q.y-p.y)<42);
+}
+function fireRimReposition(p){
+ if(p.mountain||!fireRimBlocked(p))return true;
+ const t=towers.find(t=>t.i===3);if(!t)return false;
+ const original={x:p.x,y:p.y},angle=-Math.PI/2+p.id*2*Math.PI/5;
+ for(const offset of [0,.12,-.12,.24,-.24,.36,-.36,.48,-.48,.60,-.60,.72,-.72,.84,-.84,1,-1]){
+  for(const radius of [118,135,100,152,84,168]){
+   const x=t.x+Math.cos(angle+offset)*radius,y=t.y+Math.sin(angle+offset)*radius;
+   p.x=x;p.y=y;
+   if(!fireRimBlocked(p)&&!fireRimSites.some(q=>q!==p&&Math.hypot(q.x-x,q.y-y)<42)){
+    if(p.stone){
+     for(let i=0;i<p.stone;i++)looseStone.push({x:original.x+rand(-8,8),y:original.y+rand(-8,8)});
+     p.stone=0;observeEvent('fireRimSiteStoneRecovered');
+    }
+    observeEvent('fireRimSiteRepositioned');return true;
+   }
+  }
+ }
+ p.x=original.x;p.y=original.y;return false;
+}
+function fireRimRelease(idol,drop=true){
+ if(idol.rock?.workerClaim===idol)idol.rock.workerClaim=null;
+ if(idol.site?.claimed===idol)idol.site.claimed=null;
+ if(drop&&idol.cargo){looseStone.push({x:idol.x,y:idol.y});observeEvent('fireRimCargoDropped')}
+ idol.rock=null;idol.site=null;idol.cargo=false;
+}
+function fireRimCollapse(){
+ for(const idol of fireIdols)fireRimRelease(idol);
+ for(const p of fireRimSites){
+  if(p.mountain){const i=mountains.indexOf(p.mountain);if(i>=0)mountains.splice(i,1);for(let i=0;i<3;i++)looseStone.push({x:p.x+rand(-8,8),y:p.y+rand(-8,8)});observeEvent('fireRimCollapsed')}
+  else for(let i=0;i<p.stone;i++)looseStone.push({x:p.x+rand(-8,8),y:p.y+rand(-8,8)});
+ }
+ fireRimSites=[];
+}
+function fireRimUpdate(dt){
+ if(!tier3.includes(3)||!fireIdols.length)return;
+ if(!fireRimSites.length)fireRimPlan();
+ for(const idol of [...fireIdols]){
+  if(idol.cargo){
+   if(!idol.site||idol.site.mountain||!fireRimReposition(idol.site)){if(idol.site?.claimed===idol)idol.site.claimed=null;idol.site=null}
+   if(!idol.site){idol.site=fireRimSites.find(p=>!p.mountain&&fireRimReposition(p))||null}
+   // Multiple haulers may serve one site. Never drop cargo just because another Idol is delivering.
+   if(!idol.site){if(fireRimSites.every(p=>p.mountain))fireRimRelease(idol);continue}
+   if(moveWorker(idol,idol.site.x,idol.site.y,42,dt,16)){
+    const p=idol.site;p.stone++;idol.cargo=false;p.claimed=null;idol.site=null;observeEvent('fireRimStoneDelivered');
+    if(p.stone===3){
+     const m={x:p.x,y:p.y,stage:0,nextStage:-1,changeAt:0,fireBuilt:true,fireClaim:false,fireCool:0};
+     mountains.push(m);p.mountain=m;
+     const i=fireIdols.indexOf(idol);if(i>=0)fireIdols.splice(i,1);
+     if(idol.scorpion){idol.scorpion.idol=null;idol.scorpion=null}
+     observeEvent('fireRimVolcanoBuilt');burst(p.x,p.y,colors[3],15);
+    }
+   }
+   continue;
+  }
+  if(fireRimSites.every(p=>p.mountain))continue;
+  if(!fireRimSites.some(p=>!p.mountain&&fireRimReposition(p)))continue;
+  if(idol.rock&&!looseStone.includes(idol.rock)){idol.rock=null}
+  if(!idol.rock){
+   let best=null,dist=Infinity;
+   for(const rock of looseStone){if(rock.workerClaim)continue;const d=Math.hypot(rock.x-idol.x,rock.y-idol.y);if(d<dist){best=rock;dist=d}}
+   if(best){idol.rock=best;best.workerClaim=idol}
+  }
+  if(idol.rock&&moveWorker(idol,idol.rock.x,idol.rock.y,42,dt,14)){
+   const i=looseStone.indexOf(idol.rock);
+   if(i>=0){looseStone.splice(i,1);idol.cargo=true;observeEvent('fireRimStoneCollected')}
+   idol.rock=null;
+  }
+ }
+}
+function fireRimClaimUpdate(){
+ for(const m of mountains)if(m.fireBuilt&&m.stage===0&&!m.fireClaim&&!units.some(u=>u.fireDestination===m)){
+  const u=units.find(u=>u.i===3&&!u.fireDestination);
+  if(u){u.fireDestination=m;observeEvent('fireRimPhoenixAssigned')}
+ }
+}
+
+ function fireScorpionUpdate(dt){
+  if(tier3.includes(3)&&fireIdols.length===0&&fireScorpions.length===0)startFireIdol();
+  for(const idol of fireIdols)if(!idol.scorpion)spawnFireScorpion(idol);
+  for(const a of [...fireScorpions]){
+   a.phase+=dt*8;a.attackCooldown=Math.max(0,a.attackCooldown-dt);
+   const sg=workerGroups.scarab;const beetle=sg?.alive?sg.workers.find(b=>Math.hypot(b.x-a.x,b.y-a.y)<23):null;
+   if(beetle&&a.attackCooldown<=0){enderSemanticEmit('attack',a,{target:'scarab-worker'});sunDamage(beetle,'scorpion');a.attackCooldown=1;observeEvent('fireScorpionAttackScarab');}
+   if(!a.target&&sg?.alive){let nearest=null,dist=105;for(const b of sg.workers){const d=Math.hypot(b.x-a.x,b.y-a.y);if(d<dist){dist=d;nearest=b}}if(nearest&&!beetle)moveWorker(a,nearest.x,nearest.y,48,dt,18)}
+   // Contact sting/claws: consumes an approaching creep, but costs armor or the scorpion's life.
+   const foe=enemies.find(e=>!e.dead&&Math.hypot(e.x-a.x,e.y-a.y)<17);
+   if(foe&&a.attackCooldown<=0){
+    a.attackCooldown=.8;hit(foe,1,colors[3]);observeEvent('fireScorpionSting');
+    if(a.rocks>0){const key=Object.keys(a.meals).reverse().find(k=>a.meals[k]);if(key)a.meals[key]=false;a.rocks--;if(a.target?.workerClaim===a)a.target.workerClaim=null;a.target=null;looseStone.push({x:a.x,y:a.y});observeEvent('fireScorpionArmorLost')}
+    else {fireScorpionDie(a,'creep-contact');continue}
+   }
+
+   const wantsRat=a.rocks===3;
+   const eligible=p=>wantsRat?p.kind==='rat':p.kind==='worm'?!a.meals.worm:p.stage==='bones'?!a.meals.bones:p.stage==='mushroom'?!a.meals.mushroom:false;
+   const liveWorker=p=>{const g=workerGroups[p.kind];return g?.alive&&g.workers.includes(p)};
+   if(a.target){const p=a.target;const valid=eligible(p)&&p.workerClaim===a&&(p.kind==='worm'||p.kind==='rat'?liveWorker(p):remains.includes(p)&&!p.burnAt);if(!valid){if(p.workerClaim===a)p.workerClaim=null;a.target=null}}
+   if(!a.target){
+    let best=null,dist=Infinity;
+    if(!wantsRat)for(const p of remains){if(p.burnAt||p.workerClaim||!eligible(p))continue;const d=Math.hypot(p.x-a.x,p.y-a.y);if(d<dist){dist=d;best=p}}
+    for(const kind of (wantsRat?['rat']:['worm'])){const g=workerGroups[kind];if(!g?.alive)continue;for(const p of g.workers){if(p.workerClaim||!eligible(p))continue;const d=Math.hypot(p.x-a.x,p.y-a.y);if(d<dist){dist=d;best=p}}}
+    if(best){a.target=best;best.workerClaim=a}
+   }
+   if(a.target){
+    const p=a.target;faceActor(a,p.x);
+    if(moveWorker(a,p.x,p.y,46,dt,14)){
+     const ingredient=p.kind==='worm'?'worm':p.kind==='rat'?'rat':p.stage;
+     if(p.kind==='worm'||p.kind==='rat'){const g=workerGroups[p.kind];if(g?.workers.includes(p)){releaseClaim(p);g.workers.splice(g.workers.indexOf(p),1);if(p.kind==='worm'&&g.extraWorms>0)g.extraWorms--}}
+     else{const i=remains.indexOf(p);if(i>=0)remains.splice(i,1)}
+     if(p.workerClaim===a)p.workerClaim=null;a.target=null;
+     if(ingredient==='rat'){
+      resources.rats++;discover('rats',resources.rats);observeEvent('fireScorpionRatConsumed');hud();
+      const x=a.x,y=a.y,parent=a.idol;fireScorpions.splice(fireScorpions.indexOf(a),1);
+      if(parent?.scorpion===a)parent.scorpion=null;
+      createFireIdol(x,y);if(parent&&fireIdols.includes(parent))spawnFireScorpion(parent);
+      observeEvent('fireScorpionMetamorphosis');
+     }else{a.meals[ingredient]=true;a.rocks++;observeEvent('fireScorpionMeals');observeEvent('fireScorpionMeal.'+ingredient);burst(a.x,a.y,colors[3],5)}
+    }
+   }else{
+    const nearest=fireIdols.reduce((best,idol)=>!best||Math.hypot(idol.x-a.x,idol.y-a.y)<Math.hypot(best.x-a.x,best.y-a.y)?idol:best,null);
+    lazyWander(a,nearest||{x:cx,y:cy},dt,24,35);
+   }
+  }
+ }
+ function fireScorpionDraw(){
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  for(const p of looseStone){ctx.font=spriteFont(materialSize.stone);ctx.fillText('🪨',p.x,p.y)}
+  for(const idol of fireIdols){ctx.font=spriteFont(VISUAL_SIZE.worldFeature);ctx.fillText('🗿',idol.x,idol.y);if(idol.cargo){ctx.font=spriteFont(materialSize.stone);ctx.fillText('🪨',idol.x,idol.y-27)}}
+  for(const a of fireScorpions){
+   ctx.save();ctx.translate(a.x,a.y);ctx.scale(a.facing,1);
+   ctx.font=spriteFont(VISUAL_SIZE.actor);ctx.fillText('🦂',0,0);
+   ctx.font=spriteFont(17);
+   for(let i=0;i<a.rocks;i++)ctx.fillText('🪨',(i-1)*13,-18-Math.abs(i-1)*4);
+   ctx.restore()
+  }
+ }
+
+function cropTrample(e){crops=crops.filter(p=>p.stage==='tree'||Math.hypot(e.x-p.x,e.y-p.y)>cropRadius+8)}
+function cropDraw(t){ctx.textAlign='center';ctx.textBaseline='middle';for(const p of crops){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(Math.sin(t*1.5+p.phase)*(p.stage==='tree'?.035:.09));ctx.font=spriteFont(p.stage==='tree'?VISUAL_SIZE.worldFeature:p.stage==='wheat'?materialSize.wheat:VISUAL_SIZE.small);ctx.fillText(p.stage==='tree'?'🌳':p.stage==='wheat'?'🌾':'🌱',0,0);ctx.restore()}}
+
+// Civilian forestry is independent of combat recruits.
+// Small reusable FSM kernel: explicit transitions, enter/exit hooks, state timeouts and recovery.
+function makeFSM(def,initial,owner){const m={state:initial,time:0,transition(next){if(!def[next])throw Error('Unknown state '+next);if(next===this.state)return;const previous=this.state;def[previous].exit?.(owner,next);this.state=next;this.time=0;def[next].enter?.(owner,previous)},tick(dt){if(!Number.isFinite(dt)||dt<=0)return;this.time+=dt;def[this.state].update?.(owner,this,dt)}};def[initial].enter?.(owner,null);return m}
+// Civilian professions share one FSM, claim protocol, and movement capability.
+const resources={wood:0,wheat:0,ice:0,herbs:0,stone:0,mushrooms:0,bones:0,worms:0,rats:0};const discovered=new Set();const materialNames=['wheat','wood','ice','herbs','stone','mushrooms','bones','worms','rats'];const materialIcons={wheat:'🌾',wood:'🪵',ice:'🧊',herbs:'🌿',stone:'🪨',mushrooms:'🍄',bones:'🦴',worms:'🪱',rats:'🐀'};
+// One resource glyph and world-unit size for both loose materials and carried cargo.
+const materialSize={wheat:24,wood:25,ice:25,herbs:25,stone:25,mushrooms:19,bones:12,worms:19};function discover(key,value){if(value>0)discovered.add(key)}function renderResourceHUD(){const entries=[['hp','💜',hp],['kills','☠️',kills],['money','🪙',coins],['gems','💎',gems],...materialNames.map(k=>[k,materialIcons[k],resources[k]])];for(const [key,icon,value] of entries){const el=document.getElementById(key),shown=key==='hp'||discovered.has(key);el.classList.toggle('discovered',shown);el.textContent=shown?icon+' '+value:''}document.getElementById('hud').classList.toggle('has-materials',materialNames.some(k=>discovered.has(k)))}
+const professions={
+ ant:{body:'🐜',native:-1,tool:'🪓',depot:'🛖',land:4,motion:'walk',speed:48,work:2,range:22,find:()=>crops.find(p=>p.stage==='tree'&&!p.burnAt&&!p.witherAt&&!p.workerClaim),valid:p=>crops.includes(p)&&p.stage==='tree'&&!p.burnAt&&!p.witherAt&&!p.witherAt,harvest:p=>{crops.splice(crops.indexOf(p),1);return 'wood'}},
+ bee:{body:'🐝',native:-1,tool:'🔱',depot:'🍯',land:0,motion:'fly',speed:69,work:1.4,range:20,find:()=>crops.find(p=>p.stage==='wheat'&&!p.burnAt&&!p.witherAt&&!p.workerClaim),valid:p=>crops.includes(p)&&p.stage==='wheat'&&!p.burnAt&&!p.witherAt&&!p.witherAt,harvest:p=>{crops.splice(crops.indexOf(p),1);return 'wheat'}},
+ crab:{body:'🦀',native:1,tool:'⛏️',depot:'🐚',land:1,motion:'scuttle',speed:37,work:2.4,range:24,find:()=>mountains.find(m=>m.stage>0&&!m.changeAt&&!m.workerClaim),valid:m=>mountains.includes(m)&&m.stage>0&&!m.changeAt,harvest:m=>{const stage=m.stage;m.stage--;m.changeAt=0;m.nextStage=-1;if(stage===1)mountains.splice(mountains.indexOf(m),1);return ['','stone','herbs','ice'][stage]}},
+ rat:{body:'🐀',native:1,tool:'🪏',depot:'🪦',land:2,motion:'walk',speed:54,work:1.5,range:21,find:()=>remains.find(p=>p.stage==='bones'&&!p.burnAt&&!p.workerClaim),valid:p=>remains.includes(p)&&p.stage==='bones'&&!p.burnAt,harvest:p=>{remains.splice(remains.indexOf(p),1);return 'bones'}},
+ worm:{body:'🪱',native:-1,tool:'🗡️',depot:'⚗️',land:2,motion:'wriggle',speed:43,work:1.8,range:21,find:()=>remains.find(p=>p.stage==='mushroom'&&!p.burnAt&&!p.workerClaim),valid:p=>remains.includes(p)&&p.stage==='mushroom'&&!p.burnAt,harvest:p=>{remains.splice(remains.indexOf(p),1);return 'mushrooms'}}
+};
+let workerGroups={};
+// Sun expedition: shared stone ledger, Reliquary, and five monument sites.
+let sunSites=[],sunPending=[];
+function sunPlan(){
+ const t=towers.find(t=>t.i===0);if(!t)return;
+ sunSites=Array.from({length:5},(_,id)=>{const a=-Math.PI/2+id*Math.PI*2/5;return {id,x:t.x+Math.cos(a)*118,y:t.y+Math.sin(a)*118,status:'planned',inhabitant:null,claimed:null}});
+}
+function sunBlocked(p){return Math.hypot(p.x-cx,p.y-cy)<SANCTUARY_CLEARANCE+20||p.x<24||p.y<24||p.x>w-24||p.y>h-24||sunSites.some(q=>q!==p&&q.status==='built'&&Math.hypot(p.x-q.x,p.y-q.y)<44)}
+function sunCollapse(){for(const p of sunSites)if(p.status==='built'){looseStone.push({x:p.x,y:p.y});observeEvent('sunMonumentCollapse')}sunSites=[];for(const a of workerGroups.scarab?.workers||[])if(a.site)a.site=null}
+function sunStart(){
+ if(workerGroups.scarab)return;
+ const t=towers.find(t=>t.i===0&&t.alive!==false),depot=buildingSite(t);if(!depot)return false;
+ const g={kind:'scarab',depot,workers:[],alive:true,respawn:0,workerClock:0};workerGroups.scarab=g;sunPlan();return true;
+}
+function sunSpawn(g){const roles=['shield','sword','bow'];const role=roles.find(role=>!g.workers.some(a=>a.role===role));if(!role)return;g.workers.push({kind:'scarab',role,group:g,x:g.depot.x,y:g.depot.y,phase:0,facing:1,hp:role==='shield'?2:1,cargo:null,site:null,rock:null,attack:0,toolTime:0,wander:null});observeEvent('sunScarabSpawn.'+role)}
+function sunDrop(a){if(a.cargo){looseStone.push({x:a.x,y:a.y});a.cargo=null;observeEvent('sunCargoDropped')}if(a.rock?.workerClaim===a)a.rock.workerClaim=null;if(a.site?.claimed===a)a.site.claimed=null;a.rock=null;a.site=null}
+function sunDamage(a,source='unknown'){a.hp--;enderSemanticEmit('damage',a,{source,remainingHp:a.hp});if(a.hp===1&&a.role==='shield')observeEvent('sunShieldBroken');if(a.hp<=0){sunDrop(a);const g=a.group;g.workers.splice(g.workers.indexOf(a),1);g.workerClock=1.5;observeEvent('sunScarabDeath.'+a.role);enderSemanticEmit('death',a,{source,role:a.role});burst(a.x,a.y,colors[0],7)}}
+function sunScorpionHit(a){if(!fireScorpions.includes(a))return;if(a.rocks>0){enderSemanticEmit('armor-hit',a,{source:'scarab',remainingArmor:a.rocks-1});const k=Object.keys(a.meals).reverse().find(k=>a.meals[k]);if(k)a.meals[k]=false;a.rocks--;looseStone.push({x:a.x,y:a.y});if(a.target?.workerClaim===a)a.target.workerClaim=null;a.target=null;observeEvent('sunScorpionArmorHit')}else{enderSemanticEmit('fatal-hit',a,{source:'scarab'});fireScorpionDie(a,'scarab');observeEvent('sunScorpionUnarmoredHit')}}
+function sunUpdate(dt){
+ const g=workerGroups.scarab;if(!g)return;if(!g.alive){g.respawn-=dt;if(g.respawn<=0){const t=towers.find(t=>t.i===0&&t.alive!==false),site=t&&buildingSite(t,g);if(site){g.depot=site;g.alive=true;g.workerClock=0;observeEvent('depotRecovered.scarab')}}return}
+ g.workerClock-=dt;if(g.workers.length<3&&g.workerClock<=0){sunSpawn(g);g.workerClock=1.5}
+ for(const a of [...g.workers]){
+  a.phase+=dt*9;a.attack-=dt;a.toolTime=Math.max(0,a.toolTime-dt);
+  if(a.cargo){
+   if(!a.site||a.site.status!=='planned'){if(a.site?.claimed===a)a.site.claimed=null;a.site=sunSites.find(p=>p.status==='planned'&&!p.claimed);if(a.site)a.site.claimed=a}
+   const p=a.site||{x:cx,y:cy};
+   if(moveWorker(a,p.x,p.y,49,dt,18)){
+    if(a.site&&a.site.status==='planned'&&!sunBlocked(a.site)){a.site.status='built';observeEvent('sunMonumentBuilt')}
+    else {resources.stone++;discover('stone',resources.stone);hud();observeEvent('sunStoneDelivered')}
+    if(a.site?.claimed===a)a.site.claimed=null;a.site=null;a.cargo=null;
+   }continue;
+  }
+  let foe=null,best=160;for(const sc of fireScorpions){const d=Math.hypot(a.x-sc.x,a.y-sc.y);if(d<best){best=d;foe=sc}}
+  if(foe){
+   if(a.role==='shield'){moveWorker(a,foe.x,foe.y,56,dt,20)}
+   else if(a.role==='sword'){if(moveWorker(a,foe.x,foe.y,63,dt,23)&&a.attack<=0){sunScorpionHit(foe);a.attack=1.1;a.toolTime=.35}}
+   else {faceActor(a,foe.x);if(best>115)moveWorker(a,foe.x,foe.y,47,dt,100);if(best<=125&&a.attack<=0){sunScorpionHit(foe);a.attack=3;a.toolTime=.45}}
+   continue;
+  }
+  if(a.rock&&!looseStone.includes(a.rock)){a.rock=null}
+  if(!a.rock){let near=null,dist=Infinity;for(const p of looseStone){if(p.workerClaim)continue;const d=Math.hypot(a.x-p.x,a.y-p.y);if(d<dist){near=p;dist=d}}if(near){a.rock=near;near.workerClaim=a}}
+  if(a.rock){if(moveWorker(a,a.rock.x,a.rock.y,50,dt,13)){const i=looseStone.indexOf(a.rock);if(i>=0){looseStone.splice(i,1);a.cargo='stone';observeEvent('sunStoneCollected')}a.rock=null}}else lazyWander(a,g.depot,dt,16,38);
+ }
+ // Permanent monument inhabitants are separate from ordinary Cherub recruitment.
+ for(const p of sunSites)if(p.status==='built'&&!p.inhabitant){
+  const u=units.find(u=>u.i===0&&!u.sunDestination);if(u){u.sunDestination=p;observeEvent('sunCherubAssigned')}
+ }
+ for(const p of sunSites)if(p.inhabitant){p.cool=Math.max(0,(p.cool||0)-dt);if(p.cool<=0&&sunBeam(p.x,p.y,140)){p.cool=2.3;observeEvent('sunMonumentAttack')}}
+}
+function sunBeam(x,y,range){let foe=null,best=range,scorpion=false;for(const sc of fireScorpions){const d=Math.hypot(sc.x-x,sc.y-y);if(d<best){best=d;foe=sc;scorpion=true}}for(const e of enemies){if(e.dead)continue;const d=Math.hypot(e.x-x,e.y-y);if(d<best){best=d;foe=e;scorpion=false}}if(!foe)return false;fx.push({beam:true,x,y,x2:foe.x,y2:foe.y,life:.28,color:colors[0]});if(scorpion)sunScorpionHit(foe);else{hit(foe,1,colors[0]);for(const q of enemies)if(q!==foe&&!q.dead&&Math.hypot(q.x-foe.x,q.y-foe.y)<42)hit(q,1,colors[0])}return true}
+function sunDraw(){
+ ctx.textAlign='center';ctx.textBaseline='middle';
+ for(const p of sunSites)if(p.status==='built'){ctx.font=spriteFont(VISUAL_SIZE.worldFeature);ctx.fillText('🏛️',p.x,p.y);if(p.inhabitant){ctx.font=spriteFont(VISUAL_SIZE.medium);ctx.fillText('✨',p.x,p.y-24)}}
+ const g=workerGroups.scarab;if(!g?.alive)return;ctx.font=spriteFont(VISUAL_SIZE.worldFeature);ctx.fillText('🛕',g.depot.x,g.depot.y);
+ for(const a of g.workers){
+  const tool=a.role==='shield'?(a.hp===2?'🛡️':null):a.role==='sword'?'🗡️':'🏹';
+  ctx.save();ctx.translate(0,Math.sin(a.phase)*1.5);
+  drawEquippedActor(a,{
+   body:'🪲',bodyNativeFacing:1,bodySize:VISUAL_SIZE.actor,
+   usingTool:!!tool,
+   tool:tool?{icon:tool,size:VISUAL_SIZE.medium,mountX:-5,mountY:-2,offsetX:-2,offsetY:-8,
+    angle:a.toolTime>0?.5-Math.sin(a.phase*1.35)*.8:.5}:null,
+   cargo:a.cargo?'🪨':null,cargoSize:materialSize.stone
+  });ctx.restore()
+ }
+}
+
+// Tier III Island: a single ground-dwelling mycelial octopus, independent of Tiffany's drones.
+function spawnOctopus(g){observeEvent('octopusSpawn');const a={kind:'octopus',group:g,x:g.depot.x,y:g.depot.y,phase:0,facing:1,target:null,wander:null};g.octopus=a}
+function startOctopus(){const g=workerGroups.crab;if(!g)return false;g.octopusEnabled=true;g.octopusClock=0;if(g.alive&&!g.octopus)spawnOctopus(g);return true}
+function octopusUpdate(dt){const g=workerGroups.crab;if(!g?.alive||!g.octopusEnabled)return;if(!g.octopus){g.octopusClock-=dt;if(g.octopusClock<=0){spawnOctopus(g);g.octopusClock=1.5}return}const a=g.octopus;a.phase+=dt*5;if(a.target&&!(remains.includes(a.target)&&a.target.stage==='mushroom'&&!a.target.burnAt&&a.target.workerClaim===a))releaseClaim(a);if(!a.target){let nearest=null,best=Infinity;for(const p of remains){if(p.stage!=='mushroom'||p.burnAt||p.workerClaim)continue;const dist=Math.hypot(p.x-a.x,p.y-a.y);if(dist<best){best=dist;nearest=p}}if(nearest){a.target=nearest;nearest.workerClaim=a}}if(a.target){if(moveWorker(a,a.target.x,a.target.y,26,dt,15)){const p=a.target;releaseClaim(a);const worms=workerGroups.worm;if(worms?.alive&&remains.includes(p)&&p.stage==='mushroom'){remains.splice(remains.indexOf(p),1);worms.extraWorms=(worms.extraWorms||0)+1;observeEvent('octopusMushroomConversions');const worm={hp:1,kind:'worm',prof:professions.worm,group:worms,x:p.x,y:p.y,target:null,tree:null,cargo:null,chop:0,phase:rand(0,7),facing:1,wander:null};worm.fsm=makeFSM(workerStates,'idle',worm);worms.workers.push(worm);burst(p.x,p.y,colors[1],7)}}}else lazyWander(a,g.depot,dt,16,45)}
+function spawnMoth(g){g.workers.push({kind:'moth',group:g,x:g.depot.x,y:g.depot.y,phase:rand(0,7),facing:1,target:null,cloud:null,wander:null})}
+function startMoths(){if(workerGroups.moth)return;const tower=towers.find(t=>t.i===1&&t.alive!==false)||towers.find(t=>t.i===3&&t.alive!==false),depot=buildingSite(tower);if(!depot)return;const g={kind:'moth',depot,workers:[],alive:true,respawn:0,workerClock:0};workerGroups.moth=g;for(let i=0;i<3;i++)spawnMoth(g)}
+function mothUpdate(dt){
+ const g=workerGroups.moth;if(!g)return;
+ if(!g.alive){g.respawn-=dt;if(g.respawn<=0){const t=towers.find(t=>t.i===1&&t.alive!==false)||towers.find(t=>t.i===3&&t.alive!==false),site=t&&buildingSite(t,g);if(site){g.depot=site;g.alive=true;g.workerClock=0}}return}
+ g.workerClock-=dt;if(g.workers.length<3&&g.workerClock<=0){spawnMoth(g);g.workerClock=1.5}
+ const eligibleVolcano=p=>mountains.includes(p)&&p.stage===0&&!p.fireClaim&&!rainCovered(p.x,p.y);
+ const eligibleSprout=p=>crops.includes(p)&&p.stage==='sprout'&&!p.growAt&&!rainCovered(p.x,p.y);
+ for(const a of g.workers){
+  a.phase+=dt*12;
+  if(a.cloud&&!rainClouds.includes(a.cloud))a.cloud=null;
+  if(a.cloud){if(a.target?.rainClaim===a)a.target.rainClaim=null;a.target=null;moveWorker(a,g.depot.x,g.depot.y,145,dt,16);continue}
+  if(a.target&&!(mountains.includes(a.target)?eligibleVolcano(a.target):eligibleSprout(a.target))){if(a.target.rainClaim===a)a.target.rainClaim=null;a.target=null}
+  // Active volcanoes outrank seedlings, including when a new volcano appears en route.
+  const volcano=mountains.find(p=>!p.rainClaim&&eligibleVolcano(p));
+  if(volcano&&(!a.target||!mountains.includes(a.target))){if(a.target?.rainClaim===a)a.target.rainClaim=null;a.target=volcano;volcano.rainClaim=a}
+  if(!a.target){a.target=volcano||crops.find(p=>!p.rainClaim&&eligibleSprout(p))||null;if(a.target)a.target.rainClaim=a}
+  if(a.target){
+   if(moveWorker(a,a.target.x,a.target.y,145,dt,14)){
+    const p=a.target;p.rainClaim=null;a.target=null;
+    if(!rainCovered(p.x,p.y)&&!a.cloud){const cloud={x:p.x,y:p.y,flyX:p.x,flyY:p.y,visualX:p.x,visualY:p.y,r:58,life:30,phase:rand(0,Math.PI*2),owner:a};a.cloud=cloud;rainClouds.push(cloud)}
+   }
+  }else lazyWander(a,g.depot,dt,62,35)
+ }
+}
+function mothDraw(){const g=workerGroups.moth;if(!g?.alive)return;ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=spriteFont(30);ctx.fillText('🪸',g.depot.x,g.depot.y);for(const a of g.workers){ctx.font=spriteFont(27);ctx.fillText('🦋',a.x,a.y-5+Math.sin(a.phase)*4)}}
+function moveWorker(a,x,y,speed,dt,stop=0){const dx=x-a.x,dy=y-a.y,d=Math.hypot(dx,dy);if(d<=stop+.01)return true;const step=Math.min(d-stop,speed*dt);a.x+=dx/d*step;a.y+=dy/d*step;if(Math.abs(dx)>.01)a.facing=dx>0?1:-1;return d-step<=stop+.01}
+function moveAnt(a,x,y,speed,dt,stop=0){return moveWorker(a,x,y,speed,dt,stop)}
+function releaseClaim(a){if(a.target?.workerClaim===a)a.target.workerClaim=null;a.target=null;a.tree=null}
+function validClaim(a){return !!(a.target&&a.target.workerClaim===a&&a.prof.valid(a.target))}
+// Shared, independently randomized lazy wandering for every idle actor.
+const unitMotion=['fly','fly','fly','fly','walk'];
+function lazyWander(a,home,dt,speed,radius=34){
+ if(!a.wander)a.wander={wait:rand(0,1.8),x:a.x,y:a.y};
+ const v=a.wander;
+ if(v.wait>0){v.wait-=dt;return}
+ if(Math.hypot(a.x-v.x,a.y-v.y)<3){
+  v.wait=rand(.4,2.8);
+  const angle=rand(-Math.PI,Math.PI),dist=rand(7,radius);
+  v.x=Math.max(18,Math.min(w-18,home.x+Math.cos(angle)*dist));
+  v.y=Math.max(18,Math.min(h-18,home.y+Math.sin(angle)*dist));
+  if(Math.hypot(v.x-cx,v.y-cy)<76){v.x=home.x;v.y=home.y}
+ }
+ moveWorker(a,v.x,v.y,speed,dt,2)
+}
+function workerPatrol(a,dt){lazyWander(a,a.group.depot,dt,a.prof.speed*.32,34)}
+const workerStates={
+ idle:{enter(a){releaseClaim(a);a.chop=0;a.cargo=null},update(a,m,dt){const p=a.prof.find();if(p){a.target=p;a.tree=a.kind==='ant'?p:null;p.workerClaim=a;m.transition('travel');return}workerPatrol(a,dt)}},
+ travel:{exit(a,next){if(next!=='chop')releaseClaim(a)},update(a,m,dt){if(!validClaim(a)){m.transition('idle');return}if(moveWorker(a,a.target.x,a.target.y,a.prof.speed,dt,a.prof.range))m.transition('chop')}},
+ chop:{exit(a,next){if(next!=='carry')releaseClaim(a)},enter(a){a.chop=0},update(a,m,dt){if(!validClaim(a)){m.transition('idle');return}faceActor(a,a.target.x);a.chop+=dt;if(a.chop<a.prof.work)return;a.cargo=a.prof.harvest(a.target);if(a.cargo)enderSemanticEmit('pickup',a,{resource:a.cargo});releaseClaim(a);m.transition('carry')}},
+ carry:{update(a,m,dt){if(!a.cargo){m.transition('idle');return}if(moveWorker(a,a.group.depot.x,a.group.depot.y,a.prof.speed,dt,19))m.transition('unload')}},
+ unload:{update(a,m,dt){faceActor(a,a.group.depot.x);if(!a.cargo){m.transition('idle');return}if(Math.hypot(a.x-a.group.depot.x,a.y-a.group.depot.y)>19.1){m.transition('carry');return}if(m.time>=.45){resources[a.cargo]++;enderSemanticEmit('deposit',a,{resource:a.cargo,quantity:1});observeEvent('delivered.'+a.cargo);discover(a.cargo,resources[a.cargo]);renderResourceHUD();if(a.kind==='ant')woodDelivered=resources.wood;a.cargo=null;m.transition('idle')}}}
+};
+const antStates=workerStates;
+let lumberHut=null,lumberAnts=[],woodDelivered=0;
+const BUILDING_RADIUS=19,BUILDING_CLEARANCE=23,TOWER_CLEARANCE=39,SANCTUARY_CLEARANCE=94;
+function validBuildingSite(x,y,exclude=null){
+ if(x<BUILDING_RADIUS+12||y<BUILDING_RADIUS+12||x>w-BUILDING_RADIUS-12||y>h-BUILDING_RADIUS-12)return false;
+ if(Math.hypot(x-cx,y-cy)<SANCTUARY_CLEARANCE)return false;
+ if(towers.some(t=>Math.hypot(x-t.x,y-t.y)<TOWER_CLEARANCE))return false;
+ return Object.values(workerGroups).every(g=>g===exclude||Math.hypot(x-g.depot.x,y-g.depot.y)>=BUILDING_RADIUS*2+BUILDING_CLEARANCE)
+}
+function buildingSite(tower,exclude=null){
+ const home=tower||{x:cx,y:cy},base=Math.atan2(home.y-cy,home.x-cx);
+ // Stable expanding-ring search; preserve clearance for future construction.
+ for(const radius of [52,72,94,118,145,175,210,250,290]){
+  for(let i=0;i<24;i++){const angle=base+(i%2?1:-1)*Math.ceil(i/2)*Math.PI/12;
+   const x=home.x+Math.cos(angle)*radius,y=home.y+Math.sin(angle)*radius;
+   if(validBuildingSite(x,y,exclude))return {x,y}
+  }
+ }
+ // Scan the remaining arena deterministically rather than overlap an existing structure.
+ for(let y=BUILDING_RADIUS+12;y<h-BUILDING_RADIUS-12;y+=12)
+  for(let x=BUILDING_RADIUS+12;x<w-BUILDING_RADIUS-12;x+=12)
+   if(validBuildingSite(x,y,exclude))return {x,y};
+ return null
+}
+function startWorkers(kind){if(workerGroups[kind])return;const prof=professions[kind],tower=towers.find(t=>t.i===prof.land);const depot=buildingSite(tower);if(!depot)return false;const group={depot,workers:[],kind,alive:true,respawn:0,workerClock:0};workerGroups[kind]=group;group.workers=Array.from({length:3},(_,i)=>{const a={hp:1,kind,prof,group,x:depot.x+Math.cos(i*2.094)*26,y:depot.y+Math.sin(i*2.094)*26,target:null,tree:null,cargo:null,chop:0,phase:i*2.094,facing:1,patrol:i*2.094,patrolClock:0};a.fsm=makeFSM(workerStates,'idle',a);return a});if(kind==='ant'){lumberHut=depot;lumberAnts=group.workers}}
+// Forest Tier III: independent nest and single flying worm hunter.
+function spawnEagle(g){observeEvent('eagleSpawn');g.eagle={kind:'eagle',group:g,x:g.depot.x,y:g.depot.y,target:null,cargo:null,phase:rand(0,7),facing:1,wander:null}}
+function startEagle(){if(workerGroups.eagle)return true;const tower=towers.find(t=>t.i===4&&t.alive!==false),depot=buildingSite(tower);if(!depot)return false;const g={kind:'eagle',depot,workers:[],alive:true,respawn:0,workerClock:0};workerGroups.eagle=g;spawnEagle(g);return true}
+function eagleUpdate(dt){const g=workerGroups.eagle;if(!g?.alive)return;if(!g.eagle){g.workerClock-=dt;if(g.workerClock<=0){spawnEagle(g);g.workerClock=1.5}return}const a=g.eagle;a.phase+=dt*10;
+ if(a.cargo){if(moveWorker(a,g.depot.x,g.depot.y,110,dt,12)){a.cargo=null;resources.worms++;observeEvent('eagleWormDeliveries');discover('worms',resources.worms);hud();burst(g.depot.x,g.depot.y,colors[4],5)}return}
+ const worms=workerGroups.worm;
+ if(a.target&&!(worms?.alive&&worms.workers.includes(a.target)&&a.target.workerClaim===a)){if(a.target?.workerClaim===a)a.target.workerClaim=null;a.target=null}
+ if(!a.target&&worms?.alive){let best=Infinity,nearest=null;for(const worm of worms.workers){if(worm.workerClaim)continue;const dist=Math.hypot(worm.x-a.x,worm.y-a.y);if(dist<best){best=dist;nearest=worm}}if(nearest){a.target=nearest;nearest.workerClaim=a}}
+ if(a.target){const worm=a.target;if(moveWorker(a,worm.x,worm.y,110,dt,12)){if(worms?.workers.includes(worm)&&worm.workerClaim===a){releaseClaim(worm);worm.workerClaim=null;worms.workers.splice(worms.workers.indexOf(worm),1);if((worms.extraWorms||0)>0)worms.extraWorms--;a.cargo='worms';observeEvent('eagleWormCaptures');burst(worm.x,worm.y,colors[4],5)}a.target=null}}else lazyWander(a,g.depot,dt,72,46)
+}
+function startLumber(){startWorkers('ant')}
+function lumberUpdate(dt){for(const group of Object.values(workerGroups)){if(group.kind==='moth'||group.kind==='scarab')continue;if(!group.alive){group.respawn-=dt;if(group.respawn<=0){const home=towers.find(t=>t.i===(group.kind==='eagle'?4:professions[group.kind].land)&&t.alive!==false);if(home){const site=buildingSite(home,group);if(site){group.depot.x=site.x;group.depot.y=site.y;group.alive=true;group.workerClock=0;observeEvent('depotRecovered.'+group.kind);if(group.kind==='eagle'){group.eagle=null;group.workerClock=0}if(group.kind==='crab'&&group.octopusEnabled){group.octopus=null;group.octopusClock=0}if(group.kind==='ant')lumberHut=group.depot}}}continue}group.workerClock-=dt;if(group.kind!=='eagle'&&group.workers.length<(group.kind==='worm'?3+(group.extraWorms||0):3)&&group.workerClock<=0){const a={hp:1,kind:group.kind,prof:professions[group.kind],group,x:group.depot.x,y:group.depot.y,target:null,tree:null,cargo:null,chop:0,phase:rand(0,7),facing:1,wander:null};a.fsm=makeFSM(workerStates,'idle',a);group.workers.push(a);observeEvent('workerSpawn.'+group.kind);group.workerClock=1.5}for(const a of group.workers){a.phase+=dt*(a.prof.motion==='fly'?14:9);a.fsm.tick(dt)}}}
+// Shared actor rig: position + heading are applied once to body, equipment and cargo.
+// bodyNativeFacing is the emoji's inherent horizontal orientation (-1 for 🐜).
+// Tools pivot in actor-local coordinates; only the tool rotates during use.
+function faceActor(a,x){const dx=x-a.x;if(Math.abs(dx)>.01)a.facing=dx>0?1:-1}
+function drawEquippedActor(a,rig){
+ ctx.save();ctx.translate(a.x,a.y);
+ ctx.scale(a.facing*rig.bodyNativeFacing,1);
+ ctx.font=spriteFont(rig.bodySize);ctx.fillText(rig.body,0,0);
+ if(rig.tool&&rig.usingTool){
+   ctx.save();ctx.translate(rig.tool.mountX,rig.tool.mountY);
+   ctx.rotate(rig.tool.angle);
+   ctx.font=spriteFont(rig.tool.size);
+   ctx.fillText(rig.tool.icon,rig.tool.offsetX,rig.tool.offsetY);
+   ctx.restore()
+ }
+ if(rig.cargo){ctx.font=spriteFont(rig.cargoSize);ctx.fillText(rig.cargo,0,-18)}
+ ctx.restore()
+}
+function lumberDraw(){
+ ctx.textAlign='center';ctx.textBaseline='middle';
+ for(const group of Object.values(workerGroups)){
+  if(!group.alive||group.kind==='moth'||group.kind==='scarab')continue;const prof=group.kind==='eagle'?{depot:'🪹'}:professions[group.kind];
+  ctx.font=spriteFont(VISUAL_SIZE.worldFeature);ctx.fillText(prof.depot,group.depot.x,group.depot.y);
+  for(const a of group.workers){
+   const chopping=a.fsm.state==='chop';
+   if(chopping&&a.target)faceActor(a,a.target.x);
+   const bob=prof.motion==='fly'?Math.sin(a.phase)*5-7:prof.motion==='scuttle'?Math.sin(a.phase)*1.6:prof.motion==='wriggle'?0:0;
+   ctx.save();ctx.translate(0,bob);
+   drawEquippedActor(a,{
+    body:prof.body,bodyNativeFacing:prof.native,bodySize:VISUAL_SIZE.actor,
+    usingTool:chopping,
+    tool:{icon:prof.tool,size:VISUAL_SIZE.medium,mountX:-5,mountY:-2,offsetX:-2,offsetY:-8,angle:.5-Math.sin(a.chop*12)*.8},
+    cargo:a.cargo?materialIcons[a.cargo]:null,cargoSize:a.cargo?materialSize[a.cargo]:0
+   });ctx.restore()
+  }
+  if(group.kind==='crab'&&group.octopus){ctx.font=spriteFont(VISUAL_SIZE.actor);ctx.fillText('🐙',group.octopus.x,group.octopus.y)}
+  if(group.kind==='eagle'&&group.eagle){const a=group.eagle,bob=Math.sin(a.phase)*5-7;ctx.save();ctx.translate(a.x,a.y+bob);ctx.font=spriteFont(VISUAL_SIZE.actor);ctx.fillText('🦅',0,0);if(a.cargo){ctx.font=spriteFont(materialSize.worms);ctx.fillText('🪱',0,22)}ctx.restore()}
+ }
+}
+
+let verseUntil=0,verseLast=-1,verseClock=0;const verses={poor:[['The coffers ache, the ledgers weep,','Yet interest blooms while shareholders sleep.'],['Our silver sleeps beneath the floor,','The Board requests a little more.']],fire:[['A crimson bloom, a golden flare,',"We’ve liquidated half the air."],['The mountain signs in tongues of flame,','The losses bear a trademarked name.']],first:[['A little rocket takes to flight,','Another asset owns the night.']],swamp:[['Beneath the mire, the debtors lie,','Their final payments drifting by.']],island:[['The thunder leaps from share to share,','A hostile merger fills the air.']],gem:[['A diamond falls, a kingdom gleams,',"We’ve collateralized your dreams."]],hurt:[['A fang has pierced my royal gown,',"I’ll buy the beast and shut it down."]],forest:[['The roots embrace, the branches grow,','Our quarterly returns bloom below.']],five:[['Five little stars around me spin,','The market closes. I still win.']],crowd:[['Ten thousand claws against the gate,','Our losses are deductible, dear Fate.']],profit:[['My engines earn, my rockets rise,','Compound returns illuminate the skies.']],death:[['My crown is cracked, my candles dim,','Please charge my death to Interim.']],ambient:[['The moon has filed a claim on Mars,',"We’ve sold the night and leased the stars."],['The gilded bells of markets ring,','And every bat must kiss the king.'],['The ledgers hum beneath the sea,','Our debts mature eternally.'],['A silver crown, a velvet throne,','The stars are leased, the night is loaned.']]};function poem(key,force=false){const now=performance.now();if(!force&&now<verseUntil)return false;const pool=verses[key]||verses.ambient;let i=Math.floor(Math.random()*pool.length);if(pool.length>1&&i===verseLast)i=(i+1)%pool.length;verseLast=i;document.querySelector('#notice').textContent=pool[i].join('\n');verseUntil=now+7200;return true}const rand=(a,b)=>a+Math.random()*(b-a),icons=['🦇','🕷️','👹','💀','🐀'];function resize(){const oldCx=cx,oldCy=cy,r=arena.getBoundingClientRect(),scale=(towers.length===5||drones.length===5)?2:drones.length>=2?Math.SQRT2:1;arenaScale=scale;w=Math.max(240,r.width)*scale;h=Math.max(320,r.height)*scale;const d=Math.min(2,devicePixelRatio||1);c.width=Math.round(r.width*d);c.height=Math.round(r.height*d);cx=w/2;cy=h/2;const dx=cx-oldCx,dy=cy-oldCy;for(const e of enemies){e.x+=dx;e.y+=dy}for(const z of zones){if(z.x!==undefined)z.x+=dx;if(z.y!==undefined)z.y+=dy}for(const p of fx){p.x+=dx;p.y+=dy;if(p.beam){p.x2+=dx;p.y2+=dy}}for(const q of rings){q.x+=dx;q.y+=dy}for(const sh of shots){sh.x+=dx;sh.y+=dy;sh.tx+=dx;sh.ty+=dy}for(const dr of drones){dr.x+=dx;dr.y+=dy;if(dr.wander){dr.wander.x+=dx;dr.wander.y+=dy}}for(const t of towers){t.x+=dx;t.y+=dy}ender.x+=dx;ender.y+=dy;for(const p of crops){p.x+=dx;p.y+=dy}for(const p of remains){p.x+=dx;p.y+=dy}for(const m of mountains){m.x+=dx;m.y+=dy}for(const cloud of rainClouds){cloud.x+=dx;cloud.y+=dy}for(const u of units){u.x+=dx;u.y+=dy}for(const group of Object.values(workerGroups)){group.depot.x+=dx;group.depot.y+=dy;for(const a of group.workers){a.x+=dx;a.y+=dy;if(a.wander){a.wander.x+=dx;a.wander.y+=dy}}if(group.octopus){group.octopus.x+=dx;group.octopus.y+=dy;if(group.octopus.wander){group.octopus.wander.x+=dx;group.octopus.wander.y+=dy}}if(group.eagle){group.eagle.x+=dx;group.eagle.y+=dy;if(group.eagle.wander){group.eagle.wander.x+=dx;group.eagle.wander.y+=dy}}}cameraX+=dx;cameraY+=dy;viewScale=arenaScale;cameraX=cx;cameraY=cy;clampCamera()}function clampCamera(){const rect=arena.getBoundingClientRect(),halfW=rect.width*viewScale/2,halfH=rect.height*viewScale/2;cameraX=Math.max(Math.min(halfW,w/2),Math.min(Math.max(w-halfW,w/2),cameraX));cameraY=Math.max(Math.min(halfH,h/2),Math.min(Math.max(h-halfH,h/2),cameraY))}function screenToWorld(x,y){const r=c.getBoundingClientRect();return {x:cameraX+(x-r.width/2)*viewScale,y:cameraY+(y-r.height/2)*viewScale}}addEventListener('resize',resize);resize();function hud(){discover('kills',kills);discover('money',coins);discover('gems',gems);renderResourceHUD();document.querySelectorAll('.buy').forEach((b,i)=>{const third=armies.length===5,advanced=drones.length===5,owned=third?tier3.includes(i):advanced?armies.some(a=>a.i===i):drones.some(d=>d.i===i),cost=advanced?armyCosts[i]:costs[i],tc=tier3Costs[i];b.disabled=owned||(third?(coins<tc[1]||resources[tc[0]]<tc[2]):coins<cost[0]||gems<cost[1]);b.classList.toggle('owned',owned);b.querySelector('.button-icon').textContent=third?(['🪲','🐙','🐀','🦂','🦅'][i]):advanced?armyIcons[i]:['✨️','⚡️','🫧','☄️','🌿'][i];b.querySelector('.button-icon').style.color=third&&i===0?colors[i]:'';b.setAttribute('aria-label',third?'Tier III '+['Plains','Island','Swamp','Mountain','Forest'][i]+' · '+(owned?'Owned':'Cost '+tc[1]+' gold, '+tc[2]+' '+tc[0]):(advanced?armyNames[i]:['Prism','Chain','Leech','Rocket','Vines'][i])+' · '+(owned?'Owned':'Cost '+cost[0]+' coins, '+cost[1]+' gems'));b.querySelector('small').textContent=owned?'OWNED':third?'🪙 '+tc[1]+' · '+materialIcons[tc[0]]+' '+tc[2]:('🪙 '+cost[0]+(cost[1]?' · 💎 '+cost[1]:''))});document.querySelector('#spellHint').textContent=towers.length===5?'COMMAND MODE · TAP TIFFANY: TOGGLE COMMAND RING':drones.length>=2?'AUTO-CYCLE 2s · TAP TIFFANY: CAST · TAP FIELD: PLACE / MOVE TOWER':'CHOOSE A LAND · TAP TIFFANY TO CAST';document.querySelectorAll('.spell').forEach((b,i)=>b.classList.toggle('active',i===selected))}function reset(){observer.history=[];observer.events={};observer.lastSample=-Infinity;commandRing=false;discovered.clear();workerGroups={};for(const k of Object.keys(resources))resources[k]=0;lumberHut=null;lumberAnts=[];woodDelivered=0;remains=[];fireIdols=[];fireScorpions=[];looseStone=[];fireRimSites=[];sunSites=[];sunPending=[];rainClouds=[];mountains=[];volcanoClock=0;crops=[];cropClock=0;forestClock=0;armies=[];tier3=[];units=[];towers=[];rotationClock=0;selected=0;castSpell=0;arenaScale=1;viewScale=1;cameraX=cx;cameraY=cy;verseUntil=0;verseClock=0;document.querySelector('#notice').textContent='';enemies=[];fx=[];rings=[];zones=[];shots=[];drones=[];coins=0;gems=0;resize();enderReset();hp=5;kills=0;elapsed=0;spawnClock=0;lastCast=-10000;invuln=0;over=false;noticeTime=0;hud()}function spawn(){const edge=Math.floor(Math.random()*4),pad=25,x=edge===0?-pad:edge===1?w+pad:rand(0,w),y=edge===2?-pad:edge===3?h+pad:rand(0,h),wave=1+Math.floor(elapsed/18000);enemies.push({x,y,hp:1+(wave>=4&&Math.random()<.25?1:0),speed:rand(24,42)+wave*3,icon:icons[Math.floor(Math.random()*icons.length)],slow:0,poison:0,pt:0,dead:false})}function burst(x,y,color,n=10){for(let i=0;i<n;i++){const a=rand(0,Math.PI*2),v=rand(35,135);fx.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rand(.25,.7),color,r:rand(2,5)})}}function hit(e,dmg,color){if(e.dead)return;e.hp-=dmg;burst(e.x,e.y,color,4);if(e.hp<=0){e.dead=true;swampRemains(e);kills++;coins+=2;if(kills%8===0){gems++;poem('gem')}else if(drones.length>=2&&kills%17===0)poem('profit');burst(e.x,e.y,color,9);hud()}}function cast(){if(over)return;if(drones.length<2&&selected>=0)castSpell=selected;const now=performance.now();if(now-lastCast<350)return;lastCast=now;const R=Math.min(w,h)*.43,col=colors[castSpell];rings.push({x:cx,y:cy,r:3,max:R,life:.5,color:col});if(castSpell===0){enemies.forEach(e=>{if(Math.hypot(e.x-cx,e.y-cy)<R)hit(e,1,col)});burst(cx,cy,col,28)}if(castSpell===1){enemies.forEach(e=>{const dx=e.x-cx,dy=e.y-cy,d=Math.hypot(dx,dy)||1;if(d<R){e.slow=4;e.x+=dx/d*55;e.y+=dy/d*55;if(d<R*.55)hit(e,1,col)}});burst(cx,cy,col,20)}if(castSpell===2){enemies.forEach(e=>{if(Math.hypot(e.x-cx,e.y-cy)<R*1.2){e.poison=5;e.pt=0}});zones.push({r:R*1.15,life:1.2,color:col})}if(castSpell===3){poem('fire');enemies.slice().sort((a,b)=>Math.hypot(a.x-cx,a.y-cy)-Math.hypot(b.x-cx,b.y-cy)).slice(0,8).forEach(e=>{if(Math.hypot(e.x-cx,e.y-cy)<R*1.5){hit(e,2,col);rings.push({x:e.x,y:e.y,r:2,max:35,life:.4,color:col})}});burst(cx,cy,col,25)}if(castSpell===4){enemies.forEach(e=>{if(Math.hypot(e.x-cx,e.y-cy)<R*.9)hit(e,1,col)});zones.push({r:R*.85,life:3,color:col});burst(cx,cy,col,17)}enemies=enemies.filter(e=>!e.dead);hud()}document.querySelectorAll('.spell').forEach(b=>b.addEventListener('click',()=>{selected=selected===Number(b.dataset.n)?-1:Number(b.dataset.n);hud()}));document.querySelector('#build-id').addEventListener('click',()=>{coins+=9999;gems+=999;for(const k of materialNames){resources[k]=Math.max(resources[k],99);discover(k,resources[k])}hud()});document.querySelectorAll('.buy').forEach(b=>b.addEventListener('click',()=>{const i=Number(b.dataset.n),third=armies.length===5,advanced=drones.length===5,cost=advanced?armyCosts[i]:costs[i];if(third){const [resource,gold,amount]=tier3Costs[i];if(tier3.includes(i)||coins<gold||resources[resource]<amount)return;if(i===3&&!startFireIdol())return;coins-=gold;resources[resource]-=amount;tier3.push(i);if(i===0)sunStart();if(i===2)startWorkers('rat');if(i===1)startOctopus();if(i===4)startEagle();const t=towers.find(t=>t.i===i);burst(t?.x??cx,t?.y??cy,colors[i],25);hud();return}if((advanced?armies.some(a=>a.i===i):drones.some(d=>d.i===i))||coins<cost[0]||gems<cost[1])return;coins-=cost[0];gems-=cost[1];if(advanced){armies.push({i,cool:.2});if(i===4)startLumber();if(i===0)startWorkers('bee');if(i===1)startWorkers('crab');if(i===2)startWorkers('worm');if(i===3)startMoths();if(armies.length===5){resize();}const t=towers.find(t=>t.i===i);burst(t?.x??cx,t?.y??cy,colors[i],25)}else{drones.push({i,angle:i*Math.PI*2/5,cool:.2,x:cx,y:cy});if(drones.length===2){rotationClock=0;castSpell=selected;resize();}else if(drones.length===5)resize();poem(drones.length===5?'five':drones.length===1?'first':'profit');burst(cx,cy,colors[i],35)}hud()}));let enderPress=null;
+function enderDownloadReport(){
+ const report=enderDiary(),blob=new Blob([report],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='ender-report-'+new Date().toISOString().replace(/[:.]/g,'-')+'.txt';
+ document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ enderNotice='🧠 REPORT DOWNLOADED';setTimeout(()=>{enderNotice=''},1800);
+}
+function enderCancelPress(){if(enderPress?.timer)clearTimeout(enderPress.timer);enderPress=null}
+c.addEventListener('pointermove',e=>{if(enderPress&&Math.hypot(e.clientX-enderPress.x,e.clientY-enderPress.y)>12)enderCancelPress()});
+c.addEventListener('pointercancel',enderCancelPress);
+c.addEventListener('pointerup',e=>{if(!enderPress)return;const p=enderPress;enderCancelPress();if(p.fired)return;const report=enderDiary();navigator.clipboard.writeText(report).then(()=>{enderNotice='🧠 LOCAL OBSERVATION COPIED';setTimeout(()=>{enderNotice=''},1800)}).catch(()=>{enderNotice='🧠 COPY UNAVAILABLE'})});
+c.addEventListener('contextmenu',e=>{if(enderPress)e.preventDefault()});
+c.addEventListener('pointerdown',e=>{e.preventDefault();const r=c.getBoundingClientRect(),point=screenToWorld(e.clientX-r.left,e.clientY-r.top),x=point.x,y=point.y;if(over)return;if(Math.hypot(x-ender.x,y-ender.y)<Math.max(22,Math.min(w,h)*.055)){enderCancelPress();const press={x:e.clientX,y:e.clientY,fired:false,timer:null};enderPress=press;press.timer=setTimeout(()=>{if(enderPress!==press)return;press.timer=null;press.fired=true;enderDownloadReport()},650);return}if(towers.length===5&&commandRing){const slot=commandRingSlot(x,y);if(slot>=0){burst(cx+Math.cos(slot*Math.PI*2/5-Math.PI/2)*91,cy+Math.sin(slot*Math.PI*2/5-Math.PI/2)*91,'#e6c2ff',12);return}}if(Math.hypot(x-cx,y-cy)<Math.max(45,Math.min(w,h)*.13)){if(towers.length===5)commandRing=!commandRing;else cast()}else{const hit=towers.find(t=>t.alive!==false&&Math.hypot(x-t.x,y-t.y)<Math.max(22,Math.min(w,h)*.055));if(hit){selected=selected===hit.i?-1:hit.i;hud();return}if(drones.length>=2&&selected>=0)placeTower(x,y)}});const commandIcons=['🧭','🔭','📡','🗺️','⚙️'];function commandRingSlot(x,y){for(let i=0;i<5;i++){const a=i*Math.PI*2/5-Math.PI/2;if(Math.hypot(x-(cx+Math.cos(a)*91),y-(cy+Math.sin(a)*91))<30)return i}return -1}function placeTower(x,y){if(selected<0)return;const margin=20;x=Math.max(margin,Math.min(w-margin,x));y=Math.max(margin,Math.min(h-margin,y));const existing=towers.find(t=>t.i===selected);if(existing){if(selected===0&&Math.hypot(existing.x-x,existing.y-y)>1){sunCollapse()}if(selected===3&&Math.hypot(existing.x-x,existing.y-y)>1){fireRimCollapse()}existing.x=x;existing.y=y;existing.cool=0;existing.alive=true;existing.respawn=0}else{towers.push({i:selected,x,y,cool:0,alive:true,respawn:0});if(towers.length===5)resize()}if(selected===0&&tier3.includes(0)&&!sunSites.length)sunPlan();burst(x,y,colors[selected],16);hud()}function towerFire(t){const R=Math.min(w,h)*.23,col=colors[t.i],near=enemies.filter(e=>!e.dead&&Math.hypot(e.x-t.x,e.y-t.y)<R);rings.push({x:t.x,y:t.y,r:4,max:R,life:.42,color:col});if(t.i===0){for(const e of near)hit(e,1,col)}else if(t.i===1){waterPlants(t,R);mountainPulse(t,R);for(const e of near){const dx=e.x-t.x,dy=e.y-t.y,dist=Math.hypot(dx,dy)||1;e.slow=Math.max(e.slow,2);e.x+=dx/dist*24;e.y+=dy/dist*24;if(dist<R*.5)hit(e,1,col)}}else if(t.i===2){swampWither(t,R);for(const e of near){e.poison=Math.max(e.poison,3);e.pt=0}zones.push({x:t.x,y:t.y,r:R,life:1.2,color:col})}else if(t.i===3){firePlants(t,R);mountainPulse(t,R);for(const e of near.slice(0,5))hit(e,2,col);burst(t.x,t.y,col,15)}else{mountainPulse(t,R);for(const e of near){e.slow=Math.max(e.slow,2);hit(e,1,col)}zones.push({x:t.x,y:t.y,r:R,life:1.5,color:col})}}function target(x,y,range=1e9,exclude=[]){let best=null,bd=range;for(const e of enemies){if(e.dead||exclude.includes(e))continue;const dx=e.x-x,dy=e.y-y;if(Math.abs(dx)>=bd||Math.abs(dy)>=bd)continue;const d=Math.hypot(dx,dy);if(d<bd){best=e;bd=d}}return best}function droneFire(d){const reach=w/(2*arenaScale);const e=target(d.x,d.y,reach);if(!e)return;const col=colors[d.i];if(d.i===0){const a=Math.atan2(e.y-d.y,e.x-d.x),ux=Math.cos(a),uy=Math.sin(a);fx.push({beam:true,x:d.x,y:d.y,x2:d.x+ux*reach,y2:d.y+uy*reach,life:.18,color:col});for(const q of enemies){const dx=q.x-d.x,dy=q.y-d.y;if(dx*ux+dy*uy>0&&dx*ux+dy*uy<=reach&&Math.hypot(dx,dy)<=reach&&Math.abs(dx*uy-dy*ux)<13)hit(q,2,col)}d.cool=1.5}else if(d.i===1){if(Math.random()<.15)poem('island');let p=e,seen=[],ox=d.x,oy=d.y;for(let j=0;j<4&&p;j++){fx.push({beam:true,x:ox,y:oy,x2:p.x,y2:p.y,life:.24,color:col});hit(p,1,col);seen.push(p);ox=p.x;oy=p.y;p=target(ox,oy,Math.min(110,reach),seen)}d.cool=1.15}else if(d.i===2){if(Math.random()<.15)poem('swamp');zones.push({x:e.x,y:e.y,r:37,life:4.5,tick:0,kind:'leech',color:col});d.cool=2.2}else if(d.i===3){shots.push({x:d.x,y:d.y,tx:e.x,ty:e.y,vx:(e.x-d.x)*1.8,vy:(e.y-d.y)*1.8,life:.55,color:col,angle:Math.atan2(e.y-d.y,e.x-d.x)-3*Math.PI/4});d.cool=1.3}else{if(Math.random()<.15)poem('forest');fx.push({beam:true,x:d.x,y:d.y,x2:e.x,y2:e.y,life:.45,color:col});e.slow=3;zones.push({x:e.x,y:e.y,r:35,life:2.5,kind:'vine',color:col});hit(e,1,col);d.cool=1.3}}function recruit(a){const t=towers.find(t=>t.i===a.i&&t.alive!==false);if(!t)return;if(units.filter(u=>u.i===a.i).length>=8)return;const ang=rand(0,Math.PI*2);units.push({i:a.i,x:t.x+Math.cos(ang)*26,y:t.y+Math.sin(ang)*26,cool:rand(.3,1),life:24,hp:1,phase:rand(0,7),facing:Math.random()<.5?-1:1,home:{x:t.x,y:t.y},wander:null});burst(t.x,t.y,colors[a.i],6)}function unitFire(u){const col=colors[u.i],e=target(u.x,u.y,170);if(!e)return;const dx=e.x-u.x,dy=e.y-u.y,d=Math.hypot(dx,dy)||1;if(u.i===0){fx.push({beam:true,x:u.x,y:u.y,x2:e.x,y2:e.y,life:.28,color:col});hit(e,1,col);for(const q of enemies)if(q!==e&&!q.dead&&Math.hypot(q.x-e.x,q.y-e.y)<42)hit(q,1,col);u.cool=1.7}else if(u.i===1){e.slow=Math.max(e.slow,3);zones.push({x:e.x,y:e.y,r:46,life:2.5,kind:'audit',color:col});burst(e.x,e.y,col,8);u.cool=2.1}else if(u.i===2){const victims=enemies.filter(q=>!q.dead&&Math.hypot(q.x-u.x,q.y-u.y)<110);for(const q of victims){q.poison=Math.max(q.poison,3);q.pt=0}fx.push({beam:true,x:u.x,y:u.y,x2:e.x,y2:e.y,life:.35,color:col});u.cool=2.4}else if(u.i===3){shots.push({x:u.x,y:u.y,tx:e.x,ty:e.y,vx:dx*2.3,vy:dy*2.3,life:.42,color:col,angle:Math.atan2(dy,dx)-3*Math.PI/4});u.cool=1.8}else{const victims=enemies.filter(q=>!q.dead&&Math.hypot(q.x-e.x,q.y-e.y)<55);for(const q of victims){q.slow=Math.max(q.slow,2.5);hit(q,1,col)}zones.push({x:e.x,y:e.y,r:52,life:2.5,kind:'vine',color:col});u.cool=2.2}}// Drones retain their original circular orbit.
+// Towers may move; the active flight destination tracks them without teleporting.
+function frame(now){const dt=Math.min(.05,(now-last)/1000||.016);last=now;if(!over){enderUpdate(dt);if(elapsed/1000-enderSenses.lastSample>=3){enderSenses.lastSample=elapsed/1000;enderObserve()}cropSpawn(dt);rainUpdate(dt);cropGrow();mountainUpdate(dt);remainsUpdate();lumberUpdate(dt);fireScorpionUpdate(dt);fireRimUpdate(dt);sunUpdate(dt);fireRimClaimUpdate();octopusUpdate(dt);eagleUpdate(dt);mothUpdate(dt);const oldWave=Math.floor(elapsed/18000);elapsed+=dt*1000;spawnClock+=dt;if(drones.length>=2){if(towers.length<5)rotationClock+=dt;while(towers.length<5&&rotationClock>=2){rotationClock-=2;castSpell=(castSpell+1)%5;hud()}for(const t of towers){if(t.alive===false){t.respawn-=dt;if(t.respawn<=0){t.alive=true;t.cool=2}continue}t.cool-=dt;if(t.cool<=0){towerFire(t);t.cool+=2}}}for(const a of armies){a.cool-=dt;if(a.cool<=0){recruit(a);a.cool+=5}}for(const u of units){u.life-=dt;u.cool-=dt;u.phase+=dt;const e=u.sunDestination||u.fireDestination?null:target(u.x,u.y,230);if(e){const dx=e.x-u.x,dy=e.y-u.y,d=Math.hypot(dx,dy)||1;u.x+=dx/d*26*dt;u.y+=dy/d*26*dt;if(Math.abs(dx)>.01)u.facing=dx>0?1:-1;u.wander=null}else{const home=towers.find(t=>t.i===u.i)||u.home;lazyWander(u,home,dt,11,43)}if(u.fireDestination){const m=u.fireDestination;if(mountains.includes(m)&&m.stage===0&&!m.fireClaim){moveWorker(u,m.x,m.y,55,dt,14);if(Math.hypot(u.x-m.x,u.y-m.y)<15){m.fireClaim=true;u.hp=0;observeEvent('fireRimPhoenixClaimed')}}else u.fireDestination=null}if(u.sunDestination){const p=u.sunDestination;if(p.status==='built'&&!p.inhabitant){moveWorker(u,p.x,p.y,55,dt,14);if(Math.hypot(u.x-p.x,u.y-p.y)<15){p.inhabitant=true;u.hp=0;observeEvent('sunCherubAscended')}}else u.sunDestination=null}if(u.i===0&&u.hp>0){if(u.cool<=0&&sunBeam(u.x,u.y,170)){u.cool=1.7;observeEvent('sunCherubAttack')}}else if(u.cool<=0&&u.hp>0)unitFire(u)}units=units.filter(u=>u.life>0&&u.hp>0);const wave=1+Math.floor(elapsed/18000),interval=Math.max(.23,1.05-wave*.075);while(spawnClock>interval){spawnClock-=interval;spawn()}invuln=Math.max(0,invuln-dt);for(const d of drones){d.angle+=dt*(d.i%2?-.65:.65);d.x=cx+Math.cos(d.angle)*65;d.y=cy+Math.sin(d.angle)*65;d.cool-=dt;if(d.cool<=0)droneFire(d)}for(const e of enemies){const dx=cx-e.x,dy=cy-e.y,d=Math.hypot(dx,dy)||1;e.slow=Math.max(0,e.slow-dt);const speed=e.speed*(e.slow>0?.3:1);e.x+=dx/d*speed*dt;e.y+=dy/d*speed*dt;cropTrample(e);if(!e.dead){for(const idol of [...fireIdols]){if(Math.hypot(e.x-idol.x,e.y-idol.y)<19){fireRimRelease(idol);fireIdols.splice(fireIdols.indexOf(idol),1);if(idol.scorpion){idol.scorpion.idol=null;idol.scorpion=null}e.dead=true;observeEvent('fireIdolDestroyed');burst(idol.x,idol.y,colors[3],12);break}}}if(!e.dead){for(const p of sunSites)if(p.status==='built'&&!p.inhabitant&&Math.hypot(e.x-p.x,e.y-p.y)<18){p.status='destroyed';looseStone.push({x:p.x,y:p.y});observeEvent('sunMonumentDestroyed');e.dead=true;break}for(const t of towers){if(t.alive!==false&&Math.hypot(e.x-t.x,e.y-t.y)<19){t.alive=false;t.respawn=5;e.dead=true;burst(t.x,t.y,colors[t.i],12);break}}if(!e.dead)for(const group of Object.values(workerGroups)){if(group.alive&&Math.hypot(e.x-group.depot.x,e.y-group.depot.y)<19){if(group.kind==='scarab')for(const a of group.workers)sunDrop(a);group.alive=false;group.respawn=5;observeEvent('depotDestroyed.'+group.kind);for(const a of group.workers){if(a.kind==='moth'){if(a.target?.rainClaim===a)a.target.rainClaim=null;a.cloud=null}else releaseClaim(a)}group.workers=[];if(group.eagle){if(group.eagle.target?.workerClaim===group.eagle)group.eagle.target.workerClaim=null;group.eagle=null}if(group.octopus){releaseClaim(group.octopus);group.octopus=null}e.dead=true;burst(group.depot.x,group.depot.y,'#ffe1a0',12);break}if(group.eagle&&Math.hypot(e.x-group.eagle.x,e.y-group.eagle.y)<16){const a=group.eagle;if(a.target?.workerClaim===a)a.target.workerClaim=null;group.eagle=null;observeEvent('eagleDeaths');group.workerClock=1.5;e.dead=true;burst(a.x,a.y,'#ffe1a0',8);break}if(group.octopus&&Math.hypot(e.x-group.octopus.x,e.y-group.octopus.y)<16){const a=group.octopus;releaseClaim(a);group.octopus=null;observeEvent('octopusDeaths');group.octopusClock=1.5;e.dead=true;burst(a.x,a.y,'#ffe1a0',8);break}for(const a of [...group.workers]){if(Math.hypot(e.x-a.x,e.y-a.y)<16){if(a.kind==='scarab'){sunDamage(a,'creep');e.dead=true;break}if(a.kind==='moth'){if(a.target?.rainClaim===a)a.target.rainClaim=null}else releaseClaim(a);group.workers.splice(group.workers.indexOf(a),1);observeEvent('workerDeaths.'+group.kind);e.dead=true;burst(a.x,a.y,'#ffe1a0',8);break}}if(e.dead)break}}if(e.poison>0){e.poison-=dt;e.pt+=dt;if(e.pt>.7){e.pt=0;hit(e,1,colors[2])}}if(zones.some(z=>z.color===colors[4]&&Math.hypot(e.x-(z.x??cx),e.y-(z.y??cy))<z.r))e.slow=Math.max(e.slow,.2);for(const u of units){if(u.hp>0&&Math.hypot(e.x-u.x,e.y-u.y)<19){u.hp=0;e.dead=true;swampRemains(e);burst(u.x,u.y,colors[u.i],12);break}}if(d<28&&!e.dead){e.dead=true;if(invuln<=0){hp--;invuln=1.1;if(hp<=0){over=true;poem('death',true)}else poem('hurt');hud()}}}enemies=enemies.filter(e=>!e.dead);if(Math.floor(elapsed/18000)!==oldWave){hud();poem('crowd')}}for(const p of fx){if(!p.beam){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.98;p.vy*=.98}p.life-=dt}fx=fx.filter(p=>p.life>0);for(const r of rings){r.r+=(r.max-r.r)*Math.min(1,dt*9);r.life-=dt}rings=rings.filter(r=>r.life>0);for(const z of zones){z.life-=dt;if(z.kind==='leech'){z.tick+=dt;if(z.tick>.55){z.tick=0;for(const e of enemies)if(Math.hypot(e.x-z.x,e.y-z.y)<z.r)hit(e,1,z.color)}}if(z.kind==='vine'||z.kind==='audit'){for(const e of enemies)if(Math.hypot(e.x-z.x,e.y-z.y)<z.r)e.slow=Math.max(e.slow,z.kind==='audit'?1.1:.2)}}zones=zones.filter(z=>z.life>0);for(const sh of shots){sh.x+=sh.vx*dt;sh.y+=sh.vy*dt;sh.life-=dt;if(sh.life<=0||Math.hypot(sh.x-sh.tx,sh.y-sh.ty)<15){sh.life=-1;rings.push({x:sh.x,y:sh.y,r:2,max:55,life:.4,color:sh.color});for(const e of enemies)if(Math.hypot(e.x-sh.x,e.y-sh.y)<60)hit(e,2,sh.color);burst(sh.x,sh.y,sh.color,20)}}shots=shots.filter(sh=>sh.life>0);enemies=enemies.filter(e=>!e.dead);verseClock+=dt;if(verseClock>15){verseClock=0;poem(coins<10&&drones.length===0?'poor':'ambient')}if(performance.now()>verseUntil)document.querySelector('#notice').textContent='';{const rect=arena.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);ctx.setTransform(d/viewScale,0,0,d/viewScale,d*(rect.width/2-cameraX/viewScale),d*(rect.height/2-cameraY/viewScale));}ctx.clearRect(0,0,w,h);const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h)*.75);g.addColorStop(0,'#392443');g.addColorStop(1,'#12101d');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);ctx.strokeStyle='#a083bd20';ctx.lineWidth=1;for(let x=0;x<w;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=0;y<h;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}ctx.strokeStyle='#b38d6a66';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,47,0,Math.PI*2);ctx.stroke();cropDraw(now/1000);remainsDraw();mountainDraw();rainDraw();lumberDraw();fireScorpionDraw();sunDraw();mothDraw();for(const z of zones){ctx.globalAlpha=Math.min(.22,z.life*.12);ctx.fillStyle=z.color;ctx.beginPath();ctx.arc(z.x??cx,z.y??cy,z.r,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}ctx.textAlign='center';ctx.textBaseline='middle';for(const e of enemies){ctx.font=spriteFont(VISUAL_SIZE.actor);ctx.fillText(e.icon,e.x,e.y);if(e.slow>0){ctx.strokeStyle='#79caff';ctx.beginPath();ctx.arc(e.x,e.y,16,0,Math.PI*2);ctx.stroke()}}for(const r of rings){ctx.globalAlpha=Math.min(1,r.life*2);ctx.strokeStyle=r.color;ctx.lineWidth=4;ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}ctx.font=spriteFont(VISUAL_SIZE.small);for(const sh of shots){ctx.save();ctx.translate(sh.x,sh.y);ctx.rotate(sh.angle);ctx.fillText('☄️',0,0);ctx.restore()}for(const p of fx){ctx.globalAlpha=Math.min(1,p.life*2);if(p.beam){ctx.strokeStyle=p.color;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x2,p.y2);ctx.stroke();}else{ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1}for(const u of units){ctx.save();const flying=unitMotion[u.i]==='fly';ctx.translate(u.x,u.y+(flying?Math.sin(u.phase*4)*4-5:Math.sin(u.phase*4)*.8));ctx.scale(u.facing||1,1);ctx.shadowColor=colors[u.i];ctx.shadowBlur=12;ctx.font=spriteFont(VISUAL_SIZE.medium);ctx.fillText(armyIcons[u.i],0,0);ctx.restore()}for(const t of towers){if(t.alive===false)continue;ctx.save();ctx.translate(t.x,t.y);ctx.shadowColor=colors[t.i];ctx.shadowBlur=14;ctx.fillStyle='#171425';ctx.strokeStyle=colors[t.i];ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,18,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.font=spriteFont(VISUAL_SIZE.towerIcon);ctx.fillText(['☀️','💧','💀','🔥','🌳'][t.i],0,0);ctx.restore()}ctx.save();ctx.translate(ender.x,ender.y);ctx.fillStyle='#171425';ctx.strokeStyle=ENDER_COLOR;ctx.lineWidth=3;ctx.shadowColor=ENDER_COLOR;ctx.shadowBlur=12;ctx.beginPath();ctx.arc(0,0,18,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.font=spriteFont(VISUAL_SIZE.towerIcon);ctx.fillText('🧠',0,0);ctx.restore();for(const d of drones){ctx.save();ctx.translate(d.x,d.y);const e=target(d.x,d.y);ctx.rotate(e?Math.atan2(e.y-d.y,e.x-d.x)+Math.PI/2:d.angle);ctx.fillStyle=colors[d.i];ctx.shadowColor=colors[d.i];ctx.shadowBlur=14;ctx.beginPath();ctx.moveTo(0,-15);ctx.lineTo(10,10);ctx.lineTo(0,5);ctx.lineTo(-10,10);ctx.closePath();ctx.fill();ctx.restore()}ctx.shadowColor=colors[drones.length>=2?castSpell:Math.max(0,selected)];ctx.shadowBlur=23;ctx.fillStyle='#452748';ctx.beginPath();ctx.arc(cx,cy,33,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.globalAlpha=invuln>0?.55:1;ctx.font=spriteFont(VISUAL_SIZE.hero);ctx.fillText('🧛‍♀️',cx,cy-3);ctx.globalAlpha=1;ctx.font=spriteFont(VISUAL_SIZE.micro,true);ctx.fillStyle='#ffe4a3';ctx.fillText('TIFFANY™',cx,cy+49);if(commandRing&&towers.length===5&&!over){for(let i=0;i<5;i++){const a=i*Math.PI*2/5-Math.PI/2,x=cx+Math.cos(a)*91,y=cy+Math.sin(a)*91;ctx.save();ctx.shadowColor='#d7a6ff';ctx.shadowBlur=15;ctx.fillStyle='#30203ee8';ctx.strokeStyle='#c49be0';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,27,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.font=spriteFont(29);ctx.fillText(commandIcons[i],x,y+1);ctx.restore()}}if(over){ctx.fillStyle='#100b1ddc';ctx.fillRect(0,0,w,h);ctx.font='bold 27px system-ui';ctx.fillStyle='#ffcf9e';ctx.fillText('HOSTILE TAKEOVER',cx,cy-36);ctx.font='17px system-ui';ctx.fillText(kills+' attackers audited',cx,cy+5);ctx.fillText('↻ Restart to reclaim the realm',cx,cy+36)}observeSample();requestAnimationFrame(frame)}reset();requestAnimationFrame(frame)})();
+</script><script>var BUILD = "pending";(async()=>{const node=document.getElementById("build-id");if(BUILD!=="pending"){node.textContent=BUILD.slice(0,8);return}try{const source=[...document.scripts].find(s=>s.textContent.includes("function observeReport()"));const bytes=new TextEncoder().encode(source.textContent);const digest=await crypto.subtle.digest("SHA-256",bytes);BUILD=[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,"0")).join("");node.textContent=BUILD.slice(0,8)}catch(e){node.textContent="unverified"}})();</script><script>
+(()=>{'use strict';const jobs=[{"org":"APPLIED INTUITION","title":"Software Engineer — Simulation, Game Engine & World Systems","pay":"Compensation: verify on listing","why":"World representation, geometry, real-time simulation. The world-building substrate itself is the job.","caution":"On-site five days/week; compensation for this specific opening not yet verified.","url":"https://jobs.ashbyhq.com/applied/57a640e8-f4b2-46f7-9743-16c6dfe1eb19","tier":"world","equity":"Equity: confirm"},{"org":"SCOPELY","title":"Design Director — World Systems","pay":"$164k–$247k · equity eligible","why":"Terrain, creatures, resources, buildings, encounters: compose living procedural worlds. This reads like Evermore II.","caution":"Game leadership and team growth are central; $200k base is within, not guaranteed by, the range.","url":"https://job-boards.greenhouse.io/scopely/jobs/5429316008","tier":"world","equity":"Equity eligibility stated"},{"org":"APPLIED INTUITION","title":"Senior Software Engineer — Neural Simulation","pay":"$185k–$250k · equity offered","why":"Reconstruct physical worlds from data; simulation pipelines, observability, architecture and end-to-end systems.","caution":"Sunnyvale on-site five days/week; role includes distributed ML infrastructure.","url":"https://jobs.ashbyhq.com/applied/10f1658b-fde6-4f31-b4b4-7b3e073cffac","tier":"systems","equity":"Equity offered"}];const layer=document.querySelector('#sieveLayer'),cards=document.querySelector('#sieveCards'),search=document.querySelector('#sieveSearch'),count=document.querySelector('#sieveCount');let filter='all';const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function render(){const q=search.value.toLowerCase().trim();const shown=jobs.filter(j=>(filter==='all'||j.tier===filter)&&[j.org,j.title,j.why].join(' ').toLowerCase().includes(q));count.textContent=shown.length+' VERIFIED SOURCE ROUTES · TAP TO ACT';cards.innerHTML=shown.map(j=>'<article class="sieveCard"><div class="org">'+esc(j.org)+'</div><h2>'+esc(j.title)+'</h2><div class="money">'+esc(j.pay)+'</div><div class="why">✧ '+esc(j.why)+'</div><div class="caution">◇ '+esc(j.caution)+'</div><div class="status">'+esc(j.equity)+'</div><div class="actions"><a target="_blank" rel="noopener noreferrer" href="'+esc(j.url)+'">↗ OPEN APPLICATION</a><button aria-label="Copy opportunity" data-copy="'+esc(j.url)+'">⧉</button></div></article>').join('')||'<div id="sieveEmpty">No matches. Try another incantation ✧</div>'}document.querySelector('#sieveToggle').addEventListener('click',()=>{layer.hidden=!layer.hidden});search.addEventListener('input',render);document.querySelectorAll('#sieveFilters button').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;document.querySelectorAll('#sieveFilters button').forEach(x=>x.classList.toggle('active',x===b));render()}));cards.addEventListener('click',e=>{const b=e.target.closest('[data-copy]');if(b)navigator.clipboard?.writeText(b.dataset.copy).then(()=>{b.textContent='✓';setTimeout(()=>b.textContent='⧉',1100)}).catch(()=>{})});render()})();
+</script></body></html>
