@@ -10,17 +10,33 @@ Find people with **capital, technical imagination, and a demonstrated appetite f
 
 These are **prospects, not commitments or confirmed invitations**. Public links are for context, not presumed direct contact.
 
-## Priority introductions
+## Stack-ranked patron prospects
 
-| Priority | Person | Why this person | Door / context | Caution |
+Ranked by **ability to recognize the laboratory + access to meaningful funding + evidence of support for unconventional independent research**, with accessibility as a secondary factor. This is an outreach hypothesis, **not** a prediction of personal interest or willingness to fund.
+
+| Rank | Person | Capital route | Why this rank | Key uncertainty |
 |---|---|---|---|---|
-| 1 | **Sam Arbesman** — Lux Capital scientist-in-residence | Searches for unusual technologies, researchers, and ideas; complex systems and changing programming paradigms | https://www.arbesman.net/ | A potential connector, not a confirmed personal patron |
-| 2 | **Ben Reinhardt** — Speculative Technologies | Builds unconventional research programs and has backing for ambitious technical experiments | https://spec.tech/about ; info@spec.tech (organization's proposal route; verify before sending) | Organization may shape project scope |
-| 3 | **Eli Dourado** — Astera Institute | Strategic research investments and experimental approaches to philanthropic capital | https://astera.org/ | Institution's scientific mission and IP terms matter |
-| 4 | **Nat Friedman** — former GitHub CEO, investor | AI-native development, open-source tooling, independent technical builders, working demos | https://aigrant.com/ | AI Grant may focus on startups; no personal funding indication |
-| 5 | **Patrick Collison** — Stripe / Arc Institute | Has supported long-horizon, investigator-driven science and new research institutions | https://arcinstitute.org/ | Arc's focus is biomedical; seek broader research-funding introduction |
-| 6 | **Daniel Gross** — AI investor | Technical and investment experience; AI Grant co-creator | https://danielgross.com/ | Current availability and mandate unconfirmed |
-| 7 | **Tyler Cowen** — Emergent Ventures | Track record of recognizing unconventional talent and high-upside ideas | https://www.mercatus.org/emergent-ventures | Emergent Ventures prohibits AI-written applications; human must author any submission |
+| **1** | **Patrick Collison** — Stripe / Arc Institute | Substantial personal capital; history of building research institutions | Strongest combination of independent resources and demonstrated support for investigator autonomy | Arc is biomedical; no evidence of interest in sponsoring this lab specifically |
+| **2** | **Nat Friedman** — former GitHub CEO, investor | Substantial investment capacity and technical network | GitHub-native engineering, AI tools and working demonstrations align closely with the laboratory | Existing funding channels favor startups and equity |
+| **3** | **Ben Reinhardt** — Speculative Technologies | Research-program funding and patron network | Especially likely to understand small-team, AI-augmented experimental research | Less personal discretionary capital; organization focuses on materials/manufacturing |
+| **4** | **Eli Dourado** — Astera Institute | Institutional research capital | Explicit mandate to identify and fund ambitious technical research | Institutional scope, residency constraints and IP terms |
+| **5** | **Daniel Gross** — AI investor | Substantial investment capacity | Technically fluent and experienced backing unusual AI builders | Startup orientation; fit for non-company patronage unproven |
+| **6** | **Sam Arbesman** — Lux Capital scientist-in-residence | Network and introductions, not verified personal patronage capital | Possibly the best *first conversation*: professional interest in unusual systems and unconventional builders | More likely an intellectual gateway than a direct funder |
+| **7** | **Tyler Cowen** — Emergent Ventures | Grantmaking | Demonstrated willingness to recognize unconventional talent | Program grants are not necessarily sustained, open-ended laboratory patronage |
+
+### Routes and reference links
+
+| Person | Public context / route |
+|---|---|
+| Patrick Collison | https://arcinstitute.org/ |
+| Nat Friedman | https://aigrant.com/ |
+| Ben Reinhardt | https://spec.tech/about — organization proposal route: info@spec.tech (reverify) |
+| Eli Dourado | https://astera.org/ |
+| Daniel Gross | https://danielgross.com/ |
+| Sam Arbesman | https://www.arbesman.net/ |
+| Tyler Cowen | https://www.mercatus.org/emergent-ventures — AI-written applications prohibited; human must author submission |
+
+**Outreach sequencing differs from financial rank:** Arbesman or Reinhardt may be the most accessible route to informed introductions, while Collison and Friedman are the strongest potential direct patrons. Do not treat an introduction as a funding offer.
 
 ## First encounter
 
@@ -40,15 +56,15 @@ These are **prospects, not commitments or confirmed invitations**. Public links 
 
 ## Outreach tracking
 
-| Person | Introduction path verified? | Contacted | Reply | Next action |
-|---|---|---|---|---|
-| Sam Arbesman | No | No | — | Find a credible public contact/introduction |
-| Ben Reinhardt | Organization channel listed; reverify | No | — | Prepare brief demo-first note |
-| Eli Dourado | No | No | — | Find a credible public contact/introduction |
-| Nat Friedman | No | No | — | Identify appropriate introduction |
-| Patrick Collison | No | No | — | Identify appropriate introduction |
-| Daniel Gross | Personal website; reverify contact | No | — | Identify appropriate introduction |
-| Tyler Cowen | Program channel; application restrictions | No | — | Consider human-authored application |
+| Rank | Person | Introduction path verified? | Contacted | Reply | Next action |
+|---|---|---|---|---|---|
+| 1 | Patrick Collison | No | No | — | Identify credible introduction beyond Arc's biomedical channel |
+| 2 | Nat Friedman | No | No | — | Identify appropriate direct introduction |
+| 3 | Ben Reinhardt | Organization channel listed; reverify | No | — | Prepare brief demo-first note |
+| 4 | Eli Dourado | No | No | — | Identify Astera research-funding contact |
+| 5 | Daniel Gross | Personal website; reverify contact | No | — | Identify appropriate introduction |
+| 6 | Sam Arbesman | No | No | — | Find public contact; prioritize as gateway conversation |
+| 7 | Tyler Cowen | Program channel; application restrictions | No | — | Consider human-authored application |
 
 ## Guardrails
 
