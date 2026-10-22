@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#080c14"><title>Topology</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c14;touch-action:none}canvas{width:100%;height:100%;display:block;touch-action:none}</style><canvas id="world"></canvas><script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+const canvas=document.querySelector('canvas'),renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0x080c14);
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(38,1,.1,100);camera.position.set(0,1.5,13);camera.lookAt(0,0,0);
+scene.add(new THREE.AmbientLight(0x9abbd1,1.6));const light=new THREE.DirectionalLight(0xffffff,2.5);light.position.set(-4,7,9);scene.add(light);
+const U=72,V=22,N=U*V,positions=new Float32Array(N*3),indices=[],edges=[];
+for(let i=0;i<U;i++)for(let j=0;j<V;j++){const a=i*V+j,b=((i+1)%U)*V+j,c=i*V+(j+1)%V,d=((i+1)%U)*V+(j+1)%V;indices.push(a,b,c,b,d,c);edges.push(a,b,a,c)}
+const geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.BufferAttribute(positions,3).setUsage(THREE.DynamicDrawUsage));geom.setIndex(indices);
+const surface=new THREE.Mesh(geom,new THREE.MeshStandardMaterial({color:0x408ca6,metalness:.7,roughness:.32,transparent:true,opacity:.22,side:THREE.DoubleSide,depthWrite:false}));scene.add(surface);
+const linePos=new Float32Array(edges.length*3),lineGeom=new THREE.BufferGeometry();lineGeom.setAttribute('position',new THREE.BufferAttribute(linePos,3).setUsage(THREE.DynamicDrawUsage));const lines=new THREE.LineSegments(lineGeom,new THREE.LineBasicMaterial({color:0x8dcde1,transparent:true,opacity:.57}));scene.add(lines);
+const beadGeo=new THREE.SphereGeometry(.055,7,6),beads=new THREE.InstancedMesh(beadGeo,new THREE.MeshStandardMaterial({color:0xe2f4fa,metalness:.65,roughness:.22}),N);scene.add(beads);const dummy=new THREE.Object3D();
+let target=.2,morph=.2,spin=0,drag=false,px=0,py=0,rotX=.35,rotY=0,last=performance.now(),t=0,pulse=0;
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}addEventListener('resize',resize);resize();
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);drag=true;px=e.clientX;py=e.clientY;pulse=1});canvas.addEventListener('pointermove',e=>{if(!drag)return;rotY+=(e.clientX-px)*.008;rotX+=(e.clientY-py)*.008;px=e.clientX;py=e.clientY});canvas.addEventListener('pointerup',()=>{drag=false;target=target<.5?1:0});canvas.addEventListener('pointercancel',()=>drag=false);
+const group=new THREE.Group();scene.remove(surface,lines,beads);group.add(surface,lines,beads);scene.add(group);
+function frame(now){const dt=Math.min((now-last)/1000,.04);last=now;t+=dt;spin+=dt*.12;morph+=(target-morph)*Math.min(1,dt*1.5);pulse*=Math.exp(-dt*2.2);
+for(let i=0;i<U;i++)for(let j=0;j<V;j++){const u=i/U*Math.PI*2,v=j/V*Math.PI*2,k=(i*V+j)*3;
+// Continuous deformation of a single closed genus-one lattice. No cutting or reconnection.
+const R=2.45+.35*Math.sin(3*u+t*.4)*morph,r=.93;
+const radial=R+r*Math.cos(v),bend=morph*(.9*Math.sin(u)+.35*Math.sin(2*u+v)),wav=pulse*.32*Math.sin(5*u+4*v-t*7);
+const x=radial*Math.cos(u)+bend*Math.cos(u),y=radial*Math.sin(u)+bend*Math.sin(u),z=r*Math.sin(v)*(1-.25*morph)+morph*1.05*Math.cos(u)+wav;
+positions[k]=x;positions[k+1]=y;positions[k+2]=z;
+dummy.position.set(x,y,z);dummy.scale.setScalar(.7+.3*Math.sin(v)*Math.sin(v));dummy.updateMatrix();beads.setMatrixAt(i*V+j,dummy.matrix);
+}
+geom.attributes.position.needsUpdate=true;geom.computeVertexNormals();beads.instanceMatrix.needsUpdate=true;
+for(let e=0;e<edges.length;e++){const a=edges[e]*3;linePos[e*3]=positions[a];linePos[e*3+1]=positions[a+1];linePos[e*3+2]=positions[a+2]}lineGeom.attributes.position.needsUpdate=true;
+group.rotation.set(rotX+.18*Math.sin(t*.2),rotY+spin,.15*Math.sin(t*.13));renderer.render(scene,camera);requestAnimationFrame(frame)}requestAnimationFrame(frame);
+</script></html>
