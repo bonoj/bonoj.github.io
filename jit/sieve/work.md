@@ -213,3 +213,14 @@ Before sending, verify the exact application/contact URLs and original company s
 3. **Arca — founders@arca.inc**; https://www.arca.science/careers/founding-engineer invites 2–3 sentence introduction. **Subject:** Executable research — Hermeticon Institute. **Draft:** “I built Hermeticon Institute, a one-person engineering laboratory that turns questions into deployed, testable systems. I've demonstrated scientific geometry with automated verification, blinded experiments, and complete research infrastructure built conversationally. Your work connecting scientific research to practical execution interests me. I'd like to explore a paid investigation or founding engineering collaboration. https://github.com/bonoj”
 
 **Next action:** Human sends any/all of the three emails; record date and status on confirmation. No need for new demonstrations or polished website. If no response, follow up once in ~5 business days. Keep searching for direct-paying founders; these three have published inboxes and visible hiring/activity, but no verified pilot procurement budget.
+
+## Outreach log — 2026-10-22
+**Three emails actually sent via connected Gmail, user explicitly authorized.** Gmail returned SENT label for each. These are transport acknowledgements, not delivery/read/reply guarantees.
+
+| Company | Recipient | Subject | Gmail sent message ID | Stage |
+|---|---|---|---|---|
+| Steadyworks | founders@steadyworks.ai | I built an executable research engine | `1a16491353fe832c` | **Sent 2026-10-22; awaiting response** |
+| Runway Labs | recruiting@runwayml.com | Runway Labs — executable worlds | `1a164913a9e6a49e` | **Sent 2026-10-22; awaiting response** |
+| Arca | founders@arca.inc | Executable research — Hermeticon Institute | `1a16491427165b89` | **Sent 2026-10-22; awaiting response** |
+
+Follow-up checkpoint: around **2026-10-29** (five business days), conditional on no replies; verify replies and bounces before further outreach. Keep prospecting cash pilot buyers in parallel. No additional outbound emails authorized by this entry.
