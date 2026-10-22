@@ -242,3 +242,12 @@ Human explicitly requested **emails only, no applications today**. Two additiona
 - **First Intelligence**, research@first-intelligence.com, subject `Hermeticon — executable worlds and persistent physical systems`, Gmail ID `1a164934deec9d06`. Direct paid-collaboration/high-autonomy research inquiry with Evermore II, Icarus and GitHub links.
 
 Both returned Gmail `SENT`. **Campaign total five sent** (Steadyworks, Runway, Arca, Honda, First Intelligence), zero replies verified. **Parisi Labs NOT contacted**: official contact page https://parisi-labs.com/contact/ offers a form and obfuscated general email not safely resolved; don't guess a mailbox. User declined applications, so no application or contact form submitted. Keep finding verified direct email routes. No automatic future outreach authorization inferred.
+
+## Outreach log — 2026-10-22 · tranche 04 (email-only)
+Continued human instruction: **direct email only; no applications**. Official sources and published inboxes verified before attempting.
+- **Pasteur / Institute for Simulation Intelligence** — careers@simulation.science — subject `Hermeticon Institute — simulation intelligence and executable research` — Gmail `SENT`, ID `1a164942fb3d72aa`. Official careers: https://simulation.science/careers/ . Evidence: Chemlab, EUROPA-01, Evermore II.
+- **Orbifold AI** — careers@orbifold.ai — subject `Executable simulation, falsifiable evaluation — Hermeticon` — Gmail `SENT`, ID `1a164943c8c78bd9`. Official role: https://www.orbifold.ai/careers/research-engineer-world-models-simulation . Evidence: EUROPA-01 and Hermeticon repo.
+- **World Model Research / Joe Micallef** — joe@worldmodelresearch.com — attempted, **NOT SENT**: Gmail returned `FORBIDDEN`. Official source https://worldmodelresearch.com/ .
+- **Creative Technology Studio / Ross Cairns** — hello@creativetechnology.studio — attempted, **NOT SENT**: Gmail returned `FORBIDDEN`. Official source https://creativetechnology.studio/ .
+
+**Campaign total: seven confirmed sent** (Steadyworks, Runway, Arca, Honda, First Intelligence, Pasteur, Orbifold). **Zero applications.** No successful delivery acknowledgement or replies verified. Failed sends must not be retried automatically. Next: continue finding real budget-holding buyers and direct public email routes; respect email-only directive.
