@@ -1,4 +1,23 @@
 # Sieve — Work: Fund the Engine
+
+## CURRENT ➡️ CONTRACT — READ FIRST (2026-10-22)
+**Cold-start action:** When the human sends ➡️, advance the paid-outreach campaign, not a job-application workflow. Current explicit authorization is to send up to **10 individually tailored emails to 10 new organizations per turn**, using the connected Gmail account. Do not ask for approval again for this already authorized activity. Do not file applications. A new recipient address at a previously contacted organization is **not** a new prospect.
+
+**Verified checkpoint:** 114 Gmail-confirmed `SENT` messages, zero applications, through tranche 18, as recorded at the end of this file. `SENT` is Gmail acceptance, not delivery, reply, interest, or revenue. Read the latest tranche before proceeding; recompute totals from newly confirmed results, not attempted sends.
+
+**One-turn procedure:**
+1. Read this contract and scan the entire outreach ledger for organization-level duplicates, including aliases and alternate domains. Check any recent replies when permitted, but do not let an inbox search failure block an otherwise permitted send.
+2. Research up to ten genuinely new companies with **published, verified email addresses**, a concrete technical match, and ideally an identifiable buyer and credible current budget/need signal. Avoid invented addresses, generic low-fit mass blasts, and claims of verified budgets without evidence.
+3. Write concise, personalized paid fixed-scope R&D or prototype proposals with the most relevant working evidence. Send only via connected Gmail when allowed. Stop on a provider `FORBIDDEN` or safety block; do not route around the restriction or retry a blocked address.
+4. Log each outcome separately: `SENT` with Gmail ID, `BLOCKED`, or `RESEARCHED_NOT_SENT`; capture organization, address, source URL, and specific pitch. Do not count failures as sends.
+5. Append the tranche to this ledger, commit with GitHub, fetch it again to verify exact content, then report successful sends, cumulative total, and the commit SHA. If persistence fails, say so explicitly.
+
+**Primary outcome:** paid work or funded research, not email volume. The ten-per-turn target is an execution cadence, subordinate to quality, deliverability, and provider restrictions. Preserve the engine's underlying IP. No applications unless the human explicitly changes this instruction.
+
+**Handoff warning:** Older sections below instruct the model to ask approval before outreach. That instruction is superseded by the explicit current authorization above, *for this defined email workflow only*. Other purchases, contracts, applications, or commitments still require authorization.
+
+---
+
 **Status:** Active search mandate · 2026-10-22
 **Operator:** John Bono · Conjoiner · Founder, Hermeticon Institute
 **Objective:** Secure paying work or funding now. Search, qualify, contact, convert. Optimize for speed to first payment, autonomy, and room to play.
