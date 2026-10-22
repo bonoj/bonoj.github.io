@@ -251,3 +251,13 @@ Continued human instruction: **direct email only; no applications**. Official so
 - **Creative Technology Studio / Ross Cairns** — hello@creativetechnology.studio — attempted, **NOT SENT**: Gmail returned `FORBIDDEN`. Official source https://creativetechnology.studio/ .
 
 **Campaign total: seven confirmed sent** (Steadyworks, Runway, Arca, Honda, First Intelligence, Pasteur, Orbifold). **Zero applications.** No successful delivery acknowledgement or replies verified. Failed sends must not be retried automatically. Next: continue finding real budget-holding buyers and direct public email routes; respect email-only directive.
+
+## Outreach log — 2026-10-22 · tranche 05: five-per-turn
+**Human requirement: five email contacts per turn; no applications.** Five direct emails sent through Gmail, all returned `SENT`:
+1. **One Robot** — founders@onerobot.io — `Executable simulation experiments — Hermeticon Institute` — Gmail `1a1649519ff9c6c4`. Official https://www.onerobot.io/ . YC-backed robot world-model startup, founders Hemanth Sarabu and Elton Shon; paid simulation/policy evaluation inquiry.
+2. **QuanRobotics** — Letsbuild@quanrobotics.org — `Simulation and evaluation collaboration — Hermeticon` — Gmail `1a164951e7d6b571`. Official https://quanrobotics.org/ . QR-Sim and QR-WorldBench paid prototype inquiry.
+3. **SREAL AI** — official@srealai.com — `Physically consistent world models — research collaboration` — Gmail `1a164952515955ab`. Official https://srealai.com/ . Verification and world-model research collaboration.
+4. **Argento Simulations** — contact@argentosims.com — `Simulation R&D collaboration — Hermeticon Institute` — Gmail `1a164952bcf10907`. Official https://argentosims.com/careers/ . Paid simulation engineering inquiry.
+5. **polygonfuture** — mail@polygonfuture.studio — `Experimental interactive systems — Hermeticon collaboration` — Gmail `1a16495333316969`. Official https://polygonfuture.studio/Information . Paid creative tech R&D/prototype collaboration.
+
+**Campaign total: 12 confirmed Gmail sends; zero applications.** No responses or successful delivery/read receipts verified. Future turns: source and email five *new*, legitimate, directly reachable targets per requested turn; deduplicate against this ledger, keep messages individually relevant, and record exact SENT outcomes. Do not retry Gmail FORBIDDEN failures automatically.
