@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#080c14"><title>Peristalsis</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c14;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}</style><canvas id="world"></canvas><script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+const canvas=document.querySelector('canvas'),renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0x080c14);
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(40,1,.1,100);camera.position.set(0,2,14);camera.lookAt(0,0,0);scene.add(new THREE.AmbientLight(0x9bbbd0,1.5));const lamp=new THREE.DirectionalLight(0xffffff,2.7);lamp.position.set(-4,7,9);scene.add(lamp);
+const U=88,V=20,N=U*V,R=2.65,r=.91,positions=new Float32Array(N*3),idx=[],edges=[];
+for(let i=0;i<U;i++)for(let j=0;j<V;j++){const a=i*V+j,b=((i+1)%U)*V+j,c=i*V+(j+1)%V,d=((i+1)%U)*V+(j+1)%V;idx.push(a,b,c,b,d,c);edges.push(a,b,a,c)}
+const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3).setUsage(THREE.DynamicDrawUsage));geo.setIndex(idx);
+const membrane=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({color:0x397b94,metalness:.65,roughness:.34,transparent:true,opacity:.24,side:THREE.DoubleSide,depthWrite:false}));
+const edgePos=new Float32Array(edges.length*3),edgeGeo=new THREE.BufferGeometry();edgeGeo.setAttribute('position',new THREE.BufferAttribute(edgePos,3).setUsage(THREE.DynamicDrawUsage));const wires=new THREE.LineSegments(edgeGeo,new THREE.LineBasicMaterial({color:0x88c9dd,transparent:true,opacity:.47}));
+const beadGeo=new THREE.SphereGeometry(.044,7,6),beads=new THREE.InstancedMesh(beadGeo,new THREE.MeshStandardMaterial({color:0xc8eaf4,metalness:.8,roughness:.2}),N);const dummy=new THREE.Object3D();
+const group=new THREE.Group();group.add(membrane,wires,beads);scene.add(group);
+const cargoN=55,cargoGeo=new THREE.SphereGeometry(.075,9,7),cargo=new THREE.InstancedMesh(cargoGeo,new THREE.MeshStandardMaterial({color:0xf1b38c,metalness:.75,roughness:.23,emissive:0x42200f,emissiveIntensity:.16}),cargoN);group.add(cargo);
+const packets=Array.from({length:cargoN},(_,i)=>({u:i/cargoN*Math.PI*2,offset:(Math.random()-.5)*.42,speed:.13+Math.random()*.07}));
+let t=0,last=performance.now(),drag=false,px=0,py=0,rotX=.5,rotY=0,spin=.1,impulse=0,phase=0;
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}addEventListener('resize',resize);resize();
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);drag=true;px=e.clientX;py=e.clientY;impulse=1;phase=0});canvas.addEventListener('pointermove',e=>{if(!drag)return;rotY+=(e.clientX-px)*.008;rotX+=(e.clientY-py)*.008;px=e.clientX;py=e.clientY});for(const event of ['pointerup','pointercancel'])canvas.addEventListener(event,()=>drag=false);
+function constriction(u){const w=u*3-t*2.2;return .30*(.5+.5*Math.cos(w))**5+impulse*.25*Math.exp(-Math.pow(Math.atan2(Math.sin(u-phase),Math.cos(u-phase))/.35,2))}
+function frame(now){const dt=Math.min((now-last)/1000,.04);last=now;t+=dt;impulse*=Math.exp(-dt*1.5);
+for(let i=0;i<U;i++){const u=i/U*Math.PI*2,compression=constriction(u);for(let j=0;j<V;j++){const v=j/V*Math.PI*2,k=(i*V+j)*3,rad=r*(1-compression),center=R+.07*Math.sin(u*3-t*.55),x=(center+rad*Math.cos(v))*Math.cos(u),y=(center+rad*Math.cos(v))*Math.sin(u),z=rad*Math.sin(v)+.16*Math.sin(u*2-t*.8);positions[k]=x;positions[k+1]=y;positions[k+2]=z;dummy.position.set(x,y,z);dummy.updateMatrix();beads.setMatrixAt(i*V+j,dummy.matrix)}}
+geo.attributes.position.needsUpdate=true;geo.computeVertexNormals();beads.instanceMatrix.needsUpdate=true;for(let e=0;e<edges.length;e++){const k=edges[e]*3;edgePos[e*3]=positions[k];edgePos[e*3+1]=positions[k+1];edgePos[e*3+2]=positions[k+2]}edgeGeo.attributes.position.needsUpdate=true;
+for(let i=0;i<cargoN;i++){const p=packets[i];const c=constriction(p.u);p.u=(p.u+dt*(p.speed+c*.95))%(Math.PI*2);const rr=R+p.offset*(1-c*.5);dummy.position.set(rr*Math.cos(p.u),rr*Math.sin(p.u),.16*Math.sin(p.u*2-t*.8)+.12*Math.sin(i*3.1+t));dummy.scale.setScalar(.75+.35*c);dummy.updateMatrix();cargo.setMatrixAt(i,dummy.matrix)}cargo.instanceMatrix.needsUpdate=true;
+group.rotation.set(rotX+.1*Math.sin(t*.2),rotY+t*spin,.1*Math.sin(t*.16));renderer.render(scene,camera);requestAnimationFrame(frame)}requestAnimationFrame(frame);
+</script></html>
