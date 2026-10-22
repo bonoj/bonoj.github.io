@@ -148,6 +148,76 @@ European July normals: https://www.currentresults.com/Weather/Europe/Cities/temp
 - Whether physical attendance is mandatory, optional, or not required.
 - Whether the patron is able to decide year-round, outside an intake cycle.
 
+## Wide global census — additional prospects (October 22, 2026)
+
+**Scope:** These are *named, source-backed organizations or funding mechanisms*, not a claim that all have discretionary wealthy patrons or year-round invitations. The main hunt remains for people who can establish a bespoke **Independent Inventor-in-Residence** arrangement. Climate preference: Berkeley-like mild summers, Boulder-like heat at most, cold welcome. Rows labeled **network**, **program**, or **funding evidence** are not direct personal-patron commitments. Geographic host ≠ required home.
+
+### North America — cool coasts, mountain and northern hubs
+
+| City / region | Prospect | Kind | Why relevant / limitation | Source |
+|---|---|---|---|---|
+| Emeryville / Berkeley, CA | **Astera Institute** | **funded research residency** | 12–18 months, salary and research budget, supports software/tools and early-stage public goods. Strongest established near-Berkeley mechanism; in-person and scoped | https://astera.org/residency/ |
+| San Francisco, CA | **Foresight Institute / Allison Duettmann** | **research-capital network** | AI and frontier-tech nodes, grantmaking, potential introductions; no confirmed bespoke patronage | https://foresight.org/about/ |
+| San Francisco, CA | **Gray Area** | creative-tech network | Immersive art, creative coding and technology community; direct substantial resident funding unverified | https://grayarea.org/ |
+| San Francisco / Bay Area | **Creative Capital** | **artist project funding** | Supports innovative artists including technology, up to $50k grants; application-based, not resident inventor salary | https://creative-capital.org/creative-capital-award/ |
+| NYC / remote US | **Eyebeam** | **artist/technologist residency** | AI, autonomy and public-interest tech; 2026 AGENCY resident stipends $2k virtual / $5k NYC, not substantial ongoing patronage | https://eyebeam.org/articles/agency-residency-open-call/ |
+| NYC / US residence | **SSRC Just Tech Fellowship** | **independent technology/social research** | No degree requirement, technology and society, work samples; must reside in US, no visa sponsorship; compensation and cycle to verify | https://www.ssrc.org/programs/just-tech/just-tech-fellowship/ |
+| Detroit, MI | **Michigan Central × Newlab** | **creative technology residency** | 2027 Art × Tech track, $30k unrestricted and 12-week residency; direct relationship opportunity but program-gated | https://creative-capital.org/artist-resources/artist-opportunities/ |
+| Banff, Alberta | **Banff Centre** | **artist residency / independent studio** | Cold/mountain setting, international eligibility, digital media and autonomous creation; support and fees vary by track | https://www.banffcentre.ca/programs/visual-arts/early-career-banff-artist-residence-2026 |
+| Banff, Alberta | **Leighton Artist Studios** | **independent creative retreat** | Two–six-week individual studios; explicitly *no* technical production support; not a sustained patronage solution | https://www.banffcentre.ca/programs/interdisciplinary-leighton-artists-studios/leighton-artist-studio-residency-solo-2627 |
+| Kelowna, BC | **UBC Okanagan FEELed Lab / Woodhaven** | **artist-scientist residency** | Paid 10–14-day pair residency in 2027; short duration and summer heat mean lower priority | https://thefeeledlab.ca/asir-2027-call-for-applications/ |
+| Vancouver / Surrey, BC | **Meta creation Lab / Institut français du Canada** | **AI creative residency host** | Prior AI-arts residency; long-term patronage unverified | https://www.institutfrancais.ca/en/appels-a-projets/artist-residency-artificial-muse-vancouversurrey |
+| USA, location-flexible | **Jim O'Shaughnessy / OSV** | **individual talent patronage evidence** | No equity, no corporate thesis; funded unusual creators; fellowship cycle irrelevant to direct outreach | https://www.osvfellowship.com/ |
+| USA, location-flexible | **Jaan Tallinn / Survival and Flourishing Fund** | **technical research funding evidence** | Substantial AI-related independent research grants; strong topic constraints | https://survivalandflourishing.fund/recommendations |
+| USA, location-flexible | **Dustin Moskovitz / Coefficient Giving** | **philanthropic capital evidence** | Supports technical research organizations; priorities narrow, not unrestricted inventor patronage | https://survivalandflourishing.fund/recommendations |
+| USA, location-flexible | **Convergent Research / Adam Marblestone** | **research-funder gateway** | Creates funded research organizations; generally much larger and more structured than solo residence | https://www.convergentresearch.org/get-involved |
+| Worldwide / US meetings | **Bergel Institute** | **virtual independent research fellowship** | No degree requirement; remote with two in-person meetings; themed research, not unconditional patronage | https://www.bergelinstitute.org/overview |
+| Worldwide / remote | **Apart Research** | **technical research fellowship** | No credentials required; compute, mentorship, publication support; *no default stipend* | https://apartresearch.com/fellowships |
+
+### Europe — oceanic, northern and temperate cities
+
+| City / region | Prospect | Kind | Why relevant / limitation | Source |
+|---|---|---|---|---|
+| Berlin, Germany | **Schering Foundation × BIFOLD** | **AI artist-in-residence sponsor** | Documented year-long art/AI residency; nomination/institutional model | https://www.bifold.berlin/about-us/artist-in-residence |
+| Berlin, Germany | **Foresight AI Node** | **frontier research network** | Independent AI science/safety connections; verify local grant and residency mechanics | https://foresight.org/grants/ai-science-safety-nodes-rfp/ |
+| Berlin, Germany | **HTW Berlin IUNO** | **AI/XR artistic fellowship** | Agentic AI, immersive environments, world models; residency/eligibility constraints | https://iuno.fki.htw-berlin.de/en/open-call-ai-xr-2027/ |
+| Edinburgh / Scottish Borders, UK | **Hugo Burge Foundation** | **fully funded creative residencies** | Documented maker patronage, rural cold-friendly setting; technical scope and long-term level uncertain | https://www.hugoburgefoundation.org/residencies |
+| Liverpool, UK | **FACT / Studio-Lab** | **worldbuilding + creative tech residency** | Explicit interest in digital/physical interfaces, immersive experiences, *worldbuilding*; cited Mondriaan partnership is for Netherlands-based artists/curators | https://www.mondriaanfonds.nl/en/apply-for-a-grant/grants/residency/fact-united-kingdom/ |
+| London, UK | **Serpentine Arts Technologies** | **arts/technology institutional network** | Art, AI, interactive practice; independent inventor funding not verified | https://www.serpentinegalleries.org/ |
+| Amsterdam / Netherlands | **Mondriaan Fund** | **artist residency funding** | Supports travel/accommodation/materials at designated studios; typically eligibility tied to Dutch/Caribbean arts practice and minimum participant contribution | https://www.mondriaanfonds.nl/en/apply-for-a-grant/grants/residency/ |
+| Amsterdam, Netherlands | **M4gastatelier** | **interdisciplinary residency space** | Four-month research-oriented residency; fee-based, not patronage | https://artresidencyeurope.com/residencies/digital-new-media |
+| Copenhagen, Denmark | **Andreas Refsgaard** | **creative technologist peer / gateway** | Playful AI and algorithmic interaction; *not a verified funder* | https://www.andreasrefsgaard.dk/about/ |
+| Oslo, Norway | **PRAKSIS** | **thematic creative residency** | International collaborative programs, shared accommodation; funding and scope vary | https://artresidencyeurope.com/residencies/digital-new-media |
+| Linz, Austria | **Ars Electronica / Futurelab** | **art-science research residency** | Directly funds/hosts AI, interactive art, hybrid art, prototype production; program-structured | https://ars.electronica.art/export/en/open-call-telekom/ |
+| Karlsruhe, Germany | **ZKM Hertz-Lab** | **art-science-technology residency** | AI, immersion, sensing, collaborative prototyping with scientists and developers; verify current arrangement | https://zkm.de/en/open-call-eastn-dc-residency |
+| Heilbronn, Germany | **IPAI Foundation** | **funded science residency** | Salary + self-managed project budget + relocation/visa support; more summer heat than ideal, project obligations | https://ipai-foundation.ai/en/science-residency/ |
+| Brussels, Belgium / remote EU | **European Commission EU Policy Lab / DG RTD** | **artist in research-policy residency** | €15k six-month hybrid art/science/coastal adaptation residency, only 20 days Brussels; EU legal-work eligibility required | https://knowledge-for-policy.ec.europa.eu/open-call-artist-residence_en |
+| EU / multiple cities | **European Media Art Platform (EMAP)** | **media art / robotics residencies** | Digital, media, robotics and bio-art network; two-month projects with modest artist and production fees, EU residency/tax criteria | https://foerdermittelkompass.reflecta.org/grants/emap-residencies-2027?locale=en |
+| Spain / Ireland / EU | **Realities in Transition (RiT)** | **XR worldbuilding residency** | Six-month hybrid collaborative virtual-world creation; €15k artist grant; eligibility/project constraints | https://www.realities-in-transition.eu/rit-2-unwritten-worlds/ |
+| Czech Republic / Austria | **Ars Biologica / Ars Electronica × České Budějovice** | **art/science commission** | €24k package; EU work/travel eligibility, short on-site requirements; not sustained patronage | https://www.artificialnouveau.com/smalltools/grants/residencies-worldwide/ |
+| Bad Ems, Germany | **Künstlerhaus Schloss Balmoral** | **state-backed visual arts residency** | 4–8 months, ~€1.4k/month; credential/art discipline and location constraints | https://artresidencyeurope.com/residencies/digital-new-media |
+
+### Asia-Pacific and truly location-flexible mechanisms
+
+| City / region | Prospect | Kind | Why relevant / limitation | Source |
+|---|---|---|---|---|
+| Wellington, New Zealand | **Te Whare Hēra** | **artist residency** | Creative investigation in a mild maritime climate; patronage scale and technical remit unverified | https://www.tewharehera.ac.nz/ |
+| Fukuoka, Japan / Rovaniemi, Finland | **Finnish Institute in Japan × University of Lapland × Kyushu University** | **bioart research exchange** | Art/science/technology; 2027 call restricted to University of Lapland affiliates; **not currently eligible by default** | https://finstitute.jp/ja/%E8%A8%98%E4%BA%8B/%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%B9/open-call-bioart-artist-in-residence/ |
+| Worldwide, residence flexible | **O'Shaughnessy Ventures** | **patronage model** | Supports global independent builders and creatives; direct discretionary arrangement **not verified** | https://www.osvfellowship.com/ |
+| Worldwide, residence flexible | **Bergel Institute** | **virtual fellowship** | No formal degree required, own topic within six focus areas, two in-person meetings | https://www.bergelinstitute.org/overview |
+| Worldwide, residence flexible | **Apart Research** | **research network** | Credentials optional, but no default stipend and AI-safety focus | https://apartresearch.com/fellowships |
+
+### Explicitly exclude from primary patron search
+
+- **Thiel Fellowship:** age limit 22 or younger; not a realistic applicant route for this inventor. Historical support for dropouts does not override eligibility. https://grantcompass.co/grants/thiel-fellowship
+- **Fee-based studios and short, low-stipend art retreats:** useful for introductions or travel, but do not pay an independent inventor to exist.
+- **EU-restricted / institution-affiliated exchanges:** keep as network intelligence, not actionable direct patronage.
+- **Startup accelerators and entrepreneur-in-residence roles:** only if the person can negotiate a bespoke non-equity, no-incorporation arrangement.
+
+### Next search discipline
+
+For **every city** on the climate shortlist, identify *named discretionary patrons* and independently verify (1) decision authority, (2) prior funding of individuals, (3) freedom to fund year-round, (4) non-startup terms, (5) ability to support residence there. Until then, mark the city **ecosystem found / patron unverified** rather than inventing wealthy contacts.
+
 ## Verification limits
 
 Research reflects publicly available descriptions reviewed 2026-10-22. Program conditions, openings, leadership, and contact routes can change. The list is a **curated landscape**, not an exhaustive global registry or evidence that any listed person has offered patronage. Individual contact routes and decision authority must be verified before outreach.
