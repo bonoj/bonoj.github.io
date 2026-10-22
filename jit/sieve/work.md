@@ -302,3 +302,17 @@ Five new direct, tailored emails **SENT** through Gmail; **no applications**:
 ## Outreach reconciliation — 2026-10-22
 Tranche 09: nine Gmail-confirmed SENT messages: Luna Interactive info@luna-interactive.com `1a1649a044ba9fd7`; HAS Studio hello@hasstudio.com `1a1649a0c411a618`; MB3 Creative studio@mb3creative.com `1a1649a12ea5ccb4`; Gabriel Interactive info@gabrielinteractive.com `1a1649a19ffb40fd`; Pixtwin hello@pixtwin.studio `1a1649a21226bbf1`; Adriti Technologies santhanrvs@adrititech.com `1a1649a27fe302b4`; Simam AI Lab junaid.malik@simamdigital.com `1a1649a2c26a25ee`; TwinUp ca@twinup.io `1a1649a39a77ba21`; TwinPath AI andrei.vilcea@twinpathai.com `1a1649a41eddd5cc`. Twinning Solutions partnerships@twinning.solutions was blocked by safety checks; NOT sent and must not be retried.
 Tranche 10 initial: Luna Interactive hello@luna-interactive.com Gmail SENT `1a1649b7a820c0a1`. Distinct email address at organization already contacted; future outreach should avoid additional Luna sends. Cumulative confirmed Gmail SENT **42**, zero applications. No delivery or reply evidence. Ten per turn is a target, subordinate to provider safety and verified recipient suitability.
+
+## Outreach log — 2026-10-22 · tranche 11: ten successful sends
+Ten distinct organizations, official published contacts, individually tailored paid collaboration emails. Gmail SENT IDs:
+1. Studio Studio hello@studiostudio.nyc `1a1649c403d83b88` https://studiostudio.nyc/contact
+2. 5of12 info@5of12.co.uk `1a1649c4901bc0f3` https://5of12.co.uk/
+3. Glitchr Studio contact@glitchr-studio.com `1a1649c5132e7192` https://www.glitchr-studio.com/en/contact/
+4. Sensorium hello@sensorium.works `1a1649c59bea6d3d` https://www.sensorium.works/
+5. Nullsight info@nullsight.com `1a1649c606af7387` https://lab.nullsight.com/
+6. Pixel Rain Digital admin@pixelraindigital.com `1a1649c69d63695d` https://pixelraindigital.com/contact/
+7. Three Fish Studios hello@threefishstudios.com `1a1649c6eec4da4d` https://www.threefishstudios.com/
+8. Digital Twin Studios info@dtsxr.com `1a1649c76dade15d` https://digitaltwinstudios.com/contact-us-xr-solutions/
+9. BLTN Studios info@bltnstudios.net `1a1649c7fe2a011a` https://www.bltnstudios.net/
+10. Hella Lit Studios info@hellalitstudios.com `1a1649c859d8aab4` https://www.hellalitstudios.com/about-contact
+**Cumulative 52 Gmail-confirmed SENT; zero applications.** Gmail SENT is not delivery, interest or paid work. Continue deduplication by organization, not only recipient address. Ten per advance turn remains requested.
