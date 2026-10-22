@@ -4,7 +4,7 @@ Updated: 2026-10-22.
 
 ## Mission
 
-Find people with **capital, technical imagination, and a demonstrated appetite for unconventional independent research**. Lead with the executable laboratory and intellectual curiosity; **do not quote an asking price**. A patron can propose the financial arrangement after understanding the work.
+Find people with **discretionary capital, technical imagination, and a demonstrated appetite for unconventional independent research**. **No application windows, fellowship cycles, or fixed program awards as prerequisites.** Lead with the executable laboratory and intellectual curiosity; **do not quote an asking price**. A patron can propose the financial arrangement after understanding the work.
 
 **Proposition:** An independent, smartphone-operated, model-mediated laboratory for rapidly composing, deploying, observing, and revising executable scientific investigations and interactive worlds. Preserve ownership of preexisting Sanctum/JIT infrastructure and independent inventions. Any commissioned deliverables, exclusivity, or IP rights must be negotiated explicitly.
 
@@ -12,13 +12,13 @@ These are **prospects, not commitments or confirmed invitations**. Public links 
 
 ## Stack-ranked patron prospects
 
-Ranked by **documented support for unconventional independent work**, access to meaningful capital, likely understanding of the laboratory, and fit with keeping Sanctum independent. Rankings are outreach hypotheses, not predictions of interest. **No asking price.**
+Ranked by **potential for discretionary, year-round patronage**, documented support for unconventional independent work, likely understanding of the laboratory, and fit with keeping Sanctum independent. Program funding is only an optional introduction route, never a gate. Rankings are outreach hypotheses, not predictions of interest. **No asking price.**
 
 ### Primary: people who have actually funded unconventional investigators
 
 | Rank | Person | Evidence of funding unusual work | Why approach / constraint |
 |---|---|---|---|
-| **1** | **Jim O'Shaughnessy** — O'Shaughnessy Ventures | Established equity-free fellowships for independent builders, researchers and creatives; 2026 program offered up to $100k, no degree or company required | **Best philosophical match.** Existing fellowship has a capped award and its 2026 round is closed; explore direct patronage or introduction beyond the fellowship |
+| **1** | **Jim O'Shaughnessy** — O'Shaughnessy Ventures | Established equity-free fellowships for independent builders, researchers and creatives; 2026 program offered up to $100k, no degree or company required | **Best philosophical match.** Do **not** route through the fellowship; investigate direct personal patronage independently of application cycles |
 | **2** | **Patrick Collison** — Stripe / Arc Institute | Helped create multi-year investigator-support institutions; supporter of Speculative Technologies | Deep pockets and institutional imagination; Arc itself is biomedical |
 | **3** | **Jaan Tallinn** — Survival and Flourishing Fund | Named funder of substantial 2026 grants supporting independent technical AI research and small organizations | Strong proven discretionary philanthropic funding; focus on existential risk and AI safety |
 | **4** | **Nat Friedman** — investor, former GitHub CEO | AI Grant and other investments in technical founders/builders | Strong AI/GitHub-native technical fit; investment channels lean toward startups |
@@ -32,9 +32,9 @@ Ranked by **documented support for unconventional independent work**, access to 
 
 ### Evidence and access routes
 
-- **Jim O'Shaughnessy:** https://www.osvfellowship.com/ — 2026 fellowship closed April 30; individual funding, no equity, no required startup. https://www.prnewswire.com/news-releases/oshaughnessy-ventures-awards-100k-fellowship-to-preserve-literary-knowledge-with-ai-302486552.html
+- **Jim O'Shaughnessy:** https://www.osvfellowship.com/ — Fellowship demonstrates patronage philosophy, but **do not wait for or apply through a funding window**; pursue a direct introduction. https://www.prnewswire.com/news-releases/oshaughnessy-ventures-awards-100k-fellowship-to-preserve-literary-knowledge-with-ai-302486552.html
 - **Patrick Collison:** https://arcinstitute.org/ ; https://spec.tech/about
-- **Jaan Tallinn / Dustin Moskovitz:** https://survivalandflourishing.fund/2026/recommendations ; https://survivalandflourishing.fund/recommendations — 2026 published grants; **not** evidence of interest in this lab. SFF rounds and eligibility must be checked before applying.
+- **Jaan Tallinn / Dustin Moskovitz:** https://survivalandflourishing.fund/2026/recommendations ; https://survivalandflourishing.fund/recommendations — 2026 published grants; **not** evidence of interest in this lab. SFF grant history is evidence of capital deployment only; pursue direct introductions, not scheduled rounds.
 - **Nat Friedman / Daniel Gross:** https://aigrant.com/ — startup-oriented funding; not a promise of personal patronage.
 - **Ben Reinhardt:** https://spec.tech/about — organizational contact info@spec.tech; verify suitability before outreach.
 - **Eli Dourado:** https://astera.org/ ; https://survivalandflourishing.fund/2026/recommendations
@@ -49,6 +49,10 @@ Ranked by **documented support for unconventional independent work**, access to 
 **Research-capital allocators and intellectual gateways:** Reinhardt, Dourado, Marblestone, Arbesman, Cowen. They may be excellent first conversations even if they cannot personally sponsor the lab.
 
 **Do not confuse historical grant amounts with an asking price.** Amounts above describe the evidence of prior funding, not a proposal for Sanctum.
+
+## Standing rule: no funding-window dependency
+
+A patron is evaluated as a **person**, not as an application portal. A fellowship or grant is evidence of willingness to support unusual people, **not** the route we must use. Seek direct introductions and year-round discretionary decisions. If a prospect can only fund via a scheduled program, classify them as a **program lead**, not a primary patron. Do not quote a price, wait for an intake cycle, or reshape the laboratory to fit an award.
 
 ## First encounter
 
@@ -72,15 +76,15 @@ Ranked by **documented support for unconventional independent work**, access to 
 |---|---|---|---|---|
 | 1 | Jim O'Shaughnessy | No | — | Find suitable personal or OSV introduction beyond closed fellowship |
 | 2 | Patrick Collison | No | — | Find credible research-patron introduction |
-| 3 | Jaan Tallinn | No | — | Study SFF funding fit and identify legitimate route |
+| 3 | Jaan Tallinn | No | — | Identify direct discretionary-patronage route; grant history is evidence only |
 | 4 | Nat Friedman | No | — | Find appropriate direct introduction |
-| 5 | Dustin Moskovitz | No | — | Study Coefficient Giving/SFF alignment |
+| 5 | Dustin Moskovitz | No | — | Find direct introduction; avoid grant-cycle dependency |
 | 6 | Ben Reinhardt | No | — | Reverify organization contact; demo-first approach |
 | 7 | Eli Dourado | No | — | Identify relevant Astera/SFF introduction |
 | 8 | Daniel Gross | No | — | Identify suitable introduction |
-| 9 | Adam Marblestone | No | — | Explore Convergent idea submission and direct conversation |
+| 9 | Adam Marblestone | No | — | Seek direct conversation; program submission is not the objective |
 | 10 | Sam Arbesman | No | — | Find public contact; high-value gateway |
-| 11 | Tyler Cowen | No | — | Consider human-authored grant application |
+| 11 | Tyler Cowen | No | — | Seek personal introduction; program application is optional and secondary |
 
 ## Guardrails
 
