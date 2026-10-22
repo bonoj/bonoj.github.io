@@ -281,3 +281,20 @@ Five new direct, tailored emails **SENT** through Gmail; **no applications**:
 5. **Simsara** — info@simsara.com — `Hermeticon x Simsara — simulation and research tooling collaboration` — Gmail `1a16496bb44557f3`. Official https://simsara.com/index.php/pages/about-us . Paid simulation/research tooling subcontract inquiry.
 
 **Campaign cumulative: 22 Gmail-confirmed sends, zero applications.** No verified replies, delivery receipts, or purchase orders. Deduplicate future tranches against all entries. Continue five new verified email contacts per advance turn per human instruction, while checking replies before assuming interest.
+
+## Outreach log — 2026-10-22 · tranche 08: TEN-per-turn
+**Human explicitly increased requirement to ten successful email sends per advance turn.** Email-only, no applications. Ten unique contacts confirmed Gmail `SENT`:
+1. Simulora — founders@simulora.space — `1a16498acba8db3f` — https://simulora.space/contact
+2. Vrtron — info@vrtron.com — `1a16498b28a7e9d6` — https://www.vrtron.com/contact/
+3. Creative Data Studio / Bastiaan Grisel — bastiaan@creativedatastudio.com — `1a16498bb6295106` — https://www.creativedatastudio.com/
+4. RainByte Studios — hello@rainbytestudio.com — `1a16498c1318b136` — https://rainbytestudio.com/
+5. truetrue.studio / Paul Scheytt — ps@truetrue.studio — `1a16498c72075e6d` — https://truetrue.studio/about
+6. CtrlAltX Studios — hello@ctrlaltx.studio — `1a16498d273a411a` — https://ctrlaltx.studio/contact
+7. Funktronic Labs — biz@funktroniclabs.com — `1a16498d86387db2` — https://www.funktroniclabs.com/
+8. TEC — opportunities@tec.design — `1a16498e111dcdc3` — https://tec.design/
+9. GMI Studios — hello@gmistudios.io — `1a1649903d2d76a3` — https://www.gmistudios.io/
+10. Flamewave Studios / Jason — hello@flamewave.tech — `1a1649909b67f889` — https://www.flamewave.tech/games/studio-sim
+
+**Failed, NOT sent:** Scout House hello@scouthouse.com and Tomorrowspace info@tomorrowspace.com each returned Gmail `FORBIDDEN`; do not retry automatically.
+
+**Cumulative: 32 Gmail SENT, zero applications.** All ten pitches were individually tailored toward a bounded paid research/prototype collaboration. Published contact address does not establish recipient's purchasing authority or a paid project budget. Future advances: ten new verified email contacts, no duplicates, only count successful sends; continue to track blocked attempts separately.
