@@ -261,3 +261,13 @@ Continued human instruction: **direct email only; no applications**. Official so
 5. **polygonfuture** — mail@polygonfuture.studio — `Experimental interactive systems — Hermeticon collaboration` — Gmail `1a16495333316969`. Official https://polygonfuture.studio/Information . Paid creative tech R&D/prototype collaboration.
 
 **Campaign total: 12 confirmed Gmail sends; zero applications.** No responses or successful delivery/read receipts verified. Future turns: source and email five *new*, legitimate, directly reachable targets per requested turn; deduplicate against this ledger, keep messages individually relevant, and record exact SENT outcomes. Do not retry Gmail FORBIDDEN failures automatically.
+
+## Outreach log — 2026-10-22 · tranche 06: five-per-turn
+Five new, deduplicated direct emails **SENT** by Gmail. No applications:
+1. **Origin Lab** — hello@originlab.ai — `Hermeticon — a proposed executable-world experiment` — Gmail `1a16495d846f3042`; official research open calls https://originlab.ai/research explicitly solicit pitches, say they provide data, compute credits and engineering support; **cash not established**. Pitch causal interactive world with intervention, reproducible observation and provenance.
+2. **Miro Dynamics** — contact@mirod.ai — `Executable environments and evaluation — Hermeticon Institute` — Gmail `1a16495e01c3f549`; official https://mirod.ai/en . Pitch embodied AI evaluation and scientific regression.
+3. **Quaternion Studios / Rohan Singh** — rohan.singh@quaternionstudios.com — `Rohan — collaboration on executable research and interactive systems` — Gmail `1a16495e75332b6d`; official https://www.quaternionstudios.com/about . Pitch subcontract/collaboration on research-to-production, WebGPU, CAD, simulations.
+4. **Frosty Wren Studios / Jason Smart** — info@frostywren.com — `Jason — executable physics worlds and procedural systems` — Gmail `1a16495ed8b5350c`; official https://frostywren.com/press/ . Pitch paid shared research/physics/procedural systems, no established budget.
+5. **Threshold Robotics** — hello@thresholdrobotics.com — `Hermeticon — testable world-model experiments` — Gmail `1a16495f5fd0d7a1`; official https://thresholdrobotics.com/ . Pitch paid prediction/evaluation experiment.
+
+**Campaign cumulative: 17 Gmail-confirmed sends; zero applications.** This count records SENT acceptance only, not inbox delivery, replies, or paid engagement. User requirement five new emails per advance turn remains active. Next tranche should favor verified budget holders and named decision-makers rather than broad careers mailboxes.
