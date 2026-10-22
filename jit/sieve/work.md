@@ -271,3 +271,13 @@ Five new, deduplicated direct emails **SENT** by Gmail. No applications:
 5. **Threshold Robotics** — hello@thresholdrobotics.com — `Hermeticon — testable world-model experiments` — Gmail `1a16495f5fd0d7a1`; official https://thresholdrobotics.com/ . Pitch paid prediction/evaluation experiment.
 
 **Campaign cumulative: 17 Gmail-confirmed sends; zero applications.** This count records SENT acceptance only, not inbox delivery, replies, or paid engagement. User requirement five new emails per advance turn remains active. Next tranche should favor verified budget holders and named decision-makers rather than broad careers mailboxes.
+
+## Outreach log — 2026-10-22 · tranche 07: five-per-turn
+Five new direct, tailored emails **SENT** through Gmail; **no applications**:
+1. **Apex World Labs** — hello@apexworldlabs.com — `Hermeticon — simulation-native research collaboration` — Gmail `1a164969fb65e776`. Official https://apexworldlabs.com/company . Paid bounded cross-domain research or high-autonomy engineering inquiry.
+2. **Ingenious / K. Henderson** — khenderson@ingeniousvr.com — `Hermeticon x Ingenious — unusual simulation prototypes` — Gmail `1a16496a70a77bb3`. Official https://www.ingeniousvr.com/contact . Fixed-scope paid technical subcontract/interactive simulation inquiry.
+3. **Misty Interactive Studios / Krishna** — krishna@themisty.com — `Krishna — experimental prototype collaboration` — Gmail `1a16496acd54a29e`. Official https://www.themisty.com/contact?intent=start-project . Paid prototype subcontract/experimental component inquiry; studio publishes $5k minimum for *its own* customer projects, not a Hermeticon procurement budget.
+4. **GhostFrame Studios** — hello@ghostframestudios.com — `Hermeticon x GhostFrame — executable technical investigations` — Gmail `1a16496b4359c729`. Official https://www.ghostframestudios.com/ . Paid technical evaluation and simulation collaboration inquiry.
+5. **Simsara** — info@simsara.com — `Hermeticon x Simsara — simulation and research tooling collaboration` — Gmail `1a16496bb44557f3`. Official https://simsara.com/index.php/pages/about-us . Paid simulation/research tooling subcontract inquiry.
+
+**Campaign cumulative: 22 Gmail-confirmed sends, zero applications.** No verified replies, delivery receipts, or purchase orders. Deduplicate future tranches against all entries. Continue five new verified email contacts per advance turn per human instruction, while checking replies before assuming interest.
