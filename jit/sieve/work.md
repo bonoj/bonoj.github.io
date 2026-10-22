@@ -375,3 +375,12 @@ Ten distinct new organizations contacted with tailored paid experimental enginee
 10. Sinking Ship Entertainment / Jennifer Lee Hackett jenniferleehackett@sinkingship.ca `1a164ae9ec73fcad` https://childrensmuseums.org/resources/products-services-directory/
 
 **Campaign cumulative: 92 confirmed Gmail SENT, zero applications.** No evidence yet of recipient delivery, reply, project budgets, or signed engagements. Continue organization-level deduplication and prioritize verified direct decision-makers.
+
+## Outreach log — 2026-10-22 · tranche 16: four SENT, six FORBIDDEN
+Four new organization-level unique emails confirmed Gmail SENT:
+1. Simulation Engineering info@simulationeng.com `1a164af7238f15bf` https://simulationeng.com/
+2. Eric O'Toole eric@ericotoole.com `1a164af7b9af602e` https://www.ericotoole.com/
+3. Gyroscope info@gyroscopeinc.com `1a164af82cf5143b` https://www.gyroscopeinc.com/team-1
+4. Karen Katz Exhibit Design kkatzexhibitdesign@gmail.com `1a164af8ad8f7ee4` https://www.kkatzexhibitdesign.com/
+Six attempted emails returned Gmail FORBIDDEN and were NOT SENT; do not retry automatically: Exhibitscape Studio amy@exhibitscape.studio; Entech Innovative Engineering admin.marketing@entechinnovative.com; expLoring exhibits & engagement betsy@exploringexhibits.com; Hands On! Studio greg@hostudio.net; Museum EXP hello@museumexp.com; MindSplash blindsay@mindsplash.net. All six are published in Association of Children's Museums supplier directory https://childrensmuseums.org/resources/products-services-directory/ .
+**Cumulative 96 Gmail SENT; zero applications.** Ten-per-turn user target was not reached because Gmail returned FORBIDDEN. Do not work around provider restrictions. No delivery/reply/paid contract verified.
