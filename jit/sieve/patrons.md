@@ -12,31 +12,43 @@ These are **prospects, not commitments or confirmed invitations**. Public links 
 
 ## Stack-ranked patron prospects
 
-Ranked by **ability to recognize the laboratory + access to meaningful funding + evidence of support for unconventional independent research**, with accessibility as a secondary factor. This is an outreach hypothesis, **not** a prediction of personal interest or willingness to fund.
+Ranked by **documented support for unconventional independent work**, access to meaningful capital, likely understanding of the laboratory, and fit with keeping Sanctum independent. Rankings are outreach hypotheses, not predictions of interest. **No asking price.**
 
-| Rank | Person | Capital route | Why this rank | Key uncertainty |
-|---|---|---|---|---|
-| **1** | **Patrick Collison** — Stripe / Arc Institute | Substantial personal capital; history of building research institutions | Strongest combination of independent resources and demonstrated support for investigator autonomy | Arc is biomedical; no evidence of interest in sponsoring this lab specifically |
-| **2** | **Nat Friedman** — former GitHub CEO, investor | Substantial investment capacity and technical network | GitHub-native engineering, AI tools and working demonstrations align closely with the laboratory | Existing funding channels favor startups and equity |
-| **3** | **Ben Reinhardt** — Speculative Technologies | Research-program funding and patron network | Especially likely to understand small-team, AI-augmented experimental research | Less personal discretionary capital; organization focuses on materials/manufacturing |
-| **4** | **Eli Dourado** — Astera Institute | Institutional research capital | Explicit mandate to identify and fund ambitious technical research | Institutional scope, residency constraints and IP terms |
-| **5** | **Daniel Gross** — AI investor | Substantial investment capacity | Technically fluent and experienced backing unusual AI builders | Startup orientation; fit for non-company patronage unproven |
-| **6** | **Sam Arbesman** — Lux Capital scientist-in-residence | Network and introductions, not verified personal patronage capital | Possibly the best *first conversation*: professional interest in unusual systems and unconventional builders | More likely an intellectual gateway than a direct funder |
-| **7** | **Tyler Cowen** — Emergent Ventures | Grantmaking | Demonstrated willingness to recognize unconventional talent | Program grants are not necessarily sustained, open-ended laboratory patronage |
+### Primary: people who have actually funded unconventional investigators
 
-### Routes and reference links
+| Rank | Person | Evidence of funding unusual work | Why approach / constraint |
+|---|---|---|---|
+| **1** | **Jim O'Shaughnessy** — O'Shaughnessy Ventures | Established equity-free fellowships for independent builders, researchers and creatives; 2026 program offered up to $100k, no degree or company required | **Best philosophical match.** Existing fellowship has a capped award and its 2026 round is closed; explore direct patronage or introduction beyond the fellowship |
+| **2** | **Patrick Collison** — Stripe / Arc Institute | Helped create multi-year investigator-support institutions; supporter of Speculative Technologies | Deep pockets and institutional imagination; Arc itself is biomedical |
+| **3** | **Jaan Tallinn** — Survival and Flourishing Fund | Named funder of substantial 2026 grants supporting independent technical AI research and small organizations | Strong proven discretionary philanthropic funding; focus on existential risk and AI safety |
+| **4** | **Nat Friedman** — investor, former GitHub CEO | AI Grant and other investments in technical founders/builders | Strong AI/GitHub-native technical fit; investment channels lean toward startups |
+| **5** | **Dustin Moskovitz** — Coefficient Giving / SFF | Named co-funder of substantial 2026 general-support grants to technical research organizations | Financial capacity documented; philanthropic priorities are more constrained than open-ended invention |
+| **6** | **Ben Reinhardt** — Speculative Technologies | Operates ambitious research-program incubator supported by philanthropic funders | Excellent intellectual fit and potential sponsorship gateway; materials/manufacturing emphasis |
+| **7** | **Eli Dourado** — Astera Institute; 2026 SFF recommender | Research investment role; named as an evaluator in 2026 SFF funding process | Direct connection to research-capital allocation; institutional scope matters |
+| **8** | **Daniel Gross** — AI investor | AI Grant co-creator and investor | Significant AI funding network; equity/startup orientation |
+| **9** | **Adam Marblestone** — Convergent Research | Co-founded institution reporting almost $400m secured from 30+ funders for research infrastructure | Exceptional research-funding connector, but FROs typically require large teams, milestones and nonprofit formation |
+| **10** | **Sam Arbesman** — Lux Capital | Professional focus on finding unusual technical people and ideas | Potentially ideal first conversation and introduction; **not verified as personal patron** |
+| **11** | **Tyler Cowen** — Emergent Ventures | Repeated grants to unconventional individuals with zero-to-one ideas | Credible talent recognition; generally smaller, project-specific grant mechanism |
 
-| Person | Public context / route |
-|---|---|
-| Patrick Collison | https://arcinstitute.org/ |
-| Nat Friedman | https://aigrant.com/ |
-| Ben Reinhardt | https://spec.tech/about — organization proposal route: info@spec.tech (reverify) |
-| Eli Dourado | https://astera.org/ |
-| Daniel Gross | https://danielgross.com/ |
-| Sam Arbesman | https://www.arbesman.net/ |
-| Tyler Cowen | https://www.mercatus.org/emergent-ventures — AI-written applications prohibited; human must author submission |
+### Evidence and access routes
 
-**Outreach sequencing differs from financial rank:** Arbesman or Reinhardt may be the most accessible route to informed introductions, while Collison and Friedman are the strongest potential direct patrons. Do not treat an introduction as a funding offer.
+- **Jim O'Shaughnessy:** https://www.osvfellowship.com/ — 2026 fellowship closed April 30; individual funding, no equity, no required startup. https://www.prnewswire.com/news-releases/oshaughnessy-ventures-awards-100k-fellowship-to-preserve-literary-knowledge-with-ai-302486552.html
+- **Patrick Collison:** https://arcinstitute.org/ ; https://spec.tech/about
+- **Jaan Tallinn / Dustin Moskovitz:** https://survivalandflourishing.fund/2026/recommendations ; https://survivalandflourishing.fund/recommendations — 2026 published grants; **not** evidence of interest in this lab. SFF rounds and eligibility must be checked before applying.
+- **Nat Friedman / Daniel Gross:** https://aigrant.com/ — startup-oriented funding; not a promise of personal patronage.
+- **Ben Reinhardt:** https://spec.tech/about — organizational contact info@spec.tech; verify suitability before outreach.
+- **Eli Dourado:** https://astera.org/ ; https://survivalandflourishing.fund/2026/recommendations
+- **Adam Marblestone:** https://www.convergentresearch.org/get-involved — accepts FRO ideas and matches teams with funders; does not fund FROs directly. Public personal site: https://www.adammarblestone.org/
+- **Sam Arbesman:** https://www.arbesman.net/
+- **Tyler Cowen:** https://www.mercatus.org/emergent-ventures — AI-written applications prohibited; human must author.
+
+### Important distinction
+
+**Direct patron prospects:** O'Shaughnessy, Collison, Tallinn, Friedman, Moskovitz, Gross.
+
+**Research-capital allocators and intellectual gateways:** Reinhardt, Dourado, Marblestone, Arbesman, Cowen. They may be excellent first conversations even if they cannot personally sponsor the lab.
+
+**Do not confuse historical grant amounts with an asking price.** Amounts above describe the evidence of prior funding, not a proposal for Sanctum.
 
 ## First encounter
 
@@ -56,15 +68,19 @@ Ranked by **ability to recognize the laboratory + access to meaningful funding +
 
 ## Outreach tracking
 
-| Rank | Person | Introduction path verified? | Contacted | Reply | Next action |
-|---|---|---|---|---|---|
-| 1 | Patrick Collison | No | No | — | Identify credible introduction beyond Arc's biomedical channel |
-| 2 | Nat Friedman | No | No | — | Identify appropriate direct introduction |
-| 3 | Ben Reinhardt | Organization channel listed; reverify | No | — | Prepare brief demo-first note |
-| 4 | Eli Dourado | No | No | — | Identify Astera research-funding contact |
-| 5 | Daniel Gross | Personal website; reverify contact | No | — | Identify appropriate introduction |
-| 6 | Sam Arbesman | No | No | — | Find public contact; prioritize as gateway conversation |
-| 7 | Tyler Cowen | Program channel; application restrictions | No | — | Consider human-authored application |
+| Rank | Person | Contacted | Reply | Next action |
+|---|---|---|---|---|
+| 1 | Jim O'Shaughnessy | No | — | Find suitable personal or OSV introduction beyond closed fellowship |
+| 2 | Patrick Collison | No | — | Find credible research-patron introduction |
+| 3 | Jaan Tallinn | No | — | Study SFF funding fit and identify legitimate route |
+| 4 | Nat Friedman | No | — | Find appropriate direct introduction |
+| 5 | Dustin Moskovitz | No | — | Study Coefficient Giving/SFF alignment |
+| 6 | Ben Reinhardt | No | — | Reverify organization contact; demo-first approach |
+| 7 | Eli Dourado | No | — | Identify relevant Astera/SFF introduction |
+| 8 | Daniel Gross | No | — | Identify suitable introduction |
+| 9 | Adam Marblestone | No | — | Explore Convergent idea submission and direct conversation |
+| 10 | Sam Arbesman | No | — | Find public contact; high-value gateway |
+| 11 | Tyler Cowen | No | — | Consider human-authored grant application |
 
 ## Guardrails
 
