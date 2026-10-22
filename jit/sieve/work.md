@@ -94,3 +94,10 @@ Do not claim a particular customer's problem has already been solved. Instead, p
 **First success:** a signed paid pilot, funded research engagement, license, patron commitment, or accepted paid role with a clear start/payment path.
 
 **Sustained success:** reliable funding for the freedom to play, discover, and continuously extend the engine.
+
+## Evidence: The Chemlab Crossing — how the engine learns
+**Primary account:** https://github.com/bonoj/Ledger/blob/main/chemlab_crossing/account.md
+
+This is a flagship account of the operating method, not simply a chemistry demonstration. An ordinary glass table and an unimplemented relational spatial-language Thoughtform became an executable graph-to-3D projector because chemistry supplied real constraints. CH4 established tetrahedral projection; H2O forced hidden electron-domain semantics; C2H6 forced local frame propagation; C2H4 exposed a wrong but compilable spatial consequence. Human visual rejection was converted into a numerical negative regression, then into executable CI and browser/source agreement gates. C2H2 subsequently failed a new geometry check **before publication**, removing a class of routine inspection from the human's workload. NH3 extended the accepted corpus to invisible lone-pair constraints. Seven accepted molecules and a recoverable Thoughtform preserved the work.
+
+**Commercial meaning:** The engine doesn't merely produce one-off outputs. It discovers necessary abstractions through real problems, converts failures into durable tests, tightens its own delivery pipeline, and reduces operator attention on subsequent problems. The record distinguishes source compilation, numerical verification, exact deployment provenance, browser runtime execution, and human acceptance. Use this account as concrete evidence when pitching research automation, scientific tooling, reliability, or compounding engineering leverage. Do not flatten it into “built a chemistry visualizer.”
