@@ -397,3 +397,17 @@ New distinct organizations with published contact addresses; individualized paid
 8. Exosphere Studio hello@exosphere.studio `1a164b1944a71105` https://www.exosphere.studio/
 Tengent hello@tengent.studio returned Gmail FORBIDDEN; NOT sent, do not retry automatically. Lightlayer Studio hello@lightlayer.studio was researched but NOT attempted after provider refusal. Source https://tengent.studio/en/ and https://www.lightlayer.studio/.
 **Cumulative 104 Gmail-confirmed SENT, zero applications.** No evidence of actual delivery, reply, or paid engagement. Stopped upon Gmail permission refusal; do not work around sending restriction.
+
+## Outreach log — 2026-10-22 · tranche 18: ten confirmed sends
+Ten new distinct organizations; published contacts; tailored paid bounded collaborations; all Gmail SENT:
+1. Studio A N F studio@studioanf.com `1a164b2f4938607b` https://studioanf.com/contact/
+2. Circus Family hello@circusfamily.com `1a164b2fbf4c626a` https://circusfamily.com/information/
+3. S3K Studio hello@s3k.world `1a164b3047c3df58` https://www.s3k.world/2/
+4. ChromaFlow hello@chromaflow.studio `1a164b30bf579d0b` https://chromaflow.studio/
+5. affect lab hello@affectlab.org `1a164b313dd1fd1f` https://www.affectlab.org/projects
+6. Sietecolores isabel.diez@sietecolores.mx `1a164b31d468fedc` https://childrensmuseums.org/resources/products-services-directory/
+7. Eriksen / Will Lach will.lach@eriksen.com `1a164b3229d26c20` https://childrensmuseums.org/resources/products-services-directory/
+8. Immotion / Stacy Ignacio stacy@immotion.co `1a164b32bebddb63` https://childrensmuseums.org/resources/products-services-directory/
+9. Working Studio / Scott Wolfram scott@workingstudio.com `1a164b332f59c150` https://childrensmuseums.org/resources/products-services-directory/
+10. Kanics Inclusive Design / Ingrid Kanics imkanics@mindspring.com `1a164b33a12c71ed` https://childrensmuseums.org/resources/products-services-directory/
+**Cumulative 114 Gmail-confirmed SENT; zero applications.** No delivery, response or budget commitments verified. Prior Gmail FORBIDDEN did not recur this turn. Continue organization-level deduplication and ten new contacts per advance when permitted.
