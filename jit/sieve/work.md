@@ -31,3 +31,9 @@ For each candidate: **actual decision route; verified money signal; autonomy and
 
 ## Next
 Validate the strongest openings at official sources, seek direct talent/research contact or warm introduction, and determine whether the actual scope protects autonomy. Continue searching for real research patrons, not speculative generic buyers. No applications unless asked.
+
+## Verification pass · 2026-10-22
+- **Mecka — confirmed official employer posting:** https://jobs.ashbyhq.com/mecka.ai/4ffe7389-0840-495d-b918-9ecfc6dfcb4e ; $170k–$200k plus equity, on-site NYC/SF. Significant gaps: MuJoCo/Isaac Sim, RL, Python/C++ and sim-to-real experience. Keep as lower-priority, not a clean fit. Third-party mirrors disagree on compensation; official posting takes precedence.
+- **Microsoft — independently corroborated, not yet official-requisition verified:** Principal Design Engineer, Interactive Graphics, Copilot; $142.8k–$274.8k per Dice; https://www.dice.com/job-detail/fbeb4375-ac46-4130-8465-7d1c4a65332f . Find Microsoft Careers requisition before outreach. Strong WebGL/interactive graphics overlap; design-engineering expectations remain to vet.
+- **dotdotdash — not employer-verified in this pass.** Keep conditional, not confirmed.
+- **No outreach or application authorized.** Next ➡️: obtain official Microsoft and dotdotdash postings and decision routes; prioritize autonomy over volume.
