@@ -360,3 +360,18 @@ Ten new distinct organizations contacted with individually tailored paid technic
 10. xibitworx / Chip Thompson chip@xibitworx.com `1a164ad2987d18f7` https://childrensmuseums.org/resources/products-services-directory/
 
 **Campaign cumulative: 82 Gmail-confirmed SENT, zero applications.** This confirms Gmail acceptance only, not delivery, replies, or a purchase commitment. Continue deduplication by organization, and prioritize paid fixed-scope collaboration with credible budget holders.
+
+## Outreach log — 2026-10-22 · tranche 15: ten confirmed sends
+Ten distinct new organizations contacted with tailored paid experimental engineering collaboration pitches. All Gmail SENT:
+1. Refractiv info@refractiv.io `1a164ae5b8711e72` https://refractiv.io/
+2. AURA Engine / Jack Oliva-Rendler jack@auraengine.com `1a164ae656e0b329` https://auraengine.com/
+3. Park Studio contact@parkstudio.space `1a164ae6bd8a979c` https://parkstudio.space/
+4. Colin McQuilkin Design studio@colinmcquilkin.design `1a164ae73319996b` https://www.colinmcquilkin.design/
+5. Tessellate hello@tessellatestudio.com `1a164ae7a2b5605d` https://www.tessellatestudio.com/
+6. 106 Group info@106group.com `1a164ae80e3dc2f6` https://106group.com/contact-us/
+7. Blue Telescope / Trent Oliver trent@blue-telescope.com `1a164ae89f4e0155` https://childrensmuseums.org/resources/products-services-directory/
+8. Boss Display / Evan Trickey etrickey@bossdisplay.com `1a164ae91a656190` https://childrensmuseums.org/resources/products-services-directory/
+9. KidZibits / Dave Mink dmink@kidzibits.com `1a164ae984f55c53` https://childrensmuseums.org/resources/products-services-directory/
+10. Sinking Ship Entertainment / Jennifer Lee Hackett jenniferleehackett@sinkingship.ca `1a164ae9ec73fcad` https://childrensmuseums.org/resources/products-services-directory/
+
+**Campaign cumulative: 92 confirmed Gmail SENT, zero applications.** No evidence yet of recipient delivery, reply, project budgets, or signed engagements. Continue organization-level deduplication and prioritize verified direct decision-makers.
