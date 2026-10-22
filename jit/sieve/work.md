@@ -235,3 +235,10 @@ Follow-up checkpoint: around **2026-10-29** (five business days), conditional on
 **Excluded from immediate outreach:** Aetherya founding simulation engineer (equity-first, no current cash guarantee); Precision Federal digital twin contractor (paid only after a government contract award); OpenTrain principal AI evaluation ($100–$400/hr posted, but strong scholarly-publication credentials and application screening); Lucky Robots founding perception engineer (specific robotics ML/perception background); these may be reconsidered if direct-pay leads stall.
 
 **Commercial rule:** Do not equate a posted salary with an approved external pilot budget. No new email has been sent. Next action is a targeted Honda contractor email with resume, or user authorization for a batch.
+
+## Outreach log — 2026-10-22 · email-only instruction
+Human explicitly requested **emails only, no applications today**. Two additional direct inquiries SENT through Gmail:
+- **Honda Research Institute USA**, careers@honda-ri.com, subject `P25T09 — Robotics & 3D Simulation research collaboration`, Gmail ID `1a1649347c4790fa`. Introductory research/paid engagement inquiry with GitHub and EUROPA-01 links; **not a formal application**, **no CV attached** (their formal contractor application requests a recent CV).
+- **First Intelligence**, research@first-intelligence.com, subject `Hermeticon — executable worlds and persistent physical systems`, Gmail ID `1a164934deec9d06`. Direct paid-collaboration/high-autonomy research inquiry with Evermore II, Icarus and GitHub links.
+
+Both returned Gmail `SENT`. **Campaign total five sent** (Steadyworks, Runway, Arca, Honda, First Intelligence), zero replies verified. **Parisi Labs NOT contacted**: official contact page https://parisi-labs.com/contact/ offers a form and obfuscated general email not safely resolved; don't guess a mailbox. User declined applications, so no application or contact form submitted. Keep finding verified direct email routes. No automatic future outreach authorization inferred.
