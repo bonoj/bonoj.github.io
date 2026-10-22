@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#080c14"><title>Confluence</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c14;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}</style><canvas id="world"></canvas><script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+const canvas=document.querySelector('canvas'),renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0x080c14);
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(43,1,.1,100);camera.position.set(0,2.4,15.5);camera.lookAt(0,0,0);scene.add(new THREE.AmbientLight(0xa8c9da,1.45));const light=new THREE.DirectionalLight(0xffffff,2.4);light.position.set(-4,8,9);scene.add(light);
+const U=64,V=18,N=U*V,R=2.25,r=.64,colors=[0x64b9d2,0xd6a3b5],group=new THREE.Group();scene.add(group);
+const rings=colors.map((color,id)=>{const positions=new Float32Array(N*3),indices=[],edges=[];for(let i=0;i<U;i++)for(let j=0;j<V;j++){const a=i*V+j,b=((i+1)%U)*V+j,c=i*V+(j+1)%V,d=((i+1)%U)*V+(j+1)%V;indices.push(a,b,c,b,d,c);edges.push(a,b,a,c)}
+const geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.BufferAttribute(positions,3).setUsage(THREE.DynamicDrawUsage));geom.setIndex(indices);
+const membrane=new THREE.Mesh(geom,new THREE.MeshStandardMaterial({color,metalness:.62,roughness:.34,transparent:true,opacity:.24,side:THREE.DoubleSide,depthWrite:false}));group.add(membrane);
+const edgePos=new Float32Array(edges.length*3),edgeGeom=new THREE.BufferGeometry();edgeGeom.setAttribute('position',new THREE.BufferAttribute(edgePos,3).setUsage(THREE.DynamicDrawUsage));const wires=new THREE.LineSegments(edgeGeom,new THREE.LineBasicMaterial({color,transparent:true,opacity:.5}));group.add(wires);
+const beadGeo=new THREE.SphereGeometry(.036,7,6),beads=new THREE.InstancedMesh(beadGeo,new THREE.MeshStandardMaterial({color:0xe0f2f7,metalness:.75,roughness:.23}),N);group.add(beads);
+return {id,positions,geom,edges,edgePos,edgeGeom,beads};});
+const bridgeCount=28,bridgePositions=new Float32Array(bridgeCount*2*3),bridgeGeo=new THREE.BufferGeometry();bridgeGeo.setAttribute('position',new THREE.BufferAttribute(bridgePositions,3).setUsage(THREE.DynamicDrawUsage));const bridge=new THREE.Mesh(bridgeGeo,new THREE.MeshStandardMaterial({color:0xb0b3d4,metalness:.55,roughness:.4,transparent:true,opacity:.25,side:THREE.DoubleSide,depthWrite:false}));const bridgeIndices=[];for(let j=0;j<bridgeCount;j++){const a=j*2,b=((j+1)%bridgeCount)*2;bridgeIndices.push(a,b,a+1,b,b+1,a+1)}bridgeGeo.setIndex(bridgeIndices);group.add(bridge);
+const cargoN=72,particles=Array.from({length:cargoN},(_,i)=>({owner:i%2,u:Math.random()*Math.PI*2,v:Math.random()*Math.PI*2,speed:.16+Math.random()*.11,transfer:0}));
+const cargoGeo=new THREE.SphereGeometry(.07,8,6),cargoMats=colors.map(c=>new THREE.MeshStandardMaterial({color:c,metalness:.7,roughness:.24,emissive:c,emissiveIntensity:.12})),cargoMeshes=cargoMats.map(m=>{const mesh=new THREE.InstancedMesh(cargoGeo,m,cargoN);group.add(mesh);return mesh});
+const dummy=new THREE.Object3D(),v3=new THREE.Vector3(),va=new THREE.Vector3(),vb=new THREE.Vector3(),localA=new THREE.Vector3(),localB=new THREE.Vector3();let t=0,last=performance.now(),drag=false,px=0,py=0,rotX=.35,rotY=.12,merge=0,mergeTarget=0,perturb=0,perturbU=0,transfers=0;
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}addEventListener('resize',resize);resize();
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);drag=true;px=e.clientX;py=e.clientY;perturb=1;perturbU=Math.random()*Math.PI*2});
+canvas.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-px,dy=e.clientY-py;rotY+=dx*.009;rotX+=dy*.009;mergeTarget=Math.min(1,mergeTarget+Math.hypot(dx,dy)*.0032);px=e.clientX;py=e.clientY});
+for(const ev of ['pointerup','pointercancel'])canvas.addEventListener(ev,()=>drag=false);
+function position(id,u,v,out){const ringShift=(1-merge)*.52;const c=Math.cos(u),s=Math.sin(u),compression=.27*Math.pow(.5+.5*Math.cos(3*u-t*2.1+id*2),6)+perturb*.25*Math.exp(-Math.pow(Math.atan2(Math.sin(u-perturbU),Math.cos(u-perturbU))/.45,2));const rad=r*(1-compression),rr=R+rad*Math.cos(v),z=rad*Math.sin(v);
+// Two orthogonally oriented toroidal surfaces, linked like chain rings.
+if(id===0)out.set(rr*c-ringShift,rr*s,z);
+else out.set(z+ringShift,rr*c,rr*s);
+return out}
+function frame(now){const dt=Math.min((now-last)/1000,.04);last=now;t+=dt;perturb*=Math.exp(-dt*2);merge+=(mergeTarget-merge)*Math.min(1,dt*1.8);
+for(const ring of rings){for(let i=0;i<U;i++)for(let j=0;j<V;j++){const k=(i*V+j)*3;position(ring.id,i/U*Math.PI*2,j/V*Math.PI*2,v3);ring.positions[k]=v3.x;ring.positions[k+1]=v3.y;ring.positions[k+2]=v3.z;dummy.position.copy(v3);dummy.updateMatrix();ring.beads.setMatrixAt(i*V+j,dummy.matrix)}
+ring.geom.attributes.position.needsUpdate=true;ring.geom.computeVertexNormals();ring.beads.instanceMatrix.needsUpdate=true;for(let e=0;e<ring.edges.length;e++){const k=ring.edges[e]*3;ring.edgePos[e*3]=ring.positions[k];ring.edgePos[e*3+1]=ring.positions[k+1];ring.edgePos[e*3+2]=ring.positions[k+2]}ring.edgeGeom.attributes.position.needsUpdate=true}
+const uA=0,uB=Math.PI*.5;for(let j=0;j<bridgeCount;j++){const v=j/bridgeCount*Math.PI*2;position(0,uA,v,va);position(1,uB,v,vb);const blend=Math.max(.001,merge);const k=j*6;bridgePositions[k]=va.x;bridgePositions[k+1]=va.y;bridgePositions[k+2]=va.z;bridgePositions[k+3]=va.x+(vb.x-va.x)*blend;bridgePositions[k+4]=va.y+(vb.y-va.y)*blend;bridgePositions[k+5]=va.z+(vb.z-va.z)*blend}
+bridgeGeo.attributes.position.needsUpdate=true;bridgeGeo.computeVertexNormals();bridge.visible=merge>.04;
+const counts=[0,0];for(const p of particles){const old=p.owner;p.u=(p.u+dt*(p.speed+.23*Math.pow(.5+.5*Math.cos(3*p.u-t*2.1+old*2),6)))%(Math.PI*2);
+if(merge>.58&&Math.random()<dt*(merge-.58)*1.5){p.owner=1-p.owner;transfers++}
+position(p.owner,p.u,p.v,v3);const slot=counts[p.owner]++;dummy.position.copy(v3);dummy.scale.setScalar(.85);dummy.updateMatrix();cargoMeshes[p.owner].setMatrixAt(slot,dummy.matrix)}
+for(let id=0;id<2;id++){for(let i=counts[id];i<cargoN;i++){dummy.scale.setScalar(0);dummy.updateMatrix();cargoMeshes[id].setMatrixAt(i,dummy.matrix)}cargoMeshes[id].instanceMatrix.needsUpdate=true}
+group.rotation.set(rotX+.09*Math.sin(t*.17),rotY+t*.08,.1*Math.sin(t*.12));renderer.render(scene,camera);requestAnimationFrame(frame)}requestAnimationFrame(frame);
+</script></html>
