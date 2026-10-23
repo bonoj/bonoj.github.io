@@ -1237,3 +1237,38 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Central finding:** the human can turn a physical substrate into a consequential ecology, then preserve its causal richness while directing systematic correctness and performance recovery.
 
 **Next indexed source:** [A Model's Account of Working With Its Human](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-12-a-models-account-of-working-with-its-human.md).
+
+
+---
+
+## XXXII. Ledger unpacking 23 — A Model's Account of Working With Its Human
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-12-a-models-account-of-working-with-its-human.md)
+
+**Consequence-first leadership.** The human specifies what a world must do or feel like, then judges implementation through embodied experience and observable consequences.
+
+**Subtractive judgment.** He discards unproductive features, accepts unexpected discoveries, and stops polishing when a question has been answered.
+
+**Verification-method criticism.** When a moving bowl's interesting bearing collisions conflicted with an inherited containment check, he questioned the verifier's jurisdiction instead of erasing the behavior. The observational contract was corrected.
+
+**Compressed orchestration.** Short commands encode accumulated decisions and procedures, enabling rapid iteration while preserving exact constraints and artifact lineage.
+
+**Qualifications:** experiential systems architect; experimental creative director; human–model workflow designer; specification and verification critic.
+
+## XXXIII. Ledger unpacking 24 — Hermeticon: The World Beyond the Glass
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-12-hermeticon-journey.md)
+
+**Multiscale architecture.** Hermeticon became a single composable object externally and an aperture onto persistent geological terrain internally. A seeded 85 × 21 × 85 signed field persists beyond the moving window.
+
+**Distinct boundary semantics.** The aperture limits observation; the upper dome limits local cloud/rain manifestation; the lower bowl governs physical contact. None defines the entire world's existence.
+
+**Persistent material and geography.** Clouds stay anchored to world coordinates, and rain bearings remain accounted for when offscreen. Accepted V31 reported 10,000 conserved rain units (848 airborne, 9,152 resting), including 185 offscreen, at approximately 58.94 FPS.
+
+**Embodied navigation.** Tap-to-walk, orbit, and pinch were separated into coherent gestures. The Wanderer roams within a central aperture region before camera following begins, preserving human camera control.
+
+**Semantic continuity across scale.** Asteroid's whole-to-constituents breakup, Genesis's many-to-emergent-whole organization, and Waterworld's multiple representations informed a general architecture of identity across levels of detail.
+
+**Qualifications:** multiscale executable-world architect; persistent-state simulation designer; spatial interaction director; compositional systems inventor; boundary-contract engineer.
+
+**Next indexed source:** [The World Beyond the Window](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-12-the-world-beyond-the-window.md).
