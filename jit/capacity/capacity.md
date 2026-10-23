@@ -970,3 +970,60 @@ After seven accepted molecular fixtures, the human directed a Thoughtform that p
 **Central finding:** the human can turn an initially speculative spatial-language idea into reliable, generalizing machinery by choosing scientifically constrained examples, recognizing architectural pressure, and converting observed errors into executable gates.
 
 **Next indexed source:** [graph_mind_crossing/account.md](https://github.com/bonoj/Ledger/blob/main/graph_mind_crossing/account.md).
+
+
+---
+
+## XXII. Ledger unpacking 13 — Graph Mind Crossing
+
+[Source](https://github.com/bonoj/Ledger/blob/main/graph_mind_crossing/account.md)
+
+**Distinct research-design capacity:** creating deterministic experiments in which an inadequate vocabulary must confront contradictory observations. Graph Mind proposes retaining prediction errors and admitting anonymous distinctions only when they improve prediction or compression, with hidden causal truth sealed for evaluation. This extends Chemlab's consumer-driven abstraction into experimental representation learning.
+
+**Qualifications:** epistemic experiment design; information-boundary architecture; falsifiable abstraction discovery. **Evidence status:** research specification.
+
+## XXIII. Ledger unpacking 14 — Neptunian Crossing
+
+[Source](https://github.com/bonoj/Ledger/blob/main/neptunian_crossing/account.md)
+
+### Cross-domain architectural transfer
+
+The human moved from verified molecular geometry to spacecraft, Jovian orbital systems, and model-native spatial inspection without discarding prior work. He compared independently convergent relational grammars with OrbitalConstruction, deliberately preserving the latter's independence rather than merging entire frameworks. A 25-spacecraft fleet exposed the distinction between radial placement and actual surface attachment, then was retired after yielding its lesson.
+
+**Capacities:** cross-domain research direction; comparative architecture; relational geometry; disposable experimental prototyping.
+
+### Experimental orbital modeling
+
+The Jovian table used published Galilean orbital parameters, explicitly separating scientific orbital evidence from compressed display scales. The human-directed experiment added incoming bearing packets, persistent trajectories, and a second velocity regime, turning a visual demonstration into a comparative dynamical instrument.
+
+**Capacities:** scientific visualization; orbital-systems prototyping; controlled-variable experiment design; evidence-preserving simulation.
+
+### Model-native perception and epistemic separation
+
+The human proposed an executable-world analogue of inpainting: **bounded encounter → inference → coherent construction passage → fresh encounter**. A model should inspect actual geometry through selected spatial instruments rather than rely on its own construction intentions. The bridge/beacon test deliberately withheld builder identities from a cold Observer.
+
+**Capacities:** active-perception research architecture; information isolation; embodied inference; autonomous construction-loop design.
+
+### Instrument design and cold experimental handoff
+
+Observer₀ implemented a twelve-ray budget, anonymous hit distances/points/normals, explicit placement and aim, deterministic pose tests, and a transcript. A genuinely cold model distinguished two separate constructions and their gross geometry without receiving semantic names or source truth.
+
+**Capacities:** bounded sensor API design; reproducible experimental protocols; cold-context evaluation; measurement-driven model assessment.
+
+### Semantic construction verified against geometry
+
+A brass desk lamp became a non-chemistry consumer of the relational graph. The semantic chain from base to bulb produced executable geometry; a containment check measured the bulb against the actual shade envelope and corrected placement along the semantic axis.
+
+**Capacities:** semantic-to-spatial engineering; geometric invariants; JIT self-inspection; corrective generative modeling.
+
+### Research cadence and public accessibility
+
+The human articulated short orientation followed by several uninterrupted constructive passes before renewed observation and judgment. The substrate remains a shareable browser executable rather than a heavyweight modeling harness.
+
+**Capacities:** human–model workflow invention; attention-efficient iteration; accessible interactive research delivery.
+
+**Synthesized qualifications:** model-native perception architect · spatial verification systems designer · computational geometry researcher · orbital simulation prototyper · autonomous construction-loop inventor · interdisciplinary experimental director.
+
+**Central finding:** the human is developing a general method for allowing generated executable artifacts to be **encountered, measured, and corrected independently of the intentions that created them**.
+
+**Next indexed source:** [ozymandias_crossing/account.md](https://github.com/bonoj/Ledger/blob/main/ozymandias_crossing/account.md).
