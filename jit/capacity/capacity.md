@@ -1200,3 +1200,40 @@ The design uses conservative donor-cell depth transfers and global volume correc
 **Central finding:** the human can coordinate multiple representations of the same physical material, expose their mismatches, and design explicit exchanges that preserve meaningful behavior and visual coherence.
 
 **Next indexed source:** [Hermeticon](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-11-hermeticon.md).
+
+
+---
+
+## XXXI. Ledger unpacking 22 — Hermeticon: Construction and Experimental Record
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-11-hermeticon.md)
+
+### Inventing an ecology from material consequences
+
+The human-directed experiment began with **100,000 discrete bearings**, selectable central forces, black-hole capture, and localized impulses. Introducing red phages transformed the vessel from a particle demonstration into a world of consumers. Two v5 observations of total population extinction motivated a redesign around **20 bearings per simulated second per phage**, frozen radii during feeding passes, competing predators, capture, and progressive digestion.
+
+**Capacities:** ecological mechanics invention; feedback-driven simulation design; population accounting; emergent interaction architecture.
+
+### Giving organisms costly choices
+
+The human proposed that gravity-bound phages could eject yellow bearings to escape larger predators, spending their own material to gain thrust. The subsequent hunting experiment extended the same material exchange to pursuit. A persistent **red → magenta** transition made hunting intent legible independently of thrust bursts.
+
+**Capacities:** embodied agency design; resource-constrained behavior systems; expressive visual semantics; physics-based gameplay invention.
+
+### Recovering performance without discarding complexity
+
+The v7 experiment exposed sustained **17–19 FPS** with approximately 93,000–99,000 active bearings. The response preserved the 100,000-bearing target while developing spatial feeding lookup and phase profiling. A v8 phone report recorded **59.93 FPS**, **0.092 seconds dropped**, and **100,000 accounted bearings**, alongside **276 ejected yellow bearings** and actual predation events. Later v9–v11 work investigated profiler overhead and repeated color-buffer uploads; those later performance repairs were committed but not yet independently validated on the phone in this account.
+
+**Capacities:** performance-critical systems direction; spatial acceleration design; measurement-overhead diagnosis; GPU update optimization; rigorous runtime interpretation.
+
+### Turning failures into research evidence
+
+Runaway phage consumption, misleading digestion counters, untriggered escape mechanisms, and changing active-population workloads were used to refine invariants and experiments. The record distinguishes a reported escape-success counter from demonstrated sustained separation and instantaneous FPS from fixed-step simulation throughput.
+
+**Capacities:** scientific debugging; experiment design; instrumentation criticism; causal attribution; conservation-aware systems evaluation.
+
+**Synthesized qualifications:** emergent ecology architect · embodied behavior systems designer · high-population simulation director · mobile performance research leader · experiential mechanics inventor.
+
+**Central finding:** the human can turn a physical substrate into a consequential ecology, then preserve its causal richness while directing systematic correctness and performance recovery.
+
+**Next indexed source:** [A Model's Account of Working With Its Human](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-12-a-models-account-of-working-with-its-human.md).
