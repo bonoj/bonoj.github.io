@@ -1303,3 +1303,24 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Central finding:** the human can turn a proven world into reusable apparatus while preserving its identity, interaction semantics and observable behavior.
 
 **Next indexed source:** [Eighteen Encounters: From Map to Witness](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-eighteen-encounters-from-map-to-witness.md).
+
+
+---
+
+## XXXVI. Ledger unpacking 27 — Eighteen Encounters: From Map to Witness
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-eighteen-encounters-from-map-to-witness.md)
+
+**Authored-world translation.** An author-confirmed map became 22 geographic anchors and 18 proposed causal encounters. The human preserved unknown lore as unknown rather than inventing certainty from map colors or shapes.
+
+**Large-scale integration and field research.** Six implementation turns established 18 scene prototypes, deterministic encounter lifecycles, proximity gating, and inspection. Nineteen field reports documented 17 completed visual lifecycles, long-lived primed states, concurrent scenes, revisits, and a reproducible Ocean of Tears activation boundary.
+
+**Morphological judgment.** The human identified that numerical completeness had obscured weak structural grammar. Existing bead strands, branching reeds, lattice relationships, and terrain-derived supports offered a stronger basis for ships, fortifications, vegetation and architectural assemblies than repeated stock primitives.
+
+**Causal standards.** He distinguished staged visual performances from durable geological consequences. Summerlands' attempted sample transfer produced an encounter-local error, and the expedition recorded zero successful geological transactions rather than claiming eighteen completed physical stories.
+
+**Qualifications:** authored-world systems director; encounter architecture designer; morphological grammar critic; exploratory field-research leader; causal experience designer.
+
+**Central finding:** the human can organize broad worldbuilding into executable, inspectable encounters while recognizing when a technically complete delivery lacks the relational geometry and persistent consequences required by the creative intent.
+
+**Next indexed source:** [The Dot at the Origin](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-the-dot-at-the-origin.md).
