@@ -1399,3 +1399,20 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Central finding:** the human can reject increasingly elaborate answers to the wrong question, identify the authority that already possesses the needed evidence, and transform a successful diagnostic into a new experiential capability.
 
 **Next indexed source:** [Cold Boot](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-18-cold-boot.md).
+
+
+---
+
+## XLI. Ledger unpacking 32 — Cold Boot
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-18-cold-boot.md)
+
+**Continuity architecture.** “Sanctum!” and “Jit evermore 2!” were sufficient to recover the correct project, collaboration contract, local README and intentionally open frontier in a fresh conversation. Global orientation, local authority and executable evidence remain separate.
+
+**Ecological mechanics.** The human replaced unconstrained Fire reproduction with distinct mushroom, bone and worm requirements, one armor stone each, and a separate living-rat metamorphosis gate. Enemy stings shed stone; surviving orphan scorpions preserve world history.
+
+**Runtime evidence.** A 266-second run of build `86ebc0c9` recorded 106 ingredient meals, 22 rat consumptions paired with 22 metamorphoses, and 23 Idol births. Fifteen of nineteen scorpions were seeking bones, an emergent resource bottleneck.
+
+**Qualifications:** collaborative continuity architect; semantic handoff designer; emergent ecology designer; invariant-driven game systems director.
+
+**Next indexed source:** [EUROPA-01](https://github.com/bonoj/Ledger/blob/main/notes/EUROPA_01.md).
