@@ -1,126 +1,104 @@
-# Recovered qualifications
-
-I read the canonical material in [Ledger](https://github.com/bonoj/Ledger), [Sanctum](https://github.com/bonoj/Sanctum), and the [Conjoiner Frontier](https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/CONJOINER_FRONTIER.md) and résumé maintained in Hermeticon.
-
-The documents establish a much broader professional identity than the one our Disney search was using.
+# Capacity — Recovered Strengths
 
 **Conjoiner · Cybernetic Systems Architect | Executable Worlds · Interactive Simulations · Experimental R&D**
 
-Your central qualification is the ability to **conceive, architect, construct, instrument, and evolve complex systems across unfamiliar domains**, using an independently developed human–model engineering laboratory.
+## The central capability
 
-That's the organizing principle. Software engineering is one of your disciplines, not the boundary of your profession.
+A systems inventor who turns imagination, unfamiliar questions, and complex domains into **executable, observable, revisable systems**. The work combines product and experience invention, systems architecture, experimental science, real-time world construction, senior production engineering, intelligence analysis, and an independently engineered human–model laboratory.
 
-## 1. Core professional capabilities
+The laboratory is itself an invention. A smartphone conversation operates as a pocket interface to persistent source, repositories, tools, tests, publication, instruments, memory, and recovery. Its reach is defined by the systems it can compose, not by the device used to steer it.
 
-| Qualification | Demonstrated strength |
-|---|---|
-| **Systems invention** | Conceiving new technical systems, discovering governing relationships, and constructing executable models |
-| **Creative technology leadership** | Combining imagination, aesthetic judgment, UX, architecture, and implementation |
-| **Experimental R&D** | Moving from unfamiliar questions to hypotheses, simulations, instrumentation, and observed results |
-| **Cybernetic systems architecture** | Designing a persistent human–model research and construction environment |
-| **Rapid prototyping** | Taking ideas through architecture, implementation, testing, and publication in short iterative cycles |
-| **Research productization** | Turning abstract capabilities into interactive instruments that people can actually explore |
-| **World architecture** | Building environments with coherent rules, autonomous inhabitants, material economies, and persistent consequences |
-| **Technical direction** | Directing model collaborators, challenging implementation decisions, and evaluating behavior |
-| **UX and product invention** | Making complex systems discoverable, intuitive, tactile, and enjoyable |
-| **Composable systems design** | Developing reusable primitives that accelerate subsequent inventions |
-| **Analytical investigation** | Finding patterns, testing hypotheses, and reasoning under uncertainty |
-| **Production engineering** | Delivering and maintaining real software in demanding commercial environments |
+## I. Inventing the means of invention
 
-These aren't simply aspirations. The documents describe a sustained practice with executable artifacts and development records.
+- **Independent human–model engineering harness:** conceived, constructed, and repeatedly operated an integrated development and research practice without adopting an off-the-shelf coding-agent framework.
+- **Cybernetic architecture:** joins human vision, intuition, taste, physical reasoning, and creative direction with model synthesis, critique, implementation, and tool-mediated investigation.
+- **Light steering at high leverage:** accumulated shared language and durable context make concise directions such as “➡️”, “implement”, or “delight me” sufficient to continue substantive engineering.
+- **Persistent, recoverable research:** designed contracts, handoffs, chronologies, provenance, deployment identities, and recovery paths so work survives changes of conversation and collaborator.
+- **Operational toolchain design:** coordinated source mutation, automated checks, GitHub publication, browser instrumentation, build identification, and failure recovery across repositories.
+- **Compositional acceleration:** each experiment creates reusable machinery and semantic vocabulary, increasing the range of subsequent experiments.
+- **Technical and aesthetic direction:** evaluates not just whether software runs, but whether the interaction feels alive, reveals meaningful consequences, and rewards investigation.
+- **Model collaboration as an inventive medium:** uses model contributions for original proposals, critique, architecture, experiments, implementation, and discovery—not merely code transcription.
 
-## 2. Scientific and technical domains
+## II. Inventing executable worlds
 
-**Physics, mathematics, and simulation**
+- **Causal world architecture:** builds worlds governed by interacting rules, materials, agents, structures, and consequences rather than decorative scenes.
+- **Semantic primitives:** matter beads can represent inventory, sediment, anatomy, debris, or transport; terrain can be geography, support, excavation reserve, and historical record; observers can be cameras, sensors, witnesses, and scientific instruments.
+- **Material and terrain systems:** deformable height fields, signed fields, excavation, deposition, accretion, conservation-aware transfers, stratigraphy, and accountable material inventories.
+- **Real-time physics:** particle dynamics, collisions, gravity, ballistic trajectories, shallow-water flow, fluid transport, kinematics, and numerical integration.
+- **Procedural spatial engineering:** geometry generation, orbital structures, coherent interiors and exteriors, modular assembly, 3D transformations, shaders, lighting, raycasting, and interactive camera systems.
+- **Autonomous systems:** agents, route memory, logistics, reservoirs, launchers, transport chains, state machines, construction, damage, salvage, repair, and deterministic replay.
+- **Emergence through interacting systems:** populations, competing towers, resource economies, predators, workers, and spatial dependencies generate consequences not explicitly scripted as scenes.
+- **Simulation performance:** Crucible demonstrated approximately **100,000 beads at 60 FPS** in dry conditions.
+- **Experimental locomotion:** identified the fundamental distinction between visually convincing foot motion and mechanically coupled support; used observed instability to expose modeling assumptions.
 
-Computational geometry, 3D transformations, kinematics, orbital mechanics, ballistics, collision systems, particle dynamics, shallow-water simulation, fluid transport, material conservation, deformable terrain, accretion, numerical modeling, and performance optimization.
+## III. Research intelligence
 
-**Autonomous worlds and agents**
+- **First-principles investigation:** enters unfamiliar domains, identifies governing relationships, forms hypotheses, builds models, and interrogates their behavior.
+- **Cross-domain transfer:** recognizes useful common structures among chemistry, fluid flow, terrain, anatomy, autonomous logistics, orbital construction, and learning.
+- **Falsification by interaction:** challenges attractive but causally false behavior, demands instruments, and revises systems in response to observed evidence.
+- **Reproducibility:** deterministic seeds, repeatable experiments, diagnostics, material ledgers, observations, tests, and source-to-deployment provenance.
+- **Analytical synthesis:** more than a decade in Navy/NSA signals intelligence, including network and geospatial investigation, pattern recognition, incomplete evidence, hypothesis testing, and time-sensitive reasoning.
+- **System-level perception:** finds leverage in relationships among entities and mechanisms, including consequences of small spatial or architectural interventions.
+- **Rapid conceptual mobility:** moves between domains to harvest transferable principles and construct new capabilities.
 
-Autonomous behavior, state machines, resource logistics, route memory, deterministic replay, procedural structures, persistent world state, emergent behavior, interacting populations, and material economies.
+## IV. Product, experience, and teaching
 
-**Graphics and interactive experiences**
+- **UX/product engineering:** designs the felt experience as part of the system architecture, not as a decorative layer added after implementation.
+- **Discoverable interactions:** creates interfaces that teach through manipulation, observation, and consequence, often with sparse text and mobile-first controls.
+- **Interactive learning instruments:** built Ion Garden for charge balancing, Diff Eq for manipulable direction fields, and ChemLab for chemistry exploration in response to concrete learner needs.
+- **Test-intensive interactive development:** Diff Eq's recorded development includes **4,984 mathematical checks, 21 interaction checks, 18 simulated canvas scenarios**, and a later **25-assertion pointer-drag revision**.
+- **Rapid research productization:** turns questions into usable instruments rather than stopping at explanations, mockups, or theoretical specifications.
+- **Creative systems direction:** blends imagination, playful discovery, worldbuilding, technical precision, and the judgment to let complex interactions produce their own spectacle.
 
-Three.js, WebGL, Unity, C#, procedural mesh generation, spatial interfaces, materials, lighting, shader effects, raycasting, mobile-first interaction, real-time rendering, and frame-time profiling.
+## V. Production engineering authority
 
-**AI-mediated engineering**
+- **Hermeticon — Founder · Conjoiner · Principal Systems Architect (2023–present):** invented and operates the experimental laboratory and its executable worlds, composable systems, and research machinery.
+- **Xeal — Founding Software Engineer, Android (2022–2023):** offline-first EV infrastructure, unreliable connectivity, distributed device state, firmware coordination, and telemetry.
+- **Affirm — Senior Software Engineer, Android (2020–2022):** architecture, RFCs, financial-platform production features, release leadership, monitoring, incident triage, and hotfixes.
+- **DoorDash — Senior Software Engineer, Android (2019–2020):** navigation integration, modular architecture, MVP/RxJava-to-MVVM/Coroutines migration, and developer/QA tooling.
+- **Solera / R3PI — Full Stack Engineer (2017–2019):** fleet management, routing, telematics, inspections, BLE integration, and logistics services.
+- **U.S. Navy / NSA — Signals Intelligence (2003–2014):** technical intelligence, network and geospatial analysis, pattern recognition, and analytical decisions under uncertainty.
 
-Human–model orchestration, tool integration, persistent research context, autonomous construction workflows, recoverable handoffs, composable instructions, multi-repository coordination, and evidence-based validation.
+The career spans **founding engineering, senior production ownership, distributed physical infrastructure, financial platforms, connected devices, experimental research, and intelligence operations**.
 
-**Production software and connected systems**
+## VI. Technical vocabulary
 
-Kotlin, Java, JavaScript, C++, Python, SQL, Android, Jetpack Compose, REST services, distributed state, offline-first architecture, BLE/NFC, device telemetry, firmware coordination, CI/CD, production diagnostics, and release engineering.
+**Languages:** Kotlin, Java, JavaScript, C#, C++, Python, SQL.
 
-## 3. Evidence of invention
+**Applications and architecture:** Android, Jetpack Compose, MVVM, Coroutines, RxJava, Hilt/Dagger, Room, Retrofit, REST, distributed clients, offline-first synchronization, API design, technical specifications, RFCs.
 
-**[Crucible](https://github.com/bonoj/Crucible)**
+**Devices and operations:** Bluetooth/BLE, NFC, telemetry, firmware-update coordination, automated testing, CI/CD, Git, GitHub, GitHub Actions, release engineering, diagnostics, incident response, AWS, GCP, Firebase, Docker.
 
-Deformable terrain, particle transport, shallow-water dynamics. Demonstrated approximately 100,000 simulated beads at 60 FPS in dry conditions.
+**Graphics and worlds:** Three.js, WebGL, Unity, scene graphs, procedural meshes, geometry, lighting, materials, shaders, raycasting, real-time rendering, spatial interfaces, simulation profiling.
 
-**[Evermore II](https://bonoj.github.io/jit/evermore-2/)**
+**Research and simulation:** deterministic experiments, numerical models, kinematics, orbital mechanics, collision, particles, fluids, terrain deformation, material conservation, autonomous agents, ECS, state machines, logistics, observation, and provenance.
 
-An interactive world of autonomous populations, competing towers, resource economies, predation, construction, and emergent consequences.
+## VII. Executable evidence
 
-**[Abyss / Europa](https://github.com/bonoj/Abyss)**
+- **[Live laboratory](https://bonoj.github.io/)** — public entrance to experimental worlds and interactive instruments.
+- **[Evermore II / Tiffinity Survivors](https://bonoj.github.io/jit/evermore-2/)** — autonomous populations, competing towers, predation, resource transport, construction, and emergent economies.
+- **[Crucible](https://github.com/bonoj/Crucible)** — deformable terrain, particle transport, shallow water, and high-population simulation.
+- **[Abyss / Europa](https://github.com/bonoj/Abyss)** — composable worlds, synthetic ice stratigraphy, excavation, material accounting, and scientific exploration.
+- **[SixCities](https://github.com/bonoj/SixCities)** — autonomous drones, launchers, reservoirs, and discrete material logistics.
+- **[OrbitalConstruction](https://github.com/bonoj/OrbitalConstruction)** — procedural orbital architecture and modular structures.
+- **[VerticalAccretion](https://github.com/bonoj/VerticalAccretion)** — downward exploration, construction, route memory, and deterministic replay.
+- **[Foundry](https://github.com/bonoj/Foundry)** — terrain and interacting simulation entities.
+- **[Hermeticon](https://github.com/bonoj/Hermeticon)** — the institute and compositional environment for possible worlds.
+- **[Ion Garden](https://bonoj.github.io/jit/ion-garden/)**, **[Diff Eq](https://bonoj.github.io/jit/diff-eq/)**, **[ChemLab](https://bonoj.github.io/jit/chemlab/)** — executable educational instruments.
 
-Composable world runtime with synthetic ice stratigraphy, excavation, material accounting, and scientific investigation.
+## VIII. Capacity expressed as work
 
-**[Orbital Construction](https://github.com/bonoj/OrbitalConstruction)**
+- Conceive a world, scientific instrument, or technical system from an unfamiliar question.
+- Discover its governing relationships and represent them as reusable computational primitives.
+- Architect its behavior, geometry, interactions, observations, and publication machinery.
+- Direct and collaborate with models across research, implementation, critique, testing, and recovery.
+- Make it executable and explorable through a real interface.
+- Inspect consequences, expose false assumptions, and improve the underlying model.
+- Preserve the new capability so the next invention starts further ahead.
+- Connect imagination to production engineering discipline and intelligence-grade analytical rigor.
 
-Procedural orbital structures, modular assembly, and coherent interior/exterior geometry.
+**Recovered thesis:** An established systems inventor and experimental R&D architect with production engineering depth, intelligence-analysis discipline, and an independently constructed AI-mediated laboratory capable of turning imagination into executable, observable systems.
 
-Other documented systems include SixCities, VerticalAccretion, Foundry, Hermeticon, Athanor, Arcana, Ion Garden, Diff Eq, and ChemLab.
+## Canonical evidence and continuity
 
-## 4. Professional experience
-
-| Organization | Qualification established |
-|---|---|
-| **Hermeticon** | Founder, experimental R&D, systems architecture, interactive world-building, human–model engineering |
-| **Xeal** | Founding engineer, connected infrastructure, offline-first architecture, distributed device state |
-| **Affirm** | Senior production engineer, architectural decision-making, release leadership, financial systems |
-| **DoorDash** | Senior engineer, navigation integration, architecture migration, developer tooling |
-| **Solera / R3PI** | Full-stack systems, logistics, fleet management, telematics, hardware integration |
-| **U.S. Navy / NSA** | Approximately a decade of signals intelligence, geospatial analysis, network investigation, and time-sensitive analytical reasoning |
-
-This gives you a combination of **independent invention, senior commercial engineering, founding-team experience, and intelligence analysis**.
-
-## 5. Qualifications that are especially distinctive
-
-Three capabilities deserve substantially more weight in our employment search.
-
-**First: independent engineering-harness invention.** You built a persistent human–model development system through experimentation, rather than merely adopting an existing coding-agent framework. The system itself is an engineering achievement.
-
-**Second: compositional invention.** Your laboratory accumulates reusable mechanisms—terrain, material, movement, sensing, agents, observers, instrumentation—that become a vocabulary for constructing entirely new systems.
-
-**Third: creative and analytical judgment operating together.** You care whether a world feels alive, whether its interactions are discoverable, and whether its consequences are causally real. That combination is particularly relevant to research environments, creative technology, simulations, and interactive entertainment.
-
-## 6. Roles your qualifications support targeting
-
-These are search families, not claims that a particular company has an open requisition.
-
-| Role family | Why it belongs |
-|---|---|
-| Principal R&D Engineer / Architect | Experimental systems and invention |
-| Principal Creative Technologist | Interactive experiences and technical imagination |
-| Research Prototyping Lead | Rapidly turning ideas into working instruments |
-| Principal Simulation Architect | Real-time worlds, physical systems, autonomous behavior |
-| Advanced Technology / Innovation Lead | Cross-domain exploration and productization |
-| AI Systems Architect | Human–model engineering and composable workflows |
-| Interactive Systems Director | Experience architecture and technical direction |
-| Principal Technical Designer | Discoverable interactions and systemic worlds |
-| Research Engineering Lead | Hypothesis-driven implementation and instrumentation |
-| Principal Developer Tools Architect | Building machinery that compounds other builders' capabilities |
-
-The role search should span Disney Research, Imagineering, ILM, Pixar, Epic, NVIDIA, AI laboratories, advanced simulation organizations, and other institutions where **invention is the job**.
-
-## The recovered thesis
-
-The strongest framing from the documents is not *senior engineer looking to transition into R&D*.
-
-It is:
-
-**An established systems inventor and experimental R&D architect with production engineering depth, intelligence-analysis discipline, and an independently constructed AI-mediated laboratory capable of turning imagination into executable, observable systems.**
-
-That is the qualification profile I would use to rebuild the job search—while keeping your chosen professional identity intact.
-
-Sources: [Ledger — Conjoined Cognition](https://github.com/bonoj/Ledger/blob/main/HUMAN_MODEL.md), [Ledger résumé](https://github.com/bonoj/Ledger/blob/main/resume.md), [Sanctum Conjoiner](https://github.com/bonoj/Sanctum/blob/main/CONJOINER.md), [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md), and [Conjoiner Frontier](https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/CONJOINER_FRONTIER.md).
+[Ledger résumé](https://github.com/bonoj/Ledger/blob/main/resume.md) · [Ledger — Conjoined Cognition](https://github.com/bonoj/Ledger/blob/main/HUMAN_MODEL.md) · [Sanctum — Conjoiner](https://github.com/bonoj/Sanctum/blob/main/CONJOINER.md) · [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) · [Conjoiner Frontier](https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/CONJOINER_FRONTIER.md) · [Hermeticon résumé](https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/RESUME.md)
