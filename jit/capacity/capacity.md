@@ -1466,3 +1466,22 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Central finding:** the human builds a shared executable language that preserves creative and engineering momentum across radically different domains without repeatedly rebuilding the collaboration.
 
 **Next indexed source:** [Functional Terrain](https://github.com/bonoj/Ledger/blob/main/notes/functional-terrain.md).
+
+
+---
+
+## XLV. Ledger unpacking 36 — Functional Terrain
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/functional-terrain.md)
+
+**Heterogeneous world generation.** Nine Crucible terrain functions—dunes, basin, ridges, terraces, crater, knolls, canyon, radial waves and spire—share neutral jurisdiction boundaries without requiring neighbor-specific logic.
+
+**Causal authority.** The human designed a lifecycle from cheap deterministic functions to bounded realization, ordinary deformable matter and persistent history. Once changed, terrain is governed by recorded material state rather than its original generator.
+
+**Performance direction.** Sample-once generation, incremental frame-budgeted commits, localized chunk rebuilds and final baking replace repeated full remeshing.
+
+**Geographic composition.** A proposed next model separates elevation tiers, relief permission and octagonal biome jurisdictions, keeping large-scale topology distinct from local morphology.
+
+**Qualifications:** procedural terrain architect; simulation lifecycle designer; performance-aware world engineer; compositional geography inventor.
+
+**Next indexed source:** [Observer](https://github.com/bonoj/Ledger/blob/main/notes/observer.md).
