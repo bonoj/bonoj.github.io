@@ -1,33 +1,32 @@
-# Lattice — maximum-vacuum specification
+# Hermeticon Institute — Observatory specification
 
-**Authority:** This is the governing target; [README](README.md) is the implemented-state handoff; [CHRONICLE](CHRONICLE.md) preserves the full original 53-channel specification and previous README without loss. [channels.json](channels.json) is the candidate inventory, not a ceiling.
+## Purpose
+Three real scientific instruments examining a single planetary system: **what arrives, what responds, what circulates**. Scientific rigor beneath a mysterious, restrained public experience.
 
-## Objective
+## Experiments
+**⊛ Cosmic Flux:** neutron monitor count rate, preferably Antarctic. Candidate: NMDB. Require actual numerical counts per documented unit, UTC observation time, station identity, provider, quality and freshness.
 
-Acquire the maximum useful breadth and depth of legitimate public civilian Earth and orbital telemetry. Prioritize **independent observable phenomena, geographic and record coverage, and independent provider families** over quotas, repeated station-level additions, UI and engineering ceremony.
+**⌁ Geomagnetic Response:** terrestrial observatory magnetic field components. Candidate: INTERMAGNET HAPI. Require numeric component readings, component-specific units (typically nT), UTC observation time, station, cadence, quality and provenance.
 
-## Execution contract
+**∿ Abyssal Exchange:** deep-water dissolved oxygen. Candidates: OOI and BGC-Argo. Require measured numerical oxygen, units, UTC observation time, sensor/float, **measured depth**, provenance and QC. Prefer temperature as context. Catalog records are not oxygen observations.
 
-1. On ➡️ acquire and test new eligible real data. Prefer bounded multi-station/network queries and geographically distributed records over one-station-per-turn development. Reuse existing provider responses and governor; avoid redundant requests.
-2. Validate HTTP, source schema, meaningful fields, units, timestamps, provenance, geography and representative missing/edge cases with automated tests. Distinguish server-side source success from browser-origin CORS and normalized runtime success. Never manufacture a passing observation.
-3. On failure, record the concrete blocker and continue with another eligible source. Do not ask the human to debug endpoint plumbing. Do not make per-channel promotion or 53-item completion a gate to expansion.
-4. Preserve raw individual observations in bounded session memory where permitted, with source identity and age. Preserve measured/reported/modelled/forecast/predicted distinctions. No fabricated positions or values.
-5. Continue beyond the initial 53 candidate channels while useful eligible sources exist. No arbitrary stopping quota.
+All sources are **candidates, not verified feeds**. Current verified numerical feeds: **0/3**.
 
-## Non-negotiable constraints
+## Acquisition and acceptance
+1. Discover official/documented source and usage restrictions.
+2. Independently request data in chat/tooling **before** touching the runtime.
+3. Save bounded raw evidence: request, HTTP status, numeric observed value, UTC observation timestamp, unit, station/instrument, source, QC and age. No fabricated data, no metadata counts standing in for measurements.
+4. Verify GitHub Pages browser-origin CORS; server access alone is not enough. Document an authorized fallback only if needed.
+5. Record success/failure in CHRONICLE; promote only verified sources into adapters through the **existing Lattice transport governor**.
+6. Integrate, publish, then smoke-test the actual page and compare raw, normalized and displayed values.
 
-- Public civilian/environmental sources only; respect terms, licensing, rate limits and CORS. No exposed secrets, unauthorized scraping, military tracking, or synthetic records represented as observed.
-- Single existing transport governor for all requests: concurrency, host pacing, dedup, bounded queue/body, timeout, retry/backoff, cache and offline/hidden handling. No second fetch mechanism.
-- Preserve standalone mobile-first JIT, canonical URL, existing SHA-stamped Pages publishing, `build.json`, Hormuz independence and current UI. No Supabase requirement or new backend.
-- No persistence/replay, visualization overhaul, globe work, dashboards, new controls, catalog grooming or publisher refactor while eligible intake remains, absent a demonstrated blocking defect.
-- Provenance fields where available: source/provider, record identity, geometry or extent, observed/published/fetched time, value, unit, quality and kind. Null means missing; never substitute zero or a different variable.
+## Experience
+**Pristine white. Sterile. Exorbitantly boutique. Arcane.** Swiss institutional publication meets laboratory instrumentation. White porcelain and pale neutral ground; subtle hairlines; dark graphite precision typography; enormous negative space; restrained metallic accents. Three instruments marked **⊛ ⌁ ∿**. **No emoji.** Very little copy; beautiful, legible measurements, units and timestamps; provenance and quality discoverable without clutter. Honest loading, stale and failure states. Single page, mobile-first and desktop-composed, with usable touch targets and no scroll traps. Do not imitate a SaaS dashboard or dark cyberpunk control panel. No decorative fake signals.
 
-## Current frontier
+## Architecture
+The Observatory's index.html is an unchanged functional clone of [JIT Lattice](../lattice/). Preserve Lattice's existing single request governor, concurrency/host pacing, dedup, cache, retry, timeout, eye/telemetry, lifecycle and publishing conventions. Consult [Lattice README](../lattice/README.md) and [Lattice SPEC](../lattice/SPEC.md) before modifications. Inherited globe and channels are temporary baseline, not design requirements. No new backend or second fetch stack by default.
 
-Existing broad families: USGS ComCat, NASA EONET, Open-Meteo, ISS, NWS, UK EA. Newly tested families: NOAA CO-OPS, USGS Water, NDBC and EMSC; their present implementation is geographically narrow. Expand their **network footprint** and seek independent sources in Africa, South America, Asia, Oceania and polar regions. BOM HTTP 403 and Geoscience Australia unresolved endpoint require evidence-based handling, not speculative success.
+## Definition of done
+Three independently verified browser-reachable observation feeds; numeric measurements with units, UTC times and provenance; oxygen depth; honest freshness and failure; pristine responsive white interface; live published browser verification; accurate README and CHRONICLE.
 
-## Evidence and completion
-
-Report configured, fetched, source-valid, normalized and browser-verified distinctly. CI green is not browser proof. A productive turn materially expands genuine records, geographic coverage or independent sources, or documents a concrete blocker and proceeds to the next source. The mission has no channel-count completion threshold.
-
-**History:** The complete prior 53-channel table, detailed verification ladder and original execution plan are preserved verbatim in [CHRONICLE.md](CHRONICLE.md); use [channels.json](channels.json) for the current machine-readable candidate registry.
+**Sequence: research → fetch → validate → implement → deploy → verify.**
