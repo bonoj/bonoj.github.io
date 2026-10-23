@@ -1522,3 +1522,24 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Qualifications:** semantic API designer; behavior-composition architect; interaction-language inventor; abstraction strategist.
 
 **Next indexed source:** [Twenty Faces](https://github.com/bonoj/Ledger/blob/main/notes/twenty-faces.md).
+
+
+---
+
+## XLIX. Ledger unpacking 40 — Twenty Faces
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/twenty-faces.md)
+
+**High-variety experiential prototyping.** The human commissioned twenty structurally distinct one-tap experiences across a single d20, from growth and erosion to weather, launch, crystallization and doors. Observed build `9bca1260` ran near 60 FPS on the test phone while preserving independent face addressability.
+
+**Causal hierarchy.** A launched satellite escaped its originating face into die-level space, demonstrating that an address can initiate a consequence without permanently containing it.
+
+**Perceptual geometry.** An accidental trajectory entered the shell, disappeared behind several faces and reappeared elsewhere. Occlusion and continuity conveyed hidden interior volume more convincingly than explicit black aperture graphics.
+
+**Time and evidence.** The human distinguished finished-state decoration from witnessed transformation: growth, construction, crystallization and excavation need temporal evolution to become legible events. Likewise, parentage or proximity does not prove support or attachment; spatial contact must be evidenced.
+
+**Consequence as memory.** Activated faces retained visible results, allowing world state to communicate its own history without labels, logs or a separate status interface.
+
+**Qualifications:** experiential prototyping director; perceptual interaction architect; implicit-volume designer; temporal behavior systems inventor; consequence-based interface designer.
+
+**Next indexed source:** [When Progress Becomes Polishing](https://github.com/bonoj/Ledger/blob/main/notes/when-progress-becomes-polishing.md).
