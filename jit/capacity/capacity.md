@@ -1324,3 +1324,24 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Central finding:** the human can organize broad worldbuilding into executable, inspectable encounters while recognizing when a technically complete delivery lacks the relational geometry and persistent consequences required by the creative intent.
 
 **Next indexed source:** [The Dot at the Origin](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-the-dot-at-the-origin.md).
+
+
+---
+
+## XXXVII. Ledger unpacking 28 — The Dot at the Origin
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-the-dot-at-the-origin.md)
+
+**Discriminating observation.** When an unexplained dot appeared inside Hermeticon terrain, the human rejected the first Wanderer-placement hypothesis by pointing out that a separate Wanderer was visibly on the surface. He then identified the artifact's bearing-like appearance and likely position at the origin.
+
+**Precise technical diagnosis.** That observation focused source inspection on instanced particle meshes and their initialization contracts. The gel-node InstancedMesh reserved 2,048 instances without initially setting its visible count to zero; the fix was a single line, `gelNodeMesh.count = 0;`.
+
+**Minimal intervention and verification.** The repair preserved terrain, material ownership, character movement and deployment architecture. It was committed as `d4f794fd`, published through the established pipeline, and confirmed by the human's observation that the dot disappeared.
+
+**Cold-boot continuity.** A new model context recovered repository layout, handoff, build workflow and implementation from persistent records. The human needed to contribute only the distinguishing visual evidence and authorization to sling.
+
+**Qualifications:** hypothesis-driven technical director; graphics debugging collaborator; operational continuity architect; minimal-change engineering leader.
+
+**Central finding:** the human can collapse a broad technical search space through precise perceptual evidence, enabling a small, verified correction without destabilizing the larger system.
+
+**Next indexed source:** [The Retinae Problem](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-the-retinae-problem.md).
