@@ -1416,3 +1416,20 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Qualifications:** collaborative continuity architect; semantic handoff designer; emergent ecology designer; invariant-driven game systems director.
 
 **Next indexed source:** [EUROPA-01](https://github.com/bonoj/Ledger/blob/main/notes/EUROPA_01.md).
+
+
+---
+
+## XLII. Ledger unpacking 33 — EUROPA-01: The Ice as Evidence
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/EUROPA_01.md)
+
+**Scientific direction.** The human reframed spacecraft design as a depth-resolved ice investigation with competing explanations, measurable discriminants and explicit uncertainty.
+
+**Executable research.** The expedition linked deterministic synthetic ice, spectral proxies, sample provenance, conservation accounting, blinded inference, null controls and a browser-executed Europa world.
+
+**Observed integrity.** Two synthetic cores removed 84 occupied nodes: 66 recovered, 18 dispersed, zero residual. The blind instrument returned a contrast of -0.023293 against a 0.05 threshold and abstained; the human preserved this indeterminate result.
+
+**Qualifications:** interdisciplinary scientific research architect; inverse-problem designer; material-conservation systems director; uncertainty-aware experimental leader.
+
+**Next indexed source:** [Dice](https://github.com/bonoj/Ledger/blob/main/notes/dice.md).
