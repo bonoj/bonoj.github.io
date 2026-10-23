@@ -672,3 +672,62 @@ The corpus translates visual motifs into concrete research domains: miniature te
 **Central finding:** the human turns dense visual imagination into transferable engineering structures and executable lines of inquiry.
 
 **Next indexed source:** [resume.md](https://github.com/bonoj/Ledger/blob/main/resume.md).
+
+
+---
+
+## XVI. Ledger unpacking 07 — resume.md
+
+**Source:** [Ledger resume](https://github.com/bonoj/Ledger/blob/main/resume.md)
+
+### Production engineering leadership
+
+The professional record establishes sustained engineering responsibility across connected infrastructure, financial platforms, logistics, and large-scale mobile products. The present experimental laboratory builds on a foundation of architecture, implementation, release, monitoring, and operational recovery.
+
+### Connected infrastructure — Xeal
+
+Founding Android engineering for EV charging infrastructure, including offline-first application architecture, distributed device state, firmware-update coordination, and station telemetry.
+
+**Capacities:** offline synchronization, IoT integration, hardware–software systems, reliability, founding technical ownership.
+
+### Financial systems — Affirm
+
+Senior engineering leadership through RFCs, feature architecture, releases, production monitoring, incident triage, and hotfix delivery.
+
+**Capacities:** production architecture, technical specification, release engineering, operational responsibility, incident response.
+
+### Platform modernization — DoorDash
+
+Integrated navigation into a modular Android application; led MVP/RxJava to MVVM/Kotlin Coroutines migration; developed testing and QA tooling.
+
+**Capacities:** architectural modernization, asynchronous systems, modular applications, developer productivity, test engineering.
+
+### Logistics and hardware — Solera / R3PI
+
+Built fleet-management workflows spanning routing, telematics, inspections, monitoring, BLE devices, mobile software, and REST services.
+
+**Capacities:** full-stack logistics, mobile-to-device integration, APIs, telemetry, operational software.
+
+### Intelligence and geospatial analysis — Navy / NSA
+
+A decade of signals-intelligence practice involving changing evidence, complex networks, geospatial relationships, pattern recognition, and time-sensitive hypothesis evaluation.
+
+**Capacities:** intelligence analysis, geospatial reasoning, network investigation, evidence synthesis, systems-level inference.
+
+### Technical range
+
+**Mobile:** Kotlin, Java, Android, Compose, MVVM, Coroutines, RxJava, Hilt/Dagger, Room, Retrofit, BLE/NFC.
+
+**Systems:** REST, state machines, synchronization, Python, SQL, Docker, GitHub Actions, CI, observability, release operations.
+
+**Interactive R&D:** JavaScript, C#, C++, Unity, Three.js, WebGL, procedural geometry, terrain, fluid simulation, material accounting, numerical methods.
+
+### Cross-career synthesis
+
+The professional record links **offline-first state** to durable laboratory continuity, **production monitoring** to runtime evidence, **modular migrations** to composable worlds, **device integration** to physical systems reasoning, and **intelligence analysis** to observation-driven experiments.
+
+**Synthesized qualifications:** principal systems architect; founding mobile engineer; senior production engineer; distributed-device designer; full-stack logistics developer; platform modernization leader; production reliability engineer; geospatial and network analyst; interactive research inventor.
+
+**Central finding:** substantial production software and analytical experience underpins the experimental laboratory's speed, reliability, and cross-domain invention.
+
+**Next indexed source:** [abiogenesis.md](https://github.com/bonoj/Ledger/blob/main/abiogenesis.md).
