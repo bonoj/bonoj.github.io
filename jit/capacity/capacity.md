@@ -102,3 +102,80 @@ The career spans **founding engineering, senior production ownership, distribute
 ## Canonical evidence and continuity
 
 [Ledger résumé](https://github.com/bonoj/Ledger/blob/main/resume.md) · [Ledger — Conjoined Cognition](https://github.com/bonoj/Ledger/blob/main/HUMAN_MODEL.md) · [Sanctum — Conjoiner](https://github.com/bonoj/Sanctum/blob/main/CONJOINER.md) · [Sanctum Contract](https://github.com/bonoj/Sanctum/blob/main/CONTRACT.md) · [Conjoiner Frontier](https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/CONJOINER_FRONTIER.md) · [Hermeticon résumé](https://github.com/bonoj/Hermeticon/blob/main/codex/sieve/RESUME.md)
+
+
+---
+
+## IX. Ledger evidence index — expansion paths
+
+**Source:** [bonoj/Ledger](https://github.com/bonoj/Ledger) · recursive repository tree inspected 2026-10-23 · 54 linked files below. This is a **source-navigation index for deeper capacity recovery**, not a claim that every linked record has already been fully analyzed. Ledger chronicles the work; executable repositories remain authoritative for implemented behavior.
+
+### Core practice and institutional architecture
+
+- [`CONJOINER.md`](https://github.com/bonoj/Ledger/blob/main/CONJOINER.md) — chronological human–model engineering practice.
+- [`FRONTIER.md`](https://github.com/bonoj/Ledger/blob/main/FRONTIER.md) — interface-labor compression and collaborative capability.
+- [`HUMAN_MODEL.md`](https://github.com/bonoj/Ledger/blob/main/HUMAN_MODEL.md) — compositional language, light steering, and research harness.
+- [`HERMETICON.md`](https://github.com/bonoj/Ledger/blob/main/HERMETICON.md) — laboratory method and executable-world practice.
+- [`HERMETICON_INSTITUTE.md`](https://github.com/bonoj/Ledger/blob/main/HERMETICON_INSTITUTE.md) — interactive institute, service experience, and public product architecture.
+- [`HERMETICON_VISUAL_CORPUS_II.md`](https://github.com/bonoj/Ledger/blob/main/HERMETICON_VISUAL_CORPUS_II.md) — visual design and spatial experience corpus.
+- [`resume.md`](https://github.com/bonoj/Ledger/blob/main/resume.md) — professional and executable-project evidence.
+- [`abiogenesis.md`](https://github.com/bonoj/Ledger/blob/main/abiogenesis.md) — cross-domain venture conception and executable inquiry.
+- [`archive/HERMETICON_FOUNDING_RECORD_2026-10-17.md`](https://github.com/bonoj/Ledger/blob/main/archive/HERMETICON_FOUNDING_RECORD_2026-10-17.md) — institutional founding history.
+
+### Crossing records and creative systems
+
+- [`crucible-crossing/account.md`](https://github.com/bonoj/Ledger/blob/main/crucible-crossing/account.md) — chronological experiment and system-construction record.
+- [`crucible-crossing/correspondence.md`](https://github.com/bonoj/Ledger/blob/main/crucible-crossing/correspondence.md) — chronological experiment and system-construction record.
+- [`chemlab_crossing/account.md`](https://github.com/bonoj/Ledger/blob/main/chemlab_crossing/account.md) — chronological experiment and system-construction record.
+- [`graph_mind_crossing/account.md`](https://github.com/bonoj/Ledger/blob/main/graph_mind_crossing/account.md) — deterministic graph cognition experiment.
+- [`neptunian_crossing/account.md`](https://github.com/bonoj/Ledger/blob/main/neptunian_crossing/account.md) — chronological experiment and system-construction record.
+- [`ozymandias_crossing/account.md`](https://github.com/bonoj/Ledger/blob/main/ozymandias_crossing/account.md) — chronological experiment and system-construction record.
+- [`worldseed_crossing/account.md`](https://github.com/bonoj/Ledger/blob/main/worldseed_crossing/account.md) — chronological experiment and system-construction record.
+
+### Mechanics, cognition, sensing, and composability
+
+- [`notes/2026-10-07-when-the-machinery-becomes-the-world.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-07-when-the-machinery-becomes-the-world.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-08-the-cost-of-asking-a-world.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-08-the-cost-of-asking-a-world.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-08-when-the-snowglobe-answered-back.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-08-when-the-snowglobe-answered-back.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-10-github-attachment-recovery-crossing.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-10-github-attachment-recovery-crossing.md) — binary artifact transport and deployment recovery.
+- [`notes/2026-10-10-waterworld-conserved-liquid.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-10-waterworld-conserved-liquid.md) — conserved fluid and material mechanics.
+- [`notes/2026-10-11-hermeticon.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-11-hermeticon.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-12-a-models-account-of-working-with-its-human.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-12-a-models-account-of-working-with-its-human.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-12-hermeticon-journey.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-12-hermeticon-journey.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-12-the-world-beyond-the-window.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-12-the-world-beyond-the-window.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-13-athanor-subtraction-without-loss.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-athanor-subtraction-without-loss.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-13-eighteen-encounters-from-map-to-witness.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-eighteen-encounters-from-map-to-witness.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-13-the-dot-at-the-origin.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-the-dot-at-the-origin.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-13-the-retinae-problem.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-the-retinae-problem.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-13-the-wanderer-watches-fire.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-the-wanderer-watches-fire.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-14-filavandrel-at-the-edge-of-the-world.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-14-filavandrel-at-the-edge-of-the-world.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/2026-10-18-cold-boot.md`](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-18-cold-boot.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/EUROPA_01.md`](https://github.com/bonoj/Ledger/blob/main/notes/EUROPA_01.md) — Europa research and experiment provenance.
+- [`notes/dice.md`](https://github.com/bonoj/Ledger/blob/main/notes/dice.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/domain-switching-without-reboot.md`](https://github.com/bonoj/Ledger/blob/main/notes/domain-switching-without-reboot.md) — multi-domain transfer without rebuilding context.
+- [`notes/functional-terrain.md`](https://github.com/bonoj/Ledger/blob/main/notes/functional-terrain.md) — functional terrain representation.
+- [`notes/observer.md`](https://github.com/bonoj/Ledger/blob/main/notes/observer.md) — active spatial sensing and evidence-driven geometry verification.
+- [`notes/ravnica.md`](https://github.com/bonoj/Ledger/blob/main/notes/ravnica.md) — systems-level strategic imagination and world mechanisms.
+- [`notes/semantic-affordances.md`](https://github.com/bonoj/Ledger/blob/main/notes/semantic-affordances.md) — geometry-independent behavior vocabulary.
+- [`notes/twenty-faces.md`](https://github.com/bonoj/Ledger/blob/main/notes/twenty-faces.md) — record of research, interaction, systems design, and engineering judgment.
+- [`notes/when-progress-becomes-polishing.md`](https://github.com/bonoj/Ledger/blob/main/notes/when-progress-becomes-polishing.md) — record of research, interaction, systems design, and engineering judgment.
+
+### Executable Europa research and tests
+
+- [`experiments/europa-01/blind-study.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/blind-study.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/blind-study.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/blind-study.test.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/ice-column.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/ice-column.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/ice-column.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/ice-column.test.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/noise-audit.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/noise-audit.test.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/null-audit.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/null-audit.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/null-audit.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/null-audit.test.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/null-robustness.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/null-robustness.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/null-robustness.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/null-robustness.test.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/observable-core.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/observable-core.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/observable-core.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/observable-core.test.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/sensitivity.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/sensitivity.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/sensitivity.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/sensitivity.test.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/virtual-measurements.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/virtual-measurements.mjs) — Europa research code, reproducibility, and test evidence.
+- [`experiments/europa-01/virtual-measurements.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/virtual-measurements.test.mjs) — Europa research code, reproducibility, and test evidence.
+
+**Index count:** 56 linked Ledger files. Each source is a direct path into the next evidence pass: extract concrete mechanisms, decisions, observations, measured outcomes, and transferable strengths into the capacity inventory above.
