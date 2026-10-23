@@ -1132,3 +1132,34 @@ One situated survey could answer multiple later questions, including questions n
 **Central finding:** the human can make complex systems progressively more knowable while reducing the human labor required to describe them.
 
 **Next indexed source:** [When the Snowglobe Answered Back](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-08-when-the-snowglobe-answered-back.md).
+
+
+---
+
+## XXVIII. Ledger unpacking 19 — When the Snowglobe Answered Back
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-08-when-the-snowglobe-answered-back.md)
+
+**Geospatial evidence engineering.** An ambiguous visual patch led the human to commission a focused, one-tap survey of a miniature geological world. Its export carried a 161 × 161 elevation grid, geological fields, coordinate metadata, and preliminary construction sites.
+
+**Quantitative physical calibration.** A +15 water-fill intervention yielded 71.7% sampled coverage, mean wet depth 4.45, maximum sampled depth 14.89, median water surface +1.832, and reported volume-balance error around 0.0052%. Human visual judgment became comparable to reproducible measurements.
+
+**Runtime ownership diagnosis.** A first survey crash exposed confusion between an outer Betwixtable and its presentation group; the ownership path was corrected and the survey exported successfully.
+
+**Qualifications:** geospatial instrumentation architect; hydrological simulation evaluator; quantitative worldbuilder; mobile research UX designer.
+
+## XXIX. Ledger unpacking 20 — GitHub-Native Binary Transport
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-10-github-attachment-recovery-crossing.md)
+
+**Cross-boundary infrastructure composition.** The human-directed Crossing 01 combined GitHub Issue attachments, event-triggered Actions, durable repository artifacts, SHA-256 manifests, and numbered Base64 shards into a producer-independent recovery path. It required no custom always-on server.
+
+**Demonstrated transport.** A 1,062,313-byte Six Cities JSON survey was recovered and parsed through the connector. A 3,006,275-byte PNG was recovered into 62 text chunks, individually checked for Base64 structure and expected lengths. A public-attachment retrieval failure was fixed by removing an inappropriate authorization header.
+
+**Integrity and interface design.** The implementation separated original bytes from connector-readable representation, recorded content hashes and chunk metadata, and added runner-side reconstruction checks. The account distinguishes successful individual retrieval from independently verified full PNG reconstruction.
+
+**Architectural boundary:** the recovery half worked; browser-to-Issue submission still required human action. The working producer download was preserved rather than replaced with an unproven handoff.
+
+**Qualifications:** protocol-boundary architect; serverless workflow engineer; binary transport systems designer; evidence infrastructure inventor; cross-tool integration director.
+
+**Next indexed source:** [Waterworld Conserved Liquid](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-10-waterworld-conserved-liquid.md).
