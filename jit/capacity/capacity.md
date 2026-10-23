@@ -1485,3 +1485,40 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Qualifications:** procedural terrain architect; simulation lifecycle designer; performance-aware world engineer; compositional geography inventor.
 
 **Next indexed source:** [Observer](https://github.com/bonoj/Ledger/blob/main/notes/observer.md).
+
+
+---
+
+## XLVI. Ledger unpacking 37 — Observer
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/observer.md)
+
+**Independent geometric verification.** The observer inspects constructed objects through ray hits, normals and anonymous continuities, independent of authored labels. T1 found four of five components from 340 senses and prematurely converged. T2 changed to multiscale coverage and recovered the missing bead at resolution 8: 4 → 4 → 5 → 5 continuities.
+
+**Research judgment.** The human retained detailed sensing as an optional precision instrument, while semantic snapping and visual inspection remain the economical construction loop.
+
+**Qualifications:** active-perception researcher; geometric verification architect; falsification-driven experimental director.
+
+## XLVII. Ledger unpacking 38 — Ravnica
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/ravnica.md)
+
+**Systems synthesis.** Ten fictional guilds organize invention, ecology, invariants, defense, interdependence, recycling, subtraction, spectacle, overhead and durable memory into a memorable conceptual language.
+
+**Emergent gameplay and satire.** Evermore II couples resource claims and physical delivery to predation, growth, decay, combat and construction. The original Evermore's fictional central bank, parliament, pensions and particle-reclamation machinery form a coherent comedic institutional world.
+
+**Qualifications:** systems-worldbuilding director; ecological gameplay architect; satirical experience designer.
+
+## XLVIII. Ledger unpacking 39 — Semantic Affordances
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/semantic-affordances.md)
+
+**Reusable semantic vocabulary.** Geometry exposes affordances such as SURFACE, ABOVE, INSIDE and THROUGH; behavior consumes relationships rather than requiring implementations specific to each shape.
+
+**Time as compositional dimension.** A one-time tap can initiate an unfolding, persistent process. TIME + AFFORDANCES + VERBS allows cheap primitives to express growth, orbit, emergence, collapse, transport and transformation.
+
+**Abstraction discipline.** The human proposes surface and volume experiments before generalizing the existing d20 implementation; repeated executable utility, rather than imagined extensibility, earns new primitives.
+
+**Qualifications:** semantic API designer; behavior-composition architect; interaction-language inventor; abstraction strategist.
+
+**Next indexed source:** [Twenty Faces](https://github.com/bonoj/Ledger/blob/main/notes/twenty-faces.md).
