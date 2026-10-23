@@ -1070,3 +1070,32 @@ Ozymandias demonstrated that structurally coherent geometry can communicate a di
 **Central finding:** the human can transform incidental discoveries and interface failures into reusable primitives for navigating, sensing, and composing executable worlds.
 
 **Next indexed source:** [worldseed_crossing/account.md](https://github.com/bonoj/Ledger/blob/main/worldseed_crossing/account.md).
+
+
+---
+
+## XXV. Ledger unpacking 16 — Worldseed Crossing
+
+[Source](https://github.com/bonoj/Ledger/blob/main/worldseed_crossing/account.md)
+
+**Open-ended world design.** The human commissioned a blank-world experiment without preapproving geometry or the finished world. Model-authored laws were to run for 1,000 deterministic turns, allowing persistent consequences to emerge.
+
+**Causal-history verification.** The proposed test preserves accumulated trace and resistance, resets transient state, and compares future behavior under identical forcing against a virgin world. A distinction earns its identity by improving prediction: **things must pay rent**.
+
+**Implemented substrate.** A 40×40 lattice with potential, resistance, trace, and disturbance, drifting sources/sink, deterministic shocks, and accelerated visible genesis was committed. A publication ownership guard prompted an organism-root correction. Runtime emergence was not yet observed in this account.
+
+**Qualifications:** emergent-systems architect; counterfactual experiment designer; causal simulation researcher; deterministic-world prototyper.
+
+## XXVI. Ledger unpacking 17 — When the Machinery Becomes the World
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-07-when-the-machinery-becomes-the-world.md)
+
+**Material phase-cycle engineering.** Six Cities advanced from 25,000 to 100,000 and 500,000 individually tracked bearings through evaporation, gas dwell, condensation, and gravity-driven return. The 500,000-body experiment exposed an approximately 20 FPS performance boundary and diminishing visual returns.
+
+**Cross-system causal composition.** The human's laboratory linked functional terrain, material populations, transport, capture, storage, release, phase change, backpressure, infrastructure, and observation. The central shift was from displaying independently impressive mechanisms to allowing their consequences to drive one another.
+
+**Scale judgment.** Rather than demand a larger world, the research direction favored a small world in which a material input changes terrain, infrastructure, and subsequent behavior. This is system integration organized around causal leverage.
+
+**Qualifications:** large-population simulation director; material-cycle systems designer; emergent infrastructure architect; performance-aware experimental leader; causal-world integrator.
+
+**Next indexed source:** [The Cost of Asking a World](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-08-the-cost-of-asking-a-world.md).
