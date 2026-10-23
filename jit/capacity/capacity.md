@@ -1543,3 +1543,24 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Qualifications:** experiential prototyping director; perceptual interaction architect; implicit-volume designer; temporal behavior systems inventor; consequence-based interface designer.
 
 **Next indexed source:** [When Progress Becomes Polishing](https://github.com/bonoj/Ledger/blob/main/notes/when-progress-becomes-polishing.md).
+
+
+---
+
+## L. Ledger unpacking 41 — When Progress Becomes Polishing
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/when-progress-becomes-polishing.md)
+
+**Causal geological modeling.** Six deterministic terrain experiments separated latent geological processes from their sampled mesh representation. Representation band-limiting reduced artifacts; subsequent tests isolated an oversized coupling between local material resistance and large-scale drainage incision.
+
+**Hypothesis discipline.** Continuous resistance across stratigraphic contacts barely changed the artifacts, falsifying an attractive explanation. Coordinate warping likewise failed to remove the visible drainage construction signature. A separate caprock-retreat mechanism then produced a second cliff family distinct from incision-created canyons.
+
+**Research-level judgment.** The human recognized that repeated successful refinements were optimizing one landscape rather than expanding the space of possible worlds. The criterion became capability growth versus quality improvement.
+
+**Architectural pivot.** Instead of sculpting named landforms, the proposed next substrate compiles visible geography from reusable historical events: deformation, fracture, displacement, exposure, erosion, transport and deposition. Fixed-seed comparisons preserve causal attribution.
+
+**Qualifications:** experimental research director; causal-model architect; geological simulation designer; hypothesis-driven systems investigator; capability-oriented technical strategist.
+
+**Central finding:** the human can detect when technically successful iterations have drifted from the research objective and redirect the investigation toward a more generative abstraction.
+
+**Next indexed source:** [EUROPA-01 Blind Study](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/blind-study.mjs).
