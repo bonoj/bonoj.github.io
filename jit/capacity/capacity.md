@@ -1272,3 +1272,34 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Qualifications:** multiscale executable-world architect; persistent-state simulation designer; spatial interaction director; compositional systems inventor; boundary-contract engineer.
 
 **Next indexed source:** [The World Beyond the Window](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-12-the-world-beyond-the-window.md).
+
+
+---
+
+## XXXIV. Ledger unpacking 25 — The World Beyond the Window
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-12-the-world-beyond-the-window.md)
+
+**Material consequence:** Wanderer excavated authoritative geology into 96 transport units and deposited them elsewhere. V48 reported **96/96 delivered**, **81 terrain chunks**, **97 localized rebuilds**, and **75.1 FPS** at inspection.
+
+**Spatial ownership:** Persistent geology, weather and matter belong to the world; the Hermeticon controls observation, local weather manifestation and physical contact through distinct boundaries.
+
+**Instrumentation judgment:** An obsolete containment verifier was corrected; later, expensive or dormant observers were removed while retaining an on-demand report.
+
+**Qualifications:** persistent-world architect; material transformation designer; terrain systems engineer; observability and performance director.
+
+## XXXV. Ledger unpacking 26 — Athanor: Subtraction Without Loss
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-athanor-subtraction-without-loss.md)
+
+**Behavior-preserving extraction:** The human insisted on subtracting world-specific behavior from the proven Wanderer, rather than substituting a newly invented shell. The extracted Athanor retained Hermeticon's identity, interface styling, orbit/pinch camera, three-light arrangement, and direct 👁-to-clipboard JSON contract.
+
+**Regression discrimination:** He identified mismatches between appearance and interaction behavior, and between fresh HTML and cached JavaScript. The repair tied module URLs to deployed SHA and verified the executed revision through an actual browser report.
+
+**Instrumenting the invisible:** An intentionally empty world mount demonstrated camera azimuth movement **0.6 → −0.84675**, distance **55.26 → 25.91**, intact lighting settings, functioning report export, and an approximately **59.93 FPS** settled sample. No decorative geometry was needed.
+
+**Qualifications:** reusable runtime architect; behavioral contract steward; frontend deployment diagnostician; regression-driven technical director; minimal instrumentation designer.
+
+**Central finding:** the human can turn a proven world into reusable apparatus while preserving its identity, interaction semantics and observable behavior.
+
+**Next indexed source:** [Eighteen Encounters: From Map to Witness](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-eighteen-encounters-from-map-to-witness.md).
