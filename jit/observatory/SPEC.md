@@ -1,5 +1,19 @@
 # Hermeticon Institute — Observatory specification
 
+## Institutional scientific framing
+
+At Hermeticon Institute, we maintain three ongoing observational experiments.
+
+⊛ Cosmic Flux examines how solar activity modulates the bombardment of Earth by high-energy particles, using Antarctic neutron observations to investigate conditions beyond our atmosphere.
+
+⌁ Geomagnetic Response tracks minute variations in Earth's magnetic field, investigating how disturbances propagate through the planet's electromagnetic environment.
+
+∿ Abyssal Exchange observes dissolved oxygen in the deep ocean, seeking signatures of circulation, biological activity, and the slow redistribution of energy and matter.
+
+Together, these experiments examine three boundaries of a single planetary system: what arrives, what responds, and what circulates.
+
+We are interested in what changes—and what changes with it.
+
 ## Purpose
 Three real scientific instruments examining a single planetary system: **what arrives, what responds, what circulates**. Scientific rigor beneath a mysterious, restrained public experience.
 
