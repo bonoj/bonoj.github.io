@@ -1163,3 +1163,40 @@ One situated survey could answer multiple later questions, including questions n
 **Qualifications:** protocol-boundary architect; serverless workflow engineer; binary transport systems designer; evidence infrastructure inventor; cross-tool integration director.
 
 **Next indexed source:** [Waterworld Conserved Liquid](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-10-waterworld-conserved-liquid.md).
+
+
+---
+
+## XXX. Ledger unpacking 21 — Waterworld: Conserved Liquid
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-10-waterworld-conserved-liquid.md)
+
+### Multi-representation physical systems
+
+Waterworld accounts for **245,944 conserved material units** moving among a shrinking source, ballistic droplets, bulk collector, splash ejecta, and skiff cargo. Individually animated 3D beads coexist with a **64 × 64** bulk depth/velocity field and a separate clipped volume plus radial display mesh.
+
+**Capacities:** hybrid simulation architecture; material inventory accounting; computational representation design; cross-model consistency.
+
+### Making representation boundaries explicit
+
+A thin Cartesian grid proved unsuitable as the entire visible water body, while field-derived water heights did not reliably seat the brass skiff on the surface people actually saw. The successful v24 design retained the volumetric presentation and constrained skiff height through downward raycasts against the updated rendered surface; further raycasts supplied pitch and roll.
+
+**Capacities:** geometric constraint engineering; causal debugging; simulation/rendering interface design; experiential fidelity judgment.
+
+### Quantitative perturbation and mobile performance
+
+The v24 INSPECT after **seven THUMPs** reported **zero unrepresented units**, **2,035 occupied cells**, **24 draw calls**, **44,978 triangles**, and approximately **60.15 FPS**. The model also included moving point gravity, wind, glass collisions, splash return, and autonomous skiff navigation.
+
+**Capacities:** performance-aware scientific prototyping; diagnostic instrumentation; physically motivated interaction design; mobile graphics direction.
+
+### Deliberate physical approximation
+
+The design uses conservative donor-cell depth transfers and global volume correction while keeping visual interpolation separate from the authoritative field. The account explicitly distinguishes material conservation from full fluid momentum conservation and rendered surface-following from displaced-volume buoyancy.
+
+**Capacities:** purpose-fit modeling; mathematical systems interpretation; numerical-method tradeoff judgment.
+
+**Synthesized qualifications:** hybrid physics simulation architect · conservation-aware world systems designer · geometry/physics integration engineer · mobile interactive-systems director.
+
+**Central finding:** the human can coordinate multiple representations of the same physical material, expose their mismatches, and design explicit exchanges that preserve meaningful behavior and visual coherence.
+
+**Next indexed source:** [Hermeticon](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-11-hermeticon.md).
