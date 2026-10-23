@@ -532,3 +532,102 @@ This adds a creative-technology qualification: **architecting a coherent experie
 **Central finding:** the human has established an integrated method for making questions executable, selecting the right fidelity, constructing observations, and turning results into the next generation of reusable capabilities.
 
 **Next indexed source:** [HERMETICON_INSTITUTE.md](https://github.com/bonoj/Ledger/blob/main/HERMETICON_INSTITUTE.md).
+
+
+---
+
+## XIV. Ledger unpacking 05 — HERMETICON_INSTITUTE.md
+
+**Primary record:** [Ledger / HERMETICON_INSTITUTE.md](https://github.com/bonoj/Ledger/blob/main/HERMETICON_INSTITUTE.md)
+
+### Capacity: designing a world as an interface to other worlds
+
+The Institute specification develops a distinctive experiential architecture: **a world of worlds**. A quiet Sanctum serves as the arrival threshold. Material trails lead to recognizable miniature worlds. Visitors can encounter, focus, enter, and return without losing their place.
+
+The underlying design move is powerful: **navigation becomes spatial discovery while actual executable experiences remain the content**. The visitor is not shown a gallery of static screenshots or a decorative 3D façade; the structure of the interface communicates the laboratory's capability through manipulable destinations.
+
+**Recovered strengths:** spatial information architecture; immersive interaction design; experience-led platform conception; compositional worldbuilding; and coherent creative direction.
+
+### Capacity: expressing product behavior as a rigorous interaction grammar
+
+The design translates a qualitative experience into a clear state machine:
+
+**ARRIVED → ENCOUNTERED → FOCUSED → ENTERED → RETURNED**
+
+The states have explicit responsibilities. Focus reveals context. Entry transfers interaction to a destination. Return restores camera position, selection, gesture context, and running state. Browser history, deep links, failure recovery, and direct navigation fit into the same model.
+
+This demonstrates the ability to **make a poetic interaction technically specifiable** without stripping it of its character.
+
+**Recovered strengths:** interaction-state modeling; navigation architecture; user-journey engineering; browser-history integration; and experience specification.
+
+### Capacity: separating spatial authority from legibility and behavior
+
+The specification establishes a compact ownership axiom:
+
+> **3D owns space. DOM owns legibility. Worlds own behavior. The Sanctum owns navigation.**
+
+This is a mature compositional architecture. A single host controls the renderer, camera, routes, and lifecycle. Spatial elements own terrain, trails, positions, and silhouettes. Encounter adapters own previews and activation hooks. DOM overlays own readable labels, emoji, accessible controls, and links. Nested worlds retain their own simulation behavior.
+
+The design also defines **exclusive gesture ownership** between host, focused overlays, and entered experiences, preventing camera motion, tap-through, and conflicting pointer handlers.
+
+**Recovered strengths:** software boundary design; modular interactive architecture; event/input arbitration; UI–3D integration; embedded application composition; and lifecycle ownership.
+
+### Capacity: using material behavior as wayfinding
+
+The user-approved spatial language makes trails out of **sediment, beads, brass filings, luminous material, or flowing particles**. They are not simply colored lines: they have continuity, texture, and behavior that can suggest what lies ahead.
+
+Cards remain anchored to world coordinates and are projected into readable DOM positions. Occlusion, overlapping labels, touch targets, and offscreen placement become explicit layout concerns. The result combines a living physical metaphor with the legibility of conventional interface controls.
+
+**Recovered strengths:** material-driven interaction design; spatial wayfinding; scene-to-DOM projection; responsive overlay layout; and environmental storytelling.
+
+### Capacity: nested experiences without monolithic coupling
+
+The proposed encounter grammar supports three deliberately distinct entry modes: **external link, focused iframe, and native nested world**. The specification protects the independence of existing applications such as ChemLab and the independent runtime of Evermore II while enabling miniature previews or native composition where appropriate.
+
+It also rejects importing entire ecology or game loops merely to obtain one useful behavior. Instead, an encounter can expose a bounded capability from an existing world.
+
+This is architectural economy: **compose interfaces and behaviors at the smallest stable boundary**.
+
+**Recovered strengths:** integration architecture; application embedding; modular runtime design; dependency management; interface-contract design; and system reuse.
+
+### Capacity: mobile real-time performance as a design constraint
+
+The Institute architecture budgets a single primary 3D renderer and host clock, inexpensive previews, lazy activation, suspended off-focus simulations, controlled pixel density, explicit disposal, and reduced-motion behavior. It treats the phone as a primary experience surface, not a compromised desktop.
+
+This is the same systems judgment demonstrated in the laboratory's live simulation work, now applied to a navigable multi-world interface.
+
+**Recovered strengths:** real-time rendering architecture; mobile GPU and memory budgeting; scene lifecycle scheduling; performance-aware composition; and responsive interaction engineering.
+
+### Capacity: designing accessibility into spatial experiences
+
+The specification incorporates readable DOM labels, generous touch targets, keyboard navigation, reduced motion, deep links, browser Back, an accessible non-3D alternative, and reliable escape from embedded worlds.
+
+These are not decorative accessibility additions. They are alternate routes through the same semantic encounter structure, allowing the experience to remain understandable across devices and modes of interaction.
+
+**Recovered strengths:** inclusive interaction architecture; multimodal navigation; progressive enhancement; mobile accessibility; and resilient user-experience design.
+
+### Capacity: turning an aesthetic vision into an implementable system
+
+The Sanctum's visual direction is unusually concrete: a **roofless stone threshold**, sparse weathered pillars, a small brass instrument, organic trails, and distant living Hermeticons. The intended emotional progression is **quiet arrival → curiosity → discovery → encounter → return**.
+
+The reference to *Things Betwixt* and the Siofra reveal principle is used as a spatial and emotional design vocabulary rather than a request to reproduce existing game geometry. The resulting proposal combines restrained arrival, recognizable silhouettes, discoverable depth, and coherent interaction contracts.
+
+The specification then reduces that vision to a first executable slice: four destinations, four trails, a living miniature, a projected card, a real application portal, and a stable return path.
+
+**Recovered strengths:** creative technical direction; environmental composition; experience prototyping; scope decomposition; acceptance-criteria design; and translation of aesthetic intent into engineering contracts.
+
+### Capacity: presenting research as directly explorable evidence
+
+The proposed Observatory, Learning Laboratory, World Foundry, and inquiry destination each give visitors a different way to encounter the laboratory's work. Europa provides an instrumented investigation; ChemLab provides manipulable learning; world simulations demonstrate autonomous systems and creative mechanics.
+
+The deeper design skill is **making technical capacity legible through direct experience**. Instead of requiring a visitor to understand internal frameworks, the interface lets them touch a meaningful example and follow its evidence.
+
+**Recovered strengths:** technical communication through interaction; research exhibition design; evidence-centered storytelling; experience portfolio architecture; and audience-oriented product framing.
+
+### Synthesized qualifications from HERMETICON_INSTITUTE.md
+
+**Spatial experience architect · interactive-world platform designer · creative technology director · UI–3D systems architect · navigation-state and input-ownership engineer · material-driven UX designer · mobile real-time composition specialist · accessible interaction designer · technical experience specifier · executable research exhibition designer.**
+
+**Central finding:** the human can conceive a richly imaginative spatial experience and **derive its state machines, ownership boundaries, runtime composition, interaction contracts, performance strategy, and testable first implementation** without losing the original aesthetic intent.
+
+**Next indexed source:** [HERMETICON_VISUAL_CORPUS_II.md](https://github.com/bonoj/Ledger/blob/main/HERMETICON_VISUAL_CORPUS_II.md).
