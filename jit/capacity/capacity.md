@@ -1099,3 +1099,36 @@ Ozymandias demonstrated that structurally coherent geometry can communicate a di
 **Qualifications:** large-population simulation director; material-cycle systems designer; emergent infrastructure architect; performance-aware experimental leader; causal-world integrator.
 
 **Next indexed source:** [The Cost of Asking a World](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-08-the-cost-of-asking-a-world.md).
+
+
+---
+
+## XXVII. Ledger unpacking 18 — The Cost of Asking a World
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-08-the-cost-of-asking-a-world.md)
+
+### Engineering the economics of inquiry
+
+The human replaced repeated screenshot interpretation and spatial narration with a reusable instrument exposing structured geological and hydrological evidence from the running world. Once built, its survey was invoked with **one tap and zero words**, with file transfer remaining a separate step.
+
+The design achieved three economies: a question made a missing sense easy to identify; existing executable state made the sense inexpensive to implement and extend; the same interaction made subsequent observation cheap.
+
+**Capacities:** research instrument design; human-effort compression; information-interface architecture; reusable observability.
+
+### Linking intervention, measurement, and perception
+
+After changing a water-fill parameter from +6 to +15, the survey reported **71.7% sampled water coverage**, a surface near **+1.83**, and about **23.19 units of terrain relief**. Human visual judgment remained distinct from these measurements. The observed phone view linked the scene to build **53d4e4c3** at approximately **59 FPS**.
+
+**Capacities:** quantitative experimental interpretation; provenance-aware verification; calibrated human–machine observation.
+
+### Building reusable senses rather than repeated explanations
+
+One situated survey could answer multiple later questions, including questions not anticipated when it was collected. The method is recursive: **questions become instruments; instruments produce evidence; evidence enables better questions**.
+
+**Capacities:** scalable inquiry design; epistemic systems architecture; scientific UX; cross-world instrumentation strategy.
+
+**Synthesized qualifications:** executable-world instrumentation architect · research interaction designer · observability systems inventor · human–model inquiry strategist.
+
+**Central finding:** the human can make complex systems progressively more knowable while reducing the human labor required to describe them.
+
+**Next indexed source:** [When the Snowglobe Answered Back](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-08-when-the-snowglobe-answered-back.md).
