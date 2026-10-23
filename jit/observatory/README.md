@@ -33,3 +33,11 @@ The Observatory is a **literal, unmodified runtime clone of JIT Lattice**. It is
 - **index.html:** inherited functional Lattice baseline, untouched until verified changes are ready.
 
 **No new backend by default. No new fetch stack. No speculative deployment.** `➡️` means advance the next unresolved verified acquisition step autonomously.
+
+## Approved visual baseline · 2026-10-23
+
+**[Open the preserved one-viewport layout study](study/)** · [source](study/index.html)
+
+This is the user-approved Swiss typographic baseline, **not** the live Observatory and not a substitute for measurement acquisition. Keep the existing Lattice clone intact while sourcing data. The study is a self-contained static subpage; its numbers and traces are explicitly illustrative.
+
+**Non-negotiable design contract:** One viewport (`100dvh`), no page scrolling; mobile and desktop. White, near-black, Helvetica/Neue Haas-style grotesk, strict Swiss grid and generous negative space. Exactly one **HERMETICON** wordmark and **Zürich, Switzerland**. Large **CHF 250’000**, uncaptioned; discreet **Correspondence**. Three equally small oscilloscope-like experiments at the bottom: Cosmic Flux, Geomagnetic Response, Abyssal Exchange. No logo, slogan, institutional explanation, repeated branding, decorative arrows, gratuitous German, marketing copy, fake client logos, emojis, or invented patronage labels. Do not replace this design with a new proposal. The eventual instruments must show real measured numeric streams and truthful timestamps; no simulated values passed off as live. The correspondence destination is deliberately unconfigured pending a real address.
