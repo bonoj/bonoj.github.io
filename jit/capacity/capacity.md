@@ -1433,3 +1433,36 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Qualifications:** interdisciplinary scientific research architect; inverse-problem designer; material-conservation systems director; uncertainty-aware experimental leader.
 
 **Next indexed source:** [Dice](https://github.com/bonoj/Ledger/blob/main/notes/dice.md).
+
+
+---
+
+## XLIII. Ledger unpacking 34 — D20
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/dice.md)
+
+**Semantic geometry.** A failed miniature-terrain experiment became twenty independently tappable world containers. Observed build `22469598` supported one-time per-face mutations without labels or confusion between tapping and orbiting.
+
+**Relational authoring.** `d20.bottom ABOVE WITH CLEARANCE table.top` expresses spatial intent through object relationships rather than absolute coordinates. Semantic construction and geometric verification reinforce one another.
+
+**Topology and communication.** Faces represent worlds, edges interfaces, vertices junctions and center convergence. Shared spatial meaning compresses human–model instructions into executable consequences.
+
+**Research method.** The human discovers missing primitives at the boundary where experiments become expensive or coordination awkward, allowing abstractions to earn their existence.
+
+**Qualifications:** semantic interface inventor; relational geometry architect; topology-based world designer; human–model communication researcher.
+
+## XLIV. Ledger unpacking 35 — Domain Switching Without Reboot
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/domain-switching-without-reboot.md)
+
+**Sustained interdisciplinary fluency.** One working context crossed approximately 25 domains and hundreds of task transitions, spanning 3D graphics, geometry, physical simulation, chemistry, planetary dynamics, machine perception, software architecture, deployment, educational tools, creative writing and everyday planning.
+
+**High-density specification.** After unrelated discussions, the human resumed an existing system with a single instruction to orbit a gimbal cage around a central seven-node structure, alternating meridian and equator tracks through aligned windows. Accumulated shared semantics enabled implementation and publication without a new formal specification.
+
+**Transferable execution patterns.** Chemistry became geometry; geometry informed orbital systems; simulation demanded instruments; instruments became model-native perception; and disposable interfaces made software a cheaper representation than extended explanation.
+
+**Qualifications:** interdisciplinary systems synthesist; high-context technical director; cross-domain research architect; human–model workflow inventor.
+
+**Central finding:** the human builds a shared executable language that preserves creative and engineering momentum across radically different domains without repeatedly rebuilding the collaboration.
+
+**Next indexed source:** [Functional Terrain](https://github.com/bonoj/Ledger/blob/main/notes/functional-terrain.md).
