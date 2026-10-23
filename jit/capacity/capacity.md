@@ -179,3 +179,74 @@ The career spans **founding engineering, senior production ownership, distribute
 - [`experiments/europa-01/virtual-measurements.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/virtual-measurements.test.mjs) — Europa research code, reproducibility, and test evidence.
 
 **Index count:** 56 linked Ledger files. Each source is a direct path into the next evidence pass: extract concrete mechanisms, decisions, observations, measured outcomes, and transferable strengths into the capacity inventory above.
+
+
+---
+
+## X. Ledger unpacking 01 — CONJOINER.md
+
+**Primary record:** [Ledger / CONJOINER.md](https://github.com/bonoj/Ledger/blob/main/CONJOINER.md)
+
+### Capacity: engineering through a narrow human interface
+
+The defining architectural accomplishment is a **distributed engineering laboratory operated through a smartphone conversation**. The human's interface remains small while repository inspection, implementation, test execution, source control, publication, instrumentation, and recovery occur in connected machinery. This is a deliberate separation of **cognitive direction** from **mechanical interface labor**.
+
+The human supplies vision, perceptual judgment, problem selection, interaction requirements, causal skepticism, and acceptance criteria. The laboratory translates those contributions into executable systems. This establishes capacity in cybernetic interface design, workflow invention, model orchestration, distributed tool use, and operational systems architecture.
+
+### Capacity: turning situated needs into working educational instruments
+
+**Ion Garden:** A learner's ionic-formula exercise became a manipulable charge-balancing instrument. Users select ion pairs, vary counts, observe net charge, inspect formula ratios, receive progressive hints, and test minimal neutrality. The implementation distinguishes formal ionic arithmetic from claims about compound stability. The human identified and corrected mobile UX friction: scrolling, ambiguous active selection, and inadequate feedback. The instrument was rebuilt around a single viewport and clearer state visibility. [Implementation revision](https://github.com/bonoj/bonoj.github.io/commit/4ddfed554a5aa236a13d29bb8e3b023b59481a4a).
+
+**Diff Eq:** A prospective student's brief mention of differential equations triggered a single-viewport mathematical laboratory covering growth/decay, equilibrium approach, and undamped oscillation. Interactive parameters and initial conditions drive graphs and direction fields; finger dragging synchronizes the visualization and controls. The recorded regression suite executed **4,984 mathematical checks**, **21 interaction checks**, **18 canvas-rendering scenarios**, and a subsequent **25 pointer-drag assertions**. Numerical differentiation tested whether plotted solutions satisfy their governing differential equations. [Regression implementation](https://github.com/bonoj/bonoj.github.io/commit/31973252cd350938bd30e728c2d3bb3f7c58481b) · [Pointer interactions](https://github.com/bonoj/bonoj.github.io/commit/dffbcc591ef6713baa84680d51f4a6f767cd70aa).
+
+**Acid–Base Lab:** A learner's question about classifying acids and bases became an instrument with twelve aqueous examples, explanations, hints, and scientifically discriminating cases including ammonia, ethanol, ammonium chloride, bicarbonate, and water. Its classification behavior passed **72 simulated interaction assertions**. [Executable source](https://github.com/bonoj/bonoj.github.io/blob/master/jit/acid-base/index.html).
+
+**ChemLab:** The chemistry instruments were composed into one mobile-first entrance with Ion Garden, Acid–Base, and the existing CHE 001 guide. Existing instrument behavior and in-frame state were preserved instead of rewriting proven logic. [ChemLab](https://bonoj.github.io/jit/chemlab/).
+
+**Recovered strengths:** situated product discovery; rapid translation from natural-language need to executable pedagogy; mathematical and chemical modeling; mobile interaction architecture; automated scientific verification; reusable application composition; user-centered iteration; and creation of an accessible technical service through minimal human operational burden.
+
+### Capacity: physical worlds with inspectable consequences
+
+**Neptunian and orbital experiments:** The record follows semantic construction of spacecraft, bounded observation, spherical scanning, a Jovian orbital table, and deterministic caretaker behavior. A 32-bearing trajectory experiment was revised to preserve the distinct fates of escapees and impactors, extend the history to 180 samples, and compare a second packet at **72% incoming speed**. This demonstrates an ability to recognize when convenient simulation bookkeeping corrupts physical history and to repair the representation itself.
+
+**Spatial verification:** An initial 340-ray observer missed an isolated feature. A multiscale 2,148-ray scan recovered it. The architecture separates semantic construction from independent spatial inspection and selects observation methods according to the actual question. This is active-perception engineering: geometry, sensor sampling, completeness criteria, and evidence-cost judgment.
+
+**Functional terrain:** Macro elevation, local extrusion permission, and biome jurisdictions were separated into composable functions. Geological investigations connected strata, erosion, drainage, caprock retreat, and sampling artifacts. The human redirected iteration from cosmetic improvement toward sequences of causal geological events. This is research direction at the level of **which experiment will reveal new behavior**, not merely how to tune a renderer.
+
+**Six Cities and Waterworld:** A tap-to-export geological survey produced a **161×161 elevation grid**, geological fields, coordinate frame, and candidate sites. Hydrological instrumentation quantified water coverage, wet depth, relief, and snapshot volume balance. Waterworld reconciled **245,944 material units** across source, collector, in-flight beads, a **64×64** bulk-depth field, and skiff cargo. The ledger records seven THUMPs, 2,035 occupied cells, approximately 60 FPS, and zero unrepresented units in the inspected report. These are strengths in scientific instrumentation, conserved-stock accounting, hybrid representations, and world-state observability.
+
+**Hermeticon aperture:** The glass sphere became an observation window into a world that persists beyond the visible boundary. The human separated world coordinates, camera motion, geological clouds, physical bowl contact, and off-window existence. A V48 report recorded **96 excavated units** reaching a receiver, **81 terrain chunks**, **97 localized rebuilds**, and **75.1 FPS** at inspection. This demonstrates the ability to revise ontology and architecture when a display metaphor imposes false constraints on simulation reality.
+
+### Capacity: semantic and spatial systems invention
+
+The record develops a vocabulary in which **time, affordances, and verbs** are separate concerns. Geometry exposes relations such as SURFACE, INSIDE, THROUGH, ABOVE, and VOLUME; behaviors consume relationships rather than depending on named meshes. This supports transfer among planes, cubes, d20s, landscapes, hulls, and worlds.
+
+The human also directs construction through spatial intention: a hearth positioned between named places, a selected face, a changed tower location, or an observer's line of sight can express more than a long textual specification. Such gestures are powerful because executable context carries the referents.
+
+A fire experiment instantiated **480 visual lattice carriers**, nine coals, and flame/embers cycles while maintaining a distinction between visual particles and conserved physical material. A world-expansion experiment authored **22 anchors** and shipped **18 new aperture-clipped encounter prototypes** across six development turns. These illustrate both aesthetic system invention and the orchestration of many spatially coordinated features.
+
+### Capacity: preserving behavior while extracting reusable architecture
+
+**Athanor** was an extraction of rendering, camera, lighting, input, and observation from an existing working world. The human enforced a demanding architectural standard: **subtraction without loss**. An apparently cleaner shell that changed appearance, clipboard behavior, or provenance did not satisfy the task. Source-stamped module URLs addressed fresh-HTML/stale-JavaScript mismatch, and a verified empty mount preserved the original controls and camera/light behavior. This is practical platform architecture and regression-aware refactoring.
+
+**Filavandrel's terrain boundary** demonstrates geometric diagnosis: extraction of signed-field solid intervals independent of brass-bead rendering; a stress fixture measuring **369 crossings**, **188 intervals**, **6.4 ms rebuild**, and **one extra draw call**; and a human-proposed four-array sampling structure to recover spatially meaningful extrema. The skill is identifying the representation that makes the actual geometric question answerable.
+
+### Capacity: evidence transport and operational recovery
+
+The GitHub attachment crossing recovered a **1,062,313-byte JSON survey** and a **3,006,275-byte PNG** through issue attachments, Actions, SHA-256 manifests, and **49,152-byte binary shards**. The PNG was transported as **62 shards**. This established a practical binary-transfer seam within the pocket-laboratory infrastructure.
+
+The account also records diagnosing a persistent origin dot as an uninitialized instanced-mesh count, repairing it with `gelNodeMesh.count = 0`, and confirming the visual correction. This demonstrates cross-layer debugging: human perceptual evidence, model source inspection, narrow corrective change, and browser observation.
+
+### Capacity: research leadership and experimental economy
+
+The record repeatedly shows the human making high-leverage decisions: preserving existing architecture rather than importing a foreign one; retiring disposable test fleets after extracting useful relationships; requiring real physical coupling rather than cosmetic motion; choosing cheap visual inspection over expensive automated sensing when appropriate; halting geological polishing when it stops producing new causal possibilities; and protecting known-good behavior during refactoring.
+
+These are substantive strengths in **research portfolio judgment, architectural restraint, experimental design, systems debugging, experience direction, and conservation of attention**.
+
+### Synthesized qualifications from CONJOINER.md
+
+**Cybernetic systems inventor · human–model research architect · scientific simulation designer · active-perception engineer · computational geometry investigator · conservation-aware world architect · autonomous-systems designer · mobile-first educational product inventor · mathematical verification practitioner · technical director of composable interactive worlds · distributed delivery and recovery architect · cross-domain experimental researcher.**
+
+The unifying capacity is to **compress the distance from a meaningful human perception to an executable consequence**, while building reusable machinery that makes the next question easier to ask and answer.
+
+**Next indexed source:** [FRONTIER.md](https://github.com/bonoj/Ledger/blob/main/FRONTIER.md).
