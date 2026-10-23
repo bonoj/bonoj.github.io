@@ -631,3 +631,44 @@ The deeper design skill is **making technical capacity legible through direct ex
 **Central finding:** the human can conceive a richly imaginative spatial experience and **derive its state machines, ownership boundaries, runtime composition, interaction contracts, performance strategy, and testable first implementation** without losing the original aesthetic intent.
 
 **Next indexed source:** [HERMETICON_VISUAL_CORPUS_II.md](https://github.com/bonoj/Ledger/blob/main/HERMETICON_VISUAL_CORPUS_II.md).
+
+
+---
+
+## XV. Ledger unpacking 06 — Visual Corpus II
+
+**Source:** [Hermeticon visual research corpus](https://github.com/bonoj/Ledger/blob/main/HERMETICON_VISUAL_CORPUS_II.md)
+
+### Multimodal systems direction
+
+Nine visual research seeds encode aesthetic direction, experimental methods, spatial relationships, and candidate architectures simultaneously. The human uses visual composition as a high-bandwidth interface for communicating technical intent and identifying new experiments.
+
+**Strengths:** multimodal creative direction; visual specification; cross-domain research synthesis; communication of complex systems through spatial imagery.
+
+### Converting images into mechanisms
+
+The corpus translates visual motifs into concrete research domains: miniature terrain becomes multiscale surveying and spatial provenance; observatory charts become time-series and causal analysis; underground sensing becomes inverse reconstruction; continuity dashboards become recoverable executable sessions; water apparatus becomes controlled experimental design; instrument restoration becomes reversible transformation; six connected cities become conserved material flows; amphibious vehicles become adaptive dynamics; and vertical machinery becomes coupled infrastructure and fault propagation.
+
+**Strengths:** abstraction from imagery to algorithms; scientific instrument conception; experimental hypothesis design; systems decomposition; cross-domain transfer.
+
+### Research capacities recovered
+
+**Observation engineering:** instruments with explicit sampling, history, interventions, and bounded claims.
+
+**Continuity architecture:** preserving component identity, causal history, and behavior across disassembly, restoration, and context changes.
+
+**Flow systems:** modeling source, transport, transformation, storage, consumption, and recovery with accountable materials.
+
+**Embodied agency:** maintaining a persistent agent across environmental regimes with different dynamics and controls.
+
+**Causal interface design:** making hidden mechanisms visible through notebooks, maps, graphs, and interactive experiments.
+
+**Multimodal research methodology:** examining how image, text, and combined context communicate design constraints to collaborating models.
+
+### Synthesized qualifications
+
+**Visual systems architect · multimodal research director · scientific instrument designer · continuity engineer · conservation-aware network designer · embodied systems investigator · causal UX designer · interdisciplinary concept translator.**
+
+**Central finding:** the human turns dense visual imagination into transferable engineering structures and executable lines of inquiry.
+
+**Next indexed source:** [resume.md](https://github.com/bonoj/Ledger/blob/main/resume.md).
