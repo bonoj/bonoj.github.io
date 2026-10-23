@@ -1027,3 +1027,46 @@ The human articulated short orientation followed by several uninterrupted constr
 **Central finding:** the human is developing a general method for allowing generated executable artifacts to be **encountered, measured, and corrected independently of the intentions that created them**.
 
 **Next indexed source:** [ozymandias_crossing/account.md](https://github.com/bonoj/Ledger/blob/main/ozymandias_crossing/account.md).
+
+
+---
+
+## XXIV. Ledger unpacking 15 — Ozymandias Crossing
+
+[Source: Ozymandias Crossing](https://github.com/bonoj/Ledger/blob/main/ozymandias_crossing/account.md)
+
+### Creative salvage and executable material culture
+
+The first semantic desk lamp was independently perceived as an elegant brass spear fisher. The human preserved that unexpected successful form as **Ozymandias**, a named compositional ancestor, and continued the lamp as a descendant. He also recognized that Thoughtforms preserve reusable geometry and mechanisms as well as ideas.
+
+**Capacities:** creative recognition; asset archaeology; compositional reuse; design lineage management.
+
+### Operable resolutions and spatial navigation
+
+A fireship nested within Jupiter exposed conflicts among hit ownership, nested focus, and simulation transforms. The human drove a general solution: descendants remain tappable, focus is a stable camera-relative presentation seat, and telescoping replaces the currently presented object's bounds center without moving the camera. The unified interaction contract also restored chemistry's dynamite behavior.
+
+**Capacities:** interaction architecture; hierarchical hit testing; transform ownership; spatial navigation systems; reusable UI primitives.
+
+### Sensor faculties earned by experimental ambiguity
+
+The human removed an arbitrary twelve-sense limit, keeping observation counts as telemetry. The browser executed an 84-ray lamp-head scan. Contamination earned target-scoped figure/ground sensing; ambiguity about repeated surfaces earned anonymous continuity handles, without leaking source labels or mesh identity.
+
+**Capacities:** active sensor design; epistemic interface architecture; controlled perception; experimental instrumentation.
+
+### Turning the runtime into an evidence source
+
+The Observer collected actual runtime raycast evidence rather than reconstructed source-derived claims. A physical Jovian carrier exposed downloadable reports, and the human identified report transfer as a broader rendezvous problem between executable worlds and the model.
+
+**Capacities:** runtime observability; evidence transport architecture; interface-boundary invention; lightweight research infrastructure.
+
+### Geometry and identity as distinct acceptance criteria
+
+Ozymandias demonstrated that structurally coherent geometry can communicate a different identity than its author intended. The human's response preserved both the unexpected artifact and the original design goal, expanding the available design vocabulary.
+
+**Capacities:** semantic fidelity evaluation; adaptive creative direction; generative artifact curation.
+
+**Synthesized qualifications:** spatial interaction architect · embodied interface inventor · model-native sensing director · reusable asset-system designer · runtime evidence architect · generative creative director.
+
+**Central finding:** the human can transform incidental discoveries and interface failures into reusable primitives for navigating, sensing, and composing executable worlds.
+
+**Next indexed source:** [worldseed_crossing/account.md](https://github.com/bonoj/Ledger/blob/main/worldseed_crossing/account.md).
