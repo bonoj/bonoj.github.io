@@ -1345,3 +1345,36 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Central finding:** the human can collapse a broad technical search space through precise perceptual evidence, enabling a small, verified correction without destabilizing the larger system.
 
 **Next indexed source:** [The Retinae Problem](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-the-retinae-problem.md).
+
+
+---
+
+## XXXVIII. Ledger unpacking 29 — The Retinae Problem
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-the-retinae-problem.md)
+
+**Three-dimensional retina.** The Hermeticon is a volumetric sampling interface into persistent geology. Spatial membership, simulation eligibility and camera projection have distinct authorities.
+
+**Observer independence.** The human identified the requirement that orbiting a camera must not change Mists reed growth. World-space rim membership and occupation, not camera-frustum visibility, govern biological state.
+
+**Complementary evidence.** Screenshots test visual legibility; raycasts test geometry; state probes test behavior; ledgers test conservation; build SHAs establish provenance.
+
+**Qualifications:** perceptual systems architect; spatial simulation designer; multimodal verification director; original interface-concept inventor.
+
+## XXXIX. Ledger unpacking 30 — The Wanderer Watches Fire
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-13-the-wanderer-watches-fire.md)
+
+**Embodied observer design.** The human proposed giving Wanderer its own forward direction, terrain-aware route and observation position, independent of the user's orbit camera. The deployed observer reached the hearth with all 31 sampled geological sightline points clear.
+
+**Information-efficient temporal sensing.** He invented quick shutters up and down the fire instead of demanding a screenshot. Four rolling observations, each partitioning 480 instance carriers into eight height slices, reported morphology, color, spatial spread and temporal change through one 👁 interaction.
+
+**Semantic compression of evidence.** The shutters revealed a tapered flame, smooth chromatic gradient, moving centroids and approximately 60 carriers per slice, without GPU readback or additional render passes.
+
+**Creative acceptance.** Subsequent screenshots revealed a luminous golden helix. The human preserved its spell-like mathematical anatomy rather than forcing it to imitate turbulent combustion.
+
+**Qualifications:** embodied perception systems designer; active-observation inventor; experimental instrumentation director; generative morphology and experience curator.
+
+**Central finding:** the human can invent inexpensive new senses for an executable world, then combine measured behavior with aesthetic judgment to recognize and preserve an original phenomenon.
+
+**Next indexed source:** [Filavandrel at the Edge of the World](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-14-filavandrel-at-the-edge-of-the-world.md).
