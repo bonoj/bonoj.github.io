@@ -1378,3 +1378,24 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 **Central finding:** the human can invent inexpensive new senses for an executable world, then combine measured behavior with aesthetic judgment to recognize and preserve an original phenomenon.
 
 **Next indexed source:** [Filavandrel at the Edge of the World](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-14-filavandrel-at-the-edge-of-the-world.md).
+
+
+---
+
+## XL. Ledger unpacking 31 — Filavandrel at the Edge of the World
+
+[Source](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-14-filavandrel-at-the-edge-of-the-world.md)
+
+**Finding the correct computational authority.** The human redirected a sequence of geological-height, SDF-boundary, adaptive-node, mesh-inventory and CPU-raycast approaches toward the actual question: which edges are drawn in the current view? His successive corrections separated geological truth, extracted geometry, camera projection and renderer-visible evidence.
+
+**Geometric research direction.** The experiments worked with an 85×21×85 signed field, 81 terrain chunks, approximately 119,090 extracted triangles, spherical clipping, bores and undersides. The human proposed four distributed surface/SDF node populations, then recognized that height extrema could not represent visible edges, particularly bore walls and aperture intersections.
+
+**Subtractive experimental leadership.** After camera-conditioned CPU witness selection produced thousands of candidate edges and uncertain coverage, he directed removal of the costly machinery while retaining an empty, instrumented node maker and the working world. The next experiment asked the GPU directly for rendered evidence.
+
+**Graphics instrumentation becomes an expressive lens.** A color-and-depth render target enabled SOURCE, SOBEL, DEPTH and HYBRID views. Shader error instrumentation revealed a duplicate `uv` declaration; the corrected build `2e4c3ed2` reported 60.52 FPS, and user screenshots confirmed responsive contour and depth effects. The human chose to preserve the modes as an observational vocabulary for the world.
+
+**Qualifications:** graphics research director; computational representation architect; geometry-and-visibility systems designer; experimental debugging leader; expressive instrumentation inventor.
+
+**Central finding:** the human can reject increasingly elaborate answers to the wrong question, identify the authority that already possesses the needed evidence, and transform a successful diagnostic into a new experiential capability.
+
+**Next indexed source:** [Cold Boot](https://github.com/bonoj/Ledger/blob/main/notes/2026-10-18-cold-boot.md).
