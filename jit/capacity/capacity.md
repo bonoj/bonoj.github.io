@@ -108,7 +108,7 @@ The career spans **founding engineering, senior production ownership, distribute
 
 ## IX. Ledger evidence index — expansion paths
 
-**Source:** [bonoj/Ledger](https://github.com/bonoj/Ledger) · recursive repository tree inspected 2026-10-23 · 54 linked files below. This is a **source-navigation index for deeper capacity recovery**, not a claim that every linked record has already been fully analyzed. Ledger chronicles the work; executable repositories remain authoritative for implemented behavior.
+**Source:** [bonoj/Ledger](https://github.com/bonoj/Ledger) · recursive repository tree inspected 2026-10-23 · 41 linked documents below. This is a **source-navigation index for deeper capacity recovery**, not a claim that every linked record has already been fully analyzed. Ledger chronicles the work; executable repositories remain authoritative for implemented behavior.
 
 ### Core practice and institutional architecture
 
@@ -160,26 +160,7 @@ The career spans **founding engineering, senior production ownership, distribute
 - [`notes/twenty-faces.md`](https://github.com/bonoj/Ledger/blob/main/notes/twenty-faces.md) — record of research, interaction, systems design, and engineering judgment.
 - [`notes/when-progress-becomes-polishing.md`](https://github.com/bonoj/Ledger/blob/main/notes/when-progress-becomes-polishing.md) — record of research, interaction, systems design, and engineering judgment.
 
-### Executable Europa research and tests
-
-- [`experiments/europa-01/blind-study.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/blind-study.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/blind-study.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/blind-study.test.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/ice-column.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/ice-column.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/ice-column.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/ice-column.test.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/noise-audit.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/noise-audit.test.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/null-audit.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/null-audit.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/null-audit.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/null-audit.test.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/null-robustness.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/null-robustness.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/null-robustness.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/null-robustness.test.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/observable-core.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/observable-core.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/observable-core.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/observable-core.test.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/sensitivity.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/sensitivity.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/sensitivity.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/sensitivity.test.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/virtual-measurements.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/virtual-measurements.mjs) — Europa research code, reproducibility, and test evidence.
-- [`experiments/europa-01/virtual-measurements.test.mjs`](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/virtual-measurements.test.mjs) — Europa research code, reproducibility, and test evidence.
-
-**Index count:** 56 linked Ledger files. Each source is a direct path into the next evidence pass: extract concrete mechanisms, decisions, observations, measured outcomes, and transferable strengths into the capacity inventory above.
-
+**Index count:** 41 linked Ledger documents. The capacity inventory draws on these narrative and research records; executable experiment source files remain in Ledger without requiring separate evaluation here.
 
 ---
 
@@ -1563,4 +1544,4 @@ Runaway phage consumption, misleading digestion counters, untriggered escape mec
 
 **Central finding:** the human can detect when technically successful iterations have drifted from the research objective and redirect the investigation toward a more generative abstraction.
 
-**Next indexed source:** [EUROPA-01 Blind Study](https://github.com/bonoj/Ledger/blob/main/experiments/europa-01/blind-study.mjs).
+**Ledger document review complete:** all 41 indexed narrative and research documents have been unpacked. Executable experiment files are outside this inventory's scope.
