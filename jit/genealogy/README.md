@@ -127,3 +127,21 @@ Forbes also states that in 1976 Dipak supplied her typed copies of letters to hi
 **Independent checks:** Rajmohan Gandhi's first-person historical account confirms Dipak married Radha, daughter of Maganlal Gandhi, after both Gandhi and Sarala died: https://www.telegraphindia.com/culture/a-brief-romance-a-never-ending-friendship-the-brave-yet-sad-story-of-mahatma-gandhi-sarala-devi/cid/1996632 . Geraldine Forbes confirms personally meeting Dipak in 1976: https://www.thestatesman.com/supplements/miscellany/i-would-like-to-see-international-womens-day-maintained-as-a-day-that-honours-working-women-geraldine-forbes-1503278233.html .
 
 **Next tasks:** inspect the August 2022 *Mohyal Mitter* article fully and its attribution; search other issues for Rambhaj, Sarala, Dipak, Radha and Ashok Datta Choudhary; seek historical family references, not presumed living-relative identities. No verified Dipak descendants or Sinha–Tagore bridge found. Keep index.html unchanged.
+
+## Investigation 08 — surname discontinuity hypothesis (2026-10-24)
+
+**New family clue from user:** 'There was a name change at some point. Sinha may have suddenly appeared.' Treat as an important oral-history hypothesis, not an established event. Do not require the surname Sinha to occur in every generation, or reject a link on a surname mismatch.
+
+**Verified historical variation:** Geraldine Forbes, *Lost Letters and Feminist History*, introduction and note 1, states Dipak himself supplied the spelling **Dipak Datta Choudhri** in a biographical sketch, whereas the *Collected Works of Mahatma Gandhi* used **Dipak Dutt Chaudhry**. Her note 7 records several variants for Rambhaj's surname and given name, including Dutt Choudhary, Dutta Choudhri, Datta Choudhury, Chowdhry, and Chowdhari. Source: https://dokumen.pub/lost-letters-and-feminist-history-the-political-friendship-of-mohandas-k-gandhi-and-sarala-devi-chaudhurani-1.html . These are transliteration/name variants; **they do not prove a switch to Sinha**.
+
+**Separate source:** Sarala was born Ghosal/Ghoshal and is recorded as Chaudhurani after marriage; the latter is also described as an honorific suffix. Source: https://indianexpress.com/article/lifestyle/sarala-devi-tagore-family-swadeshi-movement-bengali-revolutionary-6302759/ . Again, not evidence of a Sinha name change.
+
+**Parallel tests (all unproven):**
+A. A documented person changed surname from Dutt/Datta/Chaudhuri/Ghosal or another family surname to Sinha.
+B. A descendant acquired Sinha through marriage, adoption, or a maternal/paternal line that carried a different surname.
+C. Sinha appears only in a collateral branch or due to an unrelated same-name family.
+D. The reported 'great-grandmother' relationship is colloquial, a step relationship, or a more distant generation.
+
+**Search keys:** Dipak/Deepak/Dipak Datta/Dutt Choudhri/Chaudhry/Choudhury/Chaudhuri; Radha Gandhi; Sinha/Singha/Sinhaa; Kamla/Kamala; Lalit/Lalith; Ghosal/Ghoshal; family migration, partition-era records, legal name change, marriage and school records. Do not treat any alias as identity without independent dates, locations, parents or documents.
+
+**Highest-yield missing facts:** full names of Kamla's and Lalit's parents; approximate birth years and birthplaces; which person allegedly changed their name and approximately when. Continue investigating both branches without requiring the user to know the answer in advance. No verified Sinha–Tagore link established; do not change index.html.
