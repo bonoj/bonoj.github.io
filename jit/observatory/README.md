@@ -1,43 +1,43 @@
-# Hermeticon Institute · Observatory
+# Hermeticon · Observatory
 
-**Live baseline:** https://bonoj.github.io/jit/observatory/  
-**Runtime:** [index.html](index.html) · **Mission:** [SPEC.md](SPEC.md) · **Work log:** [CHRONICLE.md](CHRONICLE.md)  
-**Inherited engine:** [JIT Lattice README](../lattice/README.md) · [Lattice runtime](../lattice/index.html) · [Lattice specification](../lattice/SPEC.md)
+**Live L1 instrument:** https://bonoj.github.io/jit/observatory/l1/  
+**Runtime:** [L1 source](l1/index.html) · **Approved layout study:** [study/](study/) · **Legacy Observatory root:** [index.html](index.html)
 
-## Cold-start handoff
+## Cold-start contract
 
-The Observatory is a **literal, unmodified runtime clone of JIT Lattice**. It is **not yet** the designed Observatory. It still presents Lattice's original UI and inherited channels. Preserve the proven transport, refresh, observability and publishing machinery; transform the experience only after source verification. The intended product is a pristine, white, sterile, exorbitantly boutique Hermeticon Institute instrument displaying three arcane experiments. **No emojis.**
+The working mission is **Sun–Earth L1 spacecraft telemetry**, not the original three speculative terrestrial experiments. The public presentation is restrained, white, Swiss-typographic, and unexplained. Real readings only; no invented signals, ownership claims, or institutional narrative. Keep the single **👁** control as the sole handoff: it copies a JSON report of acquisition status, raw evidence, timestamps, spacecraft, channel validity, and errors. One viewport, mobile-first, no page scrolling.
 
-**Verified measurement feeds: 0/3.** No one has established three numeric, timestamped observations from actual endpoints. API documentation or a dataset catalog is not a successful measurement.
+**Working browser evidence (2026-10-24 00:16 UTC):** [l1/](l1/) fetched two NOAA RTSW JSON streams over HTTPS with HTTP 200, 162/169 ms latency, 3,418 plasma and 3,522 magnetic records, no fetch failures. Source spacecraft observed: **SOLAR1, ACE, IMAP**; active source **SOLAR1**. Nine displayed channels had numerical observations. Most recent active measurements were 00:11 UTC (~5 minutes old). An older proton-temperature reading exposed a timestamp ordering bug; fix committed `8bba56e6`, **not yet browser reverified**. Check freshness per field, not just per stream.
 
-## Where to begin
+## Current acquisition
 
-1. Read this handoff, then [SPEC.md](SPEC.md) for the product contract and [CHRONICLE.md](CHRONICLE.md) for tested facts and known failures.
-2. Inspect [Lattice README](../lattice/README.md), [Lattice SPEC](../lattice/SPEC.md), and the cloned [index.html](index.html) before modifying runtime. Reuse its existing request governor, caching, dedup, pacing, timeout, retries, eye/telemetry, mobile shell, and deployment practices.
-3. **Fetch observations directly in chat/tooling, independently of the web page.** For each source prove actual numeric value, UTC observation time, unit, station/instrument identity, provenance, HTTP/schema and freshness. Then check browser CORS or a documented permitted alternative. Preserve raw response examples in a small bounded evidence log (no secrets).
-4. Only after validation: implement adapters through the **existing** Lattice governor, integrate the three experiments, then build the visual experience. Verify the published GitHub Pages URL, not merely the commit or CI.
-5. If an endpoint fails, record precise evidence in CHRONICLE and investigate alternatives; never replace measurements with metadata counts or fabricated values.
+| Feed | Endpoint | Display |
+| --- | --- | --- |
+| Plasma | `https://services.swpc.noaa.gov/json/rtsw/rtsw_wind_1m.json` | proton speed, density, temperature, GSE transverse velocity Y/Z |
+| Magnetic | `https://services.swpc.noaa.gov/json/rtsw/rtsw_mag_1m.json` | field magnitude Bt, GSM Bx/By/Bz |
 
-## Three instruments
+The provider supplies multiple spacecraft in each payload. Preserve **source**, **active** flag, observed UTC, quality flags, raw and normalized values, missing-value sentinels, sample counts, HTTP status and age. A stream can succeed while one channel is stale. Prefer quality-valid observations from the active spacecraft; make fallbacks explicit rather than silently mixing spacecraft. Sort by timestamp, not payload order. No simulated traces: derive sparklines from genuine timestamped history.
 
-- **⊛ Cosmic Flux** — observed ground neutron count rate; NMDB is a candidate, not verified.
-- **⌁ Geomagnetic Response** — observed terrestrial magnetic field; INTERMAGNET/HAPI is a candidate, not verified.
-- **∿ Abyssal Exchange** — observed deep-water dissolved oxygen; OOI/ERDDAP is a candidate, not verified.
+**Next work:** reverify the temperature correction; expose additional actual L1 measurements already present in the feeds (GSE/GSM vectors, proton velocity X, alpha channels when populated, angular components, quality and sample metadata); expand to genuinely distinct spacecraft payloads if accessible. Do not spend turns on generic earthquake feeds or unverified catalog counts. Do not replace existing working feeds while expanding.
 
-## Repository boundaries
+## Lattice inheritance — retain this plumbing contract
 
-- **README:** operational handoff and current verified status.
-- **SPEC:** authoritative scientific, interaction and aesthetic contract, acceptance criteria.
-- **CHRONICLE:** concise Observatory-only decisions, attempted endpoints, evidence and failures.
-- **channels.json:** inherited Lattice inventory, **not** a verified Observatory source manifest; do not claim it defines working instruments.
-- **index.html:** inherited functional Lattice baseline, untouched until verified changes are ready.
+The Observatory root [index.html](index.html) remains a **literal functional clone** of [JIT Lattice](../lattice/). Its [README](../lattice/README.md), [SPEC](../lattice/SPEC.md), [runtime](../lattice/index.html), and [channels.json](../lattice/channels.json) are the reference implementation and historical inventory. **Do not discard or reinvent its proven transport.** In particular:
 
-**No new backend by default. No new fetch stack. No speculative deployment.** `➡️` means advance the next unresolved verified acquisition step autonomously.
+- One bounded request governor: max **2 concurrent requests globally**, **1 per host**, queue limits, host pacing, timeout, backoff/retries, deduplication and cache.
+- Shared observation/👁 diagnostics, honest loading/stale/error states, source provenance, browser-CORS validation, bounded payloads and no fabricated measurements.
+- Existing GitHub Pages / GitHub Actions publisher, SHA-stamped build identity, canonical URL and cache-refresh conventions; do not invent a second deployment/cache-busting system.
+- Preserve root Lattice clone and its `channels.json` until an intentional migration. The current `l1/index.html` is a **separate lightweight acquisition wall** with its own fetch loop, not yet migrated onto Lattice's governor. Its existence does **not** mean Lattice's transport has been integrated.
 
-## Approved visual baseline · 2026-10-23
+When extending L1 substantially, read the Lattice contract and consolidate fetches through its governor rather than building more ad hoc transport layers. Avoid modifying Lattice upstream or other JITs.
 
-**[Open the preserved one-viewport layout study](study/)** · [source](study/index.html)
+## Other retained work
 
-This is the user-approved Swiss typographic baseline, **not** the live Observatory and not a substitute for measurement acquisition. Keep the existing Lattice clone intact while sourcing data. The study is a self-contained static subpage; its numbers and traces are explicitly illustrative.
+- [telemetry/](telemetry/) — earlier browser acquisition of ISS orbital vector, Kyoto auroral electrojet, and seismic events. ISS position and seismic transport returned real readings; Kyoto numerical acceptance was unresolved. **Not the L1 mission.**
+- [acquisition/](acquisition/) — endpoint/CORS probes; includes recorded failed or incomplete NMDB, INTERMAGNET, Kyoto and OOI experiments.
+- [study/](study/) — approved white, one-viewport design reference with **HERMETICON**, **Zürich, Switzerland**, uncaptioned **CHF 250’000**, discreet **Correspondence**, and small instrument traces. It was later modified to request Open-Meteo feeds; those feeds are **not** the desired mission data. Preserve layout intent, not those sources.
+- [channels.json](channels.json) — inherited Lattice candidate inventory, not proof of Observatory ingestion.
 
-**Non-negotiable design contract:** One viewport (`100dvh`), no page scrolling; mobile and desktop. White, near-black, Helvetica/Neue Haas-style grotesk, strict Swiss grid and generous negative space. Exactly one **HERMETICON** wordmark and **Zürich, Switzerland**. Large **CHF 250’000**, uncaptioned; discreet **Correspondence**. Three equally small oscilloscope-like experiments at the bottom: Cosmic Flux, Geomagnetic Response, Abyssal Exchange. No logo, slogan, institutional explanation, repeated branding, decorative arrows, gratuitous German, marketing copy, fake client logos, emojis, or invented patronage labels. Do not replace this design with a new proposal. The eventual instruments must show real measured numeric streams and truthful timestamps; no simulated values passed off as live. The correspondence destination is deliberately unconfigured pending a real address.
+## Development conventions
+
+On `➡️`, advance one substantial, testable instrumentation step. Fetch and validate actual browser-visible numerical observations; deploy; use 👁 evidence to diagnose. Never call a successful commit a verified live deployment. The public README is **technical continuity only**; personal/interview positioning belongs elsewhere. No new Chronicle is needed: Git history and 👁 evidence carry development continuity. Superseded Observatory SPEC and CHRONICLE were retired after the L1 pivot; historical contents remain in Git history.
