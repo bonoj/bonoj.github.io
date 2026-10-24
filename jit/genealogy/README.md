@@ -55,3 +55,15 @@ Host repository bonoj/bonoj.github.io, directory jit/genealogy/. Standard existi
 6. Record every asserted edge with source, confidence, and relation type. Keep living persons out of the public interactive graph pending explicit publication consent.
 
 **Status:** research persisted in documentation only; historical leads require edge-level corroboration. No claim of a verified bloodline joining the Sinha and Tagore branches.
+
+## Next investigation — generational constraint and falsifiable paths (2026-10-24)
+
+The family assertion is **Sarala → [child] → [grandchild] → Saroj**. Since Saroj's parents are Kamla and Lalit, a literal great-grandmother relationship requires **either Kamla or Lalit to be Sarala's grandchild**, not Sarala's child. Accordingly, a child of Sarala (Dipak, based on currently identified biological descendants) would be a **parent of Kamla or Lalit**, and thus a **grandparent of Saroj**. This corrects the earlier inaccurate note saying Saroj's grandparent must have been Sarala's child.
+
+Candidate paths, explicitly unproven:
+- Sarala → Dipak → Kamla → Saroj (requires Dipak to be Kamla's father).
+- Sarala → Dipak → Lalit → Saroj (requires Dipak to be Lalit's father; surname difference demands independent evidence, not rejection).
+- Sarala → currently undocumented child → parent of Saroj → Saroj (requires corroborating records).
+- Nonliteral use of 'great-grandmother', step/adoptive relation, or collateral relationship (do not label biological).
+
+**Most discriminating evidence:** names and birth/maiden surnames of Kamla's and Lalit's parents, approximate dates/places, and any family documents mentioning Dipak/Deepak or Radha. No public search result yet bridges the families. Keep all speculative edges out of the live graph. Do not publish additional identifying details of living relatives without consent.
