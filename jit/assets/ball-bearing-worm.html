@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1019"><title>Ball-Bearing Worm · JIT Assets</title><style>*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#0b1019;color:#dce7ed;font:14px system-ui,sans-serif}main{height:100dvh;display:flex;flex-direction:column;padding:12px;gap:10px;max-width:900px;margin:auto}header{display:flex;justify-content:space-between;align-items:center}a{color:#9cb7cc;text-decoration:none}h1{font-size:16px;margin:0;letter-spacing:.07em}#stage{position:relative;flex:1;min-height:180px;border:1px solid #354c58;border-radius:16px;overflow:hidden}canvas{display:block;width:100%;height:100%;touch-action:none}#info{position:absolute;bottom:12px;left:12px;color:#bcd0d8;pointer-events:none}#hint{position:absolute;top:12px;left:12px;color:#8da6b3;font-size:11px;pointer-events:none}.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}button{border:1px solid #54636a;background:#26343e;color:#f3f1e8;border-radius:10px;padding:13px 6px;font:inherit}button:active{background:#425865}.slider{display:flex;gap:12px;align-items:center;color:#b4c1ca;font-size:12px}input{flex:1;accent-color:#9dc9d2}footer{font-size:11px;color:#8a9fa9;text-align:center;padding-bottom:4px}</style></head><body><main><header><h1>🪱 BALL-BEARING WORM</h1><a href="./">← ASSETS</a></header><div id="stage"><canvas id="view"></canvas><div id="hint">DRAG ORBIT · TAP GROUND TO GUIDE</div><div id="info">Exploring</div></div><div class="controls"><button id="feed">🍄 Feed</button><button id="eagle">🦅 Eagle</button><button id="reset">↺ Reset</button></div><div class="slider"><span>Segments</span><input id="segments" type="range" min="7" max="30" value="18"><output id="count">18</output></div><footer>Articulated metal · physical silhouette · independent movement study</footer></main><script type="module">
+const canvas=document.querySelector('#view'),info=document.querySelector('#info');
+try{
+const T=await import('https://esm.sh/three@0.180.0');
+const scene=new T.Scene();scene.background=new T.Color(0x0b1019);scene.fog=new T.FogExp2(0x0b1019,.025);
+const camera=new T.PerspectiveCamera(42,1,.1,100);
+const renderer=new T.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.4;
+scene.add(new T.HemisphereLight(0xe0efff,0x202a28,2));
+const key=new T.DirectionalLight(0xffffff,4);key.position.set(-4,10,5);scene.add(key);
+const blue=new T.DirectionalLight(0x8fc5ff,2.5);blue.position.set(6,4,-5);scene.add(blue);
+const ground=new T.Mesh(new T.PlaneGeometry(80,80),new T.MeshStandardMaterial({color:0x1a302b,roughness:.9,metalness:.08}));ground.rotation.x=-Math.PI/2;ground.position.y=-.12;scene.add(ground);
+const grid=new T.GridHelper(26,26,0x3c6156,0x27423a);grid.position.y=-.105;scene.add(grid);
+const metal=new T.MeshStandardMaterial({color:0xaab7c6,metalness:.93,roughness:.16}),dark=new T.MeshStandardMaterial({color:0x526d7a,metalness:.87,roughness:.24}),eyeMat=new T.MeshStandardMaterial({color:0x09141c,roughness:.2}),geo=new T.SphereGeometry(1,24,16);
+const worm=new T.Group();scene.add(worm);
+let segments=[],path=[],heading=0,head=new T.Vector3(0,.33,0),target=new T.Vector3(2,.33,2),food=null,eagle=null,mode='wandering',time=0,eagleAge=0;
+let az=.7,el=.8,dist=14;
+function cam(){camera.position.set(Math.sin(az)*Math.cos(el)*dist,Math.sin(el)*dist+4,Math.cos(az)*Math.cos(el)*dist);camera.lookAt(0,0,0)}cam();
+function sphere(radius,mat,parent){const m=new T.Mesh(geo,mat);m.scale.setScalar(radius);parent.add(m);return m}
+function rebuild(n){worm.clear();segments=[];for(let i=0;i<n;i++){const group=new T.Group();worm.add(group);const radius=.31*(.58+.42*Math.sin(Math.PI*(i+1)/(n+1)))+(i===0?.07:0);sphere(radius,i%4===0?dark:metal,group);if(i===0)for(const side of [-1,1]){const eye=sphere(.057,eyeMat,group);eye.position.set(side*.17,.12,-.255)}segments.push({group,radius})}path=[];for(let i=0;i<500;i++)path.push(head.clone().add(new T.Vector3(0,0,i*.045)))}
+rebuild(18);
+const foodMat=new T.MeshStandardMaterial({color:0xe6a8a1,roughness:.38}),stemMat=new T.MeshStandardMaterial({color:0xe2d5b5,roughness:.85});
+function clearFood(){if(food){scene.remove(food.group);food=null}}
+function plant(x,z){clearFood();const group=new T.Group();group.position.set(x,0,z);const stem=new T.Mesh(new T.CylinderGeometry(.11,.15,.34,12),stemMat);stem.position.y=.13;group.add(stem);const cap=new T.Mesh(new T.SphereGeometry(.31,20,12),foodMat);cap.scale.y=.45;cap.position.y=.35;group.add(cap);scene.add(group);food={group,x,z};target.set(x,.33,z);mode='foraging';info.textContent='Seeking mushroom'}
+const eagleMat=new T.MeshStandardMaterial({color:0xd4b06f,metalness:.72,roughness:.27});
+function summon(){if(eagle)scene.remove(eagle);eagle=new T.Group();sphere(.38,eagleMat,eagle);for(const side of [-1,1]){const wing=new T.Mesh(new T.BoxGeometry(1.15,.08,.38),eagleMat);wing.position.set(side*.8,.05,0);wing.rotation.z=side*.15;eagle.add(wing)}eagle.position.set(head.x+4,3.4,head.z+3);scene.add(eagle);eagleAge=0;mode='fleeing';info.textContent='Danger · escaping'}
+function reset(){clearFood();if(eagle){scene.remove(eagle);eagle=null}head.set(0,.33,0);heading=0;target.set(2,.33,2);mode='wandering';rebuild(segments.length);info.textContent='Exploring'}
+document.querySelector('#feed').onclick=()=>plant(head.x+Math.sin(heading)*3+(Math.random()-.5)*2,head.z-Math.cos(heading)*3+(Math.random()-.5)*2);
+document.querySelector('#eagle').onclick=summon;document.querySelector('#reset').onclick=reset;
+document.querySelector('#segments').oninput=e=>{document.querySelector('#count').textContent=e.target.value;rebuild(+e.target.value)};
+const ray=new T.Raycaster(),mouse=new T.Vector2(),plane=new T.Plane(new T.Vector3(0,1,0),0);
+let pointer=null;canvas.addEventListener('pointerdown',e=>{pointer={x:e.clientX,y:e.clientY,ox:e.clientX,oy:e.clientY,drag:false};canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointermove',e=>{if(!pointer)return;const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;if(Math.hypot(e.clientX-pointer.ox,e.clientY-pointer.oy)>8)pointer.drag=true;if(pointer.drag){az-=dx*.008;el=Math.max(.13,Math.min(1.35,el+dy*.007));cam()}pointer.x=e.clientX;pointer.y=e.clientY});
+canvas.addEventListener('pointerup',e=>{if(pointer&&!pointer.drag){const r=canvas.getBoundingClientRect();mouse.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(mouse,camera);const p=new T.Vector3();if(ray.ray.intersectPlane(plane,p)){target.set(Math.max(-9,Math.min(9,p.x)),.33,Math.max(-9,Math.min(9,p.z)));mode='following';info.textContent='Following your tap'}}pointer=null});
+canvas.addEventListener('pointercancel',()=>pointer=null);
+canvas.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(5,Math.min(25,dist+e.deltaY*.012));cam()},{passive:false});
+new ResizeObserver(()=>{const w=canvas.clientWidth,h=canvas.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}).observe(canvas);
+let prev=0;
+renderer.setAnimationLoop(ms=>{const dt=Math.min(.035,(ms-prev)/1000||.016);prev=ms;time+=dt;
+if(eagle){eagleAge+=dt;eagle.position.x+=(head.x-eagle.position.x)*dt*.4;eagle.position.z+=(head.z-eagle.position.z)*dt*.4;eagle.position.y=3+Math.sin(time*8)*.3;if(eagleAge>9){scene.remove(eagle);eagle=null;mode='wandering';info.textContent='Safe again'}}
+if(mode==='fleeing'&&eagle){const a=Math.atan2(head.x-eagle.position.x,head.z-eagle.position.z);target.set(head.x+Math.sin(a)*6,.33,head.z+Math.cos(a)*6)}
+let dx=target.x-head.x,dz=target.z-head.z;if(Math.hypot(dx,dz)<.4){if(food&&mode==='foraging'){clearFood();mode='wandering';info.textContent='Mushroom collected'}if(mode!=='fleeing'){target.set(Math.sin(time*.7)*4,.33,Math.cos(time*.53)*4);mode='wandering'}}
+dx=target.x-head.x;dz=target.z-head.z;
+const desired=Math.atan2(dx,-dz),delta=Math.atan2(Math.sin(desired-heading),Math.cos(desired-heading));heading+=Math.max(-dt*2,Math.min(dt*2,delta));
+const speed=mode==='fleeing'?2.9:1.35;head.x+=Math.sin(heading)*speed*dt;head.z-=Math.cos(heading)*speed*dt;head.x=Math.max(-9,Math.min(9,head.x));head.z=Math.max(-9,Math.min(9,head.z));head.y=.34+Math.sin(time*9)*.025;
+path.unshift(head.clone());if(path.length>700)path.pop();
+let j=0,traveled=0;segments.forEach((s,i)=>{const wanted=i*.29;while(j+1<path.length&&traveled<wanted){traveled+=path[j].distanceTo(path[j+1]);j++}s.group.position.copy(path[j]);s.group.position.y+=Math.sin(time*9-i*.65)*.025;if(i===0)s.group.rotation.y=heading});
+renderer.render(scene,camera)});
+}catch(e){info.textContent='3D unavailable: '+e.message}
+</script></body></html>
