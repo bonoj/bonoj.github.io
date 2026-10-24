@@ -6,6 +6,60 @@
 
 1. **Reconstruct an alien world.** Build a physically constrained, explorable Europa from planetary observations: ice, geology, chemistry, radiation, competing hypotheses and explicit unknowns. Not a painted globe.
 2. **Build a scientific discovery engine.** Ingest neglected astronomical archives, reproduce established findings, search for anomalies, and pursue a genuinely new independently testable observation.
+
+
+### Astronomy qualification (2026-10-24)
+
+An enormous amount. And some of the most interesting astronomy isn't waiting for a better telescope. It's waiting for someone to interrogate observations we've already collected.
+
+For **JIT Idle**, I'd distinguish three kinds of computational opportunity:
+
+1. **Unexamined data:** observations that have never received detailed scrutiny.
+2. **Underexamined data:** observations processed for one scientific purpose but potentially useful for something else.
+3. **Unsolved inference:** observations everyone has access to, but nobody has yet extracted a convincing explanation from.
+
+The third is particularly interesting. We don't necessarily need more computing power than an astronomical institution. We might need a different question, a better representation, or a clever way to search.
+
+Here are the archives I'd seriously consider attacking.
+
+## Six astronomical mountains worth lifting
+
+**1. Vera C. Rubin Observatory — the changing sky**
+
+Rubin's LSST is designed around roughly 20 TB of nightly data and ultimately billions of astronomical objects. Its alert streams enable rapid investigation of changing or moving sources.
+
+**Our attack:** discover objects whose behavior doesn't fit established classes, especially across repeated observations.
+
+**2. NASA TESS — hidden planetary systems**
+
+Public light curves and full-frame images let us search for transits, eclipsing binaries, unusual stellar variability, and other signals. NASA provides programmatic access and browser-based cloud analysis.
+
+**Our attack:** look for weak, irregular, or nonstandard signals that conventional planet searches might miss.
+
+**3. LOFAR — millions of radio mysteries**
+
+LoTSS DR2 catalogues about 4.4 million radio sources. Researchers used extensive human inspection to associate complicated radio structures with their optical counterparts.
+
+**Our attack:** find unusual radio morphologies, disconnected-looking structures, bent jets, and rare objects by learning spatial relationships rather than classifying isolated pixels.
+
+**4. Zwicky Transient Facility — the forgotten history of the sky**
+
+ZTF's January 2026 public release contains 69.7 million single-exposure images, over a trillion extracted source detections, and 5.32 billion light curves.
+
+**Our attack:** reexamine years of variability to identify rare, long-duration, repeating, or previously misclassified phenomena.
+
+**5. Gaia — the Galaxy in motion**
+
+Stellar positions, distances, velocities, and astrophysical measurements create opportunities to reconstruct stellar associations, streams, and the Milky Way's dynamical history.
+
+**Our attack:** search for coherent stellar populations that standard clustering algorithms fragment or overlook.
+
+**6. JWST and Hubble — the archival universe**
+
+Decades of images and spectra provide opportunities to cross-reference observations, investigate faint structures, and identify objects that behave differently across wavelengths or epochs.
+
+**Our attack:** construct a cross-instrument anomaly detector that treats disagreement between observations as something to investigate rather than automatically discard.
+
 3. **Reconstruct a century of forgotten humanity.** Build an evidence-backed historical knowledge graph joining genealogy, correspondence, migration, institutions and political movements. Trace each relationship to evidence.
 4. **Grow an artificial biosphere.** Model matter, energy, reproduction, predation, inheritance, adaptation and extinction. Test whether sustained ecological complexity can emerge without scripted outcomes.
 5. **Build a machine that builds worlds.** Create compositional research and simulation machinery to ingest an unfamiliar field, build executable models, test them, expose uncertainty and preserve discoveries for another investigator. Prove it by accomplishing substantive work on one of the other four; no infrastructure for its own sake.
