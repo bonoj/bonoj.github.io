@@ -60,6 +60,25 @@ Decades of images and spectra provide opportunities to cross-reference observati
 
 **Our attack:** construct a cross-instrument anomaly detector that treats disagreement between observations as something to investigate rather than automatically discard.
 
+### Computational bottlenecks and research selection
+
+| Problem | Computational burden | Potential reward |
+|---|---|---|
+| Transient detection | Continuous streams, crossmatching | Rare explosive or variable events |
+| Light-curve analysis | Billions of noisy time series | Unusual planets, binaries, stellar behavior |
+| Radio morphology | Large images, source association | Rare galaxies and jet structures |
+| Galactic dynamics | Massive phase-space catalogs | Previously unrecognized stellar structures |
+| Archival reprocessing | Calibration, image alignment | Faint or overlooked phenomena |
+| Cross-survey inference | Uncertain identities and measurements | Discoveries invisible to one survey alone |
+
+These archives are already studied intensively. The opportunity is a well-defined question their pipelines are not optimized to answer.
+
+**Candidate distinctions:** Rubin/LSST for scale; TESS/Kepler for immediate experimentation; LOFAR for spatial reasoning; ZTF for archival archaeology; Gaia for executable three-dimensional dynamics.
+
+**Proposed experiment:** Cross-reference LOFAR with Gaia, optical and infrared catalogs. Model radio lobes, candidate host galaxies, foreground stars and unrelated sources as competing relational hypotheses. Blindly rediscover a known rare phenomenon from minimally processed observations, then test the same method against a less thoroughly examined population. Require physical and statistical scrutiny before any discovery claim.
+
+Remote archive queries and cloud-hosted data can keep the smartphone as the human interface without transferring entire archives locally. A new method for extracting meaning from the sky may matter more than finding one unusual object.
+
 3. **Reconstruct a century of forgotten humanity.** Build an evidence-backed historical knowledge graph joining genealogy, correspondence, migration, institutions and political movements. Trace each relationship to evidence.
 4. **Grow an artificial biosphere.** Model matter, energy, reproduction, predation, inheritance, adaptation and extinction. Test whether sustained ecological complexity can emerge without scripted outcomes.
 5. **Build a machine that builds worlds.** Create compositional research and simulation machinery to ingest an unfamiliar field, build executable models, test them, expose uncertainty and preserve discoveries for another investigator. Prove it by accomplishing substantive work on one of the other four; no infrastructure for its own sake.
