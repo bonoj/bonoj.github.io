@@ -78,3 +78,17 @@ New public documentary anchors:
 **Interpretation:** These court appearances corroborate Dipak's professional identity and spelling, but do not establish his descendants or a Sinha connection. Public web searches combining Lalit/Kamla/Pankaj/Saroj Sinha with Tagore, Sarala, Dipak and Radha yielded no trustworthy bridge. Do not merge similarly named people.
 
 **Next archival strategy:** use Supreme Court advocate records and biographical notices to seek Dipak's full name, dates and family references; inspect Geraldine Forbes's endnotes and the correspondence provenance for heirs; seek Kamla and Lalit's parents through consented family records. No change to live runtime.
+
+## Investigation 03 — independent search and source hygiene (2026-10-24)
+
+Searches attempted: exact variants of Dipak Dutt Chaudhuri + Radha + children/family; Deepak Dutt Chaudhuri + Sinha + Sarala; Kamla Sinha + Lalit Sinha + Tagore. No corroborated descendant or Sinha bridge found. Do not infer an absence of descendants from negative web results.
+
+**Source anchors:**
+- Indian Supreme Court Reports 1967, *Inder Singh & Anr. v. State of Punjab & Ors.*, printed page 604, counsel **Dipak Dutt Chaudhuri**: https://gujarathighcourt.nic.in/hccms/sites/default/files/scgujaratijudgments/eng/SC_CA_92_of_1966.pdf . Court report independently supports a professional name, not ancestry or offspring.
+- *State of Punjab v. Major Singh* (1966), counsel named **Dipak Dutt Chaudhuri**: https://www.casemine.com/judgement/in/5609ab46e4b014971140c15d .
+- Rajmohan Gandhi's historical account explicitly says Dipak married Radha, daughter of Maganlal Gandhi, **after Sarala and Gandhi had both died**: https://www.outlookindia.com/books/bapus-human-tryst-news-233539 . Chronology caution: earlier note said only 'after Sarala's death', which is true but less precise.
+- Wikipedia's Sarala Devi biography names Dipak as her child and identifies Debendranath Tagore as maternal grandfather; treat as orientation, not primary evidence: https://en.wikipedia.org/wiki/Sarala_Devi_Chaudhurani .
+
+**Important disambiguation:** Some low-quality sites call Radha 'Mahatma Gandhi's granddaughter', which is misleading; Rajmohan Gandhi describes her as **Maganlal Gandhi's daughter**. No source here proves that the lawyer in the court reports and Sarala's son are identical beyond the strong name/profession match; seek corroborating biographical material.
+
+**Next actionable searches:** historical bar association directories, Supreme Court advocate obituaries and memorial references; archives of Maganlal Gandhi/Radha correspondence; Kamla and Lalit's parent names and dates via family records. Keep runtime untouched and avoid adding living-family information to public-facing graph.
