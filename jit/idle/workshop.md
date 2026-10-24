@@ -99,6 +99,56 @@ Remote archive queries and cloud-hosted data can keep the smartphone as the huma
 16. **Reconstruct the world's missing cities.** Integrate historical maps, terrain, waterways, satellite imagery and archaeology to test predictions of undocumented settlements against known discoveries.
 17. **Reconstruct the origin of life.** Model experimentally constrained chemistry, compartments, reaction networks, imperfect replication and selection to test transitions from chemistry to evolution.
 
+### Original full research formulations
+
+**6.** Choose a microscopic animal. Reconstruct its anatomy, metabolism, nervous system, locomotion, and environment until it can survive as an executable organism. Not a visually convincing creature. A model whose failure modes teach us something about actual biology.
+
+**The impossible question:** How much of a living thing must we understand before we can reproduce its behavior?
+
+**7.** Build a machine that investigates an unknown script through symbol frequency, ordering, physical context, cultural evidence, and competing linguistic hypotheses. Rongorongo, the Indus script, or another unresolved corpus. Resist invented translations.
+
+**The impossible question:** Can we extract defensible meaning when we don't know whether the marks even encode language?
+
+**8.** Start with an artifact such as the Antikythera mechanism. Reconstruct the mathematical knowledge, tools, manufacturing techniques, materials, and social organization required to produce it. Then test whether our inferred technological pathway can actually reproduce the artifact.
+
+**The impossible question:** What invisible civilization is implied by one surviving machine?
+
+**9.** Build a physically constrained model of how water, heat, salt, nutrients, and pollutants move between oceans, rivers, atmosphere, and groundwater. Start regional, connect systems, and use real observations to constrain flows.
+
+**The impossible question:** Where does a drop of water actually go, and what does it carry with it?
+
+**10.** Start from the observed cosmic microwave background and present-day galaxy distributions. Construct families of initial conditions and evolve them forward. Explicitly track degeneracy: different histories can produce similar observations.
+
+**The impossible question:** How much of the universe's past is actually recoverable from its present?
+
+**11.** Take a tractable nervous system, perhaps C. elegans, and connect its known wiring to a physical body, sensory inputs, and an environment. Don't train an agent to imitate the animal. Ask whether the reconstructed system generates the behavior.
+
+**The impossible question:** Does knowing the wiring tell us what the organism does?
+
+**12.** Mine published materials experiments for unusual combinations of composition, processing, and performance. Build models that predict properties, then identify recipes that existing theory struggles to explain.
+
+**The impossible question:** Can we discover a useful material without possessing a laboratory?
+
+**13.** Interrogate environmental DNA, ocean surveys, biodiversity records, and ecological relationships. Distinguish known organisms, unidentified lineages, contamination, and missing ecological links.
+
+**The impossible question:** How much of Earth's biosphere is visible in our measurements but absent from our understanding?
+
+**14.** A simulation in which every rock, river, organism, and settlement has a causal history. Nothing appears merely because a generator placed it there. Erosion makes valleys. Sedimentation makes strata. Organisms alter chemistry. Civilizations exploit the resulting landscape.
+
+**The impossible question:** Can we generate a world whose history is discoverable through archaeology?
+
+**15.** Construct a systematic search for observations that violate otherwise successful models. Not merely unusual objects, but inconsistencies in timing, spectra, geometry, conservation, or statistical predictions. Include calibration failures and selection effects as competing explanations.
+
+**The impossible question:** Where is our best scientific description of reality demonstrably incomplete?
+
+**16.** Combine historical maps, satellite imagery, archaeological reports, terrain, waterways, and settlement models to identify plausible locations of undocumented human habitation. Validate against known discoveries before investigating unknown locations.
+
+**The impossible question:** How many civilizations are still hiding in plain sight?
+
+**17.** Build an experimentally constrained chemical world in which molecules can form compartments, sustain reaction networks, replicate imperfectly, and undergo selection. Compare competing origin-of-life hypotheses against laboratory evidence.
+
+**The impossible question:** What is the smallest plausible transition from chemistry to evolution?
+
 ### A larger synthesis
 
 Reconstruct a continuous causal history from the early universe to a living organism looking at the stars: cosmology → stars → elements → planets → chemistry → life → ecosystems → intelligence. Use a hierarchy of executable, evidence-constrained models, not a literal atom-by-atom simulation. Track what information survives between scales and where the models cease to agree with observations.
