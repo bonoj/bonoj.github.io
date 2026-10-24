@@ -2,6 +2,38 @@
 
 Canonical target: https://bonoj.github.io/jit/genealogy/
 
+## COLD BOOT — READ FIRST (2026-10-24)
+
+**Mission:** Research whether the user's maternal family (Sinha) connects by descent or another kinship path to Sarala Devi Chaudhurani and thus the Tagore family. Explore ancestors, descendants and collateral branches; **do not manufacture a connection**. User advances investigations with ➡️ and wants each meaningful finding **persisted in this README**, not deployed to the live graph.
+
+**Immediate operating instructions**
+1. Read this summary and the latest numbered investigation, then pursue **one genuinely new archival lead**. Avoid repeating broad surname searches or merely restating the known missing link.
+2. Cross-check new facts with a named source; distinguish primary documents, scholarly interpretations, community history and unsourced trees. Preserve exact URL, quoted identifier, date, and confidence. An absent web result is not proof of no descendants.
+3. Append a numbered investigation with findings, source links, what remains uncertain and the next discriminating step. Re-fetch README SHA before updating to avoid conflicts. If blocked, disclose failure; never claim persistence without a successful commit.
+4. **Documentation only:** edit `jit/genealogy/README.md`; do not modify `index.html`, deploy, or alter other JIT projects unless explicitly instructed. Repository `bonoj/bonoj.github.io`, canonical app https://bonoj.github.io/jit/genealogy/ . Commit != live verification.
+5. This README is **public**. Family-supplied names already appear below; do not add further living-person identifiers, contacts, addresses, or private records without clear permission. Prefer redacted notes for future sensitive discoveries.
+
+**Confirmed historical core / source-backed working model**
+- Sarala (1872–1945), daughter of Swarnakumari Devi and Janakinath Ghosal; Swarnakumari was Debendranath Tagore's daughter. Historical Tagore lineage is not the disputed part.
+- Rambhaj/Rambhuj Dutt Chaudhary had **at least three sons**, working birth order **Jagdish (eldest), Dhirsen/Randhirsen (second; Sarala's stepson), Dipak Datta/Dutt Choudhri (third; Sarala's documented biological son)**. Jagdish from *Mohyal Mitter* (Aug 2022); Dhirsen from Geraldine Forbes; Dipak 'third son' from *South Asians at the Inns* register transcription (1935). Maternal identity of Jagdish not independently proven; original register still needs inspection.
+- Dipak (aged 27 in Nov 1935, born c. 1907–08) became a barrister/advocate, appears in Indian Supreme Court reports, supplied Forbes correspondence in 1976, and married **Radha, daughter of Maganlal Gandhi**, after 1948. No verified children of Dipak/Radha identified yet.
+- Family testimony: Saroj Sinha calls Sarala her great-grandmother. Saroj and Pankaj are siblings; Kamla and Lalit are their parents. A possible surname change leading to **Sinha** was mentioned, with **no known date**. These are **unverified private-family assertions**, not proof of an edge to Sarala.
+- **Correct generation math:** If 'great-grandmother' is literal, Sarala → her child (candidate Dipak) → Kamla **or** Lalit → Saroj. Thus Dipak would be Saroj's grandparent. The relationship could also be step/adoptive/collateral or the generational label could be imprecise.
+
+**Critical unknowns:** identities of Kamla's and Lalit's parents; Kamla's maiden surname; any verifiable offspring of Dipak, Jagdish or Dhirsen; whether, where and when a surname actually changed to Sinha. **No documented Sinha–Tagore bridge exists yet.** Do not assume Partition caused a name change.
+
+**High-value next leads (ranked)**
+1. Inspect original *South Asians at the Inns* entry and its Inn of Court archives; look for next-of-kin, probate and family notices linked to Dipak and Rambhaj. Transcription: https://www.yumpu.com/en/document/view/19003948/henry-f-uw-law-school/146
+2. Read *Mohyal Mitter* August 2022 p. 11 in full; trace references to eldest son Jagdish, later issues, and verify attribution. https://www.mohyal.com/mm/mitter/Aug22/MM%20Aug%202022.pdf
+3. Check Geraldine Forbes, *Lost Letters and Feminist History*, notes and correspondence collection for Dipak's biographical sketch and the letter to Dhirsen; clarify 1921/1922 date discrepancy. https://dokumen.pub/lost-letters-and-feminist-history-the-political-friendship-of-mohandas-k-gandhi-and-sarala-devi-chaudhurani-1.html
+4. Search historical legal directories, marriage/obituary records and Gandhi family correspondence for descendants. Use Sinha/Singha and Dutt/Datta/Choudhri spellings as **search variants only**, not evidence of identity.
+
+**Known pitfalls:** Earlier investigation 10 attempted to save the 'third son' Inns finding but was blocked; its core is subsequently preserved in investigation 11 and this summary. Older notes below may call Jagdish 'unresolved' or state that only two sons are known; those passages are **superseded** by investigation 11. An early generational statement saying a grandparent of Saroj must be Sarala's child is **incorrect** and superseded by the corrected chain above. The 19 Aug 1945 Gandhi letter vs Sarala's commonly cited 18 Aug death date is unresolved. Treat source claims as leads until rechecked.
+
+**Handoff instruction for next model:** Continue with a fresh, discriminating archival investigation; persist an evidence-conscious numbered update; report exactly what changed and the commit SHA. Do not ask the user to re-explain the family or to know the date of the alleged name change.
+
+---
+
 ## Purpose
 Mobile-first interactive relational genealogy, tracing ancestry, descendants, siblings, cousins, marriage and adoption. Initial seed centers Sarala Devi Chaudhurani (1872–1945).
 
