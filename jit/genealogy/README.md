@@ -250,3 +250,48 @@ Verified source collections for the colonel lead: British Library Indian Army Li
 New indexed leads require careful disambiguation, not automatic family linkage. A public West Bengal electoral-roll extract names a person whose father was 'Lalit Mohan Sinha' (https://ceowestbengal.wb.gov.in/RollPDF/GetDraft?acId=148&key=QUMxNDhQQVJUMDIzLnBkZg%3D%3D). It does not mention an army rank, and this public README deliberately omits the voter's identity and address. A Bihar community organization lists another 'Lalit Mohan Sinha' (https://chitraguptasamaj.weebly.com/contact.html), again with no military or family linkage. Indian government gallantry lists include similarly named **Lalit Mohan Singh Rawat** and **Lalit Mohan Malhotra**, neither an exact match (https://www.pib.gov.in/newsite/PrintRelease.aspx?lang=2&reg=48&relid=34900 ; https://www.pib.gov.in/newsite/PrintRelease.aspx?lang=2&reg=3&relid=24335).
 
 **Status:** no independently confirmed Indian Army Colonel Lalit Mohan Sinha or father-son link to Jagdish Mohan. A useful archival search must distinguish exact name, commission period, unit, and family relationships. Do not publish identifying information about unrelated people. No live app changes.
+
+## MASSIVE TURN SPEC — Operation Long Net (2026-10-24)
+
+**Execution contract:** A single ➡️ means a substantial multi-source, multi-branch investigation, not one search and one incremental commit. This section is a specification, not a claim the investigation has been executed. Work until a genuine person-level discovery or a well-documented cross-archive exhaustion point; persist substantive findings during the campaign. No arbitrary search-count limit.
+
+### Objectives
+
+1. Identify the family-reported **Colonel Lalit Mohan Sinha**, Indian Army, through an independent record of commission, rank, regiment/corps, service dates, posting or retirement.
+2. Determine whether his father was **Jagdish Mohan**, as recalled tentatively by Saroj. Test whether this person is Rambhaj Dutt Choudhary's eldest son Jagdish, without assuming it.
+3. Determine whether **Sinha** was adopted as a surname, by whom, when and why, if a change occurred at all.
+4. Independently trace **Kamla's line** and Sarala Devi Chaudhurani's biological son Dipak, stepsons and collateral descendants. Separate biological, step and marital connections. Check generation counts.
+
+### Seven concurrent evidence lanes
+
+**A — Pre-1947 army:** British Library Indian Army List IOR/L/MIL/17/5/1–219 (1889–1947), https://searcharchives.bl.uk/catalog/038-000792611 ; military promotions, service statements and indexes IOR/L/MIL/14 and IOR/Z/L/MIL/14, https://searcharchives.bl.uk/catalog/036-000755035 . Search actual volumes, year-by-year where accessible, and ranks below colonel. Note exact years inspected.
+
+**B — Post-1947 army:** Gazette of India 1950–2002 https://www.csl.nic.in/page/innerpage/gazette-of-india.php ; Defence notifications, commission, promotions, retirement, Army Lists, unit histories, honours, veterans records. RODRA https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=1573452 is a potential next-of-kin route, not a person match.
+
+**C — Jagdish:** Read the original Mohyal/Ashok Datta Choudhary account and seek independent family histories, gurukul rosters, civil records and descendants. Search Jagdish Mohan, Jagdish Dutt/Datta Choudhary and transliterations. Seek a record explicitly naming Jagdish as Lalit's father.
+
+**D — Sarala graph:** Reconstruct both paternal and maternal candidate lines separately. Seek Dipak/Radha descendant evidence, step-family links, and Kamla's parentage. Every parent-child edge needs its own evidence citation.
+
+**E — Surname and migration:** Search for the same individual under two names in military papers, civil registrations, land/probate records, directories and obituaries. Distinguish a formal name change from middle names, transliterations, adoption, marriage and family recollection. Do not assume a region without evidence.
+
+**F — Publications:** Follow citations across National Archives of India https://www.nationalarchives.nic.in/en/collection-glance ; newspapers, court records, Indian Army directories, Google Books, Internet Archive, HathiTrust, academic journals, community histories and multilingual indexes. Extract original passages and metadata, not just search snippets.
+
+**G — Disambiguation:** Keep separate identities for the Bangladesh judicial-family schoolteacher, 1911 Monghyr plant supplier, Chakdighi landowner, and all other namesakes. Shared name alone proves nothing. Avoid publishing identifying data for unrelated living people.
+
+### Query and verification protocol
+
+Build a query matrix: full names, initials L. M. Sinha, alternate Sinha/Singha/Singh/Sinha Ray, Lalit/Lalith/Lall(i)t Mohan, Colonel/Col/Lt Col/Major/Captain, Jagdish + Rambhaj, Jagdish + Lalit, Dipak descendants, Kamla parentage, relevant date and place constraints. Cross multiple independent catalogs. Follow promising footnotes to original records. Pivot between lanes when one stalls; a web-search negative is not an archive negative.
+
+Maintain a **source ledger** for each candidate: exact URL or shelfmark; source date; claim and quoted identifying fields; original/secondary/oral classification; corroboration; contradictions; whether merely indexed, actually inspected or independently verified; access barriers; next retrieval step. Label findings CONFIRMED, SUPPORTED, HYPOTHESIS, EXCLUDED or UNKNOWN. Record specific archive volumes and years searched.
+
+### Minimum meaningful completion
+
+A massive turn ends only after either **a new independently verified person-level fact or parent-child link**, or **a genuinely broad cross-archive sweep with explicit inspected coverage, unresolved access limitations and concrete retrieval requests**. Do not treat locating a catalog or reporting another no-match as a discovery. If time/tool limits intervene, persist a resumable checkpoint including searches already run, exact remaining targets and next actions. No fabricated completion claims.
+
+### Persistence and scope
+
+Documentation only: update this README and, if useful, linked research markdown; never modify the live JIT or deploy. Commit meaningful batches while investigating. Fetch current SHA before each write; follow the Sanctum contract on benign failures and retry smaller, scoped updates. Do not make the user debug tools. Preserve privacy in the public repo. Final report: new evidence, source quality, ruled-out matches, unresolved questions, verified commit SHA and next strongest archival target. Avoid creating numbered investigations just to show motion.
+
+### Verified starting collections
+
+British Library Army List https://searcharchives.bl.uk/catalog/038-000792611 ; Army Records https://searcharchives.bl.uk/catalog/036-000755035 ; UK National Archives guide https://www.nationalarchives.gov.uk/help-with-your-research/research-guides/indian-army-personnel/ ; National Archives of India https://www.nationalarchives.nic.in/en/collection-glance ; Findmypast index https://www.findmypast.co.uk/discover/military-armed-forces-and-conflict/regimental-and-service-records/indian-army-records-of-service-1900-1947 (partial, mostly British officers); British Library India Office Lists https://bl.iro.bl.uk/entities/product/2b15009b-e7e6-41d8-a329-2e307bd08587 (military entries chiefly before 1900).
