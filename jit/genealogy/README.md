@@ -202,3 +202,11 @@ Ran public searches for combined **Jagdish / Dhirsen / Dipak / Rambhaj**, **Jagd
 **Source-backed anchor:** Geraldine Forbes explicitly identifies **Dhirsen (Randhirsen)** as Rambhaj's second son and Sarala's stepson. In her account, the DC Collection contained a Gandhi letter to him. Source: https://dokumen.pub/lost-letters-and-feminist-history-the-political-friendship-of-mohandas-k-gandhi-and-sarala-devi-chaudhurani-1.html . Note a **date ambiguity**: the introduction calls it a 1921 letter, while a later chapter says 5 January, year unspecified, possibly 1922. Treat the letter date as unresolved until consulting the underlying document.
 
 **Method shift:** Stop using surname co-occurrence as evidence. Search three sons' marriages, probate, obituaries, educational records and descendants independently. Test any proposed Sinha link using parental names, chronology, geography and original documents. Keep family testimony distinct from verified genealogy; no runtime modifications.
+
+## Investigation 13 — oral-history surname clue (2026-10-24)
+
+New family testimony introduces a possible grandfather named **Jagdish Mohan** and the name **Lalit Mohan Sinha** in the next generation. The speaker was the user's mother, not the user. Do not mistake the named father in her message for the user's father. These are unverified family recollections, not proven identifications with historical persons.
+
+The historical **Jagdish**, documented as Rambhaj Dutt Choudhary's eldest son, may or may not be the same person as the newly mentioned Jagdish Mohan. The shared name element **Mohan** is a clue, not evidence of a surname change. Do not presume which generation adopted **Sinha** or that any change occurred.
+
+Next: seek independent period records linking the two names through dates, parentage, geography or school/civil records. Preserve distinction between biological descent and step relationships. No change to live graph.
