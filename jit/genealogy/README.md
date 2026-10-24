@@ -67,3 +67,14 @@ Candidate paths, explicitly unproven:
 - Nonliteral use of 'great-grandmother', step/adoptive relation, or collateral relationship (do not label biological).
 
 **Most discriminating evidence:** names and birth/maiden surnames of Kamla's and Lalit's parents, approximate dates/places, and any family documents mentioning Dipak/Deepak or Radha. No public search result yet bridges the families. Keep all speculative edges out of the live graph. Do not publish additional identifying details of living relatives without consent.
+
+## Investigation 02 — independent Dipak records (2026-10-24)
+
+New public documentary anchors:
+- Supreme Court of India, *State of Punjab v. Major Singh* (1966), lists **Dipak Dutt Chaudhuri** as advocate: https://www.casemine.com/judgement/in/5609ab46e4b014971140c15d
+- Supreme Court Reports, *Inder Singh & Anr v. State of Punjab* (1967), lists **Dipak Dutt Chaudhuri** for respondents: https://gujarathighcourt.nic.in/hccms/sites/default/files/scgujaratijudgments/eng/SC_CA_92_of_1966.pdf
+- Rajmohan Gandhi, *Bapu's Human Tryst*, notes Dipak married Radha, daughter of Maganlal Gandhi, after Sarala's death: https://www.outlookindia.com/books/bapus-human-tryst-news-233539
+
+**Interpretation:** These court appearances corroborate Dipak's professional identity and spelling, but do not establish his descendants or a Sinha connection. Public web searches combining Lalit/Kamla/Pankaj/Saroj Sinha with Tagore, Sarala, Dipak and Radha yielded no trustworthy bridge. Do not merge similarly named people.
+
+**Next archival strategy:** use Supreme Court advocate records and biographical notices to seek Dipak's full name, dates and family references; inspect Geraldine Forbes's endnotes and the correspondence provenance for heirs; seek Kamla and Lalit's parents through consented family records. No change to live runtime.
