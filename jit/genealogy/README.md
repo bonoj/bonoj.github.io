@@ -1,3 +1,7 @@
+# For Saroj — start here
+
+**If you are Saroj, begin with [your personal history exploration guide](./FOR-SAROJ.md).** It introduces Sarala Devi, separates family memories from documented genealogy, links original sources and books, and includes a ready-to-paste invitation for Claude or ChatGPT. This README is the detailed research notebook behind that welcoming entry point.
+
 # JIT Genealogy — Sarala Devi Chaudhurani
 
 Canonical target: https://bonoj.github.io/jit/genealogy/
