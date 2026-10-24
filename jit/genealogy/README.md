@@ -232,3 +232,7 @@ Searched public indexes for exact pairings of **Jagdish Mohan** and **Lalit Moha
 **Strong false-positive warning:** The Bangladesh Supreme Court 2015 annual report documents **another Lalit Mohan Sinha**, father of Justice Surendra Kumar Sinha, with wife **Dhanabati Sinha**, associated with Tilakpur, Moulvibazar. Source: https://www.supremecourt.gov.bd/resources/contents/Annual_Report_2015.pdf . This distinct family is **not proven related** to Saroj's family. A Patna court index also mentions a Lalit Mohan Sinha with wife Vidyawati; no connection established: https://indiankanoon.org/search/?formInput=vidyawati++++++sortby%3A+leastrecent+doctypes%3Apatna .
 
 Searches for direct 'Jagdish Mohan'–'Lalit Mohan Sinha' pairings still lack a verifiable parent-child source. Avoid collapsing people on names alone. No live runtime changes.
+
+## Investigation 17 — military-service research lead
+
+Family oral history now identifies **Lalit Mohan Sinha** as a **colonel in the Indian Army**. This has not yet been verified against military records. Search period officer lists, Gazette of India notices and regimental histories; rank and service chronology can distinguish homonymous individuals. Initial public name searches did not establish a matching officer record. Do not merge unrelated name matches or assume a surname change. The Jagdish identity remains unresolved. No runtime changes.
