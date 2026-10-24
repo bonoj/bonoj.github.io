@@ -109,3 +109,13 @@ Searches attempted: exact variants of Dipak Dutt Chaudhuri + Radha + children/fa
 **Age estimate (not birth record):** A 2021 account says Dipak was 12 when sent to Sabarmati Ashram around the Gandhi–Sarala relationship in 1919–1920, suggesting birth circa 1907–1908. Source: https://www.livemint.com/mint-lounge/ideas/understanding-mk-gandhi-s-love-for-his-spiritual-wife-111634531386676.html . Approximate only.
 
 **Results:** Further exact-name searches found no sourced children of Dipak and Radha and no documentary Sinha–Tagore bridge. The court and correspondence records provide higher-value archival search targets, not proof of descendants. Preserve public runtime unchanged.
+
+## Investigation 06 — stepson resolved in Forbes's text (2026-10-24)
+
+**Direct source inspected:** Geraldine Forbes, *Lost Letters and Feminist History* (2020), Introduction, freely indexed text: https://dokumen.pub/lost-letters-and-feminist-history-the-political-friendship-of-mohandas-k-gandhi-and-sarala-devi-chaudhurani-1.html . Forbes explicitly writes that the 79-letter DC Collection included **one letter to Dhirsen (Randhirsen, Rambhaj Dutt's second son and Sarala Devi's stepson), written in 1921**. Thus Dhirsen and Randhirsen are two forms of one person's name; do not count as separate children. The previously mentioned Jagdish remains unresolved and should not be merged or counted without a source.
+
+Forbes also states that in 1976 Dipak supplied her typed copies of letters to his mother, saying the originals had been given to 'people from Delhi' and not returned. She pursued the Director of the National Gandhi Museum without recovering the originals. This is a **document provenance** lead, not evidence of Dipak's offspring.
+
+**Additional independent source:** Forbes interviewed by *The Statesman* (8 March 2024) confirms she personally met Dipak and based the book on letters he held: https://www.thestatesman.com/supplements/miscellany/i-would-like-to-see-international-womens-day-maintained-as-a-day-that-honours-working-women-geraldine-forbes-1503278233.html
+
+**Genealogical conclusion:** Rambhaj's children include Dipak (Sarala's biological son) and Dhirsen/Randhirsen (Sarala's stepson); whether additional children existed is not established by this evidence. No Sinha link or Dipak descendants identified. Keep public runtime unchanged.
