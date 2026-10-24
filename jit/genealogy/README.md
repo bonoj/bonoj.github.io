@@ -145,3 +145,14 @@ D. The reported 'great-grandmother' relationship is colloquial, a step relations
 **Search keys:** Dipak/Deepak/Dipak Datta/Dutt Choudhri/Chaudhry/Choudhury/Chaudhuri; Radha Gandhi; Sinha/Singha/Sinhaa; Kamla/Kamala; Lalit/Lalith; Ghosal/Ghoshal; family migration, partition-era records, legal name change, marriage and school records. Do not treat any alias as identity without independent dates, locations, parents or documents.
 
 **Highest-yield missing facts:** full names of Kamla's and Lalit's parents; approximate birth years and birthplaces; which person allegedly changed their name and approximately when. Continue investigating both branches without requiring the user to know the answer in advance. No verified Sinha–Tagore link established; do not change index.html.
+
+## Investigation 09 — date unknown; name-change search stays open (2026-10-24)
+
+User does not know when the possible surname change occurred. **Do not anchor it to Partition (1947)** or request a date as a prerequisite. Run date-agnostic searches and distinguish surname changes from transcription variants and surnames acquired by marriage.
+
+Fresh source cross-check:
+- Geraldine Forbes's *Lost Letters and Feminist History*, introduction note 1, says Dipak personally supplied **Dipak Datta Choudhri** in his bio-sketch; Forbes standardized to **Dipak Dutt Chaudhry** from the *Collected Works of Mahatma Gandhi*. Note 7 enumerates multiple spellings of Rambhaj Dutt Choudhary. https://dokumen.pub/lost-letters-and-feminist-history-the-political-friendship-of-mohandas-k-gandhi-and-sarala-devi-chaudhurani-1.html . This is **spelling variation**, not proof of a change to Sinha.
+- *StreeShakti*'s historical profile explicitly states Sarala and Rambhuj had **one son, Dipak**: https://www.streeshakti.com/bookS.aspx?author=7 . This makes direct biological descent through a different child unsupported without new evidence.
+- An online Dipak/Radha genealogy has **no cited sources and no listed descendants**: https://www.genealogieonline.nl/en/mehlbaum-stamboom/I4315.php . Negative listing does not mean the couple had no children.
+
+**Method:** Construct an identity table for historical individuals with distinct fields for birth name, married name, honorific, transliteration, legal alias, and undocumented oral-history alias. Search both Sinha/Singha and Chaudhuri/Choudhri/Dutt/Datta/Ghosal independently; only merge identities on stronger corroborators (parents, dates, places, records). The two key unknowns remain Kamla's and Lalit's parents. No new verifiable Sinha–Tagore bridge was found in this search. Keep live index.html unchanged.
