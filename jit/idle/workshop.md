@@ -64,6 +64,28 @@ Decades of images and spectra provide opportunities to cross-reference observati
 4. **Grow an artificial biosphere.** Model matter, energy, reproduction, predation, inheritance, adaptation and extinction. Test whether sustained ecological complexity can emerge without scripted outcomes.
 5. **Build a machine that builds worlds.** Create compositional research and simulation machinery to ingest an unfamiliar field, build executable models, test them, expose uncertainty and preserve discoveries for another investigator. Prove it by accomplishing substantive work on one of the other four; no infrastructure for its own sake.
 
+
+## Additional research mountains (2026-10-24)
+
+6. **Reconstruct an organism from first principles.** Recreate a microscopic animal's anatomy, metabolism, nervous system, locomotion, and environment as a testable executable organism. Question: how much biology must be understood to reproduce behavior?
+7. **Interrogate an undeciphered writing system.** Test symbol statistics, ordering, archaeological context, and linguistic hypotheses for Rongorongo, the Indus script, or another corpus without inventing translations.
+8. **Rebuild a lost technological civilization.** Work backward from an artifact such as the Antikythera mechanism to the mathematics, tools, materials, manufacturing and institutions needed to produce it.
+9. **Reconstruct Earth's hidden circulation.** Model observed flows of water, heat, salt, nutrients and pollutants across oceans, rivers, air and groundwater; track where a drop goes and what it carries.
+10. **Reverse-engineer the early universe.** Use the cosmic microwave background and galaxy distributions to test families of initial conditions and distinguish recoverable history from degeneracy.
+11. **Build an organism's complete sensorimotor loop.** Couple a tractable nervous system, such as C. elegans, to a physical body, senses and environment; test whether known wiring generates behavior.
+12. **Discover materials that shouldn't work.** Analyze published materials experiments for surprising composition–processing–performance relationships, and propose testable recipes.
+13. **Inventory the life humanity hasn't named.** Compare environmental DNA, ocean surveys and biodiversity records to identify uncertain lineages and ecological gaps while accounting for contamination.
+14. **Build a planet that remembers everything.** Generate a world whose geology, organisms and settlements arise from causal history; make its past recoverable through excavation and investigation.
+15. **Search for the universe's mistakes.** Seek reproducible inconsistencies in timing, spectra, geometry, conservation or statistics, with calibration errors and selection effects as competing explanations.
+16. **Reconstruct the world's missing cities.** Integrate historical maps, terrain, waterways, satellite imagery and archaeology to test predictions of undocumented settlements against known discoveries.
+17. **Reconstruct the origin of life.** Model experimentally constrained chemistry, compartments, reaction networks, imperfect replication and selection to test transitions from chemistry to evolution.
+
+### A larger synthesis
+
+Reconstruct a continuous causal history from the early universe to a living organism looking at the stars: cosmology → stars → elements → planets → chemistry → life → ecosystems → intelligence. Use a hierarchy of executable, evidence-constrained models, not a literal atom-by-atom simulation. Track what information survives between scales and where the models cease to agree with observations.
+
+**Especially compelling:** #14 (causal worlds), #15 (scientific anomalies), #17 (origin of life). None selected yet.
+
 ## Operating contract
 
 - The smartphone is the only required human interface, not the only compute device.
