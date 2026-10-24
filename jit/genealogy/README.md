@@ -92,3 +92,10 @@ Searches attempted: exact variants of Dipak Dutt Chaudhuri + Radha + children/fa
 **Important disambiguation:** Some low-quality sites call Radha 'Mahatma Gandhi's granddaughter', which is misleading; Rajmohan Gandhi describes her as **Maganlal Gandhi's daughter**. No source here proves that the lawyer in the court reports and Sarala's son are identical beyond the strong name/profession match; seek corroborating biographical material.
 
 **Next actionable searches:** historical bar association directories, Supreme Court advocate obituaries and memorial references; archives of Maganlal Gandhi/Radha correspondence; Kamla and Lalit's parent names and dates via family records. Keep runtime untouched and avoid adding living-family information to public-facing graph.
+
+## Investigation 04 — chronology and third-party genealogy (2026-10-24)
+
+- Rajmohan Gandhi, first-person historical family account in *The Telegraph* (2024), says Radha Gandhi (Maganlal's daughter) married Sarala's only son Dipak **after Gandhi and Sarala had both died**. Gandhi died in 1948, so marriage postdates 1948; he also says the couple's romance was known to them beforehand. https://www.telegraphindia.com/culture/a-brief-romance-a-never-ending-friendship-the-brave-yet-sad-story-of-mahatma-gandhi-sarala-devi/cid/1996632
+- Paul Mehlbaum's public genealogy entry names Dipak Dutt as child of Rambhuj Dutt Chaudhary and Sarala Ghosal and spouse of Radha Gandhi, but expressly states **'The data shown has no sources.'** It does not identify offspring. Treat as unsourced tertiary corroboration only, not proof: https://www.genealogieonline.nl/en/mehlbaum-stamboom/I4315.php
+- **Chronology test:** If Kamla or Lalit was born before 1948, a Dipak–Radha marriage after 1948 does not by itself exclude Dipak as a parent, but one must not assume Radha was the biological mother. Their birth years, parents' names and records are decisive. Do not assert either is Dipak's child.
+- Public search of Dipak/Radha offspring and Lalit/Kamla Sinha links produced no trustworthy bridge in this pass. No living relatives added to the live site.
