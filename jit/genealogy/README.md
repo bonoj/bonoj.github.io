@@ -210,3 +210,11 @@ New family testimony introduces a possible grandfather named **Jagdish Mohan** a
 The historical **Jagdish**, documented as Rambhaj Dutt Choudhary's eldest son, may or may not be the same person as the newly mentioned Jagdish Mohan. The shared name element **Mohan** is a clue, not evidence of a surname change. Do not presume which generation adopted **Sinha** or that any change occurred.
 
 Next: seek independent period records linking the two names through dates, parentage, geography or school/civil records. Preserve distinction between biological descent and step relationships. No change to live graph.
+
+## Investigation 14 — disambiguation after Jagdish Mohan clue (2026-10-24)
+
+Fresh searches combining 'Jagdish Mohan', 'Lalit Mohan Sinha', Rambhaj and Chaudhary did **not** reveal a document joining these specific generations. The August 2022 *Mohyal Mitter* historical account does confirm Rambhaj's eldest son was named **Jagdish** and attended a gurukul: https://www.mohyal.com/mm/mitter/Aug22/MM%20Aug%202022.pdf . An independent 2018 Mohyal-history repost repeats the same passage, but likely derives from the same community narrative and is **not independent proof**: https://jaymohyal.blogspot.com/2018/ .
+
+**Important false-positive control:** Searching the full name 'Lalit Mohan Sinha' returns multiple unrelated people in public administrative/court documents. Do **not** equate any of these with Saroj's father without corroborating age, residence, parent or spouse. Do not copy identifiers of possible living relatives into this public README.
+
+**Hypothesis under test:** Was Saroj's remembered 'Jagdish Mohan' the historical Jagdish son of Rambhaj? Neither 'Mohan' nor a Sinha surname transition is attested for historical Jagdish in the checked account. Next evidence needed: historical birthplace, dates or an old document naming Jagdish Mohan and Lalit Mohan Sinha as father and son. Keep alternate hypotheses open, including a separate Jagdish family and the Tagore connection through Kamla's line. No changes to runtime.
