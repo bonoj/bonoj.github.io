@@ -36,7 +36,7 @@
 | Leviathan II Planetbreaker | interactive-simulation | [`leviathan/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/leviathan/index.html) | [Open](https://bonoj.github.io/jit/assets/leviathan/) | Three.js planet and tentacles with RAVAGE action, deforming/damaging crust, reset. |
 | Pocket Magnetarium | interactive-simulation | [`magnetarium.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/magnetarium.html) | [Open](https://bonoj.github.io/jit/assets/magnetarium.html) | Touch-steered dipoles, affinities and chain behavior; particle count, gold and reset controls. |
 | Last Light Redshift Observatory | interactive-toy | [`redshift.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/redshift.html) | [Open](https://bonoj.github.io/jit/assets/redshift.html) | Cosmological redshift/time contemplation with adjustable slider and return control. |
-| Sheepocalypse | interactive-toy | [`sheepocalypse/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/sheepocalypse/index.html) | [Open](https://bonoj.github.io/jit/assets/sheepocalypse/) | Tap sheep for rotating droplet sprays and tumbling meat fragments; foxes and wolves automatically collect landed fragments. |
+| Sheepocalypse | interactive-toy | [`sheepocalypse/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/sheepocalypse/index.html) | [Open](https://bonoj.github.io/jit/assets/sheepocalypse/) | Roaming sheep herds and diving hawks explode into tumbling meat and feather fragments; surviving sheep collect landed meat. |
 | THAW | interactive-toy | [`thaw/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/thaw/index.html) | [Open](https://bonoj.github.io/jit/assets/thaw/) | Touch-and-hold melting ice with solid fraction meter, droplets and ripples. |
 
 Visual cabinet: [`index.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/index.html) · [live](https://bonoj.github.io/jit/assets/)
@@ -76,7 +76,7 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
         "entrypoint": "jit/assets/sheepocalypse/index.html",
         "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/sheepocalypse/index.html",
         "live_url": "https://bonoj.github.io/jit/assets/sheepocalypse/",
-        "description": "Tap sheep for rotating droplet sprays, tumbling meat fragments and autonomous fox/wolf scavengers.",
+        "description": "Roaming sheep herds, autonomous and tap-summoned hawk dives, tumbling meat and feathers, and sheep collecting landed meat.",
         "renderer": "DOM,CSS,JavaScript",
         "controls": [
             "tap-sheep",
