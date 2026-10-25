@@ -7,6 +7,7 @@ A collection of related experiments in organic geometry, living structures, and 
 | ID | Entrypoint | Live | Purpose |
 | --- | --- | --- | --- |
 | chromatic-garden | [index.html](index.html) | [Open](https://bonoj.github.io/jit/assets/fractal-garden/) | Original touch-reactive chromatic fractal painting; palette, bloom and pause |
+| living-architecture-02 | [living-architecture-02.html](living-architecture-02.html) | [Open](https://bonoj.github.io/jit/assets/fractal-garden/living-architecture-02.html) | Experimental tip-to-node branch fusion, cross-braces, pruning and material refund; fusion is geometric, not yet structural simulation |
 | living-architecture-01 | [living-architecture.html](living-architecture.html) | [Open](https://bonoj.github.io/jit/assets/fractal-garden/living-architecture.html) | Autonomous branching with swipe pruning, material budget recovery, and age-varying architectural/vegetal growth tendencies |
 
 ## Living Architecture v1 — interaction and accounting
@@ -33,3 +34,13 @@ Relevant source: [Hermeticon Arcana populations](https://github.com/bonoj/Hermet
 3. Describe interactions, invariants, known limitations and live URL.
 4. Keep the root [JIT Assets inventory](../README.md) synchronized with added entrypoints.
 5. Verify source and deployment independently; never infer live success from a commit.
+
+## Living Architecture II — Fusion trial
+
+- Standalone sibling of v1; original garden and v1 remain untouched.
+- Growing tips seek nearby nodes at similar elevation and can join them with a new `fusion` edge, consuming material budget. The shared graph now has non-tree edges.
+- Pruning removes a descendant branch and its incident fusion edges and refunds the removed edges' exact stored costs. Cutting the basal edge or tapping the root resets to full budget.
+- This is a first geometric connection trial: no load-bearing solver, architectural occupancy, enclosed-room detection, or guaranteed bridge formation. Fusion opportunities depend on geometry and the evolving architectural tendency.
+- Controls: swipe pruning, root rebirth, pause, 1×/3×/8×, reset. Canvas 2D; no external dependencies.
+- **Known caveat:** pruning a fusion edge currently prunes its endpoint's descendant tree; future versions should distinguish severing a cross-link from amputating a lineage.
+- Source committed; browser runtime not independently verified.
