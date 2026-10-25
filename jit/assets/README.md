@@ -16,10 +16,10 @@
 
 ## Counts
 
-- **12** top-level entries: **5** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
-- **11** distinct experiments indexed below; **5** nested `index.html` entrypoints.
-- **17** total files including nested entrypoints and the landing page; this README adds one more.
-- All five directories were enumerated directly; no deeper folders were present at inspection time.
+- **13** top-level entries: **6** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
+- **12** distinct experiments indexed below; **6** nested `index.html` entrypoints.
+- **18** total HTML files including nested entrypoints and the landing page; this README is additional.
+- Earlier five directories were enumerated directly; the newly added Daily Bread directory contains one entrypoint. Re-enumerate for a fully refreshed snapshot.
 
 ## Human-readable experiment index
 
@@ -29,6 +29,7 @@
 | Ash and Root | generative-environment | [`ash-and-root/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ash-and-root/index.html) | [Open](https://bonoj.github.io/jit/assets/ash-and-root/) | Organic growth, wind, fire, sand and embers; touch-reactive full-screen 2D environment. |
 | Ball-Bearing Worm | interactive-simulation | [`ball-bearing-worm.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ball-bearing-worm.html) | [Open](https://bonoj.github.io/jit/assets/ball-bearing-worm.html) | 3D segmented worm; orbit and tap to guide, feed mushrooms, introduce eagle, reset, adjust segment count. |
 | Pocket Apiary | interactive-simulation | [`bees.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/bees.html) | [Open](https://bonoj.github.io/jit/assets/bees.html) | Canvas bee-foraging simulation with nectar, colony size, bloom and reset controls. |
+| Daily Bread | autonomous-diorama | [`daily-bread/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/daily-bread/index.html) | [Open](https://bonoj.github.io/jit/assets/daily-bread/) | Blind pedestrian walks from home to bakery and back, untouched by autonomous car crashes, fires, meteor impacts and building collapses; silent looping emoji Canvas scene. |
 | Evermore II D20 | interactive-toy | [`evermore-d20.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/evermore-d20.html) | [Open](https://bonoj.github.io/jit/assets/evermore-d20.html) | Tap-to-roll twenty-sided emoji die rendered in canvas. |
 | Fossil Cathedral | generative-environment | [`fossil-cathedral/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fossil-cathedral/index.html) | [Open](https://bonoj.github.io/jit/assets/fossil-cathedral/) | Structural/growth study with wind, structural-view toggle, regenerate and pause. |
 | Chromatic Garden | generative-art | [`fractal-garden/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fractal-garden/index.html) | [Open](https://bonoj.github.io/jit/assets/fractal-garden/) | Touch-reactive branching fractal garden with color palettes and bloom regeneration. |
@@ -52,10 +53,10 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
   "inspected_on": "2026-10-25",
   "verification": "repository-source-inspected;live-runtime-not-verified",
   "count": {
-    "top_level_entries": 12,
-    "experiment_directories": 5,
+    "top_level_entries": 13,
+    "experiment_directories": 6,
     "standalone_experiments": 6,
-    "experiments": 11,
+    "experiments": 12,
     "landing_pages": 1
   },
   "index": {
@@ -145,6 +146,24 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
       ],
       "external_dependencies": [],
       "source_sha": "bb784b34b0d9bfdd41a7584676d354de2d512134",
+      "source_sha_type": "blob",
+      "runtime_verified": false
+    },
+    {
+      "id": "daily-bread",
+      "name": "Daily Bread",
+      "kind": "autonomous-diorama",
+      "path": "jit/assets/daily-bread/",
+      "entrypoint": "jit/assets/daily-bread/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/daily-bread/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/daily-bread/",
+      "description": "Silent looping emoji catastrophe diorama: blind pedestrian makes an untouched bakery bread run while cars crash, meteors fall, buildings collapse, and smoke/fire/debris spread.",
+      "renderer": "Canvas2D",
+      "controls": [
+        "none"
+      ],
+      "external_dependencies": [],
+      "source_sha": "3786af7bf3fba93890ca3f17e231a2ed31db2cd3",
       "source_sha_type": "blob",
       "runtime_verified": false
     },
