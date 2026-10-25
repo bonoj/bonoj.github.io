@@ -16,9 +16,9 @@
 
 ## Counts
 
-- **17** top-level entries: **10** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
-- **16** distinct experiments indexed below; **10** nested `index.html` entrypoints.
-- **22** total HTML files including nested entrypoints and the landing page; this README is additional.
+- **18** top-level entries: **11** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
+- **17** distinct experiments indexed below; **11** nested `index.html` entrypoints.
+- **23** total HTML files including nested entrypoints and the landing page; this README is additional.
 - Earlier five directories were enumerated directly; the newer directories contain one entrypoint each. Re-enumerate for a fully refreshed snapshot.
 
 ## Human-readable experiment index
@@ -35,6 +35,7 @@
 | Fossil Cathedral | generative-environment | [`fossil-cathedral/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fossil-cathedral/index.html) | [Open](https://bonoj.github.io/jit/assets/fossil-cathedral/) | Structural/growth study with wind, structural-view toggle, regenerate and pause. |
 | The Cannon | interactive-physics-toy | [`cannon/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/cannon/index.html) | [Open](https://bonoj.github.io/jit/assets/cannon/) | Full-body emoji animals march into a cannon, becoming ballistic meat, bones and feathers with mass-dependent bounces, wall collisions, settling and gradual decay. |
 | Chromatic Garden | generative-art | [`fractal-garden/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fractal-garden/index.html) | [Open](https://bonoj.github.io/jit/assets/fractal-garden/) | Touch-reactive branching fractal garden with color palettes and bloom regeneration. |
+| The House of Spite | interactive-toy | [`house-of-spite/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/house-of-spite/index.html) | [Open](https://bonoj.github.io/jit/assets/house-of-spite/) | Six tappable household toggles; a resident walks to reverse disturbances and returns to eating spaghetti. |
 | Leviathan II Planetbreaker | interactive-simulation | [`leviathan/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/leviathan/index.html) | [Open](https://bonoj.github.io/jit/assets/leviathan/) | Three.js planet and tentacles with RAVAGE action, deforming/damaging crust, reset. |
 | Pocket Magnetarium | interactive-simulation | [`magnetarium.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/magnetarium.html) | [Open](https://bonoj.github.io/jit/assets/magnetarium.html) | Touch-steered dipoles, affinities and chain behavior; particle count, gold and reset controls. |
 | Last Light Redshift Observatory | interactive-toy | [`redshift.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/redshift.html) | [Open](https://bonoj.github.io/jit/assets/redshift.html) | Cosmological redshift/time contemplation with adjustable slider and return control. |
@@ -57,10 +58,10 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
   "inspected_on": "2026-10-25",
   "verification": "repository-source-inspected;live-runtime-not-verified",
   "count": {
-    "top_level_entries": 17,
-    "experiment_directories": 10,
+    "top_level_entries": 18,
+    "experiment_directories": 11,
     "standalone_experiments": 6,
-    "experiments": 16,
+    "experiments": 17,
     "landing_pages": 1
   },
   "index": {
@@ -71,6 +72,20 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
     "runtime_verified": false
   },
   "assets": [
+    {
+      "id": "house-of-spite",
+      "name": "The House of Spite",
+      "kind": "interactive-toy",
+      "path": "jit/assets/house-of-spite/",
+      "entrypoint": "jit/assets/house-of-spite/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/house-of-spite/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/house-of-spite/",
+      "description": "Six household toggles and an autonomous spaghetti-eating resident who walks to reverse user changes.",
+      "renderer": "SVG,JavaScript",
+      "controls": ["light","window","fan","tv","tap","door"],
+      "external_dependencies": [],
+      "runtime_verified": false
+    },
     {
       "id": "finger-switch",
       "name": "Finger · Shared Switch (Original)",
