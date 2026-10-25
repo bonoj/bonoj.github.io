@@ -16,9 +16,9 @@
 
 ## Counts
 
-- **13** top-level entries: **6** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
-- **12** distinct experiments indexed below; **6** nested `index.html` entrypoints.
-- **18** total HTML files including nested entrypoints and the landing page; this README is additional.
+- **14** top-level entries: **7** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
+- **13** distinct experiments indexed below; **7** nested `index.html` entrypoints.
+- **19** total HTML files including nested entrypoints and the landing page; this README is additional.
 - Earlier five directories were enumerated directly; the newly added Daily Bread directory contains one entrypoint. Re-enumerate for a fully refreshed snapshot.
 
 ## Human-readable experiment index
@@ -36,6 +36,7 @@
 | Leviathan II Planetbreaker | interactive-simulation | [`leviathan/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/leviathan/index.html) | [Open](https://bonoj.github.io/jit/assets/leviathan/) | Three.js planet and tentacles with RAVAGE action, deforming/damaging crust, reset. |
 | Pocket Magnetarium | interactive-simulation | [`magnetarium.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/magnetarium.html) | [Open](https://bonoj.github.io/jit/assets/magnetarium.html) | Touch-steered dipoles, affinities and chain behavior; particle count, gold and reset controls. |
 | Last Light Redshift Observatory | interactive-toy | [`redshift.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/redshift.html) | [Open](https://bonoj.github.io/jit/assets/redshift.html) | Cosmological redshift/time contemplation with adjustable slider and return control. |
+| Sheepocalypse | interactive-toy | [`sheepocalypse/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/sheepocalypse/index.html) | [Open](https://bonoj.github.io/jit/assets/sheepocalypse/) | Tap sheep for rotating droplet sprays and tumbling meat fragments; foxes and wolves automatically collect landed fragments. |
 | THAW | interactive-toy | [`thaw/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/thaw/index.html) | [Open](https://bonoj.github.io/jit/assets/thaw/) | Touch-and-hold melting ice with solid fraction meter, droplets and ripples. |
 
 Visual cabinet: [`index.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/index.html) · [live](https://bonoj.github.io/jit/assets/)
@@ -53,10 +54,10 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
   "inspected_on": "2026-10-25",
   "verification": "repository-source-inspected;live-runtime-not-verified",
   "count": {
-    "top_level_entries": 13,
-    "experiment_directories": 6,
+    "top_level_entries": 14,
+    "experiment_directories": 7,
     "standalone_experiments": 6,
-    "experiments": 12,
+    "experiments": 13,
     "landing_pages": 1
   },
   "index": {
@@ -67,6 +68,24 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
     "runtime_verified": false
   },
   "assets": [
+    {
+        "id": "sheepocalypse",
+        "name": "Sheepocalypse",
+        "kind": "interactive-toy",
+        "path": "jit/assets/sheepocalypse/",
+        "entrypoint": "jit/assets/sheepocalypse/index.html",
+        "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/sheepocalypse/index.html",
+        "live_url": "https://bonoj.github.io/jit/assets/sheepocalypse/",
+        "description": "Tap sheep for rotating droplet sprays, tumbling meat fragments and autonomous fox/wolf scavengers.",
+        "renderer": "DOM,CSS,JavaScript",
+        "controls": [
+            "tap-sheep",
+            "add-sheep",
+            "reset"
+        ],
+        "external_dependencies": [],
+        "runtime_verified": false
+    },
     {
       "id": "ant-axe-log-study",
       "name": "Ant Axe Log Study",
