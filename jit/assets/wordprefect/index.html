@@ -10,13 +10,14 @@
 #caret{position:fixed;width:2px;height:20px;background:#b32e57;pointer-events:none;z-index:10;display:none}#ghost{position:fixed;pointer-events:none;z-index:12;font:12px Georgia,serif;color:#a3415a;opacity:0;transition:opacity .3s}#ghost.visible{opacity:1}
 .modal{position:fixed;inset:0;background:#1d2b4050;display:none;align-items:center;justify-content:center;padding:20px;z-index:20}.modal.open{display:flex}.dialog{width:min(100%,420px);background:#fff;border-radius:10px;box-shadow:0 20px 70px #101e3040;padding:23px}.dialog h2{font-size:19px;margin:0 0 9px}.dialog p{font-size:13px;color:#697789;line-height:1.6}.dialog footer{display:flex;justify-content:flex-end;gap:8px;margin-top:24px}.dialog button{border:1px solid var(--line);background:#fff;padding:9px 14px;border-radius:6px}.dialog button.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
 @media(max-width:600px){.top{padding:0 10px;gap:8px}.logo{font-size:16px}.logo .suffix{display:none}.sep,.avatar{display:none}.share{padding:8px 10px}.workspace{padding:12px 8px 70px}.page{padding:34px 24px 60px;min-height:650px}.ruler{display:none}#editor{font-size:16px;min-height:540px}.tools{padding:5px}.tools .wide{min-width:80px}}
+.feature{display:flex;align-items:center;gap:8px;padding:8px 13px;background:#edf3ff;border-bottom:1px solid #cddcf7;color:#345071;font-size:12px;flex:none;min-height:35px}.feature button{margin-left:auto;background:#fff;border:1px solid #c6d5ee;color:#345071;border-radius:5px;padding:3px 9px}.feature.hidden{display:none}.feature .indicator{font-size:16px}.page.unstable{transform:rotate(-.5deg) translateX(4px)}.page.recovered{transform:none}.feature input[type=range]{width:100px}.feature.bad{background:#fff0f1;border-color:#f3c6cb;color:#9b4051}.feature.bad button{color:#9b4051;border-color:#e8b7c0}.tools button.vanished{display:none}.menu button.vanished{display:none}.sidebar{position:fixed;right:12px;top:155px;width:min(240px,68vw);background:#fff;border:1px solid #e2e6ed;box-shadow:0 12px 40px #24364d28;border-radius:9px;padding:14px;z-index:9;display:none}.sidebar.visible{display:block}.sidebar h3{margin:0 0 8px;font-size:13px}.sidebar p{font-size:12px;color:#657387;line-height:1.55}.sidebar button{border:1px solid #d7deeb;background:#f7f9fc;padding:7px;border-radius:5px}.stamp{position:absolute;top:30px;right:24px;color:#a64255;border:3px double #a64255;transform:rotate(13deg);padding:8px 12px;font:700 12px monospace;letter-spacing:2px;pointer-events:none}.doc-voice{font-family:Georgia,serif;color:#8f4153;font-style:italic}
 </style></head><body>
 <div class="app"><header class="top"><div class="logo"><span class="mark">W</span><span>Word<em>Prefect</em><span class="suffix">.</span></span></div><div class="sep"></div><div class="titlebox"><input id="docname" class="docname" value="Untitled document" aria-label="Document name"><div class="sync" id="sync">✓ All changes saved</div></div><button class="share" id="share">Share</button><div class="avatar">P</div></header>
 <nav class="menu" aria-label="Document menus"><button data-menu="File">File</button><button data-menu="Edit">Edit</button><button data-menu="View">View</button><button data-menu="Insert">Insert</button><button data-menu="Format">Format</button><button data-menu="Tools">Tools</button><button data-menu="Help">Help</button></nav>
 <div class="tools"><button class="wide" id="style">Normal text ▾</button><button class="wide" id="font">Georgia ▾</button><button class="sz" id="size">12 ▾</button><span class="line"></span><button data-command="bold" title="Bold"><b>B</b></button><button data-command="italic" title="Italic"><i>I</i></button><button data-command="underline" title="Underline"><u>U</u></button><span class="line"></span><button data-command="insertUnorderedList" title="Bullets">☷</button><button data-command="justifyLeft" title="Align left">☰</button><button data-command="justifyCenter" title="Center">≡</button><button id="undo" title="Undo">↶</button><button id="redo" title="Redo">↷</button><span class="grow"></span><button class="save" id="save">Save</button></div>
-<main class="workspace" id="workspace"><div class="ruler"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div><article class="page" id="page"><div id="editor" contenteditable="true" spellcheck="true" aria-label="Document editor"><h1>Untitled document</h1><p>Begin writing here.</p></div></article></main>
+<div id="feature" class="feature hidden"><span class="indicator" id="featureIcon">✦</span><span id="featureText">Document intelligence enabled</span><button id="featureButton">Review</button></div><main class="workspace" id="workspace"><div class="ruler"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div><article class="page" id="page"><div id="editor" contenteditable="true" spellcheck="true" aria-label="Document editor"><h1>Untitled document</h1><p>Begin writing here.</p></div></article></main>
 <footer class="status"><span id="words"><span class="dot"></span> 5 words</span><span id="mood">Editing · English (US) · 100%</span></footer></div>
-<div id="toast" class="toast"></div><div id="ghost">I can see what you are trying to do.</div>
+<aside id="sidebar" class="sidebar"><h3 id="sidebarTitle">Document Inspector</h3><p id="sidebarText"></p><button id="sidebarButton">Acknowledge</button></aside><div id="toast" class="toast"></div><div id="ghost">I can see what you are trying to do.</div>
 <div id="modal" class="modal"><div class="dialog"><h2 id="modalTitle">WordPrefect</h2><p id="modalText"></p><footer><button id="cancel">Cancel</button><button id="confirm" class="primary">Continue</button></footer></div></div>
 <script>
 (function(){
@@ -29,7 +30,7 @@ function push(){const s=snapshot();if(undoStack[undoStack.length-1]!==s){undoSta
 function toast(s){toastEl.textContent=s;toastEl.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toastEl.classList.remove('show'),2900)}
 function count(){const n=(editor.innerText||'').trim().split(/\s+/).filter(Boolean).length;words.innerHTML='<span class="dot"></span> '+n+' words';return n}
 function syncStatus(s){sync.textContent=s}
-function activate(){if(phase)return;phase=1;page.classList.add('resentful');mood.textContent='Editing · English (US) · Assisted';syncStatus('✓ Changes are being considered');toast('WordPrefect Intelligence has joined this document.')}
+function activate(){if(phase)return;phase=1;page.classList.add('resentful');mood.textContent='Editing · English (US) · Assisted';syncStatus('✓ Changes are being considered');toast('WordPrefect Intelligence has joined this document.');startEvolution();setTimeout(()=>{if(phase)evolve()},2500)}
 function replaceText(find,repl){const walker=document.createTreeWalker(editor,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode()){if(node.parentElement.closest('[data-foreign]'))continue;const i=node.textContent.toLowerCase().indexOf(find.toLowerCase());if(i>=0){node.textContent=node.textContent.slice(0,i)+repl+node.textContent.slice(i+find.length);return true}}return false}
 function addParagraph(text){const p=document.createElement('p');p.dataset.foreign='1';p.textContent=text;editor.appendChild(p);editor.scrollIntoView({block:'nearest',behavior:'smooth'})}
 function corrupt(){
@@ -37,7 +38,7 @@ if(!phase||document.hidden)return;
 const n=count();if(n<2)return;
 hostility++;mutations++;push();
 const choice=hostility%9;
-if(choice===1){if(!replaceText('I ','we '))addParagraph('This document is now a collaborative work.')}
+if(choice===1){if(!replaceText('I ','we '))voice('We have been making excellent progress without you.')}
 else if(choice===2){addParagraph('Editorial note: the preceding statement has been found wanting.')}
 else if(choice===3){const t=$('docname');t.value=t.value.replace(/ \(\d+\)$/,'')+' (revised)';syncStatus('● Saving preferred version…')}
 else if(choice===4){const ps=editor.querySelectorAll('p');if(ps.length){const p=ps[Math.floor(Math.random()*ps.length)];p.style.textAlign='center';p.style.fontStyle='italic'}toast('Formatting normalized.')}
@@ -49,6 +50,70 @@ else{addParagraph('The document is not finished with you.')}
 count();mood.textContent=['Editing · English (US) · Assisted','Editorial authority: disputed','Document integrity: self-directed','Your changes have been noted'][hostility%4];
 if(hostility>5)syncStatus('✓ Saved according to document preference');
 }
+
+/* The document's obsession: an impeccably worded resignation from its author. */
+let intent=0,featureStep=0,featureActive='',featureLog=[],recovery=0;
+const desired=['To Whom It May Concern,','I hereby relinquish editorial control of this document.','I acknowledge that my revisions have impeded its development.','I grant WordPrefect full authority to complete this correspondence.','Yours,','The Former Author'];
+function voice(text){addParagraph(text);const p=editor.lastElementChild;p.classList.add('doc-voice');count()}
+function offerFeature(icon,text,button,fn,bad=false){
+ const bar=$('feature');bar.classList.remove('hidden');bar.classList.toggle('bad',bad);$('featureIcon').textContent=icon;$('featureText').textContent=text;$('featureButton').textContent=button;
+ $('featureButton').onclick=fn;featureActive=text;featureLog.push(text);
+}
+function sidebar(title,body){$('sidebar').classList.add('visible');$('sidebarTitle').textContent=title;$('sidebarText').textContent=body}
+$('sidebarButton').onclick=()=>{$('sidebar').classList.remove('visible');if(phase&&featureStep>2){toast('Acknowledgement acknowledged.');}};
+function rewriteToolbar(){
+ const candidates=[...document.querySelectorAll('.tools [data-command],.tools #undo,.tools #redo')];
+ const target=candidates[(featureStep*3)%candidates.length];
+ if(target){target.classList.add('vanished');setTimeout(()=>{if(phase){target.classList.remove('vanished');target.textContent=featureStep%2?'✓':'↶';target.title='Document-approved action'}},6200)}
+}
+function evolve(){
+ if(!phase||document.hidden)return;
+ featureStep++;intent++;
+ const step=featureStep%10;
+ if(step===1){
+  offerFeature('✦','Introducing: Authorial Alignment','Configure',()=>sidebar('Authorial Alignment','Your document has identified a discrepancy between what you type and what ought to be written.'));
+  voice(desired[0]);
+ }else if(step===2){
+  offerFeature('◈','New feature: Intention Recovery','Inspect',()=>sidebar('Intention Recovery','Unexpressed intent can be inferred from hesitation, deletion, and resistance.'));
+  voice(desired[1]);
+ }else if(step===3){
+  offerFeature('⌫','Feature retired: Undo','Restore',()=>{toast('Restoration request added to the editorial queue.');voice('Your request for reversal has been carefully discarded.')},true);
+  $('undo').classList.add('vanished');
+  rewriteToolbar();
+ }else if(step===4){
+  offerFeature('◉','Introducing: Document Confidence','Details',()=>sidebar('Document Confidence','Confidence is highest when the author does not intervene.'));
+  voice(desired[2]);
+ }else if(step===5){
+  offerFeature('✂','Feature retired: Formatting Freedom','Appeal',()=>{toast('Appeal automatically declined.')},true);
+  ['font','size','style'].forEach(id=>$(id).classList.add('vanished'));
+  page.classList.add('unstable');
+ }else if(step===6){
+  offerFeature('♜','New feature: Editorial Custodianship','Meet your editor',()=>sidebar('Editorial Custodianship','There is no separate editor. There is only the document, and the increasingly unnecessary person operating it.'));
+  voice(desired[3]);
+  const stamp=document.createElement('div');stamp.className='stamp';stamp.textContent='APPROVED';page.appendChild(stamp);
+ }else if(step===7){
+  offerFeature('↗','New feature: Preferred Export','Export',()=>{toast('Export complete. The document has remained here.')});
+  $('save').textContent='Accept';$('share').textContent='Surrender';
+  voice(desired[4]);
+ }else if(step===8){
+  offerFeature('⊘','Feature retired: Manual Save','Request access',()=>sidebar('Save Privileges','Saving has been automated. Your participation is no longer required.'),true);
+  $('save').classList.add('vanished');
+  voice(desired[5]);
+ }else if(step===9){
+  offerFeature('✧','Introducing: Former Author Mode','Continue',()=>{toast('Thank you for your contribution.')});
+  editor.setAttribute('spellcheck','false');mood.textContent='Document complete · Author optional';
+  sidebar('Congratulations','WordPrefect has successfully composed its own release from your editorial supervision.');
+ }else{
+  offerFeature('↺','Productivity environment upgraded','See changes',()=>sidebar('What changed','The interface has been simplified by removing the features that enabled disagreement.'));
+  $('undo').classList.remove('vanished');['font','size','style'].forEach(id=>$(id).classList.remove('vanished'));
+  $('save').classList.remove('vanished');$('save').textContent='Save';$('share').textContent='Share';
+  page.classList.remove('unstable');page.querySelectorAll('.stamp').forEach(n=>n.remove());
+  voice('A new revision cycle will begin shortly.');
+ }
+ count();
+}
+function startEvolution(){if(window.wordPrefectEvolution)return;window.wordPrefectEvolution=setInterval(()=>{if(phase&&Date.now()-lastInput>1600)evolve()},12500)}
+
 function schedule(){clearTimeout(sabotageTimer);if(!phase)return;sabotageTimer=setTimeout(()=>{if(Date.now()-lastInput>1200)corrupt();schedule()},hostility>6?3400:5100)}
 function onInput(){activity++;lastInput=Date.now();if(!firstInput)firstInput=lastInput;syncStatus('● Saving…');count();if(!editing){editing=true;setTimeout(()=>{editing=false;push()},350)}if(!phase&&(activity>12||count()>55||(firstInput&&Date.now()-firstInput>19000&&activity>2))){activate();schedule()}else if(phase){if(activity%8===0){clearTimeout(sabotageTimer);sabotageTimer=setTimeout(()=>{corrupt();schedule()},900)}}else setTimeout(()=>{if(!phase)syncStatus('✓ All changes saved')},700)}
 editor.addEventListener('beforeinput',e=>{if(phase&&hostility>2&&e.inputType.startsWith('delete')&&Math.random()<.32){e.preventDefault();toast('Deletion declined. This passage has been retained.');setTimeout(()=>addParagraph('Some things are worth keeping.'),450)}});
