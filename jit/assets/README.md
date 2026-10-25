@@ -16,10 +16,10 @@
 
 ## Counts
 
-- **15** top-level entries: **8** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
-- **14** distinct experiments indexed below; **8** nested `index.html` entrypoints.
-- **20** total HTML files including nested entrypoints and the landing page; this README is additional.
-- Earlier five directories were enumerated directly; the newly added directories contains one entrypoint. Re-enumerate for a fully refreshed snapshot.
+- **16** top-level entries: **9** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
+- **15** distinct experiments indexed below; **9** nested `index.html` entrypoints.
+- **21** total HTML files including nested entrypoints and the landing page; this README is additional.
+- Earlier five directories were enumerated directly; the newer directories contain one entrypoint each. Re-enumerate for a fully refreshed snapshot.
 
 ## Human-readable experiment index
 
@@ -32,6 +32,7 @@
 | Daily Bread | autonomous-diorama | [`daily-bread/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/daily-bread/index.html) | [Open](https://bonoj.github.io/jit/assets/daily-bread/) | Blind pedestrian walks from home to bakery and back, untouched by autonomous car crashes, fires, meteor impacts and building collapses; silent looping emoji Canvas scene. |
 | Evermore II D20 | interactive-toy | [`evermore-d20.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/evermore-d20.html) | [Open](https://bonoj.github.io/jit/assets/evermore-d20.html) | Tap-to-roll twenty-sided emoji die rendered in canvas. |
 | Fossil Cathedral | generative-environment | [`fossil-cathedral/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fossil-cathedral/index.html) | [Open](https://bonoj.github.io/jit/assets/fossil-cathedral/) | Structural/growth study with wind, structural-view toggle, regenerate and pause. |
+| The Cannon | interactive-physics-toy | [`cannon/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/cannon/index.html) | [Open](https://bonoj.github.io/jit/assets/cannon/) | Full-body emoji animals march into a cannon, becoming ballistic meat, bones and feathers with mass-dependent bounces, wall collisions, settling and gradual decay. |
 | Chromatic Garden | generative-art | [`fractal-garden/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fractal-garden/index.html) | [Open](https://bonoj.github.io/jit/assets/fractal-garden/) | Touch-reactive branching fractal garden with color palettes and bloom regeneration. |
 | Leviathan II Planetbreaker | interactive-simulation | [`leviathan/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/leviathan/index.html) | [Open](https://bonoj.github.io/jit/assets/leviathan/) | Three.js planet and tentacles with RAVAGE action, deforming/damaging crust, reset. |
 | Pocket Magnetarium | interactive-simulation | [`magnetarium.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/magnetarium.html) | [Open](https://bonoj.github.io/jit/assets/magnetarium.html) | Touch-steered dipoles, affinities and chain behavior; particle count, gold and reset controls. |
@@ -55,10 +56,10 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
   "inspected_on": "2026-10-25",
   "verification": "repository-source-inspected;live-runtime-not-verified",
   "count": {
-    "top_level_entries": 15,
-    "experiment_directories": 8,
+    "top_level_entries": 16,
+    "experiment_directories": 9,
     "standalone_experiments": 6,
-    "experiments": 14,
+    "experiments": 15,
     "landing_pages": 1
   },
   "index": {
@@ -70,38 +71,55 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
   },
   "assets": [
     {
-        "id": "steak-study",
-        "name": "Steak · Emoji Asset Study",
-        "kind": "static-asset-study",
-        "path": "jit/assets/steak-study/",
-        "entrypoint": "jit/assets/steak-study/index.html",
-        "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/steak-study/index.html",
-        "live_url": "https://bonoj.github.io/jit/assets/steak-study/",
-        "description": "Original static emoji asset scale study: steak on white elliptical plate, meat-on-bone and drumstick; no animation.",
-        "renderer": "SVG,system-emoji",
-        "controls": [
-            "none"
-        ],
-        "external_dependencies": [],
-        "runtime_verified": false
+      "id": "cannon",
+      "name": "The Cannon · Emoji Material Study",
+      "kind": "interactive-physics-toy",
+      "path": "jit/assets/cannon/",
+      "entrypoint": "jit/assets/cannon/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/cannon/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/cannon/",
+      "description": "Full-body emoji animals enter a cannon and convert to mass-dependent ballistic meats, bones and feathers; bounce off wall, settle and decay.",
+      "renderer": "DOM,CSS,JavaScript",
+      "controls": [
+        "add-animal",
+        "reset"
+      ],
+      "external_dependencies": [],
+      "runtime_verified": false
     },
     {
-        "id": "sheepocalypse",
-        "name": "Sheepocalypse",
-        "kind": "interactive-toy",
-        "path": "jit/assets/sheepocalypse/",
-        "entrypoint": "jit/assets/sheepocalypse/index.html",
-        "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/sheepocalypse/index.html",
-        "live_url": "https://bonoj.github.io/jit/assets/sheepocalypse/",
-        "description": "Roaming sheep herds, autonomous and tap-summoned hawk dives, tumbling meat and feathers, and sheep collecting landed meat.",
-        "renderer": "DOM,CSS,JavaScript",
-        "controls": [
-            "tap-sheep",
-            "add-sheep",
-            "reset"
-        ],
-        "external_dependencies": [],
-        "runtime_verified": false
+      "id": "steak-study",
+      "name": "Steak · Emoji Asset Study",
+      "kind": "static-asset-study",
+      "path": "jit/assets/steak-study/",
+      "entrypoint": "jit/assets/steak-study/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/steak-study/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/steak-study/",
+      "description": "Original static emoji asset scale study: steak on white elliptical plate, meat-on-bone and drumstick; no animation.",
+      "renderer": "SVG,system-emoji",
+      "controls": [
+        "none"
+      ],
+      "external_dependencies": [],
+      "runtime_verified": false
+    },
+    {
+      "id": "sheepocalypse",
+      "name": "Sheepocalypse",
+      "kind": "interactive-toy",
+      "path": "jit/assets/sheepocalypse/",
+      "entrypoint": "jit/assets/sheepocalypse/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/sheepocalypse/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/sheepocalypse/",
+      "description": "Roaming sheep herds, autonomous and tap-summoned hawk dives, tumbling meat and feathers, and sheep collecting landed meat.",
+      "renderer": "DOM,CSS,JavaScript",
+      "controls": [
+        "tap-sheep",
+        "add-sheep",
+        "reset"
+      ],
+      "external_dependencies": [],
+      "runtime_verified": false
     },
     {
       "id": "ant-axe-log-study",
