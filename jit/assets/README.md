@@ -16,9 +16,9 @@
 
 ## Counts
 
-- **16** top-level entries: **9** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
-- **15** distinct experiments indexed below; **9** nested `index.html` entrypoints.
-- **21** total HTML files including nested entrypoints and the landing page; this README is additional.
+- **17** top-level entries: **10** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
+- **16** distinct experiments indexed below; **10** nested `index.html` entrypoints.
+- **22** total HTML files including nested entrypoints and the landing page; this README is additional.
 - Earlier five directories were enumerated directly; the newer directories contain one entrypoint each. Re-enumerate for a fully refreshed snapshot.
 
 ## Human-readable experiment index
@@ -31,6 +31,7 @@
 | Pocket Apiary | interactive-simulation | [`bees.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/bees.html) | [Open](https://bonoj.github.io/jit/assets/bees.html) | Canvas bee-foraging simulation with nectar, colony size, bloom and reset controls. |
 | Daily Bread | autonomous-diorama | [`daily-bread/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/daily-bread/index.html) | [Open](https://bonoj.github.io/jit/assets/daily-bread/) | Blind pedestrian walks from home to bakery and back, untouched by autonomous car crashes, fires, meteor impacts and building collapses; silent looping emoji Canvas scene. |
 | Evermore II D20 | interactive-toy | [`evermore-d20.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/evermore-d20.html) | [Open](https://bonoj.github.io/jit/assets/evermore-d20.html) | Tap-to-roll twenty-sided emoji die rendered in canvas. |
+| Finger · Shared Switch (Original) | interactive-toy | [`finger-switch/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/finger-switch/index.html) | [Open](https://bonoj.github.io/jit/assets/finger-switch/) | Original unconstrained FABRIK finger autonomously presses a shared binary switch; user can toggle it too, with a separate autonomous-finger toggle. Preserved before correction attempts. |
 | Fossil Cathedral | generative-environment | [`fossil-cathedral/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fossil-cathedral/index.html) | [Open](https://bonoj.github.io/jit/assets/fossil-cathedral/) | Structural/growth study with wind, structural-view toggle, regenerate and pause. |
 | The Cannon | interactive-physics-toy | [`cannon/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/cannon/index.html) | [Open](https://bonoj.github.io/jit/assets/cannon/) | Full-body emoji animals march into a cannon, becoming ballistic meat, bones and feathers with mass-dependent bounces, wall collisions, settling and gradual decay. |
 | Chromatic Garden | generative-art | [`fractal-garden/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fractal-garden/index.html) | [Open](https://bonoj.github.io/jit/assets/fractal-garden/) | Touch-reactive branching fractal garden with color palettes and bloom regeneration. |
@@ -56,10 +57,10 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
   "inspected_on": "2026-10-25",
   "verification": "repository-source-inspected;live-runtime-not-verified",
   "count": {
-    "top_level_entries": 16,
-    "experiment_directories": 9,
+    "top_level_entries": 17,
+    "experiment_directories": 10,
     "standalone_experiments": 6,
-    "experiments": 15,
+    "experiments": 16,
     "landing_pages": 1
   },
   "index": {
@@ -70,6 +71,20 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
     "runtime_verified": false
   },
   "assets": [
+    {
+      "id": "finger-switch",
+      "name": "Finger · Shared Switch (Original)",
+      "kind": "interactive-toy",
+      "path": "jit/assets/finger-switch/",
+      "entrypoint": "jit/assets/finger-switch/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/finger-switch/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/finger-switch/",
+      "description": "Original pre-correction autonomous finger and shared binary switch. Unconstrained FABRIK motion; scheduled finger actuation, not geometric contact detection.",
+      "renderer": "SVG,JavaScript",
+      "controls": ["shared-switch","autonomous-finger-toggle"],
+      "external_dependencies": [],
+      "runtime_verified": false
+    },
     {
       "id": "cannon",
       "name": "The Cannon · Emoji Material Study",
