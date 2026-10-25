@@ -1,0 +1,301 @@
+# JIT Assets — Machine-Readable Inventory
+
+> Canonical source inventory for `bonoj/bonoj.github.io/jit/assets/`. This README describes **repository source**, not a verified live-browser smoke test.
+
+## Contract for agents
+
+- **Enumerate first:** `GET https://api.github.com/repos/bonoj/bonoj.github.io/contents/jit/assets` via the connected GitHub **fetch** operation; `fetch_file` is for files, not directories.
+- **Discover recursively:** inspect each directory's Contents API endpoint. As inspected, each of the five project directories contains exactly one `index.html`.
+- **Source of truth:** repository paths and HTML source, not previous conversation, semantic code search, or this potentially stale index. When a discrepancy appears, inspect the repository and update this README.
+- **Paths:** directory entries have trailing slashes and resolve through their `index.html`; standalone entries are explicit `.html` files.
+- **Use:** link to `live_url` for experiments; use `source_url` to inspect or modify; read source before making assumptions about runtime behavior.
+- **Provenance:** descriptions, controls, and technology were derived from inspecting the HTML files on the default `master` branch on 2026-10-25. SHA fields for directories are Git **tree** SHAs; for standalone files, Git **blob** SHAs.
+- **Limitations:** deployment availability, runtime success, mobile rendering, and interaction correctness were **not** independently tested. A directory listing is not a smoke test.
+- **Index drift:** `jit/assets/index.html` is an independent hand-built visual cabinet and its “006 specimens” heading is **not** an authoritative total. Do not infer the complete inventory from that UI.
+- **No automatic mutation:** read-only inventory unless explicitly requested to edit; preserve experiments and existing structure.
+
+## Counts
+
+- **12** top-level entries: **5** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
+- **11** distinct experiments indexed below; **5** nested `index.html` entrypoints.
+- **17** total files including nested entrypoints and the landing page; this README adds one more.
+- All five directories were enumerated directly; no deeper folders were present at inspection time.
+
+## Human-readable experiment index
+
+| Experiment | Type | Source | Live | What it does |
+|---|---|---|---|---|
+| Ant Axe Log Study | svg-animation | [`ant-axe-log-study.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ant-axe-log-study.html) | [Open](https://bonoj.github.io/jit/assets/ant-axe-log-study.html) | Exploratory animated SVG composition of ant, axe and log; explicitly archived, not final art. |
+| Ash and Root | generative-environment | [`ash-and-root/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ash-and-root/index.html) | [Open](https://bonoj.github.io/jit/assets/ash-and-root/) | Organic growth, wind, fire, sand and embers; touch-reactive full-screen 2D environment. |
+| Ball-Bearing Worm | interactive-simulation | [`ball-bearing-worm.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ball-bearing-worm.html) | [Open](https://bonoj.github.io/jit/assets/ball-bearing-worm.html) | 3D segmented worm; orbit and tap to guide, feed mushrooms, introduce eagle, reset, adjust segment count. |
+| Pocket Apiary | interactive-simulation | [`bees.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/bees.html) | [Open](https://bonoj.github.io/jit/assets/bees.html) | Canvas bee-foraging simulation with nectar, colony size, bloom and reset controls. |
+| Evermore II D20 | interactive-toy | [`evermore-d20.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/evermore-d20.html) | [Open](https://bonoj.github.io/jit/assets/evermore-d20.html) | Tap-to-roll twenty-sided emoji die rendered in canvas. |
+| Fossil Cathedral | generative-environment | [`fossil-cathedral/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fossil-cathedral/index.html) | [Open](https://bonoj.github.io/jit/assets/fossil-cathedral/) | Structural/growth study with wind, structural-view toggle, regenerate and pause. |
+| Chromatic Garden | generative-art | [`fractal-garden/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fractal-garden/index.html) | [Open](https://bonoj.github.io/jit/assets/fractal-garden/) | Touch-reactive branching fractal garden with color palettes and bloom regeneration. |
+| Leviathan II Planetbreaker | interactive-simulation | [`leviathan/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/leviathan/index.html) | [Open](https://bonoj.github.io/jit/assets/leviathan/) | Three.js planet and tentacles with RAVAGE action, deforming/damaging crust, reset. |
+| Pocket Magnetarium | interactive-simulation | [`magnetarium.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/magnetarium.html) | [Open](https://bonoj.github.io/jit/assets/magnetarium.html) | Touch-steered dipoles, affinities and chain behavior; particle count, gold and reset controls. |
+| Last Light Redshift Observatory | interactive-toy | [`redshift.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/redshift.html) | [Open](https://bonoj.github.io/jit/assets/redshift.html) | Cosmological redshift/time contemplation with adjustable slider and return control. |
+| THAW | interactive-toy | [`thaw/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/thaw/index.html) | [Open](https://bonoj.github.io/jit/assets/thaw/) | Touch-and-hold melting ice with solid fraction meter, droplets and ripples. |
+
+Visual cabinet: [`index.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/index.html) · [live](https://bonoj.github.io/jit/assets/)
+
+## Structured inventory (JSON)
+
+This JSON is the canonical machine-friendly snapshot. `path` is repository-relative. `source_sha` is the observed blob/tree SHA, not the latest commit SHA. `runtime_verified` is deliberately false. External dependencies are declared only when detected in source.
+
+```json
+{
+  "schema": "jit-assets-inventory/v1",
+  "repository": "bonoj/bonoj.github.io",
+  "branch": "master",
+  "root": "jit/assets",
+  "inspected_on": "2026-10-25",
+  "verification": "repository-source-inspected;live-runtime-not-verified",
+  "count": {
+    "top_level_entries": 12,
+    "experiment_directories": 5,
+    "standalone_experiments": 6,
+    "experiments": 11,
+    "landing_pages": 1
+  },
+  "index": {
+    "path": "jit/assets/index.html",
+    "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/index.html",
+    "live_url": "https://bonoj.github.io/jit/assets/",
+    "source_sha": "0f1adbbcf31f3335dcaf8aa9194aa23aeebf71fe",
+    "runtime_verified": false
+  },
+  "assets": [
+    {
+      "id": "ant-axe-log-study",
+      "name": "Ant Axe Log Study",
+      "kind": "svg-animation",
+      "path": "jit/assets/ant-axe-log-study.html",
+      "entrypoint": "jit/assets/ant-axe-log-study.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ant-axe-log-study.html",
+      "live_url": "https://bonoj.github.io/jit/assets/ant-axe-log-study.html",
+      "description": "Exploratory animated SVG composition of ant, axe and log; explicitly archived, not final art.",
+      "renderer": "SVG,CSS",
+      "controls": [
+        "none"
+      ],
+      "external_dependencies": [],
+      "source_sha": "ae03834be337351689ced01e04bc8ff89c6f1655",
+      "source_sha_type": "blob",
+      "runtime_verified": false
+    },
+    {
+      "id": "ash-and-root",
+      "name": "Ash and Root",
+      "kind": "generative-environment",
+      "path": "jit/assets/ash-and-root/",
+      "entrypoint": "jit/assets/ash-and-root/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ash-and-root/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/ash-and-root/",
+      "description": "Organic growth, wind, fire, sand and embers; touch-reactive full-screen 2D environment.",
+      "renderer": "Canvas2D",
+      "controls": [
+        "regrow",
+        "wind",
+        "fire",
+        "pause"
+      ],
+      "external_dependencies": [],
+      "source_sha": "10aed38301dc28a086521915be6bbcb75b3050ea",
+      "source_sha_type": "tree",
+      "runtime_verified": false
+    },
+    {
+      "id": "ball-bearing-worm",
+      "name": "Ball-Bearing Worm",
+      "kind": "interactive-simulation",
+      "path": "jit/assets/ball-bearing-worm.html",
+      "entrypoint": "jit/assets/ball-bearing-worm.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ball-bearing-worm.html",
+      "live_url": "https://bonoj.github.io/jit/assets/ball-bearing-worm.html",
+      "description": "3D segmented worm; orbit and tap to guide, feed mushrooms, introduce eagle, reset, adjust segment count.",
+      "renderer": "Three.js/WebGL",
+      "controls": [
+        "feed",
+        "eagle",
+        "reset",
+        "segments"
+      ],
+      "external_dependencies": [
+        "https://esm.sh/three@0.180.0"
+      ],
+      "source_sha": "c252b90ff96a10d22515f2fc4bc1e99ce1250320",
+      "source_sha_type": "blob",
+      "runtime_verified": false
+    },
+    {
+      "id": "bees",
+      "name": "Pocket Apiary",
+      "kind": "interactive-simulation",
+      "path": "jit/assets/bees.html",
+      "entrypoint": "jit/assets/bees.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/bees.html",
+      "live_url": "https://bonoj.github.io/jit/assets/bees.html",
+      "description": "Canvas bee-foraging simulation with nectar, colony size, bloom and reset controls.",
+      "renderer": "Canvas2D",
+      "controls": [
+        "bee-count",
+        "bloom",
+        "reset"
+      ],
+      "external_dependencies": [],
+      "source_sha": "bb784b34b0d9bfdd41a7584676d354de2d512134",
+      "source_sha_type": "blob",
+      "runtime_verified": false
+    },
+    {
+      "id": "evermore-d20",
+      "name": "Evermore II D20",
+      "kind": "interactive-toy",
+      "path": "jit/assets/evermore-d20.html",
+      "entrypoint": "jit/assets/evermore-d20.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/evermore-d20.html",
+      "live_url": "https://bonoj.github.io/jit/assets/evermore-d20.html",
+      "description": "Tap-to-roll twenty-sided emoji die rendered in canvas.",
+      "renderer": "Canvas2D",
+      "controls": [
+        "tap-roll"
+      ],
+      "external_dependencies": [],
+      "source_sha": "53257d52c04704c206319109f19d2b5519f1a93a",
+      "source_sha_type": "blob",
+      "runtime_verified": false
+    },
+    {
+      "id": "fossil-cathedral",
+      "name": "Fossil Cathedral",
+      "kind": "generative-environment",
+      "path": "jit/assets/fossil-cathedral/",
+      "entrypoint": "jit/assets/fossil-cathedral/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fossil-cathedral/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/fossil-cathedral/",
+      "description": "Structural/growth study with wind, structural-view toggle, regenerate and pause.",
+      "renderer": "Canvas2D",
+      "controls": [
+        "regenerate",
+        "structural-view",
+        "wind",
+        "pause"
+      ],
+      "external_dependencies": [],
+      "source_sha": "a5a4b287a15c3f1f0653c462bbfb294795e83a1d",
+      "source_sha_type": "tree",
+      "runtime_verified": false
+    },
+    {
+      "id": "fractal-garden",
+      "name": "Chromatic Garden",
+      "kind": "generative-art",
+      "path": "jit/assets/fractal-garden/",
+      "entrypoint": "jit/assets/fractal-garden/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fractal-garden/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/fractal-garden/",
+      "description": "Touch-reactive branching fractal garden with color palettes and bloom regeneration.",
+      "renderer": "Canvas2D",
+      "controls": [
+        "touch",
+        "palette",
+        "new-bloom",
+        "pause"
+      ],
+      "external_dependencies": [],
+      "source_sha": "a474611a486c0dbbd22ef8a4b58b2120da1a8359",
+      "source_sha_type": "tree",
+      "runtime_verified": false
+    },
+    {
+      "id": "leviathan",
+      "name": "Leviathan II Planetbreaker",
+      "kind": "interactive-simulation",
+      "path": "jit/assets/leviathan/",
+      "entrypoint": "jit/assets/leviathan/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/leviathan/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/leviathan/",
+      "description": "Three.js planet and tentacles with RAVAGE action, deforming/damaging crust, reset.",
+      "renderer": "Three.js/WebGL",
+      "controls": [
+        "ravage",
+        "reset"
+      ],
+      "external_dependencies": [
+        "https://esm.sh/three@0.180.0"
+      ],
+      "source_sha": "3c66189b476a25926209a578b4653a89b83b1f4a",
+      "source_sha_type": "tree",
+      "runtime_verified": false
+    },
+    {
+      "id": "magnetarium",
+      "name": "Pocket Magnetarium",
+      "kind": "interactive-simulation",
+      "path": "jit/assets/magnetarium.html",
+      "entrypoint": "jit/assets/magnetarium.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/magnetarium.html",
+      "live_url": "https://bonoj.github.io/jit/assets/magnetarium.html",
+      "description": "Touch-steered dipoles, affinities and chain behavior; particle count, gold and reset controls.",
+      "renderer": "Canvas2D",
+      "controls": [
+        "steer",
+        "count",
+        "gold",
+        "reset"
+      ],
+      "external_dependencies": [],
+      "source_sha": "f5b39d7e820b0258abb34fd93b97023ef8644480",
+      "source_sha_type": "blob",
+      "runtime_verified": false
+    },
+    {
+      "id": "redshift",
+      "name": "Last Light Redshift Observatory",
+      "kind": "interactive-toy",
+      "path": "jit/assets/redshift.html",
+      "entrypoint": "jit/assets/redshift.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/redshift.html",
+      "live_url": "https://bonoj.github.io/jit/assets/redshift.html",
+      "description": "Cosmological redshift/time contemplation with adjustable slider and return control.",
+      "renderer": "Canvas2D",
+      "controls": [
+        "range",
+        "return"
+      ],
+      "external_dependencies": [],
+      "source_sha": "9011d9cbb349be5f5a0db3495bbbc5766adbee80",
+      "source_sha_type": "blob",
+      "runtime_verified": false
+    },
+    {
+      "id": "thaw",
+      "name": "THAW",
+      "kind": "interactive-toy",
+      "path": "jit/assets/thaw/",
+      "entrypoint": "jit/assets/thaw/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/thaw/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/thaw/",
+      "description": "Touch-and-hold melting ice with solid fraction meter, droplets and ripples.",
+      "renderer": "Canvas2D",
+      "controls": [
+        "touch-hold"
+      ],
+      "external_dependencies": [],
+      "source_sha": "a4d22897cc063b46cd19079e79f502e6efb3e372",
+      "source_sha_type": "tree",
+      "runtime_verified": false
+    }
+  ]
+}
+```
+
+## Maintenance procedure
+
+1. Enumerate the root with the GitHub Contents API and inspect any directories recursively.
+2. Read each experiment's HTML entrypoint and identify title, controls, rendering stack, dependencies, and actual behavior.
+3. Update both the table and JSON manifest; preserve stable IDs for existing experiments.
+4. Reconcile counts and SHA values, distinguishing tree SHAs from blob SHAs.
+5. If a live browser test is performed, record its outcome separately; never infer runtime success from GitHub presence.
+6. Commit the README and read it back to verify the write.
