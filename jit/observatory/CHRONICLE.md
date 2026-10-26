@@ -110,3 +110,14 @@ A speculative idea is marked *planned*. A committed file is marked *committed*. 
 - Instrument mapping is dated Oct 2 and should be treated as provider-published metadata, while individual record satellite IDs provide per-sample attribution.
 
 **Next falsifiable step:** patch GEO probe normalization and 👁 to expose separate per-energy proton channels, correct magnetic headline fields and per-channel timestamps/counts/quality. Then obtain another user browser 👁 report. Preserve working L1, no UI polish.
+
+
+## 05 — GEO measurement-aware normalization deployed to repository (2026-10-26)
+
+**Intent:** correct the two 👁-discovered parsing defects without touching L1 or adding visual complexity.
+
+**Action:** updated [geo/index.html](geo/index.html) to build `geo/02`, commits `b65eac52` and correction `d0b91f0b`. Numeric `satellite` metadata is excluded from science-channel selection; proton `flux` is keyed by energy threshold (`flux|>=1 MeV`, etc.) instead of collapsing all energy bins into one series. 👁 now exposes per-channel counts, last observations and age, plus magnetic arcjet flag counts; metadata endpoints are marked `METADATA_VERIFIED`, separate from numeric science feeds. Scientific units for proton flux remain `UNVERIFIED` until checked against provider documentation.
+
+**Evidence:** GitHub commits succeeded. **No user browser 👁 evidence for geo/02 yet.** Do not assert that the new parser works until tested in the actual browser. A post-commit source inspection revealed and corrected a channel-key initialization error before this handoff.
+
+**Next:** user opens https://bonoj.github.io/jit/observatory/geo/?v=d0b91f0b and sends 👁 JSON. Verify distinct energy bins, actual magnetometer headline, source IDs, per-channel freshness and quality. If successful, proceed to geometry accuracy and shared governed transport.
