@@ -1,6 +1,6 @@
 {
   "schema": "hermeticon-omni-acquisition/v1",
-  "utc": "2026-10-26T05:21:06.902844+00:00",
+  "utc": "2026-10-26T05:23:27.281043+00:00",
   "dataset": "OMNI_HRO_1MIN",
   "window": [
     "2024-05-10T00:00:00Z",
@@ -54,13 +54,15 @@
   ],
   "selectedParameters": [
     "BZ_GSM",
-    "Pressure",
     "flow_speed",
     "proton_density",
+    "Pressure",
     "SYM_H"
   ],
-  "url": "https://cdaweb.gsfc.nasa.gov/hapi/data?id=OMNI_HRO_1MIN&time.min=2024-05-10T00%3A00%3A00Z&time.max=2024-05-12T00%3A00%3A00Z&parameters=BZ_GSM%2CPressure%2Cflow_speed%2Cproton_density%2CSYM_H&format=csv",
-  "bytes": 83,
-  "sha256": "3135f23ba7dca8c94ba831276960fd8c27320a7294b9ab8ee8f456460f0e3539",
-  "lineCount": 3
+  "url": "https://cdaweb.gsfc.nasa.gov/hapi/data?id=OMNI_HRO_1MIN&time.min=2024-05-10T00%3A00%3A00Z&time.max=2024-05-12T00%3A00%3A00Z&parameters=BZ_GSM%2Cflow_speed%2Cproton_density%2CPressure%2CSYM_H&format=csv",
+  "bytes": 159412,
+  "sha256": "457efb2f473f87cf2ca7f98892dbc909416109dfad497f13da065cc269743368",
+  "lineCount": 2880,
+  "firstTime": "2024-05-10T00:00:00.000Z",
+  "lastTime": "2024-05-11T23:59:00.000Z"
 }
