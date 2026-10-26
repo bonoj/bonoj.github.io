@@ -1,6 +1,21 @@
 # Observatory · Acquisition and correlation specification
 Status: active plan · 2026-10-23 · companion to [README](README.md)
 
+## Current mission gate — live Sun-to-Earth conal stack (2026-10-26)
+
+**Primary deliverable:** a continuously refreshed, provenance-preserving observational stack from solar origin through heliospheric propagation / L1, GEO magnetospheric response, and ground/ionospheric consequences. The 2024 May storm archive work is **calibration and replay infrastructure**, not the destination. Stop deep-diving one-minute NOAA averaging details unless they unblock a live channel, quality rule, or event detector.
+
+**Conal geometry:** represent each measurement at its actual spatial locus and timestamp; a CME cone or Sun→Earth propagation corridor is a *model with angular width and uncertainty*, not an observed continuous material tube. A single L1 point cannot reconstruct the entire cone or infer CME shape. Separate solar image/event evidence, heliospheric modeled geometry, actual L1 point samples, GEO response, and distributed ground response. Distinguish travel-time estimates from observed arrival and avoid double-shifting bow-shock-propagated OMNI archive timestamps.
+
+**Next execution priorities:**
+1. Inventory existing deployed live GEO/12 and L1 instruments, preserving working NOAA RTSW and GOES feeds and 👁 diagnostics; identify which solar-origin and ground channels are missing or unverified.
+2. Build a bounded live source registry with per-feed measurement/model kind, spacecraft/position/frame, quality, observed UTC, fetched UTC, latency, cadence, age and error states. Maintain active-source selection and prevent mixing inactive spacecraft.
+3. Integrate at least one genuine near-real-time solar-origin feed and one independently measured downstream terrestrial feed, with browser-verifiable transport. Do not treat forecasts, event catalogs or modeled aurora as measured field vectors.
+4. Present synchronized real time / replay lanes across Sun → L1 → GEO → Earth, marking observed segments, inferred propagation windows and unknown regions. Preserve mobile one-viewport and 👁 handoff. Reuse Lattice request governor, no uncontrolled polling.
+5. Replay the 2024 storm to test detection logic, quality masks, timestamp alignment, lag controls and alert false positives, then apply the **same frozen tests** to live data. Require holdout events before discovery claims.
+
+**Acceptance:** a fresh 👁 report proving at least one real, timely, quality-qualified observation in each instrumented layer, honest unavailable layers, UTC source timestamps, spatial provenance, cadence and staleness, and a clear distinction between observations and propagation inference. Green GitHub Actions or historical analysis alone is insufficient.
+
 ## Mission
 Build a broad, composable, evidence-driven scientific observation network: Sun and L1 → heliosphere / transfer trajectories → geosynchronous and low Earth orbit → ionosphere / ground → ocean and other remote sensors. Ingest real measurements at maximum useful breadth, without treating provider catalogs, models, forecasts, stale data or derived calculations as fresh observations. Correlate measured changes across locations, domains and time. Public Hermeticon presentation remains one-viewport, pristine white, minimal and unexplained; technical detail lives in 👁 and this spec. No claims of spacecraft hardware or onboard software ownership.
 
