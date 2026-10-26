@@ -16,16 +16,16 @@
 
 ## Counts
 
-- **21** top-level entries: **12** experiment directories, **8** standalone experiment HTML files, **1** visual landing page (`index.html`).
-- **20** distinct experiments indexed below; **12** nested `index.html` entrypoints.
-- **26** total HTML files including nested entrypoints and the landing page; this README is additional.
+- **22** top-level entries: **12** experiment directories, **9** standalone experiment HTML files, **1** visual landing page (`index.html`).
+- **21** distinct experiments indexed below; **12** nested `index.html` entrypoints.
+- **27** total HTML files including nested entrypoints and the landing page; this README is additional.
 - Earlier five directories were enumerated directly; the newer directories contain one entrypoint each. Re-enumerate for a fully refreshed snapshot.
 
 ## Human-readable experiment index
 
 | Experiment | Type | Source | Live | What it does |
 |---|---|---|---|---|
-| Corporate Friction Garden v2 · Cat Patrol | interactive-toy | [`friction-garden-v2.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/friction-garden-v2.html) | [Open](https://bonoj.github.io/jit/assets/friction-garden-v2.html) | Preserves hold-to-deform with a grounded 🐈 that hops between bar tops, faces travel direction, and excavates independently. Deliberately naive left-right patrol, not tallest-stack priority. V1 preserved. |
+| Für Elise · Self-playing Piano | musical-toy | [`fur-elise.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fur-elise.html) | [Open](https://bonoj.github.io/jit/assets/fur-elise.html) | Touch-playable animated piano that autonomously performs the recognizable opening theme with lightweight Web Audio synthesis. |\n| Corporate Friction Garden v2 · Cat Patrol | interactive-toy | [`friction-garden-v2.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/friction-garden-v2.html) | [Open](https://bonoj.github.io/jit/assets/friction-garden-v2.html) | Preserves hold-to-deform with a grounded 🐈 that hops between bar tops, faces travel direction, and excavates independently. Deliberately naive left-right patrol, not tallest-stack priority. V1 preserved. |
 | Corporate Friction Garden | interactive-toy | [`friction-garden.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/friction-garden.html) | [Open](https://bonoj.github.io/jit/assets/friction-garden.html) | Six independently growing corporate-friction stacks; sustained touch excavates the held stack and sheds emoji particles; release resumes growth. Hold-to-deform primitive. |
 | Ant Axe Log Study | svg-animation | [`ant-axe-log-study.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ant-axe-log-study.html) | [Open](https://bonoj.github.io/jit/assets/ant-axe-log-study.html) | Exploratory animated SVG composition of ant, axe and log; explicitly archived, not final art. |
 | Ash and Root | generative-environment | [`ash-and-root/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ash-and-root/index.html) | [Open](https://bonoj.github.io/jit/assets/ash-and-root/) | Organic growth, wind, fire, sand and embers; touch-reactive full-screen 2D environment. |
@@ -48,7 +48,7 @@
 
 Visual cabinet: [`index.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/index.html) · [live](https://bonoj.github.io/jit/assets/)
 
-## Structured inventory (JSON)
+## Structured inventory (JSON)\n\nNew addition: `jit/assets/fur-elise.html` (2026-10-26); the older JSON snapshot below is historical and should be refreshed by full enumeration.
 
 This JSON is the canonical machine-friendly snapshot. `path` is repository-relative. `source_sha` is the observed blob/tree SHA, not the latest commit SHA. `runtime_verified` is deliberately false. External dependencies are declared only when detected in source.
 
