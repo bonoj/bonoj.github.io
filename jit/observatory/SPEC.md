@@ -183,3 +183,69 @@ E. Align L1/GEO/ground series with quality gating and explicit lag estimates. St
 F. Visualize the footprint as a dynamic orbital cross-section and moving ground terminator. Keep the public experience spare, single-viewport and interactive; 👁 exposes all detailed geometry, provenance, validity and correlation evidence. Reuse Lattice transport and governor rather than creating another uncontrolled fetch loop.
 
 **Success criterion:** a visitor can select an epoch and see which spacecraft and ground stations lie within each precisely defined geometric domain, which have *actual* measured signals, how the signals are time-aligned, and what evidence supports or contradicts a proposed L1→GEO→ground relationship.
+
+
+## Parker Solar Probe — solar-origin archival acquisition and synthesis (2026-10-26)
+
+### Role and epistemic boundary
+
+Extend the Observatory's heliophysics geometry sunward from the L1–GEO–ground observational cone to include **Parker Solar Probe (PSP)** as a high-resolution, **delayed / historical** solar-origin observatory. PSP is in a highly elliptical heliocentric orbit; it is not continuously between the Sun and Earth, nor always magnetically connected to the solar-wind parcel later sampled at L1. Never imply that PSP is a near-real-time Earth upstream monitor. Maintain distinct timestamps for **observed**, **received/downlinked if known**, **publicly released**, **fetched**, and **ingested**; unknown dates remain null.
+
+### Instrument and product inventory — candidates, not browser-verified
+
+- **FIELDS:** vector magnetic field, plasma waves, electric fields, spectral/waveform products. Prioritize time-tagged 1-minute magnetic vectors for first ingestion, then higher-cadence magnetic data (some products have ~3.4 ms resolution), electric-field and wave/spectral products. Record reference frame, calibration level, cadence, fill values, quality flags, and sampling-mode changes. High-rate waveform data are potentially large and bursty: fetch on demand by interval, never blindly poll entire archives.
+- **SWEAP / Solar Probe Cup (SPC):** proton/alpha bulk moments, density, radial speed, temperature or thermal speed, and ion distributions as available. Certain products offer subsecond resolution (~0.2185 s), but availability depends on instrument mode, encounter and product. Treat those figures as nominal *sample spacing*, not public refresh rates.
+- **SWEAP / SPAN-A / SPAN-B:** ion and electron velocity distributions, moments, composition where actually present, pitch-angle information and energy bins. Cadence ranges by product/mode; inspect each dataset's metadata rather than assigning a universal interval.
+- **ISʘIS:** energetic ion/electron flux, spectra and particle event signatures. Preserve energy band, detector orientation, species and accumulation interval. Investigate EPI-Lo/EPI-Hi product families independently.
+- **WISPR:** white-light coronal/heliospheric imagery and sequences, distinct from scalar time series. Preserve image observation time, pointing, exposure, geometry, calibrated versus browse/quicklook provenance, and licensing. Images may be downlinked and published on a different schedule from particle/field data.
+- **PSP ephemerides / attitude:** authoritative spacecraft position, heliocentric distance, longitude, latitude, solar elongation and relevant coordinate transforms, with predicted versus reconstructed provenance. Geometry is **calculated**, not a spacecraft measurement.
+
+### Discovery and acquisition endpoints
+
+Use authoritative provider catalogs to identify **exact dataset IDs**, current coverage, data levels, field names, units and access conditions before implementing readers:
+
+- NASA CDAWeb HAPI: https://cdaweb.gsfc.nasa.gov/hapi — discover datasets with \`/catalog\`, metadata with \`/info?id=...\`, and bounded series via \`/data?id=...&parameters=...&time.min=...&time.max=...\`. Confirm exact HAPI query semantics, browser CORS and response type against actual provider responses; never invent a dataset ID.
+- NASA CDAWeb: https://cdaweb.gsfc.nasa.gov/ — CDF science archives and SPDF services.
+- PSP FIELDS project: https://fields.ssl.berkeley.edu/data/ — mission/instrument data releases and files.
+- PSP SWEAP project: https://sweap.cfa.harvard.edu/ — instrument documentation and release information.
+- NASA PDS / mission instrument archives for ISʘIS and WISPR, where documented; resolve canonical links and machine-readable inventories before coding.
+- NASA JPL Horizons / SPICE kernels or mission-provided ephemerides for orbital context, with clear source, epoch and frame.
+
+Source lifecycle: **CANDIDATE → METADATA_DISCOVERED → HTTP_PROBED → BROWSER_VERIFIED → INGESTED → ANALYSIS_READY**. An available web page, dataset title or HTTP 200 without time-tagged records does not qualify as ingested. Record blocked CORS, missing data, archive delays and license constraints once, then pivot rather than repeatedly retrying.
+
+### Collection schedule: discovery, incremental harvest and burst access
+
+**Data production cadence ≠ public release cadence ≠ Observatory polling cadence.** PSP's onboard observations can range from milliseconds to minutes or longer depending on instrument and mode, while downlink, calibration, validation and public release are delayed, often encounter-based. Do not claim a fixed universal publication lag. The SWEAP policy's “within 90 days after final encounter data receipt” is not equivalent to 90 days after observation. Instrument release dates and coverage must be discovered from actual catalogs.
+
+| Collection task | Initial cadence | Method and bounds |
+| --- | --- | --- |
+| Dataset discovery / release watch | Once daily | Query catalogs / published manifests and coverage metadata; compare IDs, coverage end times, versions, checksums/ETags if available; do not download unchanged bulk data |
+| PSP position / trajectory | Daily for catalog refresh; compute geometry per selected epoch | Cache authoritative ephemerides and provenance; distinguish predicted/reconstructed |
+| FIELDS low-rate vectors and SWEAP moments | On newly published coverage; otherwise daily metadata-only | Backfill only new time windows in bounded chunks; validate timestamps, quality, units, coordinates and source spacecraft |
+| ISʘIS particle spectra | On newly published coverage; metadata check daily | Partition by instrument, species, energy and observation interval |
+| WISPR image sequences | Check manifests daily; fetch on release / user selection | Retrieve browse/thumbnail first, calibrated imagery only as needed; cap bytes |
+| FIELDS high-rate / SPC subsecond / distribution products | **On demand** for selected events | Fetch narrow intervals with explicit byte/sample budgets, downsample for display, preserve native-resolution raw evidence links |
+| Historical backfill | Initial staged import, then opportunistic | Start with a few scientifically relevant encounters and quiet controls; expand progressively without blocking live L1/GEO collection |
+
+**Operational guardrails:** preserve the inherited Lattice governor (max 2 concurrent globally / 1 per host, bounded queue, host pacing, dedup, timeout/backoff and caching). Archive checks must not starve near-real-time L1 and GOES requests. If a browser endpoint is blocked by CORS, evaluate a reproducible GitHub Actions archival import with versioned static artifacts rather than inventing a permanently running backend. Only schedule such a job after actual provider accessibility and repository/storage cost have been measured. Daily checks are a **planned application schedule**, not an assertion that a background automation has been installed.
+
+### Normalization, persistence and provenance
+
+Canonical sample/event metadata: \`{mission:"PSP",instrument,platform,productId,productVersion,level,observedAtUTC,receivedAtUTC,publicReleaseAtUTC,fetchedAtUTC,ingestedAtUTC,value,unit,frame,energyBand,position,heliocentricDistance,quality,fillMask,cadence,sourceUrl,sourceRecordId,calibration,kind:"observed"}\`. Store per-product coverage intervals and gaps. Derived geometry, transformations, interpolations, lag estimates and models carry \`kind:"calculated"\` or \`kind:"modeled"\`, never \`observed\`.
+
+Prefer a small versioned manifest with dataset IDs, last-covered timestamps, retrieval status, checksums, sample counts, byte totals, quality statistics and release evidence. Keep full-resolution archive products at their authoritative sources unless caching is justified; persist only bounded normalized summaries and selected event windows. Avoid presenting local browser session history as a durable scientific archive.
+
+### Planned synthesis and scientific tests
+
+1. **Solar-origin context:** overlay PSP magnetic vectors, plasma moments, energetic particles and WISPR imagery along the spacecraft's actual orbit. Identify switchbacks, shocks, waves, heating and particle enhancements with instrument-aware thresholds and data-quality gates.
+2. **Radial evolution:** compare PSP intervals with L1 solar-wind structures where heliolongitude, solar rotation, flow speed, radial distance and magnetic connectivity make correspondence plausible. Calculate a Parker-spiral / ballistic-mapping hypothesis with explicit uncertainty, not a simplistic fixed timestamp shift.
+3. **Propagation into the terrestrial cone:** for *candidate connected events*, compare PSP → L1 → GOES GEO → ground time series, with separate plasma, energetic-particle and solar-photon pathways. Preserve physical transit mechanisms and frame conversions; a WISPR image is contextual evidence, not a scalar plasma reading.
+4. **Cross-spacecraft triangulation:** compare PSP with ACE, IMAP, SOLAR1, and other heliophysics assets when simultaneous geometry supports it. Record relative heliolongitude, radial distance, time offset, observed quantities and gaps. Lack of connectivity is a valid negative result.
+5. **Historical event replay:** choose solar-storm encounters and quiet controls, derive explicit event dossiers (times, instruments, data levels, measured changes, proposed lag, sample counts, alternative explanations, uncertainty, provenance). Test candidate associations on held-out intervals and correct for selection bias, autocorrelation and multiple comparisons.
+6. **Interactive presentation:** add PSP as a separate **historical solar-origin layer** in Hermeticon, with orbital position and selectable encounter/time window; keep L1/GEO near-real-time labels and data freshness distinct. 👁 must expose product coverage, latest public release, acquisition state, coordinate frames, geometry assumptions and raw-source links.
+
+### First implementation pass and acceptance gates
+
+A. Enumerate actual PSP datasets from HAPI and mission archives; record field names, cadence, coverage, data level and access. B. Browser-probe one bounded FIELDS magnetic vector series and one SWEAP moment series with numeric observations and valid timestamps; collect 👁 proof. C. Obtain an authoritative ephemeris for the same interval and compute PSP–Sun–Earth geometry. D. Render one genuine historical interval and a compact acquisition report, clearly labeled archival. E. Add an incremental daily manifest comparison; fetch newly available bounded windows without disrupting L1/GOES. F. Select one event for physically defensible PSP/L1 comparison and one unconnected control. G. Expand to ISʘIS, WISPR and high-resolution bursts only after the baseline is verified.
+
+**Done for this wave** means at least two independently validated PSP measurement products, truthful temporal/provenance metadata, orbit geometry, bounded retrieval, a reproducible historical playback and one evidence-based comparison hypothesis. A dataset listed in a catalog is not completion.
