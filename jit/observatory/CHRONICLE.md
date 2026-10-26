@@ -220,3 +220,10 @@ A speculative idea is marked *planned*. A committed file is marked *committed*. 
 **Quality caveat discovered:** latest L1 plasma row is `active:false` (IMAP) and nearest sample comparisons do not filter active/quality; lag study **does** filter L1 magnetic `active:true`, `overall_quality:0` (SOLAR1). Keep that distinction explicit.
 
 **Next falsifiable step:** use physically motivated positive lags with solar-wind speed-based transit window, and negative controls such as circular shifts or block-preserving surrogates; evaluate against an appropriate magnetic response quantity and longer independent windows. Preserve data provenance and avoid false statistical significance.
+
+
+## 15 — GEO/08 positive-lag falsification probe (2026-10-26)
+
+**Implemented:** `geo/08`, commit `172c2161`. Added `falsificationStudy` alongside the unchanged earlier studies. Lags +30,+45,+60,+75,+90,+105,+120 minutes (GEO timestamp minus earlier L1 timestamp), comparing quality-filtered active L1 GSM Bz first differences against GOES-18 and GOES-19 `Hp` and `total` first differences. Fixed cohort requires matching L1 at all seven lags, with 90-second tolerance. Circular shifts of the differenced L1 sequence at deterministic offsets starting 30 samples, spaced 11, excluding shifts closer than 30 samples to either edge, produce an exploratory null sensitivity count, not a p-value. Records pairs, Pearson r, control counts and fraction exceeding |r|. Also reports nominal 1,500,000-km distance / median active quality-filtered plasma speed, explicitly **not** an ephemeris- or timestamp-calibrated propagation estimate. NOAA feed time semantics remain unresolved. **Status: committed; awaiting browser 👁.**
+
+**Next:** inspect `falsificationStudy` for usable wind speed and cohort sizes; interpret no correlations as inconclusive rather than definitive absence, check control sensitivity and timestamp semantics before any claim.
