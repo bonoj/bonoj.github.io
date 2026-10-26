@@ -82,3 +82,7 @@ Arrows describe **actual world causes and transfers**, not new features. Use onl
 **Deferred:** save/restore remains unimplemented. Preserve durable world truth (progression, positions, ecology, geology, inventory, workers/cargo/journeys) and reconstruct ephemeral claims/timers when a future design is authorized. No save UI or radial-command node is approved. Retired optimization experiments stay retired. The [chronicle](./CHRONICLE.md) preserves the full original specifications, save/restore design reasoning, rejected proposals and development evidence; source remains executable truth.
 
 **Cadence:** Play → notice → invent → ship → verify → play again. `➡️` means advance; `Dracarys` means authorized fix/implement/deploy. Read the chronicle selectively when a causal decision needs archaeology.
+
+## Soundwalk experiment — 26 October 2026
+
+Ender's existing bounded local snapshot now drives a zero-audio-asset Web Audio score. The random walk, sight radius (125), and Tiffany's ecology are unchanged. A first pointer interaction unlocks browser audio; without one, the world remains silent. Approximately every half-second, nearby witnessed entities are grouped into growth, decay, life, danger, water, and stone voices. A short rolling memory stabilizes the harmonic mode; location and step count vary the melody. No offscreen data, external samples, model inference, or command authority. This is an initial musical sketch, not acoustic realism. Source committed; browser sound/rendering not yet independently verified.
