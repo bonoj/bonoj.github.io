@@ -1,0 +1,337 @@
+{
+  "schema": "hermeticon-vector-audit/v1",
+  "status": "DESCRIPTIVE_ONLY_NOT_VALIDATED",
+  "createdAt": "2026-10-26T05:31:45.879612+00:00",
+  "flagValues": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512,
+    1024,
+    2048,
+    4096,
+    8192,
+    16384,
+    32768,
+    65536,
+    131072,
+    262144,
+    524288,
+    1048576,
+    2097152,
+    4194304,
+    8388608,
+    16777216,
+    33554432
+  ],
+  "flagMasks": [
+    33554431,
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512,
+    1024,
+    2048,
+    4096,
+    8192,
+    16384,
+    32768,
+    65536,
+    131072,
+    262144,
+    524288,
+    1048576,
+    2097152,
+    4194304,
+    8388608,
+    16777216,
+    33554432
+  ],
+  "flagMeanings": [
+    "good_quality_qf",
+    "invalid_due_to_missing_L0_IB_and_OB_MAG_data_qf",
+    "degraded_due_to_IB_MAG_x-axis_potential_failure_or_off_state_or_IB_mag_potentially_in_maintenance_mode_qf",
+    "degraded_due_to_IB_MAG_y-axis_potential_failure_or_off_state_or_IB_mag_potentially_in_maintenance_mode_qf",
+    "degraded_due_to_IB_MAG_z-axis_potential_failure_or_off_state_or_IB_mag_potentially_in_maintenance_mode_qf",
+    "degraded_due_to_OB_MAG_x-axis_potential_failure_or_off_state_or_OB_mag_potentially_in_maintenance_mode_qf",
+    "degraded_due_to_OB_MAG_y-axis_potential_failure_or_off_state_or_OB_mag_potentially_in_maintenance_mode_qf",
+    "degraded_due_to_OB_MAG_z-axis_potential_failure_or_off_state_or_OB_mag_potentially_in_maintenance_mode_qf",
+    "degraded_due_to_IB_MAG_x-axis_magnetic_field_at_saturation_qf",
+    "degraded_due_to_IB_MAG_y-axis_magnetic_field_at_saturation_qf",
+    "degraded_due_to_IB_MAG_z-axis_magnetic_field_at_saturation_qf",
+    "degraded_due_to_OB_MAG_x-axis_magnetic_field_at_saturation_qf",
+    "degraded_due_to_OB_MAG_y-axis_magnetic_field_at_saturation_qf",
+    "degraded_due_to_OB_MAG_z-axis_magnetic_field_at_saturation_qf",
+    "degraded_due_to_MAG_calibration_maneuver_in_progress_qf",
+    "degraded_due_to_potentially_stale_MAG_engineering_data_qf",
+    "potentially_degraded_due_to_out_of_valid_range_IB_MAG_x-axis_thermistor_temperature_qf",
+    "potentially_degraded_due_to_out_of_valid_range_IB_MAG_y-axis_thermistor_temperature_qf",
+    "potentially_degraded_due_to_out_of_valid_range_IB_MAG_z-axis_thermistor_temperature_qf",
+    "potentially_degraded_due_to_out_of_valid_range_OB_MAG_x-axis_thermistor_temperature_qf",
+    "potentially_degraded_due_to_out_of_valid_range_OB_MAG_y-axis_thermistor_temperature_qf",
+    "potentially_degraded_due_to_out_of_valid_range_OB_MAG_z-axis_thermistor_temperature_qf",
+    "potentially_degraded_due_to_out_of_valid_range_IB_electronics_temperature_qf",
+    "potentially_degraded_due_to_out_of_valid_range_OB_electronics_temperature_qf",
+    "potentially_degraded_due_to_IB_MAG_in_shadow_qf",
+    "potentially_degraded_due_to_arcjet_firing_qf",
+    "valid_arcjet_correction_qf"
+  ],
+  "absResidualThresholdCounts": {
+    "0.1": 851,
+    "1": 265,
+    "5": 82,
+    "10": 55,
+    "25": 30,
+    "50": 20,
+    "100": 3
+  },
+  "byDQF": [
+    {
+      "flag": 16777216,
+      "count": 2,
+      "medianAbsResidual_nT": 3.4720299914936277,
+      "maxAbsResidual_nT": 5.7479777911698875,
+      "countAbove5nT": 1
+    },
+    {
+      "flag": 33554432,
+      "count": 2792,
+      "medianAbsResidual_nT": 0.017507122792650875,
+      "maxAbsResidual_nT": 179.51910440557677,
+      "countAbove5nT": 71
+    },
+    {
+      "flag": 50331648,
+      "count": 86,
+      "medianAbsResidual_nT": 0.5607384703714331,
+      "maxAbsResidual_nT": 78.934939903492,
+      "countAbove5nT": 10
+    }
+  ],
+  "largestResiduals": [
+    {
+      "timeUTC": "2024-05-11T00:41:00+00:00",
+      "index": 1481,
+      "GSM_nT": [
+        -1.4381221532821655,
+        33.10440444946289,
+        15.731355667114258
+      ],
+      "GSMnorm_nT": 36.680312708681036,
+      "reportedTotal_nT": 216.1994171142578,
+      "residual_nT": -179.51910440557677,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-10T17:20:00+00:00",
+      "index": 1040,
+      "GSM_nT": [
+        -6.232341289520264,
+        23.954097747802734,
+        -60.16934585571289
+      ],
+      "GSMnorm_nT": 65.06144063548501,
+      "reportedTotal_nT": 194.1782989501953,
+      "residual_nT": -129.1168583147103,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-11T00:45:00+00:00",
+      "index": 1485,
+      "GSM_nT": [
+        -24.040077209472656,
+        38.083675384521484,
+        -61.25566101074219
+      ],
+      "GSMnorm_nT": 76.02991285601986,
+      "reportedTotal_nT": 192.85585021972656,
+      "residual_nT": -116.8259373637067,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-11T01:03:00+00:00",
+      "index": 1503,
+      "GSM_nT": [
+        15.076223373413086,
+        0.5118914246559143,
+        32.13276672363281
+      ],
+      "GSMnorm_nT": 35.49745401223991,
+      "reportedTotal_nT": 133.5243377685547,
+      "residual_nT": -98.02688375631477,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-10T17:25:00+00:00",
+      "index": 1045,
+      "GSM_nT": [
+        -0.4652540683746338,
+        -15.644634246826172,
+        28.95209503173828
+      ],
+      "GSMnorm_nT": 32.91192563178141,
+      "reportedTotal_nT": 130.62380981445312,
+      "residual_nT": -97.71188418267172,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-11T01:06:00+00:00",
+      "index": 1506,
+      "GSM_nT": [
+        1.4877805709838867,
+        -4.583853721618652,
+        -53.62960433959961
+      ],
+      "GSMnorm_nT": 53.84570240595433,
+      "reportedTotal_nT": 141.10720825195312,
+      "residual_nT": -87.2615058459988,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-11T00:33:00+00:00",
+      "index": 1473,
+      "GSM_nT": [
+        -33.96247863769531,
+        37.12300109863281,
+        92.71304321289062
+      ],
+      "GSMnorm_nT": 105.48590212715786,
+      "reportedTotal_nT": 187.11753845214844,
+      "residual_nT": -81.63163632499058,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-11T00:40:00+00:00",
+      "index": 1480,
+      "GSM_nT": [
+        -10.578845024108887,
+        42.79664993286133,
+        77.33110046386719
+      ],
+      "GSMnorm_nT": 89.01440505037773,
+      "reportedTotal_nT": 170.22454833984375,
+      "residual_nT": -81.21014328946602,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-10T22:52:00+00:00",
+      "index": 1372,
+      "GSM_nT": [
+        -35.296974182128906,
+        80.61946868896484,
+        126.98351287841797
+      ],
+      "GSMnorm_nT": 154.4997982556877,
+      "reportedTotal_nT": 233.4347381591797,
+      "residual_nT": -78.934939903492,
+      "DQF": 50331648,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-10T23:09:00+00:00",
+      "index": 1389,
+      "GSM_nT": [
+        -37.779727935791016,
+        63.412994384765625,
+        166.81259155273438
+      ],
+      "GSMnorm_nT": 182.4142439621536,
+      "reportedTotal_nT": 257.293212890625,
+      "residual_nT": -74.87896892847141,
+      "DQF": 50331648,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-10T23:41:00+00:00",
+      "index": 1421,
+      "GSM_nT": [
+        -75.6178207397461,
+        68.80267333984375,
+        117.26400756835938
+      ],
+      "GSMnorm_nT": 155.5722023471091,
+      "reportedTotal_nT": 227.48526000976562,
+      "residual_nT": -71.91305766265651,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-11T00:43:00+00:00",
+      "index": 1483,
+      "GSM_nT": [
+        -31.182926177978516,
+        24.873659133911133,
+        -98.02631378173828
+      ],
+      "GSMnorm_nT": 105.8311485214399,
+      "reportedTotal_nT": 174.529052734375,
+      "residual_nT": -68.6979042129351,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-10T17:32:00+00:00",
+      "index": 1052,
+      "GSM_nT": [
+        -13.57496166229248,
+        -17.3392391204834,
+        -61.8271369934082
+      ],
+      "GSMnorm_nT": 65.63172758819988,
+      "reportedTotal_nT": 131.02752685546875,
+      "residual_nT": -65.39579926726887,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-10T18:27:00+00:00",
+      "index": 1107,
+      "GSM_nT": [
+        -16.544391632080078,
+        -42.727081298828125,
+        8.694561004638672
+      ],
+      "GSMnorm_nT": 46.6359921289951,
+      "reportedTotal_nT": 111.01319122314453,
+      "residual_nT": -64.37719909414943,
+      "DQF": 33554432,
+      "b_quality": 0
+    },
+    {
+      "timeUTC": "2024-05-10T18:58:00+00:00",
+      "index": 1138,
+      "GSM_nT": [
+        -26.463979721069336,
+        -52.262996673583984,
+        -14.759051322937012
+      ],
+      "GSMnorm_nT": 60.41185843800295,
+      "reportedTotal_nT": 124.68827056884766,
+      "residual_nT": -64.2764121308447,
+      "DQF": 33554432,
+      "b_quality": 0
+    }
+  ],
+  "warning": "Total field is in ACRF; GSM component norm should agree under pure rotation but processing and correction flags may differ. Flag meanings and algorithm semantics must be checked before attributing discrepancies."
+}
