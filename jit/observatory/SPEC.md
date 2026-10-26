@@ -278,3 +278,65 @@ A. Enumerate actual PSP datasets from HAPI and mission archives; record field na
 **👁 evidence:** expose the time-window ranking, all geometry/field inputs, uncertainty envelopes, which products were actually retrieved, which were merely discoverable, and why any interval was deferred. A visually compelling alignment is not an observed connection.
 
 **Acceptance gate:** demonstrate the filter on at least one historical PSP encounter using reproducible ephemerides and low-rate science measurements; generate a ranked list of candidate and control windows; retrieve a bounded high-resolution slice only after validating the selection. Record a falsifiable predicted near-Earth arrival interval and test it against independent L1 data.
+
+
+## Planetary Sensor Registry — lazy, on-demand provider stubs (2026-10-26)
+
+### Decision: discover broadly, **do not poll the planet**
+
+The ground, ocean and atmospheric networks below are **registered as future query adapters**, not as an implementation backlog requiring constant ingestion, scheduled polling, bulk backfill or daily metadata refresh. Their presence in this specification means *potential acquisition paths*, not that data have been browser-verified or that any connector is running. A user's specific correlative question triggers discovery, validation and bounded retrieval for only the necessary stations, variables and time windows. No background jobs are authorized by this section.
+
+The registry is deliberately extensible: almost any publicly discoverable scientific station or instrument may become a candidate, but availability, machine access, quality, license, geographic coverage, latency and historical completeness must be checked at query time. Avoid the claim that every station is freely accessible.
+
+### Registry stubs
+
+| Stub / network | Potential observations | Entry point / adapter idea | Important qualification |
+| --- | --- | --- | --- |
+| INTERMAGNET / geomagnetic observatories | Ground magnetic field components, minute/second data | INTERMAGNET HAPI: https://imag-data.bgs.ac.uk/GIN_V1/hapi | Station availability, provisional/definitive flags, delays, frame |
+| Ionosondes / GIRO / DIDBase | Ionospheric layer heights, critical frequencies, profiles | https://giro.uml.edu/ | Data-access conditions, station cadence, derived versus observed values |
+| GNSS TEC / scintillation | Total electron content, phase/amplitude scintillation | IGS and regional GNSS / TEC services; resolve actual product URLs per query | TEC may be modeled/gridded rather than direct station measurement |
+| SuperMAG / additional magnetometers | Ground magnetic perturbations, indices | https://supermag.jhuapl.edu/ | Registration/terms and station coverage may limit automated access |
+| NMDB neutron monitors | Ground cosmic-ray count rates | https://www.nmdb.eu/ | Pressure corrections, station metadata, access limits |
+| NOAA Global Hourly / ISD | Weather station pressure, temperature, humidity, wind, precipitation | https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database | Variable completeness and reporting delays vary |
+| NOAA NDBC buoys / C-MAN | Wind, pressure, waves, water temperature, currents | https://www.ndbc.noaa.gov/data/realtime2/ | Recent files and historical files differ; station capabilities vary |
+| NOAA CO-OPS | Tides, coastal water levels, currents, meteorology, salinity, temperature | https://tidesandcurrents.noaa.gov/web_services_info.html | Product-specific time-window limits, datum and time zone |
+| Ocean Observatories Initiative (OOI) | Water-column temperature, salinity, oxygen, pH, carbon, biology, seafloor measurements | https://oceanobservatories.org/data-access/ | ERDDAP and other services differ in auth and volume; depth is essential |
+| IOOS / regional ocean observing systems | Buoys, gliders, coastal stations, marine meteorology | https://ioos.noaa.gov/ | Federation overlaps NDBC/CO-OPS/OOI; deduplicate physical sensors |
+| Argo / Biogeochemical Argo | Temperature, salinity, oxygen, nitrate, pH, optical profiles | https://argo.ucsd.edu/ | Profiling floats, not fixed stations; delayed-mode versus real-time QC |
+| USGS Water Data | Streamflow, stage, groundwater, water quality, temperature | https://api.waterdata.usgs.gov/ | Parameter codes, station history, API migration and provisional flags |
+| USGS seismic / FDSN networks | Earthquake events and waveform traces | https://earthquake.usgs.gov/fdsnws/event/1/ | Event catalogs and station waveform feeds are distinct; FDSN provider selection |
+| NOAA GML / atmospheric chemistry | CO2, methane, aerosols, ozone and other atmospheric composition | https://gml.noaa.gov/ | Product release and calibration vary; many data are archival |
+| AERONET | Aerosol optical depth and related atmospheric optical properties | https://aeronet.gsfc.nasa.gov/ | Product levels, QC and site coverage |
+| Radiation / solar irradiance networks | Surface solar radiation, UV, meteorological context | NOAA / SURFRAD and BSRN provider catalogs | Access, units, sensor exposure, cloud and diurnal cycles |
+| Soil / ecological networks | Soil moisture, temperature, fluxes, carbon, vegetation | USGS, NEON, AmeriFlux and regional catalogs | Data rights, footprint and method differ |
+| Marine biology / water chemistry | Chlorophyll, fluorescence, dissolved oxygen, nutrients, acoustic ecology | OOI, IOOS, ERDDAP and specialized archives | Biological proxies require domain-specific QC and sampling context |
+
+These URLs are **starting points for later provider discovery**, not proof of live machine-readable responses. Add international equivalents opportunistically (national meteorological services, hydrographic agencies, ocean observatories, magnetometer arrays, research vessels, floats, gliders and satellites). Treat mobile platforms as trajectories rather than fixed station dots.
+
+### Minimal lazy adapter contract
+
+A stub is a declarative provider descriptor, not a running service:
+
+\`{providerId, domain, landingUrl, discoveryStrategy, accessType:"unknown", supportedConcepts, stationKinds, spatialCoverage:"unknown", temporalCoverage:"unknown", cadence:"unknown", license:"unverified", auth:"unverified", status:"STUB"}\`
+
+On a real query, progress only the relevant provider/stations through:
+
+**STUB → DISCOVERED → ENDPOINT_PROBED → BROWSER_VERIFIED → WINDOW_FETCHED → NORMALIZED → CORRELATABLE**, or record \`BLOCKED\`, \`UNAVAILABLE\`, \`STALE\` with a reason. Cache discovered capabilities and bounded observations for reuse, with explicit timestamps and invalidation appropriate to that provider; **no periodic global refresh**.
+
+Required normalized observation dimensions: source, instrument/station/platform ID, latitude/longitude/elevation or trajectory, depth/altitude, time basis and UTC timestamp, measurement concept, observed/calculated/model status, numeric value, unit, reference datum/frame, sampling/averaging interval, QC flags, retrieval URL and retrievedAt, uncertainty, and original record identity. Maintain provider-specific raw evidence and station identity aliases to prevent duplicate observations across federations.
+
+### Query-driven acquisition protocol
+
+1. Parse a concrete scientific question into **variables, spatial domain, depth/altitude, time interval, candidate lag range and comparison/control requirements**.
+2. Choose a small set of provider stubs likely to contain those variables. Discover their catalogs **only then**, with provider-specific bounded searches.
+3. Resolve station IDs and actual product availability; probe endpoint access, format, authentication, browser CORS, temporal coverage and sample quality. Do not silently treat metadata as measurements.
+4. Estimate bytes, request count, data latency and coverage. Enforce the Lattice request governor, concurrency/host limits and per-query budgets; ask for narrower scope if the request is genuinely unbounded.
+5. Fetch only bounded windows, normalize units/timestamps/coordinates/datum and QC; keep gaps and missing data visible. Do not silently resample unlike quantities into artificial agreement.
+6. Run exploratory correlations with physical lag hypotheses, seasonality/diurnal controls, spatial dependence, autocorrelation, multiple-testing correction, missingness and instrument-change checks. Retain negative results and clearly separate exploration from preregistered tests.
+7. Emit a reproducible **query dossier** with source URLs, station IDs, exact windows, sample counts, transformations, code/model versions, uncertainty, rejected candidates and findings. 👁 exposes all of this without cluttering the primary interface.
+
+**Illustrative questions, not causal claims:** solar-wind pressure impulses versus high-latitude ground magnetometers; ionospheric TEC versus GNSS disturbances; atmospheric pressure patterns versus ocean buoy and coastal water-level responses; ocean temperature versus dissolved oxygen across depths; geomagnetic activity versus seismic or biological signals with rigorous null controls.
+
+### Implementation boundary and acceptance
+
+**Now:** preserve this registry in the SPEC as stubs and the generic lazy-query contract. **Later, when requested:** implement one adapter at a time to answer a concrete question; validate its actual endpoint and real measurements before advertising success. Do not build an always-on global station harvester, schedule daily checks, or preempt the current L1 / GEO / PSP priorities. Success for any future adapter means a reproducible, bounded, quality-aware answer to an actual query—not a green status beside an untested provider name.
