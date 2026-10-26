@@ -249,3 +249,32 @@ Prefer a small versioned manifest with dataset IDs, last-covered timestamps, ret
 A. Enumerate actual PSP datasets from HAPI and mission archives; record field names, cadence, coverage, data level and access. B. Browser-probe one bounded FIELDS magnetic vector series and one SWEAP moment series with numeric observations and valid timestamps; collect 👁 proof. C. Obtain an authoritative ephemeris for the same interval and compute PSP–Sun–Earth geometry. D. Render one genuine historical interval and a compact acquisition report, clearly labeled archival. E. Add an incremental daily manifest comparison; fetch newly available bounded windows without disrupting L1/GOES. F. Select one event for physically defensible PSP/L1 comparison and one unconnected control. G. Expand to ISʘIS, WISPR and high-resolution bursts only after the baseline is verified.
 
 **Done for this wave** means at least two independently validated PSP measurement products, truthful temporal/provenance metadata, orbit geometry, bounded retrieval, a reproducible historical playback and one evidence-based comparison hypothesis. A dataset listed in a catalog is not completion.
+
+
+### Earth-Connection Filter — qualify PSP windows before high-volume acquisition (2026-10-26)
+
+**Purpose:** prioritize Parker Solar Probe observations that may be relevant to subsequent near-Earth solar-wind conditions. This is an **acquisition ranking and scientific hypothesis**, not proof that a measured parcel reaches Earth. Parker's instrument pointing toward Earth is not the criterion: local field/plasma observations are selected by spacecraft position, flow and modeled connectivity. Do not erase the unselected archive or confuse selection confidence with causal certainty.
+
+**Two independent screening axes:**
+
+1. **Geometric / ballistic opportunity.** At each PSP observation time obtain authoritative PSP and Earth heliocentric positions in the same frame, PSP heliocentric radius and longitude, and plausible wind velocity vectors/ranges. Calculate candidate radial transit intervals and longitude offsets including solar rotation; account for Earth's motion during propagation. A narrow instantaneous Sun–PSP–Earth angle alone is insufficient, and a PSP observation outside a literal straight-line cone may still be useful.
+2. **Magnetic connectivity opportunity.** Estimate Parker-spiral or other physically justified source-surface/field-line mappings using available wind speed, solar rotation and magnetic polarity. Compare modeled PSP and Earth-connected footpoints or stream corridors, propagating speed, position, field-model and time uncertainties. A shared modeled footpoint is *suggestive*, not proof of identical plasma parcels or subsequent terrestrial effects.
+
+**Computational selection contract:** use ephemerides to cheaply enumerate all encounter windows first; score time intervals by (a) heliocentric geometry, (b) modeled travel-time interval, (c) longitudinal/latitudinal separation at predicted encounter, (d) plausible magnetic connectivity, (e) instrument coverage/quality, and (f) corroborating L1/GEO observations. Preserve input parameters, model/version, UTC interval, uncertainty band, reason codes and source citations. Do not use later L1 observations as the sole criterion for choosing windows in a test that claims independent prediction; label retrospective searches and hold out control periods.
+
+**Acquisition tiers (provisional, recalibrate against real archives):**
+
+| Tier | Selection | Retrieval |
+| --- | --- | --- |
+| Strong candidate | Multiple geometry/connectivity tests agree within modeled uncertainty | Fetch bounded native/high-resolution FIELDS, SWEAP and relevant ISʘIS intervals; WISPR only when its viewing geometry supports the event |
+| Possible connection | Some tests agree or inputs are missing/uncertain | Fetch low-rate magnetic vectors, plasma moments, ephemerides and selected particle summaries; escalate on corroborating evidence |
+| Low predicted connection | Outside modeled opportunity windows | Retain orbit/coverage metadata and stratified low-rate control samples; fetch detailed data on explicit request or to test model failures |
+| Indeterminate | Missing ephemeris, speed, coordinates, calibration or archive coverage | Do not silently reject; retain uncertainty, prioritize obtaining missing evidence |
+
+**Sampling and schedule:** recompute candidate windows when new reconstructed ephemerides, wind products, field models or science releases arrive. Daily catalog/manifest checks remain metadata-only unless new relevant coverage exists. Batch newly released observations by time window; first acquire low-rate context and then high-rate bursts for strong candidates. Enforce explicit byte, sample and request budgets, cache/version fetched windows, preserve data gaps, and keep live L1/GOES polling prioritized under the Lattice governor.
+
+**Scientific synthesis:** for each candidate window build a PSP → L1 comparison dossier with actual observed UTCs, predicted arrival *range*, solar-wind structure signatures, coordinate transforms, cross-correlation only where warranted, and alternate explanations. Extend to GEO and ground only when the near-Earth evidence supports it. Compare matched low-connection controls and failed predictions; report precision/recall and selection bias as the filter is evaluated. Distinguish plasma advection, magnetic topology, energetic-particle transport and photon propagation as separate pathways.
+
+**👁 evidence:** expose the time-window ranking, all geometry/field inputs, uncertainty envelopes, which products were actually retrieved, which were merely discoverable, and why any interval was deferred. A visually compelling alignment is not an observed connection.
+
+**Acceptance gate:** demonstrate the filter on at least one historical PSP encounter using reproducible ephemerides and low-rate science measurements; generate a ranked list of candidate and control windows; retrieve a bounded high-resolution slice only after validating the selection. Record a falsifiable predicted near-Earth arrival interval and test it against independent L1 data.
