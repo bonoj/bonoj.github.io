@@ -1,0 +1,31 @@
+{
+  "schema": "hermeticon-hires-probe/v1",
+  "status": "PROBE_COMPLETE_NOT_RECONSTRUCTED",
+  "createdAt": "2026-10-26T05:38:19.194599+00:00",
+  "requests": [
+    {
+      "day": "20240510",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes18/l2/data/magn-l2-hires/2024/05/dn_magn-l2-hires_g18_d20240510_v1-0-1.nc",
+      "status": 200,
+      "contentLength": "202508885",
+      "acceptRanges": "bytes",
+      "contentType": "application/x-netcdf",
+      "rangeStatus": 206,
+      "contentRange": "bytes 0-65535/202508885",
+      "rangeBytesRead": 65536,
+      "hdf5Magic": true
+    },
+    {
+      "day": "20240511",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes18/l2/data/magn-l2-hires/2024/05/dn_magn-l2-hires_g18_d20240511_v1-0-1.nc",
+      "status": 200,
+      "contentLength": "209469331",
+      "acceptRanges": "bytes",
+      "contentType": "application/x-netcdf",
+      "rangeStatus": 206,
+      "contentRange": "bytes 0-65535/209469331",
+      "rangeBytesRead": 65536,
+      "hdf5Magic": true
+    }
+  ]
+}
