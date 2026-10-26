@@ -173,3 +173,16 @@ A speculative idea is marked *planned*. A committed file is marked *committed*. 
 **Status:** geo/04 acquisition browser-verified, its alignment rejected; geo/05 committed **awaiting user browser verification**.
 
 **Next:** open https://bonoj.github.io/jit/observatory/geo/?v=e3c21eeb, copy 👁, verify that GEO 04:40Z matches L1 04:40 (not 00:40), inspect sample provenance and nearest-sample deltas. Then plan actual event and propagation-lag experiment with explicit uncertainty.
+
+
+## 10 — GEO/05 browser-verified UTC correction (2026-10-26)
+
+**User 👁 evidence:** `hermeticon-geo-eye/v1`, build `geo/05`, captured `2026-10-26T04:44:34.867Z`. All eight NOAA requests HTTP 200: metadata mapping (1), longitudes (8), GOES-19 primary magnetometer (358), GOES-18 secondary magnetometer (358), GOES-18 primary integral protons (568), GOES-19 secondary integral protons (568), L1 wind (3325), L1 magnetic (3413).
+
+**UTC correction VERIFIED:** both GEO magnetic samples at 04:41Z match L1 wind/mag at 04:40 UTC (60 s); both GEO proton samples at 04:35Z match L1 wind/mag at 04:35 UTC (0 s). No more spurious 00:40 local-time matches. The L1 raw timestamp is timezone-less but interpreted as UTC.
+
+**Platform/provenance:** GOES-19 magnetometers primary, GOES-18 secondary; GOES-18 protons primary, GOES-19 secondary. Longitudes 72.5°W (19), 137°W (18). Nominal geometry classifies both as sun-visible and not eclipsed at observation epoch, but remains approximate rather than ephemeris-verified. Magnetometer `arcjet_flag=false` for 358/358 each; proton records have no arcjet flag (unknown is not a quality failure).
+
+**Interpretation:** Acquisition, numeric normalization, and clock alignment browser-verified. No L1→GEO physical propagation or causality established. Beware different physical populations (L1 bulk solar-wind plasma versus GEO energetic proton flux), varying spacecraft/instrument roles, and `active=false` on some L1 samples.
+
+**Next falsifiable step:** construct a bounded L1→GEO magnetic response study using continuous time series and explicit lag sweep, quality/active-source filtering, missingness, lag sign convention, controls and uncertainty. Use 👁 to export compact event/lag diagnostics. Do not imply same-time coincidence is causal.
