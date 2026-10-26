@@ -524,3 +524,24 @@ All four HTTP **200**, all four `RECENT_DATA`, and each window's `gapsOverThreeM
 | 🌍 Earth | 355 | 1 | 0 | 4 | 5 |
 
 **Verification:** every `observed+missing=360` and `leading+internal+trailing=missing`. Stack/12 exported the alignment report successfully; visual strip layout is **not screenshot-verified**. These are timestamp-availability classes, not outages. Next inspect a screenshot and confirm strips align with their respective trace time axis.
+
+
+## 36 — 🧭 Reorientation and cold-boot specification audit (2026-10-26)
+
+**User:** “Is this unnecessary ui polish? Let's reorient.” Then: “Let's examine the spec and compare implementation to spec!” Then requested updating Chronicle and README for cold-boot continuation.
+
+**Decision:** **Yes — availability-strip polishing had become a detour. Freeze Stack/12 as the verified four-lane acquisition reference.** The mission is the broad, composable Observatory in [SPEC.md](SPEC.md), **not** a four-feed dashboard or a premature event detector. No runtime changes were made during this audit or documentation handoff.
+
+**Audit against current SPEC:** Stack/12 has four NOAA live feeds, locally adapted Lattice-style bounded transport, basic source/raw provenance, UTC coincidence and missingness, one-viewport 👁/⧉ export. Incomplete: normalized source identity, quality/frame/active spacecraft metadata, complete source lifecycle and provenance, original instrument cadence interpretation. Not implemented *in Stack*: existing separate L1 plasma/vector breadth; GOES primary+secondary particles, EUV and instrument-source mapping; spacecraft ephemerides, solar geometry and moving dayside footprint; physically grounded propagation windows/lag tests; quality-gated event detection, 2024 storm/quiet replay, holdout validation and event dossiers. PSP archival Earth-Connection Filter and lazy Planetary Sensor Registry remain planned capabilities; no automated PSP harvester or planetary polling should be claimed. Separate prototypes are preserved; this is a Stack audit, not a claim that nothing exists elsewhere.
+
+**Verified baseline:** user Stack/12 👁 at 06:40:49.899 UTC (details §35), 4/4 NOAA HTTP 200, no transport failures, 310/360 coincident bins; all missingness accounting invariants passed. Visual strip presentation is **not screenshot-verified**. Minute-bin coincidence is not causal coupling; GOES X-rays are measured at GEO; Boulder local K is a derived index; L1 GSM Bz and GEO local total are not directly interchangeable.
+
+**New execution priority:**
+1. Inventory existing deployed L1, GOES and Stack raw schemas. Implement a normalized, quality-aware **source registry** with provider, instrument, spacecraft/station, position/frame, active selection, measurement/model kind, UTC observation/fetch times, cadence/latency, QC, units, errors and lifecycle `CANDIDATE → PROBED → BROWSER_VERIFIED → INGESTED → CORRELATABLE`.
+2. Expand validated NOAA RTSW plasma and magnetic vectors plus GOES primary/secondary particle/EUV/magnetometer channels. Do not silently mix ACE/IMAP/SOLAR1 or promote HTTP 200 alone to science acceptance.
+3. Acquire authoritative ephemerides and Sun direction; distinguish sunward, sun-visible and eclipsed; select physically located GEO and ground observations. Cone = geometric acquisition footprint, **not** observed material tube.
+4. Only then build quality-gated comparisons and event detection; replay 2024 storm and quiet controls, freeze tests, use held-out events, generate evidence/uncertainty dossiers. PSP Earth-Connection Filter and lazy planetary adapters remain future spec-guided branches.
+
+**Operational guardrails:** no more UI polish until science requires it; no arbitrary source/channel cap; no uncontrolled polling or inferred causality; preserve root Lattice, separate solar/L1/GEO worlds and Gate discipline. Maintain compact emoji reports, honest browser verification boundaries, one viewport and 👁 handoff.
+
+**Cold-boot README:** replaced stale STACK/09 lead with STACK/12 verified baseline, exact audit and next-step order in commit `430f9c1d4731a24b51c224cd8a33f7994dc0389a`. Read README CURRENT → SPEC mission/sequence → Chronicle §§33–36 → Stack/L1 runtimes → Lattice/Gate. **Next ➡️:** source-registry/acquisition step, not sparkline refinement.
