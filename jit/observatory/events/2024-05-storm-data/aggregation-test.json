@@ -1,0 +1,150 @@
+{
+  "schema": "hermeticon-aggregation-test/v1",
+  "status": "DESCRIPTIVE_ONLY_NOT_VALIDATED",
+  "createdAt": "2026-10-26T05:35:53.254149+00:00",
+  "metadata": {
+    "b_gsm": {
+      "shape": [
+        1440,
+        3
+      ],
+      "attributes": {
+        "_Netcdf4Coordinates": "[0 1]",
+        "_FillValue": "[-9999.]",
+        "long_name": "b'magnetic_field_geocentric_solar_magnetospheric'",
+        "comments": "b'Estimated ambient magnetometer data in Geocentric Solar Magnetospheric coordinates (x, y, z).'",
+        "units": "b'nT'",
+        "valid_min": "[-1024.]",
+        "valid_max": "[1024.]"
+      }
+    },
+    "b_total": {
+      "shape": [
+        1440
+      ],
+      "attributes": {
+        "_FillValue": "[-9999.]",
+        "long_name": "b'magnetic_field_total_magnitude'",
+        "comments": "b'Estimated ambient magnetic field in ACRF coordinates (total).'",
+        "units": "b'nT'",
+        "valid_min": "[0.]",
+        "valid_max": "[1024.]"
+      }
+    },
+    "num_points": {
+      "shape": [
+        1440
+      ],
+      "attributes": {
+        "_FillValue": "[65535]",
+        "long_name": "b'number_of_points_in_average'",
+        "comments": "b'Number of points used in average.'"
+      }
+    },
+    "globalAttributes": {
+      "Conventions": "b'ACDD-1.3, Spase v2.2.6'",
+      "title": "b'L2 Magnetometer (MAG) Geomagnetic Field 1-minute Averages Product with Complete Coordinate Frames'",
+      "summary": "b\"The GOES-R spacecraft includes a pair of fluxgate magnetometer instruments which operate simultaneously to obtain measurements of the geomagnetic field. The Magnetometer Subsystem supports the following mission objectives: 1) Map the space environment that controls charged particle dynamics in the outer region of the magnetosphere, 2) Measure the magnitude and direction of the Earths 'ambient magnetic field in three orthogonal directions in the geosynchronous equatorial orbit, 3) Determine general level of geomagnetic activity, and 4) Detect magnetopause crossings, storm sudden commencements, and substorms. The one-minute averages product described in this file includes the magnetometer observations in several coordinate systems.\"",
+      "keywords": "b'SPASE: NumericalData.ObservedRegion.Earth.Magnetosphere, SPASE:  NumericalData.MeasurementType.MagneticField, GCMD: Earth Science >> Sun-Earth Interactions >> Ionosphere/Magnetosphere Dynamics >> Magnetic Fields/Magnetic Currents'",
+      "keywords_vocabulary": "b'SPASE: Space Physics Archive Search and Extract Data Model version 2.2.6, GCMD: NASA Global Change Master Directory (GCMD) Earth Science Keywords version 8.5'",
+      "naming_authority": "b'gov.nesdis.noaa'",
+      "history": "b'See algorithm information.'",
+      "source": "b'GOES-R Magnetometer L2'",
+      "processing_level": "b'Level 2'",
+      "processing_level_description": "b'Derived products'",
+      "license": "b'These data may be redistributed and used without restriction. '",
+      "acknowledgment": "b'NOAA Proposal GOESR3_205'",
+      "metadata_link": "b'https://doi.org/10.25921/H2TQ-PC59'",
+      "creator_name": "b\"Paul Loto'aniu, Rob Redmon\"",
+      "creator_type": "b'person'",
+      "creator_institution": "b'DOC/NOAA/NCEI/CCOG/STP'",
+      "creator_email": "b'goesr.mag@noaa.gov'",
+      "creator_url": "b'https://www.ncei.noaa.gov/'",
+      "institution": "b'DOC/NOAA/NESDIS> U.S. Department of Commerce, National Oceanic and Atmospheric Administration, National Environmental Satellite, Data, and Information Services'",
+      "publisher_name": "b'National Centers for Environmental Information'",
+      "publisher_type": "b'institution'",
+      "publisher_institution": "b'DOC/NOAA/NESDIS/NCEI'",
+      "publisher_email": "b'goesr.mag@noaa.gov'",
+      "publisher_url": "b'https://www.ncei.noaa.gov/'",
+      "references": "b'MAGNETOMETER TIMES SERIES AVERAGES ALGORITHM THEORETICAL BASIS DOCUMENT Version 1.3'",
+      "instrument": "b'GOES R Series Magnetometer (MAG)'",
+      "instrument_id": "b' '",
+      "program": "b'Geostationary Operational Environmental Satellite, R-Series (GOES-R)'",
+      "project": "b'Geostationary Operational Environmental Satellite R-Series (GOES-R) Core Ground Segment, Satellite Product Analysis and Distribution System (SPADES)'",
+      "time_coverage_resolution": "b'PT1M'",
+      "processing_parameters_file": "b' '",
+      "algorithm_parameters": "b'None'",
+      "_NCProperties": "b'version=2,netcdf=4.6.3,hdf5=1.10.2'",
+      "id": "b'dn_magn-l2-avg1m_g18_d20240510_v2-0-2.nc'",
+      "date_created": "b'2024-05-17T05:07:38.456Z'",
+      "orbital_slot": "b'GOES-West'",
+      "platform": "b'g18'",
+      "L1b_system_environment": "b'OE'",
+      "L1b_production_site": "b'RBU'",
+      "time_coverage_start": "b'2024-05-10T00:00:00.000Z'",
+      "time_coverage_end": "b'2024-05-11T00:00:00.000Z'",
+      "algorithm": "b'cli-mag08_avg'",
+      "algorithm_version": "[2 2]",
+      "algorithm_date": "b'2018-06-07'",
+      "input_system_environments": "b'dn'",
+      "input_files_first": "b'dn_magn-l2-hires_g18_d20240510_v1-0-1.nc'",
+      "input_files_last": "b'dn_magn-l2-hires_g18_d20240510_v1-0-1.nc'",
+      "input_files_total": "[1]",
+      "git_commit_hash": "b'3aad609749631f78ce844aa27939301b60f204bf'",
+      "L1b_LUT_Filenames": "b'MAG_CALINR_Parameters(FM3A_MAGN03RevC_DO_13_00_00)-739861842.0.h5'"
+    }
+  },
+  "counts": {
+    "minutes": 2880,
+    "scalarGreaterThanVectorBy1nT": 265,
+    "scalarLessThanVectorBy1nT": 0,
+    "scalarGreaterThanVectorBy5nT": 82,
+    "scalarLessThanVectorBy5nT": 0
+  },
+  "gapStatistics_nT": {
+    "minimum": 1.7843915443904734e-05,
+    "maximum": 179.51910440557677,
+    "median": 0.019626239623363517,
+    "p95": 2.395298025285847,
+    "p99": 26.04383454054361
+  },
+  "numPoints": {
+    "shape": [
+      2880
+    ],
+    "min": 596.0,
+    "max": 600.0,
+    "uniqueCount": 3
+  },
+  "windows": [
+    {
+      "name": "preShock",
+      "minutes": 996,
+      "above5nT": 0,
+      "belowMinus5nT": 0,
+      "medianGap_nT": 0.00037454190760399797,
+      "maximumGap_nT": 0.14597208243453252
+    },
+    {
+      "name": "shockToMidnight",
+      "minutes": 444,
+      "above5nT": 42,
+      "belowMinus5nT": 0,
+      "medianGap_nT": 0.6042125462415271,
+      "maximumGap_nT": 129.1168583147103
+    },
+    {
+      "name": "stormDay",
+      "minutes": 1440,
+      "above5nT": 40,
+      "belowMinus5nT": 0,
+      "medianGap_nT": 0.04126260967067452,
+      "maximumGap_nT": 179.51910440557677
+    }
+  ],
+  "hypothesis": "If b_total is mean instantaneous magnitude while b_gsm is mean vector, Jensen triangle inequality predicts scalar >= vector norm before corrections, within numerical tolerance.",
+  "warnings": [
+    "A compatible sign pattern is necessary but insufficient to establish the aggregation mechanism.",
+    "Raw higher-cadence vectors and exact NOAA processing specification are required for direct reconstruction."
+  ]
+}
