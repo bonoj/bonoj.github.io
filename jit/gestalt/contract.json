@@ -1,0 +1,41 @@
+{
+  "schema": "mini-gestalt/v1",
+  "tokens": {
+    "background": "#f7f7f5",
+    "surface": "#ffffff",
+    "ink": "#242424",
+    "accent": "#bd1831",
+    "radius": 16,
+    "spacing": 12
+  },
+  "screen": {
+    "title": "The little things",
+    "subtitle": "A tiny model-directed design system",
+    "components": [
+      {
+        "type": "hero",
+        "title": "Collect what moves you",
+        "body": "One declarative UI contract, multiple rendering targets."
+      },
+      {
+        "type": "chips",
+        "items": [
+          "Interiors",
+          "Recipes",
+          "Cats",
+          "Gardens"
+        ]
+      },
+      {
+        "type": "card",
+        "title": "The observatory",
+        "body": "The model authors intent; renderers interpret the contract.",
+        "action": "Save idea"
+      },
+      {
+        "type": "button",
+        "label": "Explore ideas"
+      }
+    ]
+  }
+}
