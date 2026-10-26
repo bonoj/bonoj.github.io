@@ -132,3 +132,18 @@ A speculative idea is marked *planned*. A committed file is marked *committed*. 
 **Action:** committed `geo/03` (`65e4b793`) with explicit channel initialization and new `normalizationDiagnostics`: input timed-record count, distinct energy labels, channel keys and per-channel counts. This build identity and cache-busted URL are intended to distinguish the deployed code. No user browser verification for GEO/03 yet.
 
 **Next:** open https://bonoj.github.io/jit/observatory/geo/?v=65e4b793 , tap 👁 and inspect `build` plus `normalizationDiagnostics` for both proton feeds. Expect distinct energy thresholds with many samples each; if not, investigate actual served source and browser caching before changing science logic further.
+
+
+## 07 — GEO/03 browser verification PASSED (2026-10-26 04:41:53 UTC)
+
+**Evidence:** user pasted full `hermeticon-geo-eye/v1` build `geo/03` captured `2026-10-26T04:41:53.549Z`. All six NOAA endpoints HTTP 200, no errors; mapping and longitude marked `METADATA_VERIFIED`, four science feeds `BROWSER_VERIFIED`. Science record counts: primary/secondary magnetic 358 each; primary/secondary protons 560 each; **1,836 total**.
+
+**Normalization confirmed:** each magnetic feed contains He/Hp/Hn/total, **358 samples per channel**. Each proton feed contains **eight distinct integral energy thresholds** (>=1, >=5, >=10, >=30, >=50, >=60, >=100, >=500 MeV), **70 samples per threshold**, for 24 normalized channels across two satellites. The GEO/02 single-flux-channel defect is absent in GEO/03; earlier cause (intermediate deployment/cache vs parser) remains unproven.
+
+**Measured values:** GOES-19 magnetic total 82.008934 nT at 04:38Z, GOES-18 total 90.053596 nT at 04:38Z; 0/716 arcjet flags raised. Proton >=1 MeV at 04:30Z: GOES-18 0.3962133, GOES-19 0.3476792; >=10 MeV: 0.2455611 and 0.2108297; >=100 MeV: 0.2060200 and 0.1849010; >=500 MeV: 0.1813592 and 0.1746828. **Proton flux units still unverified** against provider documentation. Magnetic readings and proton channels are not automatically interchangeable or time-aligned.
+
+**Geometry evidence:** longitude metadata GOES-19 72.5°W, GOES-18 137°W; at ~04:41:51Z approximate local solar time GOES-19 00:08, GOES-18 19:50; both `sunward:false`. `sunVisible` and `eclipsed` remain null; no authoritative ephemerides yet.
+
+**Interpretation:** the GEO acquisition and per-energy normalization gates have passed with user browser evidence. **Not yet correlatable**: still need verified flux units, observation-time alignment and authoritative or explicitly bounded-approximation geometry.
+
+**Next:** improve GEO geometry and time alignment against L1 while retaining raw source timestamps, instrument-specific spacecraft attribution and honest uncertainty. Migrate future acquisition through the Lattice governor before adding more feeds.
