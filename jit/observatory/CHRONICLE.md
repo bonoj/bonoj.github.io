@@ -147,3 +147,16 @@ A speculative idea is marked *planned*. A committed file is marked *committed*. 
 **Interpretation:** the GEO acquisition and per-energy normalization gates have passed with user browser evidence. **Not yet correlatable**: still need verified flux units, observation-time alignment and authoritative or explicitly bounded-approximation geometry.
 
 **Next:** improve GEO geometry and time alignment against L1 while retaining raw source timestamps, instrument-specific spacecraft attribution and honest uncertainty. Migrate future acquisition through the Lattice governor before adding more feeds.
+
+
+## 08 — GEO/04 geometry and L1 time-proximity probe (2026-10-26)
+
+**Intent:** move from proven two-spacecraft measurements toward an honest L1–GEO observation comparison, without inferring causality from a timestamp match.
+
+**Action:** [geo/index.html](geo/index.html) build `geo/04`, commit `80258d4d`. Added (1) approximate sun visibility and Earth umbra from NOAA longitude, solar declination/hour angle, nominal equatorial GEO orbital radius 42,164 km and spherical Earth radius 6,378.137 km; (2) bounded single-shot reads of existing NOAA L1 RTSW wind/magnetic 1-minute JSON and nearest observed UTC timestamp for each GEO feed, preserving raw matched L1 record, absolute delta seconds and whether within five minutes.
+
+**Limits:** shadow model neglects actual satellite ephemeris, inclination, eccentricity, penumbra and atmosphere. The geometric estimate is **not** a verified eclipse observation. The L1 comparisons are temporal proximity, **not** solar-wind travel-time or magnetospheric causal attribution. This isolated one-shot probe still does not use the shared Lattice governor. Six GEO plus two sequential L1 requests are made only on page load.
+
+**Evidence:** GitHub commit succeeded. **No user browser 👁 evidence for geo/04 yet.**
+
+**Next falsifiable test:** user opens https://bonoj.github.io/jit/observatory/geo/?v=80258d4d and pastes 👁. Inspect L1 HTTP, timestamps, nearest-sample deltas and both GEO shadow classifications; investigate errors before scientific integration. Next after passing: verified flux units and governed acquisition, then a bounded actual-event comparison.
