@@ -1,0 +1,86 @@
+name: Observatory May 2024 storm analysis
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/observatory-storm-analysis.yml'
+permissions:
+  contents: write
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install HDF5 reader
+        run: python3 -m pip install --quiet h5py numpy
+      - name: Analyze bounded historical records
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import csv,io,json,urllib.request,pathlib,hashlib,datetime
+          import h5py,numpy as np
+          root=pathlib.Path('jit/observatory/events/2024-05-storm-data')
+          out={'schema':'hermeticon-storm-analysis/v1','status':'STARTED','createdAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'window':['2024-05-10T00:00:00Z','2024-05-12T00:00:00Z']}
+          try:
+            raw=(root/'omni-2024-05-10_11.csv').read_bytes()
+            rows=list(csv.reader(io.StringIO(raw.decode('utf-8-sig'))))
+            if len(rows)!=2880: raise ValueError('OMNI expected 2880 rows, got '+str(len(rows)))
+            omni=np.array([[float(x) for x in row[1:]] for row in rows])
+            fills=np.array([9999.99,99999.9,999.99,99.99,99999])
+            omni[np.isclose(omni,fills[None,:],rtol=0,atol=0)]=np.nan
+            out['omni']={'rows':len(rows),'validCounts':dict(zip(['BZ_GSM','flow_speed','proton_density','Pressure','SYM_H'],np.isfinite(omni).sum(axis=0).tolist()))}
+            geo=[]
+            for day in ['20240510','20240511']:
+              url='https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes18/l2/data/magn-l2-avg1m/2024/05/dn_magn-l2-avg1m_g18_d'+day+'_v2-0-2.nc'
+              data=urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'HermeticonObservatory/1.0'}),timeout=50).read(3*1024*1024)
+              sha=hashlib.sha256(data).hexdigest()
+              expected={'20240510':'7080fbaf864dc47dc74a84dc7bcc2cbe6efe26a214d7e57c16d29220c2d2e84c','20240511':'77564c7cd75381b6439f7cbfa06ed2b186b51fe3d371ce0bca1a1c0b5e4564a6'}[day]
+              if sha!=expected: raise ValueError('GOES archive SHA mismatch '+day)
+              import tempfile
+              with tempfile.NamedTemporaryFile(suffix='.nc') as t:
+                t.write(data);t.flush()
+                with h5py.File(t.name) as h:
+                  mag=np.asarray(h['b_total'][:],dtype=float).reshape(-1)
+                  quality=np.asarray(h['b_quality'][:]).reshape(-1)
+                  dqf=np.asarray(h['DQF'][:]).reshape(-1)
+                  if len(mag)!=1440 or not np.all(quality==0): raise ValueError('Unexpected GOES data quality')
+                  geo.extend(mag.tolist())
+                  out.setdefault('goesFiles',[]).append({'day':day,'sha256':sha,'records':len(mag),'dqfValues':sorted(set(int(x) for x in dqf))})
+            geo=np.array(geo)
+            if len(geo)!=len(omni): raise ValueError('GOES/OMNI row count mismatch')
+            # Minute-by-minute UTC order is separately verified by the source datasets.
+            variables=['BZ_GSM','flow_speed','proton_density','Pressure','SYM_H']
+            out['pairedCounts']={name:int(np.isfinite(omni[:,i]).sum()) for i,name in enumerate(variables)}
+            out['events']={}
+            for name,i in [('minimumSYM_H',4),('minimumBz',0),('maximumPressure',3),('maximumGOESField',None),('minimumGOESField',None)]:
+              values=geo if i is None else omni[:,i]
+              index=int(np.nanargmax(values) if name.startswith('maximum') else np.nanargmin(values))
+              out['events'][name]={'timeUTC':rows[index][0],'value':float(values[index]),'GOESField_nT':float(geo[index]),'BzGSM_nT':None if not np.isfinite(omni[index,0]) else float(omni[index,0]),'Pressure_nPa':None if not np.isfinite(omni[index,3]) else float(omni[index,3]),'SYM_H_nT':float(omni[index,4])}
+            # Predeclared lag set, pressure and Bz predictors at bow-shock time.
+            # Descriptive correlations only: strong storm nonstationarity invalidates naive p-values.
+            out['lagScan']=[]
+            for lag in [0,15,30,45,60,75,90,105,120]:
+              for name,col in [('BZ_GSM',0),('Pressure',3)]:
+                x=omni[:len(geo)-lag,col] if lag else omni[:,col]
+                y=geo[lag:] if lag else geo
+                mask=np.isfinite(x)&np.isfinite(y)
+                corr=float(np.corrcoef(x[mask],y[mask])[0,1]) if mask.sum()>=30 else None
+                out['lagScan'].append({'predictor':name,'lagMinutes':lag,'pairedMinutes':int(mask.sum()),'rawCorrelation':corr})
+            out['status']='DESCRIPTIVE_ONLY_NOT_VALIDATED'
+            out['warnings']=['GOES b_total is scalar magnitude, not a signed response; component-level analysis needed.','Gaps in OMNI are excluded pairwise, not interpolated.','OMNI time is already shifted to bow-shock nose; do not shift again.','No diurnal, autocorrelation, quality-bit, or holdout controls have yet been applied.','Raw lag correlations are exploratory and not causal or statistically validated.']
+          except Exception as e:
+            out.update(status='BLOCKED',error=str(e))
+          (root/'analysis.json').write_text(json.dumps(out,indent=2,allow_nan=False))
+          print(json.dumps(out,indent=2,allow_nan=False))
+          PY
+      - name: Commit analysis evidence
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add jit/observatory/events/2024-05-storm-data/analysis.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Observatory: persist 2024 storm descriptive alignment and events'
+            git push
+          fi
