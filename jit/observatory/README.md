@@ -1,18 +1,25 @@
 # Hermeticon · Observatory
 
-## CURRENT COLD BOOT — 2026-10-26 · STACK/07
+## CURRENT COLD BOOT — 2026-10-26 · STACK/09
 
-**Primary mission:** live, near-real-time **Sun → L1 → GEO → Earth observational stack**; do not revert to the older L1-only mission described below. Canonical instrument: https://bonoj.github.io/jit/observatory/stack/?v=0490619b . Runtime: [stack/index.html](stack/index.html), current committed build **stack/07**, commit `0490619b0b98312467b18733f9c2a8e706b6e0ec`. GitHub Pages browser verification of **stack/07 is pending**. Preserve [solar/](solar/), [l1/](l1/), [geo/](geo/) and untouched [root Lattice clone](index.html).
+**Mission:** live near-real-time **☀️ Sun → 🛰️ L1 → 🌐 GEO → 🌍 Earth** observational stack. The older L1-only mission below is historical. [Current instrument](https://bonoj.github.io/jit/observatory/stack/?v=5bc4cb71c91904c687acc1f4e002207cf4ca0bfd) · [runtime](stack/index.html) · [Chronicle](CHRONICLE.md) §§22–27 · [SPEC](SPEC.md). Preserve the standalone solar, L1 and GEO instruments and untouched root Lattice clone.
 
-**Browser evidence:** user-supplied 👁 JSON established all four NOAA endpoints HTTP 200 and RECENT_DATA at **stack/04**, captured 2026-10-26 06:02 UTC (Chronicle §25). User uploaded a downloaded **stack/06** 👁 JSON captured 2026-10-26 06:09:36 UTC; it confirms download transport and genuine six-hour source traces and coverage diagnostics, but is **not verification of stack/07**. Download is now the primary 👁 action; **⧉** separately copies identical JSON to clipboard. Report schema `hermeticon-stack-eye/v1`. No modeled cone or inferred causal propagation.
+**Verification boundary:** **stack/08 browser-evidenced** by downloaded user 👁 `hermeticon-stack-stack-08-2026-10-26T06-27-01-474Z.json`, captured 06:27 UTC. Four NOAA endpoints HTTP 200 and RECENT_DATA, no acquisition errors, four cache hits in transport snapshot. Browser download works. This is ordinary successful acquisition, not a governor stress test. **stack/09 committed** `5bc4cb71c91904c687acc1f4e002207cf4ca0bfd`, changing the stale footer STACK/07 and JavaScript build label to STACK/09; **browser verification pending**. Commit or query string is not proof of Pages deployment.
 
-**Four active source lanes:** solar GOES primary 0.1–0.8 nm X-ray flux (solar-origin photons measured at GEO); L1 NOAA RTSW active quality-valid GSM Bz (upstream magnetic point measurement); GEO GOES primary magnetometer local total field; Earth NOAA Boulder local K index (station-derived dimensionless index, **not Kp**, not an independent one-minute vector observation). Each lane shows latest sample, UTC/age/status and six-hour sparkline. 👁 includes raw latest record, source provenance, six-hour traces and coverage/gap/cadence summaries. Timezone-less NOAA timestamps must be interpreted as **UTC**, never browser local time. Source-specific payload caps: L1 2.5 MB, solar/GEO 800 KB, Boulder 250 KB. No global shared request governor in stack yet; current bounded staged fetches are **not** the Lattice governor.
+### 🔭 Approved emoji observation handoff
 
-**Stack build progression:** 01 three lanes; 02 L1 payload bound fix; 03 UTC timestamp fix (browser verified); 04 Boulder Earth feed (browser verified); 05 six-hour traces/coverage; 06 👁 download + ⧉ clipboard (download verified); 07 scope coverage diagnostics to displayed six-hour window (**browser verification pending**). See [CHRONICLE.md](CHRONICLE.md) §§22–26 and [SPEC.md](SPEC.md) for science and next priorities.
+| Instrument | Latest from stack/08 👁 | Six-hour minute-slot coverage |
+| --- | --- | --- |
+| ☀️ Solar | GOES-18 0.1–0.8 nm X-ray flux 2.945 × 10⁻⁷ W/m² | 356/360 |
+| 🛰️ L1 | Active GSM Bz +1.45 nT | 321/360 |
+| 🌐 GEO | GOES local total field 82.67 nT | 356/360 |
+| 🌍 Earth | Boulder local K index 0.20 (**not planetary Kp**) | 355/360 |
 
-**Next executable turn:** obtain fresh stack/07 👁 and validate four HTTP statuses, recent timestamps, coverage-window statistics, gaps, trace points and download/copy controls; then consolidate stack acquisition onto the **existing Lattice governor** (max 2 global/1 host, pacing, retries, dedup, caching) without disrupting sources. Only after trustworthy temporal alignment, investigate physical travel-time hypotheses with uncertainty and negative controls. On ➡️ implement a concrete bounded step; on browser evidence inspect it; on Red investigate. Commit ≠ browser verification.
+**User-approved presentation convention:** concise emoji status, grounded instrument table, relevant acquisition counters, explicit verification status, and **next frontier**. Keep measured ≠ inferred ≠ unknown, source provenance, timestamps, frames, quality and uncertainty intact. Solar-origin X-rays are observed at GEO; L1 is a point measurement; GEO measures local field; Boulder K is a station-derived index, not an independent one-minute magnetic vector. Do not assert CME cone geometry, fixed transit time or causality from these four lanes.
 
-**Reading order for cold boot:** this CURRENT section → [CHRONICLE.md](CHRONICLE.md) last chapters → [SPEC.md](SPEC.md) mission gate → [stack/index.html](stack/index.html) → [../lattice/README.md](../lattice/README.md) and transport source. The legacy README sections below are historical and must not override this status.
+**Runtime and export:** one viewport, four six-hour sparklines, latest sample UTC/age/status. 👁 downloads a timestamped full JSON `hermeticon-stack-eye/v1`; ⧉ copies the same report. Source registry contains latest raw record, traces, window-scoped coverage/cadence/gap statistics and acquisition errors. Transport snapshot exposes governor activity/cache statistics. Timezone-less NOAA source timestamps are interpreted as UTC. Stack/08 integrated Lattice-style shared transport (2 global concurrent, 1 per host, pacing, timeouts, dedup, cache, backoff and bounded payloads); it is a local adaptation, not a literal imported module.
+
+**Next executable frontier:** browser-check stack/09 identity with 👁; then implement inspectable **timestamp alignment, missingness and uncertainty** across the four lanes without treating Boulder K as a one-minute independent physical sample. Test governor behavior across refresh and failure cases. On ➡️ advance a substantial bounded step and deploy; on 👁 inspect actual browser evidence. Read order: this section → Chronicle last chapters → SPEC mission gate → stack runtime → Lattice README/transport → Gate contract.
 
 ---
 
