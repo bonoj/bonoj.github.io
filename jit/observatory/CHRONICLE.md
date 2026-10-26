@@ -160,3 +160,16 @@ A speculative idea is marked *planned*. A committed file is marked *committed*. 
 **Evidence:** GitHub commit succeeded. **No user browser 👁 evidence for geo/04 yet.**
 
 **Next falsifiable test:** user opens https://bonoj.github.io/jit/observatory/geo/?v=80258d4d and pastes 👁. Inspect L1 HTTP, timestamps, nearest-sample deltas and both GEO shadow classifications; investigate errors before scientific integration. Next after passing: verified flux units and governed acquisition, then a bounded actual-event comparison.
+
+
+## 09 — GEO/04 browser verification reveals UTC parsing defect; GEO/05 correction (2026-10-26)
+
+**Evidence from user 👁 geo/04, captured 04:43:50Z:** all six NOAA GEO requests HTTP 200; magnetometers 358 records per satellite, integral protons 568 records per role (71 records for each of eight energy thresholds). Both L1 RTSW feeds HTTP 200 (wind 3327 records, mag 3415). GOES-19 at 72.5°W and GOES-18 at 137°W; approximate geometry returned sun-visible and not eclipsed for both, while both were nightside. No authoritative eclipse verification.
+
+**Failure:** GEO `2026-10-26T04:40:00Z` falsely aligned with L1 `2026-10-26T00:40:00` at 0 seconds delta because JavaScript Date.parse treated NOAA timezone-less L1 times as device-local. All eight purported matches in geo/04 are **INVALID**, not evidence of actual time alignment.
+
+**Action:** geo/05 commit `e3c21eeb`: normalize ISO timestamps without timezone suffix by appending `Z` before parsing; retain explicit timezone timestamps. Label method accordingly. This corrects normalization in both L1 nearest-neighbor matching and general timestamp processing in the GEO probe.
+
+**Status:** geo/04 acquisition browser-verified, its alignment rejected; geo/05 committed **awaiting user browser verification**.
+
+**Next:** open https://bonoj.github.io/jit/observatory/geo/?v=e3c21eeb, copy 👁, verify that GEO 04:40Z matches L1 04:40 (not 00:40), inspect sample provenance and nearest-sample deltas. Then plan actual event and propagation-lag experiment with explicit uncertainty.
