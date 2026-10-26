@@ -1,0 +1,205 @@
+{
+  "schema": "hermeticon-storm-analysis/v1",
+  "status": "DESCRIPTIVE_ONLY_NOT_VALIDATED",
+  "createdAt": "2026-10-26T05:25:11.975337+00:00",
+  "window": [
+    "2024-05-10T00:00:00Z",
+    "2024-05-12T00:00:00Z"
+  ],
+  "omni": {
+    "rows": 2880,
+    "validCounts": {
+      "BZ_GSM": 2233,
+      "flow_speed": 1737,
+      "proton_density": 1737,
+      "Pressure": 1737,
+      "SYM_H": 2880
+    }
+  },
+  "goesFiles": [
+    {
+      "day": "20240510",
+      "sha256": "7080fbaf864dc47dc74a84dc7bcc2cbe6efe26a214d7e57c16d29220c2d2e84c",
+      "records": 1440,
+      "dqfValues": [
+        16777216,
+        33554432,
+        50331648
+      ]
+    },
+    {
+      "day": "20240511",
+      "sha256": "77564c7cd75381b6439f7cbfa06ed2b186b51fe3d371ce0bca1a1c0b5e4564a6",
+      "records": 1440,
+      "dqfValues": [
+        33554432
+      ]
+    }
+  ],
+  "pairedCounts": {
+    "BZ_GSM": 2233,
+    "flow_speed": 1737,
+    "proton_density": 1737,
+    "Pressure": 1737,
+    "SYM_H": 2880
+  },
+  "events": {
+    "minimumSYM_H": {
+      "timeUTC": "2024-05-11T02:14:00.000Z",
+      "value": -518.0,
+      "GOESField_nT": 151.7361297607422,
+      "BzGSM_nT": -26.58,
+      "Pressure_nPa": 43.13,
+      "SYM_H_nT": -518.0
+    },
+    "minimumBz": {
+      "timeUTC": "2024-05-11T00:36:00.000Z",
+      "value": -47.85,
+      "GOESField_nT": 155.40069580078125,
+      "BzGSM_nT": -47.85,
+      "Pressure_nPa": null,
+      "SYM_H_nT": -277.0
+    },
+    "maximumPressure": {
+      "timeUTC": "2024-05-11T09:42:00.000Z",
+      "value": 70.01,
+      "GOESField_nT": 196.87258911132812,
+      "BzGSM_nT": -31.37,
+      "Pressure_nPa": 70.01,
+      "SYM_H_nT": -256.0
+    },
+    "maximumGOESField": {
+      "timeUTC": "2024-05-10T22:45:00.000Z",
+      "value": 351.1478576660156,
+      "GOESField_nT": 351.1478576660156,
+      "BzGSM_nT": 20.54,
+      "Pressure_nPa": 31.87,
+      "SYM_H_nT": -325.0
+    },
+    "minimumGOESField": {
+      "timeUTC": "2024-05-10T20:31:00.000Z",
+      "value": 21.68614387512207,
+      "GOESField_nT": 21.68614387512207,
+      "BzGSM_nT": -21.0,
+      "Pressure_nPa": null,
+      "SYM_H_nT": -120.0
+    }
+  },
+  "lagScan": [
+    {
+      "predictor": "BZ_GSM",
+      "lagMinutes": 0,
+      "pairedMinutes": 2233,
+      "rawCorrelation": -0.18296686284134478
+    },
+    {
+      "predictor": "Pressure",
+      "lagMinutes": 0,
+      "pairedMinutes": 1737,
+      "rawCorrelation": 0.530836036478263
+    },
+    {
+      "predictor": "BZ_GSM",
+      "lagMinutes": 15,
+      "pairedMinutes": 2218,
+      "rawCorrelation": -0.21021013252027565
+    },
+    {
+      "predictor": "Pressure",
+      "lagMinutes": 15,
+      "pairedMinutes": 1725,
+      "rawCorrelation": 0.48804001502614563
+    },
+    {
+      "predictor": "BZ_GSM",
+      "lagMinutes": 30,
+      "pairedMinutes": 2203,
+      "rawCorrelation": -0.20081290232937316
+    },
+    {
+      "predictor": "Pressure",
+      "lagMinutes": 30,
+      "pairedMinutes": 1713,
+      "rawCorrelation": 0.4287507460891545
+    },
+    {
+      "predictor": "BZ_GSM",
+      "lagMinutes": 45,
+      "pairedMinutes": 2188,
+      "rawCorrelation": -0.24267021374702236
+    },
+    {
+      "predictor": "Pressure",
+      "lagMinutes": 45,
+      "pairedMinutes": 1704,
+      "rawCorrelation": 0.3962040662002321
+    },
+    {
+      "predictor": "BZ_GSM",
+      "lagMinutes": 60,
+      "pairedMinutes": 2174,
+      "rawCorrelation": -0.3083149675789698
+    },
+    {
+      "predictor": "Pressure",
+      "lagMinutes": 60,
+      "pairedMinutes": 1692,
+      "rawCorrelation": 0.4181442412723926
+    },
+    {
+      "predictor": "BZ_GSM",
+      "lagMinutes": 75,
+      "pairedMinutes": 2159,
+      "rawCorrelation": -0.3890193692830332
+    },
+    {
+      "predictor": "Pressure",
+      "lagMinutes": 75,
+      "pairedMinutes": 1677,
+      "rawCorrelation": 0.4166099853756792
+    },
+    {
+      "predictor": "BZ_GSM",
+      "lagMinutes": 90,
+      "pairedMinutes": 2144,
+      "rawCorrelation": -0.40087020767650566
+    },
+    {
+      "predictor": "Pressure",
+      "lagMinutes": 90,
+      "pairedMinutes": 1669,
+      "rawCorrelation": 0.39207682314769526
+    },
+    {
+      "predictor": "BZ_GSM",
+      "lagMinutes": 105,
+      "pairedMinutes": 2129,
+      "rawCorrelation": -0.35881584908621916
+    },
+    {
+      "predictor": "Pressure",
+      "lagMinutes": 105,
+      "pairedMinutes": 1654,
+      "rawCorrelation": 0.38255538404766287
+    },
+    {
+      "predictor": "BZ_GSM",
+      "lagMinutes": 120,
+      "pairedMinutes": 2114,
+      "rawCorrelation": -0.3307721698841689
+    },
+    {
+      "predictor": "Pressure",
+      "lagMinutes": 120,
+      "pairedMinutes": 1643,
+      "rawCorrelation": 0.4077030859421928
+    }
+  ],
+  "warnings": [
+    "GOES b_total is scalar magnitude, not a signed response; component-level analysis needed.",
+    "Gaps in OMNI are excluded pairwise, not interpolated.",
+    "OMNI time is already shifted to bow-shock nose; do not shift again.",
+    "No diurnal, autocorrelation, quality-bit, or holdout controls have yet been applied.",
+    "Raw lag correlations are exploratory and not causal or statistically validated."
+  ]
+}
