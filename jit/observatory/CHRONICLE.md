@@ -121,3 +121,14 @@ A speculative idea is marked *planned*. A committed file is marked *committed*. 
 **Evidence:** GitHub commits succeeded. **No user browser 👁 evidence for geo/02 yet.** Do not assert that the new parser works until tested in the actual browser. A post-commit source inspection revealed and corrected a channel-key initialization error before this handoff.
 
 **Next:** user opens https://bonoj.github.io/jit/observatory/geo/?v=d0b91f0b and sends 👁 JSON. Verify distinct energy bins, actual magnetometer headline, source IDs, per-channel freshness and quality. If successful, proceed to geometry accuracy and shared governed transport.
+
+
+## 06 — GEO/02 browser result and GEO/03 diagnostic correction (2026-10-26)
+
+**Evidence:** user 👁 report `geo/02`, captured 04:41:10.343Z: six of six NOAA requests HTTP 200; metadata correctly marked `METADATA_VERIFIED`; GOES-19 and GOES-18 magnetometers each reported 358 records and four 358-sample scientific channels. GOES-19 total 81.9320 nT at 04:37Z; GOES-18 total 90.0536 nT at 04:38Z. All 716 magnetic records `arcjet_flag:false`.
+
+**Failure:** despite proton feeds returning 568 and 560 records with energy labels, 👁 reported a single `flux` channel with count 1 in each, rather than separate energy-threshold channels. That output does not match the *current* repository source, which keys `flux|energy`; a previous intermediate GEO/02 commit had a channel initialization bug and may have been served from a stale Pages/browser cache. **Cause not proven.** Do not attribute it solely to caching without new evidence.
+
+**Action:** committed `geo/03` (`65e4b793`) with explicit channel initialization and new `normalizationDiagnostics`: input timed-record count, distinct energy labels, channel keys and per-channel counts. This build identity and cache-busted URL are intended to distinguish the deployed code. No user browser verification for GEO/03 yet.
+
+**Next:** open https://bonoj.github.io/jit/observatory/geo/?v=65e4b793 , tap 👁 and inspect `build` plus `normalizationDiagnostics` for both proton feeds. Expect distinct energy thresholds with many samples each; if not, investigate actual served source and browser caching before changing science logic further.
