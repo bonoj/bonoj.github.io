@@ -432,3 +432,12 @@ The first unified stack was committed as `stack/01` (`a868879b`), sourcing GOES 
 **Presentation contract:** Lead with a concise emoji status, three or fewer meaningful transport/verification counters when useful, and a four-lane instrument table. End with an explicit **next frontier**. Keep each emoji attached to a real instrument or domain; never let visual shorthand erase provenance, frames, timestamps, uncertainty, quality or the **measured ≠ inferred ≠ unknown** boundary. A local Boulder K index is neither a field vector nor planetary Kp; solar X-rays do not themselves establish CME plasma transit or cross-lane causality.
 
 **Next frontier:** preserve the browser-verified stack/08 baseline; build inspectable cross-lane timestamp alignment and missingness/uncertainty diagnostics before any lag or causal inference. Revisit refresh/caching and failure semantics under repeated cycles. Update README handoff to identify stack/08 as browser-evidenced.
+
+
+## 28 — 🔭 Stack/09: visible build identity and cold-boot continuity (2026-10-26)
+
+**User:** ➡️. **Assistant:** audited stack/08 source against its user-supplied 👁 evidence. Found a concrete build-identity mismatch: JavaScript reported `stack/08`, while the on-screen footer still read `STACK/07`. Updated both to **stack/09** in `jit/observatory/stack/index.html`, commit `5bc4cb71c91904c687acc1f4e002207cf4ca0bfd`. This is an identity correction, not a change to observational physics, feed parsers or transport policy. **Stack/09 browser verification remains pending**; obtain a new 👁 report with `build:stack/09` before declaring it verified.
+
+Updated README CURRENT cold-boot contract with the browser-evidenced stack/08 baseline, stack/09 verification boundary, approved emoji instrument-report convention, and next frontier: timestamp alignment, missingness, uncertainty and refresh/failure validation. README update commit `51bc1a0dba59f4c271691c6ea79516383abf583b`.
+
+**Next frontier:** 🛰️ inspect timestamp/cadence alignment and scientifically honest gaps across ☀️ → 🛰️ → 🌐 → 🌍, preserving station-index semantics and forbidding unsupported causal conclusions.
