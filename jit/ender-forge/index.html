@@ -43,24 +43,18 @@ function enderSnapshot(){const nearby=(arr,kind,extra=()=>({}))=>arr.filter(o=>o
 
 /* Ender's local soundwalk: zero assets, no policy, no remote perception. */
 const enderMusic={audio:null,out:null,clock:0,step:0,history:[],enabled:false};
-const ENDER_SOUNDWALK_VERSION='soundwalk-02';
-const enderAudioStatus=document.createElement('div');
-enderAudioStatus.id='ender-audio-status';
-enderAudioStatus.setAttribute('aria-live','polite');
-enderAudioStatus.style.cssText='position:absolute;right:8px;top:8px;z-index:9;background:#10191bdc;color:#e4efdc;border:1px solid #7e9a8a;border-radius:7px;padding:4px 7px;font:10px system-ui,sans-serif;pointer-events:none';
-enderAudioStatus.textContent='♫ '+ENDER_SOUNDWALK_VERSION+' · tap to enable';
-arena.appendChild(enderAudioStatus);
-
 function enderMusicUnlock(){
- if(enderMusic.enabled)return;
+ if(enderMusic.enabled){if(enderMusic.audio?.state==='suspended')enderMusic.audio.resume().catch(()=>{});return}
  try{
   const A=window.AudioContext||window.webkitAudioContext;if(!A)return;
   const audio=new A(),out=audio.createGain(),low=audio.createBiquadFilter();
   out.gain.value=.12;low.type='lowpass';low.frequency.value=2800;out.connect(low);low.connect(audio.destination);
-  enderMusic.audio=audio;enderMusic.out=out;enderMusic.enabled=true;audio.resume().then(()=>{enderAudioStatus.textContent='♫ '+ENDER_SOUNDWALK_VERSION+' · '+audio.state}).catch(()=>{enderAudioStatus.textContent='♫ '+ENDER_SOUNDWALK_VERSION+' · audio blocked'});
- }catch(e){enderMusic.enabled=false;enderAudioStatus.textContent='♫ '+ENDER_SOUNDWALK_VERSION+' · audio error'}
+  enderMusic.audio=audio;enderMusic.out=out;enderMusic.enabled=true;audio.resume().catch(()=>{});
+ }catch(e){enderMusic.enabled=false}
 }
+// Existing gameplay touches unlock sound; no additional control or overlay.
 document.addEventListener('pointerdown',enderMusicUnlock,{passive:true});
+document.addEventListener('click',enderMusicUnlock,{passive:true});
 function enderMusicTone(midi,style,velocity=.5){
  const m=enderMusic,a=m.audio;if(!m.enabled||!a||a.state!=='running')return;
  const t=a.currentTime,f=440*Math.pow(2,(midi-69)/12),g=a.createGain();
@@ -87,7 +81,7 @@ function enderMusicUpdate(dt){
  m.history.push(families);if(m.history.length>12)m.history.shift();
  const avg=k=>m.history.reduce((n,v)=>n+v[k],0)/m.history.length;
  const weights=['growth','decay','life','danger','water','stone'].map(k=>avg(k));
- const dominant=weights.indexOf(Math.max(...weights));
+ // Silence in the footprint is a legitimate musical state: keep a gentle pastoral baseline.\n const dominant=Math.max(...weights)===0?0:weights.indexOf(Math.max(...weights));
  const modes=[[0,2,4,7,9],[0,3,5,7,10],[0,2,5,7,9],[0,1,5,6,10],[0,2,5,7,10],[0,3,5,8,10]];
  const roots=[48,45,53,40,50,43],styles=['pluck','bow','pluck','drum','air','drum'];
  const degree=(m.step+Math.floor(ender.steps/27))%5;
