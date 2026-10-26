@@ -100,3 +100,86 @@ G. Bring the proven instrumentation into the approved Swiss study's one-viewport
 H. Continue expanding source families, geography, orbital regimes and measurement modalities; no artificial ceiling.
 
 **Definition of done for each wave:** browser-verified measurements with truthful provenance and QC, successful deployed 👁 diagnostics, no regression to existing feeds, documented source registry and at least one meaningful cross-sensor investigation where relevant. The project itself has no fixed final channel count.
+
+
+## Sun–Earth observational cone — geometric acquisition contract (2026-10-26)
+
+### Governing idea
+
+Organize acquisition as a moving **sunward observational footprint**:
+
+**L1 upstream measurements → every eligible geosynchronous position with unobstructed solar line of sight → the sunlit terrestrial surface.**
+
+This is a geometric *selection and comparison framework*, not an assertion that the solar wind travels along a straight cone or that all three domains share identical physical coupling. The cone defines where we seek simultaneous measurements; causal hypotheses are evaluated separately.
+
+### Geometry and frames
+
+- Define the instantaneous Sun direction from an authoritative solar ephemeris, Earth-center position, and epoch, preferably in a common Earth-centered inertial frame. Sun–Earth L1 lies approximately 1.5 million km sunward, but the actual observing spacecraft occupy halo/Lissajous trajectories rather than a fixed point. Use each spacecraft's actual ephemeris when available.
+- For any satellite position vector **r** relative to Earth center, and unit direction **s** toward the Sun, the geometric dayside criterion is **r · s > 0**. This distinguishes sunward from anti-sunward orbital sectors, but does not by itself determine eclipse.
+- Determine Earth occultation separately: from the satellite, cast the ray toward the Sun and test its closest approach to Earth's ellipsoid (with atmospheric/refraction and solar angular-radius treatment if needed). A GEO spacecraft can be **sun-visible** while lying on the anti-sunward half of its orbit; therefore record **sunward**, **sun-visible**, and **eclipsed** as distinct properties. For a simple spherical approximation, with ray **r + t s**, t ≥ 0, occultation occurs when the ray intersects the Earth sphere; use the ellipsoid for operational classification.
+- A geostationary satellite maintains approximately fixed Earth longitude, not fixed solar local time. Earth's rotation moves its solar-local-time sector over a day. Inclined geosynchronous orbits additionally move in latitude/longitude. Do not equate geostationary and geosynchronous, or assume every GEO spacecraft passes directly under the L1 spacecraft.
+- For terrestrial surface point **x** with outward surface normal **n**, the instantaneous sunlit criterion is **n · s > 0**, with twilight/solar-disk/terrain qualifications as needed. Include the moving terminator and each station's solar zenith angle. The surface dayside and the satellite's visible-Sun domain are not the same geometric test.
+- **Directly below L1** is colloquial: the L1-to-Earth direction intersects Earth's dayside, but an Earth-centered GEO ring does not form a persistent collinear stack with L1. Rank GEO instruments by solar-local-time separation, angular distance to the Sun–Earth axis, spacecraft position, and measurement relevance rather than declaring a permanently vertical arrangement.
+- A drawing of the cone is **not to scale**; the geometric dayside at GEO is a half-orbit criterion, while sunlight visibility covers nearly all GEO except eclipse seasons/intervals. The footprint should be visualized as nested domains with independently computed masks, not a literal cone of identical physical exposure.
+
+### Conceptual diagram (not to scale)
+
+~~~text
+                           SUNLIGHT / SOLAR WIND →
+ SUN                     L1 vicinity                       EARTH / GEO
+ ☼ ─────────────────────── ◇ ─────────────────────────────── ◎
+                            │                              / | \
+                      SOLAR1 / IMAP / ACE             GEO orbit / dayside
+                      upstream B, plasma              ● sunward + sun-visible
+                            │                         ○ sun-visible, nightside
+                            │                         × Earth-eclipsed
+                            └──────── time alignment ────────┐
+                                                              ▼
+                                                  ☀ terrestrial dayside
+                                                  moving stations / ionosphere
+                                                  ground magnetism / atmosphere
+
+  Solar photons: near light-speed propagation; solar-wind plasma: variable
+  convection/transit time; magnetic/particle response: magnetospheric physics.
+  Visibility ≠ sunward location ≠ physical coupling ≠ data availability.
+~~~
+
+### Satellite inventory and honest snapshot counts
+
+The number of **geometrically eligible** GEO spacecraft is not the number of **scientifically measurable** GEO spacecraft. Many communications satellites have published orbital positions but no public, timestamped magnetometer, plasma, or radiation telemetry. Never count positional metadata as instrument measurements.
+
+At every acquisition epoch maintain:
+1. **catalogued GEO candidates** with trustworthy ephemeris/TLE, epoch, orbital regime and uncertainty;
+2. **sunward candidates** based on geometry;
+3. **sun-visible candidates** based on Earth occultation;
+4. **instrumented candidates** with identifiable relevant sensors;
+5. **browser-verified telemetry sources** with actual time-tagged values and quality;
+6. **correlatable sources** with adequate cadence, history and synchronized timestamps.
+
+GOES primary/secondary are initial *feed families*, not immutable spacecraft identities. Resolve instrument-sources and satellite-longitudes metadata on each relevant update. Begin with available GOES magnetometer and particle feeds; investigate ESA SOSMAG and other genuinely accessible GEO scientific sensors. Counts are measured and time-dependent, not assumed.
+
+For each GEO snapshot record: UTC, platform and instrument, orbital longitude/latitude/altitude, ephemeris age, Sun direction, solar local time, Sun-Earth axis offset, dayside flag, sun-visibility/eclipsed flag, magnetic local time if derived, channel and energy band, value/unit/frame, observedAt, latency, sample count, flags and provenance. Preserve samples across 24 hours to observe local-time evolution. Distinguish two fixed spacecraft observed many times from many distinct spacecraft.
+
+### Physical propagation and comparisons
+
+**Upstream L1 → GEO:** solar-wind structures convect toward the terrestrial bow shock, then interact with the magnetosheath/magnetopause and magnetosphere. Estimate time of flight using the measured radial flow component and actual spacecraft geometry; do not use a universal fixed delay or assume straight-line transfer of IMF components. Compare quality-valid L1 speed, density, dynamic-pressure proxy and IMF Bz against GOES magnetic perturbations, particle flux, and local-time position. Retain propagation-model uncertainty and potential differences between L1 spacecraft.
+
+**Sun → GEO / ground:** X-ray/EUV photons and direct illumination travel at light speed and can produce dayside ionospheric responses. Treat this as a separate photon-driven pathway, not a solar-wind transit sequence. GOES solar-viewing X-ray/EUV measurements should not be mislabeled as local GEO environmental conditions.
+
+**GEO → ground:** compare magnetic and particle responses with ground magnetometers, GNSS TEC, riometers and other stations; evaluate geographic and magnetic local time, latitude, sunlight, and station quality. Magnetic disturbances can extend across the nightside, so the sunward footprint is a prioritized sampling window, **never an exclusion rule** for physically connected observations.
+
+### Implementation sequence for the cone
+
+A. Keep existing two NOAA L1 streams and their nine working channels; reverify the 2026-10-26 👁 evidence and expose all valid source-specific fields and quality metadata. The report showed both HTTP 200, SOLAR1 active, ACE and IMAP also present; a newer ACE sample than active SOLAR1 is possible. Never silently substitute freshness for active status or vice versa.
+
+B. Probe NOAA RTSW ephemerides and GOES instrument-source/longitude registries. Build the geometry service from authoritative orbital/solar positions; label calculated geometry and uncertainty, never telemetry.
+
+C. Acquire GOES primary **and** secondary magnetometer, differential/integral particle, X-ray and EUV data with instrument attribution, browser-verified CORS, real timestamps, fill-value handling and bounded cadence. Keep solar-facing measurements and local GEO environmental channels distinct.
+
+D. At each timestamp compute the independently testable masks **sunward**, **sun-visible**, **eclipsed**, and **terrestrial daylight**. Preserve time series and 24-hour unique-platform counts, not just current dots. Include no-telemetry candidates in a separate catalog layer, never in the scientific signal count.
+
+E. Align L1/GEO/ground series with quality gating and explicit lag estimates. Start with one solar-wind pressure/Bz event and compare GOES magnetometer response, then introduce terrestrial magnetometer and ionospheric instruments. Test dayside against nightside controls rather than suppressing them.
+
+F. Visualize the footprint as a dynamic orbital cross-section and moving ground terminator. Keep the public experience spare, single-viewport and interactive; 👁 exposes all detailed geometry, provenance, validity and correlation evidence. Reuse Lattice transport and governor rather than creating another uncontrolled fetch loop.
+
+**Success criterion:** a visitor can select an epoch and see which spacecraft and ground stations lie within each precisely defined geometric domain, which have *actual* measured signals, how the signals are time-aligned, and what evidence supports or contradicts a proposed L1→GEO→ground relationship.
