@@ -1,0 +1,70 @@
+name: Observatory vector consistency audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/observatory-storm-vector-audit.yml'
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install --quiet numpy h5py
+      - name: Audit norm residuals and instrument flags
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import urllib.request,hashlib,tempfile,pathlib,json,datetime
+          import numpy as np,h5py
+          root=pathlib.Path('jit/observatory/events/2024-05-storm-data')
+          out={'schema':'hermeticon-vector-audit/v1','status':'STARTED','createdAt':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+          try:
+            vs=[];tot=[];flags=[];qualities=[];times=[]
+            for day in ['20240510','20240511']:
+              url='https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes18/l2/data/magn-l2-avg1m/2024/05/dn_magn-l2-avg1m_g18_d'+day+'_v2-0-2.nc'
+              data=urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'HermeticonObservatory/1.0'}),timeout=50).read(3000000)
+              expected={'20240510':'7080fbaf864dc47dc74a84dc7bcc2cbe6efe26a214d7e57c16d29220c2d2e84c','20240511':'77564c7cd75381b6439f7cbfa06ed2b186b51fe3d371ce0bca1a1c0b5e4564a6'}[day]
+              if hashlib.sha256(data).hexdigest()!=expected: raise ValueError('Checksum mismatch '+day)
+              with tempfile.NamedTemporaryFile(suffix='.nc') as f:
+                f.write(data);f.flush()
+                with h5py.File(f.name) as h:
+                  vs.extend(np.asarray(h['b_gsm'][:]).tolist())
+                  tot.extend(np.asarray(h['b_total'][:]).tolist())
+                  flags.extend(np.asarray(h['DQF'][:]).tolist())
+                  qualities.extend(np.asarray(h['b_quality'][:]).tolist())
+                  if day=='20240510':
+                    ds=h['DQF']
+                    out['flagValues']=[int(x) for x in ds.attrs['flag_values']]
+                    out['flagMasks']=[int(x) for x in ds.attrs['flag_masks']]
+                    out['flagMeanings']=ds.attrs['flag_meanings'].decode('utf-8','replace').split()
+            v=np.array(vs);t=np.array(tot);dq=np.array(flags,dtype=np.int64);q=np.array(qualities)
+            residual=np.linalg.norm(v,axis=1)-t
+            out['absResidualThresholdCounts']={str(th):int((np.abs(residual)>th).sum()) for th in [0.1,1,5,10,25,50,100]}
+            out['byDQF']=[]
+            for flag in np.unique(dq):
+              sel=dq==flag
+              out['byDQF'].append({'flag':int(flag),'count':int(sel.sum()),'medianAbsResidual_nT':float(np.median(np.abs(residual[sel]))),'maxAbsResidual_nT':float(np.max(np.abs(residual[sel]))),'countAbove5nT':int((np.abs(residual[sel])>5).sum())})
+            out['largestResiduals']=[]
+            for i in np.argsort(np.abs(residual))[-15:][::-1]:
+              timestamp=(datetime.datetime(2024,5,10,tzinfo=datetime.timezone.utc)+datetime.timedelta(minutes=int(i))).isoformat()
+              out['largestResiduals'].append({'timeUTC':timestamp,'index':int(i),'GSM_nT':v[i].tolist(),'GSMnorm_nT':float(np.linalg.norm(v[i])),'reportedTotal_nT':float(t[i]),'residual_nT':float(residual[i]),'DQF':int(dq[i]),'b_quality':int(q[i])})
+            out['status']='DESCRIPTIVE_ONLY_NOT_VALIDATED'
+            out['warning']='Total field is in ACRF; GSM component norm should agree under pure rotation but processing and correction flags may differ. Flag meanings and algorithm semantics must be checked before attributing discrepancies.'
+          except Exception as e:
+            out.update(status='BLOCKED',error=str(e))
+          (root/'vector-audit.json').write_text(json.dumps(out,indent=2))
+          print(json.dumps(out,indent=2))
+          PY
+      - name: Persist audit
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add jit/observatory/events/2024-05-storm-data/vector-audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Observatory: audit GOES vector norm residuals by DQF flags'
+            git push
+          fi
