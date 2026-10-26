@@ -193,3 +193,12 @@ A speculative idea is marked *planned*. A committed file is marked *committed*. 
 **Action committed:** GEO/06 adds a compact 👁 lag study using L1 GSM Bz and GOES-18/19 total magnetic-field magnitudes. Explicit lag convention: GEO time minus L1 time (positive = GEO later). Scan −120 to +120 minutes, nearest sample tolerance 90 seconds, minimum 30 pairs, Pearson correlation and per-lag counts. L1 records require `active===true`, `overall_quality===0`, finite non-sentinel `bz_gsm`; GEO requires `arcjet_flag===false` and finite `total`. The report includes eligible-source counts, window boundaries, and the strongest absolute correlation as a descriptive candidate, **not a causal or significance claim**. No production governor or orbital propagation model introduced. Existing acquisition unchanged.
 
 **Status:** committed, **awaiting browser 👁 verification**. Next inspect `lagStudy` counts, source mix, nulls, lag curve and signs; assess source switches, autocorrelation and control windows before interpreting any apparent delay.
+
+
+## 12 — GEO/06 browser evidence and lag-scan interpretation (2026-10-26)
+
+**User 👁:** build `geo/06`, captured `2026-10-26T04:47:06.108Z`. All six GEO requests HTTP 200; GOES-19 magnetometer 359 records, GOES-18 358, both with zero arcjet flags. Both proton feeds 560 rows, eight energy channels of 70 samples each. L1 wind 3321 records; L1 magnetic 3410, of which 1282 accepted (`active=true`, `overall_quality=0`, valid GSM Bz), all SOLAR1; 2128 excluded.
+
+**Exploratory result:** L1 GSM Bz vs GEO total magnetic magnitude correlation maximum absolute at lag −90 minutes for both GOES-19 (`r=+0.87939`, n=266) and GOES-18 (`r=+0.81426`, n=266). At lag zero GOES-19 `r=+0.01988` (n=356) and GOES-18 `r=+0.28310` (n=356). Negative lag explicitly means GEO earlier than L1. These are **not evidence of upstream L1 propagation**. Matched-pair populations vary across lags (236 to 359), and raw six-hour trends/autocorrelation and local-time geometry can produce spurious peaks. No causal or statistical significance claim.
+
+**Next falsifiable step:** use a fixed intersection of GEO timestamps valid across all lag offsets; compare first differences/detrended signals; preserve and report source/quality and missingness; add circular-shift or block-permutation controls and report null distribution. Compare physically relevant GEO components, not only total field; avoid selecting the best lag as a discovery. Preserve original GEO/06 raw scan for comparison.
