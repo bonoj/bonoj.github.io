@@ -86,3 +86,7 @@ Arrows describe **actual world causes and transfers**, not new features. Use onl
 ## Soundwalk experiment — 26 October 2026
 
 Ender's existing bounded local snapshot now drives a zero-audio-asset Web Audio score. The random walk, sight radius (125), and Tiffany's ecology are unchanged. A first pointer interaction unlocks browser audio; without one, the world remains silent. Approximately every half-second, nearby witnessed entities are grouped into growth, decay, life, danger, water, and stone voices. A short rolling memory stabilizes the harmonic mode; location and step count vary the melody. No offscreen data, external samples, model inference, or command authority. This is an initial musical sketch, not acoustic realism. Source committed; browser sound/rendering not yet independently verified.
+
+### Soundwalk deployment identification
+
+`ender-audio-status` is an in-world, noninteractive label displaying `soundwalk-02` and the browser audio state after a user gesture. This is an explicit feature-version indicator; it does not replace the eight-character executing-script fingerprint. If the label is absent, the browser is not executing this source version. A Git commit and readback verify repository state only, not Pages propagation or audio output.
