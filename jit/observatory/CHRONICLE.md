@@ -457,3 +457,12 @@ Updated README CURRENT cold-boot contract with the browser-evidenced stack/08 ba
 All four HTTP **200**, all four `RECENT_DATA`, and each window's `gapsOverThreeMinutes:0`. Transport snapshot: `started:4`, `ok:4`, `failed:0`, `deduped:0`, `cacheHits:0`, `active:0`, `queued:0`. Contrasts with stack/08's four cache hits: the browser has now evidenced both initial network acquisition and cached reuse. These are ordinary-path tests, not concurrency/backoff stress tests. Coverage counts are minute-slot descriptive metrics, not independent physical sampling proof; Boulder K is not planetary Kp.
 
 **Next frontier:** construct explicit temporal overlap/missingness summaries and station-cadence warnings without introducing unsupported solar→ground causality.
+
+
+## 30 — 🕰️ Stack/10: timestamp overlap and missingness (2026-10-26)
+
+**User:** ➡️ following browser-verified stack/09. **Assistant:** committed `jit/observatory/stack/index.html` build **stack/10**, commit `aa28d574d03c4a489d1e6d3012465ce5e045e790`. Added a derived `alignment` object to downloaded/copied 👁 JSON: common six-hour UTC minute slots, per-lane observed and missing minute slots, contiguous missing runs, four-lane timestamp overlap, source timestamp cadence/distinct-value context, and semantic caveats. Existing live acquisition, four visual traces and transport governor retained.
+
+**Interpretation:** timestamp coincidence is bookkeeping, **not** proof of independent synchronized physical sampling, common coordinate frame, propagation lag, correlation or causality. Boulder K repeats are not one-minute magnetometer vector samples. No interpolation or fabricated measurements.
+
+**Verification boundary:** code committed; Stack/10 Pages/browser runtime and new alignment JSON remain **unverified**. Next request a fresh 👁 download and inspect `alignment` against `sourceRegistry` for off-by-one minute slots, coverage-window edges and missing-run consistency. Keep Stack/09 as the last browser-verified baseline.
