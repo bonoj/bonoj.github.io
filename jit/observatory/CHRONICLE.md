@@ -503,3 +503,10 @@ All four HTTP **200**, all four `RECENT_DATA`, and each window's `gapsOverThreeM
 | 🌍 Boulder local K | 355 | 1 | 0 | 4 | 5 |
 
 **Verification:** for every lane `leading+internal+trailing=missing` and `observed+missing=360`. These are timestamp-bin counts, not independent sample counts or diagnosed outages. GEO's 15 trailing slots are source freshness/availability, not evidence of a broken magnetometer; L1's 33 internal slots warrant separate investigation. Next: small visual availability marks within the existing four lanes, while retaining pristine viewport and detailed 👁 evidence.
+
+
+## 34 — 🕳️ Stack/12: visual availability strips (2026-10-26)
+
+**User:** ➡️. **Assistant:** built `stack/12`, final commit `bacdcc9d0a69748d34e81d734b31c4af70a346d5`. Each of the four lanes now has a thin availability strip beneath the measured trace: pale observed timestamp bins, grey leading absence, brown internal missing bins, and dark-grey trailing absence. The existing 👁 `alignment.lanes[*].missingness` classification drives the strip; descriptive hover/accessibility text states counts. Rendering runs on feed refresh, not only on 👁 export. The source plots, transport governor and no-inference rules remain.
+
+**Verification:** code committed; live Stack/12 browser execution and visual layout **not yet verified**. Next obtain a fresh 👁 report and, if possible, a screenshot to validate both data and the single-viewport presentation. Missing bins indicate absent timestamps, **not** diagnosed instrument outages.
