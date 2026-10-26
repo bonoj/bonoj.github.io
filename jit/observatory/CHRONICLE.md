@@ -88,3 +88,25 @@ A speculative idea is marked *planned*. A committed file is marked *committed*. 
 **Evidence state:** GitHub file creation succeeded; **browser HTTP/CORS, sample values, live Pages deployment and clipboard operation have NOT yet been verified**. The 👁 JSON reports request status, HTTP, latency, record counts, raw excerpts, numeric-field inventory and geometry. The probe is intentionally independent and does **not yet use the Lattice governor**; this is a bounded one-shot six-request diagnostic, not a recurring acquisition loop.
 
 **Next:** open the canonical URL on the user's phone, tap 👁, paste JSON. Inspect actual source mapping, timestamped magnetometer/proton numeric fields, units and quality structure; then correct parsing/geometry and migrate verified acquisition into the shared governed transport. Do not claim live verification until the report arrives.
+
+
+## 04 — User 👁 confirms GEO browser acquisition (2026-10-26 04:37:51 UTC)
+
+**Evidence:** user pasted full `hermeticon-geo-eye/v1` report from build `geo/01`, captured 04:37:51.175Z. All **six** NOAA requests HTTP 200 with no errors: mapping 128 ms / 1 record, longitude 125 ms / 8 records; GOES primary magnetic 61 ms / 359 records, secondary magnetic 57 ms / 358; primary integral protons 59 ms / 568, secondary integral protons 54 ms / 560. **1,845 scientific records** across four streams. This is browser-confirmed access and timestamped numeric measurements, not yet scientifically normalized or correlatable.
+
+**Actual mapping:** NOAA registry last updated 2026-10-02: magnetometers primary **GOES-19** (72.5°W), secondary **GOES-18** (137°W); integral protons primary **GOES-18**, secondary **GOES-19**. Source IDs also appear directly in each measurement record.
+
+**Latest magnetic values:** GOES-19 at 04:35Z: He 33.4173, Hp 74.6865, Hn −0.6482, total **81.8243 nT**, arcjet_flag false; GOES-18 at 04:34Z: He 8.8105, Hp 88.6252, Hn 15.8880, total **90.4682 nT**, arcjet_flag false. One-minute cadence in provided samples.
+
+**Protons:** GOES-18 most recent records at 04:30Z and GOES-19 at 04:25Z; payload is **long-form**, each record `{time_tag,satellite,flux,energy}`, with energy thresholds e.g. >=1, >=10, >=60, >=500 MeV. A flux reading is meaningless without its energy threshold; normalize per (spacecraft, energy, timestamp). Units must be verified from NOAA documentation, not inferred from payload.
+
+**Geometry:** approximate calculations from NOAA longitude and solar position at 04:37:46Z: GOES-19 local solar time ~00:04, axis offset 167.89°, sunward false; GOES-18 ~19:46, offset 115.83°, sunward false. Sun-visible/eclipsed correctly null; no authoritative orbit/eclipses yet.
+
+**Bugs / qualifications surfaced by instrumentation:**
+- `latestNumeric` selects `satellite` because it is numeric; exclude IDs, metadata, quality flags and categorical fields from science-channel selection.
+- Proton flux records need grouping by energy threshold; cannot use a single latest `flux` series.
+- Magnetometer `arcjet_flag` must remain a quality/context field; evaluate other missing-value/quality conventions per instrument.
+- `BROWSER_VERIFIED` on metadata endpoints means endpoint accessibility, **not** that metadata are scientific observations. Use separate statuses for metadata and measurements.
+- Instrument mapping is dated Oct 2 and should be treated as provider-published metadata, while individual record satellite IDs provide per-sample attribution.
+
+**Next falsifiable step:** patch GEO probe normalization and 👁 to expose separate per-energy proton channels, correct magnetic headline fields and per-channel timestamps/counts/quality. Then obtain another user browser 👁 report. Preserve working L1, no UI polish.
