@@ -598,3 +598,8 @@ User supplied `hermeticon-stack-stack-16-2026-10-26T06-59-02-816Z.json`. Report 
 ## 45 — Stack/17 observed GOES schema; Stack/18 channel acquisition
 
 Stack/17 browser report (2026-10-26 07:02:15 UTC) confirmed both GOES probes HTTP 200: proton records from GOES-18, EUV records from GOES-19. They are distinct spacecraft despite both endpoints being named primary. Stack/18 code commit a93f7759f1a84a0b3da3f0f37b2a05c6e842bcc2 replaces probes with channel-resolved acquisition and records raw values, satellite IDs, channel labels, timestamps and acceptance counts. EUV filtering excludes records with eclipse, lunar transit or geocorona flags. Units are UNVERIFIED; no physical propagation inference. Browser verification for Stack/18 is pending.
+
+
+## 46 — Stack/18 browser verification: GOES channel adapters (2026-10-26)
+
+User 👁 `hermeticon-stack-stack-18-2026-10-26T07-05-05-475Z.json` verifies build stack/18; transport **7 started / 7 OK / 0 failed**. `goesChannels.status=ACQUIRED_UNITS_UNVERIFIED`. GOES-18 protons: 568 source rows, eight channels (>=1, >=5, >=10, >=30, >=50, >=60, >=100, >=500 MeV), **71/71 eligible per channel**, latest 06:55 UTC. GOES-19 EUV: 2864 source rows, eight channels (`256`, `284`, `304`, `1175`, `1216`, `1335`, `1405`, `mgii_index`), **55 eligible and 303 rejected per channel**, latest accepted 01:59 UTC. EUV rejection is due to strict current flags filter, but per-reason rejection counts have not yet been instrumented; investigate flags rather than declaring bad data. Solar/L1/Earth/plasma RECENT_DATA; GEO STALE. No unit claims or physical causal coupling. Next: inspect EUV flags and count rejection reasons; separate excluded conditions from missing flag metadata, without weakening quality gates blindly.
