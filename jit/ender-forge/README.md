@@ -90,3 +90,7 @@ Ender's existing bounded local snapshot now drives a zero-audio-asset Web Audio 
 ### Soundwalk deployment identification
 
 `ender-audio-status` is an in-world, noninteractive label displaying `soundwalk-02` and the browser audio state after a user gesture. This is an explicit feature-version indicator; it does not replace the eight-character executing-script fingerprint. If the label is absent, the browser is not executing this source version. A Git commit and readback verify repository state only, not Pages propagation or audio output.
+
+### Soundwalk correction — 26 October 2026
+
+Removed the unsolicited `soundwalk-02` battlefield overlay. Existing gameplay pointer/click gestures resume Web Audio; there is no new control. When Ender's 125-unit local footprint is empty, the composer deliberately retains a quiet pastoral baseline, rather than muting. Audio still requires a browser-permitted user gesture. Repository publishes this static HTML through the existing GitHub Pages configuration; the repo's `.github/workflows` directory contains no Pages-specific deployment workflow. Git source readback does not establish CDN freshness or live playback. The 8-character UI identifier remains the executing inline script's SHA-256, not a Git commit.
