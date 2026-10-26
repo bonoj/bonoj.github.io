@@ -37,12 +37,19 @@ jobs:
             status['parameterNames']=names
             # HAPI standard parameter names are case sensitive; select only actual names.
             candidates=[('BZ_GSM','bz_gsm'),('Pressure','pressure'),('flow_speed','speed'),('proton_density','density'),('SYM_H','sym_h')]
-            wanted={x for x,_ in candidates}\n            selected=[x for x in names if x in wanted]
+            wanted={x for x,_ in candidates}
+            selected=[x for x in names if x in wanted]
             status['selectedParameters']=selected
             if not selected: raise ValueError('No requested physical parameters present; inspect metadata')
             params={'id':'OMNI_HRO_1MIN','time.min':'2024-05-10T00:00:00Z','time.max':'2024-05-12T00:00:00Z','parameters':','.join(selected),'format':'csv'}
             data_url=base+'data?'+urllib.parse.urlencode(params)
-            data=get(data_url)\n            import csv,io\n            rows=list(csv.reader(io.StringIO(data.decode('utf-8-sig'))))\n            if len(rows)<1000 or any(len(row)!=len(selected)+1 for row in rows): raise ValueError('HAPI data malformed or insufficient rows: '+data[:250].decode('utf-8','replace'))\n            if not rows[0][0].startswith('2024-05-10T'): raise ValueError('Unexpected first observation timestamp: '+str(rows[0][0]))\n            if not rows[-1][0].startswith('2024-05-11T'): raise ValueError('Unexpected final observation timestamp: '+str(rows[-1][0]))\n            (root/'omni-2024-05-10_11.csv').write_bytes(data)
+            data=get(data_url)
+            import csv,io
+            rows=list(csv.reader(io.StringIO(data.decode('utf-8-sig'))))
+            if len(rows)<1000 or any(len(row)!=len(selected)+1 for row in rows): raise ValueError('HAPI data malformed or insufficient rows: '+data[:250].decode('utf-8','replace'))
+            if not rows[0][0].startswith('2024-05-10T'): raise ValueError('Unexpected first observation timestamp: '+str(rows[0][0]))
+            if not rows[-1][0].startswith('2024-05-11T'): raise ValueError('Unexpected final observation timestamp: '+str(rows[-1][0]))
+            (root/'omni-2024-05-10_11.csv').write_bytes(data)
             status.update(state='BYTES_ACQUIRED_NOT_VALIDATED',url=data_url,bytes=len(data),sha256=hashlib.sha256(data).hexdigest(),lineCount=len(rows),firstTime=rows[0][0],lastTime=rows[-1][0])
           except Exception as e:
             status.update(state='BLOCKED',error=str(e),traceback=traceback.format_exc()[-1600:])
