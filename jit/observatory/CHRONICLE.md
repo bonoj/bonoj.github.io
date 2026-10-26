@@ -410,3 +410,25 @@ The first unified stack was committed as `stack/01` (`a868879b`), sourcing GOES 
 **User:** “Let's update the chronicle and readme to prepare for cold boot.” **Assistant:** updated README to foreground the current four-lane mission, verified versus pending builds, exact endpoints, UI/export controls, UTC normalization, payload limits, Lattice transport inheritance and cold-start reading order. This Chronicle chapter records the same handoff.
 
 **Cold-boot execution:** open [README](README.md) CURRENT section; read this chapter and §§22–25, [SPEC](SPEC.md) mission gate, [stack/index.html](stack/index.html), then [Lattice README](../lattice/README.md) and transport code. Do not interpret the older L1-only README sections as current mission. First seek a new **stack/07** browser 👁 JSON to verify window-aligned diagnostics; then migrate stack's ad hoc staged fetches to Lattice's proven shared governor without breaking the four independent feeds. Keep Sun X-ray photons, L1 in-situ field, GEO local field, and Boulder local K semantically distinct. Never claim a measured continuous CME cone, fixed transit lag, causal coupling, or successful Pages deployment solely from a GitHub commit.
+
+
+## 27 — 🐉 Stack/08: emoji observation report approved (2026-10-26)
+
+**User:** ➡️. **Assistant:** inspected the actual Lattice governor and Gate contract, then committed **stack/08** at `e260dd0a684a834885e1f3d79e3db22239a1cfdc`. The four NOAA sources now use a single bounded Lattice-style acquisition governor: two requests globally, one per host, 1-second host pacing, 16-second timeout, bounded queue and source payloads, URL deduplication, 120-second cache and exponential failure backoff. 👁 JSON includes a transport snapshot. This is a local adaptation of the Lattice transport contract, not an import of the identical Lattice module.
+
+**User supplied browser 👁 JSON:** `hermeticon-stack-stack-08-2026-10-26T06-27-01-474Z.json`, schema `hermeticon-stack-eye/v1`, build `stack/08`, captured **06:27:01 UTC**. Browser download proves stack/08 executed. All four feeds returned HTTP 200 and `RECENT_DATA`, with no reported acquisition errors. The transport report was summarized as 4 successful requests, zero failures, four cache hits, zero active/queued at capture. This validates successful ordinary acquisition, **not** a stress test of concurrency or error recovery.
+
+### 🔭 Approved emoji report convention
+
+| Instrument | Observed latest | Six-hour coverage |
+| --- | --- | --- |
+| ☀️ **Solar** | GOES-18 long X-ray flux **2.945 × 10⁻⁷ W/m²** | **356/360** |
+| 🛰️ **L1** | GSM Bz **+1.45 nT** | **321/360** |
+| 🌐 **GEO** | Local total magnetic field **82.67 nT** | **356/360** |
+| 🌍 **Earth** | **Boulder K 0.20**, local station index | **355/360** |
+
+**User:** “This new emoji report format is approved for chronicle with enthusiasm :).”
+
+**Presentation contract:** Lead with a concise emoji status, three or fewer meaningful transport/verification counters when useful, and a four-lane instrument table. End with an explicit **next frontier**. Keep each emoji attached to a real instrument or domain; never let visual shorthand erase provenance, frames, timestamps, uncertainty, quality or the **measured ≠ inferred ≠ unknown** boundary. A local Boulder K index is neither a field vector nor planetary Kp; solar X-rays do not themselves establish CME plasma transit or cross-lane causality.
+
+**Next frontier:** preserve the browser-verified stack/08 baseline; build inspectable cross-lane timestamp alignment and missingness/uncertainty diagnostics before any lag or causal inference. Revisit refresh/caching and failure semantics under repeated cycles. Update README handoff to identify stack/08 as browser-evidenced.
