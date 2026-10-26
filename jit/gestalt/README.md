@@ -52,3 +52,15 @@ Repository: `bonoj/bonoj.github.io`, branch `master`, folder `jit/gestalt/`. Fol
 ## Next
 
 Move from toy-specific renderer branches to a reusable component registry; add explicit events/state and accessibility metadata; establish a fidelity test fixture; then try a second, radically different design contract without changing renderer code.
+
+## Native Android experiment — October 26, 2026
+
+**New:** [Android source](./android/) · [MainActivity.kt](./android/app/src/main/java/io/github/bonoj/jitgestalt/MainActivity.kt) · [APK build workflow](../../.github/workflows/jit-gestalt-android.yml) · [Actions runs](https://github.com/bonoj/bonoj.github.io/actions/workflows/jit-gestalt-android.yml).
+
+This is the first attempt to cross from a chat-authored design to a **real installable Android APK**. The minimal Compose app reproduces the contract's titles, chip selection, save toggle, and explore action. It is native Kotlin/Compose, not a WebView. The debug APK is produced by GitHub Actions (Gradle 8.9, Android Gradle Plugin 8.7.3, Kotlin 2.0.21, Compose BOM 2024.12.01, SDK 35); the workflow uploads `app-debug.apk` as an artifact.
+
+**Honest boundary:** the Android screen currently mirrors the existing JSON contract **by hand in Kotlin**. It does not yet parse `contract.json`, generate Kotlin automatically, or prove parity. The workflow has been committed, but its success, APK availability, installation, and device interactions **have not yet been verified**. Check the Actions run before treating this as functioning.
+
+**Phone test once Actions succeeds:** open the Actions run → download `jit-gestalt-debug-apk` artifact ZIP → extract `app-debug.apk` → install on Android (approve trusted install source if appropriate) → select chips, toggle Save, tap Explore, rotate/relaunch and observe state. Debug builds are unsigned for release distribution but debug-signed by Android Gradle Plugin.
+
+**Next meaningful boundary:** move from hardcoded mirror to contract-driven generation; capture actual build evidence, then device evidence. Keep the experiment isolated and do not modify the existing web workbench without a demonstrated reason.
