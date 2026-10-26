@@ -510,3 +510,17 @@ All four HTTP **200**, all four `RECENT_DATA`, and each window's `gapsOverThreeM
 **User:** ➡️. **Assistant:** built `stack/12`, final commit `bacdcc9d0a69748d34e81d734b31c4af70a346d5`. Each of the four lanes now has a thin availability strip beneath the measured trace: pale observed timestamp bins, grey leading absence, brown internal missing bins, and dark-grey trailing absence. The existing 👁 `alignment.lanes[*].missingness` classification drives the strip; descriptive hover/accessibility text states counts. Rendering runs on feed refresh, not only on 👁 export. The source plots, transport governor and no-inference rules remain.
 
 **Verification:** code committed; live Stack/12 browser execution and visual layout **not yet verified**. Next obtain a fresh 👁 report and, if possible, a screenshot to validate both data and the single-viewport presentation. Missing bins indicate absent timestamps, **not** diagnosed instrument outages.
+
+
+## 35 — 👁 Stack/12 live accounting verified (2026-10-26)
+
+**User supplied** `hermeticon-stack-stack-12-2026-10-26T06-40-49-899Z.json` (`build:stack/12`, captured **06:40:49.899 UTC**). All four NOAA endpoints HTTP 200; governor **4 started / 4 ok / 0 failed / 0 active / 0 queued**. Fully elapsed 360-minute alignment: **310/360 four-way coincident timestamp slots**.
+
+| Lane | Observed | Leading | Internal | Trailing | Missing |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| ☀️ Solar | 356 | 1 | 0 | 3 | 4 |
+| 🛰️ L1 | 321 | 1 | 33 | 5 | 39 |
+| 🌐 GEO | 342 | 1 | 0 | 17 | 18 |
+| 🌍 Earth | 355 | 1 | 0 | 4 | 5 |
+
+**Verification:** every `observed+missing=360` and `leading+internal+trailing=missing`. Stack/12 exported the alignment report successfully; visual strip layout is **not screenshot-verified**. These are timestamp-availability classes, not outages. Next inspect a screenshot and confirm strips align with their respective trace time axis.
