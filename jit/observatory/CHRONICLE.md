@@ -186,3 +186,10 @@ A speculative idea is marked *planned*. A committed file is marked *committed*. 
 **Interpretation:** Acquisition, numeric normalization, and clock alignment browser-verified. No L1→GEO physical propagation or causality established. Beware different physical populations (L1 bulk solar-wind plasma versus GEO energetic proton flux), varying spacecraft/instrument roles, and `active=false` on some L1 samples.
 
 **Next falsifiable step:** construct a bounded L1→GEO magnetic response study using continuous time series and explicit lag sweep, quality/active-source filtering, missingness, lag sign convention, controls and uncertainty. Use 👁 to export compact event/lag diagnostics. Do not imply same-time coincidence is causal.
+
+
+## 11 — GEO/06 bounded magnetic lag instrument (2026-10-26)
+
+**Action committed:** GEO/06 adds a compact 👁 lag study using L1 GSM Bz and GOES-18/19 total magnetic-field magnitudes. Explicit lag convention: GEO time minus L1 time (positive = GEO later). Scan −120 to +120 minutes, nearest sample tolerance 90 seconds, minimum 30 pairs, Pearson correlation and per-lag counts. L1 records require `active===true`, `overall_quality===0`, finite non-sentinel `bz_gsm`; GEO requires `arcjet_flag===false` and finite `total`. The report includes eligible-source counts, window boundaries, and the strongest absolute correlation as a descriptive candidate, **not a causal or significance claim**. No production governor or orbital propagation model introduced. Existing acquisition unchanged.
+
+**Status:** committed, **awaiting browser 👁 verification**. Next inspect `lagStudy` counts, source mix, nulls, lag curve and signs; assess source switches, autocorrelation and control windows before interpreting any apparent delay.
