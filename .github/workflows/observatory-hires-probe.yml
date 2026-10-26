@@ -1,0 +1,55 @@
+name: Observatory high resolution reconstruction feasibility
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/observatory-hires-probe.yml'
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe bounded high resolution archive
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,urllib.request,urllib.error,pathlib,datetime,re
+          out={'schema':'hermeticon-hires-probe/v1','status':'STARTED','createdAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'requests':[]}
+          base='https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes18/l2/data/magn-l2-hires/2024/05/'
+          for day in ['20240510','20240511']:
+            url=base+'dn_magn-l2-hires_g18_d'+day+'_v1-0-1.nc'
+            item={'day':day,'url':url}
+            try:
+              req=urllib.request.Request(url,method='HEAD',headers={'User-Agent':'HermeticonObservatory/1.0'})
+              with urllib.request.urlopen(req,timeout=35) as response:
+                item.update(status=response.status,contentLength=response.headers.get('Content-Length'),acceptRanges=response.headers.get('Accept-Ranges'),contentType=response.headers.get('Content-Type'))
+              req=urllib.request.Request(url,headers={'Range':'bytes=0-65535','User-Agent':'HermeticonObservatory/1.0'})
+              with urllib.request.urlopen(req,timeout=35) as response:
+                item.update(rangeStatus=response.status,contentRange=response.headers.get('Content-Range'))
+                if response.status==206:
+                  data=response.read(65537)
+                  item['rangeBytesRead']=len(data)
+                  item['hdf5Magic']=data.startswith(bytes([137,72,68,70,13,10,26,10]))
+                else:
+                  item['rangeBytesRead']=0
+                  item['warning']='Server ignored range; deliberately did not download full file'
+            except Exception as e:
+              item['error']=str(e)
+            out['requests'].append(item)
+          out['status']='PROBE_COMPLETE_NOT_RECONSTRUCTED'
+          pathlib.Path('jit/observatory/events/2024-05-storm-data/hires-probe.json').write_text(json.dumps(out,indent=2))
+          print(json.dumps(out,indent=2))
+          PY
+      - name: Persist probe
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add jit/observatory/events/2024-05-storm-data/hires-probe.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Observatory: record high resolution archive transport feasibility'
+            git push
+          fi
