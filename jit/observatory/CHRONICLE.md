@@ -593,3 +593,8 @@ User supplied `hermeticon-stack-stack-16-2026-10-26T06-59-02-816Z.json`. Report 
 ## 44 — 🔬 Stack/17 GOES proton/EUV schema discovery (2026-10-26)
 
 **User:** ➡️. NOAA SWPC public directory confirms six-hour `integral-protons-6-hour.json` and `euvs-6-hour.json` in GOES primary, with secondary families also listed. Sources: https://services.swpc.noaa.gov/json/goes/primary/ and https://services.swpc.noaa.gov/json/goes/secondary/. Commit `312127b6eba9fc9d8481831c25074d5420532264` creates Stack/17. Added two **sequential, governed** browser schema probes (one proton, one EUV), exporting `report.goesSchemaProbes` with HTTP/status, record count, first object keys/sample, distinct satellite IDs and channel examples. Existing four lanes and five acquired sources preserved. This is discovery, not ingestion or physical correlation; probe sample is raw evidence, not qualified scientific measurement. **Verification pending:** inspect Stack/17 👁 for `PROBED_SCHEMA_ONLY` and actual fields; then implement narrow channel/QC adapters with provenance. Do not infer units or energies from guessed keys.
+
+
+## 45 — Stack/17 observed GOES schema; Stack/18 channel acquisition
+
+Stack/17 browser report (2026-10-26 07:02:15 UTC) confirmed both GOES probes HTTP 200: proton records from GOES-18, EUV records from GOES-19. They are distinct spacecraft despite both endpoints being named primary. Stack/18 code commit a93f7759f1a84a0b3da3f0f37b2a05c6e842bcc2 replaces probes with channel-resolved acquisition and records raw values, satellite IDs, channel labels, timestamps and acceptance counts. EUV filtering excludes records with eclipse, lunar transit or geocorona flags. Units are UNVERIFIED; no physical propagation inference. Browser verification for Stack/18 is pending.
