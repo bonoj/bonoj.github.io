@@ -482,3 +482,10 @@ All four HTTP **200**, all four `RECENT_DATA`, and each window's `gapsOverThreeM
 | 🌍 Earth | Boulder K **0.40000001** | 355 | 5 | 2 |
 
 **Important interpretation:** missing minute bins include window boundaries, source freshness and L1 isolated missing timestamps; they do **not** necessarily represent outages. The report does not prove independent one-minute station-K observations, equal frames or solar→Earth causality. **Next frontier:** refine bin anchoring to fully contained UTC minutes (current bins include the partially elapsed first minute and omit the partially elapsed current minute), and distinguish tail freshness from internal gaps. The existing accounting is internally consistent but its window label should explicitly disclose the minute-floor convention.
+
+
+## 32 — 🕳️ Stack/11: missingness has a location (2026-10-26)
+
+**User:** ➡️. **Assistant:** committed **stack/11** at `366ef62988f4f08a6783279ef0742a5638817cc7`. The 👁 `alignment` report now uses 360 fully elapsed UTC minute bins, [start,end), with the acquisition-window end floored to the minute; its `binConvention` and `acquisitionWindowEnd` make the edge explicit. Each lane gains `missingness.leadingBeforeFirstObservation`, `internalBetweenObservations`, `trailingAfterLastObservation`, `latestObservationAgeMs`, and a no-observations state. Missing runs and four-lane overlap remain. **Interpretation:** these are timestamp availability categories, not outage diagnoses; trailing absence may be ordinary publication latency. No interpolation, lag or causality is inferred.
+
+**Verification:** source committed; Stack/11 browser 👁 verification **pending**. Next inspect that each lane's leading + internal + trailing = missingMinuteSlots and that the common overlap matches direct intersection.
