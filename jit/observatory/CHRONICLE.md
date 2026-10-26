@@ -564,3 +564,10 @@ All four HTTP **200**, all four `RECENT_DATA`, and each window's `gapsOverThreeM
 ## 39 — 👁 Stack/14 recovery browser-verified (2026-10-26)
 
 **User:** “Looks good.” Uploaded `hermeticon-stack-stack-14-2026-10-26T06-50-11-477Z.json` (captured 06:50:11.477 UTC). Browser report confirms `build:stack/14`, registry schema `observatory-source-registry/v1` with four source entries and separate candidates. NOAA transport: **4 started, 4 OK, 0 failed, 0 active, 0 queued**, all endpoints HTTP 200. Status: ☀️ solar RECENT_DATA; 🛰️ L1 RECENT_DATA; 🌐 GEO STALE; 🌍 Boulder RECENT_DATA. Four-way timestamp overlap **301/360** fully elapsed minute bins. **Acceptance:** center feeds visually confirmed by user and data acquisition/report confirmed by 👁. GEO staleness is not a transport failure. Stack/13 blank-center regression recovered in Stack/14; exact Stack/13 JS failure was not independently diagnosed. Next expand scientifically useful measurements and attribution, not UI polish.
+
+
+## 40 — 🛰️ Stack/15: L1 plasma added under shared governor (2026-10-26)
+
+**User:** ➡️. Added fifth NOAA source `rtsw/rtsw_wind_1m.json` through existing Stack request governor, preserving four visual lanes and existing feed acquisition. Source commit `da109fd530ea37a31d4ba0485cfc287ea2898834`, build `stack/15`. 👁 `sourceRegistry.plasma` now records HTTP/status/errors, active spacecraft IDs, and per-field eligible counts plus latest source/time/value/raw evidence for proton speed, density, temperature and GSE transverse Y/Z. Registry snapshot exposes plasma state. No silent fallback to inactive spacecraft; no plasma travel-time or causal inference.
+
+**Verification boundary:** code committed; Stack/15 browser 👁 and live feed success **pending**. Next inspect 👁 for five successful requests, non-null per-field values, consistent active source, valid UTC and no regression to four visible feeds. This is acquisition breadth, not UI polish.
