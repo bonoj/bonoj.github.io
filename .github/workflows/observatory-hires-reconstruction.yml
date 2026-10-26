@@ -1,0 +1,94 @@
+name: Observatory high resolution averaging reconstruction
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/observatory-hires-reconstruction.yml'
+permissions:
+  contents: write
+jobs:
+  reconstruct:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install --quiet numpy h5py
+      - name: Reconstruct minute aggregates from source high-resolution data
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,urllib.request,tempfile,pathlib,datetime
+          import numpy as np,h5py
+          root=pathlib.Path('jit/observatory/events/2024-05-storm-data')
+          out={'schema':'hermeticon-hires-reconstruction/v1','status':'STARTED','createdAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'days':[]}
+          try:
+            for day,minute in [('20240510',1040),('20240511',41)]:
+              url='https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes18/l2/data/magn-l2-hires/2024/05/dn_magn-l2-hires_g18_d'+day+'_v1-0-1.nc'
+              daily='https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes18/l2/data/magn-l2-avg1m/2024/05/dn_magn-l2-avg1m_g18_d'+day+'_v2-0-2.nc'
+              entry={'day':day,'targetMinute':minute,'highResolutionURL':url}
+              with tempfile.TemporaryDirectory() as td:
+                hi=pathlib.Path(td)/'hi.nc';avg=pathlib.Path(td)/'avg.nc'
+                for src,dest in [(url,hi),(daily,avg)]:
+                  with urllib.request.urlopen(urllib.request.Request(src,headers={'User-Agent':'HermeticonObservatory/1.0'}),timeout=90) as response, dest.open('wb') as target:
+                    while True:
+                      chunk=response.read(1048576)
+                      if not chunk: break
+                      target.write(chunk)
+                entry['highResolutionBytes']=hi.stat().st_size
+                entry['highResolutionSHA256']=hashlib.sha256(hi.read_bytes()).hexdigest()
+                with h5py.File(hi) as h,h5py.File(avg) as a:
+                  entry['datasets']={k:{'shape':list(v.shape),'dtype':str(v.dtype),'units':str(v.attrs.get('units',''))[:100],'comments':str(v.attrs.get('comments',''))[:180]} for k,v in h.items() if isinstance(v,h5py.Dataset)}
+                  entry['sourceGlobal']={k:str(h.attrs[k])[:200] for k in ['algorithm','algorithm_version','time_coverage_start','time_coverage_end'] if k in h.attrs}
+                  entry['minuteReference']={'b_total':float(a['b_total'][minute]),'b_gsm':np.asarray(a['b_gsm'][minute]).tolist(),'num_points':int(a['num_points'][minute])}
+                  # Use exact UTC time field if present; avoid assuming sample count or row indices.
+                  if 'time' not in h or 'b_gsm' not in h:
+                    entry['status']='BLOCKED_MISSING_REQUIRED_DATASETS'
+                  else:
+                    t=np.asarray(h['time'][:]).reshape(-1)
+                    b=np.asarray(h['b_gsm'][:])
+                    entry['timeAttrs']={k:str(v)[:250] for k,v in h['time'].attrs.items()}
+                    entry['vectorShape']=list(b.shape)
+                    if b.ndim!=2 or b.shape[1]!=3 or len(t)!=len(b):
+                      entry['status']='BLOCKED_UNEXPECTED_SHAPE'
+                    else:
+                      units=str(h['time'].attrs.get('units',''))
+                      # GOES archive time convention: seconds since 2000-01-01 12:00:00 UTC.
+                      if '2000-01-01' not in units:
+                        entry['status']='BLOCKED_UNVERIFIED_TIME_UNITS'
+                      else:
+                        epoch=datetime.datetime(2000,1,1,12,tzinfo=datetime.timezone.utc)
+                        target=datetime.datetime(int(day[:4]),int(day[4:6]),int(day[6:]),tzinfo=datetime.timezone.utc)+datetime.timedelta(minutes=minute)
+                        begin=(target-epoch).total_seconds()
+                        mask=(t>=begin)&(t<begin+60)
+                        sample=b[mask]
+                        valid=np.isfinite(sample).all(axis=1)&np.all(sample>-9000,axis=1)
+                        sample=sample[valid]
+                        entry['sampleCount']=int(len(sample))
+                        if len(sample)<2:
+                          entry['status']='BLOCKED_TOO_FEW_SAMPLES'
+                        else:
+                          meanvec=np.mean(sample,axis=0)
+                          entry['reconstructedMeanVector']=meanvec.tolist()
+                          entry['reconstructedNormOfMean']=float(np.linalg.norm(meanvec))
+                          entry['reconstructedMeanOfNorm']=float(np.mean(np.linalg.norm(sample,axis=1)))
+                          entry['meanOfNormMinusNormOfMean']=entry['reconstructedMeanOfNorm']-entry['reconstructedNormOfMean']
+                          entry['scalarResidual_nT']=entry['reconstructedMeanOfNorm']-entry['minuteReference']['b_total']
+                          entry['vectorResidualNorm_nT']=float(np.linalg.norm(meanvec-np.asarray(entry['minuteReference']['b_gsm'])))
+                          entry['status']='RECONSTRUCTED_NOT_VALIDATED'
+              out['days'].append(entry)
+            out['status']='RECONSTRUCTION_COMPLETE_NOT_VALIDATED'
+          except Exception as e:
+            out.update(status='BLOCKED',error=str(e))
+          (root/'hires-reconstruction.json').write_text(json.dumps(out,indent=2))
+          print(json.dumps({'status':out['status'],'error':out.get('error'),'days':[{k:v for k,v in x.items() if k not in ['datasets']} for x in out['days']]},indent=2))
+          PY
+      - name: Persist evidence
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add jit/observatory/events/2024-05-storm-data/hires-reconstruction.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Observatory: reconstruct high resolution magnetic averages around two anomalies'
+            git push
+          fi
