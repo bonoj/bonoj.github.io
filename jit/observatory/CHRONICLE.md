@@ -489,3 +489,17 @@ All four HTTP **200**, all four `RECENT_DATA`, and each window's `gapsOverThreeM
 **User:** ➡️. **Assistant:** committed **stack/11** at `366ef62988f4f08a6783279ef0742a5638817cc7`. The 👁 `alignment` report now uses 360 fully elapsed UTC minute bins, [start,end), with the acquisition-window end floored to the minute; its `binConvention` and `acquisitionWindowEnd` make the edge explicit. Each lane gains `missingness.leadingBeforeFirstObservation`, `internalBetweenObservations`, `trailingAfterLastObservation`, `latestObservationAgeMs`, and a no-observations state. Missing runs and four-lane overlap remain. **Interpretation:** these are timestamp availability categories, not outage diagnoses; trailing absence may be ordinary publication latency. No interpolation, lag or causality is inferred.
 
 **Verification:** source committed; Stack/11 browser 👁 verification **pending**. Next inspect that each lane's leading + internal + trailing = missingMinuteSlots and that the common overlap matches direct intersection.
+
+
+## 33 — 🔭 Stack/11 browser verification: missingness invariant passes (2026-10-26)
+
+**User supplied** `hermeticon-stack-stack-11-2026-10-26T06-38-09-433Z.json`, build `stack/11`, captured **06:38:09.433 UTC**. Alignment window **00:38–06:38 UTC**, 360 fully elapsed minute slots; four-way timestamp overlap **312/360**. Browser transport **4 started / 4 successful / 0 failed / 0 cache hits / 0 active / 0 queued**.
+
+| Lane | Observed | Leading | Internal | Trailing | Missing |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| ☀️ Solar | 357 | 1 | 0 | 2 | 3 |
+| 🛰️ L1 | 320 | 1 | 33 | 6 | 40 |
+| 🌐 GEO | 344 | 1 | 0 | 15 | 16 |
+| 🌍 Boulder local K | 355 | 1 | 0 | 4 | 5 |
+
+**Verification:** for every lane `leading+internal+trailing=missing` and `observed+missing=360`. These are timestamp-bin counts, not independent sample counts or diagnosed outages. GEO's 15 trailing slots are source freshness/availability, not evidence of a broken magnetometer; L1's 33 internal slots warrant separate investigation. Next: small visual availability marks within the existing four lanes, while retaining pristine viewport and detailed 👁 evidence.
