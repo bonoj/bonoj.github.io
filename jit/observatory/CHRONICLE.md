@@ -466,3 +466,19 @@ All four HTTP **200**, all four `RECENT_DATA`, and each window's `gapsOverThreeM
 **Interpretation:** timestamp coincidence is bookkeeping, **not** proof of independent synchronized physical sampling, common coordinate frame, propagation lag, correlation or causality. Boulder K repeats are not one-minute magnetometer vector samples. No interpolation or fabricated measurements.
 
 **Verification boundary:** code committed; Stack/10 Pages/browser runtime and new alignment JSON remain **unverified**. Next request a fresh 👁 download and inspect `alignment` against `sourceRegistry` for off-by-one minute slots, coverage-window edges and missing-run consistency. Keep Stack/09 as the last browser-verified baseline.
+
+
+## 31 — 👁 Stack/10 verified: four-lane timestamp accounting (2026-10-26)
+
+**User supplied** `hermeticon-stack-stack-10-2026-10-26T06-33-52-282Z.json`, schema `hermeticon-stack-eye/v1`, `build:stack/10`, captured **06:33:52.282 UTC**. Browser execution and `alignment` export are **verified**. Four NOAA HTTP 200, all `RECENT_DATA`, four fresh transport acquisitions, zero failures, zero cache hits, zero pending/active.
+
+**🕰️ Shared window:** 00:33:44.080–06:33:44.080 UTC; 360 minute bins, **316/360** containing a timestamped entry in all four lanes (44 bins not shared). Source traces were independently recomputed against the reported minute-bin indices: per-lane counts, missing-run sums and four-way overlap **match**.
+
+| Lane | Latest | Timestamp bins | Missing bins | Missing runs |
+| --- | --- | ---: | ---: | ---: |
+| ☀️ Solar | GOES-18 X-ray **2.9232842280180193e-7 W/m²** | 356 | 4 | 2 |
+| 🛰️ L1 | GSM Bz **+0.20 nT** | 321 | 39 | 35 |
+| 🌐 GEO | Local total **82.66983032226562 nT** | 349 | 11 | 2 |
+| 🌍 Earth | Boulder K **0.40000001** | 355 | 5 | 2 |
+
+**Important interpretation:** missing minute bins include window boundaries, source freshness and L1 isolated missing timestamps; they do **not** necessarily represent outages. The report does not prove independent one-minute station-K observations, equal frames or solar→Earth causality. **Next frontier:** refine bin anchoring to fully contained UTC minutes (current bins include the partially elapsed first minute and omit the partially elapsed current minute), and distinguish tail freshness from internal gaps. The existing accounting is internally consistent but its window label should explicitly disclose the minute-floor convention.
