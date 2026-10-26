@@ -1,0 +1,160 @@
+{
+  "schema": "hermeticon-goes-vector-diagnostics/v1",
+  "status": "DESCRIPTIVE_ONLY_NOT_VALIDATED",
+  "createdAt": "2026-10-26T05:28:30.122761+00:00",
+  "datasets": {
+    "b_gsm": {
+      "shape": [
+        1440,
+        3
+      ],
+      "dtype": "float32",
+      "attrs": {
+        "_Netcdf4Coordinates": "[0 1]",
+        "_FillValue": "[-9999.]",
+        "long_name": "b'magnetic_field_geocentric_solar_magnetospheric'",
+        "comments": "b'Estimated ambient magnetometer data in Geocentric Solar Magnetospheric coordinates (x, y, z).'",
+        "units": "b'nT'",
+        "valid_min": "[-1024.]",
+        "valid_max": "[1024.]",
+        "DIMENSION_LIST": "[array([<HDF5 object reference>], dtype=object)\n array([<HDF5 object reference>], dtype=object)]"
+      }
+    },
+    "b_total": {
+      "shape": [
+        1440
+      ],
+      "dtype": "float32",
+      "attrs": {
+        "_FillValue": "[-9999.]",
+        "long_name": "b'magnetic_field_total_magnitude'",
+        "comments": "b'Estimated ambient magnetic field in ACRF coordinates (total).'",
+        "units": "b'nT'",
+        "valid_min": "[0.]",
+        "valid_max": "[1024.]",
+        "DIMENSION_LIST": "[array([<HDF5 object reference>], dtype=object)]"
+      }
+    },
+    "DQF": {
+      "shape": [
+        1440
+      ],
+      "dtype": "uint32",
+      "attrs": {
+        "_FillValue": "[4294967295]",
+        "DIMENSION_LIST": "[array([<HDF5 object reference>], dtype=object)]",
+        "flag_meanings": "b'good_quality_qf invalid_due_to_missing_L0_IB_and_OB_MAG_data_qf degraded_due_to_IB_MAG_x-axis_potential_failure_or_off_state_or_IB_mag_potentially_in_maintenance_mode_qf degraded_due_to_IB_MAG_y-axis_potential_failure_or_off_state_or_IB_mag_potentially_in_maintenance_mode_qf degraded_due_to_IB_MAG",
+        "flag_values": "[       0        1        2        4        8       16       32       64\n      128      256      512     1024     2048     4096     8192    16384\n    32768    65536   131072   262144   524288  1048576  2097152  4194304\n  8388608 16777216 33554432]",
+        "flag_masks": "[33554431        1        2        4        8       16       32       64\n      128      256      512     1024     2048     4096     8192    16384\n    32768    65536   131072   262144   524288  1048576  2097152  4194304\n  8388608 16777216 33554432]"
+      }
+    },
+    "b_quality": {
+      "shape": [
+        1440
+      ],
+      "dtype": "uint8",
+      "attrs": {
+        "_FillValue": "[255]",
+        "long_name": "b'quality_magnetic_field_measurement'",
+        "comments": "b'Summary quality flag, applies to all coordinate frames.'",
+        "flag_values": "[0 1 2]",
+        "flag_meanings": "b'good degraded bad'",
+        "DIMENSION_LIST": "[array([<HDF5 object reference>], dtype=object)]"
+      }
+    }
+  },
+  "vectorColumns": 3,
+  "flagCounts": {
+    "16777216": 2,
+    "33554432": 2792,
+    "50331648": 86
+  },
+  "qualityCounts": {
+    "0": 2880
+  },
+  "components": [
+    {
+      "index": 0,
+      "minimum": -147.3364715576172,
+      "maximum": 282.1894836425781,
+      "mean": 47.69020838547084
+    },
+    {
+      "index": 1,
+      "minimum": -292.4557800292969,
+      "maximum": 310.9049987792969,
+      "mean": -6.584078728841268
+    },
+    {
+      "index": 2,
+      "minimum": -256.15411376953125,
+      "maximum": 260.4388732910156,
+      "mean": 61.59751729600571
+    }
+  ],
+  "normVsTotal": {
+    "medianAbsDifference_nT": 0.019626239623363517,
+    "maxAbsDifference_nT": 179.51910440557677
+  },
+  "eventVectors": {
+    "goesMinimum": {
+      "minuteIndex": 1231,
+      "GSMComponents_nT": [
+        -12.931580543518066,
+        6.681344985961914,
+        -15.977118492126465
+      ],
+      "total_nT": 21.68614387512207,
+      "DQF": 33554432,
+      "quality": 0
+    },
+    "goesMaximum": {
+      "minuteIndex": 1365,
+      "GSMComponents_nT": [
+        -56.78843307495117,
+        290.9020080566406,
+        187.20115661621094
+      ],
+      "total_nT": 351.1478576660156,
+      "DQF": 50331648,
+      "quality": 0
+    },
+    "minimumBz": {
+      "minuteIndex": 1476,
+      "GSMComponents_nT": [
+        48.62626647949219,
+        -57.371131896972656,
+        119.65460205078125
+      ],
+      "total_nT": 155.40069580078125,
+      "DQF": 33554432,
+      "quality": 0
+    },
+    "minimumSymH": {
+      "minuteIndex": 1574,
+      "GSMComponents_nT": [
+        54.6572380065918,
+        -127.57720184326172,
+        59.09677505493164
+      ],
+      "total_nT": 151.7361297607422,
+      "DQF": 33554432,
+      "quality": 0
+    },
+    "maximumPressure": {
+      "minuteIndex": 2022,
+      "GSMComponents_nT": [
+        173.5111083984375,
+        41.95122146606445,
+        82.78597259521484
+      ],
+      "total_nT": 196.87258911132812,
+      "DQF": 33554432,
+      "quality": 0
+    }
+  },
+  "warnings": [
+    "Vector column labels and DQF bit semantics must be checked against NOAA documentation before physical interpretation.",
+    "No component-level lag inference, background subtraction, or independent-event validation performed."
+  ]
+}
