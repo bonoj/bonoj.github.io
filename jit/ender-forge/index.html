@@ -81,7 +81,8 @@ function enderMusicUpdate(dt){
  m.history.push(families);if(m.history.length>12)m.history.shift();
  const avg=k=>m.history.reduce((n,v)=>n+v[k],0)/m.history.length;
  const weights=['growth','decay','life','danger','water','stone'].map(k=>avg(k));
- // Silence in the footprint is a legitimate musical state: keep a gentle pastoral baseline.\n const dominant=Math.max(...weights)===0?0:weights.indexOf(Math.max(...weights));
+ // Silence in the footprint is a legitimate musical state: keep a gentle pastoral baseline.
+ const dominant=Math.max(...weights)===0?0:weights.indexOf(Math.max(...weights));
  const modes=[[0,2,4,7,9],[0,3,5,7,10],[0,2,5,7,9],[0,1,5,6,10],[0,2,5,7,10],[0,3,5,8,10]];
  const roots=[48,45,53,40,50,43],styles=['pluck','bow','pluck','drum','air','drum'];
  const degree=(m.step+Math.floor(ender.steps/27))%5;
