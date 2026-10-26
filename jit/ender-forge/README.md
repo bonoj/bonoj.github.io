@@ -82,15 +82,3 @@ Arrows describe **actual world causes and transfers**, not new features. Use onl
 **Deferred:** save/restore remains unimplemented. Preserve durable world truth (progression, positions, ecology, geology, inventory, workers/cargo/journeys) and reconstruct ephemeral claims/timers when a future design is authorized. No save UI or radial-command node is approved. Retired optimization experiments stay retired. The [chronicle](./CHRONICLE.md) preserves the full original specifications, save/restore design reasoning, rejected proposals and development evidence; source remains executable truth.
 
 **Cadence:** Play → notice → invent → ship → verify → play again. `➡️` means advance; `Dracarys` means authorized fix/implement/deploy. Read the chronicle selectively when a causal decision needs archaeology.
-
-## Soundwalk experiment — 26 October 2026
-
-Ender's existing bounded local snapshot now drives a zero-audio-asset Web Audio score. The random walk, sight radius (125), and Tiffany's ecology are unchanged. A first pointer interaction unlocks browser audio; without one, the world remains silent. Approximately every half-second, nearby witnessed entities are grouped into growth, decay, life, danger, water, and stone voices. A short rolling memory stabilizes the harmonic mode; location and step count vary the melody. No offscreen data, external samples, model inference, or command authority. This is an initial musical sketch, not acoustic realism. Source committed; browser sound/rendering not yet independently verified.
-
-### Soundwalk deployment identification
-
-`ender-audio-status` is an in-world, noninteractive label displaying `soundwalk-02` and the browser audio state after a user gesture. This is an explicit feature-version indicator; it does not replace the eight-character executing-script fingerprint. If the label is absent, the browser is not executing this source version. A Git commit and readback verify repository state only, not Pages propagation or audio output.
-
-### Soundwalk correction — 26 October 2026
-
-Removed the unsolicited `soundwalk-02` battlefield overlay. Existing gameplay pointer/click gestures resume Web Audio; there is no new control. When Ender's 125-unit local footprint is empty, the composer deliberately retains a quiet pastoral baseline, rather than muting. Audio still requires a browser-permitted user gesture. Repository publishes this static HTML through the existing GitHub Pages configuration; the repo's `.github/workflows` directory contains no Pages-specific deployment workflow. Git source readback does not establish CDN freshness or live playback. The 8-character UI identifier remains the executing inline script's SHA-256, not a Git commit.
