@@ -545,3 +545,10 @@ All four HTTP **200**, all four `RECENT_DATA`, and each window's `gapsOverThreeM
 **Operational guardrails:** no more UI polish until science requires it; no arbitrary source/channel cap; no uncontrolled polling or inferred causality; preserve root Lattice, separate solar/L1/GEO worlds and Gate discipline. Maintain compact emoji reports, honest browser verification boundaries, one viewport and 👁 handoff.
 
 **Cold-boot README:** replaced stale STACK/09 lead with STACK/12 verified baseline, exact audit and next-step order in commit `430f9c1d4731a24b51c224cd8a33f7994dc0389a`. Read README CURRENT → SPEC mission/sequence → Chronicle §§33–36 → Stack/L1 runtimes → Lattice/Gate. **Next ➡️:** source-registry/acquisition step, not sparkline refinement.
+
+
+## 37 — 🧬 Stack/13 normalized source registry (2026-10-26)
+
+**User:** ➡️ following spec reorientation. **Implementation:** `jit/observatory/stack/index.html` commit `c4108f04a5aff1177438f5be644f717b9fe779d2`, build `stack/13`. Added `report.registry` to 👁 JSON with schema `observatory-source-registry/v1`: static feed definitions merged with live report provenance, platform/instrument/channel, measurement vs derived-index kind, frame/unit, observed/fetched UTC, sample age, timestamp cadence, active flag when provided, QC, HTTP/error, eligible count, and lifecycle. Four existing Stack feeds are marked INGESTED only when RECENT_DATA, while NOAA L1 plasma and GOES secondary are explicitly **CANDIDATE** registry stubs, not new observations. Unknown positions remain null. The interface and polling remain unchanged. No cross-domain causality is inferred.
+
+**Verification boundary:** source commit only; Stack/13 browser 👁 report and runtime execution **pending**. Lifecycle labels are runtime-local, not an independently persisted verification ledger; historical Stack/12 👁 evidence applies to the four existing feed families only. **Next:** inspect user Stack/13 👁 for registry correctness and no regression, then add actual verified measurements/spacecraft identity. No UI polish.
