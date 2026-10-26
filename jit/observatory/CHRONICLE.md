@@ -73,3 +73,18 @@ Append a short numbered entry containing:
 A speculative idea is marked *planned*. A committed file is marked *committed*. A real browser result is marked *browser-verified*. An integrated scientific comparison is marked *correlatable* only with timestamps, provenance, geometry and quality.
 
 **Operational shorthand:** ➡️ = one substantial testable advance; Dracarys = fix and deploy. No invented measurements, no silent fallbacks, no dead UI controls.
+
+
+## 03 — First GEO probe committed (2026-10-26)
+
+**Intent:** establish real GEO measurements with per-instrument spacecraft attribution, without changing the working L1 instrument.
+
+**Action:** created [geo/index.html](geo/index.html), canonical https://bonoj.github.io/jit/observatory/geo/ , commit `8110f09a`. Four minimal status panels (primary/secondary magnetometer and integral proton) plus a single 👁 copy report. NOAA requests: instrument-sources.json, satellite-longitudes.json, primary/secondary magnetometers-6-hour.json, primary/secondary integral-protons-6-hour.json. Initial metadata requests complete before science requests; numeric fields are discovered from returned records rather than hardcoded.
+
+**Source discovery before implementation:** NOAA public metadata currently reports GOES-19 primary and GOES-18 secondary for magnetometers, **but GOES-18 primary and GOES-19 secondary for protons**; longitude metadata lists GOES-19 ~72.5°W and GOES-18 ~137°W. This is provider-published metadata, **not browser 👁 verification**. NOAA source directories list all four six-hour measurement endpoints.
+
+**Geometry qualification:** the probe computes *approximate* solar local time and solar-axis angular offset from NOAA longitude and a simple solar-position approximation assuming geostationary equatorial location. It records sunward status but explicitly leaves sun-visible and eclipsed as null: precise eclipse/line-of-sight classification needs spacecraft ephemerides and validated geometry. These calculated fields are not measurements.
+
+**Evidence state:** GitHub file creation succeeded; **browser HTTP/CORS, sample values, live Pages deployment and clipboard operation have NOT yet been verified**. The 👁 JSON reports request status, HTTP, latency, record counts, raw excerpts, numeric-field inventory and geometry. The probe is intentionally independent and does **not yet use the Lattice governor**; this is a bounded one-shot six-request diagnostic, not a recurring acquisition loop.
+
+**Next:** open the canonical URL on the user's phone, tap 👁, paste JSON. Inspect actual source mapping, timestamped magnetometer/proton numeric fields, units and quality structure; then correct parsing/geometry and migrate verified acquisition into the shared governed transport. Do not claim live verification until the report arrives.
