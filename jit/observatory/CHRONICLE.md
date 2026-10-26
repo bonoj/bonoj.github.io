@@ -441,3 +441,19 @@ The first unified stack was committed as `stack/01` (`a868879b`), sourcing GOES 
 Updated README CURRENT cold-boot contract with the browser-evidenced stack/08 baseline, stack/09 verification boundary, approved emoji instrument-report convention, and next frontier: timestamp alignment, missingness, uncertainty and refresh/failure validation. README update commit `51bc1a0dba59f4c271691c6ea79516383abf583b`.
 
 **Next frontier:** 🛰️ inspect timestamp/cadence alignment and scientifically honest gaps across ☀️ → 🛰️ → 🌐 → 🌍, preserving station-index semantics and forbidding unsupported causal conclusions.
+
+
+## 29 — 🔭 Stack/09 browser evidence: four fresh acquisitions (2026-10-26)
+
+**User supplied 👁** `hermeticon-stack-stack-09-2026-10-26T06-30-47-506Z.json`, schema `hermeticon-stack-eye/v1`, `build:stack/09`, captured **2026-10-26T06:30:47.506Z**. This confirms Stack/09 executed in the browser, resolving the §28 pending-verification boundary.
+
+| Lane | Latest observed UTC | Latest measurement | Six-hour window point count |
+| --- | --- | --- | --- |
+| ☀️ Solar | 06:27 | GOES-18 long X-ray **3.010890452515014e-7 W/m²** | **357/360** |
+| 🛰️ L1 | 06:24 | GSM Bz **−0.31 nT** | **321/360** |
+| 🌐 GEO | 06:22 | local total field **82.66983032226562 nT** | **352/360** |
+| 🌍 Earth | 06:24 | Boulder local K **0.2** | **354/360** |
+
+All four HTTP **200**, all four `RECENT_DATA`, and each window's `gapsOverThreeMinutes:0`. Transport snapshot: `started:4`, `ok:4`, `failed:0`, `deduped:0`, `cacheHits:0`, `active:0`, `queued:0`. Contrasts with stack/08's four cache hits: the browser has now evidenced both initial network acquisition and cached reuse. These are ordinary-path tests, not concurrency/backoff stress tests. Coverage counts are minute-slot descriptive metrics, not independent physical sampling proof; Boulder K is not planetary Kp.
+
+**Next frontier:** construct explicit temporal overlap/missingness summaries and station-cadence warnings without introducing unsupported solar→ground causality.
