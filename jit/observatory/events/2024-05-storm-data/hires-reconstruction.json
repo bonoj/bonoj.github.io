@@ -1,0 +1,681 @@
+{
+  "schema": "hermeticon-hires-reconstruction/v1",
+  "status": "RECONSTRUCTION_COMPLETE_NOT_VALIDATED",
+  "createdAt": "2026-10-26T05:40:41.057119+00:00",
+  "days": [
+    {
+      "day": "20240510",
+      "targetMinute": 1040,
+      "highResolutionURL": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes18/l2/data/magn-l2-hires/2024/05/dn_magn-l2-hires_g18_d20240510_v1-0-1.nc",
+      "highResolutionBytes": 202508885,
+      "highResolutionSHA256": "0ee93a2db15ee8aa30e375060580ddc94f99a6728307b99280b0952df43daa8e",
+      "datasets": {
+        "b_total": {
+          "shape": [
+            864000
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Total estimated ambient magnetic field computed from the ACRF frame.'"
+        },
+        "b_epn": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetic field in EPN coordinates (x, y, z). E: earthward, P: perpendicular to orbital plane, N: ExP.'"
+        },
+        "b_eci": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetic field in Earth Centered Inertial coordinates (x, y, z)'"
+        },
+        "b_gse": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetometer data in Geocentric Solar Ecliptic coordinates (x, y, z)'"
+        },
+        "b_gsm": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetometer data in Geocentric Solar Magnetospheric coordinates (x, y, z)'"
+        },
+        "b_vdh": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetometer data in VDH coordinates (x, y, z). V: anti-earthward, D: eastward, H: northward along dipole.'"
+        },
+        "b_brf": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetic field in Body Reference Frame coordinates (x, y, z). This frame orients the magnetometer to the SEISS.'"
+        },
+        "b_quality": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint32",
+          "units": "",
+          "comments": "b'Quality flag for Best, applies to all coordinate frames.'"
+        },
+        "time": {
+          "shape": [
+            864000
+          ],
+          "dtype": "float64",
+          "units": "b'seconds since 2000-01-01 12:00:00'",
+          "comments": "b'Overall field timestamp with 0.1 second resolution. Seconds since the J2K epoch'"
+        },
+        "b_ib_sensor": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated (calibrated and misalignment corrected) magnetic field for x, y, and z direction in native reference frame for inboard magnetometer'"
+        },
+        "b_ib_epn": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in EPN coordinates (x, y, z). E: earthward, P: perpendicular to orbital plane, N: ExP.'"
+        },
+        "b_ib_eci": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in Earth Centered Inertial coordinates (x, y, z)'"
+        },
+        "b_ib_gse": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in Geocentric Solar Ecliptic coordinates (x, y, z)'"
+        },
+        "b_ib_gsm": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in Geocentric Solar Magnetospheric coordinates (x, y, z)'"
+        },
+        "b_ib_vdh": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in VDH coordinates (x, y, z). V: anti-earthward, D: eastward, H: northward along dipole.'"
+        },
+        "b_ib_acrf": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data (x, y, z)'"
+        },
+        "b_ib_brf": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in Body Reference Frame coordinates (x, y, z). This frame orients the magnetometer to the SEISS.'"
+        },
+        "b_ib_quality": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint32",
+          "units": "",
+          "comments": "b'Quality flag for Inboard sensor, applies to all coordinate frames.'"
+        },
+        "time_ib": {
+          "shape": [
+            864000
+          ],
+          "dtype": "float64",
+          "units": "b'seconds since 2000-01-01 12:00:00'",
+          "comments": "b'Inboard intermediate timestamp with 0.1 second resolution. Seconds since the J2K epoch'"
+        },
+        "b_ob_sensor": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated (calibrated and misalignment corrected) magnetic field for x, y, and z direction in native reference frame for outboard magnetometer'"
+        },
+        "b_ob_epn": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in EPN coordinates (x, y, z). E: earthward, P: perpendicular to orbital plane, N: ExP.'"
+        },
+        "b_ob_eci": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in Earth Centered Inertial coordinates (x, y, z)'"
+        },
+        "b_ob_gse": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in Geocentric Solar Ecliptic coordinates (x, y, z)'"
+        },
+        "b_ob_gsm": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in Geocentric Solar Magnetospheric coordinates (x, y, z)'"
+        },
+        "b_ob_vdh": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in VDH coordinates (x, y, z). V: anti-earthward, D: eastward, H: northward along dipole.'"
+        },
+        "b_ob_acrf": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data (x, y, z)'"
+        },
+        "b_ob_brf": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in Body Reference Frame coordinates (x, y, z). This frame orients the magnetometer to the SEISS.'"
+        },
+        "b_ob_quality": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint32",
+          "units": "",
+          "comments": "b'Quality flag for Outboard sensor, applies to all coordinate frames.'"
+        },
+        "time_ob": {
+          "shape": [
+            864000
+          ],
+          "dtype": "float64",
+          "units": "b'seconds since 2000-01-01 12:00:00'",
+          "comments": "b'Outboard intermediate timestamp with 0.1 second resolution. Seconds since the J2K epoch'"
+        },
+        "orbit_llr_geo": {
+          "shape": [
+            86400,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'degrees, degrees, meters'",
+          "comments": "b'Spacecraft geographic position (latitude (+north), longitude (+east), radius) (degrees, degrees, meters)'"
+        },
+        "time_orbit": {
+          "shape": [
+            86400
+          ],
+          "dtype": "float64",
+          "units": "b'seconds since 2000-01-01 12:00:00'",
+          "comments": "b'Orbit timestamp with 1 second resolution. Seconds since the J2K epoch'"
+        },
+        "coordinate": {
+          "shape": [
+            3
+          ],
+          "dtype": "uint8",
+          "units": "",
+          "comments": "b'3-dimensional for cartesian coordinates (x, y, z)'"
+        },
+        "DQF": {
+          "shape": [
+            864000
+          ],
+          "dtype": "uint32",
+          "units": "",
+          "comments": ""
+        }
+      },
+      "sourceGlobal": {
+        "algorithm": "b'cli-mag07_hires'",
+        "algorithm_version": "[1 1]",
+        "time_coverage_start": "b'2024-05-10T00:00:00.000Z'",
+        "time_coverage_end": "b'2024-05-11T00:00:00.000Z'"
+      },
+      "minuteReference": {
+        "b_total": 194.1782989501953,
+        "b_gsm": [
+          -6.232341289520264,
+          23.954097747802734,
+          -60.16934585571289
+        ],
+        "num_points": 600
+      },
+      "timeAttrs": {
+        "CLASS": "b'DIMENSION_SCALE'",
+        "NAME": "b'time'",
+        "_Netcdf4Dimid": "0",
+        "long_name": "b'time'",
+        "comments": "b'Overall field timestamp with 0.1 second resolution. Seconds since the J2K epoch'",
+        "units": "b'seconds since 2000-01-01 12:00:00'",
+        "_FillValue": "[-9999.]",
+        "REFERENCE_LIST": "[(<HDF5 object reference>, 0) (<HDF5 object reference>, 0)\n (<HDF5 object reference>, 0) (<HDF5 object reference>, 0)\n (<HDF5 object reference>, 0) (<HDF5 object reference>, 0)\n (<HDF5 object reference>, 0) (<HDF5 object reference>, 0)\n (<HDF5 object"
+      },
+      "vectorShape": [
+        864000,
+        3
+      ],
+      "sampleCount": 600,
+      "reconstructedMeanVector": [
+        -6.2323174476623535,
+        23.95406150817871,
+        -60.169342041015625
+      ],
+      "reconstructedNormOfMean": 65.06141662597656,
+      "reconstructedMeanOfNorm": 194.17831420898438,
+      "meanOfNormMinusNormOfMean": 129.1168975830078,
+      "scalarResidual_nT": 1.52587890625e-05,
+      "vectorResidualNorm_nT": 4.3546486117671486e-05,
+      "status": "RECONSTRUCTED_NOT_VALIDATED"
+    },
+    {
+      "day": "20240511",
+      "targetMinute": 41,
+      "highResolutionURL": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes18/l2/data/magn-l2-hires/2024/05/dn_magn-l2-hires_g18_d20240511_v1-0-1.nc",
+      "highResolutionBytes": 209469331,
+      "highResolutionSHA256": "d82ccfc2f0e47aef75e6d8371031024d28c68958a949c9df17aeb34b46a71ab2",
+      "datasets": {
+        "b_total": {
+          "shape": [
+            864000
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Total estimated ambient magnetic field computed from the ACRF frame.'"
+        },
+        "b_epn": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetic field in EPN coordinates (x, y, z). E: earthward, P: perpendicular to orbital plane, N: ExP.'"
+        },
+        "b_eci": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetic field in Earth Centered Inertial coordinates (x, y, z)'"
+        },
+        "b_gse": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetometer data in Geocentric Solar Ecliptic coordinates (x, y, z)'"
+        },
+        "b_gsm": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetometer data in Geocentric Solar Magnetospheric coordinates (x, y, z)'"
+        },
+        "b_vdh": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetometer data in VDH coordinates (x, y, z). V: anti-earthward, D: eastward, H: northward along dipole.'"
+        },
+        "b_brf": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Estimated ambient magnetic field in Body Reference Frame coordinates (x, y, z). This frame orients the magnetometer to the SEISS.'"
+        },
+        "b_quality": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint32",
+          "units": "",
+          "comments": "b'Quality flag for Best, applies to all coordinate frames.'"
+        },
+        "time": {
+          "shape": [
+            864000
+          ],
+          "dtype": "float64",
+          "units": "b'seconds since 2000-01-01 12:00:00'",
+          "comments": "b'Overall field timestamp with 0.1 second resolution. Seconds since the J2K epoch'"
+        },
+        "b_ib_sensor": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated (calibrated and misalignment corrected) magnetic field for x, y, and z direction in native reference frame for inboard magnetometer'"
+        },
+        "b_ib_epn": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in EPN coordinates (x, y, z). E: earthward, P: perpendicular to orbital plane, N: ExP.'"
+        },
+        "b_ib_eci": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in Earth Centered Inertial coordinates (x, y, z)'"
+        },
+        "b_ib_gse": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in Geocentric Solar Ecliptic coordinates (x, y, z)'"
+        },
+        "b_ib_gsm": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in Geocentric Solar Magnetospheric coordinates (x, y, z)'"
+        },
+        "b_ib_vdh": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in VDH coordinates (x, y, z). V: anti-earthward, D: eastward, H: northward along dipole.'"
+        },
+        "b_ib_acrf": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data (x, y, z)'"
+        },
+        "b_ib_brf": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated inboard magnetometer data in Body Reference Frame coordinates (x, y, z). This frame orients the magnetometer to the SEISS.'"
+        },
+        "b_ib_quality": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint32",
+          "units": "",
+          "comments": "b'Quality flag for Inboard sensor, applies to all coordinate frames.'"
+        },
+        "time_ib": {
+          "shape": [
+            864000
+          ],
+          "dtype": "float64",
+          "units": "b'seconds since 2000-01-01 12:00:00'",
+          "comments": "b'Inboard intermediate timestamp with 0.1 second resolution. Seconds since the J2K epoch'"
+        },
+        "b_ob_sensor": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated (calibrated and misalignment corrected) magnetic field for x, y, and z direction in native reference frame for outboard magnetometer'"
+        },
+        "b_ob_epn": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in EPN coordinates (x, y, z). E: earthward, P: perpendicular to orbital plane, N: ExP.'"
+        },
+        "b_ob_eci": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in Earth Centered Inertial coordinates (x, y, z)'"
+        },
+        "b_ob_gse": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in Geocentric Solar Ecliptic coordinates (x, y, z)'"
+        },
+        "b_ob_gsm": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in Geocentric Solar Magnetospheric coordinates (x, y, z)'"
+        },
+        "b_ob_vdh": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in VDH coordinates (x, y, z). V: anti-earthward, D: eastward, H: northward along dipole.'"
+        },
+        "b_ob_acrf": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data (x, y, z)'"
+        },
+        "b_ob_brf": {
+          "shape": [
+            864000,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'nT'",
+          "comments": "b'Compensated outboard magnetometer data in Body Reference Frame coordinates (x, y, z). This frame orients the magnetometer to the SEISS.'"
+        },
+        "b_ob_quality": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint32",
+          "units": "",
+          "comments": "b'Quality flag for Outboard sensor, applies to all coordinate frames.'"
+        },
+        "time_ob": {
+          "shape": [
+            864000
+          ],
+          "dtype": "float64",
+          "units": "b'seconds since 2000-01-01 12:00:00'",
+          "comments": "b'Outboard intermediate timestamp with 0.1 second resolution. Seconds since the J2K epoch'"
+        },
+        "orbit_llr_geo": {
+          "shape": [
+            86400,
+            3
+          ],
+          "dtype": "float32",
+          "units": "b'degrees, degrees, meters'",
+          "comments": "b'Spacecraft geographic position (latitude (+north), longitude (+east), radius) (degrees, degrees, meters)'"
+        },
+        "time_orbit": {
+          "shape": [
+            86400
+          ],
+          "dtype": "float64",
+          "units": "b'seconds since 2000-01-01 12:00:00'",
+          "comments": "b'Orbit timestamp with 1 second resolution. Seconds since the J2K epoch'"
+        },
+        "coordinate": {
+          "shape": [
+            3
+          ],
+          "dtype": "uint8",
+          "units": "",
+          "comments": "b'3-dimensional for cartesian coordinates (x, y, z)'"
+        },
+        "DQF": {
+          "shape": [
+            864000
+          ],
+          "dtype": "uint32",
+          "units": "",
+          "comments": ""
+        }
+      },
+      "sourceGlobal": {
+        "algorithm": "b'cli-mag07_hires'",
+        "algorithm_version": "[1 1]",
+        "time_coverage_start": "b'2024-05-11T00:00:00.000Z'",
+        "time_coverage_end": "b'2024-05-12T00:00:00.000Z'"
+      },
+      "minuteReference": {
+        "b_total": 216.1994171142578,
+        "b_gsm": [
+          -1.4381221532821655,
+          33.10440444946289,
+          15.731355667114258
+        ],
+        "num_points": 600
+      },
+      "timeAttrs": {
+        "CLASS": "b'DIMENSION_SCALE'",
+        "NAME": "b'time'",
+        "_Netcdf4Dimid": "0",
+        "long_name": "b'time'",
+        "comments": "b'Overall field timestamp with 0.1 second resolution. Seconds since the J2K epoch'",
+        "units": "b'seconds since 2000-01-01 12:00:00'",
+        "_FillValue": "[-9999.]",
+        "REFERENCE_LIST": "[(<HDF5 object reference>, 0) (<HDF5 object reference>, 0)\n (<HDF5 object reference>, 0) (<HDF5 object reference>, 0)\n (<HDF5 object reference>, 0) (<HDF5 object reference>, 0)\n (<HDF5 object reference>, 0) (<HDF5 object reference>, 0)\n (<HDF5 object"
+      },
+      "vectorShape": [
+        864000,
+        3
+      ],
+      "sampleCount": 600,
+      "reconstructedMeanVector": [
+        -1.4381141662597656,
+        33.104408264160156,
+        15.731334686279297
+      ],
+      "reconstructedNormOfMean": 36.68030548095703,
+      "reconstructedMeanOfNorm": 216.19940185546875,
+      "meanOfNormMinusNormOfMean": 179.51909637451172,
+      "scalarResidual_nT": -1.52587890625e-05,
+      "vectorResidualNorm_nT": 2.2771470696970935e-05,
+      "status": "RECONSTRUCTED_NOT_VALIDATED"
+    }
+  ]
+}
