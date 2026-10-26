@@ -16,15 +16,16 @@
 
 ## Counts
 
-- **19** top-level entries: **12** experiment directories, **6** standalone experiment HTML files, **1** visual landing page (`index.html`).
-- **18** distinct experiments indexed below; **12** nested `index.html` entrypoints.
-- **24** total HTML files including nested entrypoints and the landing page; this README is additional.
+- **20** top-level entries: **12** experiment directories, **7** standalone experiment HTML files, **1** visual landing page (`index.html`).
+- **19** distinct experiments indexed below; **12** nested `index.html` entrypoints.
+- **25** total HTML files including nested entrypoints and the landing page; this README is additional.
 - Earlier five directories were enumerated directly; the newer directories contain one entrypoint each. Re-enumerate for a fully refreshed snapshot.
 
 ## Human-readable experiment index
 
 | Experiment | Type | Source | Live | What it does |
 |---|---|---|---|---|
+| Corporate Friction Garden | interactive-toy | [`friction-garden.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/friction-garden.html) | [Open](https://bonoj.github.io/jit/assets/friction-garden.html) | Six independently growing corporate-friction stacks; sustained touch excavates the held stack and sheds emoji particles; release resumes growth. Hold-to-deform primitive. |
 | Ant Axe Log Study | svg-animation | [`ant-axe-log-study.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ant-axe-log-study.html) | [Open](https://bonoj.github.io/jit/assets/ant-axe-log-study.html) | Exploratory animated SVG composition of ant, axe and log; explicitly archived, not final art. |
 | Ash and Root | generative-environment | [`ash-and-root/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ash-and-root/index.html) | [Open](https://bonoj.github.io/jit/assets/ash-and-root/) | Organic growth, wind, fire, sand and embers; touch-reactive full-screen 2D environment. |
 | Ball-Bearing Worm | interactive-simulation | [`ball-bearing-worm.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ball-bearing-worm.html) | [Open](https://bonoj.github.io/jit/assets/ball-bearing-worm.html) | 3D segmented worm; orbit and tap to guide, feed mushrooms, introduce eagle, reset, adjust segment count. |
