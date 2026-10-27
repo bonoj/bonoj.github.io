@@ -14,7 +14,7 @@ def check(screen: str, canonical: str):
     # Remove comments and string literals before searching for Kotlin calls.
     stripped = re.sub(r'/\*[\s\S]*?\*/|//[^\n]*|"(?:\\.|[^"\\])*"', ' ', screen)
     for name in ("Button", "FilterChip", "Card"):
-        if re.search(r'(?<![\w])(?:androidx\.compose\.material3\.)?' + name + r'\s*\(', stripped):
+        if re.search(r'(?<![\w])(?:androidx\.compose\.material3\.)?' + name + r'\s*(?:\(|\{)', stripped):
             failures.append("raw Material component: " + name)
     if re.search(r'\bColor\s*\(|\bColor\s*\.', stripped):
         failures.append("screen-local color instead of CanonicalTokens")
