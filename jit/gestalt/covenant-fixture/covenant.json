@@ -1,0 +1,25 @@
+{
+  "schema": "gestalt-covenant/fixture-1",
+  "source": "../contract.json",
+  "scope": "save-action-only",
+  "state": {
+    "saved": {
+      "type": "boolean",
+      "initial": false
+    }
+  },
+  "actions": {
+    "save": {
+      "transition": "toggle(saved)"
+    }
+  },
+  "observations": {
+    "initialLabel": "Save idea",
+    "savedLabel": "✓ Saved"
+  },
+  "invariants": [
+    "initially-unsaved",
+    "first-tap-saved",
+    "second-tap-unsaved"
+  ]
+}
