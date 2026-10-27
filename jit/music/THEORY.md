@@ -460,3 +460,37 @@ Use Web Audio plucked-string-like voices with decaying harmonic partials, a smal
 8. Mobile-first layout keeps the fretboard and soundboard large enough for finger use.
 
 **Success:** playable touch mechanics and convincing minor resonance, not an autonomous composition system.
+
+
+---
+
+## Experience 009 — Baba Yaga's Dancing Hut / A Harmonic Minor Harp (2026-10-27)
+
+**Unlock:** Construct a playable instrument with a limited, coherent pitch topology, then let a score **play that instrument programmatically**. A strumstick, harp, or harmonica is an instrument model and gesture vocabulary, not a generic oscillator pretending to be a musician. Experience 009 uses a small **A harmonic minor harp** (A B C D E F G♯), including its distinctive raised seventh, to perform an original, darkly playful dance for Baba Yaga's hut. The reference is folklore and mood; do not copy a specific existing composition.
+
+### Instrument
+
+- 15 harp strings spanning A2–A4 with notes **A2 B2 C3 D3 E3 F3 G♯3 A3 B3 C4 D4 E4 F4 G♯4 A4**.
+- Every pitch is a physical/virtual string with its own resonance and pluck response. There is no chromatic note allocation: the harp's tuning constrains the composition.
+- Gestures: **pluck(string, velocity, time)**, **sweep(strings, direction, spacing, time)**, **damp(string, time)**. A sweep is a scheduled series of actual plucks, not a new synthesized chord sound.
+- Web Audio plucked partials and envelopes, stereo placement, body filtering, finite voice count, no samples or network assets.
+
+### Original composition / performance
+
+A repeating, intentionally arranged dance with four contrasting sections: **stalking footsteps**, **crooked ascent**, **the hut spins**, and **landing on its feet**. Distinct rhythmic accents and rests; low-string ostinato, upper-string melody, periodic broken-chord sweeps. Use an asymmetric rhythmic cell (e.g. 3+2+2 eighth-note groups) to make the hut lurch and dance; do not rely on random pitch selection. A harmonic minor's G♯ should pull strongly to A, particularly at cadences. Reprise motifs with transformations, not stochastic wandering. Use a finite looping 4-section score and a visible phrase indicator.
+
+### UI and lifecycle
+
+Add **09 · Baba Yaga's Harp** to the existing single-page JIT Music. Show a compact 15-string harp visualizer, current plucks and active phrase, Play / Stop and a tempo control. The strings should also be tappable for manual plucking while the automated performance plays, demonstrating the same instrument engine. Programmatic plucks are scheduled ahead on \`AudioContext.currentTime\`, never inside \`requestAnimationFrame\`. Navigation stops and silences the experience; prevent duplicate schedulers and orphaned voices.
+
+### Acceptance
+
+1. Open notes are exactly A harmonic minor, including G♯ (not G).
+2. The original tune has an audible melodic contour, asymmetric dance pulse, repeating motifs, and harmonic resolution.
+3. All generated music is played through the same harp pluck function as manual touches.
+4. String sweep order and timing are audible; overlapping resonances decay naturally.
+5. Tempo changes affect scheduling without pitch changes.
+6. Play, stop, and navigation work reliably on mobile without stray sound.
+7. The tune should evoke a dancing, slightly menacing wooden hut; verify by listening rather than claiming the implementation automatically achieves it.
+
+**Principle:** First build an instrument that makes coherent gestures possible. Then compose *for that instrument*.
