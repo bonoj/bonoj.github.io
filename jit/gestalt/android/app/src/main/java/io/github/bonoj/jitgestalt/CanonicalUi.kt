@@ -1,6 +1,7 @@
 package io.github.bonoj.jitgestalt
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,6 +27,6 @@ fun CanonicalChip(selected: Boolean, onClick: () -> Unit, label: @Composable () 
 }
 
 @Composable
-fun CanonicalCard(content: @Composable () -> Unit) {
+fun CanonicalCard(content: @Composable ColumnScope.() -> Unit) {
     Card(colors = CardDefaults.cardColors(containerColor = CanonicalTokens.Surface), content = content)
 }
