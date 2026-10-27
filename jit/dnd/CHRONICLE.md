@@ -501,3 +501,32 @@ Tavin's next experiments were meant to distinguish competing explanations: orien
 That last test is especially interesting. If a detached fragment reproduced the response away from the Foundry, it would support a different mechanism from one requiring the intact structure.
 
 Neither outcome had been established.
+
+## The Greenglassers
+
+The surviving field atlas contains a later observation titled **Greenglass**. It shows Tavin and another worker beside a larger brass apparatus containing a translucent blue-green vessel.
+
+There are therefore at least two potentially related objects in the recovered evidence:
+
+1. The portable brass-and-green water instrument.
+2. The larger Greenglass apparatus.
+
+The atlas explicitly refuses to conclude that they operate by the same mechanism. They might share a technology, a material tradition, or only a superficial resemblance.
+
+I haven't recovered enough to reconstruct the Greenglassers' complete society, political relationships, or manufacturing practices. Nor can I establish that the device creates water rather than transports or conducts it from somewhere else.
+
+## The original evidence that survived
+
+**Tavin: Keeper of the Deep Works**
+
+Character dossier with clothing, occupational identity, mill-mark history, expressions, and scenes of the descent.
+
+**Foundry Water Response Journal**
+
+Experimental setup, locations A–I, preliminary response curve, controls, and unresolved physical questions.
+
+**Foundry Field Atlas**
+
+Ten ordered visual observations, from the first sight of the basin to the Greenglass apparatus, with explicit separation of evidence and interpretation.
+
+These are actual recovered Library artifacts, not hypothetical documents. The atlas preserves references to the original image sequence, although I haven't verified that all ten original images remain individually accessible.
