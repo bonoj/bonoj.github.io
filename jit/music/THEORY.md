@@ -315,3 +315,56 @@ Build the smallest credible world: **two performers, one motif, one pulse source
 ### Research orientation
 
 Adjacent lines of work include agent-based generative music, coupled oscillators / swarmalators, interactive sonification, algorithmic composition, and game-audio ECS architectures. Treat these as inspirations, not proof that a canonical musical ECS architecture already exists. Validate individual sources before turning them into implementation dependencies.
+
+
+---
+
+## Experience 006 — The Musical Tree (2026-10-26)
+
+**Origin:** After experiences 004–005, the listener reported that gravity and performer distance had little audible effect, and that music ought to be as mathematically tractable as growing and pruning a tree. This is a change of primitive, not an attempt to repair the ECS sliders.
+
+### Hypothesis
+
+**Music is a recursively transformable relational structure.** A short musical seed (ordered pitch intervals, durations, and rests) can grow into recognizable variations through a small algebra of operations. Tree structure is the compositional source of truth; the synthesizer is a renderer. No simulated performers, spatial physics, or ornamental field controls are necessary.
+
+### Minimal grammar
+
+- **Seed:** an audible two-bar motif with interval, duration, and rest data.
+- **Grow:** append a child phrase inheriting the parent motif with a deterministic variation.
+- **Branch:** add a sibling phrase; siblings may play as successive phrases or simultaneous counterpoint.
+- **Prune:** remove a chosen subtree and its scheduled descendants.
+- **Graft:** copy a chosen phrase into another parent and transpose or rhythmically transform it.
+- **Transform:** apply a concrete operator: transpose, invert intervals, augment/diminish duration, retrograde, ornament, or introduce rests.
+- **Repeat:** reuse a subtree without copying its definition.
+
+The prototype needs only **Grow**, **Prune**, **Transform**, and **Reset**, with optional **Graft** if the first three work. Avoid speculative knobs.
+
+### Data and invariants
+
+```text
+Motif = { intervals: number[], durations: number[], rests?: boolean[] }
+Node  = { id, parentId, children[], motif, operation, depth, voice }
+Tree  = { rootId, nodes, selectedId, seed }
+```
+
+A node's audible phrase must derive from its parent's phrase and recorded operation. Parent-child relationships must be visible and inspectable. Tree growth and pruning must change the **actual sequence of scheduled notes**, not just a visualization. Cap tree size/depth and polyphony. Seed and operation sequence should be reproducible.
+
+### Musical interpretation
+
+Depth can map to phrase scale; siblings can be ordered as variations; an explicit counterpoint operation can turn a branch into a second voice. Harmony is a relationship between simultaneous phrases; rhythm is nested duration. Preserve a clear tonal center and recognizable contour so structural complexity remains listenable. Silence is a first-class musical event.
+
+### UX and implementation
+
+Add **06 · Musical Tree** to the existing JIT Music page. Render an interactive branching tree where nodes correspond to phrases. Tap a node to select it; **Grow** creates an audible descendant, **Prune** removes a selected non-root subtree, **Transform** cycles a meaningful variation, **Reset** restores the seed. **Play / Stop** schedules the current tree as a finite, looping passage via Web Audio with lookahead scheduling independent of `requestAnimationFrame`. Never schedule music in the render loop. User gesture unlocks audio; switching experiences stops playback. Keep all earlier experiences untouched.
+
+### Acceptance tests
+
+1. Play root alone: a short recognizable phrase.
+2. Grow: the performance becomes longer or acquires a distinct related phrase, with a visible branch.
+3. Transform: the selected phrase audibly changes in a mathematically identifiable way.
+4. Prune: the branch and its notes disappear; root cannot be pruned.
+5. Reset: exact seed and structure return.
+6. Repeated operations do not create runaway notes, audio tails, duplicate timers, or broken navigation.
+7. On a phone, the diagram and controls remain legible and touch-operable.
+
+**Success:** growing, transforming, and pruning the tree are immediately audible and causally legible. Musicality is judged by listening, not by the number of implemented operators.
