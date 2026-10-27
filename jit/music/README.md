@@ -22,6 +22,7 @@ Canonical entrypoint: https://bonoj.github.io/jit/music/
 | 005 | Musical ECS | Two draggable performers, evolving pitch and phase states, harmonic gravity, coupling through a listening edge, optional acoustic boundary |
 | 006 | The Musical Tree | Selectable phrase tree; Grow, Transform, Prune, Reset; live Web Audio playback of inherited musical variations |
 | 007 | Three Spectra | Three persistent vibrating voices with slide, hammer-on, pull-off, mute, damping, drift and subtle sympathetic resonance |
+| 008 | Three-String Minor Lute | D–A–F open D minor, diatonic touch fretboard, independent multitouch strumming soundboard, hammer-on and pull-off |
 
 ## Experience 004 — Field Music
 
@@ -56,3 +57,7 @@ Theory and acceptance tests are specified in `THEORY.md`. The implementation is 
 ## Experience 007 — Three Spectra
 
 Specification and acceptance tests are in `THEORY.md`. The initial implementation provides three persistent Web Audio oscillator banks (D2/A2/D3), pitch glide driven by spring-like state, per-string excitation and decay, and small ratio-dependent sympathetic energy transfer. The AudioContext-clock update interval is separate from the canvas visual loop; there is no note-event sequencer. Touch/drag on each of three tracks, plus explicit Hammer, Pull, Mute, and Excite All controls. A touch excites a voice and moves its pitch target; the explicit gesture buttons guarantee discoverable hammer/pull semantics. No autoplay. Source commit `cfc0983c8f8d8c171b161352ac9bc4d6cd506411`. Public Pages deployment, gesture feel, and audio quality remain unverified until live listening.
+
+## Experience 008 — Three-String Minor Lute
+
+Specification and tuning rationale are in `THEORY.md`. The open pitches are D3/A3/F4 (D minor); this is an interpretation of the user's DAD-to-minor request, since simply lowering a D in DAD does not produce a D minor triad. Three touch-frettable strings use D-natural-minor offsets 0,2,3,5,7,8,10,12. Neck and soundboard are separate canvases with per-pointer tracking, so one pointer can fret while another strums. Sliding a held finger to a new fret retunes ringing partials and creates a small hammer/pull excitation. Strumming across soundboard lanes triggers them in traversal order. A direct strum button and mute button are also provided. Source commit `6d73162030260f49845cb5ea2d740075195539f3`. Source committed; public Pages deployment and live musical quality unverified.
