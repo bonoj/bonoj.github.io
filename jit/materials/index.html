@@ -7,7 +7,39 @@ const MATERIALS=Object.freeze([
  {id:"igni-ember",name:"Igni · Living ember",mode:1,energy:1,relief:1,lightAngle:-.7,description:"Charcoal with glowing molten veins"},
  {id:"yrden-crystal",name:"Yrden · Arcane crystal",mode:2,energy:1,relief:1,lightAngle:-.7,description:"Purple crystalline fissures and rim light"},
  {id:"quen-amber",name:"Quen · Shield amber",mode:3,energy:1,relief:1,lightAngle:-.7,description:"Golden translucent-looking stress bands"},
- {id:"axii-glass",name:"Axii · Hypnotic glass",mode:4,energy:1,relief:1,lightAngle:-.7,description:"Smoky green swirling optical bands"}
+ {id:"axii-glass",name:"Axii · Hypnotic glass",mode:4,energy:1,relief:1,lightAngle:-.7,description:"Smoky green swirling optical bands"},
+ {"id":"granite","name":"Granite","family":"Stone","mode":5,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Speckled feldspar and quartz","limitations":"Procedural visual approximation"},
+ {"id":"basalt","name":"Basalt","family":"Stone","mode":6,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Dark vesicular volcanic stone","limitations":"Procedural visual approximation"},
+ {"id":"sandstone","name":"Sandstone","family":"Stone","mode":7,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Warm sedimentary bands","limitations":"Procedural visual approximation"},
+ {"id":"slate","name":"Slate","family":"Stone","mode":8,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Fine compressed cleavage planes","limitations":"Procedural visual approximation"},
+ {"id":"quartz","name":"Quartz","family":"Minerals","mode":9,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Milky crystalline facets","limitations":"Procedural visual approximation"},
+ {"id":"amethyst","name":"Amethyst","family":"Minerals","mode":10,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Violet crystal zoning","limitations":"Procedural visual approximation"},
+ {"id":"malachite","name":"Malachite","family":"Minerals","mode":11,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Green copper carbonate bands","limitations":"Procedural visual approximation"},
+ {"id":"pyrite","name":"Pyrite","family":"Minerals","mode":12,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Brassy metallic cubic flecks","limitations":"Procedural visual approximation"},
+ {"id":"fresh-leaf","name":"Fresh Leaf","family":"Vegetation","mode":13,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Green branching vein network","limitations":"No leaf geometry or subsurface transport"},
+ {"id":"autumn-leaf","name":"Autumn Leaf","family":"Vegetation","mode":14,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Gold and russet aging veins","limitations":"No leaf geometry or subsurface transport"},
+ {"id":"moss","name":"Moss","family":"Vegetation","mode":15,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Soft green microclusters","limitations":"No leaf geometry or subsurface transport"},
+ {"id":"lichen","name":"Lichen","family":"Vegetation","mode":16,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Pale crustose mottling","limitations":"No leaf geometry or subsurface transport"},
+ {"id":"oak","name":"Oak","family":"Wood","mode":17,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Tight oak growth grain","limitations":"Procedural visual approximation"},
+ {"id":"birch-bark","name":"Birch Bark","family":"Wood","mode":18,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Pale bark with dark lenticels","limitations":"Procedural visual approximation"},
+ {"id":"pine-bark","name":"Pine Bark","family":"Wood","mode":19,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Rough red-brown fissures","limitations":"Procedural visual approximation"},
+ {"id":"weathered-wood","name":"Weathered Wood","family":"Wood","mode":20,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Silvered exposed wood fibers","limitations":"Procedural visual approximation"},
+ {"id":"cumulus","name":"Cumulus","family":"Atmosphere","mode":21,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Sunlit billowing density approximation","limitations":"Opaque surface approximation, not volumetric"},
+ {"id":"storm-cloud","name":"Storm Cloud","family":"Atmosphere","mode":22,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Deep thunderhead bands","limitations":"Opaque surface approximation, not volumetric"},
+ {"id":"fog","name":"Fog","family":"Atmosphere","mode":23,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Low contrast diffuse mist","limitations":"Opaque surface approximation, not volumetric"},
+ {"id":"smoke","name":"Smoke","family":"Atmosphere","mode":24,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Rising soot wisps","limitations":"Opaque surface approximation, not volumetric"},
+ {"id":"clear-water","name":"Clear Water","family":"Liquids","mode":25,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Blue reflective moving surface","limitations":"Surface shading, not full refraction"},
+ {"id":"seawater","name":"Seawater","family":"Liquids","mode":26,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Deep teal wind ripples","limitations":"Surface shading, not full refraction"},
+ {"id":"muddy-water","name":"Muddy Water","family":"Liquids","mode":27,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Silt-laden river surface","limitations":"Surface shading, not full refraction"},
+ {"id":"lava","name":"Lava","family":"Liquids","mode":28,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Dark crust with luminous molten channels","limitations":"Surface shading, not full refraction"},
+ {"id":"desert-sand","name":"Desert Sand","family":"Earth","mode":29,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Golden wind ripples","limitations":"Procedural visual approximation"},
+ {"id":"wet-sand","name":"Wet Sand","family":"Earth","mode":30,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Darkened saturated sand","limitations":"Procedural visual approximation"},
+ {"id":"volcanic-sand","name":"Volcanic Sand","family":"Earth","mode":31,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Black mineral grit","limitations":"Procedural visual approximation"},
+ {"id":"fertile-soil","name":"Fertile Soil","family":"Earth","mode":32,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Rich humus and organic flecks","limitations":"Procedural visual approximation"},
+ {"id":"powder-snow","name":"Powder Snow","family":"Frozen","mode":33,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Fine white sparkle","limitations":"Procedural visual approximation"},
+ {"id":"packed-snow","name":"Packed Snow","family":"Frozen","mode":34,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Blue-grey compressed snow","limitations":"Procedural visual approximation"},
+ {"id":"glacier-ice","name":"Glacier Ice","family":"Frozen","mode":35,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Deep cyan internal banding","limitations":"Procedural visual approximation"},
+ {"id":"frost","name":"Frost","family":"Frozen","mode":36,"energy":1,"relief":1,"lightAngle":-0.7,"description":"Fine white crystalline tracery","limitations":"Procedural visual approximation"}
 ]);
 const byId=Object.fromEntries(MATERIALS.map(m=>[m.id,m]));
 const catalog=document.querySelector('#catalog');
@@ -34,7 +66,71 @@ if(uMode<.5){float waves=sin(length(p)*14.-t*3.+n*6.);base=mix(vec3(.085,.15,.2)
 else if(uMode<1.5){float veins=pow(1.-abs(sin((p.x+p.y*.37+p.z*.6)*12.+n*13.+t*.55)),13.);base=mix(vec3(.045,.039,.035),vec3(.24,.105,.055),detail);glow=vec3(1.8,.29,.025)*(veins*.9+pow(n,5.)*.5)*uEnergy;shine=.15;}
 else if(uMode<2.5){float cells=abs(sin(p.x*9.+n*4.)*sin(p.y*8.-n*5.)*sin(p.z*7.));float fissure=pow(1.-cells,14.);base=mix(vec3(.085,.045,.17),vec3(.31,.19,.48),n);glow=vec3(.62,.2,1.6)*(fissure*.48+rim*.55)*uEnergy;shine=.6;}
 else if(uMode<3.5){float band=pow(abs(sin(n*18.+length(p)*6.-t*.6)),18.);base=mix(vec3(.23,.14,.035),vec3(.67,.41,.12),n);glow=vec3(1.1,.61,.13)*(rim*.9+band*.32)*uEnergy;shine=1.2;}
-else{float spiral=sin(atan(p.y,p.x)*5.+length(p)*7.+n*6.-t*.65);base=mix(vec3(.025,.11,.085),vec3(.12,.39,.27),.5+.5*spiral);glow=vec3(.09,.9,.43)*(pow(max(spiral,0.),9.)*.5+rim*.45)*uEnergy;shine=.9;}
+else if(uMode<4.5){float spiral=sin(atan(p.y,p.x)*5.+length(p)*7.+n*6.-t*.65);base=mix(vec3(.025,.11,.085),vec3(.12,.39,.27),.5+.5*spiral);glow=vec3(.09,.9,.43)*(pow(max(spiral,0.),9.)*.5+rim*.45)*uEnergy;shine=.9;}
+
+else{
+  // Natural World: eight families x four variants; continuous 3D coordinates, unchanged mesh.
+  float idx=floor(uMode-5.+.5);
+  float fam=floor(idx/4.);
+  float variant=mod(idx,4.);
+  float fine=noise(p*37.+detail*2.);
+  float stratum=sin(p.y*13.+p.x*2.5+n*6.);
+  float grain=sin(p.y*23.+n*11.+sin(p.x*3.+p.z*4.)*2.);
+  float fleck=smoothstep(.73,.91,fine);
+  float cell=abs(sin(p.x*11.+n*7.)*sin(p.y*13.-detail*5.)*sin(p.z*9.));
+  float edge=pow(1.-cell,11.);
+  float flow=sin(p.x*9.+p.z*5.+n*8.-t*.7);
+  float heightBand=sin(p.y*6.+n*9.);
+  if(fam<.5){
+    if(variant<.5){base=mix(vec3(.22,.22,.21),vec3(.62,.59,.54),detail);base=mix(base,vec3(.83,.77,.68),fleck*.52);shine=.12;}
+    else if(variant<1.5){base=mix(vec3(.025,.031,.039),vec3(.16,.18,.20),n);base+=vec3(.12)*smoothstep(.8,.94,fine)*.22;shine=.08;}
+    else if(variant<2.5){base=mix(vec3(.37,.23,.12),vec3(.74,.54,.32),.5+.5*stratum);base*=.77+.35*detail;shine=.06;}
+    else{base=mix(vec3(.095,.11,.14),vec3(.35,.37,.39),.5+.5*sin(p.y*37.+n*3.));shine=.16;}
+  }else if(fam<1.5){
+    if(variant<.5){base=mix(vec3(.38,.43,.46),vec3(.83,.87,.88),n);glow=vec3(.08,.13,.17)*rim*uEnergy;shine=1.5;}
+    else if(variant<1.5){base=mix(vec3(.15,.045,.24),vec3(.57,.28,.75),n);glow=vec3(.13,.055,.24)*edge*uEnergy;shine=1.6;}
+    else if(variant<2.5){float bands=.5+.5*sin(p.y*12.+p.x*7.+n*12.);base=mix(vec3(.016,.12,.074),vec3(.08,.53,.28),bands);base*=.75+.3*detail;shine=.85;}
+    else{base=mix(vec3(.23,.16,.034),vec3(.77,.59,.18),step(.55,detail));base*=.6+.4*fine;shine=2.2;}
+  }else if(fam<2.5){
+    float vein=pow(1.-abs(sin(p.y*7.+sin(p.x*5.+n*3.)*2.)),15.);
+    if(variant<.5){base=mix(vec3(.025,.16,.04),vec3(.16,.52,.095),n);base+=vec3(.20,.31,.06)*vein;shine=.55;}
+    else if(variant<1.5){base=mix(vec3(.36,.09,.025),vec3(.86,.53,.08),n);base+=vec3(.23,.12,.015)*vein;shine=.4;}
+    else if(variant<2.5){base=mix(vec3(.025,.095,.025),vec3(.19,.36,.065),fine);base*=.7+.5*detail;shine=.07;}
+    else{base=mix(vec3(.18,.22,.12),vec3(.65,.72,.46),smoothstep(.32,.72,detail));base*=.85+.2*fine;shine=.09;}
+  }else if(fam<3.5){
+    float fibers=.5+.5*grain;
+    if(variant<.5){base=mix(vec3(.16,.065,.025),vec3(.49,.25,.095),fibers);shine=.14;}
+    else if(variant<1.5){float lent=pow(1.-abs(sin(p.y*18.+n*9.)),20.);base=mix(vec3(.66,.62,.49),vec3(.92,.86,.71),n);base=mix(base,vec3(.095,.09,.075),lent*.9);shine=.17;}
+    else if(variant<2.5){float crack=pow(1.-abs(grain),8.);base=mix(vec3(.12,.045,.023),vec3(.40,.16,.065),detail);base*=1.-crack*.8;shine=.08;}
+    else{base=mix(vec3(.22,.24,.23),vec3(.56,.53,.45),fibers);shine=.11;}
+  }else if(fam<4.5){
+    float billow=fbm(p*3.5+vec3(t*.035,t*.07,0.));
+    if(variant<.5){base=mix(vec3(.31,.39,.48),vec3(.88,.88,.84),smoothstep(.3,.68,billow));shine=.12;}
+    else if(variant<1.5){base=mix(vec3(.035,.045,.09),vec3(.31,.36,.44),billow);shine=.08;}
+    else if(variant<2.5){base=mix(vec3(.37,.43,.45),vec3(.72,.75,.72),billow);shine=.04;}
+    else{base=mix(vec3(.055,.052,.055),vec3(.40,.38,.36),billow);shine=.035;}
+    base+=rim*.12;
+  }else if(fam<5.5){
+    float ripple=.5+.5*sin(p.x*21.+p.z*13.+n*9.-t*1.7);
+    if(variant<.5){base=mix(vec3(.015,.13,.22),vec3(.12,.53,.68),n);shine=2.8;}
+    else if(variant<1.5){base=mix(vec3(.008,.065,.10),vec3(.04,.34,.40),ripple);shine=2.5;}
+    else if(variant<2.5){base=mix(vec3(.16,.105,.045),vec3(.38,.28,.14),n);shine=1.2;}
+    else{float cracks=pow(1.-abs(sin(p.x*11.+p.z*7.+n*12.-t*.28)),17.);base=mix(vec3(.025,.021,.02),vec3(.19,.08,.035),detail);glow=vec3(1.9,.29,.016)*cracks*uEnergy;shine=.2;}
+    base+=vec3(.07,.12,.13)*rim;
+  }else if(fam<6.5){
+    float dunes=.5+.5*sin(p.x*18.+p.z*8.+n*4.);
+    if(variant<.5){base=mix(vec3(.43,.27,.095),vec3(.87,.68,.32),dunes);shine=.07;}
+    else if(variant<1.5){base=mix(vec3(.17,.115,.07),vec3(.40,.30,.18),dunes);shine=.48;}
+    else if(variant<2.5){base=mix(vec3(.016,.019,.023),vec3(.15,.15,.16),fine);shine=.1;}
+    else{base=mix(vec3(.055,.035,.023),vec3(.24,.17,.075),detail);base+=vec3(.08,.075,.025)*fleck;shine=.08;}
+  }else{
+    float crystal=pow(max(.5+.5*sin(p.x*28.+p.y*19.+p.z*13.+n*6.),0.),22.);
+    if(variant<.5){base=mix(vec3(.60,.69,.76),vec3(.94,.95,.92),n);base+=vec3(.16)*crystal;shine=.65;}
+    else if(variant<1.5){base=mix(vec3(.39,.52,.61),vec3(.81,.87,.87),detail);shine=.75;}
+    else if(variant<2.5){base=mix(vec3(.025,.16,.25),vec3(.24,.69,.77),n);base+=vec3(.12,.22,.27)*rim;shine=1.8;}
+    else{base=mix(vec3(.50,.66,.72),vec3(.89,.94,.92),detail);base+=vec3(.17)*crystal;shine=.95;}
+  }
+}
 vec3 color=base*(.23+diffuse*.9)+glow+vec3(1.,.85,.66)*spec*shine*(.4+uEnergy*.3);color+=rim*base*.28;gl_FragColor=vec4(color,1.);}`;
 const uniforms={uTime:{value:0},uEnergy:{value:1},uRelief:{value:1},uMode:{value:1},uLight:{value:new T.Vector3()},uEye:{value:new T.Vector3()}};
 const material=new T.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms,extensions:{derivatives:true}});const MAX=1000,steps=[1,10,25,50,100,250,500,1000];let count=1;
@@ -50,6 +146,6 @@ document.querySelector('#recipe').onclick=async()=>{const data=exportRecipe({...
 document.querySelector('#energy').oninput=e=>uniforms.uEnergy.value=+e.target.value;document.querySelector('#relief').oninput=e=>uniforms.uRelief.value=+e.target.value;
 let lightAngle=-.7;document.querySelector('#light').oninput=e=>lightAngle=+e.target.value;
 const pointers=new Map();let pinch=null;const c=renderer.domElement;c.onpointerdown=e=>{c.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});pinch=null};c.onpointermove=e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===1){az-=(e.clientX-old.x)*.007;el=Math.max(-1.25,Math.min(1.25,el+(e.clientY-old.y)*.006));cameraPos()}else if(pointers.size===2){const p=[...pointers.values()],d=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);if(pinch!==null){dist=Math.max(3.5,Math.min(14,dist*pinch/d));cameraPos()}pinch=d}};for(const event of ['pointerup','pointercancel'])c.addEventListener(event,e=>{pointers.delete(e.pointerId);pinch=null});c.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(3.5,Math.min(14,dist+e.deltaY*.009));cameraPos()},{passive:false});
-const resize=()=>{const w=view.clientWidth,h=view.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)};const ro=new ResizeObserver(resize);ro.observe(view);resize();const clock=new T.Clock();let running=true;const samples=[];let last=performance.now(),fpsAt=last,frames=0;const build="materials/03";function frame(){if(!running)return;uniforms.uTime.value=clock.getElapsedTime();light.position.set(Math.cos(lightAngle)*5,4,Math.sin(lightAngle)*5);uniforms.uLight.value.copy(light.position);uniforms.uEye.value.copy(camera.position);renderer.render(scene,camera);const now=performance.now(),delta=now-last;last=now;if(delta>0&&delta<500){samples.push(delta);if(samples.length>240)samples.shift()}frames++;if(now-fpsAt>=1000){document.querySelector("#fps").textContent=Math.round(frames*1000/(now-fpsAt))+" fps";frames=0;fpsAt=now}requestAnimationFrame(frame)}frame();document.querySelector('#eye').onclick=async()=>{const sorted=[...samples].sort((a,b)=>a-b);const percentile=p=>sorted.length?+sorted[Math.min(sorted.length-1,Math.floor((sorted.length-1)*p))].toFixed(2):null;const data={schema:"jit-materials-eye/v1",build,at:new Date().toISOString(),specimens:count,recipeId:activeRecipe.id,material:["Aard","Igni","Yrden","Quen","Axii"][uniforms.uMode.value],energy:uniforms.uEnergy.value,relief:uniforms.uRelief.value,lightAngle,viewport:{width:view.clientWidth,height:view.clientHeight,pixelRatio:renderer.getPixelRatio()},geometry:{trianglesPerSpecimen:geometry.index?geometry.index.count/3:geometry.attributes.position.count/3},render:{drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles},frameMs:{samples:sorted.length,p50:percentile(.5),p95:percentile(.95),p99:percentile(.99)},userAgent:navigator.userAgent,notes:"Frame intervals include browser scheduling and are not GPU timings; one instanced draw for specimens."};const json=JSON.stringify(data,null,2);try{await navigator.clipboard.writeText(json);status.textContent="👁 Diagnostics copied · "+count+" specimens"}catch(e){const blob=new Blob([json],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="materials-eye.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent="👁 Diagnostics downloaded (clipboard unavailable)"}};window.addEventListener('pagehide',()=>{running=false;ro.disconnect()},{once:true});
+const resize=()=>{const w=view.clientWidth,h=view.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)};const ro=new ResizeObserver(resize);ro.observe(view);resize();const clock=new T.Clock();let running=true;const samples=[];let last=performance.now(),fpsAt=last,frames=0;const build="materials/04";function frame(){if(!running)return;uniforms.uTime.value=clock.getElapsedTime();light.position.set(Math.cos(lightAngle)*5,4,Math.sin(lightAngle)*5);uniforms.uLight.value.copy(light.position);uniforms.uEye.value.copy(camera.position);renderer.render(scene,camera);const now=performance.now(),delta=now-last;last=now;if(delta>0&&delta<500){samples.push(delta);if(samples.length>240)samples.shift()}frames++;if(now-fpsAt>=1000){document.querySelector("#fps").textContent=Math.round(frames*1000/(now-fpsAt))+" fps";frames=0;fpsAt=now}requestAnimationFrame(frame)}frame();document.querySelector('#eye').onclick=async()=>{const sorted=[...samples].sort((a,b)=>a-b);const percentile=p=>sorted.length?+sorted[Math.min(sorted.length-1,Math.floor((sorted.length-1)*p))].toFixed(2):null;const data={schema:"jit-materials-eye/v1",build,at:new Date().toISOString(),specimens:count,recipeId:activeRecipe.id,material:activeRecipe.name,energy:uniforms.uEnergy.value,relief:uniforms.uRelief.value,lightAngle,viewport:{width:view.clientWidth,height:view.clientHeight,pixelRatio:renderer.getPixelRatio()},geometry:{trianglesPerSpecimen:geometry.index?geometry.index.count/3:geometry.attributes.position.count/3},render:{drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles},frameMs:{samples:sorted.length,p50:percentile(.5),p95:percentile(.95),p99:percentile(.99)},userAgent:navigator.userAgent,notes:"Frame intervals include browser scheduling and are not GPU timings; one instanced draw for specimens."};const json=JSON.stringify(data,null,2);try{await navigator.clipboard.writeText(json);status.textContent="👁 Diagnostics copied · "+count+" specimens"}catch(e){const blob=new Blob([json],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="materials-eye.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent="👁 Diagnostics downloaded (clipboard unavailable)"}};window.addEventListener('pagehide',()=>{running=false;ro.disconnect()},{once:true});
 }catch(e){status.textContent='WebGL unavailable: '+String(e.message||e)}
 </script></body></html>
