@@ -21,6 +21,7 @@ Canonical entrypoint: https://bonoj.github.io/jit/music/
 | 004 | The Kesh — Field Music | Runtime 6/8 jig; melodic trajectory and responding performers under harmonic, coupling, rhythmic, and acoustic fields |
 | 005 | Musical ECS | Two draggable performers, evolving pitch and phase states, harmonic gravity, coupling through a listening edge, optional acoustic boundary |
 | 006 | The Musical Tree | Selectable phrase tree; Grow, Transform, Prune, Reset; live Web Audio playback of inherited musical variations |
+| 007 | Three Spectra | Three persistent vibrating voices with slide, hammer-on, pull-off, mute, damping, drift and subtle sympathetic resonance |
 
 ## Experience 004 — Field Music
 
@@ -51,3 +52,7 @@ Source commit: `5c96953c3531f255a7bd5767787dc6fa90b6d7c2`. Fixed pulse 112 BPM; 
 ## Experience 006 — The Musical Tree
 
 Theory and acceptance tests are specified in `THEORY.md`. The implementation is a bounded 12-phrase tree: nodes hold inherited and transformed 12-event motifs, rendered in depth-first phrase order. Grow adds a related child, Transform applies a deterministic pitch/rhythm-rest operation to the selected node, Prune deletes the selected non-root subtree, and Reset restores the original seed. The audio scheduler uses `AudioContext.currentTime` and a lookahead interval, not the canvas animation loop. This first slice does not yet implement simultaneous counterpoint or grafting. Public Pages deployment and audio quality still require direct listening verification. Source commit `045a9e5167c4ff11f2b16bbf1353b9ebccfc7a57`.
+
+## Experience 007 — Three Spectra
+
+Specification and acceptance tests are in `THEORY.md`. The initial implementation provides three persistent Web Audio oscillator banks (D2/A2/D3), pitch glide driven by spring-like state, per-string excitation and decay, and small ratio-dependent sympathetic energy transfer. The AudioContext-clock update interval is separate from the canvas visual loop; there is no note-event sequencer. Touch/drag on each of three tracks, plus explicit Hammer, Pull, Mute, and Excite All controls. A touch excites a voice and moves its pitch target; the explicit gesture buttons guarantee discoverable hammer/pull semantics. No autoplay. Source commit `cfc0983c8f8d8c171b161352ac9bc4d6cd506411`. Public Pages deployment, gesture feel, and audio quality remain unverified until live listening.
