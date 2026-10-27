@@ -403,3 +403,7 @@ The closest related artifacts are the [Foundry repository](https://github.com/bo
 **My conclusion:** the foundation of JIT D&D is not an AI narrator, a VTT, or even a conventional world simulator. It's the Foundry experiment's **situated continuity and controlled commitment**, extended to arbitrary scales and time horizons.
 
 That's what makes ➡️ meaningful.
+
+### User
+
+Persist all this verbatim in chronicle.
