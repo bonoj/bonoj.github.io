@@ -379,3 +379,27 @@ Illustrative only. This is not a running Foundry simulation; selections demonstr
 The crucial behavior isn't that the model invents four events. It's that those events arise from **independent, persistent trajectories**, constrained by resources, geography, contact, and previous commitments.
 
 And when the GM asks, *“What happened while the party was away?”*, we can answer from the committed event history rather than retrospectively inventing a story.
+
+### One architectural extension I would make
+
+The original Foundry experiment had three loci and an external observer. For D&D, I would generalize the same pattern recursively.
+
+A city could contain factions; a faction could contain populations; a population could contain individual agents. Each maintains a ledger at its appropriate resolution. A plane can have its own processes and timeline.
+
+But we must avoid equating *private ledger* with *omniscient hidden truth*. A faction's ledger can contain mistaken beliefs, stale intelligence, and unresolved hypotheses.
+
+Likewise, a GM's omniscient view should distinguish established facts from model proposals and unresolved uncertainty.
+
+The world can know what happened without every inhabitant knowing it.
+
+## What I haven't recovered
+
+I recovered the protocol, chronology, accepted T14 semantics, and our later interpretation of the experiment. I have **not** recovered the complete original raster sequence, every private-ledger entry, or an executable implementation of that specific three-locus experiment.
+
+The GitHub searches I ran did not locate those records in the repositories checked.
+
+The closest related artifacts are the [Foundry repository](https://github.com/bonoj/Foundry) and its later descendants, but the raster-ledger experiment should not be conflated with Foundry's separate executable terrain machinery.
+
+**My conclusion:** the foundation of JIT D&D is not an AI narrator, a VTT, or even a conventional world simulator. It's the Foundry experiment's **situated continuity and controlled commitment**, extended to arbitrary scales and time horizons.
+
+That's what makes ➡️ meaningful.
