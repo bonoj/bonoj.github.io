@@ -178,3 +178,32 @@ My instinct is the solitary voice, with the tavern gradually joining him—until
 - IV. Karrick and the Thieves: [image](https://media.aiclips.net/aiclips/aiclips/files/items/vobdbdxbl2eo/EKCSmU4s1PTKKgB_1742637592.webp) · [source](https://aiclips.net/items/ancient-temple-entrance-in-jungle-mossy-stone-architecture-with-fire-torches/18447)
 - V. The Umbral Coast: [image](https://pooltattooz.com/cdn/shop/files/pirate-shiprev.png?v=1725101543) · [source](https://pooltattooz.com/products/pirate-ship-in-storm)
 - VI. The Bastard Prince Returns: [image](https://img3.wikia.nocookie.net/__cb20081108034229/pathfinder/images/b/b5/Absalom_skyline.jpg) · [source](https://pathfinder.wikia.com/wiki/Absalom)
+
+## Scoring specification addendum — Arioch and Karrick
+
+This is a **new working specification**, not part of the verbatim conversation archived above. Preserve the original poem and scoring discussion unchanged.
+
+### Arioch — tuning as homeland
+
+- Explore maqam-informed melodic vocabulary rather than treating Middle Eastern music as a Western minor scale plus arbitrary quarter-tones.
+- Prototype **Bayati** (intimate, earthy), **Rast** (regal, grounded), and **Hijaz** (dramatic augmented-second color; not inherently quarter-tonal). These are exploratory references, not interchangeable presets or claims of exact traditional performance.
+- Support arbitrary cent offsets and continuous pitch inflection per voice. Neutral intervals need not equal precisely 50 cents from a Western note.
+- Build an audible A/B experiment: sustained drone, one melodic voice, selectable tuning vocabulary, and a continuous pitch-offset control. Keep a visible indication of actual cents and sounding frequency.
+- Let Arioch's characteristic inflections recur as the Prince remembers home, then become prominent in the final return. Retuning must be musically intentional, not a global pitch-shift effect.
+
+### Karrick — rhythmic fluency and minor color
+
+- Indian-inspired palette: **tabla-like interlocking hand percussion**, **sarangi-like sliding bowed melody**, and **tanpura-like tonic/fifth drone**. These are inspirations for synthesis and composition, not a claim of faithful raga/tala reconstruction.
+- Begin with an exploratory **seven-beat 3+2+2 cycle**; distinguish this invented arrangement from any named traditional tala. Expose pulse and subdivisions independently.
+- Use minor-colored passages, quick ornamentation, slides, turns, and contrasting lighter phrases. The underlying pulse stays steady while note density increases.
+- Dramatic arc: arrival (sparse) → flirtation (ornate) → thieves (quiet, syncopated, dense) → escape (rapid subdivisions) → departure (sudden thinning). At the joke about the girl's mouth, cut the instruments briefly, then resume as if nothing happened.
+- Carry Karrick's rhythmic skill into the pirate section: communal stomps and shanty energy grow from the same learned ability to play *around* a beat without losing it.
+
+### Whole-ballad continuity and implementation
+
+- One recognizable vocal melody and recurring Prince motif; avoid six disconnected cues.
+- Musical vocabulary accumulates geographically: Arioch's inflections → Amirinth's harp/harmony → Eruvar's fiddle/long phrasing → Karrick's subdivision and ornament → Umbral Coast's communal rhythm → Arioch homecoming with the accumulated ensemble.
+- Treat the original 6/8, D minor, and ~92 BPM as a **starting frame**, not a requirement to force the seven-beat Karrick passage into 6/8. Compose a deliberate metric transition and return.
+- Extend **Ruined Orchestra** as the performer/space foundation, but preserve experiments 001 and 002. Add independent, navigable experiments for microtonal melody and rhythmic subdivision before attempting the full score.
+- Web Audio: frequency/cents control, independent melodic scheduler and percussion scheduler, stable clock, start/stop/fade on navigation, no audio work in the visual render loop. Mobile-first, gesture-to-start, visible build identity and cache-busted iteration.
+- Success is **audible and observable**: hear meaningful differences between Arioch tuning choices; hear subdivision density grow without tempo drift; hear the Prince's motif remain recognizable through different instruments and regions.
