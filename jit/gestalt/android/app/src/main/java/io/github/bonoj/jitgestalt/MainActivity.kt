@@ -1,6 +1,13 @@
 package io.github.bonoj.jitgestalt
 
 import android.os.Bundle
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
+import org.json.JSONObject
+import org.json.JSONArray
+import java.time.Instant
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -35,6 +42,30 @@ private fun GestaltScreen() {
     var selected by rememberSaveable { mutableStateOf("") }
     var saved by rememberSaveable { mutableStateOf(false) }
     var explored by rememberSaveable { mutableIntStateOf(0) }
+    val context = LocalContext.current
+    val events = remember { mutableStateListOf<JSONObject>() }
+    val session = remember { Instant.now().toString() }
+    fun record(action: String, detail: String) {
+        events.add(JSONObject().put("at", Instant.now().toString()).put("action", action).put("detail", detail))
+    }
+    fun report(): String {
+        val state = JSONObject()
+            .put("selectedInterest", selected)
+            .put("saved", saved)
+            .put("exploreCount", explored)
+        return JSONObject()
+            .put("schema", "jit-gestalt-native-eye/v1")
+            .put("fixture", "gestalt-covenant-fixture")
+            .put("contract", "mini-gestalt/v1")
+            .put("capturedAt", Instant.now().toString())
+            .put("sessionStartedAt", session)
+            .put("appId", context.packageName)
+            .put("state", state)
+            .put("events", JSONArray(events.toList()))
+            .put("eventCount", events.size)
+            .put("observationLimit", "in-memory events since this activity session; not a complete interaction trace")
+            .toString(2)
+    }
 
     Surface(color = Background, modifier = Modifier.fillMaxSize()) {
         Column(
@@ -53,7 +84,7 @@ private fun GestaltScreen() {
                 Ideas.forEach { idea ->
                     FilterChip(
                         selected = selected == idea,
-                        onClick = { selected = if (selected == idea) "" else idea },
+                        onClick = { selected = if (selected == idea) "" else idea; record("selectInterest", selected) },
                         label = { Text(idea) }
                     )
                 }
@@ -63,17 +94,25 @@ private fun GestaltScreen() {
                     Text("✦", style = MaterialTheme.typography.displayMedium, color = Accent)
                     Text("The observatory", style = MaterialTheme.typography.titleLarge)
                     Text("The model authors intent; renderers interpret the contract.")
-                    Button(onClick = { saved = !saved }) {
+                    Button(onClick = { saved = !saved; record("toggleSave", saved.toString()) }) {
                         Text(if (saved) "✓ Saved" else "Save idea")
                     }
                 }
             }
-            Button(onClick = { explored++ }, modifier = Modifier.fillMaxWidth()) {
+            Button(onClick = { explored++; record("explore", explored.toString()) }, modifier = Modifier.fillMaxWidth()) {
                 Text("Explore ideas")
             }
             if (explored > 0) {
                 Text("Explored $explored time(s)" + if (selected.isNotEmpty()) " · $selected" else "")
             }
+            HorizontalDivider()
+            Button(onClick = {
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                clipboard.setPrimaryClip(ClipData.newPlainText("JIT Gestalt Runtime Eyes", report()))
+            }, modifier = Modifier.fillMaxWidth()) {
+                Text("👁 Copy Runtime Eyes")
+            }
+            Text("Eyes: ${events.size} interactions · copy JSON to clipboard", style = MaterialTheme.typography.labelSmall)
             Text("Native Android · Kotlin · Jetpack Compose", style = MaterialTheme.typography.labelSmall)
         }
     }
