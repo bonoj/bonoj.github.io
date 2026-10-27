@@ -18,19 +18,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-private val Accent = Color(0xFFBD1831)
-private val Background = Color(0xFFF7F7F5)
-private val Ink = Color(0xFF242424)
 private val Ideas = listOf("Interiors", "Recipes", "Cats", "Gardens")
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme(colorScheme = lightColorScheme(primary = Accent, background = Background, onBackground = Ink)) {
+            MaterialTheme(colorScheme = lightColorScheme(primary = CanonicalTokens.Accent, background = CanonicalTokens.Background, onBackground = CanonicalTokens.Ink)) {
                 GestaltScreen()
             }
         }
@@ -67,12 +63,12 @@ private fun GestaltScreen() {
             .toString(2)
     }
 
-    Surface(color = Background, modifier = Modifier.fillMaxSize()) {
+    Surface(color = CanonicalTokens.Background, modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text("✿ JIT Gestalt", style = MaterialTheme.typography.titleMedium, color = Accent)
+            Text("✿ JIT Gestalt", style = MaterialTheme.typography.titleMedium, color = CanonicalTokens.Accent)
             Text("A tiny model-directed design system", style = MaterialTheme.typography.bodyMedium)
             Spacer(Modifier.height(8.dp))
             Text("Collect what moves you", style = MaterialTheme.typography.headlineLarge)
@@ -82,31 +78,31 @@ private fun GestaltScreen() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Ideas.forEach { idea ->
-                    FilterChip(
+                    CanonicalChip(
                         selected = selected == idea,
                         onClick = { selected = if (selected == idea) "" else idea; record("selectInterest", selected) },
                         label = { Text(idea) }
                     )
                 }
             }
-            Card(colors = CardDefaults.cardColors(containerColor = Color.White)) {
+            CanonicalCard {
                 Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("✦", style = MaterialTheme.typography.displayMedium, color = Accent)
+                    Text("✦", style = MaterialTheme.typography.displayMedium, color = CanonicalTokens.Accent)
                     Text("The observatory", style = MaterialTheme.typography.titleLarge)
                     Text("The model authors intent; renderers interpret the contract.")
-                    Button(onClick = { saved = !saved; record("toggleSave", saved.toString()) }) {
+                    CanonicalButton(onClick = { saved = !saved; record("toggleSave", saved.toString()) }) {
                         Text(if (saved) "✓ Saved" else "Save idea")
                     }
                 }
             }
-            Button(onClick = { explored++; record("explore", explored.toString()) }, modifier = Modifier.fillMaxWidth()) {
+            CanonicalButton(onClick = { explored++; record("explore", explored.toString()) }, modifier = Modifier.fillMaxWidth()) {
                 Text("Explore ideas")
             }
             if (explored > 0) {
                 Text("Explored $explored time(s)" + if (selected.isNotEmpty()) " · $selected" else "")
             }
             HorizontalDivider()
-            Button(onClick = {
+            CanonicalButton(onClick = {
                 val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 clipboard.setPrimaryClip(ClipData.newPlainText("JIT Gestalt Runtime Eyes", report()))
             }, modifier = Modifier.fillMaxWidth()) {
