@@ -3,8 +3,9 @@
 from pathlib import Path
 import re
 import sys
+import os
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(os.environ.get("GESTALT_CANDIDATE_ROOT", str(Path(__file__).resolve().parents[1])))
 SCREEN = ROOT / "android/app/src/main/java/io/github/bonoj/jitgestalt/MainActivity.kt"
 CANONICAL = ROOT / "android/app/src/main/java/io/github/bonoj/jitgestalt/CanonicalUi.kt"
 
