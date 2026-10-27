@@ -554,3 +554,28 @@ The recovered Foundry material provides a concrete historical example of exactly
 ### User
 
 Persist all this in the chronicle.
+
+
+## Visual field record — Caldrin and the Foundry (ten supplied images)
+
+### User
+
+Describe these pictures in detail directly into the doc. These turns were essentially ➡️ with very light steering/roleplay banter with Tavin.
+
+### Assistant — image-by-image visual transcription
+
+**Scope and evidentiary distinction.** These are descriptions of ten supplied images, in the order received, rather than invented intervening scenes. Visual facts are separated from interpretations; a depicted object, banner, map, mechanism, or measurement does not automatically establish its historical purpose. The sequence is especially useful as evidence of how a lightly steered, turn-by-turn visual world accumulated stable geography, architecture, people, tools, and scientific questions. The supplied image filenames are recorded to preserve ordering.
+
+#### 1. 2317.png — Caldrin basin, panoramic establishing view
+
+A very wide, elevated daylight panorama shows an extraordinary inhabited basin spanning several environmental zones. At the center foreground, an immense gold/brass skeletal dome of concentric hoops, vertical ribs, articulated struts and a finial with stacked spheres rises above a broad circular masonry platform. The structure is open rather than roofed; its mechanical geometry reads like an armillary or monumental instrument, but the image does not establish its function. Below its front edge, a colossal stepped excavation exposes successive masonry terraces, arched recesses and a deep dark opening. Timber scaffolds, hoists, cranes, suspended stone loads, ramps and work platforms surround the pit. Human-scale workers and small awnings emphasize the scale.
+
+To the left, forested rock slopes carry an elaborate pale-stone aqueduct, blue-and-gold heraldic towers, waterwheels and multiple plunging waterfalls. One waterwheel sits beside a cascade; another is built into lower infrastructure. The aqueduct crosses steep valleys and leads toward a substantial walled castle with blue-roofed towers on the far left. Beyond the castle, dramatic snow-capped mountains and dense conifer forest surround a vast navigable blue lake. Timber harbors, clustered workshops, smoke plumes, cranes and numerous sailing vessels occupy the central water, including white-sailed ships and dark red-sailed ships. Islands of evergreen trees separate channels.
+
+On the right, the landscape changes into a drier ochre country: a sprawling waterfront bazaar of colorful tents, caravan traffic, stone towers, piers, and a distant rocky spire. At the lower right, rectilinear gardens, crop fields, canals, bridges, orchard-like rows and long glazed greenhouse roofs form an intensively managed agricultural district. The whole view juxtaposes alpine watershed, shipping and manufacture, monumental excavation, agriculture, and desert trade without visually severing them. The brass dome and excavated shaft are the geographic and visual anchor. **Continuity anchors:** central brass ribbed superstructure; circular excavation; waterfalls and waterworks to west; lake and ships behind; glasshouses and gardens southeast; desert market and spire east; blue/gold insignia.
+
+#### 2. 2318.png — Excavation rim and working entrance
+
+The camera is now on a rough timber work platform at the edge of the central excavation, looking across a vast vertical cut. A canvas canopy fills the upper-left corner; below it, a busy bench holds rolled plans, drawing instruments, a lantern, dark cups, small tools, and scattered mechanical parts. Blue cloth banners bear a gold glyph consisting of a vertical line passing through a ring, terminating in pointed elements. Workers in practical linen and leather operate around the bench and along platforms.
+
+Across the chasm, a monumental pale-stone retaining wall curves around the excavated cavity. An ancient-looking circular metal aperture or ringed door is exposed in the wall; its interior descends into darkness. Timber scaffolds are bolted against the stone on multiple levels, with narrow planked walkways and rope handrails crossing open space. A tall wooden lifting frame suspends a rectangular stack of cut stone blocks; other cranes, hoists, and work crews occupy the rim. Overhead, the brass ribs and spherical ornaments of the surface superstructure rise beyond the wall. To the left, a distant tower and waterfalls remain visible, tying this close view to the basin panorama. Warm sunlight illuminates the upper works while the shaft becomes nearly black below. The visual contrast between modern masonry, temporary wooden access, and exposed circular metalwork suggests excavation **around** an older structure rather than construction of all components from scratch. That chronology remains an inference, not a proven date.
