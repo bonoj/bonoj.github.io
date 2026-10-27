@@ -61,10 +61,10 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
   "inspected_on": "2026-10-25",
   "verification": "repository-source-inspected;live-runtime-not-verified",
   "count": {
-    "top_level_entries": 19,
-    "experiment_directories": 12,
+    "top_level_entries": 20,
+    "experiment_directories": 13,
     "standalone_experiments": 6,
-    "experiments": 18,
+    "experiments": 19,
     "landing_pages": 1
   },
   "index": {
@@ -422,6 +422,26 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
       "external_dependencies": [],
       "source_sha": "a4d22897cc063b46cd19079e79f502e6efb3e372",
       "source_sha_type": "tree",
+      "runtime_verified": false
+    },
+    {
+      "id": "bb-cake",
+      "name": "BB Cake · Cascade",
+      "kind": "interactive-toy",
+      "path": "jit/assets/bb-cake/",
+      "entrypoint": "jit/assets/bb-cake/index.html",
+      "source_url": "https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/bb-cake/index.html",
+      "live_url": "https://bonoj.github.io/jit/assets/bb-cake/",
+      "description": "Two-tier BB cake; tap to scatter fragments which bounce and burst into smaller BBs.",
+      "renderer": "Canvas2D",
+      "controls": [
+        "tap-blast",
+        "drag-orbit",
+        "reset"
+      ],
+      "external_dependencies": [],
+      "source_sha": "788e3e9020ca5e3f1003c0d05abb1cfe2fb1896e",
+      "source_sha_type": "blob",
       "runtime_verified": false
     }
   ]
