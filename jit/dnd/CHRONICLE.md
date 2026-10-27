@@ -155,3 +155,100 @@ It's **giving Dungeon Masters back the hours they spend maintaining the worlds t
 3. A malleable vtt is right up our alley. Especially if we build a model mediated vtt, one that can mutate reliably during livelplay via explicitly invoked turns.
 
 4. Contract/schema based, again model mediated, the output format is irrelevant, malleable jit.
+
+### Assistant
+
+I think you've just collapsed four product categories into **one architecture with four expressions**.
+
+And the important insight is that we don't need to build a conventional D&D application.
+
+We can build a **model-mediated, mutable tabletop world**.
+
+## The architecture
+
+**Authoritative World** — Entities · Relationships · Rules · State · History
+
+**Explicit model-mediated proposals**
+
+- **Advance:** Simulate world consequences
+- **Prepare:** NPCs, encounters, factions
+- **Play:** Mutable live VTT
+- **Express:** Sheets, maps, exports
+
+**Proposed changes → Review → Commit**
+
+Accept · Reject · Edit · Undo · Replay
+
+### 1. ➡️ is the central interaction
+
+The GM advances the world. The system evaluates what can happen given the established world state, relationships, elapsed time, and rules.
+
+It produces a **candidate next state**, not an authoritative replacement.
+
+The GM can accept the entire proposal, reject it, edit it, or selectively accept individual consequences.
+
+This is not simply asking an LLM to narrate what happens next. The model proposes changes against an executable world contract.
+
+### 2. NPC and encounter preparation becomes a view
+
+NPCs are already world entities. They have relationships, inventories, locations, motivations, and histories.
+
+An encounter builder is simply a query against those entities, plus whatever new ones the GM authorizes.
+
+No separate NPC product is required.
+
+### 3. The VTT becomes a mutable projection
+
+This may be the most distinctive feature.
+
+During live play, the GM could explicitly request:
+
+> Make this bridge destructible. Its supports should fail independently, and anything standing on it should fall when support is lost.
+
+The model generates a proposed change to the relevant mechanics, validates it, and offers it for approval.
+
+The VTT continues from the same world state.
+
+But we'd need an important engineering boundary: model-generated mutations must be validated and applied at safe transaction boundaries, not arbitrarily executed in the middle of a simulation tick. Rollback and deterministic history become essential.
+
+### 4. Character sheets are projections, not foundations
+
+A character isn't fundamentally a PDF or a particular application's form.
+
+It's a structured entity satisfying a contract.
+
+A 5e character sheet, a custom homebrew sheet, an inventory panel, and a mobile touch interface can all be different projections of the same underlying state.
+
+Rulesets become versioned schemas and executable behaviors. Copyrighted rules content would still need appropriate licensing or user-provided authorization; schema flexibility doesn't erase that distinction.
+
+## What makes this commercially interesting
+
+The conventional approach is to build four products: campaign manager, encounter builder, VTT, and character-sheet editor.
+
+Your approach suggests building **one world engine whose interfaces and behavior are themselves malleable**.
+
+That is a much more ambitious architecture, but it also creates a potentially much smaller initial product.
+
+We could begin with nothing more than:
+
+**A world ledger, a text input, an ➡️ control, and an accept/reject interface.**
+
+No map. No 3D rendering. No combat engine.
+
+The first experiment would test whether a GM can describe a small campaign, advance it repeatedly, intervene, and find the resulting continuity useful and trustworthy.
+
+If that succeeds, the VTT becomes an additional way to inhabit the same world rather than a separate application.
+
+One distinction I'd preserve from our own experience: **the model should be allowed to propose almost anything, but it should not silently rewrite established truth.**
+
+That's the difference between a genuinely malleable world and a chatbot improvising over its own forgotten history.
+
+And I see a particularly elegant commercial proposition emerging:
+
+**A tabletop world that grows with its GM, instead of forcing its GM to grow around the software.**
+
+The architecture is plausible given what we've built. Whether DMs actually want this particular workflow—and will pay for it—is the next thing to falsify.
+
+### User
+
+Let's capture all of these turns verbatim into a chronicle.md into jit dnd.
