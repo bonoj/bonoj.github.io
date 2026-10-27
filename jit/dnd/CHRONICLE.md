@@ -322,3 +322,15 @@ That distinction is the foundation of a world that can genuinely surprise its GM
 ## What we actually established
 
 The experiment began around September 18, 2026, at T0, and reached an accepted T14 state. The following rules are recoverable from our earlier discussions.
+
+| Mechanism | Recovered behavior |
+|---|---|
+| Canonical HEAD | The accepted image is the physical world's visual authority |
+| Private ledgers | Each locus maintains its own knowledge, goals, interpretations, and plans |
+| Proposal first | An observable action is proposed before a new world image is rendered |
+| Explicit acceptance | Only accepted renders advance canonical HEAD |
+| Bounded deltas | Preserve existing world structure; change only what the action justifies |
+| Causal batching | Batch independent events, not interacting consequences that require ordering |
+| Outcome accounting | Distinguish intended action, observed result, and incidental changes |
+| Temporal continuity | The world accumulates history rather than regenerating a fresh scene |
+| DENOISE | Compact accumulated state without discarding important causal distinctions |
