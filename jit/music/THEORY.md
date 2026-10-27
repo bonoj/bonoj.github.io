@@ -368,3 +368,58 @@ Add **06 · Musical Tree** to the existing JIT Music page. Render an interactive
 7. On a phone, the diagram and controls remain legible and touch-operable.
 
 **Success:** growing, transforming, and pruning the tree are immediately audible and causally legible. Musicality is judged by listening, not by the number of implemented operators.
+
+
+---
+
+## Experience 007 — Three Spectra / The String Instrument (2026-10-27)
+
+**Origin:** A note is not a distinct object; pitch is a continuous position on a logarithmic frequency spectrum. Deforming a sustained note with smooth noise is analogous to deforming a height field. Instead of constructing a composer or a note-event list, begin with **three independently vibrating strings** and a minimal vocabulary of gestures: slide, hammer-on, pull-off, mute. The user referenced Tool as a musical direction: interlocking, recurring rhythmic cells and expressive tension, **not** imitation of a specific recording.
+
+### Hypothesis
+
+A small number of continuous, resonant trajectories with memory and mutual influence can sound musically alive without discrete note scheduling. **Pitch is a coordinate; excitation is an event; vibration persists.** Continuous sound synthesis is the instrument. A gesture changes a string's state, not a playlist.
+
+### Mathematical model
+
+For each string \(i\), track continuous log-pitch \(p_i\), target \(u_i\), velocity \(v_i\), energy \(e_i\), and phase \(\phi_i\). Frequencies use \(f_i = 440\cdot 2^{(p_i-69)/12}\). Dynamics:
+
+- Slide: a continuous target displacement with damped spring response \(\dot p_i=v_i,\ \dot v_i=k(u_i-p_i)-cv_i\).
+- Hammer-on: raise target and inject a sharp excitation impulse, while the oscillator **never restarts**.
+- Pull-off: lower target, release a softer excitation, and preserve residual energy.
+- Mute: rapidly damp energy and remove ongoing sustain.
+- Energy: decays according to damping and is renewed by touch; no indefinitely loud oscillator.
+- Smooth deformation: band-limited slow drift/noise of pitch, amplitude, or timbre, with explicit bounded amplitude.
+- Resonance: shared low-gain sympathetic coupling between strings, driven by proximity to simple frequency ratios; bounded so it cannot self-excite without input.
+
+The model is **an expressive synthesizer**, not a physical string simulation. Its acoustic waveforms and harmonic partials are real audio; its sympathetic resonance is an approximation.
+
+### Interface
+
+Add **07 · Three Spectra** to the existing single-page JIT Music. Show three horizontal pitch tracks. Touch or drag along a track to **slide** its string; quick tap above its current position is a **hammer-on**, below is a **pull-off**; provide explicit Hammer, Pull, and Mute buttons for discoverability and accessibility. The strings are tuned to a coherent low-register interval relationship (e.g. D2–A2–D3). Touching a string excites it; dragging continuously changes its target frequency. Each string shows its current pitch and energy. A subtle waveform/trajectory trace must correspond to actual state.
+
+Controls: **Awaken / Stop**, a **Damping** slider, and a **Drift** slider. Optionally a **Pulse** toggle for recurring accents, but first version should work without a metronome or predetermined melody. A visible **3 ↔ 6 strings** switch is a later extension, not required for 007.
+
+### Architecture
+
+- A single AudioContext unlocked by user gesture.
+- Three persistent oscillator banks (fundamental plus a few partials) with continuous frequency and gain automation; **never create one oscillator per note**.
+- A control-rate simulation/update interval (or AudioWorklet if warranted), independent of animation; audio-time-based smoothing prevents zipper noise.
+- Visual animation reads string state and never drives oscillator scheduling.
+- Stop and navigation mute/disconnect safely, prevent duplicated oscillators/timers; restart cleanly.
+- Touch input and drag gestures work on mobile; no page scroll interference within the instrument.
+
+### Acceptance tests
+
+1. Awakening the instrument yields silence until excitation.
+2. Slide produces an uninterrupted glide without reattacks or gaps.
+3. Hammer-on creates a distinctly sharper rising attack; pull-off descends and retains audible decay.
+4. Mute immediately damps the chosen string.
+5. With no new input, vibration decays naturally; increasing damping shortens sustain.
+6. Drift creates subtle, smooth variation, not random note jumps.
+7. Exciting one string can subtly influence another when harmonic relationships are close; no runaway feedback.
+8. Three strings can be played in overlapping gestures; moving one does not restart the others.
+9. Rapid navigation and repeated play/stop do not leak audio or timers.
+10. Musicality is assessed by listening, not inferred from code. The reference to Tool is about relational rhythm and gesture, not a claim to reproduce the band's sound.
+
+**Success:** the listener feels that they are touching a persistent vibrating system, rather than triggering samples or stepping through a score.
