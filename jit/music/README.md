@@ -71,3 +71,12 @@ The core design is instrument-first: a 15-string A harmonic minor harp (A2 to A4
 ## Experience 010 — The Impossible Procession
 
 Implements the instrument–performer–ensemble–conductor theory recorded in `THEORY.md`. A six-act, approximately 95-second composed performance uses distinct Web Audio harp plucks, bowed string tones, and drum strikes. The acts move from isolated footsteps through awakening, forest movement, an expanded procession, a near-silent rupture, and a return. Each role can be toggled independently; scheduled events use AudioContext time and a lookahead timer, while canvas rendering observes state only. This is a first synthesis/arrangement experiment, not a sampled orchestra. Source commit `d6de77a0b2a40efadd95d4b4ee272a2a246a0e51`. Public Pages deployment and actual musical quality remain unverified until listening.
+
+
+## Cold handoff: playable lute discovery (2026-10-27)
+
+Experience 008 is the reference instrument. The user played a recognizable Schism riff with two thumbs: right thumb tapping the strum soundboard for attacks, left thumb selecting frets 3, 2, 5 and then 7, 10, 7, 12, with open strings between. This worked on bottom and top strings. Fretting slides were also useful. The interface was clunky, but deliberate performance was possible.
+
+The key architectural insight is independent fretting and excitation gesture streams. A future programmatic performer should operate the same instrument controls as a human, rather than bypassing the instrument to emit generic note events. Preserve 008. Experience 009 was playful and showed instrument-first composition; 010 lacked that playfulness and had audible fuzz. The 010 bowed sawtooth is a possible source of buzz, but its deeper shortcoming is that it arranged synthetic sounds before developing convincing instrumental performance.
+
+Next possible experiment, only when requested: capture a small two-hand gesture score and have a program play an 008-like instrument, including open notes, slides, hammer-ons and rhythmic plucks. Do not modify 008 merely for polish. This is a cold handoff, not an implementation request. Existing repository boundaries remain in force.
