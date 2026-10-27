@@ -49,6 +49,14 @@ jobs:
               assert source_html.count(marker)==1, 'Chaos build stamp missing or ambiguous'
               chaos_html.write_text(source_html.replace(marker, 'var BUILD = "'+deployed_sha+'";'))
               (chaos/'build.json').write_text(json.dumps({'sha':deployed_sha})+'\n')
+          music=site/'jit/music'
+          music_html=music/'index.html'
+          if music_html.is_file():
+              source_html=music_html.read_text()
+              marker='const MUSIC_BUILD = "pending";'
+              assert source_html.count(marker)==1, 'Music build stamp missing or ambiguous'
+              music_html.write_text(source_html.replace(marker, 'const MUSIC_BUILD = "'+deployed_sha+'";'))
+              (music/'build.json').write_text(json.dumps({'sha':deployed_sha})+'\\n')
           lattice=site/'jit/lattice'
           lattice_html=lattice/'index.html'
           if lattice_html.is_file():
