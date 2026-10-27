@@ -659,3 +659,34 @@ These ten images show a coherent **world progression with very light steering an
 The important progression is not simply cinematic zoom. Each turn creates new **affordances, observations, questions and durable evidence** while keeping earlier structure recognizable. The map, character sheet and laboratory board are especially significant: they convert scene content into objects inhabitants can consult, argue about, and use to plan future actions. For a JIT D&D world-advance system, this suggests that ➡️ should generate bounded causal proposals and durable artifacts, not merely prose recaps or fresh images. Different characters and factions can maintain private knowledge; a GM can review what becomes canonical; and mysteries can persist without the model prematurely declaring their answers.
 
 **Archival caveat:** The ten original images are user-supplied in this conversation. This chronicle records their filenames and detailed visual descriptions, not their binary contents or a verified hosted image gallery. The sequence and visual contents are grounded in the supplied images; the exact original turn-by-turn dialogue is not present here and should not be reconstructed as if quoted.
+
+
+## Hermeticon Genesis retina × living campaign — architectural synthesis (2026-10-27)
+
+### User
+
+Now look at what hermeticon codex genesis is. Ignore the creatures and meteors for now. Look at the way the world slides in the 3d retina.
+
+### Assistant — inspected source and synthesis
+
+Inspected the live repository source in `bonoj/Hermeticon`, especially `README.md`, `HANDOFF.md`, `athanor/athanor.js`, and `codex/genesis/world.js`. Genesis is an authored world mounted within Athanor's 3D rendering host. The vessel contains signed terrain and a navigable view; its creatures and meteors are irrelevant to this particular architectural connection.
+
+Athanor uses a perspective camera (42° FOV) looking toward the world center. A one-pointer drag beyond a 12-pixel tap threshold changes azimuth and elevation; a two-pointer pinch changes camera distance; the mouse wheel changes distance; a short tap is passed to the mounted world's interaction handler. The camera is recalculated each frame from azimuth, elevation, distance and target height. This produces a continuously orbitable and zoomable world in the 3D retina. Technically, the implementation is camera orbiting rather than unconstrained translation of the world. Source observation is not a claim that the current public deployment was visually tested during this turn.
+
+**Key connection:** Caldrin demonstrated a narratively continuous, progressively discovered world through lightly steered ➡️ turns and banter with Tavin. Genesis demonstrates a spatially continuous world that can be inspected by moving the observation frame. The September Foundry raster experiment contributed situated private ledgers, causal evolution, and proposal/acceptance of canonical state. These are complementary, not competing, foundations.
+
+### Proposed architectural separation
+
+- **World authority:** canonical entities, geography, relationships, rules, event history and accepted state transitions. The model proposes; the GM reviews and commits.
+- **Situated ledgers:** actors, factions, settlements and populations hold distinct knowledge, beliefs, goals, plans and observations; knowledge does not automatically propagate.
+- **Spatial observation:** an Athanor/Genesis-like 3D retina lets the observer orbit, zoom, inspect, and select places without confusing viewpoint changes with world-state changes.
+- **Other projections:** illustrated scenes, maps, journals, character sheets, experiment records, and eventually a mutable VTT are alternative views of the same authoritative world, not separately generated canons.
+- **Temporal advance:** ➡️ advances eligible world processes and inhabitants at an appropriate resolution; the resulting changes are proposed, inspectable, editable, rejectable, and only canonical when accepted.
+
+**Scale is the important design axis.** A GM might observe a continent, select Caldrin, descend into the Foundry, and consult Tavin at his workbench. Each change of viewpoint or representation should preserve the underlying world identity. This does *not* require all geometry or all agents to be simulated at maximum detail at every scale. Different regions, planes, populations and representations can use different spatial and temporal resolutions while retaining causal contracts.
+
+The strongest product hypothesis is therefore not simply “AI campaign manager” or “3D VTT,” but **an explorable, malleable living world whose observation scale and representation can change without losing canonical continuity**. The 3D retina is one compelling interface, not a mandatory sole interface. The first commercially testable slice remains small: import a campaign, advance time, inspect consequences and private ledgers, and accept/reject/edit proposals. Rich spatial traversal can grow from the same world contract.
+
+### User
+
+Persist whatever you like in the chronicle.
