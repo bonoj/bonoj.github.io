@@ -23,6 +23,7 @@ Canonical entrypoint: https://bonoj.github.io/jit/music/
 | 006 | The Musical Tree | Selectable phrase tree; Grow, Transform, Prune, Reset; live Web Audio playback of inherited musical variations |
 | 007 | Three Spectra | Three persistent vibrating voices with slide, hammer-on, pull-off, mute, damping, drift and subtle sympathetic resonance |
 | 008 | Three-String Minor Lute | D–A–F open D minor, diatonic touch fretboard, independent multitouch strumming soundboard, hammer-on and pull-off |
+| 009 | Baba Yaga’s Harp | Fifteen-string A harmonic minor harp, manual plucks and sweeps, four-section original crooked dance played through the instrument |
 
 ## Experience 004 — Field Music
 
@@ -61,3 +62,7 @@ Specification and acceptance tests are in `THEORY.md`. The initial implementatio
 ## Experience 008 — Three-String Minor Lute
 
 Specification and tuning rationale are in `THEORY.md`. The open pitches are D3/A3/F4 (D minor); this is an interpretation of the user's DAD-to-minor request, since simply lowering a D in DAD does not produce a D minor triad. Three touch-frettable strings use D-natural-minor offsets 0,2,3,5,7,8,10,12. Neck and soundboard are separate canvases with per-pointer tracking, so one pointer can fret while another strums. Sliding a held finger to a new fret retunes ringing partials and creates a small hammer/pull excitation. Strumming across soundboard lanes triggers them in traversal order. A direct strum button and mute button are also provided. Source commit `6d73162030260f49845cb5ea2d740075195539f3`. Source committed; public Pages deployment and live musical quality unverified.
+
+## Experience 009 — Baba Yaga’s Dancing Hut
+
+The core design is instrument-first: a 15-string A harmonic minor harp (A2 to A4 with G♯), with pluck and sweep gestures shared between manual input and the programmed performance. The original four-section, 3+2+2-accented dance uses a repeating low ostinato, upper melody, and arpeggiated sweeps. Each event is scheduled against AudioContext time in a lookahead scheduler; canvas animation only visualizes string excitation. Tap or drag across harp strings to play them manually. Tempo is adjustable; Stop and navigation mute scheduled voice envelopes. See `THEORY.md` for specification and acceptance criteria. Source commit `5b5b8687d3ce1092e56d8e8000242cda88b8429a`. Source committed; public Pages and actual listening quality unverified.
