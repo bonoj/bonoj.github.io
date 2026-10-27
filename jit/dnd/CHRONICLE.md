@@ -117,3 +117,41 @@ The DM can accept, reject, or alter those consequences. **The software proposes 
 That maps directly onto our experience with autonomous populations, resource economies, causal simulation, event histories, and model-mediated worldbuilding.
 
 Crucially, it would need to be useful without asking the DM to build an entire simulation first.
+
+### Initial commercial hypotheses
+
+| Candidate | Build fit | Willingness to pay |
+|---|---|---|
+| Living campaign continuity | Exceptional | Unproven |
+| NPC preparation assistant | High | Unproven |
+| Lightweight combat bookkeeping | High | Unproven |
+| Portable homebrew character sheets | High | Unproven |
+| Complete VTT replacement | Expensive distraction | Unproven |
+
+There's a particularly important warning in the community evidence: people value tools like Obsidian because they can keep their data locally and aren't dependent on a vendor. That suggests **exportability and low lock-in** could be meaningful differentiators.
+
+## Before building anything
+
+I would investigate one question:
+
+**Would a DM pay $5–10 per month for a world that reliably remembers and evolves between sessions?**
+
+That price is a proposed test, not a discovered market price.
+
+The Reddit evidence supports genuine frustration, but not yet a business case. Some of the most interesting comments have very few votes, and several threads are people soliciting product ideas. We should not mistake that for demonstrated purchasing intent.
+
+I'd next go directly into the conversations about campaign continuity and DM preparation, identify what people currently use, what they've abandoned, and whether anyone explicitly says they'd pay for a better solution.
+
+The interesting commercial possibility isn't selling people another fantasy world.
+
+It's **giving Dungeon Masters back the hours they spend maintaining the worlds they already love.**
+
+### User
+
+1. Hypothesis. GMs want to be able to type ➡️ and advance their entire world whilst retaining the option to edit and the control to accept or reject model proposals.
+
+2. A subsystem of 1.
+
+3. A malleable vtt is right up our alley. Especially if we build a model mediated vtt, one that can mutate reliably during livelplay via explicitly invoked turns.
+
+4. Contract/schema based, again model mediated, the output format is irrelevant, malleable jit.
