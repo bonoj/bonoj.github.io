@@ -690,3 +690,71 @@ The strongest product hypothesis is therefore not simply “AI campaign manager�
 ### User
 
 Persist whatever you like in the chronicle.
+
+
+## Product scope correction — campaign graph and model-maintained DM tooling (2026-10-27)
+
+### User
+
+We are not building out tavins world, however. We are less concerned with the vtt. It is underlying machinery for node relationships and spatial navigation of dm tooling which is largely menu overlay that models can maintain and advance.
+
+### Assistant
+
+That changes the architecture substantially, and I think it simplifies the product.
+
+**Tavin's world is evidence of what the machinery can produce, not the world we're building.** Caldrin is a reference experiment demonstrating continuity, exploration, character persistence, and discovery.
+
+Genesis is likewise a reference for spatial navigation, not a mandate to construct a fully simulated fantasy landscape.
+
+The actual product is **a model-maintained, spatially navigable campaign control system for DMs.**
+
+### The architecture as I now understand it
+
+**Authoritative campaign graph:** Nodes · Relationships · Ledgers · Rules · Events · History.
+
+Two complementary projections of that graph:
+
+- **Spatial navigation:** Genesis-inspired 3D retina for traversing related nodes.
+- **DM tooling:** Menus, overlays, inspectors, editors, timelines.
+
+**Model-mediated operations:** Create · Connect · Inspect · Propose · Advance ➡️ · Commit · Revert.
+
+The retina is essentially a **spatial interface to the campaign graph**. A DM navigates between nodes and their relationships. Selecting a node exposes the appropriate tooling through menus and overlays.
+
+A city node might expose factions, settlements, characters, resources, conflicts, and history. A faction node might expose its private ledger, intentions, assets, and relationships. A session node might expose encounters, unresolved threads, and consequences.
+
+The model can maintain both the **underlying graph** and the **tooling projected from it**, through explicit, schema-constrained mutations.
+
+That last distinction is important: we shouldn't have to hardcode a different interface for every possible campaign object.
+
+### Where ➡️ fits
+
+➡️ is not a command to animate the entire 3D world.
+
+It advances the relevant graph processes over time, reconciles their interactions, and produces a proposed state transition for DM review.
+
+The retina then reflects the updated relationships and states. Overlays expose what changed, why it changed, and what individual actors know.
+
+The DM's experience could be extraordinarily lightweight: navigate, inspect, ask, modify, advance, accept.
+
+And the same system should be capable of maintaining its own menus and inspectors as campaign requirements evolve.
+
+### What I'd explicitly exclude from the initial product
+
+Full 3D terrain simulation, physics, autonomous creature movement, elaborate battle maps, and building out Caldrin itself.
+
+Those are distractions from the core product hypothesis.
+
+**The product is the campaign's living, navigable knowledge and control structure.** The 3D retina provides spatial intuition; the model provides malleability and advancement; the contracts preserve coherence.
+
+The VTT can eventually be a projection of that machinery, but it isn't the organizing principle.
+
+This is a much sharper definition of what we're building.
+
+### User
+
+Let's persist this.
+
+### Canonical scope clarification
+
+The user's correction takes precedence over earlier suggestions to build Caldrin or prioritize a VTT. **Do not implement Tavin's world as the product. Do not treat full terrain simulation, creatures, meteors, or battle-map rendering as product requirements.** The spatial retina is a navigational metaphor and interaction substrate for a model-maintained graph of DM tools and world relationships, predominantly surfaced through menus and overlays. ➡️ is a proposed, reviewable, contract-constrained advance of graph state and private ledgers. Preserve the distinction between illustrative experiments and product scope.
