@@ -29,6 +29,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - name: Enforce canonical UI and negative controls
+        run: python3 jit/gestalt/covenant-fixture/check_canonical.py
       - name: Build debug APK
         working-directory: jit/gestalt/android
         run: gradle :app:assembleDebug --stacktrace
