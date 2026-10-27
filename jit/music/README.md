@@ -20,6 +20,7 @@ Canonical entrypoint: https://bonoj.github.io/jit/music/
 | 003 | Theory — The Universe Laboratory | Six independently toggled musical processes: CMB, Fluctuations, Attraction, Structure, Ignition, Interaction |
 | 004 | The Kesh — Field Music | Runtime 6/8 jig; melodic trajectory and responding performers under harmonic, coupling, rhythmic, and acoustic fields |
 | 005 | Musical ECS | Two draggable performers, evolving pitch and phase states, harmonic gravity, coupling through a listening edge, optional acoustic boundary |
+| 006 | The Musical Tree | Selectable phrase tree; Grow, Transform, Prune, Reset; live Web Audio playback of inherited musical variations |
 
 ## Experience 004 — Field Music
 
@@ -46,3 +47,7 @@ Source commit for experience 004: `8c2c45660a575a5012e183f38cb930513b6ec8aa`. Th
 ## Experience 005 — Musical ECS implementation
 
 Source commit: `5c96953c3531f255a7bd5767787dc6fa90b6d7c2`. Fixed pulse 112 BPM; two entities with phase, pitch, velocity, energy, and listening state; field updates and note-event extraction occur in an AudioContext-clock lookahead scheduler. Canvas reads state and handles drag input; it does not schedule audio. Dragging changes the listening graph. No external audio assets. The implementation is a first causal prototype, not a complete deterministic fixed-step ECS engine: event-driven state updates are currently tied to the audio scheduler, and exact reproducibility / mobile listening tests remain outstanding. Verify public Pages and audio separately.
+
+## Experience 006 — The Musical Tree
+
+Theory and acceptance tests are specified in `THEORY.md`. The implementation is a bounded 12-phrase tree: nodes hold inherited and transformed 12-event motifs, rendered in depth-first phrase order. Grow adds a related child, Transform applies a deterministic pitch/rhythm-rest operation to the selected node, Prune deletes the selected non-root subtree, and Reset restores the original seed. The audio scheduler uses `AudioContext.currentTime` and a lookahead interval, not the canvas animation loop. This first slice does not yet implement simultaneous counterpoint or grafting. Public Pages deployment and audio quality still require direct listening verification. Source commit `045a9e5167c4ff11f2b16bbf1353b9ebccfc7a57`.
