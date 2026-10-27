@@ -407,3 +407,45 @@ That's what makes ➡️ meaningful.
 ### User
 
 Persist all this verbatim in chronicle.
+
+### User
+
+Now recover as much context as you can of Tavin of Caldrin, the descent into the Foundry structure excavation, and the green glassers and water bending device.
+
+### Assistant
+
+**The recovery is richer than the three-locus experiment alone. Tavin, the Caldrin excavation, the Greenglassers, and the water-bending device form a connected sequence in which the inhabitants began conducting experiments on a world whose underlying machinery they did not understand.**
+
+That is especially important for JIT D&D: the Foundry was not merely a location with lore. It became a persistent physical mystery that characters could investigate, manipulate, and gradually understand.
+
+## The recovered chronology
+
+**1. Caldrin grows around the Foundry**
+
+A monumental brass structure dominates a water-rich basin. Settlement and working infrastructure gradually accumulate around it: watercourses, mills, bridges, lifts, cranes, and eventually a city.
+
+Caldrin's mill-mark begins as a practical works stamp and eventually appears on the city banner. This is a lovely example of civic identity emerging from the material history of a place.
+
+**2. Tavin leads the descent**
+
+Tavin is a lifelong Caldrin works man, familiar with both surface and deep levels. He guides visitors into the enormous opening excavated beneath the structure.
+
+Below is a cavernous engineered volume: walkways, falling water, laborers, support infrastructure, and a vast ancient central mechanism.
+
+The distinction matters: **Caldrin's construction is not the ancient Foundry**. The newer works provide access and support around machinery whose original purpose remains unknown.
+
+**3. The ancient structure responds**
+
+A controlled movement of a ring or structural component produces transmitted vibration and a larger internal mechanical response.
+
+The machinery behaves coherently, but the observers cannot yet explain its function.
+
+This was a critical continuity rule: an observable response does not entitle the model to invent a complete explanation.
+
+**4. The water anomaly becomes an experiment**
+
+An ancient conduit emits a continuous flow of cold, fresh, drinkable water. Its source and destination are unknown.
+
+Tavin tests the flow with a portable burnished-brass instrument containing faintly glowing green mineral material.
+
+The water responds to the device, but the strength of that response changes dramatically with location.
