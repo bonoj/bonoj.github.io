@@ -95,7 +95,7 @@ private fun GestaltScreen() {
                     }
                 }
             }
-            Button(onClick = { explored++; record("explore", explored.toString()) }, modifier = Modifier.fillMaxWidth()) {
+            CanonicalButton(onClick = { explored++; record("explore", explored.toString()) }, modifier = Modifier.fillMaxWidth()) {
                 Text("Explore ideas")
             }
             if (explored > 0) {
