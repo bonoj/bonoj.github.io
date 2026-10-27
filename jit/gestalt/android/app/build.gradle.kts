@@ -8,11 +8,11 @@ android {
     namespace = "io.github.bonoj.jitgestalt"
     compileSdk = 35
     defaultConfig {
-        applicationId = "io.github.bonoj.jitgestalt"
+        applicationId = "io.github.bonoj.jitgestalt.eyes"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
-        versionName = "0.1"
+        versionName = "0.2-eyes"
     }
     buildTypes { release { isMinifyEnabled = false } }
     compileOptions {
