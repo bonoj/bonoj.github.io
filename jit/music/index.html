@@ -23,7 +23,8 @@ async function start(){try{if(!audio)init();await audio.resume();if(running)retu
 function stop(){running=false;clearInterval(clock);if(audio){for(const v of live){try{v.out.gain.cancelScheduledValues(audio.currentTime);v.out.gain.setTargetAtTime(.0001,audio.currentTime,.09)}catch(e){}}}live=[];$('ruins-play').textContent='▶ Play the ruins';$('ruins-status').textContent='Stopped'}
 $('ruins-play').onclick=start;$('ruins-stop').onclick=stop;
 for(const key of ['flesh','distance','stone'])$(key).oninput=e=>{params[key]=+e.target.value;$(key+'-val').textContent=Math.round(params[key]*100)+'%';mix()};
-function show(ruins){if(ruins){$('stop').click()}else stop();panelA.classList.toggle('hidden',ruins);panelB.classList.toggle('hidden',!ruins);navA.setAttribute('aria-current',ruins?'false':'page');navB.setAttribute('aria-current',ruins?'page')}navA.onclick=()=>show(false);navB.onclick=()=>show(true);
+function show(ruins){if(ruins){$('stop').click();}else{stop();}panelA.classList.toggle('hidden',ruins);panelB.classList.toggle('hidden',!ruins);navA.setAttribute('aria-current',ruins?'false':'page');navB.setAttribute('aria-current',ruins?'page':'false');}
+navA.onclick=()=>show(false);navB.onclick=()=>show(true);
 const cv=$('ruins-scope'),g=cv.getContext('2d');function draw(){const w=cv.clientWidth,h=cv.clientHeight,d=Math.min(devicePixelRatio||1,2);if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=w*d;cv.height=h*d}g.setTransform(d,0,0,d,0,0);g.fillStyle='#101923';g.fillRect(0,0,w,h);const data=new Uint8Array(512);if(analyser)analyser.getByteTimeDomainData(data);else data.fill(128);g.strokeStyle='#c7a581';g.lineWidth=1.6;g.beginPath();for(let i=0;i<w;i++){const y=h/2+(data[Math.floor(i/w*512)]/128-1)*h*.4;if(i)g.lineTo(i,y);else g.moveTo(i,y)}g.stroke();requestAnimationFrame(draw)}draw();
 })();
 </script></body></html>
