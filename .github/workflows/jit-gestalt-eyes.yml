@@ -4,6 +4,7 @@ on:
     branches: [gestalt-covenant-fixture]
     paths:
       - 'jit/gestalt/android/**'
+      - 'jit/gestalt/covenant-fixture/**'
       - '.github/workflows/jit-gestalt-eyes.yml'
   workflow_dispatch:
 jobs:
@@ -13,6 +14,15 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+      - name: Checkout independently pinned canonical authority
+        uses: actions/checkout@v4
+        with:
+          ref: gestalt-canonical-authority-2026-10-27
+          path: trusted-authority
+          persist-credentials: false
+      - name: Reject candidate changes to canonical authority
+        run: |
+          python3 trusted-authority/jit/gestalt/covenant-fixture/verify_candidate.py
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -30,7 +40,7 @@ jobs:
         with:
           gradle-version: '8.9'
       - name: Enforce canonical UI and negative controls
-        run: python3 jit/gestalt/covenant-fixture/check_canonical.py
+        run: python3 trusted-authority/jit/gestalt/covenant-fixture/check_canonical.py
       - name: Build debug APK
         working-directory: jit/gestalt/android
         run: gradle :app:assembleDebug --stacktrace
