@@ -2,9 +2,11 @@
 """Conservative source guard for this fixture; not a complete Kotlin parser."""
 from pathlib import Path
 import re
+import json
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+GUARD_ROOT = Path(__file__).resolve().parent
 SCREEN = ROOT / "android/app/src/main/java/io/github/bonoj/jitgestalt/MainActivity.kt"
 CANONICAL = ROOT / "android/app/src/main/java/io/github/bonoj/jitgestalt/CanonicalUi.kt"
 
@@ -26,6 +28,13 @@ def check(screen: str, canonical: str):
     return failures
 
 def main():
+    # Integrity lock is only authoritative when protected outside model-editable files.
+    import hashlib
+    manifest = json.loads((GUARD_ROOT / "authority-lock.json").read_text())
+    for relative, expected in manifest["sha256"].items():
+        actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+        assert actual == expected, "protected authority drift: " + relative
+
     screen = SCREEN.read_text()
     canonical = CANONICAL.read_text()
     assert not check(screen, canonical), check(screen, canonical)
