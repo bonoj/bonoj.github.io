@@ -72,3 +72,39 @@ This is a proposed experiment, **not a request to execute it now**.
 **Dream → build → delight → hand off.** Build enough machinery to make a possibility tangible; don't turn the author's play into a benchmark program. The goal is to lower the cost of trustworthy native experience construction, not to prove a universal performance claim.
 
 **Related:** [README](./README.md) · [Architectural thesis](./spec.md) · [Contract](./contract.json) · [Native source](./android/app/src/main/java/io/github/bonoj/jitgestalt/MainActivity.kt).
+
+
+## Fixture 0 — obligations derived from the current specimen (2026-10-27)
+
+**Inspection basis:** `contract.json` and `android/app/src/main/java/io/github/bonoj/jitgestalt/MainActivity.kt`. These are observations of source, **not** executed test results. Baseline branch: `gestalt-working-baseline-2026-10-27`.
+
+### Contract-explicit, machine-checkable candidates
+
+| ID | Obligation | Native observation |
+| --- | --- | --- |
+| C01 | Hero title `Collect what moves you` and body text are present | Semantics text nodes |
+| C02 | Chip labels `Interiors`, `Recipes`, `Cats`, `Gardens` are present | Four labeled selectable nodes |
+| C03 | Card title `The observatory` and body are present | Semantics text nodes |
+| C04 | Card action is labeled `Save idea` initially | Action node label |
+| C05 | Primary action is labeled `Explore ideas` | Action node label |
+| C06 | Token values include background `#f7f7f5`, ink `#242424`, accent `#bd1831`, radius `16`, spacing `12` | Normalized contract and implementation mapping; visual inspection only where relevant |
+| C07 | Ordered components are hero → chips → card → button | Tagged Compose semantics order / hierarchy |
+
+### Present behavior that the contract does **not** fully specify
+
+- Native chip taps select one chip; tapping it again clears selection. Browser chip taps select but do **not** toggle off.
+- Native Save toggles between `Save idea` and `✓ Saved`. Browser also toggles, but the JSON does not formally define the transition.
+- Native Explore increments a visible counter; browser Explore only updates a workbench status line. Neither result is declared in the contract.
+- Native uses `rememberSaveable` for state; browser holds local JavaScript state. Lifecycle persistence is not a contract obligation.
+- Native adds a footer and has a different screen title presentation; the contract does not yet say whether additions are allowed.
+- Native hardcodes token colors and uses 20dp outer padding; the contract's `spacing: 12` does not define all padding behavior.
+
+**Finding:** If we blindly derive behavioral tests from the current Android source, we would accidentally turn one model interpretation into contract law. If we derive them from the browser, we would canonize a different interpretation. Neither is authoritative. The contract must first say what a chip selection, Save, and Explore **mean**, and which visual/layout details are binding.
+
+### Minimal extension to investigate, not implement
+
+Give each interactive component a stable ID and an action with explicit state transition or observable effect. For example, `chip-group/interests` owns `selectedInterest`; `card/observatory` toggles `saved`; `button/explore` declares an event or navigation intent. Declare whether selection can be cleared, whether Save survives recreation, and whether added native-only presentation is allowed.
+
+**Enforcement ladder:** (1) schema-valid → (2) contract obligations extracted → (3) native app builds → (4) semantics/action tests run → (5) observed transitions satisfy obligations → (6) human accepts experience. Report each independently.
+
+**Next decision:** author the smallest behavior semantics extension or keep the current specimen intentionally underspecified and enforce only structure/text. Do not silently claim full behavior parity from `mini-gestalt/v1`.
