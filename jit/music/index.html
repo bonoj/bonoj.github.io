@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101923"><title>JIT Music · Laboratory</title><style>
 *{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#101923;color:#eadbc1;font-family:system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer}#app{height:100dvh;display:flex;flex-direction:column;max-width:960px;margin:auto;padding:env(safe-area-inset-top) 15px env(safe-area-inset-bottom)}#build-tools{display:flex;align-items:center;gap:9px}#build{font:11px ui-monospace,monospace;color:#e4c193}#fresh{width:42px;height:42px;border:1px solid #66543a;border-radius:9px;background:#273845;color:#e4c193;font-size:25px;touch-action:manipulation}header{padding:16px 0 10px;border-bottom:1px solid #394654;display:flex;align-items:center;justify-content:space-between}h1{font:normal 23px Georgia,serif;margin:0}small,.muted{color:#a9b4be}nav{display:flex;gap:8px;padding:12px 0;overflow-x:auto}nav button{white-space:nowrap}nav button[aria-current=false]{background:#202d38;border-color:#435565;color:#b4c0c9}nav button{border:1px solid #c7a779;background:#453d34;color:#f6dfbd;border-radius:9px;padding:10px 13px}main{flex:1;min-height:0;overflow:auto;scrollbar-width:thin}.panel{border:1px solid #3e4c59;border-radius:17px;padding:15px;background:#17232e}.eyebrow{font-size:11px;letter-spacing:.15em;color:#c8a77b}.heading{font:normal 28px Georgia,serif;margin:7px 0}.desc{font-size:13px;color:#acb8c2;margin:0 0 12px}canvas{width:100%;height:150px;display:block;border-radius:10px;background:#101923}.actions{display:flex;gap:8px;margin:12px 0}.actions button{border-radius:9px;border:1px solid #697a87;background:#273845;color:#e9dbc6;padding:12px;min-height:45px}.actions #play{flex:1;background:#d1af85;color:#16202a;font-weight:650}.controls{display:grid;gap:18px;margin:18px 0 8px}.control{display:grid;gap:7px}.control label{display:flex;justify-content:space-between;font-size:13px}.control output{color:#e4c193;font-variant-numeric:tabular-nums}input[type=range]{width:100%;accent-color:#d1af85;touch-action:pan-x}.segments{display:flex;gap:6px;flex-wrap:wrap}.segments button{border:1px solid #4d6070;background:#21313f;color:#e5d8c3;border-radius:8px;padding:10px 12px;flex:1;min-width:85px}.segments button[aria-pressed=true]{background:#6a533d;border-color:#d8b88a}footer{font-size:11px;color:#8fa0ad;padding:9px 0;border-top:1px solid #394654;display:flex;justify-content:space-between}.hidden{display:none}
-</style></head><body><div id="app"><header><div><small>JIT / LABORATORIES</small><h1>♫ Music</h1></div><div id="build-tools"><span id="build" aria-label="Executing deployment build">BUILD · pending</span><button id="fresh" type="button" aria-label="Refresh with fresh cache key" title="Fetch fresh build">↻</button></div></header><nav aria-label="Experiences"><button id="nav-sustain" aria-current="page">01 · Sustain Laboratory</button><button id="nav-ruins" aria-current="false">02 · Ruined Orchestra</button><button id="nav-theory" aria-current="false">03 · Theory</button></nav><main><section class="panel" id="sustain-panel"><div class="eyebrow">EXPERIMENT 001 · CONTINUITY</div><h2 class="heading">Sustain Laboratory</h2><p class="desc">Long notes, overlapping voices, slow harmonic movement. Listen for continuity between attacks.</p><canvas id="scope"></canvas><div class="actions"><button id="play">▶ Play evolving passage</button><button id="stop" aria-label="Stop">■</button></div><p id="status" class="desc" role="status">Ready · headphones recommended</p><div class="controls"><div class="control"><label>Voice</label><div class="segments" id="voices"><button data-kind="strings" aria-pressed="true">Bowed strings</button><button data-kind="glass" aria-pressed="false">Glass</button><button data-kind="flute" aria-pressed="false">Flute</button></div></div><div class="control"><label for="duration">Note duration <output id="duration-val">3.5 seconds</output></label><input id="duration" type="range" min=".5" max="8" step=".5" value="3.5"></div><div class="control"><label for="overlap">Note overlap <output id="overlap-val">65%</output></label><input id="overlap" type="range" min="0" max=".9" step=".05" value=".65"></div></div></section><section class="panel hidden" id="ruins-panel"><div class="eyebrow">EXPERIMENT 002 · EMBODIMENT</div><h2 class="heading">The Ruined Orchestra</h2><p class="desc">The same harmonic passage, now played by imperfect performers through resonant bodies and a stone hall.</p><canvas id="ruins-scope"></canvas><div class="actions"><button id="ruins-play" style="flex:1;background:#d1af85;color:#16202a">▶ Play the ruins</button><button id="ruins-stop" aria-label="Stop orchestra">■</button></div><p class="desc" id="ruins-status">Ready · headphones recommended</p><div class="controls"><div class="control"><label for="flesh">Flesh <output id="flesh-val">45%</output></label><input id="flesh" type="range" min="0" max="1" step=".01" value=".45"></div><div class="control"><label for="distance">Distance <output id="distance-val">55%</output></label><input id="distance" type="range" min="0" max="1" step=".01" value=".55"></div><div class="control"><label for="stone">Stone <output id="stone-val">65%</output></label><input id="stone" type="range" min="0" max="1" step=".01" value=".65"></div></div></section><section class="panel hidden" id="theory-panel"><div class="eyebrow">THEORY / 001 · EMERGENCE</div><h2 class="heading">The Universe Laboratory</h2><p class="desc">Six independent phenomena. Turn each on to hear it; turn it off to pause its musical clock.</p><p id="theory-status" class="desc" role="status">Touch a phenomenon to awaken audio · headphones recommended</p><div id="theory-switches" class="controls" style="gap:9px"></div><div class="actions"><button id="theory-silence">■ Silence all</button><span id="theory-count" class="desc" style="align-self:center;margin:0">0 active</span></div></section></main><footer><span>One page · navigable experiments · Web Audio</span><span>001–003 / 003</span></footer></div><script>
+</style></head><body><div id="app"><header><div><small>JIT / LABORATORIES</small><h1>♫ Music</h1></div><div id="build-tools"><span id="build" aria-label="Executing deployment build">BUILD · pending</span><button id="fresh" type="button" aria-label="Refresh with fresh cache key" title="Fetch fresh build">↻</button></div></header><nav aria-label="Experiences"><button id="nav-sustain" aria-current="page">01 · Sustain Laboratory</button><button id="nav-ruins" aria-current="false">02 · Ruined Orchestra</button><button id="nav-theory" aria-current="false">03 · Theory</button><button id="nav-field" aria-current="false">04 · Field Music</button></nav><main><section class="panel" id="sustain-panel"><div class="eyebrow">EXPERIMENT 001 · CONTINUITY</div><h2 class="heading">Sustain Laboratory</h2><p class="desc">Long notes, overlapping voices, slow harmonic movement. Listen for continuity between attacks.</p><canvas id="scope"></canvas><div class="actions"><button id="play">▶ Play evolving passage</button><button id="stop" aria-label="Stop">■</button></div><p id="status" class="desc" role="status">Ready · headphones recommended</p><div class="controls"><div class="control"><label>Voice</label><div class="segments" id="voices"><button data-kind="strings" aria-pressed="true">Bowed strings</button><button data-kind="glass" aria-pressed="false">Glass</button><button data-kind="flute" aria-pressed="false">Flute</button></div></div><div class="control"><label for="duration">Note duration <output id="duration-val">3.5 seconds</output></label><input id="duration" type="range" min=".5" max="8" step=".5" value="3.5"></div><div class="control"><label for="overlap">Note overlap <output id="overlap-val">65%</output></label><input id="overlap" type="range" min="0" max=".9" step=".05" value=".65"></div></div></section><section class="panel hidden" id="ruins-panel"><div class="eyebrow">EXPERIMENT 002 · EMBODIMENT</div><h2 class="heading">The Ruined Orchestra</h2><p class="desc">The same harmonic passage, now played by imperfect performers through resonant bodies and a stone hall.</p><canvas id="ruins-scope"></canvas><div class="actions"><button id="ruins-play" style="flex:1;background:#d1af85;color:#16202a">▶ Play the ruins</button><button id="ruins-stop" aria-label="Stop orchestra">■</button></div><p class="desc" id="ruins-status">Ready · headphones recommended</p><div class="controls"><div class="control"><label for="flesh">Flesh <output id="flesh-val">45%</output></label><input id="flesh" type="range" min="0" max="1" step=".01" value=".45"></div><div class="control"><label for="distance">Distance <output id="distance-val">55%</output></label><input id="distance" type="range" min="0" max="1" step=".01" value=".55"></div><div class="control"><label for="stone">Stone <output id="stone-val">65%</output></label><input id="stone" type="range" min="0" max="1" step=".01" value=".65"></div></div></section><section class="panel hidden" id="theory-panel"><div class="eyebrow">THEORY / 001 · EMERGENCE</div><h2 class="heading">The Universe Laboratory</h2><p class="desc">Six independent phenomena. Turn each on to hear it; turn it off to pause its musical clock.</p><p id="theory-status" class="desc" role="status">Touch a phenomenon to awaken audio · headphones recommended</p><div id="theory-switches" class="controls" style="gap:9px"></div><div class="actions"><button id="theory-silence">■ Silence all</button><span id="theory-count" class="desc" style="align-self:center;margin:0">0 active</span></div></section><section class="panel hidden" id="field-panel"><div class="eyebrow">EXPERIMENT 004 · COUPLED MUSICAL WORLD</div><h2 class="heading">The Kesh · Field Music</h2><p class="desc">A 6/8 jig inhabits a tonal landscape. Performers follow a shared trajectory; fields alter their choices and the room alters their sound. Live synthesis, no recording.</p><canvas id="field-scope" style="height:185px"></canvas><div class="actions"><button id="field-play" style="flex:1;background:#d1af85;color:#16202a">▶ Awaken session</button><button id="field-stop">■</button></div><p class="desc" id="field-status" role="status">Ready · touch play to unlock sound</p><div class="controls"><div class="control"><label for="field-gravity">Harmonic gravity <output id="field-gravity-v">35%</output></label><input id="field-gravity" type="range" min="0" max="1" step=".01" value=".35"></div><div class="control"><label for="field-coupling">Performer coupling <output id="field-coupling-v">65%</output></label><input id="field-coupling" type="range" min="0" max="1" step=".01" value=".65"></div><div class="control"><label for="field-room">Acoustic volume <output id="field-room-v">45%</output></label><input id="field-room" type="range" min="0" max="1" step=".01" value=".45"></div><div class="control"><label for="field-tempo">Pulse <output id="field-tempo-v">112 BPM</output></label><input id="field-tempo" type="range" min="75" max="155" step="1" value="112"></div></div><p class="desc">The shared melodic path persists. Gravity attracts pitches toward the current tonal center; coupling changes timing and call-and-response; volume mixes dry sound with a modeled reflective space. Set volume to zero for an unbounded world.</p></section></main><footer><span>One page · navigable experiments · Web Audio</span><span>001–004 / 004</span></footer></div><script>
 const MUSIC_BUILD = "pending";
 document.getElementById('build').textContent = 'BUILD · '+MUSIC_BUILD.slice(0,8);
 document.getElementById('fresh').onclick = () => { const url = new URL(location.href); url.searchParams.set('fresh',Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)); location.replace(url.href); };
@@ -56,5 +56,120 @@ function silence(){rows.querySelectorAll('button').forEach(b=>{const s=states[+b
 $('theory-silence').onclick=silence;
 $('nav-theory').onclick=()=>{$('stop').click();$('ruins-stop').click();$('sustain-panel').classList.add('hidden');$('ruins-panel').classList.add('hidden');$('theory-panel').classList.remove('hidden');$('nav-sustain').setAttribute('aria-current','false');$('nav-ruins').setAttribute('aria-current','false');$('nav-theory').setAttribute('aria-current','page')};
 for(const id of ['nav-sustain','nav-ruins'])$(id).addEventListener('click',()=>{$('theory-panel').classList.add('hidden');$('nav-theory').setAttribute('aria-current','false');silence()});
+})();
+</script>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const panel=$('field-panel'),nav=$('nav-field'),canvas=$('field-scope'),g=canvas.getContext('2d');
+const controls={gravity:$('field-gravity'),coupling:$('field-coupling'),room:$('field-room'),tempo:$('field-tempo')};
+for(const [key,el] of Object.entries(controls))el.addEventListener('input',()=>{$('field-'+key+'-v').textContent=key==='tempo'?el.value+' BPM':Math.round(el.value*100)+'%'});
+let ctx,master,dry,wet,delayA,delayB,feedbackA,feedbackB,timer,playing=false,next=0,step=0,phase=0,energy=0,token=0;
+const midi=n=>440*Math.pow(2,(n-69)/12);
+const A=[74,76,79,79,76,74,76,79,81,81,79,76,74,76,79,79,76,74,72,74,76,76,74,72];
+const B=[79,81,83,83,81,79,81,83,86,86,83,81,79,81,83,83,81,79,76,79,81,81,79,76];
+const path=[...A,...A,...B,...B]; // 16 bars of 6/8, two repeating strains
+const scale=[55,57,59,60,62,64,66,67,69,71,72,74,76,78,79,81,83,84,86];
+function setup(){
+ ctx=new(window.AudioContext||window.webkitAudioContext)();
+ master=ctx.createGain();master.gain.value=.36;const comp=ctx.createDynamicsCompressor();comp.threshold.value=-20;comp.ratio.value=3;master.connect(comp);comp.connect(ctx.destination);
+ dry=ctx.createGain();dry.gain.value=1;wet=ctx.createGain();wet.gain.value=.2;dry.connect(master);wet.connect(master);
+ delayA=ctx.createDelay(1);delayB=ctx.createDelay(1);feedbackA=ctx.createGain();feedbackB=ctx.createGain();
+ delayA.delayTime.value=.093;delayB.delayTime.value=.169;feedbackA.gain.value=.22;feedbackB.gain.value=.19;
+ delayA.connect(feedbackA);feedbackA.connect(delayB);delayB.connect(feedbackB);feedbackB.connect(delayA);delayA.connect(wet);delayB.connect(wet);
+ }
+function route(out){out.connect(dry);out.connect(delayA)}
+function voice(note,time,length,amp,kind,pan=0){
+ const output=ctx.createGain(),p=ctx.createStereoPanner(),f=midi(note),end=time+length;
+ output.gain.setValueAtTime(.0001,time);
+ const attack=kind==='pluck'?.006:kind==='flute'?.055:.075;
+ output.gain.linearRampToValueAtTime(amp,time+attack);
+ output.gain.setTargetAtTime(kind==='pluck'?amp*.08:amp*.73,time+attack,kind==='pluck'?.11:.35);
+ output.gain.setTargetAtTime(.0001,end-.08,.09);
+ p.pan.value=pan;output.connect(p);route(p);
+ const partials=kind==='pluck'?7:kind==='flute'?5:9;
+ for(let h=1;h<=partials;h++){
+ const osc=ctx.createOscillator(),gain=ctx.createGain();
+ osc.type='sine';osc.frequency.setValueAtTime(f*h,time);
+ const strength=kind==='pluck'?1/Math.pow(h,.9):kind==='flute'?1/Math.pow(h,2.1):1/Math.pow(h,1.18);
+ gain.gain.value=strength*(kind==='fiddle'?.52:.72);
+ if(kind==='fiddle')osc.detune.setValueAtTime(Math.sin(step*.4+h)*2.3,time);
+ osc.connect(gain);gain.connect(output);osc.start(time);osc.stop(end+.38);
+ }
+ if(kind!=='pluck'){
+ const size=Math.max(1,Math.floor(ctx.sampleRate*Math.min(.23,length))),buffer=ctx.createBuffer(1,size,ctx.sampleRate),data=buffer.getChannelData(0);
+ for(let i=0;i<size;i++)data[i]=(Math.random()*2-1)*(1-i/size);
+ const src=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),noise=ctx.createGain();
+ src.buffer=buffer;filter.type='bandpass';filter.frequency.value=kind==='flute'?1900:900;filter.Q.value=.8;noise.gain.value=kind==='flute'?.006:.013;
+ src.connect(filter);filter.connect(noise);noise.connect(output);src.start(time);src.stop(time+size/ctx.sampleRate);
+ }
+ }
+function nearest(note,target){let chosen=note,best=Infinity;for(const n of scale){const cost=Math.abs(n-note)+Math.abs(n-target)*.14;if(cost<best){best=cost;chosen=n}}return chosen}
+function schedule(){
+ if(!playing)return;
+ const now=ctx.currentTime,gravity=+controls.gravity.value,coupling=+controls.coupling.value,beat=60/+controls.tempo.value/3;
+ wet.gain.setTargetAtTime(+controls.room.value*.62,now,.06);
+ while(next<now+.14){
+ const index=step%path.length,bar=Math.floor(index/6),position=index%6;
+ const center=[67,62,64,67][Math.floor(bar/2)%4];
+ const original=path[index];
+ // Attraction grows with gravity, but preserves recognizable contour at lower settings.
+ const pull=gravity*gravity*.6;
+ const attracted=nearest(original,center+12);
+ const note=pull>.35 && (index%6===5 || index%6===2)?attracted:original;
+ const wave=Math.sin(step*.33)*coupling*.014;
+ const duration=beat*(position===2||position===5?1.4:.88);
+ const t=next+wave;
+ voice(note,t,Math.max(.09,duration),.09,'fiddle',-.32);
+ // The second musician inherits the melodic trajectory, sometimes answering a phrase.
+ if(coupling>.13 && (index%12>=6 || coupling>.7)){
+ const response=index%12>=6?path[(index+path.length-6)%path.length]-12:note-12;
+ voice(response,t+.018+coupling*.035,duration*.92,.026+coupling*.022,'flute',.38);
+ }
+ // Pulse field: bass and string accompaniment share the same bar topology.
+ if(position===0||position===3){
+ voice(center-12,t,beat*2.1,.09,'pluck',.12);
+ voice(center-5,t+beat*.12,beat*1.4,.037,'pluck',.22);
+ }
+ if(position===2||position===5)voice(center+5,t,beat*.8,.023,'pluck',.5);
+ energy=.8;phase=index/path.length;
+ next+=beat*(position===0?1.06:position===3?.94:1);
+ step++;
+ }
+ $('field-status').textContent='Live · '+Math.round(+controls.tempo.value)+' BPM · phrase '+(Math.floor((step%path.length)/24)+1)+'/4 · '+(controls.room.value==0?'unbounded':'reflective volume');
+ }
+function stop(){
+ playing=false;clearInterval(timer);token++;if(master&&ctx){const t=ctx.currentTime;master.gain.cancelScheduledValues(t);master.gain.setTargetAtTime(0,t,.05)}
+ $('field-play').textContent='▶ Awaken session';$('field-status').textContent='Silent · field state retained';
+ }
+$('field-play').onclick=async()=>{
+ try{if(!ctx)setup();await ctx.resume();if(playing)return;playing=true;const t=ctx.currentTime;master.gain.cancelScheduledValues(t);master.gain.setTargetAtTime(.36,t,.06);next=t+.08;schedule();timer=setInterval(schedule,35);$('field-play').textContent='♫ Session alive'}
+ catch(e){$('field-status').textContent='Audio unavailable: '+e.message}
+};
+$('field-stop').onclick=stop;
+nav.onclick=()=>{
+ $('stop').click();$('ruins-stop').click();$('theory-silence').click();
+ for(const id of ['sustain','ruins','theory']){$(id+'-panel').classList.add('hidden');$('nav-'+id).setAttribute('aria-current','false')}
+ panel.classList.remove('hidden');nav.setAttribute('aria-current','page');
+};
+for(const id of ['nav-sustain','nav-ruins','nav-theory'])$(id).addEventListener('click',()=>{stop();panel.classList.add('hidden');nav.setAttribute('aria-current','false')});
+function draw(){
+ const w=canvas.clientWidth,h=canvas.clientHeight,dpr=Math.min(2,devicePixelRatio||1);
+ if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=w*dpr;canvas.height=h*dpr}
+ g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,w,h);g.fillStyle='#101923';g.fillRect(0,0,w,h);
+ const grav=+controls.gravity.value,couple=+controls.coupling.value,room=+controls.room.value;
+ const cx=w*.5,cy=h*.52;
+ for(let j=0;j<9;j++){
+ g.beginPath();g.strokeStyle='rgba(211,170,115,'+(.07+grav*.06)+')';
+ for(let x=0;x<=w;x+=5){const y=cy+(j-4)*15+Math.sin(x*.025+j*.6+phase*12)*grav*12;if(x===0)g.moveTo(x,y);else g.lineTo(x,y)}g.stroke();
+ }
+ for(let j=0;j<3;j++){g.beginPath();g.ellipse(cx,cy,24+j*28,13+j*19,0,0,Math.PI*2);g.strokeStyle='rgba(205,176,131,'+(room*.3+.06)+')';g.stroke()}
+ const ix=(step%path.length)/path.length;
+ for(let j=0;j<12;j++){const a=(j/12+ix)*Math.PI*2,r=42+j*5;g.beginPath();g.arc(cx+Math.cos(a)*r,cy+Math.sin(a)*r*.65,2+(j%3),0,Math.PI*2);g.fillStyle=j%3===0?'#8fc5d3':'#e3ba82';g.globalAlpha=playing?.8:.26;g.fill()}
+ g.globalAlpha=1;g.fillStyle='#aab9c5';g.font='11px system-ui';g.fillText('TONAL FIELD',12,18);g.fillText('COUPLING '+Math.round(couple*100)+'%',12,h-12);
+ if(playing){energy*=.97;requestAnimationFrame(draw)}else setTimeout(()=>requestAnimationFrame(draw),250);
+}
+draw();
 })();
 </script></body></html>
