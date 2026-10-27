@@ -120,3 +120,9 @@
 - Avoid conflating **procedural material appearance** with physical transparency, true volumetrics, refraction, or emitted scene lighting.
 
 **Guiding principle:** Build a growing cabinet of convincing, reusable material treatments through direct play. Capture what works. Let natural-world composition emerge from experiments rather than front-loading architecture.
+
+### 08 · Natural World first pass — implementation
+
+**User:** “Ready to build? ➡️”
+
+**Assistant:** Added all 32 previously specified treatments as modes 5–36 in the existing indexed catalog, organized into eight families, without changing the specimen geometry. Shader branches vary grain, veins, strata, fibers, crystal response, atmospheric density appearance, water ripples, sand ripples, and frozen sparkle. Retained the five original signs and Eye/stress controls. Source commit `32d2366d`; fetched back and verified. Build `materials/04`. **Visual/runtime validation is still pending;** this is a first pass for user-led iteration, not 32 proven realistic materials. Atmosphere and liquids are acknowledged surface approximations.
