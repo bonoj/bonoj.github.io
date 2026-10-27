@@ -530,3 +530,27 @@ Experimental setup, locations A–I, preliminary response curve, controls, and u
 Ten ordered visual observations, from the first sight of the basin to the Greenglass apparatus, with explicit separation of evidence and interpretation.
 
 These are actual recovered Library artifacts, not hypothetical documents. The atlas preserves references to the original image sequence, although I haven't verified that all ten original images remain individually accessible.
+
+## Why this matters for ➡️
+
+The three-locus raster experiment gave us independent actors, private ledgers, and authoritative world-state commitment.
+
+**Tavin's expedition adds another essential dimension: experimental discovery inside that persistent world.**
+
+The inhabitants don't merely execute plans. They notice anomalies, develop hypotheses, construct instruments, establish controls, and revise their understanding.
+
+The GM can advance the world twelve days and discover that Tavin has completed four experiments, the Greenglassers have produced a second instrument, and the Caldrin excavation has uncovered a new chamber.
+
+But the results must be constrained by the world's established physics, resources, knowledge, and events—not fabricated retroactively to create a satisfying story.
+
+And the private ledgers matter: Tavin might know the water effect is directional; the Greenglassers might have discovered something different; the city government might know only that the excavation is costing money.
+
+This is the distinction I would carry into JIT D&D:
+
+**The world advances. Its inhabitants investigate. Knowledge advances unevenly. The GM decides what becomes canon.**
+
+The recovered Foundry material provides a concrete historical example of exactly that architecture.
+
+### User
+
+Persist all this in the chronicle.
