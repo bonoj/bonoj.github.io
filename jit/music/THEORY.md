@@ -134,3 +134,61 @@ An interactive musical universe assembled by toggling autonomous, overlapping ph
 ### Origin
 
 Specified in conversation immediately after the **Music as a Universe** theory. User: “So now let's spec the page we'll build for theory. It'll be a series of toggles that can all overlap. When on, they play, when off, they pause.” The design above captures the proposed six-process interface and its timing contract.
+
+
+---
+
+## Turn pair — Music as particles, waves, fields, maps, and volumes (2026-10-26)
+
+**User**
+
+> We should treat music like particles and waves affected by fields and maps in a volume (or lack thereof).
+
+**Assistant**
+
+Yes. **Music as a dynamical system rather than a sequence of notes.**
+
+This connects to the observation about growing trees: topology can anchor populations, propagate fields, and change the behavior of everything living on it. A musical universe can work the same way.
+
+### The musical field
+
+| Primitive | Musical interpretation |
+| --- | --- |
+| **Particles** | Notes, attacks, plucks, breaths, percussive events |
+| **Waves** | Sustained tones, vibrato, resonance, rhythmic oscillations |
+| **Fields** | Tonality, harmonic attraction, tension, rhythmic gravity |
+| **Maps** | Instrument timbre, articulation, musical topology |
+| **Volumes** | Rooms, acoustic environments, spatial relationships |
+| **Boundaries** | Reflection, absorption, resonance, silence |
+| **Agents** | Musicians that respond to the fields and each other |
+
+**Sound waves are physical; harmonic attraction is a compositional metaphor.** Model both without conflating them: a harmonic field governs musical choices; an acoustic field governs propagation of the resulting sound.
+
+### The Kesh as a field experiment
+
+Imagine the melody as a moving trajectory through a tonal landscape. Its notes are not merely independently scheduled objects: they manifest a musical path, with rhythm, articulation, and phrasing arising from the trajectory.
+
+A fiddle and flute can follow the same path but interpret it differently through their instrument maps and performer dynamics.
+
+Introduce a pub: its volume modifies propagation; performers hear each other through the environment; timing and dynamics respond to one another. The music becomes a coupled system.
+
+**The volume can also be absent.** Run the same music in an abstract acoustic space without walls, reverberation, or simulated audience.
+
+### Multiple resolutions
+
+- A high-level harmonic field governs where musical motion tends to go.
+- A performer model governs how a musician follows or resists that motion.
+- An instrument model translates performance into sound.
+- An acoustic volume transforms sound before it reaches the listener.
+
+This is tractable on a phone without simulating every molecule of air or every vibrating string.
+
+The more powerful operation is not simply *add an instrument*, but:
+
+> **Introduce a field. Observe what the existing music does in response.**
+
+A tension field pulls toward unresolved intervals. A rhythmic field makes musicians lean into a jig's pulse. A spatial field encourages a performer to answer another across the room. The music changes because its world changes.
+
+**Next experimental direction:** a small executable musical world with **The Kesh** as its first recognizable inhabitant—not a particle visualization that happens to make sounds, but a musical simulation whose state produces the performance.
+
+**Status:** conceptual turn pair captured; not an implementation claim.
