@@ -334,3 +334,23 @@ The experiment began around September 18, 2026, at T0, and reached an accepted T
 | Outcome accounting | Distinguish intended action, observed result, and incidental changes |
 | Temporal continuity | The world accumulates history rather than regenerating a fresh scene |
 | DENOISE | Compact accumulated state without discarding important causal distinctions |
+
+The T14 world was particularly instructive. Blue, Red, and Green had made contact, exchanged materials, and participated in work around an ancient Foundry. They had not become a unified civilization or acquired omniscient knowledge.
+
+A deliberate movement of a component produced a larger internal mechanical reconfiguration. The inhabitants could observe the change without understanding the mechanism.
+
+We explicitly prohibited the renderer from inventing explanations such as magical energy, awakening machinery, or known purposes.
+
+That was an early exercise in **maintaining uncertainty as part of canonical world state**.
+
+## The important recovery: state is not a scene
+
+By September 19, we'd articulated three distinct responsibilities:
+
+- **Pixels preserve morphology:** where things are, what they look like, and how physical structures relate.
+- **Semantics preserve causality and affordances:** what happened, what can happen, and what changed.
+- **Private ledgers preserve situated intelligence:** what each population knows, believes, intends, and remembers.
+
+We also experimented with independently advancing representations. A surface panorama could remain paused while a Foundry cross-section advanced.
+
+That matters for a D&D world spanning multiple regions and planes: different representations do not need identical spatial or temporal resolution.
