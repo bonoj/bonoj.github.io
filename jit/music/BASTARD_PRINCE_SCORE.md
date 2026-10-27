@@ -207,3 +207,18 @@ This is a **new working specification**, not part of the verbatim conversation a
 - Extend **Ruined Orchestra** as the performer/space foundation, but preserve experiments 001 and 002. Add independent, navigable experiments for microtonal melody and rhythmic subdivision before attempting the full score.
 - Web Audio: frequency/cents control, independent melodic scheduler and percussion scheduler, stable clock, start/stop/fade on navigation, no audio work in the visual render loop. Mobile-first, gesture-to-start, visible build identity and cache-busted iteration.
 - Success is **audible and observable**: hear meaningful differences between Arioch tuning choices; hear subdivision density grow without tempo drift; hear the Prince's motif remain recognizable through different instruments and regions.
+
+
+## Working production plan — complete ballad (supersedes regional prototype experiments)
+
+- **Form:** one through-composed 13-stanza ballad in six connected movements, not isolated regional loops. Preserve the singer's recurring four-line melody and D–F–A–F motif while varying dynamics, harmonic color, counterlines, accompaniment and transitions.
+- **I. King of Sand (1–4):** harp, restrained bowed ensemble, deep drone; harsher bass and sudden silences for the executions; collapse to near-solitude after the palace massacre.
+- **II. Twelve-String Harp (5–7):** warmer dancing plucked pulse, moving bass, brighter harmony; broken-harp punchline gets an abrupt rest.
+- **III. Fiddle and Heart (8–9):** lyrical bowed countervoice, warmth and wit, brief stumble for the second broken instrument.
+- **IV. Lover and Thief (10–11):** nimble syncopation and brief comedic breath before the punchline; light stealth percussion. No separate Karrick rhythmic demonstration.
+- **V. Umbral Coast (12):** communal, rolling, rowdy 6/8; full strings, percussion, bass; longer stanza receives an instrumental extension.
+- **VI. Return (13):** strip back to original harp and voice-shaped melody, gradually reintroduce acquired instruments, expand toward a bright but suspended ending.
+- **Delivery:** experiment **003 · Bastard Prince** in the existing single-page Music JIT. A finite, fully scheduled, seekable instrumental *vocal-line guide* for the complete poem, with stanza/line display and play/stop; no claim that the browser synthesizes intelligible sung lyrics. Human vocal recording/synthesis is a later distinct milestone.
+- **Instrumentation:** use Ruined Orchestra lessons: layered harmonics, filtered friction/noise, resonant body filters, humanized attack/decay, performer positions, stone-room convolution, and phrase-level envelopes; avoid bare atomic sine-note sequences.
+- **Music:** explicit 6/8 phrase timeline, four lines per stanza (six lines for the pirate stanza), fixed motif and variation, changing chord palettes and instrument roles. Schedule from AudioContext time, not requestAnimationFrame; cap polyphony and provide clean stop/fade.
+- **Verification:** check source syntax, stanza progression, end-of-song stop, existing 001/002 preservation, build stamp and cache-busted link. A GitHub commit is not proof that Pages has deployed or that the audio sounds good.
