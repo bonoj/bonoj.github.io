@@ -619,3 +619,43 @@ The sheet explains the **mill-mark**: originally a practical stamp for Caldrin's
 Tavin stands at the left edge of a high observation platform, pointing across a vast circular chamber of exposed brass pipes, vertical shafts, broad curved supports, annular platforms and crossing galleries. Compared with the previous central-sphere view, this image emphasizes mechanical connections and hydraulic circulation rather than a gleaming central orb. A stout vertical column rises from a lower circular base; radial braces and ring segments link it to surrounding levels. Heavy pipework at right feeds a broad, forceful outpouring of clear water into an engineered trough. Waterfalls fall from the far walls and ledges; numerous workers stand on bridges at different heights. The lantern and rolled drawings on the right-hand rail ground the scene in practical inspection.
 
 The image offers multiple investigable affordances: conduits, a water discharge, joints, supports, platforms, possible rotational elements and access paths. It does not prove that the large sphere has disappeared, that the machinery has transformed, or that the water is being created. The camera angle, depth and which components are in frame may explain differences. The consistent elements are the deep water-rich chamber, ringed axial structure, Caldrin banners and Tavin as observer.
+
+
+#### 9. 2331.png — Handheld green-glass water-bending instrument
+
+In a close, intimate experiment, a foreground hand holds a short cylindrical burnished-brass device above a battered metal cup full of water. The instrument has machined rings at both ends, narrow seams and an exposed irregular translucent green crystal or glass insert within a cutaway metal cage. The material catches light in green-blue facets. A thin neck of water rises from the cup toward the underside of the device, forming a coherent upward bulge or thread; concentric ripples spread across the surface. The image depicts **attraction or deformation of water toward the instrument**, not an established mechanism of levitation, creation or transmutation.
+
+Tavin watches intently from across the bench. He appears curious and cautious rather than astonished. The experiment takes place beside large dark metal conduits and a running stream or spillway. Papers, a ruler-like instrument and a lens or ring sit to the right. A handwritten note is legible in part: “Flow: constant,” “Temp: cold,” “Taste: fresh,” “Source: unknown.” These are depicted field observations; they do not settle the source of the water. The composition ties the device to Tavin's habit of measuring anomalies in the presence of an observer, rather than simply declaring the object magical.
+
+#### 10. 2332.png — Foundry / Water Response, Day 17
+
+A large dark field board fills most of the image, titled **“FOUNDRY / WATER RESPONSE — Preliminary Plan & Observations.”** On the right, the same brass-and-green instrument rests horizontally in a repeatable wooden jig beside a ceramic reference bowl of water. The board contains a structured experimental protocol, schematic plots, location list, initial observations and unresolved questions. A handwritten motto at upper right reads approximately: **“Same device. Same water. Different places. Find the shape.” — T.**
+
+**Standard setup:** Fix the device's height and orientation in a wooden jig above a marked vessel; use the same water and setup, changing only location. **Measurement:** Measure peak water-surface displacement above a reference level (millimeters if possible); repeat three times at each location, note stabilization time and record approximate temperature, humidity, proximity to ancient structure, elevation/depth and other relevant conditions.
+
+**Nine location labels:**
+- **A:** Deep chamber (observation platform).
+- **B:** Passage toward entrance.
+- **C:** Blue's closure (inside).
+- **D:** Upper landings.
+- **E:** Caldrin works (timber/stone).
+- **F:** Near exposed ancient member (upper).
+- **G:** Same elevation, away from ancient member.
+- **H:** Surface (open air).
+- **I:** Additional chambers (lateral variation).
+
+**Preliminary graph:** A schematic, explicitly not-to-scale curve begins strongest at the deep chamber, declines toward the Caldrin-built areas, rises locally near an ancient structural member, then drops toward a weak but nonzero surface response. The board's own key observations say: stronger at depth; stronger near ancient structure; weaker in Caldrin-built areas; still present at surface as droplet attraction; **not a simple depth-only effect**. This is a qualitative preliminary graph, not a recoverable numerical data series.
+
+**Next-experiment checklist:** Repeat the full series with sealed identical water samples; improve measurement with ruler, pointer or reflective scale; sweep distance around one exposed ancient member while controlling height; test multiple elevations; test additional devices (from Green, if available); obtain a small piece of ancient brass, if possible, and test it away from the Foundry; vary device orientation; record environmental conditions more carefully; look for other fluids such as brine, condensate or groundwater; compare static and flowing water.
+
+**Open questions:** What changes the strength? Is enhancement intrinsic to ancient material or something it carries? Would a detached fragment work away from the Foundry? Is the Foundry part of a larger field, flow or resonance system? Why does surface use only attract droplets from air? Is the effect directional, and relative to what? Do other fluids, metals or instruments respond? What are the implications for movement, control or extraction of water? Are the **Greenglassers** unknowingly limited by location? The bottom margin reads **“Caldrin Foundry — Day 17”** and **“Small questions. Useful questions.”** The final annotation reads **“Awful data, but a shape.” — T.**
+
+This image is unusually valuable because it records both the anomaly and the discipline used to investigate it. The observed response curve is not a solution to the mystery. It is a provisional constraint on future proposals. The mention of Green and Greenglassers is evidence of a possible connection, not proof that all green instruments or groups share the same technology.
+
+### Why this sequence matters to ➡️
+
+These ten images show a coherent **world progression with very light steering and roleplay banter with Tavin**, as the user explicitly characterizes the original turns. A broad regional panorama becomes a specific excavation, then a recognizable local guide, a traversable deep works, a practical map, an immense mechanism, a character continuity sheet, a closer mechanical inspection, a testable water anomaly, and finally a Day 17 experimental journal. The images repeatedly preserve Caldrin's ring-and-line mill-mark, water-rich geography, brass structural vocabulary, timber access works, and Tavin's clothing and temperament.
+
+The important progression is not simply cinematic zoom. Each turn creates new **affordances, observations, questions and durable evidence** while keeping earlier structure recognizable. The map, character sheet and laboratory board are especially significant: they convert scene content into objects inhabitants can consult, argue about, and use to plan future actions. For a JIT D&D world-advance system, this suggests that ➡️ should generate bounded causal proposals and durable artifacts, not merely prose recaps or fresh images. Different characters and factions can maintain private knowledge; a GM can review what becomes canonical; and mysteries can persist without the model prematurely declaring their answers.
+
+**Archival caveat:** The ten original images are user-supplied in this conversation. This chronicle records their filenames and detailed visual descriptions, not their binary contents or a verified hosted image gallery. The sequence and visual contents are grounded in the supplied images; the exact original turn-by-turn dialogue is not present here and should not be reconstructed as if quoted.
