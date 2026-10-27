@@ -18,3 +18,12 @@
 ## Next
 
 After a successful build and real-device test, paste the Eyes report to compare observed transitions to the separately frozen covenant. Do not weaken the covenant to match the app.
+
+## Canonical UI guard — first enforceable boundary
+
+- `android/.../CanonicalUi.kt` defines approved components and tokens.
+- `MainActivity.kt` composes those primitives; the model should not create raw Material Button, FilterChip, Card, or local Color values.
+- `check_canonical.py` rejects raw primitive/color substitutions and contains four negative controls.
+- `.github/workflows/jit-gestalt-eyes.yml` runs the guard **before** Gradle; a failing check prevents APK packaging.
+
+**Scope and limitations:** This is a lexical source check on the fixture screen, not a Kotlin AST analyzer, tamper-proof security boundary, screenshot comparator, or runtime behavior test. A model with permission to edit the canonical registry or workflow could weaken the rule; production enforcement would protect those files via review/branch rules and extend scanning across all generated source. The canonical wrappers currently delegate to Material 3; they establish component provenance, not verified Pinterest Gestalt fidelity. CI execution and APK behavior must be verified separately.
