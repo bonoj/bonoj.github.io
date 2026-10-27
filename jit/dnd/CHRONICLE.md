@@ -354,3 +354,15 @@ By September 19, we'd articulated three distinct responsibilities:
 We also experimented with independently advancing representations. A surface panorama could remain paused while a Foundry cross-section advanced.
 
 That matters for a D&D world spanning multiple regions and planes: different representations do not need identical spatial or temporal resolution.
+
+## How this becomes ➡️ for a campaign
+
+Consider a world containing five factions, three cities, two wilderness regions, and an extraplanar entity.
+
+The GM finishes a session and advances the world by twelve days.
+
+**Illustrative world advance — 12 days**
+
+**Faction ledger — Merchant Guild:** Plans to reroute caravans
+
+**Faction ledger — River Wardens:** Investigate missing shipments
