@@ -17,7 +17,7 @@ jobs:
       - name: Checkout independently pinned canonical authority
         uses: actions/checkout@v4
         with:
-          ref: gestalt-canonical-authority-2026-10-27
+          ref: fb682e3329fa908830ddd944e400ab6f7df80617
           path: trusted-authority
           persist-credentials: false
       - name: Reject candidate changes to canonical authority
