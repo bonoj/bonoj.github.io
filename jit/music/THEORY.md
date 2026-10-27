@@ -423,3 +423,40 @@ Controls: **Awaken / Stop**, a **Damping** slider, and a **Drift** slider. Optio
 10. Musicality is assessed by listening, not inferred from code. The reference to Tool is about relational rhythm and gesture, not a claim to reproduce the band's sound.
 
 **Success:** the listener feels that they are touching a persistent vibrating system, rather than triggering samples or stepping through a score.
+
+
+---
+
+## Experience 008 — Three-String Lute / Minor Strum Stick (2026-10-27)
+
+**Intent:** A direct, playable touchscreen instrument, not a generative toy. Three independent strings, a strum-stick-style diatonic fretboard, and a separate soundboard. The player can **hold a fret on one string while another finger strums across all three**, with immediate hammer-on and pull-off articulations. Multitouch is essential.
+
+### Tuning
+
+The request referenced D–A–D and dropping a string to make the open strum minor. Simply lowering D to C gives C–A–D, which **does not** contain the minor third F. Use **D–A–F** (low to high; D3/A3/F4) as a playable D-minor triad, and label the actual pitches clearly. This changes the upper D to F rather than lowering the lowest D; treat it as a pragmatic initial interpretation, subject to the player's ear.
+
+### Fretting and touch semantics
+
+- Show three **separate strings** across a diatonic fretboard, open position at the nut, with scale-based frets analogous to a strum stick. Frets per string correspond to D-natural-minor scale steps across an octave: 0, 2, 3, 5, 7, 8, 10, 12 semitones; a chosen fret offsets the individual string's open pitch. Label positions and current notes.
+- **One finger can fret one string**. Pointerdown in a fret region selects that string's fret; pointermove to a higher fret while held creates an audible hammer-on, and to a lower fret a pull-off. Pointerup releases to open, sounding a pull-off if the string was fretted and vibrating.
+- The soundboard is a **separate hit surface**. A pointer sweeping vertically through the three string lanes plucks them in order; the opposite direction reverses the strum. A tap plucks a single lane. Do not retrigger repeatedly while dwelling within the same lane.
+- Multiple independent pointer IDs: one or more fingers can remain fretting while another pointer strums. No global drag state that conflates pointers.
+- Open strings ring when strummed; fretting does not require a strum to select pitch, but hammer-on/pull-off on an already vibrating string changes pitch with a short articulated excitation.
+- Sound decays naturally. Stop/navigation silence all voices. Never schedule audio from canvas rendering.
+
+### Synthesis
+
+Use Web Audio plucked-string-like voices with decaying harmonic partials, a small transient and resonant body filtering. A string retains its current sounding energy and pitch when its fret changes; new strums excite its current fretted pitch. Avoid uncontrolled feedback, infinite sustain, and the overly broad pitch glides of experience 007. Three strings must be independently polyphonic, with overlapping decay.
+
+### Acceptance
+
+1. Open downward strum sounds a clearly minor triad.
+2. Fretting one string alters only that string.
+3. Hold a fret with one pointer and strum with another; pitch selection remains stable.
+4. Hammer-on and pull-off are distinct and audible while a string rings.
+5. Releasing a fret returns the string to open without requiring a new strum.
+6. Opposite strum directions produce opposite note orders; one sweep plucks each crossed string once.
+7. Repeated taps, pointer cancellation, navigation, and stop do not leave hanging voices.
+8. Mobile-first layout keeps the fretboard and soundboard large enough for finger use.
+
+**Success:** playable touch mechanics and convincing minor resonance, not an autonomous composition system.
