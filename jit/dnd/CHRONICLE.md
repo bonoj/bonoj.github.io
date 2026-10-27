@@ -449,3 +449,55 @@ An ancient conduit emits a continuous flow of cold, fresh, drinkable water. Its 
 Tavin tests the flow with a portable burnished-brass instrument containing faintly glowing green mineral material.
 
 The water responds to the device, but the strength of that response changes dramatically with location.
+
+## Tavin of Caldrin
+
+**Keeper of the Deep Works**
+
+The surviving character sheet describes Tavin as a guide, engineer, and foreman in his forties or fifties.
+
+He wears a blue headscarf bearing Caldrin's mill-mark, carries tools and a map tube, and has the dry humor of someone who has spent his life around dangerous machinery.
+
+He is practical, patient, protective of his crew, and reluctant to claim knowledge he doesn't possess.
+
+His grandfather's advice:
+
+*“Keep your fingers out of the gears.”*
+
+His grandfather reportedly still has nine fingers.
+
+Tavin's character sheet is particularly revealing. He treats the world as something to be understood rather than conquered. He is comfortable with curiosity, but his first concern is that everyone survives the investigation.
+
+## The water-response experiment
+
+The original experiment was considerably more rigorous than simply discovering a magical artifact.
+
+**Recovered experimental apparatus**
+
+Illustrative reconstruction, not the original recovered journal image.
+
+The instrument was placed in a wooden jig beside a reference vessel. The proposed measurement was water displacement above its normal surface, repeated three times per location, with stabilization time and environmental conditions recorded.
+
+The planned survey included nine positions:
+
+| Location | Purpose |
+|---|---|
+| A — Deep chamber | Strong-response reference |
+| B — Entrance passage | Depth transition |
+| C — Blue's closure | Previously established location |
+| D — Upper landings | Interior elevation comparison |
+| E — Caldrin timber/stone works | Newer construction control |
+| F — Exposed ancient member | Ancient structure proximity |
+| G — Same elevation, away from ancient member | Lateral control |
+| H — Surface, open air | Weak-response reference |
+| I — Other chambers | Lateral variation |
+
+The preliminary findings were that the response was strongest deep underground, increased near ancient structural material, weakened in Caldrin-built areas, and remained detectable at the surface as droplet attraction.
+
+**It was not simply a function of depth.**
+
+Tavin's next experiments were meant to distinguish competing explanations: orientation effects, identical sealed water samples, other fluids, static versus flowing water, distance from ancient brass, and whether a detached fragment retained the effect.
+
+That last test is especially interesting. If a detached fragment reproduced the response away from the Foundry, it would support a different mechanism from one requiring the intact structure.
+
+Neither outcome had been established.
