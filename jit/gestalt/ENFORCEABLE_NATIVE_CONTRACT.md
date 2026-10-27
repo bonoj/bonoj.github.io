@@ -108,3 +108,64 @@ Give each interactive component a stable ID and an action with explicit state tr
 **Enforcement ladder:** (1) schema-valid → (2) contract obligations extracted → (3) native app builds → (4) semantics/action tests run → (5) observed transitions satisfy obligations → (6) human accepts experience. Report each independently.
 
 **Next decision:** author the smallest behavior semantics extension or keep the current specimen intentionally underspecified and enforce only structure/text. Do not silently claim full behavior parity from `mini-gestalt/v1`.
+
+
+## Behavioral covenant — proposed minimum (2026-10-27)
+
+**Decision:** Explore a small, separately reviewable covenant before extending the full UI schema or changing the native prototype. The existing `mini-gestalt/v1` contract remains intact.
+
+### Division of authority
+
+- **Experience contract:** what exists, what it means, and which behavior must hold.
+- **Covenant:** a concise set of state transitions and invariants extracted from explicitly resolved intent.
+- **Model:** free to choose Kotlin/Compose structure, state-holder patterns, layout, and native idiom.
+- **Independent verifier:** translates the covenant into observations and checks against the built app; it does not infer correctness from the model's explanation.
+- **Human:** resolves consequential ambiguities and accepts the felt experience.
+
+### Illustrative covenant, not yet approved behavior
+
+```yaml
+schema: gestalt-covenant/proposal-1
+contract: mini-gestalt/v1
+state:
+  saved: boolean
+actions:
+  save:
+    effect: toggle(saved)
+invariants:
+  - saved state is observable
+  - save is reversible
+  - saved state survives activity recreation
+```
+
+This YAML is a discussion specimen, **not** an accepted schema, generated test, or change to `contract.json`. In particular, lifecycle persistence and deselection semantics have **not** been authorized as contractual requirements.
+
+### Ambiguity ledger
+
+| Question | Browser today | Native today | Covenant status |
+| --- | --- | --- | --- |
+| Tap selected chip again | Stays selected | Deselects | Unresolved |
+| Tap Save | Toggles saved | Toggles saved | Candidate invariant; contract silent |
+| Tap Explore | Workbench status | Visible counter | Unresolved |
+| Rotate/recreate | Not applicable as Android lifecycle | Uses `rememberSaveable` | Unresolved |
+| Add native-only labels/footers | Different presentation | Extra footer | Unresolved |
+
+**Rule:** Differences are questions, not automatic failures. Neither the web renderer nor current native source is the behavioral oracle.
+
+### Minimum useful enforcement experiment
+
+1. Select **one** explicitly approved invariant (e.g., Save toggles and is observable); leave the other questions unresolved.
+2. Freeze that covenant independently of the model's generated Kotlin.
+3. Have the model construct a separate native fixture from contract + covenant using the known-good Android build skeleton.
+4. Build and instrument the fixture; observe actual UI semantics and action effects.
+5. Deliberately break Save behavior and require the independent check to fail.
+6. Restore the behavior and require the same check to pass.
+7. Keep a compact evidence record: contract/covenant hashes, source SHA, APK identity, observed transitions, test verdict, and remaining unknowns.
+
+**Acceptance criterion for the machinery:** it must reject a known violation and accept the restored behavior without editing or weakening the covenant. A green build alone is insufficient.
+
+**Guardrail:** preserve the `gestalt-working-baseline-2026-10-27` branch and existing web/native prototype. Any implementation work goes into an isolated fixture or branch, not the known-good app. No implementation work is authorized by this section.
+
+### Guiding hypothesis
+
+The smallest useful contract may be an accumulating record of **resolved intentions**. Ask the human only when an ambiguity changes the experience materially. Don't force every visual or implementation decision into specification, and don't let the implementation author silently author its own acceptance criteria.
