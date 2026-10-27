@@ -270,18 +270,18 @@ function grow(){if(nodes.length>=12){$('tree-info').textContent='Tree full · pr
 function transform(){const n=nodes.find(x=>x.id===selected),v=variation(n.notes,(n.id+nextId++)%6);n.notes=v.notes;n.op=v.op;rebuild()}
 function prune(){if(selected===0)return;const removed=descendants(selected);nodes=nodes.filter(n=>!removed.has(n.id));selected=0;rebuild()}
 function rebuild(){if(playing){cursor=0;nextTime=ctx.currentTime+.18;fadeNotes()}refresh()}
-function fadeNotes(){const now=ctx.currentTime;for(const v of scheduled){try{v.gain.cancelScheduledValues(now);v.gain.setTargetAtTime(.0001,now,.014)}catch(e){}}scheduled=[]}
+function fadeNotes(){const now=ctx.currentTime;for(const v of scheduled){try{v.gain.gain.cancelScheduledValues(now);v.gain.gain.setTargetAtTime(.0001,now,.014)}catch(e){}}scheduled=[]}
 function order(){const result=[];function visit(id){const n=nodes.find(x=>x.id===id);if(!n)return;result.push(n);for(const child of nodes.filter(x=>x.parent===id))visit(child.id)}visit(0);return result}
 function audio(){ctx=new(window.AudioContext||window.webkitAudioContext)();mix=ctx.createGain();mix.gain.value=.48;const comp=ctx.createDynamicsCompressor();comp.threshold.value=-20;comp.ratio.value=4;mix.connect(comp);comp.connect(ctx.destination)}
 function note(p,t,d){
 if(p.rest)return;
 const freq=440*Math.pow(2,(p.n-69)/12),env=ctx.createGain(),filter=ctx.createBiquadFilter();filter.type='lowpass';filter.frequency.value=2300;env.gain.setValueAtTime(.0001,t);env.gain.exponentialRampToValueAtTime(.14,t+.016);env.gain.setTargetAtTime(.0001,t+d*.74,.075);env.connect(filter);filter.connect(mix);
-for(let k=1;k<=4;k++){const o=ctx.createOscillator(),gain=ctx.createGain();o.type=k===1?'triangle':'sine';o.frequency.setValueAtTime(freq*k,t);gain.gain.value=1/Math.pow(k,1.7);o.connect(gain);gain.connect(env);o.start(t);o.stop(t+d+.3)}scheduled.push(env);
+for(let k=1;k<=4;k++){const o=ctx.createOscillator(),gain=ctx.createGain();o.type=k===1?'triangle':'sine';o.frequency.setValueAtTime(freq*k,t);gain.gain.value=1/Math.pow(k,1.7);o.connect(gain);gain.connect(env);o.start(t);o.stop(t+d+.3)}scheduled.push({gain:env,end:t+d+.35});
 }
 function scheduler(){
 if(!playing)return;const now=ctx.currentTime,sequence=order();if(!sequence.length)return;
 while(nextTime<now+.12){const total=sequence.length*seed.length;const index=cursor%total;const node=sequence[Math.floor(index/seed.length)],p=node.notes[index%seed.length],beat=60/112/3;note(p,nextTime,beat*p.d*.9);highlight=node.id;cursor++;nextTime+=beat*p.d}
-scheduled=scheduled.filter(v=>{try{return v.gain.value>.00011}catch(e){return false}});
+scheduled=scheduled.filter(v=>v.end>now);
 }
 function stop(){playing=false;clearInterval(timer);fadeNotes();$('tree-play').textContent='▶ Play tree';highlight=-1;refresh()}
 $('tree-play').onclick=async()=>{try{if(!ctx)audio();await ctx.resume();if(playing)return;playing=true;cursor=0;nextTime=ctx.currentTime+.06;timer=setInterval(scheduler,35);scheduler();$('tree-play').textContent='♫ Playing';refresh()}catch(e){$('tree-info').textContent='Audio unavailable: '+e.message}};
