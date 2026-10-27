@@ -24,6 +24,7 @@ Canonical entrypoint: https://bonoj.github.io/jit/music/
 | 007 | Three Spectra | Three persistent vibrating voices with slide, hammer-on, pull-off, mute, damping, drift and subtle sympathetic resonance |
 | 008 | Three-String Minor Lute | D–A–F open D minor, diatonic touch fretboard, independent multitouch strumming soundboard, hammer-on and pull-off |
 | 009 | Baba Yaga’s Harp | Fifteen-string A harmonic minor harp, manual plucks and sweeps, four-section original crooked dance played through the instrument |
+| 010 | The Impossible Procession | Six-act composed dramatic arc for harp, bowed strings, and ritual drums; performer mute controls |
 
 ## Experience 004 — Field Music
 
@@ -66,3 +67,7 @@ Specification and tuning rationale are in `THEORY.md`. The open pitches are D3/A
 ## Experience 009 — Baba Yaga’s Dancing Hut
 
 The core design is instrument-first: a 15-string A harmonic minor harp (A2 to A4 with G♯), with pluck and sweep gestures shared between manual input and the programmed performance. The original four-section, 3+2+2-accented dance uses a repeating low ostinato, upper melody, and arpeggiated sweeps. Each event is scheduled against AudioContext time in a lookahead scheduler; canvas animation only visualizes string excitation. Tap or drag across harp strings to play them manually. Tempo is adjustable; Stop and navigation mute scheduled voice envelopes. See `THEORY.md` for specification and acceptance criteria. Source commit `5b5b8687d3ce1092e56d8e8000242cda88b8429a`. Source committed; public Pages and actual listening quality unverified.
+
+## Experience 010 — The Impossible Procession
+
+Implements the instrument–performer–ensemble–conductor theory recorded in `THEORY.md`. A six-act, approximately 95-second composed performance uses distinct Web Audio harp plucks, bowed string tones, and drum strikes. The acts move from isolated footsteps through awakening, forest movement, an expanded procession, a near-silent rupture, and a return. Each role can be toggled independently; scheduled events use AudioContext time and a lookahead timer, while canvas rendering observes state only. This is a first synthesis/arrangement experiment, not a sampled orchestra. Source commit `d6de77a0b2a40efadd95d4b4ee272a2a246a0e51`. Public Pages deployment and actual musical quality remain unverified until listening.
