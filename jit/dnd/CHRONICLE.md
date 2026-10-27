@@ -366,3 +366,16 @@ The GM finishes a session and advances the world by twelve days.
 **Faction ledger — Merchant Guild:** Plans to reroute caravans
 
 **Faction ledger — River Wardens:** Investigate missing shipments
+
+**Candidate events — Not yet canon**
+
+- Day 3: Guild redirects two caravans
+- Day 6: River Wardens discover an abandoned wagon
+- Day 9: Food prices rise in the eastern city
+- Day 12: A planar traveler arrives, unknown to both factions
+
+Illustrative only. This is not a running Foundry simulation; selections demonstrate the review step.
+
+The crucial behavior isn't that the model invents four events. It's that those events arise from **independent, persistent trajectories**, constrained by resources, geography, contact, and previous commitments.
+
+And when the GM asks, *“What happened while the party was away?”*, we can answer from the committed event history rather than retrospectively inventing a story.
