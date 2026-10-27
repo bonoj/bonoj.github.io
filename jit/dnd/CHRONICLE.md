@@ -318,3 +318,7 @@ The loci were not three colored pieces controlled by one intelligence. They had 
 **Knowledge did not propagate automatically.** Travel, observation, contact, and construction of appropriate affordances were necessary.
 
 That distinction is the foundation of a world that can genuinely surprise its GM.
+
+## What we actually established
+
+The experiment began around September 18, 2026, at T0, and reached an accepted T14 state. The following rules are recoverable from our earlier discussions.
