@@ -17,7 +17,7 @@ jobs:
       - name: Checkout independently pinned canonical authority
         uses: actions/checkout@v4
         with:
-          ref: 59eb2fbd666e02f1b0c0f86b24ed43eb59dfaf3f
+          ref: a7e2e53431d9adecd18a446f402ab9537c491ac6
           path: trusted-authority
           persist-credentials: false
       - name: Reject candidate changes to canonical authority
