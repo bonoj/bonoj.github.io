@@ -19,6 +19,7 @@ Canonical entrypoint: https://bonoj.github.io/jit/music/
 | 002 | The Ruined Orchestra | Procedural instrumental bodies and synthetic stone hall, Flesh / Distance / Stone |
 | 003 | Theory — The Universe Laboratory | Six independently toggled musical processes: CMB, Fluctuations, Attraction, Structure, Ignition, Interaction |
 | 004 | The Kesh — Field Music | Runtime 6/8 jig; melodic trajectory and responding performers under harmonic, coupling, rhythmic, and acoustic fields |
+| 005 | Musical ECS | Two draggable performers, evolving pitch and phase states, harmonic gravity, coupling through a listening edge, optional acoustic boundary |
 
 ## Experience 004 — Field Music
 
@@ -41,3 +42,7 @@ No prerecorded audio and no external soundfont are used. Instrument models are a
 ## Deployment
 
 Source commit for experience 004: `8c2c45660a575a5012e183f38cb930513b6ec8aa`. This records a source write, not a verified Pages publish or live audio smoke test.
+
+## Experience 005 — Musical ECS implementation
+
+Source commit: `5c96953c3531f255a7bd5767787dc6fa90b6d7c2`. Fixed pulse 112 BPM; two entities with phase, pitch, velocity, energy, and listening state; field updates and note-event extraction occur in an AudioContext-clock lookahead scheduler. Canvas reads state and handles drag input; it does not schedule audio. Dragging changes the listening graph. No external audio assets. The implementation is a first causal prototype, not a complete deterministic fixed-step ECS engine: event-driven state updates are currently tied to the audio scheduler, and exact reproducibility / mobile listening tests remain outstanding. Verify public Pages and audio separately.
