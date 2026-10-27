@@ -494,3 +494,65 @@ Add **09 · Baba Yaga's Harp** to the existing single-page JIT Music. Show a com
 7. The tune should evoke a dancing, slightly menacing wooden hut; verify by listening rather than claiming the implementation automatically achieves it.
 
 **Principle:** First build an instrument that makes coherent gestures possible. Then compose *for that instrument*.
+
+
+---
+
+## Muse — Two Steps from Hell (2026-10-27)
+
+**Question:** Now that the instrument is the primitive and a program can play it, how do we move from Baba Yaga's little dancing hut to the scale, momentum, and emotional force associated with *Two Steps from Hell*? This is an aesthetic ambition, not a request to reproduce a particular copyrighted recording or composition.
+
+### The key is not a bigger synthesizer
+
+Experience 009 demonstrates a **playable instrument model** and a programmatic performer, but its performance is still a fixed event array. The next unlock is to separate four layers:
+
+1. **Instrument:** What gestures can this thing physically or plausibly make? A harp plucks, sweeps, and damps. A strumstick frets, hammers, pulls, and strums. A harmonica breathes, bends, and articulates. Drums strike and resonate. Voices breathe and sustain.
+2. **Performer:** How does an agent turn musical intention into those gestures? Timing, velocity, anticipation, accent, phrasing, breath, fatigue, and recovery. The same score played by different performers should sound different without changing its identity.
+3. **Ensemble:** How do performers listen to and respond to one another? Shared pulse, staggered entries, call-and-response, doubled motifs, harmonic tension, and controlled synchronization. An ensemble is not merely 20 copies of one oscillator.
+4. **Conductor / dramaturgy:** How does the piece change over time? Withholding, revealing, accumulating, interrupting, suspending, resolving. Dramatic impact comes from **contrast and trajectory**, not permanently maximal volume.
+
+### The route from a hut to a procession
+
+Take the existing A harmonic minor harp dance as a *seed motif*. Preserve its recognizability while transforming its orchestration:
+
+- **I. Bones in the floor:** A single low plucked ostinato, asymmetrical 3+2+2 footsteps, sparse harp melody, ample silence.
+- **II. The hut awakens:** Add a low bowed/drone voice and a second instrument answering the harp; widen register without raising overall loudness much.
+- **III. The forest moves:** Layer a percussion performer that accents the underlying asymmetric gait; double the motif in a different register and articulation; use counter-rhythm rather than indiscriminate density.
+- **IV. The impossible procession:** Introduce a coherent ensemble: low rhythmic ostinato, middle harmonic bed, high melodic line, percussion, and possibly a wordless vocal timbre. Build intensity through **register, density, harmonic motion, and spatial width**, with bounded dynamic range.
+- **V. The floor vanishes:** Remove almost everything at the peak; hold a suspended note or leave a breath of silence.
+- **VI. The hut lands:** Return the seed motif in a transformed, resolved form, with a decisive cadence exploiting G♯→A.
+
+### The mathematical structure
+
+A performance is a collection of **gesture streams**, not a single monolithic audio file:
+
+\[
+G_k=\{(t_j,\ \mathrm{gesture}_j,\ \mathrm{target}_j,\ \mathrm{intensity}_j)\}_{j=1}^{n_k}.
+\]
+
+Each instrument exposes a gesture interface. A performer translates a phrase into its own legal gestures. The conductor controls a slow-changing **dramatic envelope**:
+
+\[
+D(t)=\{\text{density},\text{register},\text{tension},\text{pulse},\text{space},\text{dynamic}\}.
+\]
+
+These dimensions are related but **not identical**. More instruments does not automatically mean louder; a louder passage does not automatically mean more tense; a slower passage can feel enormous.
+
+The seed motif can be represented as a small relational structure—rhythmic offsets, interval contour, accents, and harmonic function—so that it survives transposition, doubling, augmentation, and orchestration. **Recognition across transformation** is the engine of emotional payoff.
+
+### What to build next
+
+**Experience 010 — The Procession.** Keep the 009 harp as a performer. Add just **two more genuine instruments** first: a bowed low-string/drone voice and a drum with an intentional strike vocabulary. Give all three performers the same asymmetric pulse, but different roles. Program a 90–150-second dramatic arc with audible withholding, escalation, rupture, and return. Only after that works should we add choir, brass-like calls, or a larger orchestra.
+
+Expose a compact score/gesture log so that the system is observable. Let the listener solo or mute performers to hear why each exists. Schedule against AudioContext time; visuals observe, never drive music. Verify by listening.
+
+### Tests that matter
+
+- Can the original Baba Yaga motif still be recognized when the ensemble swells?
+- Can removing one performer demonstrably weaken or alter the arrangement?
+- Does the piece get *larger* without simply becoming louder?
+- Is there an audible dramatic arc rather than an endless loop?
+- Does the silence before the return have expressive purpose?
+- Does the ending feel earned?
+
+**Thesis:** To get two steps from hell, don't add two hundred instruments. Give three instruments something worth saying, teach them to listen, and let the conductor know when to be silent.
