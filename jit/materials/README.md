@@ -25,7 +25,7 @@ A standalone, fast-moving JIT laboratory for **reusable procedural material trea
 
 Path: `jit/materials/index.html` (GitHub Pages, `master`).
 
-- **Five implemented shader treatments:** `aard-pressure`, `igni-ember`, `yrden-crystal`, `quen-amber`, `axii-glass`.
+- **Thirty-seven implemented shader treatments:** `aard-pressure`, `igni-ember`, `yrden-crystal`, `quen-amber`, `axii-glass`.
 - **Source catalog:** `MATERIALS` array with stable IDs, `name`, `mode`, `energy`, `relief`, `lightAngle`, `description`. Catalog selection restores a recipe. Copy recipe emits `jit-material-recipe/v1` JSON.
 - **Stress field:** `THREE.InstancedMesh` of the same specimen; slider steps `1, 10, 25, 50, 100, 250, 500, 1000`. Each specimen is 320 triangles. Camera backs away as population grows; this is **not** a fixed-pixel-coverage GPU benchmark.
 - **Eye:** `jit-materials-eye/v1`, build `materials/03`, with material/recipe, settings, count, viewport, draw calls, triangles, frame-interval percentiles and browser info. Frame intervals include browser scheduling and display synchronization, **not GPU time**.
@@ -34,7 +34,7 @@ Path: `jit/materials/index.html` (GitHub Pages, `master`).
 
 ## Natural-world catalog — next exploration
 
-**Status: SPECIFIED, NOT IMPLEMENTED.** Keep the **same geometry** and explore **32 initial substances**, four per family:
+**Status: FIRST-PASS IMPLEMENTED (build materials/04); VISUAL VALIDATION PENDING.** Keep the **same geometry** and explore **32 initial substances**, four per family:
 
 | Family | Proposed materials |
 |---|---|
@@ -60,7 +60,7 @@ Path: `jit/materials/index.html` (GitHub Pages, `master`).
 1. Read **this README**, then [CHRONICLE.md](./CHRONICLE.md) for the user/assistant turn-by-turn development.
 2. Fetch **current** `jit/materials/index.html` from `bonoj/bonoj.github.io` on `master`; don't rely on remembered code or cached Pages content.
 3. Inspect `MATERIALS`, shader branches, geometry and Eye before modifying. Preserve existing material IDs and interactive controls.
-4. Resume the user's requested creative work: **explore the 32 natural-world materials without changing geometry**. No optimization detour and no composition engine unless subsequently requested.
+4. Resume the user's requested creative work: **visually inspect and refine the 32 implemented first-pass natural-world materials without changing geometry**. No optimization detour and no composition engine unless subsequently requested.
 5. Add new treatments incrementally to the source catalog, test on the user's phone, and use 👁 reports to distinguish observation from inference.
 6. Commit changes, fetch the source back to verify, and provide `https://bonoj.github.io/jit/materials/?v=<commit-short-sha>` for cache busting. Do not claim live deployment verified without a live browser observation.
 7. Update this README when invariants or cold-boot state change. Append meaningful decisions, observations, and new phases to the CHRONICLE.
@@ -74,3 +74,9 @@ Path: `jit/materials/index.html` (GitHub Pages, `master`).
 - `5ac10672` — CHRONICLE established
 
 **Guiding rule:** The forge is a cabinet of reusable visual discoveries. Keep it beautiful, executable, indexed, and easy to extend.
+
+## Natural World implementation update — October 27, 2026
+
+- Commit `32d2366d`: 32 new source-indexed recipes, modes 5–36, grouped into eight material families. Build `materials/04`.
+- Existing five modes 0–4, specimen topology, population control, and Eye retained. No new texture downloads or UV projection.
+- Visual appearances are **first-pass approximations**, not validated by a browser observation. Atmosphere remains opaque surface shading; liquids do not implement physical refraction. User inspection is the next step, **not preoptimization**.
