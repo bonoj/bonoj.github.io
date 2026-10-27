@@ -7,7 +7,7 @@ const renderer=new T.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math
 scene.add(new T.AmbientLight(0x6f7899,1.15));const light=new T.PointLight(0xffdfb0,80,20);scene.add(light);const back=new T.DirectionalLight(0x8ea9ef,2);back.position.set(-3,4,-5);scene.add(back);
 const geometry=new T.IcosahedronGeometry(1.65,5);const pos=geometry.attributes.position;for(let i=0;i<pos.count;i++){const x=pos.getX(i),y=pos.getY(i),z=pos.getZ(i),n=1+.12*Math.sin(x*3.1+Math.sin(z*2.3))+.09*Math.cos(y*4.1-z*1.8)+.05*Math.sin(x*7+z*6);pos.setXYZ(i,x*n,y*n,z*n)}geometry.computeVertexNormals();
 const vertex=`varying vec3 vP;varying vec3 vN;varying vec3 vW;uniform float uTime;uniform float uRelief;
-void main(){vP=position;vec3 p=position;float d=sin(p.x*5.+sin(p.z*3.))*sin(p.y*4.+p.z*2.);p+=normal*d*.035*uRelief;vec4 wp=modelMatrix*vec4(p,1.);vW=wp.xyz;vN=normalize(mat3(modelMatrix)*normal);gl_Position=projectionMatrix*viewMatrix*wp;}`;
+void main(){vP=position;vec3 p=position;float d=sin(p.x*5.+sin(p.z*3.))*sin(p.y*4.+p.z*2.);p+=normalize(position)*d*.035*uRelief;vec4 wp=modelMatrix*vec4(p,1.);vW=wp.xyz;vN=normalize(mat3(modelMatrix)*normal);gl_Position=projectionMatrix*viewMatrix*wp;}`;
 const fragment=`precision highp float;varying vec3 vP;varying vec3 vN;varying vec3 vW;uniform float uTime,uEnergy,uRelief,uMode;uniform vec3 uLight,uEye;
 float hash(vec3 p){p=fract(p*.3183099+.1);p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
 float noise(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(mix(hash(i),hash(i+vec3(1,0,0)),f.x),mix(hash(i+vec3(0,1,0)),hash(i+vec3(1,1,0)),f.x),f.y),mix(mix(hash(i+vec3(0,0,1)),hash(i+vec3(1,0,1)),f.x),mix(hash(i+vec3(0,1,1)),hash(i+vec3(1,1,1)),f.x),f.y),f.z);}
