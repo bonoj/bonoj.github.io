@@ -192,3 +192,126 @@ A tension field pulls toward unresolved intervals. A rhythmic field makes musici
 **Next experimental direction:** a small executable musical world with **The Kesh** as its first recognizable inhabitant—not a particle visualization that happens to make sounds, but a musical simulation whose state produces the performance.
 
 **Status:** conceptual turn pair captured; not an implementation claim.
+
+
+---
+
+## Experience 005 specification — Musical ECS / Conditions, Not Events (2026-10-26)
+
+**Status:** Specified only. Do not implement until requested. Preserve experiences 001–004 and the single-page navigation contract.
+
+### Origin and hypothesis
+
+Experience 004 established an important asymmetry: changing **Pulse** transforms the entire performance, while Harmonic Gravity, Performer Coupling, and Acoustic Volume are barely perceptible. Pulse acts structurally on the timing of all events; the others currently act mostly as decorations, thresholds, or quiet effects.
+
+**Hypothesis:** A musical Entity–Component–System (ECS) world can make composition, performance, and acoustics emergent consequences of shared state. The user specifies **conditions** (fields, populations, topology), not a stream of notes. The resulting sound should change audibly when the conditions change, even at fixed tempo.
+
+This is an architectural experiment, not a claim that ECS itself guarantees musicality or acoustic realism.
+
+### Design constraints
+
+1. One page, one new navigable **05 · Musical ECS** panel in `jit/music/index.html`. No separate site.
+2. Mobile-first, no parent-page scrolling, no autoplay; audio begins on user gesture.
+3. Preserve all previous experiences and stop/fade 005 when navigating away.
+4. Audio events must be scheduled ahead against `AudioContext.currentTime`, **never synthesized or scheduled in the visual render loop**.
+5. Keep 005 self-contained and computationally modest; no network or external sound assets required for the first prototype.
+6. Retain a recognizable musical seed (The Kesh's 6/8 trajectory) as an **initial condition / reference attractor**, not an immutable playlist.
+7. Avoid fake physics: distinguish actual acoustic wave propagation from abstract tonal and rhythmic potential fields.
+
+### World model
+
+**Entities** are stable identities, not hard-coded oscillator instances:
+
+- **Performers:** lead fiddle, responding flute, plucked accompaniment; each can listen and react.
+- **Motifs:** reusable musical trajectories with ancestry, tension, and phrase position.
+- **Events:** transient note attacks, releases, breaths, plucks, and accents.
+- **Sources / resonators / boundaries:** optional spatial objects affecting sound and performer feedback.
+- **Field emitters:** tonal centers, pulse sources, rhythmic accents, tension sources.
+
+**Components** are composable data:
+
+| Component | Example state |
+| --- | --- |
+| `Transform` | Position, orientation, optional volume membership |
+| `Phase` | Rhythmic phase, local tempo, phase velocity |
+| `PitchState` | Continuous pitch, target pitch, velocity, tonal confidence |
+| `Energy` | Loudness, breath/bow capacity, excitation, decay |
+| `Memory` | Recent motifs, intervals, accents, heard events |
+| `InstrumentMap` | Fiddle/flute/pluck response, articulation, register |
+| `Listening` | Sensitivity, latency, attention, neighbor weights |
+| `Motif` | Contour, phrase boundaries, ancestry, variation constraints |
+| `Boundary` | Reflection, absorption, delay, openness |
+| `FieldResponse` | Coupling coefficients for each system |
+
+**Systems** operate on compatible components, independent of how many entities exist:
+
+1. **Pulse / synchronization:** advances rhythmic phase; phase coupling allows entrainment, swing, hesitation, and independent clocks.
+2. **Harmonic attraction:** evolves pitch targets and tension continuously under a tonal potential, with bounded deviations that preserve melodic identity.
+3. **Listening / interaction:** performers observe neighbors through latency, distance, attention, and memory; they can imitate, answer, harmonize, or diverge.
+4. **Motif inheritance:** new phrases inherit contour, rhythm, interval, or silence from prior phrases; transformations are traceable.
+5. **Excitation / articulation:** energy and instrument maps produce attacks, sustains, releases, and noise appropriate to each performer.
+6. **Acoustic propagation:** dry output and optional spatial/reflection model; acoustic feedback can alter what performers hear.
+7. **Event extraction / audio scheduling:** converts state transitions into bounded, timestamped audio instructions.
+8. **Observation:** exposes live state and measurable system effects without controlling audio timing.
+
+### Update order and clocks
+
+```text
+User gesture → AudioContext unlock
+Fixed simulation tick (e.g. 30–60 Hz; deterministic seed)
+  → sample external field settings
+  → evolve pulse and harmonic state
+  → propagate heard events / acoustic feedback
+  → update performer attention, memory, and phase
+  → update motif and pitch trajectories
+  → emit timestamped attack/release/articulation events
+Audio scheduler (short lookahead, AudioContext clock)
+  → render events with per-performer instrument maps
+Visualization (requestAnimationFrame)
+  → observe snapshots only; never drive audio
+```
+
+Simulation and audio clocks must be reconciled explicitly: bounded scheduling lookahead, no scheduling in the past, predictable stop/cancel behavior, and no orphaned sound on navigation. Deterministic seeds permit A/B listening comparisons.
+
+### The experiment's controls
+
+**Keep pulse fixed for the primary listening test.** Expose a small set of structural interventions:
+
+- **Gravity (0–100%)**: from weak harmonic preference to strong, continuous tonal attraction. Affects pitch motion, tension, resolution, and phrase boundaries—not occasional threshold-based substitutions.
+- **Coupling (0–100%)**: from independent performers to shared phase, listening, imitation, and call-and-response. At zero, agents do not borrow one another's events. At maximum, they strongly coordinate without becoming identical copies.
+- **Topology / proximity**: move performers or alter connections in the listening graph. Changes who hears whom, when, and with what influence.
+- **Volume / boundaries**: unbounded/dry at zero; progressively reflective space with audible propagation delay, filtering, and feedback into performer listening. Separate acoustic wetness from agent responsiveness in the internal model.
+- **Pulse**: retain as an explicit reference/control variable, but do not use tempo changes to mask weak field effects.
+
+Prefer a compact interactive world visualization (nodes, edges, field contours, transient events) to decorative particle motion. Every visual feature should correspond to actual simulation state.
+
+### Interactions and invariants
+
+- Fields may interact: volume changes hearing; hearing changes coupling; coupling alters rhythmic synchronization and harmonic decisions.
+- The melody remains recognizable across a useful range of settings, while its **performance relationships** change substantially.
+- Muting a performer removes its acoustic contribution and its influence on listening only when explicitly configured; avoid ambiguous semantics.
+- Removing the acoustic volume must not remove musical structure.
+- No slider dead zones: every substantial movement must produce a measurable state change, though not necessarily an immediate note.
+- Instrument realism is secondary to convincing **interaction**. Do not add more instruments to conceal weak dynamics.
+- Sound should remain bounded: no runaway feedback, clipping, excessive voices, or accumulated nodes.
+
+### Acceptance tests
+
+1. **Fixed pulse, one field at a time:** sweep Gravity, Coupling, Topology, and Volume from low to high. Each must cause a distinct, unmistakable musical change without breaking the jig.
+2. **Causality:** changing a connection between two performers changes their interaction, not just their stereo positions.
+3. **Volume off:** zero boundaries/wetness produces dry sound while performers continue independently of acoustic reflections.
+4. **Ancestry:** identify a recognizable motif inherited and transformed by a second performer.
+5. **Reproducibility:** identical seed and controls produce comparable event traces; differences can be attributed to field interventions.
+6. **Observability:** show current phase, pitch attraction, listening edges, and event counts or a compact diagnostic snapshot.
+7. **Lifecycle:** no unsolicited audio, no audible tails after stop/navigation, no duplicate schedulers after rapid play/stop.
+8. **Performance:** usable on a phone; visual frame rate and audio scheduler remain independent.
+
+### First implementation slice
+
+Build the smallest credible world: **two performers, one motif, one pulse source, one tonal attractor, and an optional reflective boundary**. Establish fixed-pulse A/B listening before adding a third performer, elaborate room modeling, or richer instruments.
+
+**Success criterion:** the listener hears the world responding to changed conditions—not merely a fixed song with new effects layered on top.
+
+### Research orientation
+
+Adjacent lines of work include agent-based generative music, coupled oscillators / swarmalators, interactive sonification, algorithmic composition, and game-audio ECS architectures. Treat these as inspirations, not proof that a canonical musical ECS architecture already exists. Validate individual sources before turning them into implementation dependencies.
