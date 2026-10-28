@@ -76,3 +76,6 @@ Canonical basis to verify against primary franchise material before asserting sp
 
 ## Not yet
 Do not implement the entire fictional bureaucracy, a real membership system, payments, contact collection, 3D walking, complex simulation, or preoptimization before the architectural prototype is proven.
+
+## First executable (2026-10-27)
+Implemented at index.html; build commit 356c9dc4. Sanctuary and Continuity are two reversible hash-routed states. The page uses CSS DOM columns, an underlying structural grid and membrane, a shared sun vector driven by local clock or manual slider, reduced-motion support, and a fictional continuity record. Source readback verified; browser visual quality awaits device feedback. This is a prototype, not the complete information architecture. The present sun/shadow model is stylized, not physically accurate; touch pinch zoom is browser-native.
