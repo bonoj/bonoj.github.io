@@ -16,3 +16,7 @@ This is an initial physics/typography proof of concept, **not** a settled site U
 ## Second phase — GROWTH (2026-10-28)
 
 After DECAY's release and settling interval, the action becomes **Growth**. The same BB objects are assigned to a bottom-up sampled mask of `growth`, with a central trunk-like upward path that branches laterally toward target glyph pixels. The number of available BBs caps how much of the new word can be reconstructed; no particles are minted. Reset restarts the experiment. This is a first-pass visual growth trajectory, not yet a physically simulated branching tree.
+
+## Growth refinement
+
+Growth now allocates existing BBs center-out in overlapping letter phases (`o`, `w`, `r`, `t`, `g`, `h`). Each partial glyph is drawn by clipping the original raster mask from the bottom up, so strokes remain solid and typographically precise. Unincorporated BBs remain visible as a temporary gathering/trunk/branch transport stream; incorporated BBs become masked glyph matter. The first-pass stream is visual, not a rigorous branching-flow solver.
