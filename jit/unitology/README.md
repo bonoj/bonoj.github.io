@@ -82,3 +82,6 @@ Implemented at index.html; build commit 356c9dc4. Sanctuary and Continuity are t
 
 ## Second executable — hinged skin (2026-10-27)
 Build 9edd8710 replaces the disconnected column translations with a continuous two-leaf DOM façade. CSS 3D hinge rotation exposes back-face material while retaining anchored outer edges. A fixed rear wall receives simplified directional shadow shapes; direct sunlight shadows disappear at night. The same two URL hash states remain reversible. This is a visual hypothesis, not a physically accurate light transport or flexible membrane model. Validate visually on device before extending into multi-layer flaying.
+
+## Current executable: impossible corridor (2026-10-27)
+User explicitly replaced the previous sanctuary/hinged skin page with a full-screen interactive CSS corridor. Build eba71805. 19 independently wrapping rectangular DOM frames; individual near/far seam fade avoids the previous synchronized t%1 reset; moving glow shadows removed. Automatic travel, pointer-drag bend, torsion slider, pause/travel, straighten. All prior site content and daylight system removed from index.html, preserved only in git history and these documents. Source readback verified; mobile visual verification pending.
