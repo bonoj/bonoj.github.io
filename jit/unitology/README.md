@@ -79,3 +79,6 @@ Do not implement the entire fictional bureaucracy, a real membership system, pay
 
 ## First executable (2026-10-27)
 Implemented at index.html; build commit 356c9dc4. Sanctuary and Continuity are two reversible hash-routed states. The page uses CSS DOM columns, an underlying structural grid and membrane, a shared sun vector driven by local clock or manual slider, reduced-motion support, and a fictional continuity record. Source readback verified; browser visual quality awaits device feedback. This is a prototype, not the complete information architecture. The present sun/shadow model is stylized, not physically accurate; touch pinch zoom is browser-native.
+
+## Second executable — hinged skin (2026-10-27)
+Build 9edd8710 replaces the disconnected column translations with a continuous two-leaf DOM façade. CSS 3D hinge rotation exposes back-face material while retaining anchored outer edges. A fixed rear wall receives simplified directional shadow shapes; direct sunlight shadows disappear at night. The same two URL hash states remain reversible. This is a visual hypothesis, not a physically accurate light transport or flexible membrane model. Validate visually on device before extending into multi-layer flaying.
