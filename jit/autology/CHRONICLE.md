@@ -9,3 +9,9 @@ User: “Right here in chat, decay the word decay into bbs that spill over the e
 An in-chat prototype explored raster-masked intact glyphs, per-letter BB inventory, top-down erosion, gravity and bounce. The user responded “Fuck yes.” Naming discussion settled on **Autology**: language made physical; words perform their own meanings.
 
 User initially considered a click-through bank, then clarified: “Agreed. Let's push it. We'll figure out how the site behaves later.” Therefore deploy the DECAY prototype without prematurely deciding navigation or a bank UX.
+
+## 2026-10-28 — DECAY → GROWTH
+
+User: “After decay is done, the button becomes growth. The bbs gather towards the center and stream upwards, branching into a tree to build as much of the word growth from the bottom up as they have material for.”
+
+Implemented a second phase using the existing conserved BB inventory, a bottom-up target glyph mask for `growth`, and upward trunk-to-branch trajectories. No site bank or navigation designed yet.
