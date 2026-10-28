@@ -19,3 +19,9 @@ Implemented a second phase using the existing conserved BB inventory, a bottom-u
 ## Growth correction
 
 User clarified that BBs must not scatter simultaneously to all letter targets. Growth should build from the center outward, overlapping adjacent letters, with partial glyphs perfectly solid (e.g., `t` begins as a clean stem). The trunk and branches are temporary matter transport, ultimately merging into glyphs. Updated rendering to reveal exact font raster under a bottom-up, per-glyph growth front, with conserved BB allocation.
+
+## Rollback — DECAY only
+
+User: “Let's nuke the growth stuff entirely and return just to decay.”
+
+Restored the original DECAY-only `index.html` verbatim from the initial Autology commit (`54975bc4`). Previous growth work remains documented here as abandoned exploration, not live functionality.
