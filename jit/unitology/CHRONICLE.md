@@ -29,3 +29,6 @@ Committed index.html at 356c9dc4. Built the public sanctuary, virtual-sun CSS sh
 
 ## 2026-10-27 — Rejected first physical illusion, second prototype
 User found the first sunlight shadows nonsensical and the transition insufficiently skin-like. Replaced arbitrary element box shadows and disappearing columns with a continuous hinged façade, visible back faces, rear wall receiving shadows, and night suppression of direct-sun shadows. The new façade is still rigid rather than genuinely deformable; await user evaluation before adding multi-layer skins.
+
+## 2026-10-27 — Corridor becomes the site
+User preferred the in-chat telescoping impossible corridor and ordered it deployed directly over the old Unitology executable. Replaced index.html in commit eba71805. Corrected the synchronized phase reset by independently wrapping frame positions modulo frame count and fading each frame at the wrap seam; removed glow shadows. Previous sanctuary and flaying experiments remain only in git history. Await device feedback on residual flicker and navigation potential.
