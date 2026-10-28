@@ -126,3 +126,7 @@
 **User:** “Ready to build? ➡️”
 
 **Assistant:** Added all 32 previously specified treatments as modes 5–36 in the existing indexed catalog, organized into eight families, without changing the specimen geometry. Shader branches vary grain, veins, strata, fibers, crystal response, atmospheric density appearance, water ripples, sand ripples, and frozen sparkle. Retained the five original signs and Eye/stress controls. Source commit `32d2366d`; fetched back and verified. Build `materials/04`. **Visual/runtime validation is still pending;** this is a first pass for user-led iteration, not 32 proven realistic materials. Atmosphere and liquids are acknowledged surface approximations.
+
+## October 27, 2026 — Membrane Fusion joins Material Forge
+
+User praised the in-chat 3D raymarched fusion shader and requested deployment into Materials. Chose a standalone satellite `jit/materials/fusion/index.html`, rather than replacing the fixed specimen or adding a geometry-changing recipe. Preserved orbit, scrub, autoplay, and exposed blend radius, rim glow, internal density. Linked from the existing forge header. The field creates a shared implicit boundary; internal density is illustrative rather than a conservation simulation. Await visual testing on phone.
