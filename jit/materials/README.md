@@ -80,3 +80,11 @@ Path: `jit/materials/index.html` (GitHub Pages, `master`).
 - Commit `32d2366d`: 32 new source-indexed recipes, modes 5–36, grouped into eight material families. Build `materials/04`.
 - Existing five modes 0–4, specimen topology, population control, and Eye retained. No new texture downloads or UV projection.
 - Visual appearances are **first-pass approximations**, not validated by a browser observation. Atmosphere remains opaque surface shading; liquids do not implement physical refraction. User inspection is the next step, **not preoptimization**.
+
+## Membrane Fusion satellite experiment — October 27, 2026
+
+- **Live:** https://bonoj.github.io/jit/materials/fusion/
+- **Source:** [fusion/index.html](./fusion/index.html)
+- Separate raymarched WebGL signed-distance-field experiment: two spherical volumes, smooth-min envelope, orbital camera, assimilation scrub/play, blend radius, membrane rim glow, and interior density controls.
+- **Not a recipe in the fixed-geometry forge**: preserve the 37 original indexed materials and specimen stress test. Linked via `◎ Fusion` in forge header.
+- This is a visual membrane-fusion approximation, not physical osmosis, conserved volume, fluid dynamics, or true optical transmission. Source readback verified; phone runtime validation pending.
