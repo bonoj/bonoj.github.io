@@ -23,3 +23,6 @@ User explicitly requested that the site take itself completely seriously: no fic
 
 ## Next action
 Implement a minimal but exquisite public sanctuary, shared solar CSS lighting, and one reversible peel/descent into the Continuity Wing. Evaluate on device before expanding content or polishing.
+
+## 2026-10-27 — First executable
+Committed index.html at 356c9dc4. Built the public sanctuary, virtual-sun CSS shadow model with manual time scrub and return to live local time, responsive DOM columns, and hash-routed reversible descent into a clinical Continuity Wing. Introduced a fictional registry record whose physical-presence field reads 'Not required.' Source verification completed; awaiting on-device visual evaluation before expanding.
