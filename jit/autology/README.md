@@ -20,3 +20,7 @@ After DECAY's release and settling interval, the action becomes **Growth**. The 
 ## Growth refinement
 
 Growth now allocates existing BBs center-out in overlapping letter phases (`o`, `w`, `r`, `t`, `g`, `h`). Each partial glyph is drawn by clipping the original raster mask from the bottom up, so strokes remain solid and typographically precise. Unincorporated BBs remain visible as a temporary gathering/trunk/branch transport stream; incorporated BBs become masked glyph matter. The first-pass stream is visual, not a rigorous branching-flow solver.
+
+## Current state — DECAY only
+
+The growth experiment was explicitly removed from the deployed code at the user's request. The original DECAY-only `index.html` was restored verbatim from commit `54975bc4`. Growth notes above are historical and do not describe the current implementation.
