@@ -30,6 +30,7 @@
 | Experiment | Type | Source | Live | What it does |
 |---|---|---|---|---|
 | Membrane Laboratory · Drum & Tear | interactive-membrane-study | [`drum-and-tear/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/drum-and-tear/index.html) | [Open](https://bonoj.github.io/jit/assets/drum-and-tear/) | Circular drumhead with fixed cylindrical rim, connected triangular mesh, transverse spring-driven motion, adjustable tension and strike force, and breakable bonds; torn triangles disappear. No lateral edge retraction. Browser runtime unverified. |
+| [Autology / Iron · Eiffel Tower](./autology-iron/) | Canvas2D projected 3D structural lattice; aerial strikes, support graph, BB release, orbit and rebuild |\n
 | Cube · External Spherical Erosion | interactive-voxel-study | [`external-cube-erosion/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/external-cube-erosion/index.html) | [Open](https://bonoj.github.io/jit/assets/external-cube-erosion/) | Archived starting point: 24³ voxel cube excavated by expanding spheres whose centers remain outside the material; orbit, manual/automatic attacks, rebuild, edges toggle. No structural fracture physics; browser runtime unverified. |
 | Seven Wonders · Ruin Laboratory | interactive-physics-toy | [`seven-wonders/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/seven-wonders/index.html) | [Open](https://bonoj.github.io/jit/assets/seven-wonders/) | Seven ancient wonders assembled from bonded 2D material nodes; tap/drag to sever constraints, quake, reassemble, switch wonders. Archived rough prototype, not volumetric fracture; browser runtime not verified. |
 | Forest · Living Land | interactive-3d-study | [`living-forest-card/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/living-forest-card/index.html) | [Open](https://bonoj.github.io/jit/assets/living-forest-card/) | Archived Three.js WebGL Forest land card, raised terrain, branching trees, orbit/pinch zoom. Source committed 2026-10-29; runtime not verified. |
@@ -457,7 +458,7 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 }
 ```
 
-## Maintenance procedure
+\n### Autology / Iron — Eiffel Tower\n\n- Entry: [autology-iron/index.html](./autology-iron/)\n- Canvas2D projected 3D, procedural structural members, foundation connectivity, spherical impact fields, conserved BB inventories and gravitational release.\n- Controls: select beam, aerial strike, pause, rebuild, camera, impact radius, drag orbit, wheel zoom.\n- Limitations: no rigid-body detached assembly solver or engineering load redistribution; runtime not independently verified.\n\n## Maintenance procedure
 
 1. Enumerate the root with the GitHub Contents API and inspect any directories recursively.
 2. Read each experiment's HTML entrypoint and identify title, controls, rendering stack, dependencies, and actual behavior.
