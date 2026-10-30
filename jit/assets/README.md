@@ -458,7 +458,16 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 }
 ```
 
-\n### Autology / Iron — Eiffel Tower\n\n- Entry: [autology-iron/index.html](./autology-iron/)\n- Canvas2D projected 3D, procedural structural members, foundation connectivity, spherical impact fields, conserved BB inventories and gravitational release.\n- Controls: select beam, aerial strike, pause, rebuild, camera, impact radius, drag orbit, wheel zoom.\n- Limitations: no rigid-body detached assembly solver or engineering load redistribution; runtime not independently verified.\n\n## Maintenance procedure
+\n### Autology / Iron — Eiffel Tower\n\n- Entry: [autology-iron/index.html](./autology-iron/)\n- Canvas2D projected 3D, procedural structural members, foundation connectivity, spherical impact fields, conserved BB inventories and gravitational release.\n- Controls: select beam, aerial strike, pause, rebuild, camera, impact radius, drag orbit, wheel zoom.\n- Limitations: no rigid-body detached assembly solver or engineering load redistribution; runtime not independently verified.\n\n
+### Crimson / Glass — Splatter Laboratory
+
+- Entry: [crimson-glass/index.html](./crimson-glass/)
+- Live: https://bonoj.github.io/jit/assets/crimson-glass/
+- Canvas2D projected 3D pane and floor, adhesive splats, rivulet trails, airborne droplets, and floor pooling.
+- Controls: tap to aim and blast, drag orbit, wheel zoom, viscosity, blast spread, pause, clean glass, front view.
+- Performance: intentionally unoptimized and expensive; defer optimization to a separate iteration. Runtime not independently browser-tested.
+
+## Maintenance procedure
 
 1. Enumerate the root with the GitHub Contents API and inspect any directories recursively.
 2. Read each experiment's HTML entrypoint and identify title, controls, rendering stack, dependencies, and actual behavior.
