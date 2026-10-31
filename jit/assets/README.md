@@ -467,6 +467,15 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Controls: tap to aim and blast, drag orbit, wheel zoom, viscosity, blast spread, pause, clean glass, front view.
 - Performance: intentionally unoptimized and expensive; defer optimization to a separate iteration. Runtime not independently browser-tested.
 
+
+### Sphere · Noise Laboratory II
+
+- Entry: [sphere-noise/index.html](./sphere-noise/)
+- Live: https://bonoj.github.io/jit/assets/sphere-noise/
+- Standalone WebGL 1 spherical mesh (100 × 160 cells), depth-buffered radial displacement driven by layered seamless 3D value noise.
+- Controls: continents, mountains, fine detail, domain warp, sea level, spin; terrain, height, wire; orbit, zoom, seed and reset.
+- Known limitations: radial rather than displacement-derived normals; no erosion or tectonics; wire overlay not depth-offset; browser runtime not independently verified. Baseline archived for optional future work.
+
 ## Maintenance procedure
 
 1. Enumerate the root with the GitHub Contents API and inspect any directories recursively.
