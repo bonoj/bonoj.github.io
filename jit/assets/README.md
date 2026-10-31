@@ -484,6 +484,15 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Controls: tap/drag to ignite, Ignite, wind direction, Reset.
 - Limitations: simplified thermal model; flame particles are visual approximation, not solved gas dynamics. Browser runtime not independently verified.
 
+### Spheres on Fire · Experiment 02
+
+- Entry: [fire-experiment/spheres.html](./fire-experiment/spheres.html) — sibling of the original log experiment.
+- Live URL: https://bonoj.github.io/jit/assets/fire-experiment/spheres.html
+- Canvas2D projected sphere with 780 surface cells, nearest-neighbor heat propagation, fuel depletion, and independent flame particles.
+- Six ignition patterns: wildfire, polar ignition, meteor strike, lava veins, ember rain, internal furnace.
+- Controls: tap sphere to advance, drag to orbit, previous/next, Ignite to reset.
+- Limitations: surface combustion, not a volumetric fluid solver; runtime not independently verified.
+
 ## Maintenance procedure
 
 1. Enumerate the root with the GitHub Contents API and inspect any directories recursively.
