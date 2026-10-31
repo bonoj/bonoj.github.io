@@ -476,6 +476,14 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Controls: continents, mountains, fine detail, domain warp, sea level, spin; terrain, height, wire; orbit, zoom, seed and reset.
 - Known limitations: radial rather than displacement-derived normals; no erosion or tectonics; wire overlay not depth-offset; browser runtime not independently verified. Baseline archived for optional future work.
 
+### Fire · Experiment 01
+
+- Entry: [fire-experiment/index.html](./fire-experiment/)
+- Live: https://bonoj.github.io/jit/assets/fire-experiment/
+- Standalone Canvas2D combustion toy: 76-cell one-dimensional log with fuel depletion, local heat conduction, ignition threshold, and procedurally rising flame/ember presentation.
+- Controls: tap/drag to ignite, Ignite, wind direction, Reset.
+- Limitations: simplified thermal model; flame particles are visual approximation, not solved gas dynamics. Browser runtime not independently verified.
+
 ## Maintenance procedure
 
 1. Enumerate the root with the GitHub Contents API and inspect any directories recursively.
