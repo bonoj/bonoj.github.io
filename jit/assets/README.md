@@ -27,6 +27,8 @@
 
 ## Human-readable experiment index
 
+| Fivefold · Material Defense | interactive-3d-tower-defense | [`fivefold/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fivefold/index.html) | [Open](https://bonoj.github.io/jit/assets/fivefold/) | Five-color Three.js tower defense prototype with orbitable battlefield, foundations, mana, enemy waves and differentiated towers. Published source; live mobile behavior unverified. |
+
 | Experiment | Type | Source | Live | What it does |
 |---|---|---|---|---|
 | Membrane Laboratory · Drum & Tear | interactive-membrane-study | [`drum-and-tear/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/drum-and-tear/index.html) | [Open](https://bonoj.github.io/jit/assets/drum-and-tear/) | Circular drumhead with fixed cylindrical rim, connected triangular mesh, transverse spring-driven motion, adjustable tension and strike force, and breakable bonds; torn triangles disappear. No lateral edge retraction. Browser runtime unverified. |
