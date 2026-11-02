@@ -14,6 +14,8 @@
 - **Index drift:** `jit/assets/index.html` is an independent hand-built visual cabinet and its “006 specimens” heading is **not** an authoritative total. Do not infer the complete inventory from that UI.
 - **No automatic mutation:** read-only inventory unless explicitly requested to edit; preserve experiments and existing structure.
 
+> **2026-11-01 addition:** `gear-civilization/` added to the visual cabinet as specimen 023. Historical inventory counts below remain snapshots, not current totals.
+
 ## Counts
 
 > Added `living-forest-card/` on 2026-10-29. Historical counts and JSON snapshot below have not been fully re-enumerated.\n\n> Inventory snapshot counts below are historical; the Cartographer's Room was added 2026-10-28.\n
@@ -31,6 +33,7 @@
 
 | Experiment | Type | Source | Live | What it does |
 |---|---|---|---|---|
+| Gear Civilization · The Great Turning | threejs-webgl-3d-study | [`gear-civilization/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/gear-civilization/index.html) | [Open](https://bonoj.github.io/jit/assets/gear-civilization/) | A civilization grows on the outer rim of a thick toothed gear; awakening rotation detaches people and buildings into world-space gravity. Perspective camera, orbit and pinch zoom. No rigid-body collisions; live browser behavior unverified. |
 | Kingdom of Thorns · Vector Diorama | procedural-canvas-tower-defense | [`kingdom-of-thorns/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/kingdom-of-thorns/index.html) | [Open](https://bonoj.github.io/jit/assets/kingdom-of-thorns/) | Original vector-inspired Canvas landscape with four buildable tower classes, enemy waves, gold, and upgrades. Source committed; live browser behavior unverified. |
 | Membrane Laboratory · Drum & Tear | interactive-membrane-study | [`drum-and-tear/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/drum-and-tear/index.html) | [Open](https://bonoj.github.io/jit/assets/drum-and-tear/) | Circular drumhead with fixed cylindrical rim, connected triangular mesh, transverse spring-driven motion, adjustable tension and strike force, and breakable bonds; torn triangles disappear. No lateral edge retraction. Browser runtime unverified. |
 | [Autology / Iron · Eiffel Tower](./autology-iron/) | Canvas2D projected 3D structural lattice; aerial strikes, support graph, BB release, orbit and rebuild |\n
