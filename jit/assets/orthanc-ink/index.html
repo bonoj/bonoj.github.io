@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#e5d6b3"><title>Orthanc — Ink & Stone</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#e5d6b3;font:12px system-ui;color:#211e1b}#stage{position:relative;width:100vw;height:100dvh;overflow:hidden;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}.head{position:absolute;top:16px;left:16px;letter-spacing:.16em;font-weight:800;pointer-events:none}.head span{font-weight:400}.controls{position:absolute;bottom:18px;left:16px;right:16px;display:flex;gap:8px;align-items:center;justify-content:space-between}button{background:#292621;color:#fff;border:1px solid #554b3b;padding:10px 12px;border-radius:7px;font:12px system-ui}#spin{background:#f4e9d1;color:#292621}small{background:#f4e9d1bd;padding:9px;border-radius:6px}#error{position:absolute;top:46px;left:16px;color:#862e22}</style>
+<div id="stage"><canvas id="view"></canvas><div class="head">ORTHANC <span>/ INK STUDY</span></div><div id="error"></div><div class="controls"><button id="ink">◩ Ink: ON</button><button id="spin">↻ Auto-orbit</button><small>Drag · Pinch</small></div></div>
+<script type="module">
+try{
+const T=await import('https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js');
+const root=document.getElementById('stage'),canvas=document.getElementById('view');
+const scene=new T.Scene();scene.background=new T.Color('#e5d6b3');scene.fog=new T.Fog('#e5d6b3',30,52);
+const camera=new T.PerspectiveCamera(35,1,.1,100),renderer=new T.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
+scene.add(new T.HemisphereLight('#fff2d6','#66616b',2));
+const sun=new T.DirectionalLight('#fff6dd',3.4);sun.position.set(-8,17,12);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-15;sun.shadow.camera.right=15;sun.shadow.camera.top=22;sun.shadow.camera.bottom=-15;scene.add(sun);
+const mat=(c)=>new T.MeshToonMaterial({color:c}),P={dark:mat('#353944'),black:mat('#171d28'),stone:mat('#59616b'),side:mat('#424954'),light:mat('#7b7e7a'),ground:mat('#b5a68b'),grass:mat('#8a987a'),gold:new T.MeshBasicMaterial({color:'#f4bc59'}),ink:new T.LineBasicMaterial({color:'#151720',transparent:true,opacity:.9})};
+const group=new T.Group();scene.add(group);const outlines=[];
+function mesh(g,m,x=0,y=0,z=0,edge=true){const a=new T.Mesh(g,m);a.position.set(x,y,z);a.castShadow=true;a.receiveShadow=true;group.add(a);if(edge){const b=new T.LineSegments(new T.EdgesGeometry(g,22),P.ink);b.position.copy(a.position);group.add(b);outlines.push(b);}return a}
+function block(w,h,d,x,y,z,m=P.stone){return mesh(new T.BoxGeometry(w,h,d),m,x,y,z)}
+function taper(w0,w1,h,d0,d1,x,y,z,m=P.stone){const v=[[-w0/2,-h/2,-d0/2],[w0/2,-h/2,-d0/2],[w0/2,-h/2,d0/2],[-w0/2,-h/2,d0/2],[-w1/2,h/2,-d1/2],[w1/2,h/2,-d1/2],[w1/2,h/2,d1/2],[-w1/2,h/2,d1/2]];const f=[[0,1,5],[0,5,4],[1,2,6],[1,6,5],[2,3,7],[2,7,6],[3,0,4],[3,4,7],[4,5,6],[4,6,7],[2,1,0],[3,2,0]],a=[];for(const face of f)for(const i of face)a.push(...v[i]);const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(a,3));g.computeVertexNormals();return mesh(g,m,x,y,z)}
+function spike(x,z,h,w){taper(w,w*.54,h*.68,w,w*.54,x,13+h*.34,z,P.black);taper(w*.54,.025,h*.32,w*.54,.025,x,13+h*.84,z,P.black)}
+function windowAt(x,y,z){block(.18,.48,.035,x,y,z,P.black);block(.085,.23,.041,x,y,z+.025,P.gold)}
+mesh(new T.CylinderGeometry(7.2,7.6,.55,9),P.ground,0,-.4,0);mesh(new T.CylinderGeometry(6.9,7.1,.14,9),P.grass,0,-.07,0);
+for(const [x,z,s] of [[-5.1,-1.4,.8],[-4.5,2.3,.7],[4.9,1.9,.65],[3.5,-4.2,.8],[-1.8,5.1,.55]]){const r=mesh(new T.DodecahedronGeometry(s),P.light,x,s*.2,z);r.rotation.set(.3,x*.3,.15)}
+taper(2.7,2.28,9.6,2.7,2.28,0,5.1,0,P.dark);block(3.05,.32,3.05,0,.85,0,P.black);block(2.75,.24,2.75,0,3.8,0,P.side);block(2.58,.22,2.58,0,7.2,0,P.black);taper(2.28,2.1,3.2,2.28,2.1,0,11.5,0,P.side);
+for(const x of [-1,1])for(const z of [-1,1]){taper(.85,.43,10.8,.85,.43,x*1.18,5.65,z*1.18,P.black);taper(.49,.22,3.5,.49,.22,x*1.05,12.7,z*1.05,P.dark)}
+for(const [x,z] of [[-1.18,-1.18],[-1.18,1.18],[1.18,-1.18],[1.18,1.18]])spike(x,z,5,.72);
+taper(1.7,1.35,1.3,1.7,1.35,0,13.4,0,P.black);taper(.28,.03,2,.28,.03,0,15.05,0,P.light);
+for(const s of [-1,1]){taper(.54,.2,7.6,1.2,.45,s*1.45,5.4,0,P.side);taper(1.2,.45,7.6,.54,.2,0,5.4,s*1.45,P.side)}
+taper(4.1,3.05,2.2,4.1,3.05,0,1.1,0,P.black);block(4.25,.25,4.25,0,.1,0,P.side);
+block(.26,1.7,.13,-.47,1.05,2.065,P.black);block(.26,1.7,.13,.47,1.05,2.065,P.black);block(.7,.18,.13,0,1.98,2.065,P.black);mesh(new T.CylinderGeometry(.5,.5,.12,12,1,false,0,Math.PI),P.black,0,2.02,2.065);block(.68,1.45,.14,0,1.05,2.1,P.black);
+for(let y=4.6;y<12.2;y+=1.65)windowAt(0,y,1.28);
+for(const x of [-.75,.75])for(const y of [5.3,8.4,11.4])windowAt(x,y,1.28);
+for(let i=0;i<24;i++){const y=.9+i*.48,half=1.38-y/14*.25,x=Math.sin(i*7.3)*.45;mesh(new T.BoxGeometry(.2+i%4*.09,.023,.015),P.black,x,y,half+.025,false)}
+for(let i=0;i<7;i++)block(.6,.14,.42,-4+i*.28,.06,3.5+i*.19,P.light);
+let az=.65,el=.26,dist=26,spin=false,ink=true,last=0;const pointers=new Map();
+function resize(){renderer.setSize(root.clientWidth,root.clientHeight,false);camera.aspect=root.clientWidth/root.clientHeight;camera.updateProjectionMatrix()}
+new ResizeObserver(resize).observe(root);resize();
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY})});
+canvas.addEventListener('pointermove',e=>{const p=pointers.get(e.pointerId);if(!p)return;if(pointers.size===1){az-=(e.clientX-p.x)*.008;el=Math.max(-.35,Math.min(.85,el+(e.clientY-p.y)*.005))}else if(pointers.size===2){const q=[...pointers].find(([id])=>id!==e.pointerId)[1];dist=Math.max(16,Math.min(44,dist+(Math.hypot(p.x-q.x,p.y-q.y)-Math.hypot(e.clientX-q.x,e.clientY-q.y))*.025))}pointers.set(e.pointerId,{x:e.clientX,y:e.clientY})});
+for(const type of ['pointerup','pointercancel'])canvas.addEventListener(type,e=>pointers.delete(e.pointerId));
+canvas.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(16,Math.min(44,dist+e.deltaY*.015))},{passive:false});
+document.getElementById('ink').onclick=e=>{ink=!ink;outlines.forEach(o=>o.visible=ink);e.currentTarget.textContent='◩ Ink: '+(ink?'ON':'OFF')};
+document.getElementById('spin').onclick=e=>{spin=!spin;e.currentTarget.textContent=spin?'Ⅱ Stop orbit':'↻ Auto-orbit'};
+function frame(t){const dt=Math.min((t-last)/1000||0,.05);last=t;if(spin)az+=dt*.22;camera.position.set(Math.sin(az)*dist*Math.cos(el),7+dist*Math.sin(el),Math.cos(az)*dist*Math.cos(el));camera.lookAt(0,7,0);renderer.render(scene,camera);requestAnimationFrame(frame)}requestAnimationFrame(frame);
+}catch(e){document.getElementById('error').textContent='3D initialization failed: '+e.message}
+</script></html>
