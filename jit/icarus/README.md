@@ -39,3 +39,7 @@ No actual ship translation, propulsion, trajectory, orbital/stellar physics, phy
 - Record discussion, experiments, historical concepts, film-clock checkpoints, and abandoned approaches in [CHRONICLE.md](./CHRONICLE.md).
 - Preserve existing JIT worlds (especially `jit/evermore-2/` and `jit/ender-forge/`); don't mutate them while working on Icarus.
 - Distinguish **source committed**, **Pages published**, and **browser execution observed**. Never claim one proves the others.
+
+## Preserved composition reference — Orbital Foundry (2 November 2026)
+
+The successful Hermeticon Strand orbital-station assembly is preserved as [reference/orbital-foundry.js](./reference/orbital-foundry.js), with context and the **assembly versus autonomous ice system** distinction in [CHRONICLE.md](./CHRONICLE.md). This is reusable source/reference only; it is **not integrated into Icarus's executable** and does not alter the lighthugger or its observer transport.
