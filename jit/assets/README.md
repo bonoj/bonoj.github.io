@@ -30,6 +30,7 @@
 ## Human-readable experiment index
 
 | Orthanc · Ink & Stone (original; [Black Ink third study](https://bonoj.github.io/jit/assets/orthanc-ink/black-ink.html)) | threejs-comic-3d-study | [`orthanc-ink/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/orthanc-ink/index.html) | [Open](https://bonoj.github.io/jit/assets/orthanc-ink/) | Orbitable miniature Orthanc-inspired black-stone tower with cel shading, ink edge toggle, and touch orbit/pinch. Source committed 2026-11-02; browser runtime unverified. |
+| Orthanc · Stone & Pigment | threejs-procedural-material-study | [`orthanc-ink/stone-pigment.html`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/orthanc-ink/stone-pigment.html) | [Open](https://bonoj.github.io/jit/assets/orthanc-ink/stone-pigment.html) | Third treatment in same Orthanc folder: coherent procedural height field with derived color, normal, and roughness maps; rotate light, orbit, and compare material modes. |
 
 
 | Fivefold · Material Defense | interactive-3d-tower-defense | [`fivefold/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fivefold/index.html) | [Open](https://bonoj.github.io/jit/assets/fivefold/) | Five-color Three.js tower defense prototype with orbitable battlefield, foundations, mana, enemy waves and differentiated towers. Published source; live mobile behavior unverified. |
