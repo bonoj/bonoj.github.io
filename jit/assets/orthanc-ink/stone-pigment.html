@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Orthanc — Stone & Pigment</title><style>*{box-sizing:border-box}body{margin:0;background:#c6b7a0;font:12px system-ui}#stage{height:100dvh;width:100vw;position:relative;overflow:hidden;touch-action:none}canvas{width:100%;height:100%;display:block;touch-action:none}.title{position:absolute;top:12px;left:13px;color:#342c26;font-weight:700;letter-spacing:.13em}.controls{position:absolute;bottom:12px;left:12px;right:12px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}button{background:#292b30;color:white;border:0;border-radius:7px;padding:9px;font:12px system-ui}small{margin-left:auto;background:#eee0c6d9;padding:8px;border-radius:6px}#err{position:absolute;top:38px;left:13px;color:#982e21}</style><div id="stage"><canvas id="view"></canvas><div class="title">ORTHANC / STONE & PIGMENT</div><div id="err"></div><div class="controls"><button id="mode">Full material</button><button id="light">Turn light</button><button id="spin">Orbit OFF</button><small>Drag · Pinch</small></div></div><script type="module">
+try{
+const T=await import('https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js'),root=document.getElementById('stage'),canvas=document.getElementById('view'),scene=new T.Scene();
+scene.background=new T.Color('#c6b7a0');scene.fog=new T.FogExp2('#c6b7a0',.012);
+const camera=new T.PerspectiveCamera(35,1,.1,110),renderer=new T.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
+scene.add(new T.HemisphereLight(0xe8d6bd,0x252d39,1.25));const sun=new T.DirectionalLight(0xffe0b5,3.4);sun.position.set(-8,17,12);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-12,right:12,top:24,bottom:-12});sun.shadow.bias=-.0004;scene.add(sun);
+const fill=new T.DirectionalLight(0x7894b9,.4);fill.position.set(7,7,-8);scene.add(fill);
+let seed=84213;function rnd(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}
+const N=256,field=new Float32Array(N*N);function smooth(t){return t*t*(3-2*t)}
+function makeNoise(grid){const v=Float32Array.from({length:grid*grid},()=>rnd());return(x,y)=>{x=((x%grid)+grid)%grid;y=((y%grid)+grid)%grid;const ix=Math.floor(x),iy=Math.floor(y),fx=smooth(x-ix),fy=smooth(y-iy),at=(a,b)=>v[((b+grid)%grid)*grid+((a+grid)%grid)];return(at(ix,iy)*(1-fx)+at(ix+1,iy)*fx)*(1-fy)+(at(ix,iy+1)*(1-fx)+at(ix+1,iy+1)*fx)*fy}}
+const n4=makeNoise(4),n12=makeNoise(12),n32=makeNoise(32),n64=makeNoise(64);
+const pits=Array.from({length:145},()=>[rnd()*N,rnd()*N,1+rnd()*5,.12+rnd()*.38]),cracks=Array.from({length:32},()=>[rnd()*N,rnd()*N,8+rnd()*30,rnd()*Math.PI*2,.7+rnd()*1.8]);
+for(let y=0;y<N;y++)for(let x=0;x<N;x++){const u=x/N,v=y/N;let h=.48+.27*(n4(u*4,v*4)-.5)+.22*(n12(u*12,v*12)-.5)+.13*(n32(u*32,v*32)-.5)+.065*(n64(u*64,v*64)-.5);h+=.027*Math.sin(y*.41+4*n4(u*4,v*4))+.018*Math.sin(y*1.7+x*.08);
+for(const [px,py,r,d] of pits){let dx=Math.abs(x-px),dy=Math.abs(y-py);dx=Math.min(dx,N-dx);dy=Math.min(dy,N-dy);const q=(dx*dx+dy*dy)/(r*r);if(q<1)h-=d*(1-q)*(1-q)}
+for(const [cx,cy,len,a,w] of cracks){let dx=x-cx,dy=y-cy;dx-=Math.round(dx/N)*N;dy-=Math.round(dy/N)*N;const along=dx*Math.cos(a)+dy*Math.sin(a),across=-dx*Math.sin(a)+dy*Math.cos(a);if(Math.abs(along)<len*.5&&Math.abs(across)<w)h-=.14*(1-Math.abs(across)/w)*(1-Math.abs(along)/(len*.5))}
+field[y*N+x]=h}
+const sample=(x,y)=>field[((y+N)%N)*N+((x+N)%N)];
+function texture(kind){const data=new Uint8Array(N*N*4);for(let y=0;y<N;y++)for(let x=0;x<N;x++){const h=sample(x,y),dx=sample(x+1,y)-sample(x-1,y),dy=sample(x,y+1)-sample(x,y-1),k=(y*N+x)*4;
+if(kind==='normal'){const nx=-dx*6,ny=-dy*6,nz=1,mag=Math.hypot(nx,ny,nz);data[k]=Math.round(127.5+127.5*nx/mag);data[k+1]=Math.round(127.5+127.5*ny/mag);data[k+2]=Math.round(127.5+127.5*nz/mag)}
+else if(kind==='rough'){const r=Math.max(0,Math.min(255,220+(h-.5)*40+Math.abs(dx+dy)*35));data[k]=data[k+1]=data[k+2]=r}
+else{const v=Math.max(0,Math.min(255,135+(h-.48)*205));data[k]=Math.max(0,Math.min(255,Math.round(v*1.05+5)));data[k+1]=Math.round(v*.99);data[k+2]=Math.round(v*.91)}data[k+3]=255}
+const tex=new T.DataTexture(data,N,N,T.RGBAFormat);tex.wrapS=tex.wrapT=T.RepeatWrapping;tex.magFilter=T.LinearFilter;tex.minFilter=T.LinearMipmapLinearFilter;tex.generateMipmaps=true;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());if(kind==='color')tex.colorSpace=T.SRGBColorSpace;tex.needsUpdate=true;return tex}
+const albedo=texture('color'),normal=texture('normal'),rough=texture('rough');
+function stoneMat(color){return new T.MeshStandardMaterial({color,roughness:.91,metalness:0,map:albedo,normalMap:normal,normalScale:new T.Vector2(2.3,2.3),roughnessMap:rough})}
+const materials=[stoneMat(0xc1c5ca),stoneMat(0x90969e),stoneMat(0x737a82),stoneMat(0x525b65)],soil=stoneMat(0x9c947c),moss=stoneMat(0x8d9b76),black=new T.MeshStandardMaterial({color:0x141a21,roughness:1}),gold=new T.MeshBasicMaterial({color:0xe5b16a});
+function add(g,m,x=0,y=0,z=0){const o=new T.Mesh(g,m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;scene.add(o);return o}
+function box(w,h,d,x,y,z,m=materials[0]){return add(new T.BoxGeometry(w,h,d),m,x,y,z)}
+function taper(b,t,h,x,y,z,m=materials[0]){const g=new T.BoxGeometry(1,1,1),p=g.attributes.position;for(let i=0;i<p.count;i++){const yy=p.getY(i),k=yy<0?b:t;p.setXYZ(i,p.getX(i)*k,yy*h,p.getZ(i)*k)}p.needsUpdate=true;g.computeVertexNormals();g.computeBoundingSphere();const uv=g.attributes.uv,n=g.attributes.normal;for(let i=0;i<uv.count;i++){const side=Math.abs(n.getX(i))>.5||Math.abs(n.getZ(i))>.5;uv.setXY(i,uv.getX(i)*Math.max(b,t)*.85,uv.getY(i)*(side?h*.45:Math.max(b,t)*.85))}uv.needsUpdate=true;return add(g,m,x,y,z)}
+add(new T.CylinderGeometry(6.7,7.2,.72,9),soil,0,-.5,0);add(new T.CylinderGeometry(6.25,6.65,.16,9),moss,0,-.08,0);
+taper(3.2,2.5,12.6,0,6.55,0);taper(2.5,2.05,2.5,0,14.1,0,materials[1]);box(3.5,.25,3.5,0,1,0,materials[2]);box(2.8,.2,2.8,0,7.4,0,materials[2]);box(2.45,.2,2.45,0,12.3,0,materials[2]);
+for(const x of [-1.13,1.13])for(const z of [-1.13,1.13]){taper(.78,.38,12.8,x,6.7,z,materials[1]);taper(.38,.085,5.2,x,15.65,z,materials[0]);taper(.085,.008,1.4,x,18.94,z,materials[3])}
+for(const s of [-1,1]){taper(.72,.28,9.2,s*1.62,5.55,0,materials[1]);taper(.72,.28,9.2,0,5.55,s*1.62,materials[1])}
+taper(1.7,1.25,1.3,0,15.65,0,materials[3]);taper(.22,.006,2,0,17.25,0,materials[0]);
+box(.85,1.85,.09,0,1.22,1.74,black);box(.14,2.1,.16,-.53,1.22,1.79,materials[2]);box(.14,2.1,.16,.53,1.22,1.79,materials[2]);box(1.2,.18,.16,0,2.38,1.79,materials[2]);
+for(const y of [4.2,6.15,8.1,10.05,11.5]){box(.13,.45,.04,0,y,1.55,black);box(.045,.17,.046,0,y,1.58,gold)}
+for(const [x,z,r] of [[-4.5,-1.1,.7],[4.4,1.5,.75],[-2.6,4,.5],[2.7,-4,.62]]){const o=add(new T.DodecahedronGeometry(r,0),materials[1],x,r*.22,z);o.rotation.set(.25,x*.12,.17)}
+let az=.6,el=.23,dist=30,last=0,spin=false,mode=0,lightAngle=0;const pointers=new Map();
+function resize(){renderer.setSize(root.clientWidth,root.clientHeight,false);camera.aspect=root.clientWidth/root.clientHeight;camera.updateProjectionMatrix()}new ResizeObserver(resize).observe(root);resize();
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY})});
+canvas.addEventListener('pointermove',e=>{const p=pointers.get(e.pointerId);if(!p)return;if(pointers.size===1){az-=(e.clientX-p.x)*.008;el=Math.max(-.35,Math.min(.85,el+(e.clientY-p.y)*.005))}else if(pointers.size===2){const q=[...pointers].find(([id])=>id!==e.pointerId)[1],old=Math.hypot(p.x-q.x,p.y-q.y),now=Math.hypot(e.clientX-q.x,e.clientY-q.y);dist=Math.max(14,Math.min(50,dist+(old-now)*.03))}pointers.set(e.pointerId,{x:e.clientX,y:e.clientY})});
+for(const type of ['pointerup','pointercancel'])canvas.addEventListener(type,e=>pointers.delete(e.pointerId));canvas.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(14,Math.min(50,dist+e.deltaY*.015))},{passive:false});
+const names=['Full material','Color only','Relief only','Bare stone'];document.getElementById('mode').onclick=e=>{mode=(mode+1)%4;e.currentTarget.textContent=names[mode];for(const m of [...materials,soil,moss]){m.map=mode===0||mode===1?albedo:null;m.normalMap=mode===0||mode===2?normal:null;m.roughnessMap=mode===0?rough:null;m.needsUpdate=true}};
+document.getElementById('light').onclick=()=>{lightAngle+=Math.PI/3;sun.position.set(-9*Math.cos(lightAngle),17,12*Math.sin(lightAngle)+5)};
+document.getElementById('spin').onclick=e=>{spin=!spin;e.currentTarget.textContent='Orbit '+(spin?'ON':'OFF')};
+function frame(t){const dt=Math.min((t-last)/1000||0,.05);last=t;if(spin)az+=dt*.18;camera.position.set(Math.sin(az)*dist*Math.cos(el),8+dist*Math.sin(el),Math.cos(az)*dist*Math.cos(el));camera.lookAt(0,8,0);renderer.render(scene,camera);requestAnimationFrame(frame)}requestAnimationFrame(frame);
+}catch(e){document.getElementById('err').textContent='3D initialization failed: '+e.message}
+</script></html>
