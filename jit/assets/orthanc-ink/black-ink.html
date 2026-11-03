@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Orthanc — Black Ink / Third Study</title><style>*{box-sizing:border-box}body{margin:0;background:#e8d9b6;font:12px system-ui}#stage{position:relative;width:100vw;height:100dvh;overflow:hidden;touch-action:none}canvas{width:100%;height:100%;display:block;touch-action:none}.title{position:absolute;top:12px;left:14px;color:#29231e;font-weight:800;letter-spacing:.16em;pointer-events:none}.controls{position:absolute;bottom:12px;left:12px;right:12px;display:flex;gap:6px;align-items:center}button{border:0;border-radius:7px;background:#1b1b20;color:white;padding:10px;font:12px system-ui}small{margin-left:auto;background:#f7eacbd9;padding:8px;border-radius:6px}#error{position:absolute;top:40px;left:14px;color:#912c20}</style><div id="stage"><canvas id="view"></canvas><div class="title">ORTHANC / BLACK INK</div><div id="error"></div><div class="controls"><button id="ink">Ink ON</button><button id="light">Rotate light</button><button id="spin">Orbit OFF</button><small>Drag · Pinch</small></div></div><script type="module">
+try{
+const T=await import('https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js');
+const root=document.getElementById('stage'),canvas=document.getElementById('view'),scene=new T.Scene();scene.background=new T.Color('#e8d9b6');
+const camera=new T.PerspectiveCamera(35,1,.1,100),renderer=new T.WebGLRenderer({canvas,antialias:true,stencil:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.NoToneMapping;
+const sun=new T.DirectionalLight(0xffffff,2.4);sun.position.set(-9,15,10);scene.add(sun);scene.add(new T.AmbientLight(0xffffff,.15));
+const ramp=new T.DataTexture(new Uint8Array([12,14,19,255,26,30,37,255,66,72,77,255,147,151,145,255]),4,1,T.RGBAFormat);ramp.magFilter=T.NearestFilter;ramp.minFilter=T.NearestFilter;ramp.needsUpdate=true;
+const stone=new T.MeshToonMaterial({color:0xffffff,gradientMap:ramp}),dark=new T.MeshToonMaterial({color:0xb3b8b7,gradientMap:ramp}),ground=new T.MeshToonMaterial({color:0xb6aa8d}),edgeMat=new T.LineBasicMaterial({color:0x080b11,depthTest:true,depthWrite:false}),silhouetteMat=new T.MeshBasicMaterial({color:0x080b11,side:T.BackSide,depthWrite:true}),inkObjects=[];
+function add(g,m,x=0,y=0,z=0,heavy=true,edge=true){const o=new T.Mesh(g,m);o.position.set(x,y,z);scene.add(o);if(heavy){const hull=new T.Mesh(g.clone(),silhouetteMat);hull.scale.set(1.095,1.02,1.095);o.add(hull);inkObjects.push(hull)}if(edge){const lines=new T.LineSegments(new T.EdgesGeometry(g,35),edgeMat);o.add(lines);inkObjects.push(lines)}return o}
+function box(w,h,d,x,y,z,m=stone,heavy=true,edge=true){return add(new T.BoxGeometry(w,h,d),m,x,y,z,heavy,edge)}
+function tapered(bottom,top,h,x,y,z,m=stone,heavy=true,edge=true){const g=new T.BoxGeometry(1,1,1),p=g.attributes.position;for(let i=0;i<p.count;i++){const yy=p.getY(i),k=yy<0?bottom:top;p.setXYZ(i,p.getX(i)*k,yy*h,p.getZ(i)*k)}p.needsUpdate=true;g.computeVertexNormals();g.computeBoundingSphere();return add(g,m,x,y,z,heavy,edge)}
+add(new T.CylinderGeometry(6.7,7.2,.55,8),ground,0,-.42,0,false,true);add(new T.CylinderGeometry(6.3,6.65,.12,8),new T.MeshToonMaterial({color:0x868f79}),0,-.06,0,false,true);
+tapered(3.2,2.5,12.6,0,6.55,0);tapered(2.5,2.05,2.5,0,14.1,0,dark);box(3.5,.25,3.5,0,1,0,stone,true);box(2.8,.18,2.8,0,7.4,0,dark,true);box(2.45,.18,2.45,0,12.3,0,dark,true);
+for(const x of [-1.13,1.13])for(const z of [-1.13,1.13]){tapered(.78,.38,12.8,x,6.7,z,dark);tapered(.38,.085,5.2,x,15.65,z,stone);tapered(.085,.008,1.4,x,18.94,z,dark)}
+for(const s of [-1,1]){tapered(.72,.28,9.2,s*1.62,5.55,0,dark);tapered(.72,.28,9.2,0,5.55,s*1.62,dark)}
+tapered(1.7,1.25,1.3,0,15.65,0,dark);tapered(.22,.006,2,0,17.25,0,stone);
+const black=new T.MeshBasicMaterial({color:0x080b11}),gold=new T.MeshBasicMaterial({color:0xd1a157});
+box(.85,1.85,.09,0,1.22,1.74,black,false,false);box(.14,2.1,.16,-.53,1.22,1.79,dark,true);box(.14,2.1,.16,.53,1.22,1.79,dark,true);box(1.2,.18,.16,0,2.38,1.79,dark,true);
+for(const y of [4.2,6.15,8.1,10.05,11.5]){box(.13,.45,.04,0,y,1.55,black,false,false);box(.05,.19,.045,0,y,1.58,gold,false,false)}
+const hatchMat=new T.LineBasicMaterial({color:0x14151b,transparent:true,opacity:.75});
+for(let i=0;i<36;i++){const y=1.6+i*.31,x=((i*13)%17)/17*1.1-.55,z=1.6-y/12.6*.35+.025,g=new T.BufferGeometry().setFromPoints([new T.Vector3(x,y,z),new T.Vector3(x+.13+(i%3)*.07,y+.04,z)]),l=new T.Line(g,hatchMat);scene.add(l);inkObjects.push(l)}
+for(const [x,z,s] of [[-4.5,-1.1,.7],[4.4,1.5,.75],[-2.6,4,.5],[2.7,-4,.62]]){const r=add(new T.DodecahedronGeometry(s,0),dark,x,s*.2,z,true,true);r.rotation.set(.25,x*.12,.17)}
+let az=.6,el=.24,dist=30,spin=false,ink=true,last=0,lightAngle=0;const pointers=new Map();
+function resize(){renderer.setSize(root.clientWidth,root.clientHeight,false);camera.aspect=root.clientWidth/root.clientHeight;camera.updateProjectionMatrix()}new ResizeObserver(resize).observe(root);resize();
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY})});
+canvas.addEventListener('pointermove',e=>{const p=pointers.get(e.pointerId);if(!p)return;if(pointers.size===1){az-=(e.clientX-p.x)*.008;el=Math.max(-.35,Math.min(.85,el+(e.clientY-p.y)*.005))}else if(pointers.size===2){const q=[...pointers].find(([id])=>id!==e.pointerId)[1],old=Math.hypot(p.x-q.x,p.y-q.y),now=Math.hypot(e.clientX-q.x,e.clientY-q.y);dist=Math.max(17,Math.min(50,dist+(old-now)*.03))}pointers.set(e.pointerId,{x:e.clientX,y:e.clientY})});
+for(const type of ['pointerup','pointercancel'])canvas.addEventListener(type,e=>pointers.delete(e.pointerId));
+canvas.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(17,Math.min(50,dist+e.deltaY*.015))},{passive:false});
+document.getElementById('ink').onclick=e=>{ink=!ink;inkObjects.forEach(o=>o.visible=ink);e.currentTarget.textContent='Ink '+(ink?'ON':'OFF')};
+document.getElementById('light').onclick=()=>{lightAngle+=Math.PI/3;sun.position.set(-9*Math.cos(lightAngle),15,10*Math.sin(lightAngle)+5)};
+document.getElementById('spin').onclick=e=>{spin=!spin;e.currentTarget.textContent='Orbit '+(spin?'ON':'OFF')};
+function frame(t){const dt=Math.min((t-last)/1000||0,.05);last=t;if(spin)az+=dt*.18;camera.position.set(Math.sin(az)*dist*Math.cos(el),8+dist*Math.sin(el),Math.cos(az)*dist*Math.cos(el));camera.lookAt(0,8,0);renderer.render(scene,camera);requestAnimationFrame(frame)}requestAnimationFrame(frame);
+}catch(e){document.getElementById('error').textContent='3D initialization failed: '+e.message}
+</script></html>
