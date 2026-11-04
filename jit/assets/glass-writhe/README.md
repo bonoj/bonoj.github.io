@@ -25,3 +25,11 @@ Keep working **in this folder**. Preserve this first specimen as a recoverable b
 - WebGL ray marching, surface normals, Fresnel-style shading, orbit, pinch zoom, agitation, calming, interior hint and pause.
 - The surface is an implicit union, not an independently simulated elastic membrane. Shading suggests translucency but is not true volumetric transparency.
 - Preserved separately from Morphology 001. Source committed 2026-11-03; browser runtime unverified.
+
+
+## Three.js morphology experiments
+
+- [Morphology 003 — First metaball field](./three-003.html): Three.js MarchingCubes at resolution 34, sparse six-point limbs, debug skeleton beads, and the original uncalibrated field. Preserved as an interesting malformed result.
+- [Morphology 003B — Dense metaball field](./three-003b.html): Three.js MarchingCubes at resolution 40, 25 samples per limb, revised field strengths and head construction, no debug beads. Preserved independently because its morphology is also strange.
+
+Both are archival recreations of the interactive chat prototypes, not byte-identical exports. Neither modifies the original [Decapod](./decapod.html). Live browser behavior has not been independently verified.
