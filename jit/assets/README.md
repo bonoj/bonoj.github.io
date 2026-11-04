@@ -579,3 +579,10 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Live URL: https://bonoj.github.io/jit/assets/matter-lab-004/
 - Six treatments: Magnetic Domains (Ising-like lattice), Percolation (connected pore invasion), Dielectric Breakdown (branching discharge), Elastic Membrane (coupled wave lattice), Phase Separation (Cahn–Hilliard-style concentration field), Transport Network (reinforced agent paths).
 - Touch interventions, intensity, resolution, reseed, pause. Exploratory approximations; standalone source committed, live browser not independently verified.
+
+
+### Solar Lab 007 · A Star That Remembers
+- Entry: [solar-lab-007/](./solar-lab-007/)
+- Live URL: https://bonoj.github.io/jit/assets/solar-lab-007/
+- One persistent coupled cellular approximation with six instrument views: Photosphere, Temperature, Convection, Magnetic Flux, Stress Map, Reconnection. Switching instruments does not reset the fields. Touch injects heat and perturbs flux; sliders control driving and magnetic coupling; simulation/render milliseconds and reconnection counts displayed.
+- Exploratory computational model, not a physical MHD solver. Source committed; live browser behavior not independently verified.
