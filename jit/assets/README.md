@@ -520,3 +520,12 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 4. Reconcile counts and SHA values, distinguishing tree SHAs from blob SHAs.
 5. If a live browser test is performed, record its outcome separately; never infer runtime success from GitHub presence.
 6. Commit the README and read it back to verify the write.
+
+
+### The Illustrated Quarry · Procedural Illustration 001
+
+- Entry: [illustrated-quarry/](./illustrated-quarry/)
+- Live URL: https://bonoj.github.io/jit/assets/illustrated-quarry/
+- Canvas2D procedural illustration study: layered earth paths, cliff contours, fractured polygonal rocks, timber towers, and tower sites. Tap to grow/fracture stone, place towers, carve paths; regenerate for a new seed.
+- Evaluation: rock material grammar is promising; other systems are preliminary and visually uninspired. Preserve this baseline for iteration.
+- Source committed; live browser behavior not independently verified.
