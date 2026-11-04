@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lithic II · The Outcrop</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#d7c5a6}#app{width:100%;height:100%;position:relative;touch-action:none}canvas{width:100%;height:100%;display:block;touch-action:none}header{position:absolute;top:12px;left:14px;color:#413c32;pointer-events:none;text-shadow:0 1px #e7d9c3;font:11px ui-monospace,monospace}header h1{font:600 20px Georgia,serif;margin:5px 0}nav{position:absolute;bottom:12px;left:12px;right:12px;display:flex;gap:7px;flex-wrap:wrap}button{border:1px solid #655b47;background:#f2e6d2ed;color:#453e32;border-radius:6px;padding:9px 12px;font:12px ui-monospace,monospace}</style><div id="app"><canvas id="c"></canvas><header><small>LITHIC / STUDY 002</small><h1>The Outcrop</h1><div id="info">Composed stone · shared strata</div></header><nav><button id="grow">Grow</button><button id="erode">Erode</button><button id="regen">New formation</button></nav></div><script>
+(()=>{
+const root=document.getElementById('app'),canvas=document.getElementById('c'),ctx=canvas.getContext('2d'),info=document.getElementById('info');
+const W=840,H=700;let seed=4837,stones=[],scale=1,offX=0,offY=0,pan=null,geology=.13;
+const fract=x=>x-Math.floor(x),rnd=n=>fract(Math.sin(n*127.17+seed*.731)*43758.5453),pick=(a,n)=>a[Math.floor(rnd(n)*a.length)%a.length];
+const colors={light:['#b8ae99','#c5b9a0','#b2aa99','#c7bba5'],mid:['#8b897b','#969384','#858679','#a29d8b'],dark:['#666c64','#70756c','#5f6861','#77796c'],edge:'#444e47'};
+function path(p){ctx.beginPath();ctx.moveTo(...p[0]);for(let i=1;i<p.length;i++)ctx.lineTo(...p[i]);ctx.closePath()}
+function fill(p,c,stroke=null,width=1){path(p);ctx.fillStyle=c;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.lineJoin='round';ctx.stroke()}}
+function line(p,c,w=1){ctx.beginPath();ctx.moveTo(...p[0]);for(let i=1;i<p.length;i++)ctx.lineTo(...p[i]);ctx.strokeStyle=c;ctx.lineWidth=w;ctx.lineJoin='round';ctx.lineCap='round';ctx.stroke()}
+function oval(x,y,rx,ry,c){ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.fillStyle=c;ctx.fill()}
+function rock(x,y,w,h,id,layer){const p=[],n=9+Math.floor(rnd(id+61)*4);for(let i=0;i<n;i++){const a=i/n*Math.PI*2,rad=.83+.22*rnd(id*37+i);p.push([Math.cos(a)*w*.5*rad,Math.sin(a)*h*.5*rad])}return{x,y,w,h,id,layer,p}}
+function drawStone(s){ctx.save();ctx.translate(s.x,s.y);ctx.rotate(geology*.25+(rnd(s.id+84)-.5)*.08);
+const p=s.p,light=pick(colors.light,s.id+5),mid=pick(colors.mid,s.id+15),dark=pick(colors.dark,s.id+25);
+ctx.shadowColor='#343c35aa';ctx.shadowBlur=7;ctx.shadowOffsetX=4;ctx.shadowOffsetY=8;
+fill(p,mid,colors.edge,2.5);ctx.shadowBlur=0;ctx.shadowOffsetX=0;ctx.shadowOffsetY=0;
+ctx.save();path(p);ctx.clip();
+fill([[-s.w*.58,-s.h*.42],[s.w*.05,-s.h*.53],[s.w*.30,-s.h*.18],[-s.w*.12,s.h*.08],[-s.w*.60,s.h*.02]],light);
+fill([[s.w*.05,-s.h*.53],[s.w*.58,-s.h*.30],[s.w*.57,s.h*.30],[s.w*.14,s.h*.40],[-s.w*.12,s.h*.08],[s.w*.30,-s.h*.18]],mid);
+fill([[-s.w*.60,s.h*.02],[-s.w*.12,s.h*.08],[s.w*.14,s.h*.40],[s.w*.5,s.h*.48],[-s.w*.5,s.h*.5]],dark);
+const spacing=Math.max(9,s.h*.16);for(let k=-5;k<=5;k++){const yy=k*spacing+(rnd(s.id+200)-.5)*5;line([[-s.w*.55,yy-s.w*.55*geology],[-s.w*.1,yy-s.w*.1*geology+2],[s.w*.28,yy+s.w*.28*geology],[s.w*.58,yy+s.w*.58*geology-2]],k%3===0?'#3e51465b':'#eee3c04c',k%3===0?2.3:1.5)}
+if(s.w>32){const bx=(rnd(s.id+310)-.5)*s.w*.35,by=(rnd(s.id+320)-.5)*s.h*.3;line([[bx-s.w*.14,by-s.h*.2],[bx,by],[bx+s.w*.12,by+s.h*.13],[bx+s.w*.15,by+s.h*.29]],'#3c484064',1.7);line([[bx,by],[bx-s.w*.07,by+s.h*.13]],'#3c484050',1)}
+for(let i=0;i<p.length;i++){const a=p[i],b=p[(i+1)%p.length],mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;if(my<0&&rnd(s.id*13+i)>.24)line([[a[0]*.85+mx*.15,a[1]*.85+my*.15],[mx,my]],'#e9e1c4a8',1.7);if(my>0&&rnd(s.id*19+i)>.55)line([[mx,my],[b[0]*.85+mx*.15,b[1]*.85+my*.15]],'#34483d80',1.6)}
+ctx.restore();path(p);ctx.strokeStyle='#465047';ctx.lineWidth=2;ctx.stroke();ctx.restore()}
+function generate(){stones=[];geology=(rnd(800)-.5)*.24;let id=0;for(let layer=0;layer<4;layer++){const y=420-layer*73;for(let x=95;x<760;){const width=72+rnd(id+400)*72,height=57+rnd(id+500)*50,ridge=70*Math.sin(x/840*Math.PI)+18*Math.sin(x*.015);stones.push(rock(x+(rnd(id+300)-.5)*20,y-ridge*layer/4+(rnd(id+100)-.5)*19,width,height,id++,layer));x+=width*.69}}for(let i=0;i<75;i++){const x=75+rnd(i+5000)*695,y=495+rnd(i+6000)*140,w=7+Math.pow(rnd(i+7000),2)*37;stones.push(rock(x,y,w,w*(.52+rnd(i+8000)*.35),id++,4))}info.textContent=stones.length+' stones · shared strata';render()}
+function draw(){const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#d9cfb9');bg.addColorStop(.72,'#d8c6a7');bg.addColorStop(1,'#bba482');ctx.fillStyle=bg;ctx.fillRect(-500,-500,1900,1800);fill([[0,490],[120,445],[280,480],[425,445],[620,462],[840,423],[840,700],[0,700]],'#b6a58a');fill([[0,556],[130,537],[250,551],[430,526],[610,548],[840,509],[840,700],[0,700]],'#a89678');for(let i=0;i<260;i++){const x=rnd(i+15000)*W,y=520+rnd(i+16000)*180;oval(x,y,1+rnd(i+17000)*3,.7+rnd(i+18000)*1.4,i%2?'#776d58a0':'#e4d3ae90')}for(const s of stones.slice().sort((a,b)=>a.layer-b.layer||a.y-b.y))drawStone(s)}
+function render(){if(!canvas.width)return;ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);const d=canvas.width/Math.max(1,root.clientWidth);ctx.setTransform(scale*d,0,0,scale*d,offX*d,offY*d);draw()}
+function resize(){const w=root.clientWidth,h=root.clientHeight,d=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(w*d);canvas.height=Math.round(h*d);scale=Math.min(w/W,h/H)*.98;offX=(w-W*scale)/2;offY=(h-H*scale)/2;render()}
+document.getElementById('grow').onclick=()=>{let id=stones.reduce((m,s)=>Math.max(m,s.id),0)+1;for(let i=0;i<15;i++){const x=140+rnd(id+i+200)*570,y=210+rnd(id+i+300)*270,w=40+rnd(id+i+400)*65;stones.push(rock(x,y,w,w*.65,id+i,3))}info.textContent=stones.length+' stones · growth';render()};
+document.getElementById('erode').onclick=()=>{let n=0;for(let i=stones.length-1;i>=0;i--)if(stones[i].layer<4&&rnd(stones[i].id+seed+30)>.85){stones.splice(i,1);n++}info.textContent=n+' stones eroded';render()};
+document.getElementById('regen').onclick=()=>{seed=Math.floor(Math.random()*100000);generate()};
+canvas.addEventListener('pointerdown',e=>{pan={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointermove',e=>{if(!pan)return;offX+=e.clientX-pan.x;offY+=e.clientY-pan.y;pan={x:e.clientX,y:e.clientY};render()});
+canvas.addEventListener('pointerup',()=>pan=null);canvas.addEventListener('pointercancel',()=>pan=null);
+new ResizeObserver(resize).observe(root);resize();generate();
+})();
+</script></html>
