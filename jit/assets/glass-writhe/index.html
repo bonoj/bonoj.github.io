@@ -1,0 +1,77 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Glass Writhe — Morphology 001</title><style>*{box-sizing:border-box}body{margin:0;background:#081219;color:#d9e8e5;font:14px system-ui}main{max-width:920px;margin:auto;padding:12px}.stage{height:min(78dvh,700px);min-height:390px;position:relative;overflow:hidden;border-radius:12px;background:#091318;touch-action:none}canvas{width:100%;height:100%;display:block;touch-action:none}.hud{position:absolute;top:12px;left:13px;pointer-events:none;font:11px ui-monospace,monospace;color:#91b7b5}.hud strong{display:block;font-size:18px;color:#d9e8e5;margin:5px 0}.controls{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}button{padding:10px 13px;background:#385e61;border:1px solid #6c9694;color:white;border-radius:6px}.note{color:#94aba9;font-size:12px}</style></head><body><main><h1>The Glass Writhe</h1><p class="note">Morphology / 001 · Translucent gelatinous skin surrounding a continuously rearranging internal chain. Drag to orbit; pinch or wheel to zoom.</p><div class="stage" id="writhe-lab"><canvas id="writhe-canvas"></canvas><div class="hud">MORPHOLOGY / 001<strong>THE GLASS WRITHE</strong><span id="writhe-stats">Initializing…</span></div></div><div class="controls"><button id="writhe-pulse">Convulse</button><button id="writhe-morph">Rearrange</button><button id="writhe-skin">Skin: ON</button><button id="writhe-pause">Pause</button></div><p class="note">Canvas2D software-projected 3D study. The membrane follows the articulated interior; it is not yet a physically simulated elastic surface.</p></main><script>
+(()=>{
+'use strict';
+const root=document.getElementById('writhe-lab'),canvas=document.getElementById('writhe-canvas'),ctx=canvas.getContext('2d'),stats=document.getElementById('writhe-stats');
+const TAU=Math.PI*2,clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>a+(b-a)*t;
+const add=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]],sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],mul=(a,s)=>[a[0]*s,a[1]*s,a[2]*s],len=a=>Math.hypot(...a),norm=a=>mul(a,1/(len(a)||1)),dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+let W=0,H=0,dpr=1,yaw=.5,pitch=.18,zoom=1,clock=0,last=0,paused=false,skin=true,impulse=0,morph=0,morphTarget=0,drag=false;
+const segments=24,rings=14,radial=20;
+const joints=[],links=[];
+for(let i=0;i<segments;i++)joints.push({p:[0,0,0],r:.2+.08*Math.sin(i*.4),phase:i*.37});
+for(let i=0;i<segments-1;i++)links.push([i,i+1]);
+for(let i=0;i<segments-3;i+=4)links.push([i,i+3]);
+function resize(){let r=root.getBoundingClientRect();W=r.width;H=r.height;dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+resize();new ResizeObserver(resize).observe(root);
+function updateSkeleton(t){
+ for(let i=0;i<segments;i++){
+  let u=i/(segments-1),a=u*TAU*(1.3+morph*.75)+t*.25;
+  let wriggle=Math.sin(t*1.4-u*9)*(.22+impulse*.35);
+  let radius=.38+.26*Math.sin(u*Math.PI)+morph*.17*Math.cos(u*13+t*.7);
+  let x=Math.cos(a)*radius+Math.sin(u*14-t*1.1)*.13;
+  let z=Math.sin(a)*radius+Math.cos(u*12+t*.9)*.12;
+  let y=(u-.5)*2.75+.22*Math.sin(t*.8+u*11)+wriggle;
+  joints[i].p=[x,y,z];
+  joints[i].r=(.17+.15*Math.pow(Math.sin(u*Math.PI),.8))*(1+.25*Math.sin(t*1.5-u*8));
+ }
+}
+function sampleSurface(u,v,t){
+ let q=u*(segments-1),i=Math.min(segments-2,Math.floor(q)),f=q-i;
+ let p=add(mul(joints[i].p,1-f),mul(joints[i+1].p,f));
+ let tangent=norm(sub(joints[Math.min(segments-1,i+1)].p,joints[Math.max(0,i-1)].p));
+ let side=norm(cross(Math.abs(dot(tangent,[0,1,0]))>.93?[1,0,0]:[0,1,0],tangent)),up=cross(tangent,side);
+ let r=mix(joints[i].r,joints[i+1].r,f);
+ let theta=v*TAU,undulate=1+.13*Math.sin(theta*5+u*17-t*2.3)+.08*Math.cos(theta*8-u*23+t);
+ let endcap=Math.pow(Math.sin(Math.PI*(.035+.93*u)),.45);
+ return add(p,add(mul(side,Math.cos(theta)*r*undulate*endcap),mul(up,Math.sin(theta)*r*undulate*endcap)));
+}
+function camera(p){
+ let cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+ let x=p[0]*cy+p[2]*sy,z=-p[0]*sy+p[2]*cy;
+ return [x,p[1]*cp-z*sp,p[1]*sp+z*cp];
+}
+function project(p){let f=5/(5-p[2]*.25),s=Math.min(W/3.2,H/4.3)*zoom*f;return [W*.5+p[0]*s,H*.51-p[1]*s]}
+function render(t){
+ let bg=ctx.createRadialGradient(W*.52,H*.48,5,W*.5,H*.5,Math.max(W,H)*.8);
+ bg.addColorStop(0,'#1c3c42');bg.addColorStop(.55,'#10252c');bg.addColorStop(1,'#060e14');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ const verts=[];
+ for(let i=0;i<=rings;i++){let row=[];for(let j=0;j<radial;j++)row.push(camera(sampleSurface(i/rings,j/radial,t)));verts.push(row)}
+ const tris=[];
+ for(let i=0;i<rings;i++)for(let j=0;j<radial;j++){let k=(j+1)%radial;for(let idx of [[verts[i][j],verts[i+1][j],verts[i+1][k]],[verts[i][j],verts[i+1][k],verts[i][k]]]){let n=norm(cross(sub(idx[1],idx[0]),sub(idx[2],idx[0])));tris.push({v:idx,n,depth:(idx[0][2]+idx[1][2]+idx[2][2])/3})}}
+ tris.sort((a,b)=>a.depth-b.depth);
+ if(skin)for(const f of tris){
+  let light=norm([-.6,.9,1]),lit=Math.abs(dot(f.n,light)),rim=Math.pow(1-Math.abs(f.n[2]),2),alpha=.035+.10*lit+.20*rim,p=f.v.map(project);
+  ctx.fillStyle='rgba('+Math.round(92+100*lit)+','+Math.round(173+58*lit)+','+Math.round(173+60*lit)+','+alpha.toFixed(3)+')';
+  ctx.beginPath();ctx.moveTo(...p[0]);ctx.lineTo(...p[1]);ctx.lineTo(...p[2]);ctx.closePath();ctx.fill();
+ }
+ const jcam=joints.map(j=>camera(j.p));
+ const edges=links.map(([a,b])=>({a,b,depth:(jcam[a][2]+jcam[b][2])/2})).sort((a,b)=>a.depth-b.depth);
+ for(const e of edges){let a=project(jcam[e.a]),b=project(jcam[e.b]);ctx.strokeStyle=e.b===e.a+1?'rgba(236,219,176,.88)':'rgba(242,158,132,.65)';ctx.lineWidth=e.b===e.a+1?4:1.7;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke()}
+ for(let i=0;i<joints.length;i++){let p=project(jcam[i]),r=2.8+Math.max(0,jcam[i][2])*.35;ctx.beginPath();ctx.arc(p[0],p[1],r,0,TAU);ctx.fillStyle='#e8d6ac';ctx.fill()}
+ if(skin){ctx.lineWidth=.85;for(let j=0;j<radial;j+=3){ctx.beginPath();for(let i=0;i<=rings;i++){let p=project(verts[i][j]);if(i===0)ctx.moveTo(...p);else ctx.lineTo(...p)}ctx.strokeStyle='rgba(143,242,231,.26)';ctx.stroke()}
+ for(let i=1;i<rings;i+=2){ctx.beginPath();for(let j=0;j<=radial;j++){let p=project(verts[i][j%radial]);if(j===0)ctx.moveTo(...p);else ctx.lineTo(...p)}ctx.strokeStyle='rgba(166,249,236,.16)';ctx.stroke()}}
+ stats.textContent=segments+' internal actors · '+links.length+' bonds · '+(rings*radial*2)+' membrane facets';
+}
+function frame(ms){let dt=Math.min(.045,(ms-last)/1000||.016);last=ms;if(!paused){clock+=dt;impulse*=Math.exp(-dt*1.5);morph+=(morphTarget-morph)*Math.min(1,dt*.7);updateSkeleton(clock)}render(clock);requestAnimationFrame(frame)}
+updateSkeleton(0);requestAnimationFrame(frame);
+const pointers=new Map();let pinch=0;
+canvas.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,[e.clientX,e.clientY]);drag=true;canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;let old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);if(pointers.size===1){yaw+=(e.clientX-old[0])*.009;pitch=clamp(pitch+(e.clientY-old[1])*.007,-1.4,1.4)}else if(pointers.size===2){let p=[...pointers.values()],d=Math.hypot(p[0][0]-p[1][0],p[0][1]-p[1][1]);if(pinch)zoom=clamp(zoom*d/pinch,.55,2.7);pinch=d}});
+function end(e){pointers.delete(e.pointerId);drag=pointers.size>0;pinch=0}
+canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
+canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom*Math.exp(-e.deltaY*.001),.55,2.7)},{passive:false});
+document.getElementById('writhe-pulse').onclick=()=>impulse=1.5;
+document.getElementById('writhe-morph').onclick=()=>morphTarget=morphTarget>.5?0:1;
+document.getElementById('writhe-skin').onclick=e=>{skin=!skin;e.currentTarget.textContent='Skin: '+(skin?'ON':'OFF')};
+document.getElementById('writhe-pause').onclick=e=>{paused=!paused;e.currentTarget.textContent=paused?'Resume':'Pause'};
+})();
+</script></body></html>
