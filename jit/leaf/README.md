@@ -14,7 +14,7 @@ The first product is the leaf, not the logo. Favor premium photography of mature
 
 ## Work order — essential
 1. **Reference map and link graph first.** Inspect Apple homepage, store, product category, individual product, comparison, buying, support, environmental, newsroom and footer flows. Capture structural patterns, not copied page text.
-2. **Media inventory second.** Identify actual usable, license-compatible image URLs or produce original photography/rendered assets; record rights, dimensions, intended placement, responsive crops, and local filenames. Do not use Apple-owned product imagery or scrape Apple CDN assets.
+2. **Image selection second.** Start with the strongest banana-plant imagery from the creative references: huge drooping, naturally split leaves, dramatic backlight, authentic texture. Record exact source URLs, intended placements, and crops before building. Treat reference images as references until reuse rights are checked; do not let paperwork displace art direction.
 3. **Navigation skeleton third.** Build all route destinations and back-links before writing long copy. A route must not be an empty dead end. Verify direct URL loads and mobile navigation.
 4. **Visual fidelity fourth.** Recreate the *experience grammar*: restrained global nav, typographic hierarchy, enormous photo-driven hero, edge-to-edge product stories, airy grids, comparison tables, sticky local nav, polished transitions, footer depth.
 5. **Editorial fifth.** Fill with deadpan original Leaf product language only after the navigation works.
@@ -74,7 +74,7 @@ Route names are proposed Leaf architecture, not claims about exact Apple URL equ
 - Footer deep-link families: Shop & Learn, Services, Help, About, Environment, Legal. Every link must resolve or be explicitly labeled external.
 
 ## Imagery inventory — to source before implementation
-Media must be owned, licensed, or otherwise usable. **Search results and image previews are not a license.** Maintain `MEDIA.md` with source URL, photographer/owner, license/permission evidence, attribution requirements, file path, pixel dimensions, aspect/crop, role, and status.
+This is noncommercial satire, and photographic excellence is essential. Start with the compelling banana-tree images already explored; identify exact originals rather than replacing them with generic stock. Noncommercial parody does not automatically authorize copying or hotlinking third-party photographs. Keep a lightweight `MEDIA.md`: exact image URL, creator/source when known, intended placement, crop, whether embedding or reuse is permitted, and status. Rights questions should be handled pragmatically, not by abandoning the visual direction.
 
 | Asset ID | Intended shot | Ratio / treatment | Routes |
 | --- | --- | --- | --- |
@@ -90,7 +90,7 @@ Media must be owned, licensed, or otherwise usable. **Search results and image p
 | SHOP-01 | Clean studio leaf on neutral backdrop | 1:1 transparent/neutral | /store/, /compare/, /bag/ |
 | NEWS-01 | Product-launch hero photo, original | 16:9 | /newsroom/ |
 
-Image sources to investigate: Wikimedia Commons files with verified license/attribution; Unsplash/Pexels with license review; own generated imagery (clearly track provenance); original photographs. Prior chat search previews are **references only**, not embedded production assets. Avoid hotlinking third-party media. Maintain stable local optimized AVIF/WebP with JPEG fallback where needed.
+Image discovery: recover the exact beautiful banana-tree reference images from the prior exploration first; investigate their source pages and whether embedding is permitted. Other candidates include Wikimedia Commons, Unsplash, Pexels, and original/generated imagery. Preserve the art direction regardless of sourcing. Do not silently hotlink sites that prohibit it. If media is hosted locally, optimize responsive images without losing the natural detail.
 
 ## Navigation acceptance matrix
 - Home -> every category -> product detail -> specs -> compare -> store -> find a tree -> support -> home.
@@ -107,4 +107,4 @@ Image sources to investigate: Wikimedia Commons files with verified license/attr
 The satire is structural: extravagant digital merchandising of a naturally occurring, freely replaceable object. Product labels may exist as categories of *use*, not falsely distinct proprietary inventions. Favor restrained copy and excellent imagery. No misleading claims of a real Apple affiliation. No actual payment, sign-up, or data collection.
 
 ## Implementation boundaries
-This document is a build contract, not permission to start implementing. Do not alter JIT index, root site, deployment config, or unrelated projects during specification. Next task: expand the Apple page reference/link map and populate MEDIA.md with **specific licensed image candidates**, then implement the navigation skeleton only after assets are settled.
+This document is a build contract, not permission to start implementing. Do not alter JIT index, root site, deployment config, or unrelated projects during specification. Next task: expand the Apple page reference/link map and populate MEDIA.md with **the actual visually excellent image candidates and their source URLs**, noting practical reuse/embedding status; then implement the navigation skeleton once imagery is selected.
