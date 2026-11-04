@@ -4,8 +4,8 @@
 
 [Screening room](preview.html) · [Specification](SPEC.md) · [Execution contract](EXECUTION.md) · [Chronicle](CHRONICLE.md)
 
-All **12 genres** are selectable in the browser reader with deterministic Next Picture, Previous, permalinks, and Fountain export. Thriller has **three** authored causal plot architectures; each of the other eleven genres now has **two** distinct premise/conflict families. Across genres this is **25 authored story families**, not 25 fully distinct feature screenplays.
+Twelve genres are available in the screening room with Next Picture, Previous, permalinks, and Fountain export. Thriller has three authored causal architectures; the other eleven genres have two premise families each. The non-Thriller screenplay realization now varies physical setting, scene objects, risks, and genre-specific dialogue rather than using a single shared prose template.
 
-**Development status:** every output remains a fifteen-scene fixture. The non-Thriller genres still share generic dramatic action and dialogue patterns, despite their different premises and outcomes. No claims of feature length, thousands of distinct movies, or human-level writing quality.
+**Status:** fifteen-scene development fixtures, not feature-length screenplays. There are 25 authored story families, not 25 complete film plots or thousands of distinct films. Dialogue remains highly repetitive, and scene causality remains shallow.
 
-Run `npm test` in this directory. The suite includes deterministic planning, state replay, dialogue-plan validation, genre coverage, and two-family corpus checks. Tests have been committed but not independently executed against the exact remote bytes.
+Run `npm test` locally. Tests are committed, but execution against exact committed remote bytes has not been independently verified.

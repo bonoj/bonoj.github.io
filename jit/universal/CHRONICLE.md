@@ -1,12 +1,14 @@
 # UNIVERSAL — CHRONICLE
 
-## 2026-11-04 — Foundations
-Phase 0 deterministic planner, event-sourced state and obligations. Phase 1 fifteen-scene Thriller fixture and Fountain export. Phase 2 three distinct Thriller architectures and replayable story transactions. Phase 2.1 per-scene locations and participants. Phase 2.2 experimental dialogue intention plans (diagnostic only; reader retains authored dialogue).
+## 2026-11-04 — Foundations and cross-genre coverage
+Deterministic planning, event-sourced state, Fountain export, three Thriller causal architectures, spatial continuity, experimental dialogue plans, and twelve-genre screening room. SPEC v0.3 and EXECUTION.md correct the delivery contract toward integrated, reader-visible capability.
 
-## 2026-11-04 — Scope correction and cross-genre preview
-Updated SPEC v0.3 and EXECUTION.md to prioritize integrated, reader-visible capabilities. Exposed twelve genres in the preview with deterministic Next/Previous and Fountain export. Initial eleven adapters had one scenario each.
+## 2026-11-04 — Twenty-five story families
+Eleven non-Thriller genres received a second authored premise, clue, deadline, discovery, and resolution. Thriller retains three architectures. This is a story-family count, not a count of full films.
 
-## 2026-11-04 — Second scenario family across eleven genres
-Added a second conflict family for each non-Thriller genre: a different premise, inciting clue, deadline, discovery, setting, and resolution. All eleven adapters now select between two story families deterministically; Thriller retains three. Added corpus tests for both family coverage and state replay. This improves **premise-level semantic variation**, but is not yet full plot recombination: both families in each genre still share the same generic fifteen-function action and dialogue templates. The reader remains a short fixture, not a feature-length film. Tests committed but remote bytes not independently executed.
+## 2026-11-04 — Genre-native physical realization
+Replaced the shared non-Thriller scene prose and dialogue with genre-specific physical affordances: objects, places, risks, observations and questions. Inciting clues, deadlines, discoveries, costly choices and confrontation now enter screenplay action explicitly. Each genre uses several locations rather than one repeated heading. The screening room reads these outputs directly.
 
-**Next:** replace shared prose with genre-specific causally linked decisions and multi-scene dramatization; keep resisting arbitrary filler as a way to hit scene counts.
+**Remaining severe limitations:** dialogue still repeats within a genre and often does not reflect character knowledge; some action remains generic. Fifteen scenes per film, not feature length. No true simulation-derived scene expansion. These are improved development fixtures, not finished screenplays. Full remote-byte test execution remains unverified.
+
+**Next:** replace beat-level template writing with an explicit causal scene planner, generate different participant tactics, and inspect several complete outputs for plausibility before expanding length.
