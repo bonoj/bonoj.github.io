@@ -1,0 +1,54 @@
+{
+  "base": "/jit/leaf/",
+  "status": "specified-not-implemented",
+  "routes": [
+    "/",
+    "/store/",
+    "/leaf/",
+    "/leaf/specs/",
+    "/leaf-pro/",
+    "/leaf-pro/specs/",
+    "/leaf-air/",
+    "/compare/",
+    "/ecosystem/",
+    "/accessories/",
+    "/store/leaf/",
+    "/store/leaf-pro/",
+    "/store/leaf-air/",
+    "/store/find/",
+    "/bag/",
+    "/support/",
+    "/support/folding/",
+    "/support/care/",
+    "/support/availability/",
+    "/environment/",
+    "/newsroom/",
+    "/newsroom/introducing-leaf/",
+    "/about/",
+    "/legal/"
+  ],
+  "globalNav": [
+    "/",
+    "/store/",
+    "/leaf/",
+    "/leaf-pro/",
+    "/leaf-air/",
+    "/ecosystem/",
+    "/accessories/",
+    "/support/",
+    "/bag/"
+  ],
+  "comparison": {
+    "queryParameter": "models",
+    "allowed": [
+      "leaf",
+      "leaf-pro",
+      "leaf-air"
+    ],
+    "default": [
+      "leaf",
+      "leaf-pro",
+      "leaf-air"
+    ]
+  }
+}
