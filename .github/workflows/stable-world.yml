@@ -121,6 +121,31 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
+      # Recover the orphaned Pages deployment left by the 2026-11-04 timeout.
+      # This is a Pages backend deployment, not a running Actions job.
+      - name: Clear orphaned Pages deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          endpoint="https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/deployments/0d311ce3e5eb9cdf3c8170ad660f1a5ae7b6031a"
+          code=$(curl -sS -o /tmp/pages-state.json -w '%{http_code}' \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "${endpoint}")
+          echo "Orphaned deployment status HTTP ${code}"
+          cat /tmp/pages-state.json || true
+          if [ "${code}" = "200" ] && grep -Eq '"status"[[:space:]]*:[[:space:]]*"(succeed|failed|cancelled|canceled|errored)"' /tmp/pages-state.json; then
+            echo "Already terminal; no cancellation needed"
+          else
+            code=$(curl -sS -o /tmp/pages-cancel.json -w '%{http_code}' -X POST \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "${endpoint}/cancel")
+            echo "Orphan cancellation HTTP ${code}"
+            cat /tmp/pages-cancel.json || true
+            test "${code}" = "204" || test "${code}" = "404"
+          fi
       - id: deployment
         uses: actions/deploy-pages@v4
       - name: Verify public root
