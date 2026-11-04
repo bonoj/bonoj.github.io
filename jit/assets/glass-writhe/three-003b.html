@@ -1,0 +1,58 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>Glass Writhe · Morphology 003B</title><style>html,body{margin:0;height:100%;background:#071118;color:#d8eae5;font:12px ui-monospace,monospace}canvas{display:block;width:100%;height:100%;touch-action:none}header{position:absolute;top:16px;left:16px;pointer-events:none}small{color:#8ac3b8;letter-spacing:2px}h2{font-size:19px;font-weight:400;margin:6px 0}#status{color:#9dbab3}nav{position:absolute;bottom:14px;left:14px;display:flex;gap:7px;flex-wrap:wrap}button{background:#375d59;color:white;border:1px solid #729c92;border-radius:6px;padding:10px}</style><canvas id="view"></canvas><header><small>MORPHOLOGY / 003B</small><h2>THE GLASS WRITHE</h2><div id="status">Initializing surface…</div></header><nav><button id="agitate">Agitate</button><button id="calm">Calm</button><button id="wire">Wireframe</button><button id="pause">Pause</button></nav><script type="module">
+const canvas=document.getElementById('view'),status=document.getElementById('status');
+try{
+const THREE=await import('https://esm.sh/three@0.170.0');
+const {MarchingCubes}=await import('https://esm.sh/three@0.170.0/examples/jsm/objects/MarchingCubes.js');
+const scene=new THREE.Scene();scene.background=new THREE.Color('#071118');
+const camera=new THREE.PerspectiveCamera(42,1,.1,100);
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.35));
+scene.add(new THREE.AmbientLight('#83bfb5',1.1));
+const key=new THREE.DirectionalLight('#d8fff3',3.1);key.position.set(-3,5,6);scene.add(key);
+const rim=new THREE.DirectionalLight('#4bc4bf',2.2);rim.position.set(3,-2,-4);scene.add(rim);
+const material=new THREE.MeshPhysicalMaterial({color:'#5ac8ba',roughness:.17,clearcoat:1,clearcoatRoughness:.12,transparent:true,opacity:.82,depthWrite:true,side:THREE.DoubleSide});
+const variant='003B';
+const volume=new MarchingCubes(variant==='003'?34:40,material,true,true,variant==='003'?50000:120000);
+volume.isolation=variant==='003'?65:80;const extent=variant==='003'?3.7:4.8;volume.scale.setScalar(extent);scene.add(volume);
+const hash=x=>{let v=Math.sin(x*127.1)*43758.5453;return v-Math.floor(v)};
+let yaw=.35,pitch=.15,zoom=1,clock=0,last=0,energy=1,target=1,shock=0,paused=false,wire=false;
+function point(id,u,t){
+ const angle=id*Math.PI*2/10,phase=t*(.43+hash(id+7)*.83)+hash(id+2)*Math.PI*2;
+ const w=Math.sin(phase-u*(3.8+hash(id+19)*4)+hash(id+11)*Math.PI*2);
+ const w2=Math.cos(t*(.37+hash(id+37)*.7)+u*(5+hash(id+41)*4)+hash(id+29)*Math.PI*2);
+ const radius=(variant==='003'?.35:.34)+u*(variant==='003'?1.05:1.25)+u*.3*Math.sin(phase*.43);
+ const sway=(energy+shock)*u*u*((variant==='003'?.45:.47)*w+.22*w2);
+ return new THREE.Vector3(Math.cos(angle)*radius-Math.sin(angle)*sway,.07-u*(.55+hash(id+5)*.6)+energy*u*(.30*w2+.22*w),Math.sin(angle)*radius+Math.cos(angle)*sway);
+}
+function ball(p,strength,subtract){
+ const x=.5+p.x/extent,y=.5+p.y/extent,z=.5+p.z/extent;
+ if(x>.025&&x<.975&&y>.025&&y<.975&&z>.025&&z<.975)volume.addBall(x,y,z,strength,subtract);
+}
+const beads=[];
+if(variant==='003'){const geometry=new THREE.SphereGeometry(.045,10,8),mat=new THREE.MeshStandardMaterial({color:'#e9b98b',emissive:'#6c3023',emissiveIntensity:.25});for(let i=0;i<10;i++){const row=[];for(let j=0;j<6;j++){const bead=new THREE.Mesh(geometry,mat);scene.add(bead);row.push(bead)}beads.push(row)}}
+function rebuild(){
+ volume.reset();
+ if(variant==='003'){ball(new THREE.Vector3(0,.18,0),.75,.18);for(let i=0;i<10;i++)for(let j=0;j<6;j++){const u=j/5,p=point(i,u,clock);ball(p,.28*(1-u)+.12,.16);beads[i][j].position.copy(p)}}
+ else{ball(new THREE.Vector3(0,.16,0),.42,15);ball(new THREE.Vector3(0,.35,0),.30,15);ball(new THREE.Vector3(0,-.04,0),.32,15);for(let i=0;i<10;i++)for(let j=0;j<=24;j++){const u=j/24;ball(point(i,u,clock),.105*(1-u)+.042,20)}}
+ volume.update();
+}
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix()}
+addEventListener('resize',resize);resize();
+const raycaster=new THREE.Raycaster(),mouse=new THREE.Vector2();
+function tap(x,y){mouse.set(x/innerWidth*2-1,-(y/innerHeight*2-1));raycaster.setFromCamera(mouse,camera);if(raycaster.intersectObject(volume,false).length){shock=1.2;status.textContent='Surface disturbed'}else status.textContent='Tap the membrane'}
+let drag=null;
+canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY};canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointermove',e=>{if(!drag)return;if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)>7){yaw+=(e.clientX-drag.x)*.009;pitch=Math.max(-1.2,Math.min(1.2,pitch+(e.clientY-drag.y)*.006))}drag.x=e.clientX;drag.y=e.clientY});
+canvas.addEventListener('pointerup',e=>{if(drag&&Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<8)tap(e.clientX,e.clientY);drag=null});
+canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.6,Math.min(2.3,zoom*Math.exp(-e.deltaY*.001)))},{passive:false});
+let rebuildAt=0,frames=0,elapsed=0;
+function frame(ms){const dt=Math.min(.045,(ms-last)/1000||.016);last=ms;if(!paused){clock+=dt;energy+=(target-energy)*Math.min(1,dt*1.5);shock*=Math.exp(-dt*2.5);if(variant==='003'||ms-rebuildAt>45){rebuild();rebuildAt=ms}}
+camera.position.set(Math.sin(yaw)*6.5/zoom*Math.cos(pitch),Math.sin(pitch)*6.5/zoom,Math.cos(yaw)*6.5/zoom*Math.cos(pitch));camera.lookAt(0,-.2,0);renderer.render(scene,camera);
+frames++;elapsed+=dt;if(elapsed>1.2){status.textContent='Three.js · '+Math.round(frames/elapsed)+' fps';frames=0;elapsed=0}requestAnimationFrame(frame)}
+rebuild();requestAnimationFrame(frame);
+document.getElementById('agitate').onclick=()=>target=2;
+document.getElementById('calm').onclick=()=>target=.2;
+document.getElementById('wire').onclick=()=>{wire=!wire;material.wireframe=wire};
+document.getElementById('pause').onclick=e=>{paused=!paused;e.currentTarget.textContent=paused?'Resume':'Pause'};
+}catch(e){status.textContent='Initialization failed: '+String(e.message||e)}
+</script></html>
