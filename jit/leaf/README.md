@@ -263,3 +263,9 @@ The user supplied seven full-length mobile screenshots of Apple's homepage. Leaf
 ### Cache invalidation — 2026-11-04
 
 Every one of the 24 deep-link HTML entrypoints now references `style.css?v=20261104-b5180ebc` and `app.js?v=20261104-b5180ebc` with depth-correct relative paths. This invalidates previously cached shared assets once the updated HTML is served. No claim of successful Pages deployment: live URL inspection remains unavailable from the current environment. Future shared asset changes must increment the asset version in every entrypoint or adopt content-hashed filenames.
+
+### Satirical voice correction — 2026-11-04
+
+The public site must not apologize for being satire. Remove repetitive 'fictional website', 'not affiliated', 'no products sold', and 'noncommercial design experiment' declarations from the Legal page and footer. The Legal page is in-world: 'All rights reserved by the sun. Terms and conditions are subject to weather.' The footer closes with 'Designed in California. Grown everywhere.' Editorial pages do not need redundant 'Support' / 'Explore Leaf' CTA pairs. Keep actual product/store/support navigation functional. If a genuinely necessary legal notice is later identified, handle it deliberately rather than polluting every page with boilerplate.
+
+All 24 HTML entrypoints were advanced to `?v=20261104-banksy02` for the shared CSS/JS and their static fallback footer text was replaced. Runtime publication remains to be verified.
