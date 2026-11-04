@@ -3,6 +3,7 @@ import {GENRES} from '../genre/catalog.js';
 import {fountain,validateScreenplay} from '../render/fountain.js';
 import {establishAgency,selectAction,registerDecision,analyzeAgency} from './agency.js';
 import {conversation} from './conversation.js';
+import {causalGraph} from './threads.js';
 const settings={
 romance:['COASTAL HOTEL','FERRY TERMINAL','FLOWER SHOP','ROOFTOP','TRAIN PLATFORM','old letters','the reunion','the last ferry','a shared future'],
 romcom:['WEDDING HALL','BAKERY','CITY PARK','HOTEL LOBBY','REHEARSAL DINNER','guest list','the wedding','the rehearsal','an honest relationship'],
@@ -178,6 +179,6 @@ if(i%7===0)blocks.push({type:'action',text:choose(r,['Outside, the ordinary busi
 scenes.push({number:i+1,functionId:'feature-'+phase,heading:(['DRY RIVERBED','SEASIDE PIER','GARDEN','CITY PARK','ROOFTOP','BRIDGE','ALLEY','FOREST CLEARING','ANCIENT ROAD','TRAIN PLATFORM'].includes(place)?'EXT. ':'INT. ')+place+' - '+(i%6===0?'NIGHT':'DAY'),location:place,participants:[A,B],blocks,event:{type:k,actor:A,target:B,motive,before,after:JSON.stringify(state)}});
 }
 const unresolvedPromises=Object.values(state.promises).reduce((n,x)=>n+x,0);
-const film={identity:{id,genre,ordinal},title,genre,architecture:'autonomous-feature-v1',cast:{protagonist:people[0],ally:people[1],opponent:people[2]},characters:roles,premise:w[6],scenes,causality:{version:1,events:state.history,final:state,distinctOperators:used.size,fingerprint:fingerprint(state.history),agency:analyzeAgency(agency,state.history),unresolvedPromises},stage:'autonomous-feature-prototype'};
+const film={identity:{id,genre,ordinal},title,genre,architecture:'autonomous-feature-v1',cast:{protagonist:people[0],ally:people[1],opponent:people[2]},characters:roles,premise:w[6],scenes,causality:{version:1,events:state.history,final:state,distinctOperators:used.size,fingerprint:fingerprint(state.history),agency:analyzeAgency(agency,state.history),unresolvedPromises,graph:causalGraph(scenes)},stage:'autonomous-feature-prototype'};
 validateScreenplay(film);film.fountain=fountain(film);return film;
 }
