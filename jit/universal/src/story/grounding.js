@@ -3,7 +3,7 @@ import {stream,integer} from '../core/prng.js';
 // Autonomous, seeded event sampling. No required object, witness, or plot pattern.
 // The same concrete state ledger supplies all rendered physical/epistemic actions.
 const props=['letter','key','ledger','photograph','parcel','map','ring','book','record','token'];
-const verbs=['take','drop','give','observe','tell','infer'];
+
 export function groundFilm(film){
 const rng=stream(film.identity.id,'autonomous-grounding-v3');
 const locations=[...new Set(film.scenes.map(s=>s.location))];
@@ -23,6 +23,13 @@ for(const object of Object.values(state.objects)){
 if(object.heldBy===null&&object.at===scene.location)options.push({family:'custody',type:'take',object:object.id});
 if(object.heldBy===actor)options.push({family:'custody',type:'drop',object:object.id});
 for(const target of participants)if(target!==actor&&object.heldBy===actor&&state.agents[target].at===scene.location)options.push({family:'exchange',type:'give',object:object.id,to:target});
+}
+for(const target of participants)if(target!==actor&&state.agents[target].at===scene.location){
+const other=state.agents[actor];
+if(!other.commitments.includes('commitment-'+target))options.push({family:'commitment',type:'promise',to:target,fact:'commitment-'+target});
+else options.push({family:'commitment',type:'fulfill',fact:'commitment-'+target});
+if((other.trust[target]??0)<0)options.push({family:'relationship',type:'reconcile',to:target});
+else options.push({family:'relationship',type:'betray',to:target});
 }
 for(const fact of Object.values(state.facts)){
 if(!state.agents[actor].knows.includes(fact.id))options.push({family:'knowledge',type:'observe',fact:fact.id});
@@ -48,11 +55,15 @@ drop:()=>`${actor} puts down the ${object.kind}. It remains at ${scene.location.
 give:()=>`${actor} hands the ${object.kind} to ${event.to}. Its custody changes.`,
 observe:()=>`${actor} notices a detail no one has yet explained. The observation stays with ${actor}.`,
 tell:()=>`${actor} shares an earlier observation with ${event.to}. What one person knew, two now know.`,
-infer:()=>`${actor} draws a conclusion from an earlier observation. It is a belief, not a newly witnessed fact.`
+infer:()=>`${actor} draws a conclusion from an earlier observation. It is a belief, not a newly witnessed fact.`,
+promise:()=>`${actor} promises ${event.to} to act. An obligation now exists.`,
+fulfill:()=>`${actor} fulfills an earlier promise. The obligation is discharged.`,
+betray:()=>`${actor} breaks faith with ${event.to}. Their relationship deteriorates.`,
+reconcile:()=>`${actor} makes amends with ${event.to}. Some trust is restored.`
 };
 const text=lines[event.type]();scene.blocks.push({type:'action',text});
 trace.push({scene:scene.number,family:selected.family,event,text});
 }
 if(JSON.stringify(replayWorld(initial,events))!==JSON.stringify(state))throw Error('concrete event replay mismatch');
-return {version:3,initial,events,final:state,trace,sceneCount:trace.length,families:[...families]};
+return {version:4,initial,events,final:state,trace,sceneCount:trace.length,families:[...families]};
 }
