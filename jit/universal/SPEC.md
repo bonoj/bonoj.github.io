@@ -1,8 +1,8 @@
-# PERFECTLY AVERAGE PICTURES — SYSTEM SPEC v0.1
+# UNIVERSAL — SYSTEM SPEC v0.1
 
 Status: design contract, not an implementation claim.
-Proposed home: `jit/average/`.
-Tagline: **Every movie you've ever seen. Every movie you'll ever see.**
+Proposed home: `jit/universal/`.
+Tagline: **Every story. The same story.**
 
 ## 1. Product
 
@@ -143,7 +143,7 @@ Render HTML screenplay view, print CSS, and downloadable Fountain/plain-text. Pa
 
 ## 9. Studio experience
 
-Public-facing brand: **PERFECTLY AVERAGE PICTURES**.
+Public-facing brand: **UNIVERSAL**.
 
 Primary experiences:
 - **Greenlight a Picture**: select seed and independently mix setting, genre, pacing, dialogue and ending; produce a film.
