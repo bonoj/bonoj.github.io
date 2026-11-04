@@ -1,0 +1,496 @@
+{
+  "schema": "leaf-link-graph/v1",
+  "base": "/jit/leaf/",
+  "status": "specified-not-implemented",
+  "globalNavigation": [
+    "/",
+    "/store/",
+    "/leaf/",
+    "/leaf-pro/",
+    "/leaf-air/",
+    "/ecosystem/",
+    "/accessories/",
+    "/support/",
+    "/bag/"
+  ],
+  "footerNavigation": [
+    "/store/find/",
+    "/compare/",
+    "/environment/",
+    "/newsroom/",
+    "/about/",
+    "/legal/"
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "links": [
+        {
+          "id": "-.1",
+          "to": "/leaf/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-.2",
+          "to": "/leaf-pro/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-.3",
+          "to": "/leaf-air/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-.4",
+          "to": "/store/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-.5",
+          "to": "/ecosystem/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-.6",
+          "to": "/newsroom/introducing-leaf/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/store/",
+      "links": [
+        {
+          "id": "-store-.1",
+          "to": "/store/leaf/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-.2",
+          "to": "/store/leaf-pro/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-.3",
+          "to": "/store/leaf-air/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-.4",
+          "to": "/compare/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-.5",
+          "to": "/store/find/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-.6",
+          "to": "/bag/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/leaf/",
+      "links": [
+        {
+          "id": "-leaf-.1",
+          "to": "/leaf/specs/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-leaf-.2",
+          "to": "/compare/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-leaf-.3",
+          "to": "/store/leaf/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-leaf-.4",
+          "to": "/support/care/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-leaf-.5",
+          "to": "/ecosystem/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/leaf/specs/",
+      "links": [
+        {
+          "id": "-leaf-specs-.1",
+          "to": "/leaf/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-leaf-specs-.2",
+          "to": "/compare/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-leaf-specs-.3",
+          "to": "/support/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/leaf-pro/",
+      "links": [
+        {
+          "id": "-leaf-pro-.1",
+          "to": "/leaf-pro/specs/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-leaf-pro-.2",
+          "to": "/compare/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-leaf-pro-.3",
+          "to": "/store/leaf-pro/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/leaf-pro/specs/",
+      "links": [
+        {
+          "id": "-leaf-pro-specs-.1",
+          "to": "/leaf-pro/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-leaf-pro-specs-.2",
+          "to": "/compare/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/leaf-air/",
+      "links": [
+        {
+          "id": "-leaf-air-.1",
+          "to": "/compare/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-leaf-air-.2",
+          "to": "/store/leaf-air/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/compare/",
+      "links": [
+        {
+          "id": "-compare-.1",
+          "to": "/leaf/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-compare-.2",
+          "to": "/leaf-pro/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-compare-.3",
+          "to": "/leaf-air/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-compare-.4",
+          "to": "/store/leaf/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-compare-.5",
+          "to": "/store/leaf-pro/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-compare-.6",
+          "to": "/store/leaf-air/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/ecosystem/",
+      "links": [
+        {
+          "id": "-ecosystem-.1",
+          "to": "/environment/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-ecosystem-.2",
+          "to": "/store/find/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-ecosystem-.3",
+          "to": "/leaf/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/accessories/",
+      "links": [
+        {
+          "id": "-accessories-.1",
+          "to": "/support/folding/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-accessories-.2",
+          "to": "/leaf/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-accessories-.3",
+          "to": "/store/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/store/leaf/",
+      "links": [
+        {
+          "id": "-store-leaf-.1",
+          "to": "/bag/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-leaf-.2",
+          "to": "/store/find/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-leaf-.3",
+          "to": "/leaf/specs/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/store/leaf-pro/",
+      "links": [
+        {
+          "id": "-store-leaf-pro-.1",
+          "to": "/bag/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-leaf-pro-.2",
+          "to": "/store/find/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-leaf-pro-.3",
+          "to": "/leaf-pro/specs/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/store/leaf-air/",
+      "links": [
+        {
+          "id": "-store-leaf-air-.1",
+          "to": "/bag/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-leaf-air-.2",
+          "to": "/store/find/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-leaf-air-.3",
+          "to": "/compare/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/store/find/",
+      "links": [
+        {
+          "id": "-store-find-.1",
+          "to": "/support/availability/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-store-find-.2",
+          "to": "/ecosystem/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/bag/",
+      "links": [
+        {
+          "id": "-bag-.1",
+          "to": "/store/find/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-bag-.2",
+          "to": "/store/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/support/",
+      "links": [
+        {
+          "id": "-support-.1",
+          "to": "/support/folding/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-support-.2",
+          "to": "/support/care/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-support-.3",
+          "to": "/support/availability/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/support/folding/",
+      "links": [
+        {
+          "id": "-support-folding-.1",
+          "to": "/support/care/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-support-folding-.2",
+          "to": "/leaf/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/support/care/",
+      "links": [
+        {
+          "id": "-support-care-.1",
+          "to": "/environment/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-support-care-.2",
+          "to": "/support/availability/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/support/availability/",
+      "links": [
+        {
+          "id": "-support-availability-.1",
+          "to": "/store/find/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-support-availability-.2",
+          "to": "/support/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/environment/",
+      "links": [
+        {
+          "id": "-environment-.1",
+          "to": "/ecosystem/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-environment-.2",
+          "to": "/about/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/newsroom/",
+      "links": [
+        {
+          "id": "-newsroom-.1",
+          "to": "/newsroom/introducing-leaf/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-newsroom-.2",
+          "to": "/about/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/newsroom/introducing-leaf/",
+      "links": [
+        {
+          "id": "-newsroom-introducing-leaf-.1",
+          "to": "/leaf/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-newsroom-introducing-leaf-.2",
+          "to": "/newsroom/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/about/",
+      "links": [
+        {
+          "id": "-about-.1",
+          "to": "/environment/",
+          "kind": "internal-route"
+        },
+        {
+          "id": "-about-.2",
+          "to": "/legal/",
+          "kind": "internal-route"
+        }
+      ]
+    },
+    {
+      "path": "/legal/",
+      "links": [
+        {
+          "id": "-legal-.1",
+          "to": "/about/",
+          "kind": "internal-route"
+        }
+      ]
+    }
+  ]
+}
