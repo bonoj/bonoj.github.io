@@ -1,4 +1,5 @@
 import {stream,choose} from '../core/prng.js';
+import {ALTERNATES} from './alternates.js';
 export const GENRES=['romance','romcom','horror','thriller','science-fiction','western','mystery','action','drama','comedy','fantasy','crime'];
 const data={
 romance:['The Long Way Home','TRAIN STATION','Two former partners must decide whether to rebuild a relationship after an unexpected reunion.','a letter never delivered','the last train','a promise made years ago','an honest conversation'],
@@ -36,9 +37,9 @@ const exchanges=[
 ];
 export function realizeGenre(genre,filmId){
 if(!data[genre])throw Error('Genre not implemented: '+genre);
-const r=stream(filmId,'genre-world'),cast=stream(filmId,'genre-cast');const [title,place,premise,clue,deadline,discovery,resolution]=data[genre];
+const r=stream(filmId,'genre-world'),cast=stream(filmId,'genre-cast');const family=choose(stream(filmId,'causal-family'),[0,1]);const [title,place,premise,clue,deadline,discovery,resolution]=family?ALTERNATES[genre]:data[genre];
 const leads=['MARA VALE','ELI ROWAN','NINA CALDER','THEO MERCER','IRIS BELL','JONAH REED'];const allies=['ADA VOSS','LEON PRICE','RUTH HALE','SAMIR CROSS','JUNE WARD','MICAH STONE'];const opponents=['DIRECTOR KELL','COMMISSIONER DANE','INSPECTOR RUSK','CHAIR MORROW','DEPUTY SHAW'];
 const w={title:choose(r,[title,title+' Again','The Other '+title.replace(/^The /,'')]),place,premise,clue,deadline,discovery,resolution,lead:choose(cast,leads),ally:choose(cast,allies),opponent:choose(cast,opponents)};
 const scenes=stages.map((functionId,i)=>{const speakers=i===5||i===9||i===12?[w.opponent,w.lead]:[w.lead,w.ally];return {number:i+1,functionId,location:place,heading:'INT. '+place+' - '+(i===14?'MORNING':i>=10?'NIGHT':'DAY'),participants:speakers,blocks:[{type:'action',text:phrases[i](w)},...speakers.flatMap((person,j)=>[{type:'character',text:person},{type:'dialogue',text:exchanges[i][j]}])]};});
-return {world:{...w,architecture:genre+'-initial',story:null},scenes};
+return {world:{...w,architecture:genre+'-family-'+family,story:null},scenes};
 }

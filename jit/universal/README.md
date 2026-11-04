@@ -4,10 +4,8 @@
 
 [Screening room](preview.html) · [Specification](SPEC.md) · [Execution contract](EXECUTION.md) · [Chronicle](CHRONICLE.md)
 
-## Status
+All **12 genres** are selectable in the browser reader with deterministic Next Picture, Previous, permalinks, and Fountain export. Thriller has **three** authored causal plot architectures; each of the other eleven genres now has **two** distinct premise/conflict families. Across genres this is **25 authored story families**, not 25 fully distinct feature screenplays.
 
-All **12 genres** are now selectable in the public screening room: Romance, Romantic Comedy, Horror, Thriller, Science Fiction, Western, Mystery, Action, Drama, Comedy, Fantasy, and Crime. The browser runs the deterministic offline generator and supports Next Picture, Previous, permalink, and Fountain export.
+**Development status:** every output remains a fifteen-scene fixture. The non-Thriller genres still share generic dramatic action and dialogue patterns, despite their different premises and outcomes. No claims of feature length, thousands of distinct movies, or human-level writing quality.
 
-**Important:** all outputs remain fifteen-scene *development fixtures*, not full feature-length screenplays. Thriller currently has three authored causal architectures; the other eleven genres have one scenario each, with seeded casting and titles. This establishes breadth of interface and basic adapter coverage, not deep creative variation. The new execution contract prioritizes integrated capabilities, meaningful semantic diversity, scene causality, and honest evaluation.
-
-Run `npm test` from this directory. The committed test suite includes phase 0, phase 1, phase 2, dialogue plans, and a twelve-genre deterministic replay matrix. Remote browser deployment and execution of the exact committed source have not been independently verified.
+Run `npm test` in this directory. The suite includes deterministic planning, state replay, dialogue-plan validation, genre coverage, and two-family corpus checks. Tests have been committed but not independently executed against the exact remote bytes.
