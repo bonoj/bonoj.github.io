@@ -1,1 +1,8 @@
-{"name":"universal-screenplay-factory","private":true,"type":"module","scripts":{"test":"node test/phase0.mjs && node test/phase1.mjs && node test/phase2.mjs && node test/dialogue.mjs && node test/genres.mjs && node test/families.mjs && node test/realization.mjs && node test/recombination.mjs && node test/breadth.mjs && node test/composition.mjs && node test/ontology.mjs && node test/grounding.mjs"}}
+{
+  "name": "universal-screenplay-factory",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test/phase0.mjs && node test/phase1.mjs && node test/phase2.mjs && node test/dialogue.mjs && node test/genres.mjs && node test/families.mjs && node test/realization.mjs && node test/recombination.mjs && node test/breadth.mjs && node test/composition.mjs && node test/ontology.mjs && node test/grounding.mjs && node test/feature.mjs"
+  }
+}
