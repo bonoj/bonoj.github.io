@@ -13,10 +13,49 @@ function drawRock(r){const {x,y,s,id}=r;oval(x+6,y+10,s*.95,s*.36,'#4c3928');con
 function drawTower(t){const {x,y,s}=t;ctx.save();ctx.translate(x,y);ctx.scale(s,s);oval(5,8,48,17,'#553b26');poly([[-30,-7],[25,-7],[34,-68],[-20,-68]],'#806b52','#403b34',4);poly([[-30,-7],[1,5],[34,-7],[25,-15]],'#4c4842','#3b3530',3);for(let i=0;i<5;i++){let yy=-18-i*11;line([[-23+i*.7,yy],[26-i*.4,yy]],'#b19c78',2)}poly([[-23,-68],[-34,-91],[-19,-125],[18,-133],[38,-102],[26,-68]],'#b85432','#563827',4);poly([[-34,-91],[-19,-125],[18,-133],[4,-94]],'#e48b51','#8c492c',2);for(let i=0;i<9;i++){let xx=-24+i%3*16,yy=-109+Math.floor(i/3)*11;poly([[xx,yy],[xx+13,yy-3],[xx+16,yy+4],[xx+3,yy+7]],i%2?'#a64d34':'#c7653e','#82452e',1)}poly([[-8,-65],[11,-65],[12,-36],[-7,-36]],'#382f29','#c8a76d',3);oval(3,-52,3,4,'#f6d273');line([[29,-72],[45,-57],[52,-24]],'#3e3931',5);oval(52,-23,9,6,'#9c9b88');ctx.restore()}
 function site(x,y){oval(x,y,35,16,'#a77637');oval(x,y,29,12,'#edc66e');oval(x,y,22,8,'#f8df94');line([[x,y+4],[x,y-19]],'#493629',3);poly([[x,y-20],[x+13,y-17],[x+11,y-7],[x,y-10]],'#f5e5bc','#5c4631',1.5);oval(x+6,y-15,2,2,'#70432c')}
 function debris(){for(let i=0;i<85;i++){const x=rnd(i+62000)*W,y=rnd(i+63000)*H,s=2+rnd(i+64000)*5;poly([[x-s,y],[x-s*.4,y-s*.8],[x+s*.6,y-s*.5],[x+s,y+s*.4],[x,y+s]],i%2?'#9e8b6a':'#726656','#584c3d',1)}}
-function render(){ctx.clearRect(0,0,W,H);ground();for(const p of paths)drawPath(p);cliff('left');cliff('right');debris();for(const r of rocks)drawRock(r);for(const t of towers)drawTower(t);for(const [x,y] of [[340,245],[535,245],[620,410],[355,490],[735,530]])site(x,y)}
+function render(){ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#342b26';ctx.fillRect(0,0,canvas.width,canvas.height);const d=canvas.width/Math.max(1,viewW);ctx.setTransform(cameraScale*d,0,0,cameraScale*d,cameraX*d,cameraY*d);ground();for(const p of paths)drawPath(p);cliff('left');cliff('right');debris();for(const r of rocks)drawRock(r);for(const t of towers)drawTower(t);for(const [x,y] of [[340,245],[535,245],[620,410],[355,490],[735,530]])site(x,y)}
 function regen(){seed=Math.floor(Math.random()*100000);rocks=[];towers=[];paths=[[[155,-50],[230,110],[390,175],[370,285],[545,355],[480,490],[590,690]],[[740,-60],[640,90],[700,210],[770,330],[690,470],[760,690]]];for(let i=0;i<22;i++)rocks.push({x:115+rnd(i+800)*680,y:75+rnd(i+1000)*490,s:8+rnd(i+1100)*15,id:i});towers=[{x:215,y:300,s:1}];render()}
-function resize(){const d=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(innerWidth*d);canvas.height=Math.round(innerHeight*d);ctx.setTransform(canvas.width/W,0,0,canvas.height/H,0,0);render()}addEventListener('resize',resize);
-canvas.addEventListener('pointerup',e=>{const x=e.clientX/innerWidth*W,y=e.clientY/innerHeight*H;if(mode==='rock'){const i=rocks.findIndex(a=>Math.hypot(a.x-x,a.y-y)<a.s);if(i>=0){const a=rocks.splice(i,1)[0];for(let j=0;j<4;j++)rocks.push({x:a.x+(rnd(j+seed)-.5)*a.s*2,y:a.y+(rnd(j+seed+3)-.5)*a.s,s:a.s*.35,id:seed+j});status.textContent='Stone fractured'}else{rocks.push({x,y,s:20+Math.random()*22,id:seed++});status.textContent='Stone grown'}}else if(mode==='tower'){towers.push({x,y,s:.7+Math.random()*.45});status.textContent='Timber tower assembled'}else{paths.push([[x-120,y-100],[x-40,y-40],[x,y],[x+90,y+90]]);status.textContent='Earth carved'}render()});
+// World coordinates are invariant: viewport only changes the camera.
+let cameraScale=1,cameraX=0,cameraY=0,viewW=0,viewH=0,gesture=null;
+function fitCamera(){
+ const rect=canvas.getBoundingClientRect();viewW=rect.width;viewH=rect.height;
+ // Portrait uses a crop rather than crushing the 900x640 world into a narrow screen.
+ const portrait=viewW/viewH<.95;
+ cameraScale=portrait?Math.max(viewW/W,viewH/H):Math.min(viewW/W,viewH/H);
+ cameraX=(viewW-W*cameraScale)/2;cameraY=(viewH-H*cameraScale)/2;
+}
+function resize(){
+ const d=Math.min(devicePixelRatio||1,2),r=canvas.getBoundingClientRect();
+ canvas.width=Math.max(1,Math.round(r.width*d));canvas.height=Math.max(1,Math.round(r.height*d));
+ fitCamera();render();
+}
+function screenToWorld(clientX,clientY){
+ const r=canvas.getBoundingClientRect();
+ return {x:(clientX-r.left-cameraX)/cameraScale,y:(clientY-r.top-cameraY)/cameraScale};
+}
+function edit(x,y){
+ if(mode==='rock'){
+  const i=rocks.findIndex(a=>Math.hypot(a.x-x,a.y-y)<a.s);
+  if(i>=0){const a=rocks.splice(i,1)[0];for(let j=0;j<4;j++)rocks.push({x:a.x+(rnd(j+seed)-.5)*a.s*2,y:a.y+(rnd(j+seed+3)-.5)*a.s,s:a.s*.35,id:seed+j});status.textContent='Stone fractured'}
+  else{rocks.push({x,y,s:20+Math.random()*22,id:seed++});status.textContent='Stone grown'}
+ }else if(mode==='tower'){towers.push({x,y,s:.7+Math.random()*.45});status.textContent='Timber tower assembled'}
+ else{paths.push([[x-120,y-100],[x-40,y-40],[x,y],[x+90,y+90]]);status.textContent='Earth carved'}
+ render();
+}
+canvas.addEventListener('pointerdown',e=>{gesture={x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,moved:false};canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointermove',e=>{if(!gesture)return;
+ if(Math.hypot(e.clientX-gesture.x,e.clientY-gesture.y)>9)gesture.moved=true;
+ if(gesture.moved){cameraX+=e.clientX-gesture.lastX;cameraY+=e.clientY-gesture.lastY;render()}
+ gesture.lastX=e.clientX;gesture.lastY=e.clientY;
+});
+canvas.addEventListener('pointerup',e=>{if(gesture&&!gesture.moved){const p=screenToWorld(e.clientX,e.clientY);edit(p.x,p.y)}gesture=null});
+canvas.addEventListener('pointercancel',()=>gesture=null);
+canvas.addEventListener('wheel',e=>{e.preventDefault();const r=canvas.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+ const wx=(mx-cameraX)/cameraScale,wy=(my-cameraY)/cameraScale;
+ cameraScale=Math.max(.25,Math.min(3,cameraScale*Math.exp(-e.deltaY*.001)));
+ cameraX=mx-wx*cameraScale;cameraY=my-wy*cameraScale;render();
+},{passive:false});
+addEventListener('resize',resize);
 for(const m of ['rock','tower','path'])document.getElementById(m).onclick=()=>{mode=m;status.textContent=m==='rock'?'Tap ground to grow or fracture stone':m==='tower'?'Tap to construct a tower':'Tap to carve a winding path'};
 document.getElementById('regen').onclick=()=>{regen();status.textContent='New landscape generated'};resize();regen();
 })();
