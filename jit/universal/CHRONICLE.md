@@ -1,9 +1,12 @@
 # UNIVERSAL — CHRONICLE
 
 ## 2026-11-04 — Breadth-first foundation
-Twelve-genre screening room, 25 authored premise families, 555 candidate primitives, abstract five-channel composition diagnostics. See SPEC v1.0 for the new architecture and acceptance distinctions.
+Twelve-genre reader, 25 authored scenario families, 555 candidate primitives, abstract contracts and composition, SPEC v1.0.
 
-## 2026-11-04 — First concrete ontology slice
-Added `src/story/ontology.js`: immutable event transitions for agents, objects, places, facts, custody, movement, observation, communication, and inference. Object identity and condition survive transitions. Added `src/story/mug.js`: the **same drop event** and witness perception in twelve genre contexts, with distinct genre interpretations. Added replay and invalid-custody tests.
+## 2026-11-04 — Concrete ontology
+Seven replayable operators for agents, objects, places, facts, custody, observation, communication, inference; same mug event interpreted in twelve genre contexts.
 
-**Limits:** only seven concrete operators, not 555 executable primitives. Genre interpretation is authored text and not a causally derived screenplay. The new concrete world model is not yet connected to the film generator. The full remote test suite remains unexecuted. Next: unify the new concrete ledger with screenplay scene planning, extend operator coverage broadly, and reject impossible sequences.
+## 2026-11-04 — First reader-integrated concrete transitions
+Added `grounding.js`: five selected scenes per film now instantiate concrete objects, move participants into place, take and drop props, and optionally record a witness's observation. Validated event transitions determine the action text that is appended to actual screenplay scenes. Each film carries the replayable concrete ledger. Added a 600-film cross-genre replay test.
+
+**Caveat:** these physical beats are not yet causally motivated or paid off. They are a narrow end-to-end integration proving the concrete ledger can drive rendered screenplay text, not a claim of coherent new plots. Repetition is a known limitation; next work must derive physical events from goals, plot threads, and consequences rather than inserting five generic drops.

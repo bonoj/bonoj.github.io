@@ -4,6 +4,8 @@
 
 [Screening room](preview.html) · [Specification](SPEC.md) · [Execution contract](EXECUTION.md) · [Chronicle](CHRONICLE.md)
 
-Twelve genres and 25 authored premise families are available as fifteen-scene development fixtures. The catalog contains 555 genre-agnostic primitive labels with abstract semantic contracts. A new concrete ontology prototype supports **seven replayable operators**: move, take, drop, give, observe, tell, infer. A shared mug-drop event demonstrates the same physical transition across all twelve genre contexts.
+Twelve genres, 25 authored premise families, and fifteen-scene development fixtures remain accessible. The engine has 555 genre-agnostic candidate primitive labels, abstract semantic contracts, and an abstract diagnostic planner. A concrete ontology now supports seven replayable event operators.
 
-**Implementation boundary:** the concrete ontology is not yet integrated into screenplay planning. The 555 labels are not 555 executable behaviors; abstract composition remains diagnostic. Scripts are not feature length or corpus-validated. The complete committed tests have not been executed against the exact remote bytes.
+**New integrated slice:** five selected scenes per generated film receive a concrete, replayable physical action involving an identified prop, character, place, and possible witness. The resulting action paragraphs are rendered into the actual Fountain screenplay; each film carries its concrete event ledger and replay state.
+
+**Honest limits:** this slice is not yet plot-driven. The five prop events are demonstrations, not causally necessary screenplay incidents, and their repetition is a known defect. The 555 labels are not 555 executable behaviors. No feature-length or accepted-corpus claim. Complete remote test execution is still unverified.
