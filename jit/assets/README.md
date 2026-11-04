@@ -572,3 +572,10 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Live URL: https://bonoj.github.io/jit/assets/matter-lab-003/
 - Six treatments: weighted power diagram, strange attractor, optical caustics, cellular life, hydraulic erosion, quasicrystal interference. Touch interventions, complexity, evolution, reseed, pause.
 - Standalone archive of the chat studies; exploratory approximations. Source committed, live browser not independently verified.
+
+
+### Matter Lab 004 · Instability & Organization
+- Entry: [matter-lab-004/](./matter-lab-004/)
+- Live URL: https://bonoj.github.io/jit/assets/matter-lab-004/
+- Six treatments: Magnetic Domains (Ising-like lattice), Percolation (connected pore invasion), Dielectric Breakdown (branching discharge), Elastic Membrane (coupled wave lattice), Phase Separation (Cahn–Hilliard-style concentration field), Transport Network (reinforced agent paths).
+- Touch interventions, intensity, resolution, reseed, pause. Exploratory approximations; standalone source committed, live browser not independently verified.
