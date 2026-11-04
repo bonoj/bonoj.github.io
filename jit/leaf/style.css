@@ -10,3 +10,5 @@ body{background:#fff}nav{background:#1d1d1fe8;color:#f5f5f7;border:0}.nav-inner{
 .mobile-tools a.icon-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
 .mobile-tools svg{display:block}
 .tile span{font-size:15px}
+
+.leaf-colophon{font-size:12px;color:#6e6e73;margin:28px auto 10px;max-width:1080px;padding:0 10px}.editorial{min-height:58vh}
