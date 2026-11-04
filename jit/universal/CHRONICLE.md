@@ -1,12 +1,9 @@
 # UNIVERSAL — CHRONICLE
 
 ## 2026-11-04 — Breadth-first foundation
-Deterministic planner, event-sourced state, twelve-genre reader, 25 scenario families, genre-specific realization, small cross-genre action/device/dialogue combinator.
+Twelve-genre screening room, 25 authored premise families, 555 candidate primitives, abstract five-channel composition diagnostics. See SPEC v1.0 for the new architecture and acceptance distinctions.
 
-## 2026-11-04 — 555 candidate primitives
-Five universal families: physical 130, social 75, plot 117, dialogue 134, world 99. Seeded fifteen-slot plans attach candidate combinations to each film, independent of genre.
+## 2026-11-04 — First concrete ontology slice
+Added `src/story/ontology.js`: immutable event transitions for agents, objects, places, facts, custody, movement, observation, communication, and inference. Object identity and condition survive transitions. Added `src/story/mug.js`: the **same drop event** and witness perception in twelve genre contexts, with distinct genre interpretations. Added replay and invalid-custody tests.
 
-## 2026-11-04 — Abstract causal contracts and replay
-Added a typed contract for **every one of the 555** candidates: effect channel, prerequisite category, effect verb. Added a five-channel abstract ledger with bounded state, rejection for a few resource-bound effects, deterministic replay, and a 12,000-plan corpus test. Abstract plans now attach to films as diagnostic metadata.
-
-**Scope honesty:** these are coarse category-level contracts, not 555 individual behavioral implementations. No object identity, ownership, individual character beliefs, physical continuity, or plot-specific payoff yet. The current screenplay renderer does not use the new abstract plans. Tests committed but exact remote execution remains unverified. Continue broad semantic modeling before prose polishing.
+**Limits:** only seven concrete operators, not 555 executable primitives. Genre interpretation is authored text and not a causally derived screenplay. The new concrete world model is not yet connected to the film generator. The full remote test suite remains unexecuted. Next: unify the new concrete ledger with screenplay scene planning, extend operator coverage broadly, and reject impossible sequences.
