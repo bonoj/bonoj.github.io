@@ -33,10 +33,77 @@ These are not two separate satirical websites. They are **two accounting schedul
 - Never use `irs.gov` branding, IRS logo/seal, .gov-looking hostnames, fake federal login, or real payment capture.
 - The poem belongs in project documentation, optionally a low-profile historical/conceptual note, not on the homepage. Author retains authorship; do not silently alter its text.
 
+## 2A. Verified IRS reference audit — inspected 2026-11-04
+
+**Reference pages inspected:** https://www.irs.gov/ ; https://www.irs.gov/filing ; https://www.irs.gov/businesses . These are live information-architecture references, not evidence of any ERS authority.
+
+### Actual IRS structure to emulate
+
+The live IRS homepage has a compact Search/Menu utility header, six principal task categories (**File, Pay, Refunds, Credits & Deductions, Forms, Report Fraud**), a prominent **“What do you need today?”** task search, popular-task shortcuts, a tax-debt-help guided tool, popular-topic links, expandable **Help & contact** panels segmented by audience, and news/announcements. The File menu subdivides by individuals, businesses, charities/nonprofits, international filers, retirement, government entities and tribal governments; it also distinguishes how/when/where to file, amendments and transcripts. Pay distinguishes bank-account payments, installment agreements, EFTPS, withholding, estimated taxes and penalties. Forms highlights common forms and instructions. The business center groups **Prepare your taxes / File or pay / Run your business / Business types**. The filing center organizes around audience-specific obligations and identification.
+
+**Correction to §3:** the top-level ERS navigation must mirror these six task labels and their interaction model. **Account, Notices, Help** are utility/contextual destinations, *not* substitutes for **Report Fraud** in the primary navigation. Jurisdictions, timelines, actor networks and flow explorer are powerful secondary research tools, *not* the homepage's organizing principle.
+
+### ERS audience model
+
+- **Sovereign governments:** register or locate a sovereign account, review assessments, examine notices, request transcripts, submit an amendment or appeal.
+- **Contractors and suppliers:** review documented awards, payment bases, supply-chain relationships and procurement records.
+- **International organizations / relief agencies:** inspect reconstruction obligations, disbursements, program conditions and aid records.
+- **Researchers, journalists and public:** search public accounts, source documents, methodologies, corrections and data exports.
+- **Affected populations:** trace country-specific intervention, reconstruction and assistance records without being treated as consenting taxpayers.
+
+The interface may use a **view-as** audience selector to prioritize task cards; it must never imply real government identity verification or impersonate real officials.
+
+### Homepage exact task-first composition
+
+1. Skip link, compact utility header with Search and Menu, accessible responsive navigation.
+2. Six task-based mega menus with grouped links and “Popular” subgroups.
+3. Large task search prompt (“What do you need today?”) with actual local index search and suggested queries.
+4. Popular-task shortcut row: **Get a sovereign transcript / Review an assessment / Find a form / Check a notice / Examine payments**.
+5. One short guided decision tool (e.g. **Find your account records**) with genuinely working branches and clear outcomes.
+6. Popular topics with one-sentence descriptions.
+7. Expandable **Help & contact** organized by the audiences above, with functional internal links and no invented contact phone numbers.
+8. Modest news/announcements and methodology/corrections links.
+9. Footer with source provenance and independent project ownership.
+
+The homepage must **not** lead with a speculative global revenue counter, financial dashboard, world map, or cartoon war/peace contrast. The geopolitical ledger appears after a user chooses a task.
+
+### Required real workflows (all local, read-only)
+
+- **File a return:** choose jurisdiction and year → view documented annual return → expand W/P/R/C/D schedules → trace source records → print/export. “File” means browsing a compiled public accounting return, not submitting an official filing.
+- **Pay:** choose jurisdiction or actor → view documented appropriations, obligations, outlays and transfers → switch accounting basis → inspect counterparties and sources. Never ask for money or bank details.
+- **Refunds:** inspect documented restitution, returned assets, debt relief and reconstruction commitments, with separate promised/authorized/paid statuses.
+- **Credits & Deductions:** inspect grants, security assistance, export credits and offsets with transparent accounting classifications.
+- **Forms:** browse/search numbered ERS analytical forms, complete optional local-only worksheet fields, print/download a locally generated worksheet; no remote submission or false acknowledgement.
+- **Report Fraud:** browse public oversight findings, contested claims, audits and corrections; allow users to draft a local citation-backed report/export, but do not claim an allegation has been filed with an authority.
+- **Transcripts:** select jurisdiction and period → printable, source-linked chronological statement; explicit no-data state.
+- **Notices:** search a notice identifier and open its full documented record, evidence and revision history.
+- **Guided help:** decision-tree prompts resolve to the right real page and preserve selections.
+
+### Interaction and content fidelity requirements
+
+- Desktop mega-menu grouping; mobile disclosure navigation; Search always keyboard-operable.
+- Accessible accordion Help sections, visible search results and empty states, clear active navigation, breadcrumb and contextual related links.
+- IRS-style form detail: title, number, revision date, purpose, who uses it, instructions, related schedules, downloadable/printable version.
+- IRS-style notice detail: notice ID, issue date, why this record exists, what the evidence shows, options to review/dispute, related sources.
+- Page copy must answer **who is this for, what can I do, what information do I need, what happens next**.
+- Responsive hierarchy, blue links, light surfaces, restrained type, generous whitespace, dense but readable tables.
+- No dummy sign-in, identity PIN, payment processing, pretend customer-service contact, or fake case submission.
+- Search must index tasks, forms, jurisdictions, actors, events, notices, glossary and source titles; provide keyboard submission, result grouping and zero-results guidance.
+
+### Additional acceptance gates
+
+- Homepage task-first hierarchy matches the inspected IRS site rather than a research dashboard.
+- Six main nav categories and mobile equivalents work; Report Fraud exists.
+- Audience-specific help is genuinely distinct.
+- All six top-level tasks have working read-only paths and meaningful outcomes.
+- Forms, notices, transcripts and guided help behave like administrative tools, not static parody copy.
+- The same evidence can be discovered from a task, jurisdiction, event, form or source.
+- Source audit date and reference URLs remain in this spec for cold boot; recheck IRS design if implementation occurs significantly later.
+
 ## 3. Primary information architecture
 
 **Homepage**
-- Header search; global nav: File / Pay / Refunds / Credits & Deductions / Forms & Instructions / Notices / Account / Help.
+- Header search; global nav: File / Pay / Refunds / Credits & Deductions / Forms / Report Fraud. Account, Notices and Help are utility/contextual links.
 - Main task cards translated into ERS workflows, grounded in documented data.
 - Featured recent public filings and source-backed account updates.
 - Searchable jurisdictions and organizations.
