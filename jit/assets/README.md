@@ -558,3 +558,10 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Pixel-field material laboratory, six selectable treatments: Pigment Bloom, Reaction Skin (Gray–Scott reaction diffusion), Mineral Veins, Fluid Marbling, Corrosion Front, Fungal Network. Interactive splats, activity, detail, reseed and pause.
 - Evaluation: user found some treatments interesting, others too much like ordinary painting. **Reaction Skin is especially interesting**; preserve for further investigation. This is the archived baseline, not a polished illustration.
 - Source committed; live browser behavior not independently verified.
+
+
+### Matter Lab 002 · Emergent Structures
+- Entry: [matter-lab-002/](./matter-lab-002/)
+- Live URL: https://bonoj.github.io/jit/assets/matter-lab-002/
+- Six treatments: Stress Fracture, Territory Wars, Wave Interference, Crystal Accretion, Granular Collapse, Ant Trail Ecology. Touch interactions, energy, scale, reseed, pause. Cellular and particle models are exploratory approximations.
+- Archived as a standalone implementation of the six studies from chat; source committed, live browser not independently verified.
