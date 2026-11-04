@@ -1,9 +1,9 @@
 # UNIVERSAL — CHRONICLE
 
-## 2026-11-04 — Foundations
-Deterministic planner, event-sourced state, three Thriller causal architectures, twelve-genre screening room, 25 authored story families, and genre-specific physical scene realization.
+## 2026-11-04 — Foundation and cross-genre prototype
+Deterministic planning and state ledger; twelve-genre screening room; 25 authored scenario families; genre-native physical realization; shared small cross-genre combinator.
 
-## 2026-11-04 — Breadth-first recombination
-The user corrected the direction: physical events and conversational moves are nearly universal. A dropped mug can occur in any genre; its consequence is contextual. Added a shared 12-action / 12-device / 12-dialogue-move combinator. It deterministically layers fifteen genre-agnostic physical/social moves into each generated fixture, across all twelve genres. Added corpus coverage tests.
+## 2026-11-04 — Breadth-first expansion
+The user explicitly prioritized width over polish. Added **555** stable genre-independent candidate primitives in five families: 130 physical, 75 social, 117 plot, 134 dialogue, 99 world. Introduced seeded fifteen-slot, five-axis breadth plans for every genre. Each generated film carries its candidate plan as diagnostic metadata; the existing reader screenplay is unchanged by these new 555 labels. Added a corpus test that checks 1,000 distinct candidate signatures per genre, not coherent-film acceptance.
 
-**Important limitation:** the current combinator demonstrates breadth and cross-genre reuse but **does not yet simulate the causal consequence of its generated events**. It may introduce an arbitrary mug, key, or envelope without prior establishment. The device graph is a combinatorial fixture, not a causally valid narrative planner. This must be corrected by binding objects to state, enforcing preconditions, and making the selected event change subsequent scenes. Do not confuse the large mathematical combination count with 1,000 accepted coherent scripts. The current fifteen-scene scripts are not feature-length.
+**Do not conflate:** 555 catalog entries with 555 simulated event types; candidate signatures with accepted plots; fifteen scene fixtures with feature screenplays. Next work should expand causal effect schemas and compatibility across the entire catalog, then realize valid sampled sequences. Do not prematurely polish individual genres.

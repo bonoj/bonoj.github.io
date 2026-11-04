@@ -4,6 +4,6 @@
 
 [Screening room](preview.html) · [Specification](SPEC.md) · [Execution contract](EXECUTION.md) · [Chronicle](CHRONICLE.md)
 
-Twelve genres, 25 authored premise families, and a new shared cross-genre combinator of 12 physical actions, 12 plot devices, and 12 dialogue moves. The same event or conversational exchange can now appear in any genre. Next Picture deterministically changes the combination; Fountain export and permalink remain.
+**Breadth-first vocabulary:** 555 stable genre-agnostic primitives across physical action (130), social action (75), plot device (117), dialogue move (134), and world event (99). The engine now samples a deterministic fifteen-slot, five-axis **candidate plan** for every film, independent of genre. This broad plan is retained as diagnostic data; it is **not** yet injected into screenplay text because most arbitrary combinations would break causality.
 
-**Current limitation:** the cross-genre device events are not yet causal transactions and may introduce unestablished props. These are fifteen-scene experimental fixtures, not feature-length or 1,000 accepted coherent movies. The combinatorial breadth is a search space, not a quality result. The complete committed test suite has not been independently executed.
+The reader still exposes twelve genres, 25 authored scenario families, and a smaller twelve-action/twelve-device/twelve-dialogue experimental combinator. Outputs are fifteen-scene fixtures, not feature films. The 555 primitives are labels and catalog entries, not 555 implemented causal event handlers. No claim of 1,000 accepted coherent films. Test execution against the exact remote bytes has not been verified.
