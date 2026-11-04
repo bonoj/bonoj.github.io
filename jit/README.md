@@ -12,7 +12,7 @@ This index is generated from the complete GitHub tree (2026-10-28). Paths are so
 - Preserve existing experiments. Follow per-experiment instructions before edits.
 - Hermeticon is a separate project (`bonoj/Hermeticon`); use its own handoff and deployment machinery.
 
-## Experiments (75 top-level folders)
+## Experiments (76 top-level folders)
 
 - [`acid-base/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/acid-base) · [page](https://bonoj.github.io/jit/acid-base/)
 - [`asimov/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/asimov) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/asimov/README.md) · [page](https://bonoj.github.io/jit/asimov/)
@@ -82,6 +82,7 @@ This index is generated from the complete GitHub tree (2026-10-28). Paths are so
 - [`spellbook/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/spellbook) · [page](https://bonoj.github.io/jit/spellbook/)
 - [`spiral-out/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/spiral-out) · [page](https://bonoj.github.io/jit/spiral-out/)
 - [`spudify/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/spudify) · [page](https://bonoj.github.io/jit/spudify/)
+- [`stc/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/stc) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/stc/README.md) · [page](https://bonoj.github.io/jit/stc/)
 - [`subnautimation/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/subnautimation) · [page](https://bonoj.github.io/jit/subnautimation/)
 - [`topology/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/topology) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/topology/README.md)
 - [`tremors/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/tremors) · [page](https://bonoj.github.io/jit/tremors/)
@@ -157,10 +158,4 @@ All directories below are listed relative to `jit/`, including nested asset and 
 - [`sieve/archive/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/sieve/archive)
 - [`subnautimation/liquids/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/subnautimation/liquids)
 - [`subnautimation/terrain/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/subnautimation/terrain)
-
-## STC Capital (2026-11-04)
-
-- Standalone project: [`stc/`](./stc/)
-- Live: https://bonoj.github.io/jit/stc/
-- Fictional institutional impact-investment satire; homepage and interactive simulated investment portal. This is a standalone JIT project, not an asset.
 
