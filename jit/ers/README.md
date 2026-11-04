@@ -1,34 +1,30 @@
 # ERS — External Revenue Service
 
-**Site:** https://bonoj.github.io/jit/ers/  
-**Spec:** [SPEC.md](SPEC.md)  
-**Status:** Initial self-contained application committed 2026-11-04. GitHub Pages publication and browser behavior not independently verified.
+**Live target:** https://bonoj.github.io/jit/ers/  
+**Specification:** [SPEC.md](SPEC.md)
 
-## Purpose
+## Rebuild 2026-11-04
 
-A sober, IRS-inspired public accounting interface for examining documented interventions, arms transfers, procurement, assistance, reconstruction, resources and institutional dependency. Conceptual basis: John Bono's 2014 poem *State of the Union* (Lord of War / Emissary of Peace).
+The previous ERS implementation was discarded and replaced from scratch. The new implementation is a mobile-first structural mirror of the IRS homepage, using ERS branding and the administrative vocabulary of arms transfers, policy conditions, concessions, resources, procurement, reconstruction and assistance.
 
-## Current implementation
+**Files:** `index.html` (new document structure and styles), `app.js` (new routing, content and interactions).
 
-- Single-file, dependency-free HTML/CSS/JS app at `index.html`, hash-routed for GitHub Pages.
-- IRS-style task homepage, six primary nav items, search, guided navigation, help, forms and instructions.
-- Eight real-world country/regional account stubs with source collection pointers and W/P/R/C/D schedules.
-- Source library, methodology, local JSON export, printable transcripts, mobile layout.
-- No fictional financial figures, authentication, payments, or invented government authority.
+### Reference screenshots
 
-## Critical limitations
+User supplied eight mobile screenshots of irs.gov and ERS, showing the actual mobile header (blue, IRS wordmark, SEARCH / SIGN IN / MENU), account promotion, account-phone illustration, blue task-search panel, tall icon cards, news carousel, help audience tabs, accordions and institutional footer. Those screenshots, not generic design preferences, govern the rebuilt hierarchy.
 
-This is **not** the full one-pass spec implementation yet. The initial records are narrative source pointers, **not** transaction-level sourced claims or financial flows. No numeric ledger, actor graph, form-fill worksheets, transaction reconciliation, robust source verification, or automated tests. Some source links target institutional collections rather than individual documents; verify precise source targets and claims before publication as quantitative records. Browser interaction and Pages deployment remain unverified.
+### Working routes
 
-## Cold boot
+Home, File, Pay, Refunds, Credits & Deductions, Forms, Report Fraud, Account Records, Jurisdictions, individual country transcripts and schedules, form details, Notices, Publications, Search, Methodology, Help. Mobile menu and search toggles, accordion panels, audience tabs, print and account JSON export.
 
-1. Read `SPEC.md` in full, particularly §2A IRS audit, §4 schema, §7 evidence standards, §8 release scope, §11 acceptance gates.
-2. Inspect `index.html` and run browser smoke tests (search, filters, deep links, forms, export, print, mobile, keyboard).
-3. Verify and upgrade source links to specific documents. Implement structured data and evidence-based flow/actor/event joins.
-4. Add proper form workflows, notice detail, fraud/oversight source-backed findings, accessible menu disclosures, and real accounting-basis filters.
-5. Preserve all other JIT experiments and the root site. Update this README and a CHRONICLE on each substantive iteration.
-6. Distinguish GitHub commit, Pages build and verified live behavior.
+### Evidence and next steps
 
-## Publication
+The eight-country corpus contains **source pointers and dated events**, not fully reconciled transaction-level financial data. Never manufacture amounts, transfers or legal obligations. Implement per-transaction provenance, concession records, contractor networks, source-level citations, quantitative schedules and notice history before presenting numeric account totals.
 
-Static GitHub Pages path `jit/ers/index.html`. No build dependencies.
+### Verification
+
+GitHub source commit and read-back can be verified independently. **Live GitHub Pages publication and device-browser rendering have not yet been independently verified.** Test mobile viewport, SEARCH and MENU, deep links, account records, forms, tabs, print, export, search, and back navigation before marking production acceptance.
+
+### Cold boot
+
+Read `SPEC.md`, then `index.html` and `app.js`. Use the supplied IRS screenshots as the visual contract. Do not reintroduce the old text-heavy ERS card grid or permanent desktop nav on mobile.
