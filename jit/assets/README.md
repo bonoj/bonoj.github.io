@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| GIBSTORM · Arena 01 | canvas2d-arcade-fps | [`gibstorm/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/gibstorm/index.html) | [Open](https://bonoj.github.io/jit/assets/gibstorm/) | Archived chat-built pseudo-3D tap-to-shoot alien arena, six weapons, waves, combo scoring and neon particle gibs. Not true 3D FPS; source committed 2026-11-04; live browser runtime unverified. |
+
+
 | Femur III · Continuous Matter | canvas2d-implicit-surface-material-graph | [`femur-continuous/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/femur-continuous/index.html) | [Open](https://bonoj.github.io/jit/assets/femur-continuous/) | Procedural single implicit femur surface via marching tetrahedra, separate internal material actors and bonds, structure toggle, orbit, and prescribed fracture/rebond. No emergent fracture mechanics; source committed 2026-11-03; browser runtime unverified. |
 
 | Ovis II · Skeletal Wanderer | canvas2d-software-3d | [`ovis-skeleton/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ovis-skeleton/index.html) | [Open](https://bonoj.github.io/jit/assets/ovis-skeleton/) | Archived odd skeletal quadruped: ribs, spine, skull, four jointed kinematic legs, autonomous wandering, orbit and redirect. No dependencies; source committed 2026-11-03; browser runtime unverified. |
