@@ -604,3 +604,11 @@ Original top-level folders retired after content was copied and verified through
 - Entry: [`breakwater-002/`](./breakwater-002/)
 - Live URL: https://bonoj.github.io/jit/assets/breakwater-002/
 - WebGL2 GPU-displaced Gerstner ocean with five wave bands, procedural crest/shore foam, rocky outcrop, orbit/pinch camera and wave controls. **The island is visual only**: no physical collision, spray lifecycle or boundary-aware wave simulation. Browser runtime not independently verified.
+
+
+## Rootwork · The Wall Gives Way (2026-11-04)
+
+- Entry: [`rootwork/`](./rootwork/)
+- Live: https://bonoj.github.io/jit/assets/rootwork/
+- 2D branching roots, masonry stress, simplified support failure, falling stones, tap-to-direct, growth acceleration, rain, reset.
+- Performance: capped root-segment history (9,000), frame-time readout; full support and nearest-brick searches remain O(bricks) and rendering remains proportional to retained root segments. No independently verified browser smoke test.
