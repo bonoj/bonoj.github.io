@@ -529,3 +529,12 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Canvas2D procedural illustration study: layered earth paths, cliff contours, fractured polygonal rocks, timber towers, and tower sites. Tap to grow/fracture stone, place towers, carve paths; regenerate for a new seed.
 - Evaluation: rock material grammar is promising; other systems are preliminary and visually uninspired. Preserve this baseline for iteration.
 - Source committed; live browser behavior not independently verified.
+
+
+### Lithic II · The Outcrop (Study 002)
+
+- Entry: [lithic-outcrop/](./lithic-outcrop/)
+- Live URL: https://bonoj.github.io/jit/assets/lithic-outcrop/
+- Canvas2D illustrated-stone composition: irregular silhouettes, facet shading, shared-direction strata, branching cracks, edge glints, layered outcrop, and talus. Controls: Grow, Erode, New formation, drag to pan.
+- Evaluation: individual rocks have useful visual features, but the overall outcrop reads as overlapping stickers rather than a continuous geological mass. Strata are visually parallel but not structurally continuous. Preserve as a negative example and source of stone-rendering techniques.
+- Source archived; live browser runtime not independently verified.
