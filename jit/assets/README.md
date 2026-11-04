@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| Ovis II · Skeletal Wanderer | canvas2d-software-3d | [`ovis-skeleton/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ovis-skeleton/index.html) | [Open](https://bonoj.github.io/jit/assets/ovis-skeleton/) | Archived odd skeletal quadruped: ribs, spine, skull, four jointed kinematic legs, autonomous wandering, orbit and redirect. No dependencies; source committed 2026-11-03; browser runtime unverified. |
+
+
 | Strand · Stone & Root | threejs-procedural-diorama | [`strand-stone-root/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/strand-stone-root/index.html) | [Open](https://bonoj.github.io/jit/assets/strand-stone-root/) | Orbitable miniature gatehouse with individually beveled masonry, arch, pitched tiled roof, boulder foundation, paving, vegetation and grow/roof/orbit controls. Source committed 2026-11-03; browser runtime unverified. |
 
 | Orthanc · Ink & Stone (original; [Black Ink third study](https://bonoj.github.io/jit/assets/orthanc-ink/black-ink.html)) | threejs-comic-3d-study | [`orthanc-ink/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/orthanc-ink/index.html) | [Open](https://bonoj.github.io/jit/assets/orthanc-ink/) | Orbitable miniature Orthanc-inspired black-stone tower with cel shading, ink edge toggle, and touch orbit/pinch. Source committed 2026-11-02; browser runtime unverified. |
