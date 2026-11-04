@@ -29,3 +29,18 @@ Mature banana plants; heavy arched midribs, split drooping blades, wind-torn edg
 `id`, `sourcePage`, `fileUrl`, `creator`, `reuseNotes`, `intrinsicWidth`, `intrinsicHeight`, `desktopCrop`, `mobileCrop`, `alt`, `localPath`, `status`.
 
 Noncommercial satire is the creative context, but is not a blanket reuse permission. Do not claim a candidate is cleared, embedded, or downloaded until checked. Favor strong imagery over generic replacements; track sourcing lightly.
+
+
+## Verified source-page shortlist — 2026-11-04
+
+These are **actual image pages** with creator and pixel dimensions, not guessed file URLs. Selection for production still requires inspecting the compositions and choosing responsive crops.
+
+| Candidate | Original dimensions | Author / source | Creative use |
+| --- | --- | --- | --- |
+| [Sunset with Banana Leaves.JPG](https://commons.wikimedia.org/wiki/File:Sunset_with_Banana_Leaves.JPG) | 4608×3456 | Ayon Saha (Jr.), 2013 | Golden-hour canopy, possible homepage |
+| [Banana tree leafs.jpg](https://commons.wikimedia.org/wiki/File:Banana_tree_leafs.jpg) | 4032×3024 | Adbh266, 2020 | Plant and environmental context |
+| [Banana plant leaf.jpg](https://commons.wikimedia.org/wiki/File:Banana_plant_leaf.jpg) | 3024×4032 | Deishini Mariam, 2025 | Portrait crop / mobile study |
+| [Banana Leaf + Sun 5.jpg](https://commons.wikimedia.org/wiki/File:Banana_Leaf_%2B_Sun_5.jpg) | 1600×1200 | ThreeHeadedMonkey, 2009 | Translucent leaf study; source page identifies CC BY 2.0 |
+| [Backlit-leaf.jpg](https://commons.wikimedia.org/wiki/File:Backlit-leaf.jpg) | 1200×800 | Musarama.org, 2008 | Worn backlit blade; detail reference |
+
+**Do not substitute a candidate simply because it is easy to acquire.** Visual approval comes first; the ideal hero remains a sweeping, side-on, torn banana leaf with the midrib arcing downward. A source page is not itself the direct image URL, and none of these files has yet been embedded in Leaf.
