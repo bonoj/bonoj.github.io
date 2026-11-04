@@ -1,6 +1,7 @@
 import {stream,choose,integer} from '../core/prng.js';
 import {GENRES} from '../genre/catalog.js';
 import {fountain,validateScreenplay} from '../render/fountain.js';
+import {establishAgency,selectAction,registerDecision,analyzeAgency} from './agency.js';
 const settings={
 romance:['COASTAL HOTEL','FERRY TERMINAL','FLOWER SHOP','ROOFTOP','TRAIN PLATFORM','old letters','the reunion','the last ferry','a shared future'],
 romcom:['WEDDING HALL','BAKERY','CITY PARK','HOTEL LOBBY','REHEARSAL DINNER','guest list','the wedding','the rehearsal','an honest relationship'],
@@ -150,13 +151,13 @@ const id=genre+'-'+ordinal, r=stream(id,'feature-v1'),w=settings[genre];
 const cast=[...names];for(let i=cast.length-1;i>0;i--){const j=integer(r,i+1);[cast[i],cast[j]]=[cast[j],cast[i]];}
 const people=cast.slice(0,5),roles=people.map((name,i)=>({name,trait:choose(r,traits),goal:choose(r,intentions),role:i===0?'lead':i===1?'confidant':i===2?'opponent':'associate'}));
 const state={knowledge:Object.fromEntries(people.map(x=>[x,0])),secrets:Object.fromEntries(people.map(x=>[x,0])),promises:Object.fromEntries(people.map(x=>[x,0])),trust:Object.fromEntries(people.map(x=>[x,Object.fromEntries(people.filter(y=>y!==x).map(y=>[y,0]))])),holder:null,access:true,resources:3,condition:true,deadline:10,authority:people[2],location:Object.fromEntries(people.map(x=>[x,0])),history:[]};
-const total=65+integer(r,26),scenes=[],acts=[0,Math.floor(total*.24),Math.floor(total*.51),Math.floor(total*.76),total],used=new Map();
+const agency=establishAgency(roles);const total=65+integer(r,26),scenes=[],acts=[0,Math.floor(total*.24),Math.floor(total*.51),Math.floor(total*.76),total],used=new Map();
 const title=choose(r,['The Ordinary Matter of','A Reasonable Account of','An Arrangement Concerning','The Last Days of','A Brief History of','The Unfinished Business of'])+' '+choose(r,[w[6],w[8],w[5],w[7]]);
 for(let i=0;i<total;i++){
 const phase=acts.findIndex((v,j)=>j<acts.length-1&&i>=v&&i<acts[j+1]);
 const A=people[(i+integer(r,people.length))%people.length],B=choose(r,people.filter(p=>p!==A)),O=w[5],place=choose(r,w.slice(0,5));
-const available=options(state,A,B);const scored=available.map(k=>({k,score:r()*3-(used.get(k)||0)*.18+(phase>1&&['reveal','fulfill','reconcile','repair','unlock'].includes(k)?1.2:0)+(phase===0&&['observe','promise','take'].includes(k)?.8:0)})).sort((a,b)=>b.score-a.score);
-const k=scored[0].k;used.set(k,(used.get(k)||0)+1);
+const available=options(state,A,B);const selected=selectAction({available,actor:A,target:B,agency,state,rng:r,phase,used,previous:state.history.at(-1)});
+const k=selected.type;used.set(k,(used.get(k)||0)+1);const motive=registerDecision(agency,A,B,k);
 const before=JSON.stringify(state);apply(state,k,A,B);const action=replace(choose(r,templates[k]),A,B,O);
 const pair=choose(r,speech[k]||dialogue),talk=[pair,...Array.from({length:12},()=>choose(r,dialogue))];
 const blocks=[{type:'action',text:action+' '+choose(r,frames)}];
@@ -167,8 +168,8 @@ blocks.push({type:'character',text:exchange%2?A:B},{type:'dialogue',text:lines[1
 if(exchange%2===0)blocks.push({type:'action',text:choose(r,[A+' looks toward the door.',B+' waits for an answer.','Neither speaks for a moment.','The conversation continues without resolution.',A+' studies the room before replying.'])});
 }
 if(i%7===0)blocks.push({type:'action',text:choose(r,['Outside, the ordinary business of the day continues.','Someone has left the lights on.','A distant sound interrupts the silence.','No one volunteers to be the first to leave.'])});
-scenes.push({number:i+1,functionId:'feature-'+phase,heading:(['DRY RIVERBED','SEASIDE PIER','GARDEN','CITY PARK','ROOFTOP','BRIDGE','ALLEY','FOREST CLEARING','ANCIENT ROAD','TRAIN PLATFORM'].includes(place)?'EXT. ':'INT. ')+place+' - '+(i%6===0?'NIGHT':'DAY'),location:place,participants:[A,B],blocks,event:{type:k,actor:A,target:B,before,after:JSON.stringify(state)}});
+scenes.push({number:i+1,functionId:'feature-'+phase,heading:(['DRY RIVERBED','SEASIDE PIER','GARDEN','CITY PARK','ROOFTOP','BRIDGE','ALLEY','FOREST CLEARING','ANCIENT ROAD','TRAIN PLATFORM'].includes(place)?'EXT. ':'INT. ')+place+' - '+(i%6===0?'NIGHT':'DAY'),location:place,participants:[A,B],blocks,event:{type:k,actor:A,target:B,motive,before,after:JSON.stringify(state)}});
 }
-const film={identity:{id,genre,ordinal},title,genre,architecture:'autonomous-feature-v1',cast:{protagonist:people[0],ally:people[1],opponent:people[2]},characters:roles,premise:w[6],scenes,causality:{version:1,events:state.history,final:state,distinctOperators:used.size,fingerprint:fingerprint(state.history)},stage:'autonomous-feature-prototype'};
+const film={identity:{id,genre,ordinal},title,genre,architecture:'autonomous-feature-v1',cast:{protagonist:people[0],ally:people[1],opponent:people[2]},characters:roles,premise:w[6],scenes,causality:{version:1,events:state.history,final:state,distinctOperators:used.size,fingerprint:fingerprint(state.history),agency:analyzeAgency(agency,state.history)},stage:'autonomous-feature-prototype'};
 validateScreenplay(film);film.fountain=fountain(film);return film;
 }
