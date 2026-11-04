@@ -565,3 +565,10 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Live URL: https://bonoj.github.io/jit/assets/matter-lab-002/
 - Six treatments: Stress Fracture, Territory Wars, Wave Interference, Crystal Accretion, Granular Collapse, Ant Trail Ecology. Touch interactions, energy, scale, reseed, pause. Cellular and particle models are exploratory approximations.
 - Archived as a standalone implementation of the six studies from chat; source committed, live browser not independently verified.
+
+
+### Matter Lab 003 · Geometry Without Drawing
+- Entry: [matter-lab-003/](./matter-lab-003/)
+- Live URL: https://bonoj.github.io/jit/assets/matter-lab-003/
+- Six treatments: weighted power diagram, strange attractor, optical caustics, cellular life, hydraulic erosion, quasicrystal interference. Touch interventions, complexity, evolution, reseed, pause.
+- Standalone archive of the chat studies; exploratory approximations. Source committed, live browser not independently verified.
