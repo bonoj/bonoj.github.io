@@ -2,6 +2,7 @@ import {stream,choose,integer} from '../core/prng.js';
 import {GENRES} from '../genre/catalog.js';
 import {fountain,validateScreenplay} from '../render/fountain.js';
 import {establishAgency,selectAction,registerDecision,analyzeAgency} from './agency.js';
+import {conversation} from './conversation.js';
 const settings={
 romance:['COASTAL HOTEL','FERRY TERMINAL','FLOWER SHOP','ROOFTOP','TRAIN PLATFORM','old letters','the reunion','the last ferry','a shared future'],
 romcom:['WEDDING HALL','BAKERY','CITY PARK','HOTEL LOBBY','REHEARSAL DINNER','guest list','the wedding','the rehearsal','an honest relationship'],
@@ -159,10 +160,11 @@ const A=people[(i+integer(r,people.length))%people.length],B=choose(r,people.fil
 const available=options(state,A,B);const selected=selectAction({available,actor:A,target:B,agency,state,rng:r,phase,used,previous:state.history.at(-1)});
 const k=selected.type;used.set(k,(used.get(k)||0)+1);const motive=registerDecision(agency,A,B,k);
 const before=JSON.stringify(state);apply(state,k,A,B);const action=replace(choose(r,templates[k]),A,B,O);
+const contextual=conversation({type:k,actor:A,target:B,object:O,deadline:w[7],problem:w[6],agency,random:r,history:state.history.slice(0,-1)});
 const pair=choose(r,speech[k]||dialogue),talk=[pair,...Array.from({length:12},()=>choose(r,dialogue))];
 const blocks=[{type:'action',text:action+' '+choose(r,frames)}];
 for(let exchange=0;exchange<7+integer(r,6);exchange++){
-const lines=talk[exchange%talk.length];
+const lines=exchange===0?[contextual[0],contextual[1]]:exchange===1?[contextual[2],contextual[3]]:exchange===2?[contextual[4],contextual[5]]:talk[exchange%talk.length];
 blocks.push({type:'character',text:exchange%2?B:A},{type:'dialogue',text:lines[0]});
 blocks.push({type:'character',text:exchange%2?A:B},{type:'dialogue',text:lines[1]});
 if(exchange%2===0)blocks.push({type:'action',text:choose(r,[A+' looks toward the door.',B+' waits for an answer.','Neither speaks for a moment.','The conversation continues without resolution.',A+' studies the room before replying.'])});
