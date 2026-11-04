@@ -12,3 +12,13 @@ body{background:#fff}nav{background:#1d1d1fe8;color:#f5f5f7;border:0}.nav-inner{
 .tile span{font-size:15px}
 
 .leaf-colophon{font-size:12px;color:#6e6e73;margin:28px auto 10px;max-width:1080px;padding:0 10px}.editorial{min-height:58vh}
+
+/* Canonical footer alignment, shared by all routes */
+footer{background:#f5f5f7;padding:26px 22px 34px;color:#6e6e73}
+footer .foot{width:100%;max-width:980px;margin:0 auto;padding:0}
+footer .footer-accordions{width:100%;max-width:none;margin:0;padding:0}
+footer .footer-accordions details{margin:0;padding:14px 0;border-bottom:1px solid #d2d2d7}
+footer .footer-accordions summary{display:block;width:100%;font-size:13px;font-weight:600;line-height:1.6;color:#424245}
+footer .footer-accordions details div{padding:12px 0 4px;gap:12px}
+footer .leaf-colophon{max-width:none;margin:24px 0 0;padding:0;text-align:left;font-size:12px;line-height:1.5;color:#6e6e73}
+footer .footlinks{display:none!important}
