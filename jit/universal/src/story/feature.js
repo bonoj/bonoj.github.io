@@ -158,9 +158,9 @@ const A=people[(i+integer(r,people.length))%people.length],B=choose(r,people.fil
 const available=options(state,A,B);const scored=available.map(k=>({k,score:r()*3-(used.get(k)||0)*.18+(phase>1&&['reveal','fulfill','reconcile','repair','unlock'].includes(k)?1.2:0)+(phase===0&&['observe','promise','take'].includes(k)?.8:0)})).sort((a,b)=>b.score-a.score);
 const k=scored[0].k;used.set(k,(used.get(k)||0)+1);
 const before=JSON.stringify(state);apply(state,k,A,B);const action=replace(choose(r,templates[k]),A,B,O);
-const pair=choose(r,speech[k]||dialogue),other=choose(r,dialogue),talk=[pair,other,choose(r,dialogue)];
+const pair=choose(r,speech[k]||dialogue),talk=[pair,...Array.from({length:12},()=>choose(r,dialogue))];
 const blocks=[{type:'action',text:action+' '+choose(r,frames)}];
-for(let exchange=0;exchange<3+integer(r,3);exchange++){
+for(let exchange=0;exchange<7+integer(r,6);exchange++){
 const lines=talk[exchange%talk.length];
 blocks.push({type:'character',text:exchange%2?B:A},{type:'dialogue',text:lines[0]});
 blocks.push({type:'character',text:exchange%2?A:B},{type:'dialogue',text:lines[1]});
