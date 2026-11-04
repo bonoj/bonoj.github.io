@@ -100,6 +100,36 @@ The homepage must **not** lead with a speculative global revenue counter, financ
 - The same evidence can be discovered from a task, jurisdiction, event, form or source.
 - Source audit date and reference URLs remain in this spec for cold boot; recheck IRS design if implementation occurs significantly later.
 
+## 2B. Full-service parity map — IRS reference expansion
+
+Reference: https://www.irs.gov/ (inspected 2026-11-04). Replicate the **depth of administrative service**, not merely six labels. The live IRS has nested menus, audience centers, task search, transcripts, identification numbers, amended returns, account records, payment plans, withholding, penalties, refunds, forms and instructions, fraud referrals, help, announcements, and government-entity services.
+
+**ERS translation and required route families**
+
+| IRS family | ERS service family | Functional artifact |
+|---|---|---|
+| Individuals / businesses / governments / international filers | Sovereign states / arms suppliers / multinational concessionaires / intermediary governments / affected jurisdictions | Distinct service centers with tasks, rules, forms and records |
+| Tax ID / EIN | External Revenue Account Number (ERAN) | Deterministic public account reference derived from record IDs; never a real identifier |
+| File / amend return | Register arms transfer, policy undertaking, concession or reconstruction schedule | Locally generated read-only filing worksheet and amendment comparison |
+| Tax records / transcripts | Sovereign intervention, resource and procurement transcript | Printable, chronological source-linked statement |
+| Make payment / payment plan | Remit assessed assets / phased strategic transfer | Read-only schedule of documented commitments, installments and transfers |
+| Withholding / estimated tax | Export royalty withholding / projected concession receipts | Calculators clearly distinguish user-entered scenarios from historical data |
+| Credits / deductions | Military assistance credits, reconstruction offsets, stabilization expenditure deductions | Transparent category-specific worksheet with provenance |
+| Refund status | Restitution, returned assets, cancelled debt and reconstruction obligations | Documented status timeline |
+| Forms / publications | ERS returns, schedules, instructions, notices, bulletins | Numbered, dated, printable documents and revision history |
+| Penalties / collections | Noncompliance assessments, sanctions, seizures, enforcement expenditures | Source-linked historical record, never a fabricated real legal demand |
+| Report Fraud | Contract fraud, diverted aid, procurement misconduct, unlawful expropriation | Source-backed oversight index and local report worksheet |
+| Taxpayer advocate / appeals | Sovereign advocate / assessment review | Explain competing claims and produce a local appeal record |
+| News / updates | Policy actions, sanctions, arms notifications, contract awards, restitution changes | Dated entries with primary links |
+| Government services | Intergovernmental agreements, concessions, security assistance | Government-facing procedural center |
+| Tax professional center | Contractors, auditors, legal counsel and procurement intermediaries | Specialist record navigation and forms |
+
+**Priority product domains:** (1) arms sales and military procurement, (2) policy leverage and conditionality, (3) land/resource concession and transfer to global corporations, (4) enforcement and sanctions, (5) reconstruction and recurring dependency. For land and resources, record original owner/authority, recipient, legal instrument, acreage or mineral rights where documented, term, consideration, beneficiary, and affected population; do not infer a transfer from mere investment.
+
+**Copy rule:** remove homepage and page-level meta-commentary about the site's art-project status, mock status, or incompleteness. The experience should be written in the ordinary administrative voice. Keep a discreet, truthful attribution/provenance link in the footer and avoid falsely claiming U.S. government authorization. Do not invent official powers, real notices, bank instructions or legal obligations.
+
+**Definition of completeness:** a menu item is not complete until it leads to a meaningful task, record, form, calculation, comparison, or source. No generic destination pages reused as placeholders. Implement the full menu taxonomy and actual deep links, then populate each route with evidence-backed content. The first committed application is an incomplete scaffold, not parity.
+
 ## 3. Primary information architecture
 
 **Homepage**
