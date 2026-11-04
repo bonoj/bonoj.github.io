@@ -1,7 +1,7 @@
 // Concrete, replayable universal event operators. Independent of genre.
 const clone=x=>structuredClone(x);
 export function world({agents=[],objects=[],places=[],facts=[]}={}){
-return {agents:Object.fromEntries(agents.map(a=>[a.id,{id:a.id,at:a.at??null,knows:[...(a.knows||[])],believes:[...(a.believes||[])]}])),objects:Object.fromEntries(objects.map(o=>[o.id,{id:o.id,kind:o.kind??'object',at:o.at??null,heldBy:o.heldBy??null,condition:o.condition??'intact',fragile:!!o.fragile}])),places:Object.fromEntries(places.map(p=>[p.id,{id:p.id,neighbors:[...(p.neighbors||[])]}])),facts:Object.fromEntries(facts.map(f=>[f.id,{id:f.id,truth:f.truth??true}])),history:[]};
+return {agents:Object.fromEntries(agents.map(a=>[a.id,{id:a.id,at:a.at??null,knows:[...(a.knows||[])],believes:[...(a.believes||[])],trust:{...(a.trust||{})},commitments:[...(a.commitments||[])]}])),objects:Object.fromEntries(objects.map(o=>[o.id,{id:o.id,kind:o.kind??'object',at:o.at??null,heldBy:o.heldBy??null,condition:o.condition??'intact',fragile:!!o.fragile}])),places:Object.fromEntries(places.map(p=>[p.id,{id:p.id,neighbors:[...(p.neighbors||[])]}])),facts:Object.fromEntries(facts.map(f=>[f.id,{id:f.id,truth:f.truth??true}])),history:[]};
 }
 const requireThat=(ok,msg)=>{if(!ok)throw Error(msg)};
 const has=(map,key)=>Object.prototype.hasOwnProperty.call(map,key);
@@ -15,6 +15,10 @@ case 'drop':requireThat(o&&o.heldBy===e.actor,'object not held');o.heldBy=null;o
 case 'give':requireThat(o&&o.heldBy===e.actor,'object not held');requireThat(s.agents[e.to]?.at===a.at,'recipient not co-located');o.heldBy=e.to;break;
 case 'observe':requireThat(has(s.facts,e.fact),'unknown fact');requireThat(e.at===a.at,'observer not present');if(!a.knows.includes(e.fact))a.knows.push(e.fact);break;
 case 'tell':requireThat(a.knows.includes(e.fact),'speaker lacks knowledge');requireThat(s.agents[e.to]?.at===a.at,'listener not co-located');if(!s.agents[e.to].knows.includes(e.fact))s.agents[e.to].knows.push(e.fact);break;
+case 'promise':requireThat(s.agents[e.to]?.at===a.at,'promise recipient not present');requireThat(typeof e.fact==='string'&&e.fact.length>0,'missing commitment');requireThat(!a.commitments.includes(e.fact),'duplicate commitment');a.commitments.push(e.fact);break;
+case 'fulfill':requireThat(a.commitments.includes(e.fact),'no outstanding commitment');a.commitments.splice(a.commitments.indexOf(e.fact),1);break;
+case 'betray':requireThat(s.agents[e.to]?.at===a.at,'betrayal target not present');a.trust[e.to]=(a.trust[e.to]??0)-1;break;
+case 'reconcile':requireThat(s.agents[e.to]?.at===a.at,'reconciliation target not present');requireThat((a.trust[e.to]??0)<0,'no conflict to reconcile');a.trust[e.to]++;break;
 case 'infer':requireThat(a.knows.includes(e.basis),'basis not known');requireThat(has(s.facts,e.fact),'unknown inference');if(!a.believes.includes(e.fact))a.believes.push(e.fact);break;
 default:throw Error('unknown concrete operator '+e.type);
 }
