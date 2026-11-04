@@ -4,7 +4,7 @@ import {replayWorld} from '../src/story/ontology.js';
 const all=new Set();
 for(const genre of GENRES)for(let ordinal=0;ordinal<50;ordinal++){
 const f=generateFilm(genre,ordinal),c=f.concreteCausality;
-assert.equal(c.version,3);
+assert.equal(c.version,4);
 assert.deepEqual(replayWorld(c.initial,c.events),c.final);
 assert.equal(c.sceneCount,c.trace.length);
 assert(c.sceneCount>0);
