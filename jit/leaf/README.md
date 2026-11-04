@@ -216,3 +216,9 @@ Do not mark the reference audit complete until these have been inspected. Next: 
 - [ROUTES.json](ROUTES.json) — machine-readable route inventory and comparison query contract; routes are specified, not implemented.
 
 **Current state:** documentation only. No Leaf site, live deployment, media downloads or tested links yet. Next: inspect image candidates and the remaining Apple deep links, then create a link manifest and functional route skeleton.
+
+- [LINKS.json](LINKS.json) — explicit directed navigation graph: 24 routes, 70 page-specific links, plus global and footer navigation. **Specified, not yet implemented or runtime-tested.**
+
+### Skeleton implementation handoff
+
+Use `ROUTES.json` for the allowlisted route set and `LINKS.json` for actual links. Resolve relative to `/jit/leaf/` (GitHub Pages project path), preserving direct reload and browser history. Each route must render an intentional template, not merely a shared generic placeholder. Validate that every graph target exists in the route set, that every route is reachable from home using page/global/footer links, and that no CTA is inert. Add a simple automated link graph test before visual polish. The first verified media source page is [Banana Leaf + Sun 5](https://commons.wikimedia.org/wiki/File:Banana_Leaf_%2B_Sun_5.jpg), with a linked original JPEG and CC BY 2.0 attribution requirements; this is a reference candidate, not yet an approved hero.
