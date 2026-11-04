@@ -6,9 +6,9 @@ Universal is an independent fictional studio and an experimental deterministic s
 
 ## Implementation status
 
-**Phase 1 in progress.** The repository contains a deterministic fifteen-function planner, an event-sourced state engine, one Thriller scene realization fixture, screenplay AST blocks, Fountain export, and Node tests. The Thriller fixture is a **15-scene short screenplay skeleton**, not a feature film. It currently uses one underlying plot and recurring dialogue with varied names, institutions, and evidence. It does **not** meet the specification's diversity, causal-event integration, natural dialogue, or thousands-of-distinct-films acceptance gates.
+**Phase 2 foundations.** The engine now has a deterministic fifteen-function planner, an event-sourced world state, **three distinct authored Thriller plot architectures**, fifteen-scene screenplay AST fixtures, Fountain export, and reproducible corpus tests. The three architectures are exposure of falsified civic records, rescue across a flood crossing, and recovery of a sabotaged emergency alert.
 
-Run `npm test` in `jit/universal/` to execute Phase 0 and Phase 1 tests. `generateFilm('thriller', ordinal)` is the developer entrypoint. No public reader or genre selector is deployed yet.
+Run `npm test` inside `jit/universal/`. Developer entrypoint: `generateFilm('thriller', ordinal)`. A local 300-film test passed the causal-event replay and architecture coverage checks. These are short screenplay fixtures, **not** complete feature films; no public reader or genre selector has been deployed. A thousand distinct seeds is not a thousand distinct plots.
 
 ## Identity
 
