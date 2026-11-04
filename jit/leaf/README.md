@@ -242,3 +242,13 @@ User-provided full-page Apple mobile screenshots are the concrete design referen
 All **24/24** specified `index.html` route entrypoints have now been checked through the GitHub connector and the missing `accessories/` page created. Shared `app.js` and `style.css` implement the page content, bag state, model comparison URL selections, support search, photographic home/product campaigns, mobile navigation/search and footer disclosure groups. The site has **not** been tested in a rendered browser; GitHub file presence is not deployment or UI verification. The image source URLs are candidate Wikimedia Commons redirects, not yet visually reviewed in-browser.
 
 **Visual fidelity debt:** Apple reference screenshots show a premium compact mobile bar with distinct icons, meticulously art-directed isolated product imagery and near-black/white alternating hero surfaces. Current photographic implementation is a directional correction, not parity. Prioritize hero crop/subject inspection, actual asset availability, vertical spacing and mobile interaction testing before declaring success.
+
+### Critical repair — 2026-11-04
+
+During screenshot-driven refactoring, the home-campaign replacement accidentally truncated `app.js` at the end of the homepage switch case. That removed all other page cases and the bootstrapping logic. **This was a genuine broken deployment, not a cache issue.** The original complete application was recovered from its previous Git blob and restored with the photographic homepage and mobile navigation appended. Commit: `79077e18`. Source restoration verified by presence of all page cases and initialization logic; runtime/browser verification is still pending.
+
+### Non-negotiable experience bar
+
+The user supplied seven full-length mobile screenshots of Apple's homepage. Leaf should feel like an **actual navigable Apple-style site**: brand icon + search + bag + hamburger in a compact mobile bar; fullscreen overlay navigation; page-specific local subnav; search with results; product campaigns with huge compelling photography; compare, specs, store and bag journeys; responsive editorial grid; collapsible detailed footer. Deep links must work independently. The joke is the juxtaposition of exquisite presentation with a leaf freely growing outside. Do not conflate a route file with a finished experience.
+
+**Visual art direction:** arresting natural banana-leaf photographs, monumental and naturally torn; full-bleed, properly cropped, not CSS vector leaves, not generic unrelated plants. Image redirects are candidates, not evidence of successful loading. No victory claim without browser screenshots and link checks.
