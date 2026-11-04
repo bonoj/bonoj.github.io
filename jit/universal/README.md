@@ -2,14 +2,12 @@
 
 **Every story. The same story.**
 
-Universal is an independent fictional studio and an experimental deterministic screenplay compiler. [System specification](SPEC.md) · [Development chronicle](CHRONICLE.md).
+[Screening room](preview.html) · [Specification](SPEC.md) · [Execution contract](EXECUTION.md) · [Chronicle](CHRONICLE.md)
 
-## Implementation status
+## Status
 
-**Phase 2 foundations.** The engine now has a deterministic fifteen-function planner, an event-sourced world state, **three distinct authored Thriller plot architectures**, fifteen-scene screenplay AST fixtures, Fountain export, and reproducible corpus tests. The three architectures are exposure of falsified civic records, rescue across a flood crossing, and recovery of a sabotaged emergency alert.
+All **12 genres** are now selectable in the public screening room: Romance, Romantic Comedy, Horror, Thriller, Science Fiction, Western, Mystery, Action, Drama, Comedy, Fantasy, and Crime. The browser runs the deterministic offline generator and supports Next Picture, Previous, permalink, and Fountain export.
 
-Run `npm test` inside `jit/universal/`. Developer entrypoint: `generateFilm('thriller', ordinal)`. A local 300-film test passed the causal-event replay and architecture coverage checks. These are short screenplay fixtures, **not** complete feature films; no public reader or genre selector has been deployed. A thousand distinct seeds is not a thousand distinct plots.
+**Important:** all outputs remain fifteen-scene *development fixtures*, not full feature-length screenplays. Thriller currently has three authored causal architectures; the other eleven genres have one scenario each, with seeded casting and titles. This establishes breadth of interface and basic adapter coverage, not deep creative variation. The new execution contract prioritizes integrated capabilities, meaningful semantic diversity, scene causality, and honest evaluation.
 
-## Identity
-
-The public-facing brand is **UNIVERSAL**, not Universal Pictures. The engine is **The Universal Screenplay**. This project is not affiliated with the existing Universal Pictures studio.
+Run `npm test` from this directory. The committed test suite includes phase 0, phase 1, phase 2, dialogue plans, and a twelve-genre deterministic replay matrix. Remote browser deployment and execution of the exact committed source have not been independently verified.

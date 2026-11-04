@@ -1,8 +1,16 @@
-# UNIVERSAL — SYSTEM SPEC v0.2
+# UNIVERSAL — SYSTEM SPEC v0.3
 
-Status: design contract, not an implementation claim.
-Proposed home: `jit/universal/`.
+Status: design contract and execution gates; implementation status is recorded separately in README and CHRONICLE.
+Home: `jit/universal/`.
 Tagline: **Every story. The same story.**
+
+## Execution correction — 2026-11-04
+
+The previous implementation process over-optimized isolated modules and commits, while the reader remained a fifteen-scene fixture. **Do not equate architectural additions with screenplay capability.** The unit of delivery is a verified, integrated reader-visible improvement. Follow [EXECUTION.md](EXECUTION.md).
+
+All twelve genres must be selectable in the preview immediately, even if immature. Label unproven adapters as fixtures; never advertise them as feature-length films or a thousand distinct plots. The public interface remains genre selection and Next Picture, with Previous and export. The fifteen-function graph is a dramatic skeleton, **not fifteen scenes**. Develop character simulation, genre-specific causal conflicts, scene realization, dialogue, and corpus evaluation together. Avoid superficial seed variety and byte-uniqueness as proxies for creative diversity.
+
+**Current milestone:** a selectable twelve-genre prototype. Thriller has three authored architectures; eleven other genres each have one short scenario. This is a coverage milestone, not a claim of universality or semantic diversity. The next acceptance gate is multiple distinct causal plot families per genre with meaningful scene-level consequences and substantially expanded scripts.
 
 ## 1. Product
 
