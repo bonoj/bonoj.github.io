@@ -8,7 +8,10 @@ for(const genre of GENRES){
   const film=generateFeature(genre,ordinal);
   assert(film.scenes.length>=65&&film.scenes.length<=90);
   assert.equal(film.causality.events.length,film.scenes.length);
-  assert(film.causality.agency.centralCharacterDecisions>=0);
+  assert(film.causality.agency.centralCharacterDecisions>=10);
+  assert.equal(film.causality.graph.nodes.length,film.scenes.length);
+  assert(film.causality.graph.connected>film.scenes.length/2);
+  assert(film.causality.graph.edges.every(edge=>edge.from<edge.to));
   assert(film.scenes.every(scene=>scene.event.motive?.goal));
   assert(film.scenes.every(scene=>scene.event.before!==scene.event.after));
   assert(film.fountain.length>10000);
