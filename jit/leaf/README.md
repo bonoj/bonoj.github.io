@@ -208,3 +208,11 @@ Mirror Apple's **information depth and visual rhythm**, not its copyrighted text
 - Responsive interaction details and actual page-level imagery.
 
 Do not mark the reference audit complete until these have been inspected. Next: verify these source destinations, then select specific hero images and build `MEDIA.md`.
+
+## Working surfaces
+
+- [REFERENCE.md](REFERENCE.md) — observed Apple URL and interaction map; explicitly separates verified observations from the remaining crawl.
+- [MEDIA.md](MEDIA.md) — image-source leads, concrete candidate file pages and the visual selection board; candidates are not yet embedded.
+- [ROUTES.json](ROUTES.json) — machine-readable route inventory and comparison query contract; routes are specified, not implemented.
+
+**Current state:** documentation only. No Leaf site, live deployment, media downloads or tested links yet. Next: inspect image candidates and the remaining Apple deep links, then create a link manifest and functional route skeleton.
