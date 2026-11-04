@@ -1,14 +1,9 @@
 # UNIVERSAL — CHRONICLE
 
-## 2026-11-04 — Foundations and cross-genre coverage
-Deterministic planning, event-sourced state, Fountain export, three Thriller causal architectures, spatial continuity, experimental dialogue plans, and twelve-genre screening room. SPEC v0.3 and EXECUTION.md correct the delivery contract toward integrated, reader-visible capability.
+## 2026-11-04 — Foundations
+Deterministic planner, event-sourced state, three Thriller causal architectures, twelve-genre screening room, 25 authored story families, and genre-specific physical scene realization.
 
-## 2026-11-04 — Twenty-five story families
-Eleven non-Thriller genres received a second authored premise, clue, deadline, discovery, and resolution. Thriller retains three architectures. This is a story-family count, not a count of full films.
+## 2026-11-04 — Breadth-first recombination
+The user corrected the direction: physical events and conversational moves are nearly universal. A dropped mug can occur in any genre; its consequence is contextual. Added a shared 12-action / 12-device / 12-dialogue-move combinator. It deterministically layers fifteen genre-agnostic physical/social moves into each generated fixture, across all twelve genres. Added corpus coverage tests.
 
-## 2026-11-04 — Genre-native physical realization
-Replaced the shared non-Thriller scene prose and dialogue with genre-specific physical affordances: objects, places, risks, observations and questions. Inciting clues, deadlines, discoveries, costly choices and confrontation now enter screenplay action explicitly. Each genre uses several locations rather than one repeated heading. The screening room reads these outputs directly.
-
-**Remaining severe limitations:** dialogue still repeats within a genre and often does not reflect character knowledge; some action remains generic. Fifteen scenes per film, not feature length. No true simulation-derived scene expansion. These are improved development fixtures, not finished screenplays. Full remote-byte test execution remains unverified.
-
-**Next:** replace beat-level template writing with an explicit causal scene planner, generate different participant tactics, and inspect several complete outputs for plausibility before expanding length.
+**Important limitation:** the current combinator demonstrates breadth and cross-genre reuse but **does not yet simulate the causal consequence of its generated events**. It may introduce an arbitrary mug, key, or envelope without prior establishment. The device graph is a combinatorial fixture, not a causally valid narrative planner. This must be corrected by binding objects to state, enforcing preconditions, and making the selected event change subsequent scenes. Do not confuse the large mathematical combination count with 1,000 accepted coherent scripts. The current fifteen-scene scripts are not feature-length.

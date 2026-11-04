@@ -4,6 +4,10 @@ Status: design contract and execution gates; implementation status is recorded s
 Home: `jit/universal/`.
 Tagline: **Every story. The same story.**
 
+## Breadth-first generative correction — 2026-11-04
+
+**Events and dialogue moves are genre-agnostic.** A mug can drop in any genre; a character can ask “You knew?” in any genre. Genre is a contextual interpretation layer, not a whitelist of events. The generative library should be organized around physical actions, social devices, state changes, and dialogue tactics, with genres supplying constraints and consequences. Breadth-first development must first demonstrate a large cross-genre combinatorial space, then reject combinations that fail causal preconditions. A raw combination count is not an accepted-film count. Every selected action must ultimately establish or use an object, change world state, and influence a later decision; an arbitrary physical action with no payoff is not sufficient.
+
 ## Execution correction — 2026-11-04
 
 The previous implementation process over-optimized isolated modules and commits, while the reader remained a fifteen-scene fixture. **Do not equate architectural additions with screenplay capability.** The unit of delivery is a verified, integrated reader-visible improvement. Follow [EXECUTION.md](EXECUTION.md).
