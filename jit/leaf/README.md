@@ -236,3 +236,9 @@ User-provided full-page Apple mobile screenshots are the concrete design referen
 - The Apple screenshots establish a concrete visual contract: black and white campaigns, full-bleed imagery, repeated blue CTA pairing, strict mobile hierarchy and footer disclosures. Don't rebuild as generic rounded cards.
 
 **Build status:** implementation exists but is incomplete and not browser-verified. Do not claim completion solely from GitHub commits.
+
+### Implementation checkpoint — 2026-11-04, after screenshot correction
+
+All **24/24** specified `index.html` route entrypoints have now been checked through the GitHub connector and the missing `accessories/` page created. Shared `app.js` and `style.css` implement the page content, bag state, model comparison URL selections, support search, photographic home/product campaigns, mobile navigation/search and footer disclosure groups. The site has **not** been tested in a rendered browser; GitHub file presence is not deployment or UI verification. The image source URLs are candidate Wikimedia Commons redirects, not yet visually reviewed in-browser.
+
+**Visual fidelity debt:** Apple reference screenshots show a premium compact mobile bar with distinct icons, meticulously art-directed isolated product imagery and near-black/white alternating hero surfaces. Current photographic implementation is a directional correction, not parity. Prioritize hero crop/subject inspection, actual asset availability, vertical spacing and mobile interaction testing before declaring success.
