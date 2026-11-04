@@ -2,7 +2,7 @@
 
 Canonical source: [`bonoj/bonoj.github.io` (`master:jit/`)](https://github.com/bonoj/bonoj.github.io/tree/master/jit) · Published shelf: https://bonoj.github.io/jit/
 
-This index is generated from the complete GitHub tree (2026-10-28). Paths are source-directory links; a folder's existence does **not** establish a working deployed page. Consult each experiment's README, handoff, and source before changing it.
+This index was originally generated from the GitHub tree on 2026-10-28 and incrementally updated on 2026-11-04; it is not yet a fresh exhaustive tree census. Paths are source-directory links; a folder's existence does **not** establish a working deployed page. Consult each experiment's README, handoff, and source before changing it.
 
 ## Operating rules
 
@@ -12,8 +12,9 @@ This index is generated from the complete GitHub tree (2026-10-28). Paths are so
 - Preserve existing experiments. Follow per-experiment instructions before edits.
 - Hermeticon is a separate project (`bonoj/Hermeticon`); use its own handoff and deployment machinery.
 
-## Experiments (76 top-level folders)
+## Experiments (78 indexed top-level folders; not a fresh exhaustive count)
 
+- [`air/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/air) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/air/README.md) · [page](https://bonoj.github.io/jit/air/)
 - [`acid-base/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/acid-base) · [page](https://bonoj.github.io/jit/acid-base/)
 - [`asimov/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/asimov) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/asimov/README.md) · [page](https://bonoj.github.io/jit/asimov/)
 - [`assets/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/assets) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/README.md) · [page](https://bonoj.github.io/jit/assets/)
@@ -63,6 +64,7 @@ This index is generated from the complete GitHub tree (2026-10-28). Paths are so
 - [`icarus/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/icarus) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/icarus/README.md) · [page](https://bonoj.github.io/jit/icarus/)
 - [`idle/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/idle)
 - [`ion-garden/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/ion-garden) · [page](https://bonoj.github.io/jit/ion-garden/)
+- [`leaf/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/leaf) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/leaf/README.md) · [page](https://bonoj.github.io/jit/leaf/)
 - [`lattice/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/lattice) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/lattice/README.md) · [page](https://bonoj.github.io/jit/lattice/)
 - [`lovecraft/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/lovecraft) · [page](https://bonoj.github.io/jit/lovecraft/)
 - [`materials/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/materials) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/materials/README.md) · [page](https://bonoj.github.io/jit/materials/)
@@ -159,3 +161,11 @@ All directories below are listed relative to `jit/`, including nested asset and 
 - [`subnautimation/liquids/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/subnautimation/liquids)
 - [`subnautimation/terrain/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/subnautimation/terrain)
 
+
+## Subversion studies (2026-11-04)
+
+- **Air** — earnest commodity-awareness campaign for breathing; standalone single-page satire.
+- **STC Capital** — institutional investment satire with an interactive prospectus; standalone single-page site.
+- **Leaf** — premium consumer-product satire, 24 linked routes, cart/search/compare and shared UI. **Minor success** by creator assessment; remaining live deployment and interaction verification should not be inferred from source commits.
+
+These three share presentation patterns (brand, navigation, cinematic hero, editorial sections, calls to action, footer), but no shared framework is established. Next step is choosing another satirical target, not prematurely abstracting a renderer.
