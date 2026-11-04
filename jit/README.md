@@ -163,3 +163,5 @@ All directories below are listed relative to `jit/`, including nested asset and 
 - Standalone project: [`stc/`](./stc/)
 - Live: https://bonoj.github.io/jit/stc/
 - Fictional institutional impact-investment satire; homepage and interactive simulated investment portal. This is a standalone JIT project, not an asset.
+
+- [`mirror/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/mirror) · [page](https://bonoj.github.io/jit/mirror/) — full-screen Kind Mirror, touch-to-cycle affirmations.
