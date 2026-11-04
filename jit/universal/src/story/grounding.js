@@ -1,30 +1,58 @@
 import {world,transition,replayWorld} from './ontology.js';
-// Concrete physical and epistemic events, rendered from validated state transitions.
-// Deliberately a narrow integrated slice; not a claim that the entire plot is generated.
-const props=['mug','key','envelope','photograph','glass','note','parcel','token','document','coat','book','map'];
+import {stream,integer} from '../core/prng.js';
+// Autonomous, seeded event sampling. No required object, witness, or plot pattern.
+// The same concrete state ledger supplies all rendered physical/epistemic actions.
+const props=['letter','key','ledger','photograph','parcel','map','ring','book','record','token'];
+const verbs=['take','drop','give','observe','tell','infer'];
 export function groundFilm(film){
-const selected=film.scenes.map((scene,i)=>({scene,i})).filter(({i})=>i%3===1);
+const rng=stream(film.identity.id,'autonomous-grounding-v3');
 const locations=[...new Set(film.scenes.map(s=>s.location))];
 const agents=[...new Set([film.cast.protagonist,film.cast.ally,film.cast.opponent,...film.scenes.flatMap(s=>s.participants)])];
-const objects=selected.map(({scene,i})=>({id:'prop-'+i,kind:props[i%props.length],at:scene.location,fragile:i%2===0}));
-const facts=selected.map(({i})=>({id:'noise-'+i}));
-const initial=world({agents:agents.map(id=>({id,at:film.scenes[0].location})),places:locations.map(id=>({id,neighbors:locations.filter(other=>other!==id)})),objects,facts});
-let state=initial;const allEvents=[];
-for(const {scene,i} of selected){
-const actor=scene.participants[0]||film.cast.protagonist;
-const witness=scene.participants.find(p=>p!==actor)||null;
-const events=[];
-const move=(who)=>{if(state.agents[who].at!==scene.location)events.push({type:'move',actor:who,from:state.agents[who].at,to:scene.location});};
-move(actor);if(witness)move(witness);
-const prop='prop-'+i,fact='noise-'+i;
-events.push({type:'take',actor,object:prop},{type:'drop',actor,object:prop,impact:i%2===0?'hard':'soft'});
-if(witness)events.push({type:'observe',actor:witness,fact,at:scene.location});
-for(const event of events)state=transition(state,event);
-allEvents.push(...events);scene.concreteEvents=events;
-const object=state.objects[prop],condition=object.condition;
-scene.blocks.push({type:'action',text:`${actor} picks up a ${object.kind}, then drops it. ${condition==='broken'?'It breaks against the floor.':'It lands intact.'}${witness?' '+witness+' witnesses the fall.':''}`});
+const objects=Array.from({length:5},(_,i)=>({id:'item-'+i,kind:props[integer(rng,props.length)],at:locations[integer(rng,locations.length)],fragile:false}));
+const facts=Array.from({length:5},(_,i)=>({id:'fact-'+i}));
+const initial=world({agents:agents.map(id=>({id,at:locations[0]})),places:locations.map(id=>({id,neighbors:locations.filter(p=>p!==id)})),objects,facts});
+let state=initial;const events=[],trace=[],families=new Set();
+const commit=(scene,event)=>{state=transition(state,event);events.push(event);scene.concreteEvents.push(event);};
+for(const scene of film.scenes){
+scene.concreteEvents=[];
+const participants=scene.participants.length?scene.participants:[film.cast.protagonist];
+const actor=participants[integer(rng,participants.length)];
+if(state.agents[actor].at!==scene.location)commit(scene,{type:'move',actor,from:state.agents[actor].at,to:scene.location});
+const options=[];
+for(const object of Object.values(state.objects)){
+if(object.heldBy===null&&object.at===scene.location)options.push({family:'custody',type:'take',object:object.id});
+if(object.heldBy===actor)options.push({family:'custody',type:'drop',object:object.id});
+for(const target of participants)if(target!==actor&&object.heldBy===actor&&state.agents[target].at===scene.location)options.push({family:'exchange',type:'give',object:object.id,to:target});
 }
-const replay=replayWorld(initial,allEvents);
-if(JSON.stringify(replay)!==JSON.stringify(state))throw Error('concrete scene ledger failed replay');
-return {version:1,initial,events:allEvents,final:state,sceneCount:selected.length};
+for(const fact of Object.values(state.facts)){
+if(!state.agents[actor].knows.includes(fact.id))options.push({family:'knowledge',type:'observe',fact:fact.id});
+if(state.agents[actor].knows.includes(fact.id))for(const target of participants)if(target!==actor&&state.agents[target].at===scene.location&&!state.agents[target].knows.includes(fact.id))options.push({family:'communication',type:'tell',fact:fact.id,to:target});
+if(state.agents[actor].knows.includes(fact.id)&&!state.agents[actor].believes.includes(fact.id))options.push({family:'inference',type:'infer',basis:fact.id,fact:fact.id});
+}
+const fresh=options.filter(o=>!families.has(o.family));
+const pool=fresh.length?fresh:options;
+if(!pool.length)continue;
+const selected=pool[integer(rng,pool.length)];
+const event={type:selected.type,actor};
+if(selected.object)event.object=selected.object;
+if(selected.to)event.to=selected.to;
+if(selected.fact)event.fact=selected.fact;
+if(selected.basis)event.basis=selected.basis;
+if(event.type==='observe')event.at=scene.location;
+if(event.type==='drop')event.impact='soft';
+commit(scene,event);families.add(selected.family);
+const object=selected.object?state.objects[selected.object]:null;
+const lines={
+take:()=>`${actor} takes possession of the ${object.kind}. It is no longer where it was left.`,
+drop:()=>`${actor} puts down the ${object.kind}. It remains at ${scene.location.toLowerCase()}.`,
+give:()=>`${actor} hands the ${object.kind} to ${event.to}. Its custody changes.`,
+observe:()=>`${actor} notices a detail no one has yet explained. The observation stays with ${actor}.`,
+tell:()=>`${actor} shares an earlier observation with ${event.to}. What one person knew, two now know.`,
+infer:()=>`${actor} draws a conclusion from an earlier observation. It is a belief, not a newly witnessed fact.`
+};
+const text=lines[event.type]();scene.blocks.push({type:'action',text});
+trace.push({scene:scene.number,family:selected.family,event,text});
+}
+if(JSON.stringify(replayWorld(initial,events))!==JSON.stringify(state))throw Error('concrete event replay mismatch');
+return {version:3,initial,events,final:state,trace,sceneCount:trace.length,families:[...families]};
 }
