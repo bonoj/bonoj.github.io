@@ -550,3 +550,11 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Live URL: https://bonoj.github.io/jit/assets/pelagic-original-water/
 - WebGL study restoring Caldera's turquoise water colors, sine-wave crest highlights, tone mapping, and foam/noise treatment. Shockwave rings warp the original wave coordinates and add interference-driven crest brightness. User assessment: **shockwaves are terrible**. Preserve before further iteration.
 - Both source artifacts committed; live browser behavior not independently verified.
+
+
+### Matter Lab · Six Procedural Treatments
+- Entry: [matter-lab/](./matter-lab/)
+- Live URL: https://bonoj.github.io/jit/assets/matter-lab/
+- Pixel-field material laboratory, six selectable treatments: Pigment Bloom, Reaction Skin (Gray–Scott reaction diffusion), Mineral Veins, Fluid Marbling, Corrosion Front, Fungal Network. Interactive splats, activity, detail, reseed and pause.
+- Evaluation: user found some treatments interesting, others too much like ordinary painting. **Reaction Skin is especially interesting**; preserve for further investigation. This is the archived baseline, not a polished illustration.
+- Source committed; live browser behavior not independently verified.
