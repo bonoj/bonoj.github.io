@@ -626,12 +626,3 @@ Original top-level folders retired after content was copied and verified through
 
 Removed translucent barrel, liquid reservoir, bead animation, viscosity control and ink-fill UI. The pen is opaque metal; quaternion rotation and spherical drawing remain. The earlier entry description above is historical. Browser not independently verified.
 
-## STC Capital (2026-11-04)
-
-- Entry: [`stc-capital/`](./stc-capital/)
-- Live: https://bonoj.github.io/jit/assets/stc-capital/
-- Fictional institutional satire: polished impact-investment homepage, six sector mandates, interactive portfolio dashboard, five real geographic labels, externally hosted illustrative landscape photography, modeled quarterly ROI, welfare, dependency, education and stability, activity log, reset and geographic selector.
-- Data boundary: investment returns, regional metrics, investment strategies and consequences are entirely fictional scenario values; no live World Bank / UNICEF data ingestion. The site links to public research sources for context. No real payments.
-- Photography: external Unsplash images; verify image availability, individual licenses and appropriate reuse before public promotion. User-supplied UNICEF image is not embedded in this first release.
-- Source: `jit/assets/stc-capital/index.html`; standalone HTML/CSS/JS without a build step.
-- Browser runtime, image URLs and mobile layout have not been independently smoke-tested.
