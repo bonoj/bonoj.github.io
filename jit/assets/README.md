@@ -586,3 +586,21 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Live URL: https://bonoj.github.io/jit/assets/solar-lab-007/
 - One persistent coupled cellular approximation with six instrument views: Photosphere, Temperature, Convection, Magnetic Flux, Stress Map, Reconnection. Switching instruments does not reset the fields. Touch injects heat and perturbs flux; sliders control driving and magnetic coupling; simulation/render milliseconds and reconnection counts displayed.
 - Exploratory computational model, not a physical MHD solver. Source committed; live browser behavior not independently verified.
+
+
+## Consolidation · 2026-11-04
+
+The four 2D Matter Labs and Solar Lab 007 are collected under [`matter-studies/`](./matter-studies/):
+- [`matter-studies/matter-lab.html`](./matter-studies/matter-lab.html) — original Matter Lab
+- [`matter-studies/matter-lab-002.html`](./matter-studies/matter-lab-002.html)
+- [`matter-studies/matter-lab-003.html`](./matter-studies/matter-lab-003.html)
+- [`matter-studies/matter-lab-004.html`](./matter-studies/matter-lab-004.html)
+- [`matter-studies/solar-lab-007.html`](./matter-studies/solar-lab-007.html)
+
+Original top-level folders retired after content was copied and verified through successful GitHub writes. Prior live URLs for those five labs will no longer resolve; use the consolidated links. Earlier README inventory references to old locations are historical and superseded by this section.
+
+## Breakwater II · Open Water
+
+- Entry: [`breakwater-002/`](./breakwater-002/)
+- Live URL: https://bonoj.github.io/jit/assets/breakwater-002/
+- WebGL2 GPU-displaced Gerstner ocean with five wave bands, procedural crest/shore foam, rocky outcrop, orbit/pinch camera and wave controls. **The island is visual only**: no physical collision, spray lifecycle or boundary-aware wave simulation. Browser runtime not independently verified.
