@@ -108,3 +108,103 @@ The satire is structural: extravagant digital merchandising of a naturally occur
 
 ## Implementation boundaries
 This document is a build contract, not permission to start implementing. Do not alter JIT index, root site, deployment config, or unrelated projects during specification. Next task: expand the Apple page reference/link map and populate MEDIA.md with **the actual visually excellent image candidates and their source URLs**, noting practical reuse/embedding status; then implement the navigation skeleton once imagery is selected.
+
+
+## Apple reference crawl — observed 2026-11-04 (pass 1)
+
+This is a live-source observation log, not a claim of complete mirroring. Pages and merchandising change. Record the **interaction architecture** rather than ephemeral products or verbatim advertising copy.
+
+| Apple URL | Observed structure | Leaf translation | Implementation contract |
+| --- | --- | --- | --- |
+| https://www.apple.com/ | Global family navigation, search, bag, full-width sequential campaign heroes, paired Learn more and Buy/Pre-order actions, secondary promotional tiles | Leaf launch, Pro, Air, ecosystem, editorial tiles | Each hero has independent image, heading, route to overview and acquisition |
+| https://www.apple.com/store | Store headline, category icon strip, horizontal latest-product merchandising, shopping guides, help and offer pathways | Leaf Store: category selector, latest growth, use cases, acquisition guides | Horizontal card rail with real detail links, consistent $0, no fake discount mechanics |
+| https://www.apple.com/iphone/ | Product-family icon/label strip, individual models, flagship hero, Explore the lineup, compare, buy, accessories and platform links | /leaf/ becomes a family landing as well as core product; /leaf-pro/, /leaf-air/, /compare/ | Model rail, specs links, meaningful comparisons and direct acquisitions |
+| https://www.apple.com/mac/ | Family model strip, Explore the lineup filters (all/laptops/desktops/displays), Help Me Choose, Compare, displays and accessories | Leaf use-mode filters: All / Serving / Wrapping / Shelter / Folding; guided chooser | Filter changes visible cards; chooser produces route recommendation, never an inert button |
+| https://www.apple.com/watch/ | Family models, comparison, bands, benefits of buying, trade-in, education, delivery, personal setup | Lifecycle, replacement, leaf varieties and responsible sourcing | Build real support and environmental links, not fictional benefits |
+| https://www.apple.com/airpods/ | Large cinematic category campaigns, compare-model specification rows, feature links | Detailed Leaf use-mode comparisons and macro imagery | Compare table stays legible on mobile, includes accessibility labels |
+| https://www.apple.com/shop/buy-iphone | Shop-all-models cards, shopping guides, compare, specialists, offers | /store/ and /store/leaf/ acquisition journeys | Browse, inspect, add to bag, locate source; no payment or fake checkout |
+| https://support.apple.com/ | Product-family entry tiles, topic search, account topics, care, repair and service | /support/ categories, search, fold and care guides, replacement | Search actually finds indexed help topics; article pages crosslink product and environment |
+
+### Reference-to-Leaf interaction graph
+
+```text
+Apple homepage
+  ├─ Campaign: Learn more ──> Product detail ──> Specs / Compare / Support
+  ├─ Campaign: Buy ─────────> Shop product ───> Bag / fulfillment
+  ├─ Category navigation ───> Family overview ─> Models / Compare / Accessories
+  ├─ Store ─────────────────> Category rails ──> Product / Guides / Shop
+  ├─ Support ───────────────> Topic search ────> Articles / service
+  └─ Footer ────────────────> Corporate / environment / legal
+
+Leaf homepage
+  ├─ Leaf: Learn more ──────> /leaf/ ──────────> /leaf/specs/ /compare/
+  ├─ Leaf: Find a tree ─────> /store/find/ ────> /ecosystem/ /support/availability/
+  ├─ Family navigation ────> /leaf-pro/ /leaf-air/ /compare/
+  ├─ Store ─────────────────> /store/leaf/ ────> /bag/ ──> /store/find/
+  ├─ Support ───────────────> /support/ ───────> /support/care/ /support/folding/
+  └─ Footer ────────────────> /about/ /environment/ /newsroom/ /legal/
+```
+
+### Site templates (build these, not 23 unrelated pages)
+
+1. **Campaign landing** — full-bleed hero with responsive art direction, concise line, dual CTAs; reusable for home and product hero.
+2. **Family landing** — local model rail, curated lineup, comparison entrypoint, feature/editorial sections; reusable for /leaf/, /leaf-pro/, /leaf-air/.
+3. **Product specifications** — structured attribute groups, anchored navigation, related support, comparison CTA.
+4. **Store discovery** — category cards, latest/editorial rails, guided selection, source availability.
+5. **Acquisition** — hero, selected configuration, $0 summary, add/remove bag state, source information.
+6. **Comparison** — accessible column comparison with sticky headings on wide screens and stacked model cards on mobile.
+7. **Support index** — search and category tiles with article summaries.
+8. **Support article** — clear stepwise information, related products, related topics, last-reviewed date.
+9. **Editorial** — newsroom, about and environment long-form stories with dramatic imagery.
+10. **Utility** — bag, search results, locator, legal, and branded 404.
+
+### Link inventory (source-of-truth schema)
+
+Every clickable element is represented as a link record before implementation:
+```json
+{
+  "id": "home.hero.leaf.learn",
+  "from": "/",
+  "label": "Learn more",
+  "to": "/leaf/",
+  "kind": "internal-route",
+  "template": "campaign-landing",
+  "status": "specified"
+}
+```
+Other kinds: `internal-route`, `page-anchor`, `action`, `external`. Actions declare state changes and resulting route. Build a machine-readable `links.json` during implementation and validate against a route manifest; no `#` placeholders. A link is not complete because it looks clickable.
+
+### Image placement contract
+
+Each page section must identify a **named asset ID** before layout implementation. `MEDIA.md` should be a human-readable gallery manifest, not a legal essay. Record exact original source URL and creator if available; link to the actual selected photograph. The striking torn banana-tree images from the exploratory conversation are the **art-direction targets**, but their original image URLs have not yet been recovered here. Do not pretend those references are already downloaded.
+
+Required presentation:
+- Hero: desktop 16:9 or wider, mobile portrait art-directed crop, natural canopy and rib visible; never crop away the identifying drooping split blade.
+- Product: one iconic side-on leaf silhouette, one real-world use image, one macro material detail, one plant-in-environment image.
+- Store: consistent thumbnail treatment and category differentiation using **photographic compositions**, not fabricated hardware or arbitrary logos.
+- Performance: responsive `srcset` / `sizes`, image dimension reservations to prevent layout shift, eager first hero only, lazy below-fold assets, lightweight previews if warranted.
+- Media failure: meaningful fallback treatment and alt text; no broken-image glyphs on primary campaigns.
+
+### Structural fidelity without pointless imitation
+
+Mirror Apple's **information depth and visual rhythm**, not its copyrighted text, source HTML, scripts, trademarks or product photos. The satire must be obvious from the name, imagery and copy. The site should remain an original Leaf experience.
+
+### Expanded acceptance gates
+
+**G1: graph** — route manifest complete; all global, local, footer, card, editorial and CTA destinations resolved; no empty destinations.
+**G2: media** — each campaign has an identified real image candidate and tested mobile/desktop crop; media provenance tracked.
+**G3: skeleton** — every specified route directly loadable under GitHub Pages path; menu/search/bag/compare interactions function; no dead ends.
+**G4: design** — deliberate image hierarchy, typographic scale, restrained animations, accessible mobile navigation.
+**G5: editorial** — copy stays straight-faced; practical claims accurate; no implied real purchases.
+**G6: publication** — read-back commit, Pages build state, and observed live routes distinguished.
+
+### Remaining Apple crawl targets (not yet verified)
+
+- Individual model detail pages and their subnavigation.
+- Exact comparison page and spec page URL patterns.
+- Product configurator / cart / checkout boundary (observe, do not reproduce payment collection).
+- Accessories category, search overlay and search-results routes.
+- Environment, newsroom, corporate footer and legal hierarchy.
+- Responsive interaction details and actual page-level imagery.
+
+Do not mark the reference audit complete until these have been inspected. Next: verify these source destinations, then select specific hero images and build `MEDIA.md`.
