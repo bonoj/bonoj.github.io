@@ -1,0 +1,53 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Femur III — Continuous Matter</title><style>*{box-sizing:border-box}body{margin:0;background:#0e171b;color:#d9e6de;font:14px system-ui}main{max-width:900px;margin:auto;padding:12px}h1{font-size:21px}.stage{height:min(80dvh,690px);min-height:420px;position:relative;border-radius:12px;overflow:hidden;background:#10191d;touch-action:none}canvas{display:block;width:100%;height:100%;touch-action:none}.hud{position:absolute;top:12px;left:12px;pointer-events:none;font:11px monospace}.hud strong{font-size:17px}.controls{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}button{background:#2b4741;color:white;border:1px solid #65877b;border-radius:6px;padding:10px 12px}.hint{color:#9ab3a9;font-size:12px}</style><main><h1>Femur III · Continuous Matter</h1><p class="hint">A continuous implicit bone surface with a separate internal actor-and-bond graph. Fracture is a prescribed split, not a physics solver.</p><div class="stage" id="stage"><canvas id="canvas"></canvas><div class="hud"><div>MATERIAL ANATOMY / 003</div><strong>FEMUR · CONTINUOUS</strong><div id="status">Generating…</div></div></div><div class="controls"><button id="fracture">Fracture</button><button id="rejoin">Rebond</button><button id="structure">Structure: OFF</button><button id="reset">Reset</button></div><p class="hint">Drag to orbit · Pinch or wheel to zoom. This study preserves the visual experiment; structural bonds do not yet drive the split.</p></main><script>
+(()=>{'use strict';
+const root=document.getElementById('stage'),canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d'),status=document.getElementById('status');
+const add=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]],sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],mul=(a,s)=>[a[0]*s,a[1]*s,a[2]*s],dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],length=a=>Math.hypot(...a),norm=a=>mul(a,1/(length(a)||1)),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>a+(b-a)*t;
+let W=0,H=0,dpr=1,yaw=-.65,pitch=.16,zoom=1,spin=true,structure=false,fracture=0,target=0,drag=false,last=0;
+function sdCapsule(p,a,b,r){let ab=sub(b,a),t=clamp(dot(sub(p,a),ab)/dot(ab,ab),0,1);return length(sub(p,add(a,mul(ab,t))))-r}
+function sdEll(p,c,r){let q=[(p[0]-c[0])/r[0],(p[1]-c[1])/r[1],(p[2]-c[2])/r[2]];return (length(q)-1)*Math.min(...r)}
+function smoothMin(a,b,k){let h=clamp(.5+.5*(b-a)/k,0,1);return mix(b,a,h)-k*h*(1-h)}
+function field(p){
+ const x=p[0],y=p[1],z=p[2];
+ let d=sdCapsule(p,[.015,-1.33,0],[.07,1.22,.055],.175);
+ d=smoothMin(d,sdEll(p,[.035,-1.37,.03],[.29,.38,.25]),.19);
+ d=smoothMin(d,sdEll(p,[-.20,-1.58,-.11],[.27,.32,.31]),.10);
+ d=smoothMin(d,sdEll(p,[.20,-1.58,-.11],[.28,.33,.31]),.10);
+ d=smoothMin(d,sdEll(p,[-.24,1.32,-.035],[.27,.36,.27]),.14);
+ d=smoothMin(d,sdCapsule(p,[.045,1.18,.025],[.48,1.69,.035],.155),.13);
+ d=smoothMin(d,sdEll(p,[.65,1.78,.04],[.275,.28,.27]),.095);
+ return d+.006*Math.sin(19*x+6*y)*Math.sin(17*z-4*y)+.004*Math.sin(34*y+12*z);
+}
+const corners=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]],tets=[[0,5,1,6],[0,1,2,6],[0,2,3,6],[0,3,7,6],[0,7,4,6],[0,4,5,6]];
+let tris=[],nodes=[],links=[];
+function extract(){
+ const step=.095,min=[-.75,-2.02,-.60],max=[1.03,2.17,.64],nx=Math.ceil((max[0]-min[0])/step),ny=Math.ceil((max[1]-min[1])/step),nz=Math.ceil((max[2]-min[2])/step);
+ function edge(a,b,da,db){let t=clamp(da/(da-db),0,1);return add(a,mul(sub(b,a),t))}
+ function emit(a,b,c){let center=mul(add(add(a,b),c),1/3),e=.012;let gradient=norm([field(add(center,[e,0,0]))-field(add(center,[-e,0,0])),field(add(center,[0,e,0]))-field(add(center,[0,-e,0])),field(add(center,[0,0,e]))-field(add(center,[0,0,-e]))]);if(dot(norm(cross(sub(b,a),sub(c,a))),gradient)<0)[b,c]=[c,b];tris.push({v:[a,b,c],center,part:center[1]>-.28?1:0})}
+ for(let i=0;i<nx;i++)for(let j=0;j<ny;j++)for(let k=0;k<nz;k++){let p=corners.map(c=>[min[0]+(i+c[0])*step,min[1]+(j+c[1])*step,min[2]+(k+c[2])*step]),d=p.map(field);if(d.every(v=>v>0)||d.every(v=>v<0))continue;
+ for(const tet of tets){let inside=tet.filter(q=>d[q]<0),outside=tet.filter(q=>d[q]>=0);if(!inside.length||!outside.length)continue;const e=(a,b)=>edge(p[a],p[b],d[a],d[b]);if(inside.length===1){let a=inside[0];emit(e(a,outside[0]),e(a,outside[1]),e(a,outside[2]))}else if(inside.length===3){let a=outside[0];emit(e(a,inside[0]),e(a,inside[1]),e(a,inside[2]))}else{let a=e(inside[0],outside[0]),b=e(inside[0],outside[1]),c=e(inside[1],outside[0]),f=e(inside[1],outside[1]);emit(a,b,c);emit(b,f,c)}}}
+ const grid=new Map(),s=.18,origin=[-.65,-1.92,-.52],key=(i,j,k)=>i+','+j+','+k;
+ for(let j=0;j<23;j++)for(let i=0;i<10;i++)for(let k=0;k<7;k++){let p=[origin[0]+i*s,origin[1]+j*s,origin[2]+k*s];if(field(p)<-.025){let id=nodes.length;nodes.push({p,part:p[1]>-.28?1:0});grid.set(key(i,j,k),id)}}
+ for(let j=0;j<23;j++)for(let i=0;i<10;i++)for(let k=0;k<7;k++){let a=grid.get(key(i,j,k));if(a===undefined)continue;for(const [di,dj,dk] of [[1,0,0],[0,1,0],[0,0,1],[1,1,0],[1,0,1],[0,1,1]]){let b=grid.get(key(i+di,j+dj,k+dk));if(b!==undefined)links.push({a,b,bridge:nodes[a].part!==nodes[b].part})}}
+}
+extract();
+function resize(){let r=root.getBoundingClientRect();W=r.width;H=r.height;dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}resize();new ResizeObserver(resize).observe(root);
+function offset(p,part){return part?add(p,[fracture*.33,fracture*.12,fracture*.22]):p}
+function tr(p){let cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch),x=p[0]*cy+p[2]*sy,z=-p[0]*sy+p[2]*cy;return [x,p[1]*cp-z*sp,p[1]*sp+z*cp]}
+function proj(p){let f=4.6/(4.6-p[2]*.25),s=Math.min(W/3.4,H/4.5)*zoom*f;return [W*.5+p[0]*s,H*.51-p[1]*s]}
+function draw(t){let dt=Math.min(.04,(t-last)/1000||.016);last=t;if(spin&&!drag)yaw+=dt*.14;fracture+=(target-fracture)*Math.min(1,dt*3.2);
+ let bg=ctx.createRadialGradient(W*.5,H*.44,10,W*.5,H*.5,Math.max(W,H)*.8);bg.addColorStop(0,'#2b403e');bg.addColorStop(1,'#0e171b');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ let light=norm([-.45,.85,1]),draws=[];
+ for(const tri of tris){let p=tri.v.map(v=>tr(offset(v,tri.part))),n=norm(cross(sub(p[1],p[0]),sub(p[2],p[0]))),brightness=.34+.66*Math.abs(dot(n,light));draws.push({p,depth:(p[0][2]+p[1][2]+p[2][2])/3,brightness})}
+ draws.sort((a,b)=>a.depth-b.depth);
+ for(const f of draws){let c=Math.round(113+123*f.brightness);ctx.fillStyle='rgb('+c+','+Math.round(c*.98)+','+Math.round(c*.88)+')';let p=f.p.map(proj);ctx.beginPath();ctx.moveTo(...p[0]);ctx.lineTo(...p[1]);ctx.lineTo(...p[2]);ctx.closePath();ctx.fill()}
+ if(structure){ctx.lineWidth=.75;for(const link of links){if(link.bridge&&fracture>.05)continue;let a=proj(tr(offset(nodes[link.a].p,nodes[link.a].part))),b=proj(tr(offset(nodes[link.b].p,nodes[link.b].part)));ctx.strokeStyle=link.bridge?'#e9b77a':'#64d0bb88';ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke()}for(const node of nodes){let p=proj(tr(offset(node.p,node.part)));ctx.fillStyle='#b7e0d2';ctx.beginPath();ctx.arc(p[0],p[1],1.6,0,Math.PI*2);ctx.fill()}}
+ status.textContent=tris.length.toLocaleString()+' facets · '+nodes.length+' actors · '+links.length+' bonds · '+Math.round(fracture*100)+'% separation';requestAnimationFrame(draw)}
+ requestAnimationFrame(draw);
+ let pointers=new Map(),pinch=0;
+ canvas.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,[e.clientX,e.clientY]);drag=true;canvas.setPointerCapture(e.pointerId)});
+ canvas.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;let old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);if(pointers.size===1){yaw+=(e.clientX-old[0])*.009;pitch=clamp(pitch+(e.clientY-old[1])*.007,-1.35,1.35)}else if(pointers.size===2){let p=[...pointers.values()],d=Math.hypot(p[0][0]-p[1][0],p[0][1]-p[1][1]);if(pinch)zoom=clamp(zoom*d/pinch,.55,2.5);pinch=d}});
+ function end(e){pointers.delete(e.pointerId);drag=pointers.size>0;pinch=0}canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
+ canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom*Math.exp(-e.deltaY*.001),.55,2.5)},{passive:false});
+ document.getElementById('fracture').onclick=()=>target=1;document.getElementById('rejoin').onclick=()=>target=0;document.getElementById('structure').onclick=e=>{structure=!structure;e.currentTarget.textContent='Structure: '+(structure?'ON':'OFF')};document.getElementById('reset').onclick=()=>{target=0;fracture=0;yaw=-.65;pitch=.16;zoom=1};
+})();
+</script></html>
