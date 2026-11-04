@@ -135,7 +135,7 @@ jobs:
             "${endpoint}")
           echo "Orphaned deployment status HTTP ${code}"
           cat /tmp/pages-state.json || true
-          if [ "${code}" = "200" ] && grep -Eq '"status"[[:space:]]*:[[:space:]]*"(succeed|failed|cancelled|canceled|errored)"' /tmp/pages-state.json; then
+          if [ "${code}" = "200" ] && grep -Eq '"status"[[:space:]]*:[[:space:]]*"(succeed|failed|cancelled|canceled|deployment_cancelled|errored)"' /tmp/pages-state.json; then
             echo "Already terminal; no cancellation needed"
           else
             code=$(curl -sS -o /tmp/pages-cancel.json -w '%{http_code}' -X POST \
@@ -146,6 +146,8 @@ jobs:
             cat /tmp/pages-cancel.json || true
             test "${code}" = "204" || test "${code}" = "404"
           fi
+      - name: Allow Pages cancellation lock to propagate
+        run: sleep 45
       - id: deployment
         uses: actions/deploy-pages@v4
       - name: Verify public root
