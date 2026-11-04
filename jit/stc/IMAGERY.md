@@ -1,12 +1,12 @@
 # STC — Documentary image ledger
 
-Eight distinct photographs, no reused images and no stock-image placeholders. The pictured subjects and photographers have no connection to the fictional STC institution. The thematic juxtaposition is satirical, not an assertion that photographed people participated in or endorsed the depicted business practices.
+Eight distinct photographs, no reused images and no stock-image placeholders. The hero uses the previously selected War Continuity photograph; War Continuity now uses a different image of military personnel during an attack in Kabul. The pictured subjects and photographers have no connection to the fictional STC institution. The thematic juxtaposition is satirical, not an assertion that photographed people participated in or endorsed the depicted business practices.
 
 | Placement | Place | Wikimedia Commons source | Credit |
 |---|---|---|---|
-| Hero | Bangladesh | [File](https://commons.wikimedia.org/wiki/File:Flood_affected_village.jpg) | KEmel49 |
+| Hero | Afghanistan | [Kabul displacement camp, Afghan boy](https://commons.wikimedia.org/wiki/File:An_Afghan_boy_walks_in_front_of_one_of_the_many_makeshift_homes_at_a_refugee_camp_in_Kabul,_Afghanistan,_July_28,_2011_110728-F-AK669-075.jpg) | SrA Christopher Hatch / USAF, public domain |
 | Food dependency | South Sudan | [File](https://commons.wikimedia.org/wiki/File:Refugees_queue_for_water_in_the_Jamam_camp,_South_Sudan_%287118597209%29.jpg) | Robert Stansfield / DFID |
-| War continuity | Afghanistan | [File](https://commons.wikimedia.org/wiki/File:An_Afghan_boy_walks_in_front_of_one_of_the_many_makeshift_homes_at_a_refugee_camp_in_Kabul,_Afghanistan,_July_28,_2011_110728-F-AK669-075.jpg) | SrA Christopher Hatch / USAF |
+| War continuity | Afghanistan | [Kabul attack, 13 September 2011](https://commons.wikimedia.org/wiki/File:Defense.gov_photo_essay_110913-A-XXXX-733.jpg) | U.S. Department of Defense; verify file credit |
 | Ideological alignment | Jordan / Syrian refugees | [File](https://commons.wikimedia.org/wiki/File:Refugee_children_from_Syria_at_a_clinic_in_Ramtha,_northern_Jordan_%289613477263%29.jpg) | DFID collection; verify individual attribution |
 | Child recruitment | Syria | [File](https://commons.wikimedia.org/wiki/File:Symbolic_boy_soldiers_defending_Damascus_against_terrorist_attacks.jpg) | Hossein Zohrevand / Tasnim News Agency, CC BY 4.0 |
 | Necessity pricing | Bangladesh | [File](https://commons.wikimedia.org/wiki/File:Flood_in_bangladesh.jpg) | Badal Chandra Sarker |
