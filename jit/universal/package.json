@@ -1,1 +1,1 @@
-{"name":"universal-screenplay-factory","private":true,"type":"module","scripts":{"test":"node test/phase0.mjs"}}
+{"name":"universal-screenplay-factory","private":true,"type":"module","scripts":{"test":"node test/phase0.mjs && node test/phase1.mjs"}}
