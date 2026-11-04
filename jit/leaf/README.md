@@ -252,3 +252,10 @@ During screenshot-driven refactoring, the home-campaign replacement accidentally
 The user supplied seven full-length mobile screenshots of Apple's homepage. Leaf should feel like an **actual navigable Apple-style site**: brand icon + search + bag + hamburger in a compact mobile bar; fullscreen overlay navigation; page-specific local subnav; search with results; product campaigns with huge compelling photography; compare, specs, store and bag journeys; responsive editorial grid; collapsible detailed footer. Deep links must work independently. The joke is the juxtaposition of exquisite presentation with a leaf freely growing outside. Do not conflate a route file with a finished experience.
 
 **Visual art direction:** arresting natural banana-leaf photographs, monumental and naturally torn; full-bleed, properly cropped, not CSS vector leaves, not generic unrelated plants. Image redirects are candidates, not evidence of successful loading. No victory claim without browser screenshots and link checks.
+
+### Mobile UI corrections — 2026-11-04
+
+- Secondary campaign CTAs are now opaque white with dark blue text for contrast over photography, not transparent outlines.
+- Removed diagonal arrows from card links; links are expressed through clear labels and layout, not decorative ↗ glyphs.
+- Replaced the erroneous clubs-style glyph in mobile navigation with an outlined shopping-bag SVG (body, handle), matching the cart/bag metaphor. No font-dependent symbol substitution.
+- Changes committed to shared app and stylesheet. Live rendering not yet independently inspected.
