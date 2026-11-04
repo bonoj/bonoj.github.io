@@ -612,3 +612,11 @@ Original top-level folders retired after content was copied and verified through
 - Live: https://bonoj.github.io/jit/assets/rootwork/
 - 2D branching roots, masonry stress, simplified support failure, falling stones, tap-to-direct, growth acceleration, rain, reset.
 - Performance: capped root-segment history (9,000), frame-time readout; full support and nearest-brick searches remain O(bricks) and rendering remains proportional to retained root segments. No independently verified browser smoke test.
+
+
+## Vitreous III · Spherical Pen (2026-11-04)
+
+- Entry: [`vitreous-003/`](./vitreous-003/)
+- Live: https://bonoj.github.io/jit/assets/vitreous-003/
+- Three.js/WebGL quaternion-rotated pen, fixed camera and invisible radius-constrained sphere, persistent ribbon strokes, enclosed gravity-responsive approximated ink and droplets, auto tumble, erase, reset.
+- Limitations: simplified reservoir (not fluid simulation); stroke mesh rebuilt for each new point, so long uninterrupted strokes can become expensive. Requires network access to esm.sh Three.js. Browser not independently verified.
