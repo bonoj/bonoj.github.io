@@ -28,3 +28,11 @@ GitHub source commit and read-back can be verified independently. **Live GitHub 
 ### Cold boot
 
 Read `SPEC.md`, then `index.html` and `app.js`. Use the supplied IRS screenshots as the visual contract. Do not reintroduce the old text-heavy ERS card grid or permanent desktop nav on mobile.
+
+## Link and image audit — 2026-11-04
+
+- Static route audit: all hard-coded internal href route prefixes resolve to a route branch or supported parameterized account/form handler.
+- JavaScript syntax parsed successfully after image changes.
+- Three real Wikimedia Commons documentary photographs replace generic symbols in the news cards, with alt text and source/credit links. Remote image fetching remains dependent on Wikimedia availability; broken image requests hide the image and retain source credit.
+- Source collection links remain external and were not all individually HTTP-tested. The environment could not retrieve the live GitHub Pages page; full browser click-through and image load verification are **not yet complete**.
+- The phone graphic in the account promotion remains a CSS mock interface, not a photograph; it is a visual product illustration, not a documentary image.
