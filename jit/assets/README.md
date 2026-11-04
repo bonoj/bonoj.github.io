@@ -620,3 +620,8 @@ Original top-level folders retired after content was copied and verified through
 - Live: https://bonoj.github.io/jit/assets/vitreous-003/
 - Three.js/WebGL quaternion-rotated pen, fixed camera and invisible radius-constrained sphere, persistent ribbon strokes, enclosed gravity-responsive approximated ink and droplets, auto tumble, erase, reset.
 - Limitations: simplified reservoir (not fluid simulation); stroke mesh rebuilt for each new point, so long uninterrupted strokes can become expensive. Requires network access to esm.sh Three.js. Browser not independently verified.
+
+
+### Vitreous III simplification (2026-11-04)
+
+Removed translucent barrel, liquid reservoir, bead animation, viscosity control and ink-fill UI. The pen is opaque metal; quaternion rotation and spherical drawing remain. The earlier entry description above is historical. Browser not independently verified.
