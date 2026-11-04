@@ -6,7 +6,7 @@ const vs='attribute vec2 position;void main(){gl_Position=vec4(position,0.,1.);}
 const fs=`
 precision highp float;
 uniform vec2 resolution;
-uniform float time,energy,yaw,pitch,zoom,inspect;
+uniform float time,energy,yaw,pitch,zoom,inspect;\nuniform float cuts[10];\nuniform float cutTimes[10];
 float hash(float x){return fract(sin(x*127.1)*43758.5453);}
 vec3 tentaclePoint(float id,float u){
  float angle=id*6.2831853/10.;
@@ -28,7 +28,7 @@ float smoothUnion(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);re
 float scene(vec3 p){
  float d=length((p-vec3(0.,.20,0.))/vec3(.53,.60,.53))*.53-.53;
  for(int i=0;i<10;i++){float id=float(i);vec3 prev=tentaclePoint(id,0.);
- for(int j=1;j<=5;j++){float u=float(j)/5.;vec3 next=tentaclePoint(id,u);float radius=mix(.19,.045,u);d=smoothUnion(d,sdCapsule(p,prev,next,radius),.23);prev=next;}}
+ for(int j=1;j<=5;j++){float u=float(j)/5.;vec3 next=tentaclePoint(id,u);float radius=mix(.19,.045,u);if(u<=cuts[i]+.001){d=smoothUnion(d,sdCapsule(p,prev,next,radius),.23);}\n else if(cutTimes[i]>=0.){float age=max(0.,time-cutTimes[i]);float fade=max(0.,1.-age/3.);if(fade>.001){vec3 drop=vec3(0.,-age*age*.24,0.);float piece=sdCapsule(p,prev+drop,next+drop,radius*fade);d=min(d,piece);}}prev=next;}}
  return d;
 }
 vec3 normalAt(vec3 p){float e=.009;return normalize(vec3(scene(p+vec3(e,0.,0.))-scene(p-vec3(e,0.,0.)),scene(p+vec3(0.,e,0.))-scene(p-vec3(0.,e,0.)),scene(p+vec3(0.,0.,e))-scene(p-vec3(0.,0.,e))));}
@@ -62,18 +62,18 @@ const program=gl.createProgram();gl.attachShader(program,a);gl.attachShader(prog
 gl.useProgram(program);
 const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
 const pos=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
-const uniforms={};for(const key of ['resolution','time','energy','yaw','pitch','zoom','inspect'])uniforms[key]=gl.getUniformLocation(program,key);
-let yaw=.35,pitch=.28,zoom=1,energy=1,energyTarget=1,clock=0,last=0,paused=false,inspect=true;
+const uniforms={};for(const key of ['resolution','time','energy','yaw','pitch','zoom','inspect','cuts','cutTimes'])uniforms[key]=gl.getUniformLocation(program,key);
+let yaw=.35,pitch=.28,zoom=1,energy=1,energyTarget=1,clock=0,last=0,paused=false,inspect=true;\nconst cuts=new Float32Array(10).fill(1),cutTimes=new Float32Array(10).fill(-1);
 function resize(){const r=root.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,1.25);canvas.width=Math.max(1,Math.round(r.width*d*.75));canvas.height=Math.max(1,Math.round(r.height*d*.75));gl.viewport(0,0,canvas.width,canvas.height)}
 resize();new ResizeObserver(resize).observe(root);
 function frame(ms){const dt=Math.min(.04,(ms-last)/1000||.016);last=ms;if(!paused){clock+=dt;energy+=(energyTarget-energy)*Math.min(1,dt*1.5)}
-gl.uniform2f(uniforms.resolution,canvas.width,canvas.height);
+gl.uniform2f(uniforms.resolution,canvas.width,canvas.height);gl.uniform1fv(uniforms.cuts,cuts);gl.uniform1fv(uniforms.cutTimes,cutTimes);
 gl.uniform1f(uniforms.time,clock);gl.uniform1f(uniforms.energy,energy);gl.uniform1f(uniforms.yaw,yaw);gl.uniform1f(uniforms.pitch,pitch);gl.uniform1f(uniforms.zoom,zoom);gl.uniform1f(uniforms.inspect,inspect?1:0);gl.drawArrays(gl.TRIANGLES,0,6);requestAnimationFrame(frame)}
 requestAnimationFrame(frame);status.textContent='10 independent oscillators · 1 shared volume';
 const pointers=new Map();let pinch=0;
 canvas.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,[e.clientX,e.clientY]);canvas.setPointerCapture(e.pointerId)});
 canvas.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;const old=pointers.get(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);if(pointers.size===1){yaw+=(e.clientX-old[0])*.009;pitch=Math.max(-1.4,Math.min(1.4,pitch+(e.clientY-old[1])*.007))}else if(pointers.size===2){const p=[...pointers.values()],d=Math.hypot(p[0][0]-p[1][0],p[0][1]-p[1][1]);if(pinch)zoom=Math.max(.6,Math.min(2.5,zoom*d/pinch));pinch=d}});
-function end(e){pointers.delete(e.pointerId);pinch=0}canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
+function end(e){const old=pointers.get(e.pointerId);if(old&&pointers.size===1&&Math.hypot(e.clientX-old[0],e.clientY-old[1])<12){const rect=canvas.getBoundingClientRect();const tx=(e.clientX-rect.left)/rect.width,ty=(e.clientY-rect.top)/rect.height;let best=1e9,chosen=-1,chosenU=0;for(let i=0;i<10;i++)for(let j=2;j<=5;j++){const u=j/5;if(u>cuts[i])continue;const a=i*6.2831853/10,phase=clock*(.43+hashJS(i+7))+hashJS(i+2)*6.2831853,r=.43+u*(1.05+.45*Math.sin(phase*.43+hashJS(i+11)*6.2831853)),p=[Math.cos(a)*r, .05-u*(.55+hashJS(i+5)*.65),Math.sin(a)*r];const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch),x=p[0]*cy+p[2]*sy,z=-p[0]*sy+p[2]*cy,y=p[1]*cp-z*sp;const scale=1.85/(4.7/zoom-(p[1]*sp+z*cp));const sx=.5+x*scale*rect.height/rect.width,syy=.5-y*scale;const dist=Math.hypot((sx-tx)*rect.width,(syy-ty)*rect.height);if(dist<best){best=dist;chosen=i;chosenU=u}}if(best<75&&chosen>=0){cuts[chosen]=Math.max(0,chosenU-.2);cutTimes[chosen]=clock;}}pointers.delete(e.pointerId);pinch=0}\nfunction hashJS(x){return (Math.sin(x*127.1)*43758.5453)%1<0?1+(Math.sin(x*127.1)*43758.5453)%1:(Math.sin(x*127.1)*43758.5453)%1}canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
 canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.6,Math.min(2.5,zoom*Math.exp(-e.deltaY*.001)))},{passive:false});
 document.getElementById('agitate').onclick=()=>energyTarget=2;
 document.getElementById('calm').onclick=()=>energyTarget=.25;
