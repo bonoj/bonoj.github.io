@@ -222,3 +222,17 @@ Do not mark the reference audit complete until these have been inspected. Next: 
 ### Skeleton implementation handoff
 
 Use `ROUTES.json` for the allowlisted route set and `LINKS.json` for actual links. Resolve relative to `/jit/leaf/` (GitHub Pages project path), preserving direct reload and browser history. Each route must render an intentional template, not merely a shared generic placeholder. Validate that every graph target exists in the route set, that every route is reachable from home using page/global/footer links, and that no CTA is inert. Add a simple automated link graph test before visual polish. The first verified media source page is [Banana Leaf + Sun 5](https://commons.wikimedia.org/wiki/File:Banana_Leaf_%2B_Sun_5.jpg), with a linked original JPEG and CC BY 2.0 attribution requirements; this is a reference candidate, not yet an approved hero.
+
+## Mobile reference correction — 2026-11-04
+
+User-provided full-page Apple mobile screenshots are the concrete design reference, superseding the earlier generic tile-first implementation. The key pattern is a narrow dark sticky header with brand, search, bag and hamburger; then a **vertical procession of immersive, full-width product campaigns**, alternating near-black and off-white surfaces. Each campaign has large centered typography, one line of supporting copy, two blue CTAs, and a photographic product image filling the lower viewport. Thin white gutters separate campaigns. Below: small-print legal notes and a multi-section accordion footer. Avoid a horizontal overflow of ten desktop navigation links on mobile.
+
+### Implementation correction
+
+- Replaced the CSS vector leaf drawing in home and product hero with full-height photographic panels. Photo source is now Wikimedia Commons file redirect URLs, not unverified Unsplash plant placeholders.
+- The photography is **provisional**, not art-directed or image-load tested. No claim of visual equivalence until the live mobile page is inspected.
+- Complete remaining route entrypoints, then replace the scrolling desktop nav with proper mobile brand/search/bag/menu controls and accordion footer.
+- Hero acceptance: strong subject silhouette, not just a green canopy; dramatic real banana-leaf photography, deliberate mobile crop, legible text, reliable source URL.
+- The Apple screenshots establish a concrete visual contract: black and white campaigns, full-bleed imagery, repeated blue CTA pairing, strict mobile hierarchy and footer disclosures. Don't rebuild as generic rounded cards.
+
+**Build status:** implementation exists but is incomplete and not browser-verified. Do not claim completion solely from GitHub commits.
