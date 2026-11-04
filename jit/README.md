@@ -157,3 +157,9 @@ All directories below are listed relative to `jit/`, including nested asset and 
 - [`sieve/archive/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/sieve/archive)
 - [`subnautimation/liquids/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/subnautimation/liquids)
 - [`subnautimation/terrain/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/subnautimation/terrain)
+
+## STC Capital (2026-11-04)
+
+- Standalone project: [`stc/`](./stc/)
+- Live: https://bonoj.github.io/jit/stc/
+- Fictional institutional impact-investment satire; homepage and interactive simulated investment portal. This is a standalone JIT project, not an asset.
