@@ -1,9 +1,12 @@
 # UNIVERSAL — CHRONICLE
 
-## 2026-11-04 — Foundation and cross-genre prototype
-Deterministic planning and state ledger; twelve-genre screening room; 25 authored scenario families; genre-native physical realization; shared small cross-genre combinator.
+## 2026-11-04 — Breadth-first foundation
+Deterministic planner, event-sourced state, twelve-genre reader, 25 scenario families, genre-specific realization, small cross-genre action/device/dialogue combinator.
 
-## 2026-11-04 — Breadth-first expansion
-The user explicitly prioritized width over polish. Added **555** stable genre-independent candidate primitives in five families: 130 physical, 75 social, 117 plot, 134 dialogue, 99 world. Introduced seeded fifteen-slot, five-axis breadth plans for every genre. Each generated film carries its candidate plan as diagnostic metadata; the existing reader screenplay is unchanged by these new 555 labels. Added a corpus test that checks 1,000 distinct candidate signatures per genre, not coherent-film acceptance.
+## 2026-11-04 — 555 candidate primitives
+Five universal families: physical 130, social 75, plot 117, dialogue 134, world 99. Seeded fifteen-slot plans attach candidate combinations to each film, independent of genre.
 
-**Do not conflate:** 555 catalog entries with 555 simulated event types; candidate signatures with accepted plots; fifteen scene fixtures with feature screenplays. Next work should expand causal effect schemas and compatibility across the entire catalog, then realize valid sampled sequences. Do not prematurely polish individual genres.
+## 2026-11-04 — Abstract causal contracts and replay
+Added a typed contract for **every one of the 555** candidates: effect channel, prerequisite category, effect verb. Added a five-channel abstract ledger with bounded state, rejection for a few resource-bound effects, deterministic replay, and a 12,000-plan corpus test. Abstract plans now attach to films as diagnostic metadata.
+
+**Scope honesty:** these are coarse category-level contracts, not 555 individual behavioral implementations. No object identity, ownership, individual character beliefs, physical continuity, or plot-specific payoff yet. The current screenplay renderer does not use the new abstract plans. Tests committed but exact remote execution remains unverified. Continue broad semantic modeling before prose polishing.
