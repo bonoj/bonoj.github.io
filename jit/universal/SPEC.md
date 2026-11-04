@@ -183,3 +183,31 @@ Public brand: **UNIVERSAL**. Tagline: **Every story. The same story.** The insti
 
 ---
 This v1.0 replaces the accumulated v0.2/v0.3 implementation blueprint, contradictory milestone language, genre-by-genre implementation sequence, and the old assumption that fifteen dramatic functions define fifteen generated scenes.
+
+## 13. Breadth-first implementation plan — executable variety before narrative polish
+
+**The unit of breadth is an independently applicable state transition, not an authored scene pattern.** The mug example is not a mandatory action, and a four-scene object-return arc is not a universal story shape.
+
+Build a reusable operator algebra with independent families: **physical custody and condition; movement and access; perception and belief; communication and deception; social relationships; commitments and institutions; resources and exchange; hazards and world conditions; goals and decisions; time and deadlines; identity and role; creation and destruction.** These families must remain interoperable. Plot devices are **higher-order arrangements** of transitions, not necessarily atomic operators; dialogue moves are intentional acts that may or may not change knowledge or commitments.
+
+**Coverage ledger:** for every primitive label, track catalogued → mapped to operator family → typed → executable → state-tested → rendered → consequential in accepted stories. Never present catalog count as executable count. Expand operator families in parallel so no one family dominates examples or generated output.
+
+**Planning algorithm:**
+1. Instantiate a world with agents, goals, beliefs, objects, institutions, resources, places, and time.
+2. Enumerate all currently applicable typed actions, with explicit actor and target bindings.
+3. Score candidates for goal pressure, conflict, novelty, and causal consequences without restricting genre-agnostic actions.
+4. Apply one selected transition, record provenance, and update the opportunity frontier.
+5. Permit optional dependencies, immediate reactions, delayed consequences, reversals, and independent subplots. No fixed event count or required return/payoff.
+6. Continue until meaningful terminal conditions, validate replay and outstanding obligations, then partition into scenes and render.
+7. Measure graph fingerprints and semantic diversity over thousands of seeds; reject cosmetic collisions.
+
+**Immediate integrated deliverables:**
+- **Laboratory A (touchable now):** interactive browser demonstration of several independent event families, applicable-action filtering, inspectable state, deterministic Next/Previous, and all twelve genre contexts. This is a small experimental model, not the production compiler.
+- **Engine B:** extract the laboratory's transition rules into shared tested modules, broaden operator coverage to at least ten independent families, and add explicit goal and knowledge semantics.
+- **Composer C:** replace hand-selected twelve-event traces with variable-length, goal-directed causal graph search, rejected-action diagnostics, and structural fingerprints.
+- **Screenplay D:** render those event graphs into the actual reader, replacing fixture inserts; test semantic changes across all genres.
+- **Corpus E:** evaluate 1,000 accepted structurally distinct event graphs per genre and inspect representative full outputs.
+
+**Breadth guardrails:** no mandatory object, witness, theft, confession, deadline, drop, return, or fixed sequence. Never force every event into a four-beat payoff. Avoid writing more genre-specific plot families while the universal composer remains disconnected. A demo may use authored prose, but must disclose that limitation.
+
+**Current touchpoint:** [Causal Laboratory](laboratory.html). It contains six event families and twelve executable variants in a standalone browser experiment. The production generator does not yet consume its events. Its variety demonstrates the interface and applicability concept, **not** full causal coherence, meaningful screenplay diversity, or 555 implemented behaviors.
