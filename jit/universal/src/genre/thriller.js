@@ -1,5 +1,6 @@
 import {choose,stream} from '../core/prng.js';
 import {architectureFor} from '../story/architectures.js';
+import {dialogueFor,validateDialogueIntent} from '../language/dialogue.js';
 const leads=['MARA VALE','ELI ROWAN','NINA CALDER','THEO MERCER','IRIS BELL','JONAH REED'];
 const allies=['ADA VOSS','LEON PRICE','RUTH HALE','SAMIR CROSS','JUNE WARD','MICAH STONE'];
 const opponents=['DIRECTOR KELL','COMMISSIONER DANE','INSPECTOR RUSK','CHAIR MORROW','DEPUTY SHAW'];
@@ -14,4 +15,4 @@ const exterior=new Set(['TRANSIT PLATFORM','CIVIC PLAZA','DOCK','RIVERBANK','SER
 const timeFor=i=>i===14?'DAWN':i>=10?'NIGHT':'DAY';
 export const THRILLER={id:'thriller',version:3};
 export function thrillerWorld(filmId){const c=stream(filmId,'casting'),a=architectureFor(filmId);return {lead:choose(c,leads),ally:choose(c,allies),opponent:choose(c,opponents),architecture:a.id,title:a.title,location:a.location,premise:'An ordinary professional discovers an institutional failure and must decide whether to act without permission.',story:a};}
-export function realizeThriller(filmId){const w=thrillerWorld(filmId);const scenes=w.story.actions.map((action,i)=>{const location=places[w.architecture][i];return {number:i+1,functionId:functions[i],location,heading:(exterior.has(location)?'EXT. ':'INT. ')+location+' - '+timeFor(i),participants:[...new Set(speakerPattern[i].map(role=>w[role]))],blocks:[{type:'action',text:action},...w.story.lines[i].flatMap((line,j)=>[{type:'character',text:w[speakerPattern[i][j]]},{type:'dialogue',text:line}])]};});return {world:w,scenes};}
+export function realizeThriller(filmId){const w=thrillerWorld(filmId);const scenes=w.story.actions.map((action,i)=>{const location=places[w.architecture][i];const dialoguePlan=dialogueFor(filmId,i,speakerPattern[i],functions[i],w);const scene={number:i+1,functionId:functions[i],location,heading:(exterior.has(location)?'EXT. ':'INT. ')+location+' - '+timeFor(i),participants:[...new Set(speakerPattern[i].map(role=>w[role]))],dialoguePlan,blocks:[{type:'action',text:action},...w.story.lines[i].flatMap((line,j)=>[{type:'character',text:w[speakerPattern[i][j]]},{type:'dialogue',text:line}])]};validateDialogueIntent(scene);return scene;});return {world:w,scenes};}
