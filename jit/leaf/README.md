@@ -259,3 +259,7 @@ The user supplied seven full-length mobile screenshots of Apple's homepage. Leaf
 - Removed diagonal arrows from card links; links are expressed through clear labels and layout, not decorative ↗ glyphs.
 - Replaced the erroneous clubs-style glyph in mobile navigation with an outlined shopping-bag SVG (body, handle), matching the cart/bag metaphor. No font-dependent symbol substitution.
 - Changes committed to shared app and stylesheet. Live rendering not yet independently inspected.
+
+### Cache invalidation — 2026-11-04
+
+Every one of the 24 deep-link HTML entrypoints now references `style.css?v=20261104-b5180ebc` and `app.js?v=20261104-b5180ebc` with depth-correct relative paths. This invalidates previously cached shared assets once the updated HTML is served. No claim of successful Pages deployment: live URL inspection remains unavailable from the current environment. Future shared asset changes must increment the asset version in every entrypoint or adopt content-hashed filenames.
