@@ -156,8 +156,13 @@ const agency=establishAgency(roles);const total=65+integer(r,26),scenes=[],acts=
 const title=choose(r,['The Ordinary Matter of','A Reasonable Account of','An Arrangement Concerning','The Last Days of','A Brief History of','The Unfinished Business of'])+' '+choose(r,[w[6],w[8],w[5],w[7]]);
 for(let i=0;i<total;i++){
 const phase=acts.findIndex((v,j)=>j<acts.length-1&&i>=v&&i<acts[j+1]);
-const A=people[(i+integer(r,people.length))%people.length],B=choose(r,people.filter(p=>p!==A)),O=w[5],place=choose(r,w.slice(0,5));
-const available=options(state,A,B);const selected=selectAction({available,actor:A,target:B,agency,state,rng:r,phase,used,previous:state.history.at(-1)});
+const A=i%4===0?people[0]:people[integer(r,people.length)],B=choose(r,people.filter(p=>p!==A)),O=w[5],place=choose(r,w.slice(0,5));
+const available=options(state,A,B);
+if(phase===3&&i>=total-8){
+ const payoff=available.filter(k=>['fulfill','reconcile','reveal','repair','unlock','return'].includes(k));
+ if(payoff.length)available.splice(0,available.length,...payoff);
+}
+const selected=selectAction({available,actor:A,target:B,agency,state,rng:r,phase,used,previous:state.history.at(-1)});
 const k=selected.type;used.set(k,(used.get(k)||0)+1);const motive=registerDecision(agency,A,B,k);
 const before=JSON.stringify(state);apply(state,k,A,B);const action=replace(choose(r,templates[k]),A,B,O);
 const contextual=conversation({type:k,actor:A,target:B,object:O,deadline:w[7],problem:w[6],agency,random:r,history:state.history.slice(0,-1)});
@@ -172,6 +177,7 @@ if(exchange%2===0)blocks.push({type:'action',text:choose(r,[A+' looks toward the
 if(i%7===0)blocks.push({type:'action',text:choose(r,['Outside, the ordinary business of the day continues.','Someone has left the lights on.','A distant sound interrupts the silence.','No one volunteers to be the first to leave.'])});
 scenes.push({number:i+1,functionId:'feature-'+phase,heading:(['DRY RIVERBED','SEASIDE PIER','GARDEN','CITY PARK','ROOFTOP','BRIDGE','ALLEY','FOREST CLEARING','ANCIENT ROAD','TRAIN PLATFORM'].includes(place)?'EXT. ':'INT. ')+place+' - '+(i%6===0?'NIGHT':'DAY'),location:place,participants:[A,B],blocks,event:{type:k,actor:A,target:B,motive,before,after:JSON.stringify(state)}});
 }
-const film={identity:{id,genre,ordinal},title,genre,architecture:'autonomous-feature-v1',cast:{protagonist:people[0],ally:people[1],opponent:people[2]},characters:roles,premise:w[6],scenes,causality:{version:1,events:state.history,final:state,distinctOperators:used.size,fingerprint:fingerprint(state.history),agency:analyzeAgency(agency,state.history)},stage:'autonomous-feature-prototype'};
+const unresolvedPromises=Object.values(state.promises).reduce((n,x)=>n+x,0);
+const film={identity:{id,genre,ordinal},title,genre,architecture:'autonomous-feature-v1',cast:{protagonist:people[0],ally:people[1],opponent:people[2]},characters:roles,premise:w[6],scenes,causality:{version:1,events:state.history,final:state,distinctOperators:used.size,fingerprint:fingerprint(state.history),agency:analyzeAgency(agency,state.history),unresolvedPromises},stage:'autonomous-feature-prototype'};
 validateScreenplay(film);film.fountain=fountain(film);return film;
 }
