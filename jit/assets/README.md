@@ -538,3 +538,15 @@ This JSON is the canonical machine-friendly snapshot. `path` is repository-relat
 - Canvas2D illustrated-stone composition: irregular silhouettes, facet shading, shared-direction strata, branching cracks, edge glints, layered outcrop, and talus. Controls: Grow, Erode, New formation, drag to pan.
 - Evaluation: individual rocks have useful visual features, but the overall outcrop reads as overlapping stickers rather than a continuous geological mass. Strata are visually parallel but not structurally continuous. Preserve as a negative example and source of stone-rendering techniques.
 - Source archived; live browser runtime not independently verified.
+
+
+### Pelagic I · The Ocean
+- Entry: [pelagic-shockwave/](./pelagic-shockwave/)
+- Live URL: https://bonoj.github.io/jit/assets/pelagic-shockwave/
+- WebGL ocean study with normal-derived lighting, additive ring impulses, rain toggle and reset. **Not** Caldera's original water treatment. Preserved as a distinct unsuccessful comparison.
+
+### Pelagic II · Disturbance
+- Entry: [pelagic-original-water/](./pelagic-original-water/)
+- Live URL: https://bonoj.github.io/jit/assets/pelagic-original-water/
+- WebGL study restoring Caldera's turquoise water colors, sine-wave crest highlights, tone mapping, and foam/noise treatment. Shockwave rings warp the original wave coordinates and add interference-driven crest brightness. User assessment: **shockwaves are terrible**. Preserve before further iteration.
+- Both source artifacts committed; live browser behavior not independently verified.
