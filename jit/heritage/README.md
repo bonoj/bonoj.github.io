@@ -75,3 +75,24 @@ Every portrait, building, document and detail must belong to its subject. Avoid 
 
 ### Next pass
 Before implementation, do a cleanup pass reconciling earlier sections with this curation-first direction: replace the earlier 'catalog + premium package configurator' emphasis with curated prospectuses, decide how many exemplary listings to fully realize, establish a distinctive art system, and identify the smallest complete interactive slice. **Do not implement in this spec-only turn.**
+
+
+## Proposed division — Rehabilitation & Repatriation (2026-11-04)
+**Concept captured; not committed to the initial build.** HERITAGE's Distressed Provenance division treats historical notoriety as an illiquid identity asset with extraordinary reputational encumbrances. The signature conceit: **the worse the reputation, the higher the rehabilitation fee**. A prospective client is not necessarily buying the identity; they may be purchasing the institution's impossible promise to make it socially desirable again.
+
+### The Unrecoverable Collection
+A restricted, austere division for names whose historical liabilities exceed conventional stewardship. Adolf Hitler is an extreme thought experiment: overwhelming name recognition combined with responsibility for Nazi aggression, genocide and the Holocaust. The institution's proposed separation of reputational value from historical responsibility is morally grotesque; the satire depends on stating the atrocities accurately, never denying, excusing or minimizing them. **Do not render Hitler or other perpetrators as glamorous, collectible luxury merchandise.** If used at all, real perpetrators appear only as historically accurate, non-purchasable case studies, not interactive acquisitions. Invented composite disgraced figures may serve as interactive dossiers.
+
+### Institutional voice / sample
+- Division: **REHABILITATION & REPATRIATION**
+- Collection: **THE UNRECOVERABLE**
+- Descriptor: 'For identities whose historical liabilities exceed conventional stewardship capabilities.'
+- Dossier fields: Reputational Encumbrances — Exceptional; Public Recognition — Near Universal; Acquisition Terms — By Private Negotiation.
+- The institution's chilling fictional doctrine: 'Historical responsibility remains with the original holder. Reputational value may be reassigned independently.'
+- No triumphant military aesthetics, heroic portraits, celebratory framing, or exculpatory revisionism. Use heavily annotated, austere, documentary styling; explicit historical record remains intact.
+
+### Editorial role
+This is a boundary-testing satirical idea, not necessarily a homepage product. It can be omitted entirely, held as an internal concept, or represented by invented historical villains in a later release. Do not let the most notorious case overwhelm the core property-like curation of exceptional lives.
+
+## Scope discipline
+This README is an idea reservoir as well as a product specification. **Recording a package does not mean implementing it.** The next cleanup pass should select a coherent, small first-release collection, prioritize one complete dossier and acquisition interaction, and explicitly defer other divisions. Do not build in this spec update.
