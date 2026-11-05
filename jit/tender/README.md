@@ -6,15 +6,9 @@
 >
 > *“Forgiveness is no longer something you have to ask for.”*
 
-## Portable idea bank
-
-Adjacent concepts and alternate projects now live in the independent **[SUBVERSION](../subversion/README.md)** idea bank. It is **not** part of TENDER's canonical scope.
-
 ## Origin and intent
 
-The creative exploration began with a desire for easy corporate targets around which to build **deeply unsettling experiences**, rather than investing in a new elaborate simulation or merely another polished corporate satire. Previous ideas included a third-party customer retention/debt-collection analogue (RETAIN), an artisanal human-organ butcher marketplace, and a sadistic farm-to-table experience. The organ concept involved impeccable provenance and ethically monstrous product listings; the farm monetized emotional attachment and grief. Those are **adjacent inspirations, not TENDER features**.
-
-TENDER emerged as the standout concept: **an impeccably tasteful luxury service that outsources emotion**. The user loved both the premise and the evocative image of a minimalist luxury spa. The user's decisive observation: **“Jesus. It's like a confessional.”** This transformed the conceptual center of gravity from a satirical wellness marketplace into **confession and absolution as a luxury subscription service**.
+TENDER emerged as **an impeccably tasteful luxury service that outsources emotion**. The user loved both the premise and the evocative image of a minimalist luxury spa. The user's decisive observation: **“Jesus. It's like a confessional.”** This transformed the conceptual center of gravity from a satirical wellness marketplace into **confession and absolution as a luxury subscription service**.
 
 Preserve that revelation. Do not reduce TENDER to a generic dashboard, parody startup, or overt horror site.
 
@@ -153,7 +147,7 @@ A new user-suggested motif is **cemeteries/graveyards**: anonymous graves, prest
 
 No stock images, portraits, cemetery photos, licenses, or real biographies have been chosen or committed. Avoid identifying real deceased people as fictional TENDER practitioners.
 
-## What is NOT decided
+## Open decisions for future iterations
 
 - Final site architecture, navigation, page count, exact animation/sound implementation.
 - Whether visitors can enter their own confessions, select fictional scenarios, or both.
@@ -162,18 +156,13 @@ No stock images, portraits, cemetery photos, licenses, or real biographies have 
 - Final product pricing beyond illustrative $249/month and $490/month.
 - Actual photo assets or licensing.
 - Whether the reveal is a single moment or gradually distributed across services.
-- Any public launch or deployment. **Nothing has been built here yet.**
-
-## Adjacent concept lineage — context, not scope
-
-The broader creative conversation explored corporate horror with deadpan realism: Workday applications, insurance denials, credit scoring, privacy consent, identity verification, LinkedIn professional afterlife, and third-party customer retention (RETAIN). A later exploration proposed **THE WHOLE HUMAN**, a premium artisanal human-organ marketplace with donor provenance, and **KINDRED FARMS**, an idyllic farm optimized for emotional yield rather than food production. **HERITAGE STOCK** monetized family ancestry. TENDER distinguished itself through emotional outsourcing and its resemblance to a confessional. Preserve these distinctions rather than merging the projects.
 
 ## First implementation — 2026-11-04
 
 The standalone [index.html](index.html) now implements an Aman-inspired editorial sanctuary with persistent **TRANSFER**, service catalog, Continuous Absolution, practitioner legacy, fictional stewardship KPIs, and a client/practitioner transfer consultation. Transfer progress is a staged local-only interaction; the practitioner burden persists at the end of the consultation. No backend or external data submission. Photography is provisional Unsplash imagery and may need replacement; no real-world practitioner biographies are intended. GitHub commit: `fa8b75387b42e65119366bdd91ba4464c3181d07`. Public deployment has **not** been independently confirmed; do not claim it is live solely from this commit.
 
-## Next build
+## Next iteration
 
-Begin with a visually exquisite, credible landing experience for TENDER and a short service/consultation path ending in the burden-transfer reveal. Make it genuinely usable on mobile. Maintain quiet confidence. Do not preemptively turn the premise into generic corporate satire, a lengthy specification UI, or a complex simulation.
+Refine the existing landing experience and consultation path, particularly mobile usability, imagery, and the burden-transfer reveal. Maintain quiet confidence. Do not turn the premise into generic corporate satire, a lengthy specification UI, or a complex simulation.
 
 Follow `jit/README.md` and the repository's established deployment machinery before shipping. This document is the **creative source of truth** for future cold boots.
