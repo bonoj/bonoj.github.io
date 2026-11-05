@@ -1,6 +1,6 @@
 # TENDER — Creative specification / cold-boot handoff
 
-**Status:** concept captured, not implemented or deployed. **Date:** 2026-11-04. **Location:** `bonoj/bonoj.github.io/jit/tender/`.
+**Status:** first standalone site implemented and committed; public Pages delivery not independently verified. **Date:** 2026-11-04. **Location:** `bonoj/bonoj.github.io/jit/tender/`.
 
 > **TENDER. Feel less. Live more.**
 >
@@ -167,6 +167,10 @@ No stock images, portraits, cemetery photos, licenses, or real biographies have 
 ## Adjacent concept lineage — context, not scope
 
 The broader creative conversation explored corporate horror with deadpan realism: Workday applications, insurance denials, credit scoring, privacy consent, identity verification, LinkedIn professional afterlife, and third-party customer retention (RETAIN). A later exploration proposed **THE WHOLE HUMAN**, a premium artisanal human-organ marketplace with donor provenance, and **KINDRED FARMS**, an idyllic farm optimized for emotional yield rather than food production. **HERITAGE STOCK** monetized family ancestry. TENDER distinguished itself through emotional outsourcing and its resemblance to a confessional. Preserve these distinctions rather than merging the projects.
+
+## First implementation — 2026-11-04
+
+The standalone [index.html](index.html) now implements an Aman-inspired editorial sanctuary with persistent **TRANSFER**, service catalog, Continuous Absolution, practitioner legacy, fictional stewardship KPIs, and a client/practitioner transfer consultation. Transfer progress is a staged local-only interaction; the practitioner burden persists at the end of the consultation. No backend or external data submission. Photography is provisional Unsplash imagery and may need replacement; no real-world practitioner biographies are intended. GitHub commit: `fa8b75387b42e65119366bdd91ba4464c3181d07`. Public deployment has **not** been independently confirmed; do not claim it is live solely from this commit.
 
 ## Next build
 
