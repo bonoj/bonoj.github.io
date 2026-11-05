@@ -147,6 +147,83 @@ This captures the ideas explored in the same creative thread, including ideas th
 
 **Creative lineage:** Swift's *A Modest Proposal* (a grotesque policy justified with sober institutional reasoning), the Place of Happy Release in *The City of Gold and Lead* (a euphemism normalized into civilization), and Gil Fulbright's institutional candor. TENDER remains its own separate implementation.
 
+## EUTHANASIA — The Eighth Continent
+
+**Status:** proposed satirical micronation / possible future site. The user explicitly proposed building it, but asked to determine its location first. No site, legal entity, territory, or sovereignty has been established. Preserve the concept without prematurely committing to a particular location or implementing it inside TENDER.
+
+### The foundational joke
+
+**EUTHANASIA — THE EIGHTH CONTINENT.**
+
+The joke is **Asia → euthanasia**, presented with the geographic confidence of a newly discovered continent. Its humor works at several levels: an apparently exotic place name, the actual meaning of *euthanasia*, the phonetic Asia connection, and an entire national identity following the implication to its absurd conclusion. **Do not explain the pun on the fictional public-facing site.** Recognition may be immediate or delayed.
+
+The preferred tourism line emerged from the Terry Pratchett-style fire joke (a man set on fire is warm for the rest of his life):
+
+> **Come for the scenery. Stay for the rest of your life.**
+
+Other candidate copy, not all equally canonical:
+- **Euthanasia — The Last Place You'll Ever Need.**
+- **Come for a lifetime. Stay for the rest of it.**
+- **A nation without a tomorrow.**
+- **Every nation dreams of leaving something for future generations. Euthanasia promises not to trouble them.**
+
+The founding conceit is not merely a death-themed resort. It is a **country**, complete with a straight-faced government, constitutional and diplomatic pretensions, infrastructure, tourism board, and national mythology. Its policies and marketing are serenely sincere.
+
+### Geographic ambition: a homeland, however implausible
+
+Initial proposal: **find an abandoned offshore oil rig or island and simply declare it ours**, following the spirit of the Principality of Sealand. A tiny physical footprint is sufficient: wind could carry away ashes, or the republic could offer burial at sea. The user's later and stronger formulation is **the eighth continent** rather than just another micronation.
+
+Explored real-world precedents and candidate structures:
+- **HM Fort Roughs / Sealand**, off Suffolk in the North Sea: the architectural and micronational precedent; already claimed and occupied by Sealand, not available.
+- **Republic of Rose Island**, formerly off Rimini in the Adriatic: a historical platform micronation, subsequently demolished; precedent, not a live site.
+- **Shivering Sands Fort**, Thames Estuary: evocative name, abandoned sea-fort towers; assistant's initial favorite, **not chosen by the user**.
+- **Knock John Fort**, Thames Estuary: compact two-column fort, structurally evocative of Sealand; unselected.
+- **Red Sands Fort**, Thames Estuary: dramatic surviving fort towers, with preservation interests; unselected.
+- **Abandoned oil rigs or small islands:** desired category, but no verified available property identified.
+
+Then the user asked whether continental plates exist entirely underwater, because **“Euthanasia, the 8th continent”** is central to the concept. Geological exploration considered:
+- **Zealandia:** mostly submerged continental mass, but exposed in New Zealand and New Caledonia; not entirely underwater.
+- **Louisiade Plateau:** submerged continental-crust candidate in the Coral Sea.
+- **William's Ridge:** submerged continental fragment near the Kerguelen Plateau.
+- **Mauritia:** fragmented ancient continental crust in the Indian Ocean / Mascarene region.
+
+**Geological precision:** continental crust or a microcontinent is not the same thing as a separate tectonic plate, and a submerged fragment is not automatically a recognized eighth continent. A submerged geological homeland is a marvelous *fictional* claim, not a basis for legal sovereignty. **No location has been selected, no ownership/access rights verified, and no actual claim made.** Any future geographic choice requires fresh verification of geology, location, property, maritime jurisdiction, conservation status, and safety. No boarding or occupation of abandoned infrastructure is implied or authorized by this satire.
+
+Potential arrangement: a symbolic claim over an entirely submerged continental fragment, with a tiny offshore **embassy / departures pavilion** above the water. The republic has a vast imagined homeland and almost no dry land. Its geography becomes part of the joke: **a continent nobody can stand on**.
+
+### National institutions and civic absurdities
+
+The national infrastructure was sketched as deliberately small:
+- **Immigration:** open to all; emigration historically negligible.
+- **Citizenship:** granted upon arrival; valid for life.
+- **Housing:** minimal long-term accommodation.
+- **Tourism:** visitors rarely complain about their stay.
+- **Waste / memorial services:** burial at sea or dispersal of ashes, treated as proposed fictional motifs rather than an operational plan.
+- **Population:** a state whose citizenry never accumulates; negative population growth is a national achievement.
+- **National debt:** boasts of having no intergenerational obligations.
+- **National anthem:** a single sustained note followed by respectful silence.
+- **Diplomacy:** a Ministry of Foreign Affairs, diplomatic correspondence, and an absurdly formal claim to recognition.
+- **Sustainability:** an immaculate annual report whose demographic and environmental claims reveal the moral absurdity.
+- **Permanent staff:** the registrar may be the country's sole permanent resident.
+
+Architecture: a retired offshore platform, windswept observation deck, elegant reception pavilion, and exceptionally efficient **departures terminal**. Imagine **Sealand meets Aman Resorts meets the Place of Happy Release**. The official presentation should be luxurious, solemn, restrained, and untroubled by its own logic.
+
+### Satirical lineage and tone
+
+- **Jonathan Swift, *A Modest Proposal*:** a horrifying proposition developed with impeccable administrative and economic reasoning.
+- **John Christopher, *The City of Gold and Lead*:** the **Place of Happy Release**, an institutional euphemism normalized into an entire society. The institution does not consider itself monstrous.
+- **Gil Fulbright:** a political-advertising persona that says the quiet institutional incentives aloud.
+- **TENDER:** compassion, luxury, and morally inverted services presented with complete professional sincerity.
+
+The central insight: **an institution that has solved the wrong problem perfectly**. It announces everything openly, in beautiful language, and assumes the visitor will be delighted. Do not puncture the illusion with a satirical wink or explanatory disclaimer. The joke should be discoverable from the institution's own official documents and operations.
+
+### Open decisions
+
+1. Choose between an actual abandoned offshore structure, a submerged continental fragment with a symbolic embassy, or another geographical model.
+2. Verify the physical/geological facts before naming a real site as the republic's address.
+3. Decide whether the first artifact is a declaration of independence, tourism portal, constitution, annual report, or complete institutional website.
+4. Preserve the title **EUTHANASIA — THE EIGHTH CONTINENT** and the **Asia → euthanasia** joke regardless of the eventual physical location.
+
 ## Cross-project design lessons
 
 - Corporate horror is strongest when the company **behaves rationally according to a horrifying objective**, not when it randomly behaves like a villain.
