@@ -6,6 +6,10 @@
 >
 > *“Forgiveness is no longer something you have to ask for.”*
 
+## Portable idea bank
+
+Adjacent concepts and alternate projects live in **[SUBVERSION](subversion.md)**. This file is deliberately disposable and can be migrated into another project or forgotten entirely; it is **not** part of TENDER's canonical scope.
+
 ## Origin and intent
 
 The creative exploration began with a desire for easy corporate targets around which to build **deeply unsettling experiences**, rather than investing in a new elaborate simulation or merely another polished corporate satire. Previous ideas included a third-party customer retention/debt-collection analogue (RETAIN), an artisanal human-organ butcher marketplace, and a sadistic farm-to-table experience. The organ concept involved impeccable provenance and ethically monstrous product listings; the farm monetized emotional attachment and grief. Those are **adjacent inspirations, not TENDER features**.
