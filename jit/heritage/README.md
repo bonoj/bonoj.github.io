@@ -96,3 +96,52 @@ This is a boundary-testing satirical idea, not necessarily a homepage product. I
 
 ## Scope discipline
 This README is an idea reservoir as well as a product specification. **Recording a package does not mean implementing it.** The next cleanup pass should select a coherent, small first-release collection, prioritize one complete dossier and acquisition interaction, and explicitly defer other divisions. Do not build in this spec update.
+
+
+## Additional proposed packages — portfolio expansion (2026-11-04)
+**Concept inventory only. None of these packages is automatically in the first build.** Pricing is invented, satirical and illustrative. All example rights transfers are part of HERITAGE's fictional institutional doctrine, not actual lawful transfer of academic credentials, military honors, reputations or royal status.
+
+### THE LAST HEIR — Dynastic Acquisitions
+*An extinction event is an acquisition opportunity.*
+Dying noble houses, childless dynasties and discontinued family lines are offered as succession opportunities. HERITAGE claims to broker continuity of a family whose descendants are absent or unwilling to carry it. **From £8,500,000.**
+Presentation: ancestral portrait galleries, family trees with a conspicuous final branch, grand estates, succession dossiers and a discreet invitation to become the next heir.
+
+### THE ALUMNUS — Institutional Provenance
+*Your education deserves a more distinguished history.*
+A curated academic identity with fictional alumni connections, family traditions, portraits and generations of institutional affiliation. The joke is buying the appearance of legacy without attendance. **From £1,200,000.**
+Presentation: cloisters, college portraits, donor plaques, academic correspondence, invented institutional genealogies. Never issue usable counterfeit diplomas or misrepresent real enrollment.
+
+### VALOR — Distinction Transfer
+*Some sacrifices deserve a second beneficiary.*
+HERITAGE purports to separate heroic biography, military decorations and distinction from the original service member and transfer the prestige to a purchaser. **From £680,000.**
+Presentation: medals on velvet, service chronology, letters, campaign maps, the bureaucratic obscenity of 'reassigned sacrifice.' No real medals or service records represented as transferable official honors.
+
+### THE AUTHOR — Intellectual Estates
+*Originality is an expensive inconvenience.*
+A fictional scholarly legacy assembled from publications, discoveries, intellectual reputation and the appearance of decades spent contributing to humanity. **From £2,750,000.**
+Presentation: archival manuscripts, marginalia, annotated scientific illustrations, personal libraries, bibliographies and letters. The satire targets the appropriation of credit, not actual plagiarism services or falsified academic records.
+
+### THE RESTORATION — Sovereign Services
+*History occasionally selects the wrong monarch.*
+An extinct royal house is ceremonially reinstantiated around a purchaser, with fictional succession, heraldry and a newly commissioned court. **From £42,000,000.**
+Presentation: throne rooms, dynastic seals, royal genealogies, state portraits, investiture invitations and palace imagery. No claims of genuine sovereignty or official peerage.
+
+### THE ABSOLUTION — Reputational Disposal
+*A clean past is a luxury few can inherit.*
+The inverse of prestige acquisition: HERITAGE claims to assume custodianship of the buyer's unwanted history, including scandal, guilt, debts and disgrace, as a fictional premium service. **From £950,000.**
+Presentation: an immaculate archival transfer desk, sealed records, reassigned encumbrances and the eerie calm of a firm treating moral responsibility as inventory. No actual deletion of records, concealment of crimes, evasion of creditors or transfer of legal liability.
+
+### Residual Provenance Management — secondary market
+The logical consequence of THE ABSOLUTION: every acquired magnificent identity has an equally elaborate discarded history. HERITAGE accumulates undesirable pasts as inventory. The fictional secondary market trades unwanted guilt, scandal, debt and disgrace, and must eventually find a custodian for the residue. The site can gradually reveal this shadow portfolio through dossier footnotes, accounting entries, provenance chains and a restricted archive. This is the narrative spine that links prestige acquisition with disposal.
+
+### Proposed first-build shortlist, not a binding decision
+A coherent initial slice could feature **THE LAST HEIR**, **ESTATE RELEASE**, and **THE ABSOLUTION**. Together they demonstrate succession, acquisition and disposal without implementing every division. Preserve the rest as optional future experiences until the specification cleanup and implementation-scope decision.
+
+### Visual references for these packages
+THE LAST HEIR: old family oil paintings and an empty branch on a genealogical chart.
+THE ALUMNUS: ivy-covered stone cloisters and academic portraiture.
+VALOR: antique decorations arranged on dark velvet.
+THE AUTHOR: manuscripts, scientific sketches and a scholar's library.
+THE RESTORATION: a vacant throne in an extravagant palace.
+THE ABSOLUTION: a dark mourning room or sealed archival records.
+These are art-direction references, not instructions to reuse a single stock image or to depict fictional subjects as genuine historical people.
