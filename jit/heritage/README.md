@@ -45,3 +45,33 @@ Standalone HTML/CSS/JS under jit/heritage/, no framework or backend. Build in a 
 
 ## Core satirical insight
 HERITAGE doesn't sell titles; it sells **recognition**. Pedigree is manufactured by other people agreeing to treat it as real. The first generation pays. The second belongs. The third forgets there was a transaction.
+
+
+## Experience direction — exceptional-property curation (2026-11-04)
+**This section supersedes the earlier configurator-first emphasis.** The primary site experience is the curation and acquisition of exceptional *lives*, treated with the reverence, photographic richness, specificity, and salesmanship of a high-end estate agency (the user's reference is JIT Hausgeist). The identity composer becomes a secondary, post-selection experience. HERITAGE should not feel like a novelty title store, generic ecommerce catalog, or collection of credential toggles.
+
+### Visitor journey
+1. **Arrival:** cinematic editorial introduction, institutional authority, a compelling featured acquisition, and the line 'Extraordinary lives. Available now.' Distinctive family-office / antiquarian-auction-house design.
+2. **Browse the collection:** portrait-led listings of remarkable individuals, dynasties, lineages, academic and military careers, social networks, cultural legacies and discontinued houses. Curation over volume. Every listing must feel as singular and researched as an exceptional property.
+3. **Inspect a dossier:** the equivalent of an estate prospectus: large portrait, ancestral homes and archival imagery, life chronology, family tree, achievements, relationships, institutional connections, distinctions, provenance chain, encumbrances, acquisition status, and price. Make it feel like buying *an entire existence*, not an itemized list of badges.
+4. **Request Instantiation:** the primary action on a dossier, replacing a conventional 'Add to Cart' or 'Schedule a Viewing.' The acquisition transitions into a preview of the client's newly inherited/assembled public identity. This is fictional transformation, not an actual credential.
+5. **Discover Your Valuation:** a discreet but disturbing navigation entry inviting the visitor to assess the market value of their *own* identity. This reverses the gaze: the browser discovers that they, too, can be inventory. Use a local, theatrical, invented valuation rather than collecting personal data.
+6. **Private Collections:** high-end curated whole-life and whole-dynasty offerings; the most prestigious acquisitions are entire houses, not individuals.
+
+### Example fictional listings — illustrative copy, not historical claims
+- **Admiral Edmund Vale**, 1812–1889, Hampshire — Military provenance / Estate Release. Three naval campaigns, two royal commendations, tradition of service. Indicative £2,850,000.
+- **The Ashcombe Line**, established 1638, Oxfordshire — Dynastic provenance / Continuity. Eleven generations of academic distinction, parliamentary association, selective philanthropy. Indicative £18,400,000.
+- **Professor Julian Wren**, 1924–1997, Cambridge — Academic provenance / Nullified. A celebrated intellectual legacy separated from its original custodians. Indicative £740,000.
+These are fictional sample subjects; build original distinct portraits and supporting imagery for each. Do not imply these people or their claimed honors are real.
+
+### Dossier commercial details
+Each acquisition should include a formal inventory with fields such as: Name (Available for Reassignment), Ancestral Continuity (Eleven Generations), Institutional Associations (Four), Original Custodians (Displaced), Reputational Encumbrances (Resolved), Acquisition Status (Immediate Possession). The euphemistic bureaucratic precision is the joke. Keep the emotional weight of a life and its history; do not reduce it to a simplistic game-stat sheet.
+
+### Interaction priorities
+The core interaction is **browsing → becoming fascinated with a life → opening its dossier → requesting instantiation → witnessing its provenance attached to the visitor**. Secondary actions include browsing acquisition channels (Estate Release, Nullification, Continuity), private collection requests, and the self-valuation reveal. The 'DECLARE ORIGINAL HOLDER NULL' action can appear contextually within a Nullification dossier; it should not dominate the site or imply that the user can nullify real people's rights. Use fully fictional characters and locally generated fictional paperwork.
+
+### Creative and implementation quality bar
+Every portrait, building, document and detail must belong to its subject. Avoid reused hero images, repeated photos, random mismatched imagery, generic cards, and cramped mobile gutters. Editorial hierarchy, archival authenticity, restrained motion, a richly detailed individual dossier and credible absurd pricing are essential. The site should remain entirely in character; explanations of satire belong in this README, not on the public page. The institution must seem to believe its own doctrine completely.
+
+### Next pass
+Before implementation, do a cleanup pass reconciling earlier sections with this curation-first direction: replace the earlier 'catalog + premium package configurator' emphasis with curated prospectuses, decide how many exemplary listings to fully realize, establish a distinctive art system, and identify the smallest complete interactive slice. **Do not implement in this spec-only turn.**
