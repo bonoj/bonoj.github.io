@@ -114,6 +114,39 @@ This captures the ideas explored in the same creative thread, including ideas th
 
 **Subversion:** The sincerity of the experience makes the rejection sting. The user objected to preemptively diluting the premise on imagined IP concerns or silently redirecting the intended audience. Preserve the original conceit; don't turn it into a generic wizard-school parody by default.
 
+## Etymological Betrayals — words that turn against their ancestors
+
+**Status:** exploratory vein, not an approved build. This is a search for *semantic contradiction within a word family*, not a catalog of alliterative business names.
+
+**The mechanism:** Two words share a genuine etymological root, but their modern senses have drifted until one undermines the dignity, purpose, or promise of the other. A fictional institution can take the contradiction literally, remain perfectly sincere, and execute the wrong objective impeccably. Unlike ordinary wordplay, the joke has a history embedded in the language itself.
+
+### Arbitrary Arbitration — the Arbiter
+
+**Linguistic tension:** *Arbiter*, *arbitrate*, and *arbitrary* belong to the same Latin-root family. Arbitration promises reasoned, principled resolution; an arbitrary ruling is one untethered to a consistent or adequate reason. Historically, *arbitrary* also meant subject to an arbiter's discretion: the tension grew out of authority itself.
+
+**Institution:** A distinguished arbitration service. Its decisions are final, impeccably formatted, and unrelated to the evidence. The **Arbiter** is a splendid title: a dignified office that embodies the contradiction.
+
+**Possible interaction:** Submit two sides of a dispute; receive a binding determination and an elegant opinion rationalizing it. The result and its explanation need not be causally related. The institution never admits randomness.
+
+### Prosaic Prose
+
+**Linguistic tension:** *Prose* can be luminous, inventive, and artful. *Prosaic*, from the same family, commonly means dull, unimaginative, or commonplace. The derivative belittles the very medium it names.
+
+**Institution:** A premium writing service dedicated to stripping surprise, beauty, and meaning from language while preserving grammatical polish and professional respectability.
+
+**Possible interaction:** Supply a vivid sentence or passage; receive an immaculate, comprehensively flattened rendition. Its success metric is the absence of anything memorable.
+
+### Selection discipline
+
+- **Require shared etymology.** Sound-alikes, rhymes, and mere alliteration are not sufficient.
+- **Require genuine semantic friction.** The words should meaningfully subvert each other's function, not just sound amusing together.
+- **Let history do some work.** Identify how the senses diverged; avoid invented etymologies.
+- **Make the institution enact the contradiction.** A clever name without a coherent, satirically functional service is not yet a concept.
+- **Keep the public-facing institution sincere.** No explanatory wink, no satire disclaimer, no villainous aesthetic.
+- **Do not pad the collection.** Two strong specimens are better than twenty loose puns. Investigate further word families individually before adding them.
+
+**Creative lineage:** Swift's *A Modest Proposal* (a grotesque policy justified with sober institutional reasoning), the Place of Happy Release in *The City of Gold and Lead* (a euphemism normalized into civilization), and Gil Fulbright's institutional candor. TENDER remains its own separate implementation.
+
 ## Cross-project design lessons
 
 - Corporate horror is strongest when the company **behaves rationally according to a horrifying objective**, not when it randomly behaves like a villain.
