@@ -119,6 +119,40 @@ Potential depth for later exploration: employee bios written with serene spa lan
 - A simple, functional, responsive static web experience is enough for the first build; no backend, identity capture, or real payment processing is implied.
 - If collecting fictional confessions in a prototype, **avoid storing or transmitting real sensitive disclosures**. Use scripted/fictional scenarios or local-only text, and clearly distinguish the site from a real counseling or absolution service where necessary. This is an implementation safeguard, not a mandate to ruin the fiction with visible disclaimers.
 
+## Practitioner legacy — the anti-testimonials
+
+The public-facing counterpart to conventional wellness guest testimonials is **Practitioner Legacy**, an alumni/retirement gallery celebrating the people who carried clients' burdens. This is an intentional extension of the central conceit, not an unrelated horror flourish.
+
+**Presentation:** dignified, warmly lit portraits; sincere staff biographies; years of service; specializations; lifetime transfer totals; client satisfaction. Elegant, compassionate, utterly unembarrassed corporate language. The quiet reveal is in the **current-status** field. Many retired practitioners are dead or unresponsive in long-term care; some died by suicide. Do not sensationalize or aestheticize individual deaths. The horror is the institution's calm treatment of preventable suffering as routine operations.
+
+Illustrative fictional profiles, not actual people or fixed production copy:
+
+- **Elise M.** — Senior Remorse Practitioner, 2018–2025; 4,218 transfers; marital betrayal and inherited guilt; **Extended rest**; neurological responsiveness not observed.
+- **Thomas R.** — Grief Specialist, 2016–2024; 6,091 families supported; **Legacy practitioner**; deceased 2024.
+- **Mara V.** — Continuous Absolution, 2020–2026; 11,403 future indiscretions covered; **Retired**; cause of death: suicide.
+
+The company describes its alumni as **“The people who made peace possible.”** It never treats these outcomes as a contradiction of its service promise.
+
+### Practitioner stewardship / operational reporting
+
+The user specifically proposed that **suicide rate be a KPI**. The company's annual or stewardship report should present it beside benign commercial metrics: client relief, transfer completion, utilization, retention, mortality, and practitioner-year productivity. This is institutional horror: the company has made suffering measurable, optimizable, and ordinary.
+
+Illustrative invented metrics from ideation (not real-world statistics, not locked values): **99.8% client relief; 94.2% transfer completion; 31.4% practitioner mortality; 12.6% suicide incidence**. The exact rates need future narrative and denominator design; avoid implying these are credible clinical statistics. Potential report headings include **Workforce Sustainability**, **Practitioner Stewardship**, and **Burdens Absorbed per Practitioner-Year**.
+
+### Consequence persists beyond the consultation
+
+The visitor's assigned practitioner may remain accessible after the transfer. Their burden and case count persist; their future retirement or death can eventually appear in their record. The visitor's moment of relief becomes one entry in the practitioner's lifetime tally.
+
+**“The client gets closure. The practitioner gets a case history.”**
+
+### Future image research / visual motifs
+
+**Images are not selected yet.** Find excellent corporate wellness photography later: high-end retreat interiors, restrained editorial practitioner portraits, soft architectural daylight, stone, warm neutral materials, and spaces of discreet care.
+
+A new user-suggested motif is **cemeteries/graveyards**: anonymous graves, prestigious historic cemeteries, formal memorial gardens, or immaculate institutional burial landscapes. Their visual language should feel like luxury heritage, philanthropy, stewardship, or a peaceful alumni memorial—not a haunted-house cemetery. Potential placement: Practitioner Legacy, an annual report, memorial stewardship, or the quiet end of a practitioner's profile. Preserve the tension between beautiful commemorative imagery and the business's operational accounting of death.
+
+No stock images, portraits, cemetery photos, licenses, or real biographies have been chosen or committed. Avoid identifying real deceased people as fictional TENDER practitioners.
+
 ## What is NOT decided
 
 - Final site architecture, navigation, page count, exact animation/sound implementation.
