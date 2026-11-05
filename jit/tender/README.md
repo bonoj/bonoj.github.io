@@ -8,7 +8,7 @@
 
 ## Portable idea bank
 
-Adjacent concepts and alternate projects live in **[SUBVERSION](subversion.md)**. This file is deliberately disposable and can be migrated into another project or forgotten entirely; it is **not** part of TENDER's canonical scope.
+Adjacent concepts and alternate projects now live in the independent **[SUBVERSION](../subversion/README.md)** idea bank. It is **not** part of TENDER's canonical scope.
 
 ## Origin and intent
 
