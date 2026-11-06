@@ -224,6 +224,22 @@ The central insight: **an institution that has solved the wrong problem perfectl
 3. Decide whether the first artifact is a declaration of independence, tourism portal, constitution, annual report, or complete institutional website.
 4. Preserve the title **EUTHANASIA — THE EIGHTH CONTINENT** and the **Asia → euthanasia** joke regardless of the eventual physical location.
 
+## ANTIQUITY — Tomorrow's Archaeology
+
+**Status:** promising Subversion concept; idea bank only.
+
+**Premise:** An archaeological institute manufacturing ancient civilizations to order. Choose a mythology, architecture, burial customs, inscriptions, artifacts, and a preferred date of extinction. The institute buries the evidence, excavates it, publishes the findings, and sells the authenticated antiquities.
+
+**Mechanism:** One institution creates the evidence, discovers it, verifies it, and monetizes it. Its departments corroborate each other, producing an apparently impeccable historical record.
+
+**Experience:** A serious museum-and-research aesthetic: field photography, artifact catalogs, excavation records, scholarly papers, donor programs, and provenance certificates. Visitors could browse lost civilizations, commission one, and trace an artifact from creation through excavation to exhibition.
+
+**Example:** A 6,000-year-old civilization founded last Tuesday.
+
+**Line:** *History takes too long.*
+
+**Subversion:** Institutional authority manufactures its own evidence, then cites the resulting consensus as independent validation. No science-fiction premise or overt admission of fraud is needed.
+
 ## Cross-project design lessons
 
 - Corporate horror is strongest when the company **behaves rationally according to a horrifying objective**, not when it randomly behaves like a villain.
