@@ -1,38 +1,23 @@
 # SUBVERSION
 
-**A nursery of independent, single-page institutional experiences.** Each project lives in its own folder. The scaffold is cloned and mutated; it is not a shared runtime, content renderer, or shell.
+Independent, single-page institutional experiences. Each project owns its layout, identity, and interactions. **There is no universal scaffold, shell, or shared runtime.**
 
 ## Index
 
-- [Scaffold laboratory](scaffold/) — [open interactive preview](https://bonoj.github.io/jit/subversion/scaffold/). Standalone HTML with working interaction patterns and deliberately blank image placeholders.
-- [Projects and idea bank](PROJECTS.md) — preserved project concepts and creative lineage.
-- [Human Resources portrait bank](hr/README.md) — reusable portrait sources; not an HR site implementation.
-- [RESOLVA](resolva/) — existing standalone project.
+- [Projects and idea bank](PROJECTS.md) — concepts and creative lineage.
+- [Human Resources portrait bank](hr/README.md) — reusable portrait sources, not an application.
+- [RESOLVA](resolva/) — standalone experience.
 
-## Creative fidelity — non-negotiable
+## Design invariants
 
-- Treat each institution's premise and voice seriously. The audience discovers the satire; the site does not explain its own joke.
-- **Never insert unsolicited satire labels, disclaimers, moralizing copy, apologies, explanatory winks, or diluted substitute language into the public-facing experience.** This is a creative direction, not a waiver of actual legal or safety requirements. Address any genuine constraint narrowly and explicitly rather than silently neutering the concept.
-- No generic filler that replaces deliberate copy. Avoid decorative external-link arrows and transparent controls when they compromise the visual language.
-- The scaffold is not a prescribed visual identity: each clone may diverge completely.
+These are constraints on **how we build**, not a prescribed visual style.
 
-## Composition — correct by construction
+1. **Margins are architecture.** Use deliberate page gutters, section spacing, readable text widths, and consistent grid gaps. Images and text must have breathing room on every viewport. No collisions, accidental overlaps, clipped headings, or horizontal overflow.
+2. **Images have intentional geometry.** Specify aspect ratios and focal points. Responsive crops must preserve the subject. Keep text and image layers separate when independent responsiveness is needed. Do not fix layout with arbitrary offsets.
+3. **Mobile and desktop are one coherent experience.** Test narrow and wide viewports. Navigation and controls must be aligned, touch-friendly, and purposeful; never let a drawer accidentally replace the whole mobile site.
+4. **No decorative link arrows.** Do not append ↗, →, or similar glyphs to links or buttons as an automatic convention. Use directional symbols only when the actual interaction requires direction, such as carousel controls or explicit back/next navigation.
+5. **No unsolicited creative dilution.** Do not insert satire labels, disclaimers, apologies, explanatory winks, moralizing text, or generic filler into public-facing work. Preserve the intended institutional voice. If a genuine legal or safety constraint applies, address it narrowly and explicitly rather than silently rewriting the premise.
+6. **Interactions must earn their place.** No component showrooms, generic drawers, or controls without a real user purpose. A single-page site can be rich without behaving like a collection of widgets.
+7. **Validate, don't assert.** Inspect actual rendered mobile and desktop output before claiming visual quality; correct spacing and cropping problems at the layout-system level, not with one-off patches.
 
-- **Margins are architecture.** Establish responsive page gutters, section spacing, readable line lengths, consistent card gaps, and deliberate image aspect ratios at the primitive level.
-- Text and images occupy intentional layout regions; never rely on accidental overlap, clipped text, or one-off offsets to make a screenshot work.
-- Maintain image focal points and crop behavior as images change. Avoid images with embedded text where independent responsive layers are needed.
-- Mobile and desktop are one experience: columns stack, navigation adapts, controls remain touch-sized, and horizontal overflow is prohibited.
-- Use consistent spacing tokens and clamp-based responsive typography; respect reduced-motion preferences, keyboard access, and visible focus.
-- Review at narrow and wide viewport sizes before publication. Do not claim visual validation without actually checking rendered output.
-
-## Clone contract
-
-1. Copy `scaffold/index.html` into a new sibling folder, e.g. `new-institution/index.html`.
-2. Replace placeholders, copy, imagery, and identity. Remove any unused demonstration sections or interactions.
-3. Keep HTML, CSS, and JavaScript locally owned by the new page. No dependency on the scaffold or another Subversion site at runtime.
-4. Preserve useful accessibility and responsive behavior while allowing unrestricted artistic mutation.
-5. Publish the independent folder under `jit/subversion/<slug>/`; add it to this index.
-
-## Scaffold interaction inventory
-
-The laboratory exposes responsive navigation, theme switching, editorial hero, cards, alternating split sections, metrics, tabs, native accordions, carousel, filterable gallery, modal dialog, side drawer, notifications, and a validated **demo-only** form. All images are placeholders; the demo form does not send or store data. The scaffold is a specimen tray, not a requirement to ship every interaction in every clone.
+Every project may develop its own typography, color, layout, and behavior. These invariants prevent recurring mistakes without making the sites look alike.
