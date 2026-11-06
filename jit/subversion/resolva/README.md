@@ -665,3 +665,65 @@ Provide a plainly accessible fiction/context page so nobody mistakes RESOLVA, re
 **Responsive:** Desktop reproduces the wide monumental lettering and foreground occlusion. Mobile uses a distinct art-directed crop and smaller/partially cropped atmospheric wordmark, with a separate fully readable brand lockup; preserve the subject's face and readable live copy. On mobile, never force the desktop lettering and scene into a miniature 16:9 image. Ensure the mask and base share exactly the same crop after every breakpoint change.
 
 **Verification:** Compare against the canonical reference at wide and narrow viewports. Check ridge continuity across glyph boundaries, woman's hair/shoulder occlusion, no duplicate baked text, no image drift during resize, and no halos at mask edges. Photorealism is a global image acceptance criterion for every new RESOLVA scene.
+
+---
+
+# COMPLETE IMAGE PRODUCTION PLAN — 2026-11-06 UTC
+
+The user supplied the original 1536×864 RESOLVA campaign image in conversation and requested a comprehensive **mobile-forward, desktop-friendly** imagery plan. The original is the visual reference, **not a production background**: it contains baked-in brand, copy, benefit bullets and CTA, and the superseded PUA diagnosis. Preserve the reference unchanged. The woman, her expression, sweater, hair, lakeside house, sunlit landscape, and emotional register are canonical. **Photorealism is mandatory for every final photograph.** Never substitute a different woman or pretend a mood-board photograph depicts her.
+
+## Inventory: 18 photographic compositions, 5 families
+
+Each numbered composition is a *scene brief*, not necessarily a separate production file. Plan crops and responsive renditions from source masters; do not generate unrelated near-duplicates when one coherent scene can serve multiple sizes.
+
+**Family A — Canonical campaign (01–04)**
+01. Hero master: exactly reconstruct the reference's woman, pose, lake, house, trees and sunshine, **without all text/UI**. This is the highest-priority image and must be approved before layout polish. Derive clean scene, registered empty background plate, woman foreground alpha/matte, and optional foliage occlusion. This is one scene with multiple technical derivatives.
+02. The feeling: close, natural, photographic portrait of the same woman and expression, natural skin texture, no glamour retouch.
+03. The place: wide architecture/lake/hills scene with editorial negative space; same world, weather and light.
+04. The exhale: same woman from behind at the lake, spacious contemplative landscape, serene rather than sedated.
+
+**Family B — Lifestyle promise (05–09)**
+05. A morning without reminders: same woman, coffee, lakeside window, no urgency.
+06. An afternoon that belongs to you: same woman on the sunlit garden terrace, genuine leisure.
+07. Nothing further required: domestic still life with unanswered correspondence; no legible AI-generated text.
+08. Easier together: same woman in an unforced warm relational scene; avoid manufactured reconciliation.
+09. A sense of completion: same woman reading/resting in the coherent lakeside home.
+
+**Family C — Circumstances remain (10–13)**
+10. The unresolved leak: restrained residential interior with persistent ceiling water damage; separate from canonical lakeside property unless narrative explicitly connects them.
+11. Still unresolved: precise close detail of **the same** physical damage, with stable morphology for before/after comparisons. Ideally derive from 10 rather than independently generate.
+12. The record: correspondence, folders and paper still life, with all legible case records rendered in HTML.
+13. Feeling better: fictional patient in same damaged space, peaceful while conditions remain unchanged. Do **not** imply this fictional case patient is the canonical campaign woman unless the story explicitly chooses that; current case character Mara Ellis is distinct.
+
+**Family D — Clinical and institutional credibility (14–16)**
+14. Clinical confidence: premium believable consultation room, warm restrained daylight.
+15. Institutional harmony: polished administrative/organizational interior, glass, architecture, no villain tropes.
+16. Evidence and oversight: neutral research/recordkeeping workspace; all charts and safety text remain live UI.
+
+**Family E — Product identity (17–18)**
+17. Product portrait: invented RESOLVA package as a premium still life; ideally generate clean unbranded package and apply exact packaging typography as live/vector design. Never imply a real approved drug.
+18. The quiet object: restrained tablet/product macro for transitions; avoid pharmacological or dosage instruction.
+
+## Asset strategy
+
+**Build order:** (A) create and approve 01 clean hero photographic master; (B) implement responsive site using 01 and clearly temporary appropriately licensed/owned photo references for other compositions; (C) validate full content and UX; (D) create canonical 02–18 to exact crop and emotional needs; (E) integrate and verify.
+
+**No stock substitution for woman.** External photography is suitable as *temporary reference* for interiors, scenery, and neutral objects, not the campaign identity. Use licensed/owned imagery in anything published. No hotlinking arbitrary copyrighted website images as deployed placeholders.
+
+**Hero technical derivatives:** original untouched reference; clean photographic master; background-only registered plate behind woman; high-quality foreground alpha with natural flyaway hair and sweater texture; optionally foreground foliage matte; desktop and mobile art-directed crops; optional precomputed low-bandwidth responsive formats. Preserve color registration and crop transforms across background and masked typography.
+
+**Responsive image art direction:**
+- Narrow mobile (~320–599px): prioritize her eyes, mouth, head and shoulders; portrait/near-square hero crop with breathing room; the big masked wordmark may be partial or reflowed and is not the only readable brand label. Content is separate live text. Do not simply shrink the desktop composite.
+- Tablet (~600–1023px): medium-wide scene with architectural context and coherent crop; preserve readable contrast and negative space.
+- Desktop (>=1024px): wide cinematic scene close to 1536×864 reference, oversized registered RESOLVA photo-mask, woman's silhouette layered in front, live headline/benefits/CTA.
+- Content photographs: capture/generate source masters with ample bleed for portrait mobile crops and landscape desktop crops; store focal point and safe zones per composition.
+- Render with responsive `picture`/`srcset`, appropriate intrinsic dimensions, AVIF/WebP fallbacks where useful, eager/preloaded hero and lazy-loaded below-fold imagery; avoid mobile downloading all desktop pixels.
+- Define per-asset crop metadata (subject focal point x/y, safe text regions, mobile crop, desktop crop, acceptable occlusion), alt text intent, provenance/license, and final approval state.
+- Use a stable photographic palette: cream, muted teal, sky blue, warm natural sunlight; consistent lens/white balance/grain, realistic skin, realistic architecture and material continuity.
+- Reject inconsistent faces/hair/wardrobe, plastic skin, fake bokeh, bent architecture, impossible reflections, baked text, generic stock-model appearance, and disjointed weather/time of day.
+
+**Priority tiers:** P0 = 01 clean hero + technical derivatives; P1 = 05,06,09,10,11,13 and 17 for critical storytelling; P2 = 02–04,07–08,12,14–16,18. The 18 compositions are an **upper-level shot plan**, not a requirement to render 18 huge files before building. If a photo is decorative or redundant after layout review, consolidate rather than padding the site.
+
+**Narrative visual principle:** the campaign woman stays radiant and genuinely peaceful; the satire arises from the unchanged world, diagnostic categories, and institutional incentives, not by making her appear vacant, zombified, or overtly sinister.
+
+**Next deliverable:** reconstruct the clean photorealistic hero from the user's original image, inspect face/architecture fidelity, then create the aligned background plate and foreground matte. No asset creation or deployment is implied by this planning update.
