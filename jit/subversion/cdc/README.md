@@ -155,3 +155,11 @@ Use an interactive country/territory coverage map with a readable list/search al
 
 ## Delivery
 When approved to build: create `index.html` and any narrowly necessary local assets under this folder, verify the live GitHub Pages URL `https://bonoj.github.io/jit/subversion/cdc/`, and record implementation/QA truthfully. This document is the source of truth for the concept; parent README governs cross-project design invariants.
+
+## Approved allocation vocabulary — 2026-11-06
+
+The owner explicitly approved **every proposed title** in the immediately preceding three-category selection catalog (viral, bacterial, and parasitic cultivation). Treat that entire selection as approved, including names earlier marked tentative or stylistically weaker. Do not silently prune or rename approved entries. This approval supersedes prior candidate-only language in this specification.
+
+The approved catalog includes the foundational titles **Mosquito Refueling Station**, **E. coli Incubator**, **Syphilis Carrier**, and **Tapeworm Storage**, alongside disease-specific fictional storage, archival, reservoir, and incubation assignments. Maintain separate per-appointment grades and support multiple concurrent allocations per facility. Region-specific portfolios should draw from the approved vocabulary, informed by credible regional ecology without suggesting that any pictured individual has a real medical condition.
+
+For implementation, preserve the full approved title list from the conversation as source data rather than generating new names or using generic host ranks. The allocations are fictional descriptions for a satirical interface, not real-world pathogen cultivation instructions.
