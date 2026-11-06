@@ -650,3 +650,18 @@ Provide a plainly accessible fiction/context page so nobody mistakes RESOLVA, re
 8. The institution never becomes a cartoon villain; the audience discovers the incentive structure itself.
 9. The unchanged underlying circumstance remains visible wherever improvement is measured.
 10. No implementation or deployment is implied by this content specification alone.
+
+
+## Canonical photographic and typographic compositing rules
+
+**Non-negotiable art direction:** All campaign imagery is **photorealistic**. No illustration, painterly rendering, stylized 3D, cartoon, generic synthetic glamour, or visually inconsistent stock substitutions. Preserve the canonical woman's recognizable appearance and quiet, believable expression. Realistic light transport, natural skin texture, coherent anatomy, fabric, lens characteristics, depth of field, and consistent lakeside architecture matter more than polished artificial perfection.
+
+**RESOLVA letter mask:** The enormous wordmark is a *registered photographic window*, not a separate unrelated texture. Build from one clean photographic master. The base scene and the photo visible inside the letter glyphs share the **same crop, transform, and image coordinates**. Apply a controlled tonal treatment (contrast/brightness/saturation/opacity) inside the glyphs while the outside scene stays softer. The landscape's edges must cross glyph boundaries without jumps. This is the signature brand effect.
+
+**Depth ordering:** Separate scene into background (architecture, hills, lake, vegetation), letter treatment, and foreground subject/occluders where practical. The canonical woman's face, hair and sweater should pass **in front of** portions of the large wordmark, as in the reference. Use an accurately cut subject matte or segmentation alpha, with fine hair edges and realistic soft transitions; avoid a cardboard silhouette or a halo. Composite order: base photo → registered masked lettering → foreground subject matte → live interface copy and controls. Foreground foliage may have its own matte if it helps integrate the scene.
+
+**Implementation:** Prefer an SVG text mask or an equivalent CSS mask with responsive sizing and consistent object positioning; share a single crop-transform model between base and lettering. SVG can provide explicit image registration and text geometry. For reliable exact lettering, use an approved wordmark outline/path if necessary, retaining accessible live brand text elsewhere. Do not apply a second independently sized CSS `background-size: cover` that causes drift. Validate at multiple aspect ratios and pixel densities. Keep the master immutable. Do not flatten primary CTA, body copy, or accessibility-critical information into the photograph.
+
+**Responsive:** Desktop reproduces the wide monumental lettering and foreground occlusion. Mobile uses a distinct art-directed crop and smaller/partially cropped atmospheric wordmark, with a separate fully readable brand lockup; preserve the subject's face and readable live copy. On mobile, never force the desktop lettering and scene into a miniature 16:9 image. Ensure the mask and base share exactly the same crop after every breakpoint change.
+
+**Verification:** Compare against the canonical reference at wide and narrow viewports. Check ridge continuity across glyph boundaries, woman's hair/shoulder occlusion, no duplicate baked text, no image drift during resize, and no halos at mask edges. Photorealism is a global image acceptance criterion for every new RESOLVA scene.
