@@ -167,3 +167,17 @@ For implementation, preserve the full approved title list from the conversation 
 ## Recovered canonical files (2026-11-06)
 
 All **103 approved titles** are now preserved verbatim: [VIRAL.md](VIRAL.md) (32), [BACTERIAL.md](BACTERIAL.md) (35), and [PARASITIC.md](PARASITIC.md) (36). [CENTERS.md](CENTERS.md) assigns a reproducible three-category **fictional baseline** to all **198** source country/territory codes. Its distribution is deliberately not a claim about national disease prevalence. **Editorial regional differentiation remains pending**; do not misrepresent the baseline rotation as geographically researched or final. All parent Subversion invariants remain binding.
+
+## Locked design system — build authorization (2026-11-06)
+
+- **Institutional seal:** white health cross inside outlined shield, rendered as inline vector/Unicode-compatible mark; restrained CDC wordmark.
+- **Palette:** government navy, clinical white, muted teal, rare controlled red. No horror, hazard-stripe, or neon visual cues.
+- **Typography:** confident editorial headlines and legible sans-serif UI. Hero line: **Preserving diversity. Sustaining life.**
+- **Responsive architecture:** fluid page gutters, deliberate text widths, stable image crops, mobile-first touch targets, cohesive desktop/mobile compositions.
+- **Buttons:** opaque solid or visibly bordered, with real focus/hover/active states. **No decorative arrows.**
+- **Copy:** no unsolicited disclaimers, wink, satire badge, or editorial explanation in the public interface. Keep source attribution in unobtrusive credits.
+- **Experience:** polished institutional landing, geographic center selection with accessible country search, 20-portrait national registry, and inspectable records with multiple per-appointment BSL grades.
+- **Content:** approved 103-title catalog in the three linked files; 198-center baseline in CENTERS.md. Preserve fictional nature of assignments in data provenance, not intrusive homepage copy.
+- **Validation:** test actual mobile/desktop rendering where available and never claim unobserved QA. Maintain static standalone implementation, no universal scaffold.
+
+The earlier “prototype only / not approved to build” language is superseded by explicit build authorization. The prior unapproved example titles such as “Gut Flora Storage” are not part of the approved catalog.
