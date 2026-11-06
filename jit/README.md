@@ -35,6 +35,7 @@ This index was originally generated from the GitHub tree on 2026-10-28 and incre
 - [`convergence/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/convergence) · [page](https://bonoj.github.io/jit/convergence/)
 - [`crossing/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/crossing) · [page](https://bonoj.github.io/jit/crossing/)
 - [`crusade/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/crusade) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/crusade/README.md)
+- [`denial/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/denial) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/denial/README.md) · [page](https://bonoj.github.io/jit/denial/)
 - [`device/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/device) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/device/README.md) · [page](https://bonoj.github.io/jit/device/)
 - [`diff-eq/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/diff-eq) · [page](https://bonoj.github.io/jit/diff-eq/)
 - [`djinn/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/djinn) · [page](https://bonoj.github.io/jit/djinn/)
