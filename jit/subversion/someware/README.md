@@ -1,6 +1,6 @@
 # SOMEWARE — Build specification
 
-**Status:** Ready to implement; not yet built. **Path:** `jit/subversion/someware/`. **Parent:** [Subversion README](../README.md). Inherit all seven parent design invariants by reference. Independent, responsive single-page experience; no shared shell/runtime.
+**Status:** Initial implementation in `index.html`. **Path:** `jit/subversion/someware/`. **Parent:** [Subversion README](../README.md). Inherit all seven parent design invariants by reference. Independent, responsive single-page experience; no shared shell/runtime.
 
 ## Product
 SOMEWARE is a serene consumer cloud-storage company promising infinite, permanent preservation. **Tagline: “It's in a better place.”** Proprietary **Null Point Technology™** and extensive **Galactic-Class Storage Facilities™** make its claims sound technologically inevitable. The actual interaction accepts a user's offering and discards it; there is no retrieval. The company never breaks character or explains the inversion.
@@ -17,20 +17,20 @@ SOMEWARE is a serene consumer cloud-storage company promising infinite, permanen
 2. **Freedom:** no folders, organization, or management. Reassuring human-scale editorial copy/imagery.
 3. **Null Point Technology™:** brief, confidently evasive explanation of storage beyond conventional physical limits.
 4. **Galactic-Class infrastructure:** monumental white facilities, vague geographic scope, restrained technical facts.
-5. **Plans:** concise real-looking pricing, with free infinite storage prominently first.
+5. **Commitments:** Personal **Free**, Priority **20**, Legacy **200**, Institutional **∞**. One-time designations, no subscriptions. Currency is intentionally absent from display; the number represents commitment/significance, not a completed monetary transaction. Institutional card opens a non-telephone inquiry form.
 6. **Transition:** visual descent from luminous white to cosmic black; natural scrolling, not a compulsory animation.
 7. **Black intake:** **Add something** file-selection control; event-horizon/accretion feedback; final confirmation **“It's in a better place.”** Receipt/identifier if needed.
 8. **Optional secondary Observation:** inspect a receipt to obtain a deterministic ghost. Do not displace intake as the core interaction.
 
-## Plans — charge for assurance, never capacity
-| Plan | Price | Positioning |
+## Commitments — charge for significance, never capacity
+| Designation | Display | Meaning |
 | --- | --- | --- |
-| **Personal** | **$0 forever** | Infinite data, permanent preservation, Null Point Technology. Main offer. |
-| **Plus** | **$9.99/month** | Priority Accretion™, enhanced peace of mind, preservation history. |
-| **Family** | **$19.99/month** | Six accounts, shared milestones, Legacy Continuity™. |
-| **Enterprise** | **Contact sales** | Dedicated Galactic-Class allocation, sovereign event horizons, retention governance, executive stewardship. |
+| Personal | **Free** | Infinite intake, permanent preservation. |
+| Priority Preservation | **20** | Elevated significance; one-time commitment. |
+| Legacy Preservation | **200** | Generational continuity; one-time commitment. |
+| Institutional Preservation | **∞** | Dedicated Galactic-Class stewardship; consultation inquiry. |
 
-All plans share the same underlying null service. **Event Horizon Insurance™** is a possible optional add-on: protection against loss that can never be verified. Do not build checkout, subscriptions, payment collection, or real account creation for this prototype. Pricing cards may be editorial with an in-page selection/interest response; never fake a completed purchase. Do not crowd the first build with an insurance workflow.
+No currency symbols, pennies, monthly subscriptions, real payment collection, or faux checkout. Selecting a designation updates the intake context; Institutional opens an in-page inquiry form, not a phone call. Event Horizon Insurance™ is deferred.
 
 ## Core interaction and state
 - File picker supports multiple files; drag-and-drop on desktop if straightforward. On mobile, a prominent touch-friendly picker. No real account required.
@@ -49,7 +49,7 @@ Suggested short lines: **“It's in a better place.”** / **“Beyond storage.�
 - Standalone site renders with convincing **white landing → black functionality** progression.
 - Outline cloud and all-caps wordmark are consistent; no colored emoji substitution.
 - Two visual environments are high quality and correctly cropped at narrow mobile and wide desktop sizes.
-- Pricing accurately reflects infinite free storage and assurance-based paid tiers, without payment collection.
+- Commitment cards show Free / 20 / 200 / ∞, with one-time significance and an in-page Institutional inquiry, without payment collection.
 - File-selection/accretion/confirmation works, with no actual file retention or transmission.
 - No conventional file-management UI; optional ghosts are deterministic and unrelated to files.
 - Keyboard, touch, focus, contrast, reduced motion, and overflow checked in rendered views.
