@@ -181,3 +181,9 @@ All **103 approved titles** are now preserved verbatim: [VIRAL.md](VIRAL.md) (32
 - **Validation:** test actual mobile/desktop rendering where available and never claim unobserved QA. Maintain static standalone implementation, no universal scaffold.
 
 The earlier “prototype only / not approved to build” language is superseded by explicit build authorization. The prior unapproved example titles such as “Gut Flora Storage” are not part of the approved catalog.
+
+## Implementation checkpoint — 2026-11-06
+
+Standalone `index.html` committed (initial build `15de078212e09f59a8db2823020883ec423798e3`). Includes shield/cross masthead, editorial hero, Sigils image grid, 198-center selector grouped by world region, country-specific 20-facility portrait registry, text/category search, and per-facility multi-appointment record dialog with per-appointment BSL grades. Loads source Sigils JSON and approved local markdown catalogs/matrix at runtime. Source was fetched back from GitHub after commit.
+
+**Unverified:** GitHub Pages deployment, live image requests, runtime interactions, actual narrow/wide viewport rendering, and accessibility behavior. The first build uses a **regional selector panel rather than a geographic SVG map**; the map remains an outstanding feature. The existing center title matrix remains mechanically allocated and needs editorial regional differentiation. The initial record uses a modal dialog; validate mobile usability and focus behavior before declaring the experience finished. Do not claim visual QA without browser evidence.
