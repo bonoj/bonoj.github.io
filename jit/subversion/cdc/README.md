@@ -163,3 +163,7 @@ The owner explicitly approved **every proposed title** in the immediately preced
 The approved catalog includes the foundational titles **Mosquito Refueling Station**, **E. coli Incubator**, **Syphilis Carrier**, and **Tapeworm Storage**, alongside disease-specific fictional storage, archival, reservoir, and incubation assignments. Maintain separate per-appointment grades and support multiple concurrent allocations per facility. Region-specific portfolios should draw from the approved vocabulary, informed by credible regional ecology without suggesting that any pictured individual has a real medical condition.
 
 For implementation, preserve the full approved title list from the conversation as source data rather than generating new names or using generic host ranks. The allocations are fictional descriptions for a satirical interface, not real-world pathogen cultivation instructions.
+
+## Recovered canonical files (2026-11-06)
+
+All **103 approved titles** are now preserved verbatim: [VIRAL.md](VIRAL.md) (32), [BACTERIAL.md](BACTERIAL.md) (35), and [PARASITIC.md](PARASITIC.md) (36). [CENTERS.md](CENTERS.md) assigns a reproducible three-category **fictional baseline** to all **198** source country/territory codes. Its distribution is deliberately not a claim about national disease prevalence. **Editorial regional differentiation remains pending**; do not misrepresent the baseline rotation as geographically researched or final. All parent Subversion invariants remain binding.
