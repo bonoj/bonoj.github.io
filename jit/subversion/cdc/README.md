@@ -119,6 +119,33 @@ No compulsory onboarding, gamification, ratings, reviews, cart, pathogen “cust
 - Actual rendered QA on narrow mobile and wide desktop, plus keyboard and touch paths. Do not claim QA without doing it.
 - Parent README's seven invariants are inherited by reference and enforced.
 
+
+## Verified source geography and center model (2026-11-06)
+
+Inspected the upstream `people/index.json` directly: `count: 3960`, `fields: [id, country, name, native, sex, age, heritage]`, with **198 distinct country/territory codes, exactly 20 portraits per code**. The source does **not** contain a continent/region field or real health information. Country-to-continent grouping is a derived map/navigation layer; document the mapping and accommodate territory/disputed classifications neutrally.
+
+**Institutional model: 198 national cultivation centers, each with 20 registered human facilities.** “Center” is a fictional administrative unit, not a claim of a physical laboratory or exact building location. Avoid fabricated city/address pins. The global map should show center coverage by country/territory, with country selection revealing its 20 facilities. At the global level, facility counts are uniform; meaningful differentiation comes from curated appointment portfolios, grades, and status, not invented population-weighted totals. Distinguish 198 centers from 3,960 facilities and the larger number of concurrent assignments.
+
+### Country-specific appointment editorial direction
+
+Each national center should have a **small, distinctive set of biological-function titles** with a credible connection to regional ecology or public-health context, while retaining globally ubiquitous roles where appropriate. These are invented institutional assignments, never assertions about the pictured people or actual prevalence in their country. No crude nationality stereotypes, no automatically labeling a nation's residents as infected, and no exoticizing the Global South. Use ecology, habitat, and biological function rather than national caricature.
+
+Illustrative **creative candidates only, not approved epidemiological claims**:
+- **Brazil:** Mosquito Refueling Station; Arbovirus Archive (if retained, clarify as fictional designation).
+- **United States:** Tick Bloodmeal Depot; E. coli Incubator.
+- **Japan:** Norovirus Storage; Seasonal Influenza Reservoir.
+- **India:** Mosquito Refueling Station; Enteric Bacteria Incubator.
+- **Australia:** Mosquito Refueling Station; Tick Feeding Reserve.
+- **Iceland:** Respiratory Virus Archive; Gut Flora Storage.
+- **Egypt:** Mosquito Refueling Station; Intestinal Parasite Storage.
+- **United Kingdom:** Norovirus Archive; Gut Flora Storage.
+
+**Editorial warning:** the above are only starting points. Many are weaker than the canonical “Mosquito Refueling Station”; do not generate all 198 national title banks mechanically. First curate a small cross-country sample, review tone and specificity, then expand. The same title can legitimately occur in multiple centers. The role is not a national stereotype and must not imply that any portrait depicts an infected individual.
+
+### Geographic UX consequence
+
+Use an interactive country/territory coverage map with a readable list/search alternative. Selected center displays **20 facilities**, appointment totals, and a portrait grid. Higher-level region aggregation is optional and must be derived from an explicit mapping. Do not invent differentiated national facility totals, since each source group is exactly 20.
+
 ## Open design decisions
 - Whether map is immediately below the hero or integrated into a large first-scroll editorial composition.
 - Whether detail is inline expansion, side panel on desktop + inline on mobile, or dedicated in-page view.
