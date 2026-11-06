@@ -1,6 +1,6 @@
 # RESOLVA — For the treatment of unresolved circumstances
 
-**Status:** CANONICAL CAMPAIGN + EXPERIENCE SPEC; no implemented site, real drug, or clinical study exists.
+**Status:** FIRST RESPONSIVE SITE IMPLEMENTATION COMMITTED; hero photographic asset transfer pending, so visual release is incomplete. No real drug or clinical study exists.
 **Home:** `jit/subversion/resolva/`
 **Parent:** [SUBVERSION](../README.md)
 **Canonical brand:** RESOLVA™; fictional ingredient name *resolvate*, depicted as 50 mg tablets in campaign artwork (fictional packaging copy, not dosing advice). Trademark availability not assessed.
@@ -727,3 +727,12 @@ Each numbered composition is a *scene brief*, not necessarily a separate product
 **Narrative visual principle:** the campaign woman stays radiant and genuinely peaceful; the satire arises from the unchanged world, diagnostic categories, and institutional incentives, not by making her appear vacant, zombified, or overtly sinister.
 
 **Next deliverable:** reconstruct the clean photorealistic hero from the user's original image, inspect face/architecture fidelity, then create the aligned background plate and foreground matte. No asset creation or deployment is implied by this planning update.
+
+
+## First implementation checkpoint — 2026-11-06 UTC
+
+- Created `index.html` as a dependency-free, mobile-forward homepage with live PRSD diagnosis, editorial benefits, fictional patient timeline interaction, RESOLVE-3 metrics, and adverse-event comparison disclosures.
+- The approved clean hero remains in conversation but **has not been transferred into `assets/hero-master.webp`**. The current hero has a CSS color fallback, not the approved photo. **Do not call this visually finished or production-verified.**
+- The oversized wordmark currently has a provisional translucent SVG text treatment, **not yet the registered photographic letter mask**. A real background plate and subject matte are still needed.
+- GitHub commit establishes source only. Pages publication and actual browser rendering remain unverified.
+- Next: transfer approved hero through Gate/Artifact Relay, verify image hash, implement aligned photographic letter mask, test mobile and desktop screenshots, then continue page-depth implementation.
