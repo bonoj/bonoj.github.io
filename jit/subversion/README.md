@@ -7,6 +7,7 @@ Independent, single-page institutional experiences. Each project owns its layout
 - [Projects and idea bank](PROJECTS.md) — concepts and creative lineage.
 - [Human Resources portrait bank](hr/README.md) — reusable portrait sources, not an application.
 - [RESOLVA](resolva/) — standalone experience.
+- [CDC — Centers for Disease Cultivation](cdc/README.md) — experience specification; implementation pending.
 
 ## Design invariants
 
