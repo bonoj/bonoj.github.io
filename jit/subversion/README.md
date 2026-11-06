@@ -9,6 +9,10 @@ Independent, single-page institutional experiences. Each project owns its layout
 - [RESOLVA](resolva/) — standalone experience.
 - [CDC — Centers for Disease Cultivation](cdc/README.md) — experience specification; implementation pending.
 
+## Build integrity
+
+See [Change control](CHANGE_CONTROL.md) for approved-asset locks, scope discipline, visual QA, and honest deployment reporting. Run [verify_assets.py](verify_assets.py) on image-led projects before publishing. This is an opt-in per-project validator until a project has an asset lock; it does not replace rendered QA.
+
 ## Design invariants
 
 These are constraints on **how we build**, not a prescribed visual style.
