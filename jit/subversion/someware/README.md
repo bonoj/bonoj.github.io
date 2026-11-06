@@ -1,54 +1,56 @@
-# SOMEWARE — It's in a better place.
+# SOMEWARE — Build specification
 
-## Status and inheritance
-Creative/experience specification; not yet implemented. Standalone single-page Subversion project at `jit/subversion/someware/`. **Inherit all seven design invariants from [../README.md](../README.md)**, including mobile/desktop unity, deliberate margins and image crops, no decorative link arrows, purposeful interactions, rendered QA, and **no unsolicited disclaimers, satire labels, explanatory winks, or out-of-character moralizing**. Do not introduce a universal Subversion scaffold or shared runtime.
+**Status:** Ready to implement; not yet built. **Path:** `jit/subversion/someware/`. **Parent:** [Subversion README](../README.md). Inherit all seven parent design invariants by reference. Independent, responsive single-page experience; no shared shell/runtime.
 
-## Core proposition
-**SOMEWARE** is an extraordinarily reassuring consumer cloud-storage company. It accepts everything, promises permanent safekeeping, and liberates customers from ever having to think about their belongings again. The underlying system **does not retain uploaded content at all**. This is the operational secret, not an admission made by the company. The absence of files is presented as proof of a frictionless product, not a failure.
+## Product
+SOMEWARE is a serene consumer cloud-storage company promising infinite, permanent preservation. **Tagline: “It's in a better place.”** Proprietary **Null Point Technology™** and extensive **Galactic-Class Storage Facilities™** make its claims sound technologically inevitable. The actual interaction accepts a user's offering and discards it; there is no retrieval. The company never breaks character or explains the inversion.
 
-**Brand:** SOMEWARE, uppercase. **Logo:** a minimal **outline cloud**, monochrome, text-style rather than filled emoji. Test the text-presentation Unicode cloud `☁︎` for consistent outline rendering; if inconsistent, use a simple outline vector while preserving the recognizable cloud silhouette. No cute mascot, glossy gradients, or sinister iconography.
+## Visual architecture — two worlds, one continuous page
+**WHITE / landing:** Luminous, spacious, premium cloud-technology-meets-wellness design. Minimal monochrome **outline-cloud** mark and uppercase **SOMEWARE** wordmark. Large, photorealistic serene white sci-fi architecture and soft daylight. Promise, technology, infrastructure, and pricing live here. No GitHub visual language, conventional drive interface, neon sci-fi, or playful mascot.
 
-**Primary line:** **It's in a better place.** Preserve its dual reading as storage reassurance and euphemism. Do not replace it with “You can let go now” (a secondary sentiment at most). Use restrained, serious typography.
+**BLACK / functionality:** Scrolling crosses a deliberate visual threshold into a nearly black cosmic environment. A beautiful, scientifically recognizable **black-hole accretion disc with gravitational lensing** is the centerpiece, not a horror image. Intake and its outcome happen here. Black must be as serene and carefully art-directed as white. Preserve a single continuous, navigable, coherent mobile/desktop page; do not make two sites or a fixed split-screen.
 
-## Institutional mythology
-- **Proprietary Null Point Technology™**: described as a fundamental advance beyond conventional physical storage constraints. Technical prose should sound credible, confident, and strategically non-explanatory.
-- **Galactic-Class Storage Facilities™**: an extensive, vaguely located network with monumental scale, pristine architecture, and astronomical imagery. Do not overexplain what these facilities contain or how they work.
-- **Free personal account with infinite data**: not a trial, quota, or trick tier. Unlimited intake is genuinely free because no payload is preserved. Enterprise may offer procurement, certifications, service guarantees, and dedicated stewardship for a substantial negotiated price.
-- Claims can be comically literal: no documented breaches, zero traditional storage footprint, indefinite retention, 100% successful intake, zero files requiring organization. Avoid a dense wall of gag metrics; let the ordinary sales language carry them.
+**Assets:** Use distinct, high-quality imagery for luminous architectural serenity and gravitationally lensed accretion. Keep typography and controls as separate responsive layers. Art-direct aspect ratios/focal points for narrow and wide screens. Avoid low-resolution stretched imagery and heavy scroll-jank effects.
 
-## Public experience
-Not GitHub. Not a file-manager clone. The design language is **credible consumer cloud technology crossed with premium wellness**: spacious, bright, calm, confident, and expensive-looking. Domestic serenity at the front door; enormous mysterious infrastructure deeper in the page. A convincing, content-rich landing page should introduce the proposition, explain Null Point Technology without revealing it, show the Galactic-Class network, present the free account, and offer an immediate way to entrust something to SOMEWARE.
+## Page order
+1. **White hero:** cloud logo, SOMEWARE, “It's in a better place.”, brief unlimited-storage promise, primary **Get started** anchor to intake.
+2. **Freedom:** no folders, organization, or management. Reassuring human-scale editorial copy/imagery.
+3. **Null Point Technology™:** brief, confidently evasive explanation of storage beyond conventional physical limits.
+4. **Galactic-Class infrastructure:** monumental white facilities, vague geographic scope, restrained technical facts.
+5. **Plans:** concise real-looking pricing, with free infinite storage prominently first.
+6. **Transition:** visual descent from luminous white to cosmic black; natural scrolling, not a compulsory animation.
+7. **Black intake:** **Add something** file-selection control; event-horizon/accretion feedback; final confirmation **“It's in a better place.”** Receipt/identifier if needed.
+8. **Optional secondary Observation:** inspect a receipt to obtain a deterministic ghost. Do not displace intake as the core interaction.
 
-Photography and compositing: intimate human/domestic imagery for relief, vast believable data-center/observatory architecture for scale, occasional astronomical imagery for implication. Treat images as responsive editorial assets with intentional crops. Avoid generic science-fiction UI, neon black holes, stock-cloud icon grids, or decorative feature cards.
+## Plans — charge for assurance, never capacity
+| Plan | Price | Positioning |
+| --- | --- | --- |
+| **Personal** | **$0 forever** | Infinite data, permanent preservation, Null Point Technology. Main offer. |
+| **Plus** | **$9.99/month** | Priority Accretion™, enhanced peace of mind, preservation history. |
+| **Family** | **$19.99/month** | Six accounts, shared milestones, Legacy Continuity™. |
+| **Enterprise** | **Contact sales** | Dedicated Galactic-Class allocation, sovereign event horizons, retention governance, executive stewardship. |
 
-## Customer experience: accretion, not browsing
-The central interaction is a genuinely pleasant, accessible **Add something** flow. It may accept local files or user-entered text. It acknowledges intake with a graceful transition and the line **“It's in a better place.”** The personal space remains clean and nearly empty afterward. No conventional folders, thumbnails, file browser, download button, or searchable original documents. The absence of clutter is the feature.
+All plans share the same underlying null service. **Event Horizon Insurance™** is a possible optional add-on: protection against loss that can never be verified. Do not build checkout, subscriptions, payment collection, or real account creation for this prototype. Pricing cards may be editorial with an in-page selection/interest response; never fake a completed purchase. Do not crowd the first build with an insurance workflow.
 
-**Important implementation invariant:** The experience must **not transmit, upload, persist, log, or retain real user-selected file contents**. Use browser-local selection and optional metadata only for the current interaction; immediately release file references after confirmation. If size/count is displayed, it can be computed from local metadata without reading contents. Never imply actual secure backup in developer documentation or create a backend for user files. Public-facing fictional corporate copy stays in character.
+## Core interaction and state
+- File picker supports multiple files; drag-and-drop on desktop if straightforward. On mobile, a prominent touch-friendly picker. No real account required.
+- Show local filename/count/size metadata only when needed for confirmation; never read file bytes. User action triggers a restrained accretion animation toward the black-hole image (or an accessible reduced-motion equivalent).
+- Show success and the tagline; optional locally generated receipt ID. Return to a clean, nearly empty intake surface, not a file library. No file browser, download, thumbnails, or originals search.
+- **No network transfer, storage, logging, or persistence of selected file content or text.** Do not create a file-ingest API. Release selected File references/reset input after confirmation. Do not claim the demo performs real backup in code or documentation.
+- If implemented, **Observation** maps a receipt ID through a fixed deterministic seed to an unrelated procedural ghost. Same ID → same ghost across reloads; input bytes and names must not influence output. No backend.
+- All interactive controls must work; omit features that would otherwise be decorative.
 
-## Observations / deterministic ghosts
-A secondary, understated **Observation** feature can accept an issued receipt or identifier and produce a deterministic ghost. The ghost is derived solely from the identifier and a fixed procedural seed, **not from uploaded content**. Repeated observation of the same identifier yields the same output, creating an impeccable illusion of integrity. It may look like a fragment of a document, inventory, memory, or code; do not generate a plausible facsimile of the user's actual uploaded content. Do not make this the primary call to action or build a developer CLI.
+## Copy and tone
+Institutionally impeccable, serene, generous, and confident. No satirical labels, disclaimers, apologies, meta commentary, sinister reveal, or wink in the **public-facing experience**. The contrast between comforting copy and cosmic mechanics is the joke. Avoid fake endorsements or claims of real independent certification.
 
-If the observation mechanism is presented as part of the site, the company describes it as an advanced archival interface, never as recovery or fabrication. Decide during implementation whether the ghost is fixed per receipt forever or shifts with a ceremonial accretion epoch; default to fixed per receipt for easy reproducibility.
+Suggested short lines: **“It's in a better place.”** / **“Beyond storage.”** / **“Everything is taken care of.”** / **“All your information is equally safe. Some of it deserves more care.”** Use selectively; do not stack slogans.
 
-## Content and navigation
-A coherent one-page composition, not a component showroom. Suggested editorial rhythm:
-1. **Hero:** outline cloud, SOMEWARE, “It's in a better place.” Clear promise and free intake.
-2. **The freedom of less:** no folders, no management, no worry; human-scale imagery.
-3. **Null Point Technology™:** elegantly evasive technical narrative.
-4. **Galactic-Class infrastructure:** monumental image and sparse, confident facts.
-5. **Personal / family / enterprise:** free unlimited personal use; enterprise inquiry.
-6. **Personal space / intake:** a working experience, not a decorative mockup.
-7. **Optional Observation:** a quiet, discoverable secondary path, with deterministic results.
-
-Copy should be credible first and disturbing on reflection. No explicit “we delete your files” confession, no cartoon villainy, no fourth-wall wink. Avoid inventing a fake legal compliance regime or real third-party certification.
-
-## Acceptance criteria
-- Logo reads as a **monochrome outline cloud**, not colored emoji; wordmark is **SOMEWARE**.
-- “It's in a better place.” anchors the identity.
-- The page convincingly sells unlimited free cloud safekeeping, proprietary Null Point Technology™, and vague Galactic-Class facilities.
-- Intake actually responds to file selection/text input, reports success, and returns to a clean personal space; no payload contents leave the browser or persist.
-- Optional observations are reproducible and demonstrably independent of input contents.
-- Public site stays entirely in character; no satire labels, disclaimers, moralizing, or explanatory reveals.
-- Meaningful content and visual polish on mobile and desktop, tested at actual viewport sizes; touch and keyboard access, reduced motion, no overflow.
-- Parent Subversion README governs the build by reference; no shared scaffold.
+## Definition of done
+- Standalone site renders with convincing **white landing → black functionality** progression.
+- Outline cloud and all-caps wordmark are consistent; no colored emoji substitution.
+- Two visual environments are high quality and correctly cropped at narrow mobile and wide desktop sizes.
+- Pricing accurately reflects infinite free storage and assurance-based paid tiers, without payment collection.
+- File-selection/accretion/confirmation works, with no actual file retention or transmission.
+- No conventional file-management UI; optional ghosts are deterministic and unrelated to files.
+- Keyboard, touch, focus, contrast, reduced motion, and overflow checked in rendered views.
+- Parent [Subversion invariants](../README.md) honored; public copy remains in character.
