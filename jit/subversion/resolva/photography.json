@@ -1,0 +1,1209 @@
+{
+  "schema": "resolva-photography/v1",
+  "policy": {
+    "style": "photorealistic",
+    "inpaint": false,
+    "bakedText": false,
+    "identity": "canonical-woman-v1",
+    "approvedReference": "user-supplied 1536x864 campaign composition; asset transfer pending",
+    "masterImmutable": true
+  },
+  "look": {
+    "light": "physically plausible warm directional sunlight with natural bounce and restrained rim light",
+    "optics": "natural full-frame perspective; 50-85mm equivalent portraits; plausible depth of field",
+    "palette": [
+      "cream",
+      "honey",
+      "muted teal",
+      "pale blue",
+      "subdued green"
+    ],
+    "grade": {
+      "version": "resolva-grade-v1",
+      "highlights": "soft rolloff",
+      "shadows": "open natural detail",
+      "skin": "preserve pores and natural texture",
+      "grain": "subtle consistent",
+      "saturation": "restrained"
+    }
+  },
+  "character": {
+    "id": "canonical-woman-v1",
+    "features": [
+      "loosely tied brown hair with flyaways",
+      "natural relaxed closed-eye expression",
+      "gentle asymmetric smile",
+      "cream chunky-knit sweater",
+      "natural facial anatomy and skin texture"
+    ],
+    "prohibited": [
+      "different face",
+      "plastic skin",
+      "sedated affect",
+      "beauty retouch",
+      "illustration",
+      "uncanny anatomy"
+    ]
+  },
+  "location": {
+    "id": "lakeside-home-v1",
+    "features": [
+      "modern glass and stone house",
+      "wooded hills",
+      "calm lake",
+      "warm sun",
+      "lush foliage"
+    ],
+    "continuity": "maintain architecture, horizon, sun direction and season across scenes"
+  },
+  "scenes": [
+    {
+      "id": "01",
+      "slug": "hero-master",
+      "family": "campaign",
+      "brief": "same woman, same pose and lake house, clean full scene, no typography",
+      "framing": "hero",
+      "canonicalWoman": true,
+      "status": "planned",
+      "referenceIds": [
+        "canonical-woman-v1"
+      ],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "02",
+      "slug": "the-feeling",
+      "family": "campaign",
+      "brief": "intimate portrait of same woman, unperformed serenity",
+      "framing": "portrait",
+      "canonicalWoman": true,
+      "status": "planned",
+      "referenceIds": [
+        "canonical-woman-v1"
+      ],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "03",
+      "slug": "the-place",
+      "family": "campaign",
+      "brief": "wide lakeside house and landscape with negative space",
+      "framing": "wide",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "04",
+      "slug": "the-exhale",
+      "family": "campaign",
+      "brief": "woman viewed from behind, lake and distant hills",
+      "framing": "wide",
+      "canonicalWoman": true,
+      "status": "planned",
+      "referenceIds": [
+        "canonical-woman-v1"
+      ],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "05",
+      "slug": "morning-without-reminders",
+      "family": "lifestyle",
+      "brief": "same woman at window with coffee, quiet morning",
+      "framing": "editorial",
+      "canonicalWoman": true,
+      "status": "planned",
+      "referenceIds": [
+        "canonical-woman-v1"
+      ],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "06",
+      "slug": "afternoon-belongs-to-you",
+      "family": "lifestyle",
+      "brief": "same woman enjoying sun on garden terrace",
+      "framing": "editorial",
+      "canonicalWoman": true,
+      "status": "planned",
+      "referenceIds": [
+        "canonical-woman-v1"
+      ],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "07",
+      "slug": "nothing-further-required",
+      "family": "lifestyle",
+      "brief": "beautiful interior still life with unopened correspondence",
+      "framing": "still-life",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "08",
+      "slug": "easier-together",
+      "family": "lifestyle",
+      "brief": "unforced relational moment, no implied reconciliation",
+      "framing": "editorial",
+      "canonicalWoman": true,
+      "status": "planned",
+      "referenceIds": [
+        "canonical-woman-v1"
+      ],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "09",
+      "slug": "sense-of-completion",
+      "family": "lifestyle",
+      "brief": "same woman resting or reading in lakeside home",
+      "framing": "editorial",
+      "canonicalWoman": true,
+      "status": "planned",
+      "referenceIds": [
+        "canonical-woman-v1"
+      ],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "10",
+      "slug": "unresolved-leak",
+      "family": "circumstances",
+      "brief": "restrained damaged residential interior; persistent ceiling stain",
+      "framing": "evidence",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "11",
+      "slug": "still-unresolved",
+      "family": "circumstances",
+      "brief": "close detail of exactly the same leak as scene 10",
+      "framing": "evidence",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "12",
+      "slug": "the-record",
+      "family": "circumstances",
+      "brief": "folders, correspondence and envelopes; no legible generated text",
+      "framing": "still-life",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "13",
+      "slug": "feeling-better",
+      "family": "circumstances",
+      "brief": "fictional case patient at damaged location; NOT canonical campaign woman",
+      "framing": "editorial",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "14",
+      "slug": "clinical-confidence",
+      "family": "institution",
+      "brief": "believable warm modern consultation room",
+      "framing": "wide",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "15",
+      "slug": "institutional-harmony",
+      "family": "institution",
+      "brief": "polished administrative interior, no villain imagery",
+      "framing": "wide",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "16",
+      "slug": "evidence-and-oversight",
+      "family": "institution",
+      "brief": "neutral research workspace and records",
+      "framing": "wide",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "17",
+      "slug": "product-portrait",
+      "family": "product",
+      "brief": "fictional unbranded package, live/vector labels applied separately",
+      "framing": "product",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    },
+    {
+      "id": "18",
+      "slug": "quiet-object",
+      "family": "product",
+      "brief": "restrained fictional tablet still life, no instructions",
+      "framing": "macro",
+      "canonicalWoman": false,
+      "status": "planned",
+      "referenceIds": [],
+      "assets": {
+        "master": null,
+        "mobile": null,
+        "tablet": null,
+        "desktop": null,
+        "alpha": null,
+        "backgroundPlate": null
+      },
+      "crop": {
+        "mobile": {
+          "focal": [
+            0.5,
+            0.4
+          ],
+          "safeZones": []
+        },
+        "tablet": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        },
+        "desktop": {
+          "focal": [
+            0.5,
+            0.5
+          ],
+          "safeZones": []
+        }
+      },
+      "generation": {
+        "model": null,
+        "version": null,
+        "seed": null,
+        "prompt": null,
+        "settings": null
+      },
+      "review": {
+        "identity": false,
+        "anatomy": false,
+        "lighting": false,
+        "materials": false,
+        "architecture": false,
+        "grade": false,
+        "noText": false,
+        "approvedBy": null
+      },
+      "provenance": {
+        "source": "not-created",
+        "license": null,
+        "sha256": null
+      }
+    }
+  ]
+}
