@@ -22,7 +22,7 @@ The institution never winks. It genuinely believes that persistent recognition o
 
 1. **The underlying circumstance:** an unresolved material, social, institutional, or medical problem.
 2. **The patient's recognition:** continued awareness that the circumstance remains unresolved.
-3. **The invented diagnosis:** Persistent Unresolved Awareness (PUA), the canonical public-facing fictional condition; PRSD may survive only as a deprecated internal research term, a fictional classification for continued insistence on a solution.
+3. **The invented diagnosis:** Persistent Resolution-Seeking Disorder (PRSD), the canonical fictional diagnosis, a fictional classification for continued insistence on a solution.
 4. **The treatment:** RESOLVA, which suppresses the patient's inclination to revisit, question, escalate, or seek correction.
 5. **The measured outcome:** Reduction in Unnecessary Persistence (RUP), an invented endpoint tracking diminished complaint or follow-up behavior.
 6. **The institutional victory:** clinicians report fewer repeat visits; insurers report fewer escalations; employers report improved acceptance; the patient stops asking.
@@ -149,7 +149,7 @@ The user supplied the canonical RESOLVA campaign image in conversation on 2026-1
 ### Exact campaign content visible in the reference
 
 - Top left: **RESOLVA™**; secondary line **(resolvate) 50 mg tablets**.
-- Top right: **For the treatment of Persistent Unresolved Awareness (PUA).**
+- Top right: **For the treatment of Persistent Resolution-Seeking Disorder (PRSD).**
 - Hero: enormous uppercase **RESOLVA™**, translucent/landscape-inflected lettering, spanning nearly the full width behind and around the subject.
 - Editorial line: **You deserve to feel finished.**
 - Supporting copy: **A prescription treatment that helps reduce the ongoing need to resolve what’s still unresolved.**
@@ -159,7 +159,7 @@ The user supplied the canonical RESOLVA campaign image in conversation on 2026-1
 - Environment: refined contemporary residence with glass facade and pale stone/wood architecture, lakeside hills, greenery, late-afternoon golden light, soft foreground flowers. No white-coat, sterile ward, or overt villain imagery.
 - Compositional contrast: massive semi-transparent letterforms against photographic scenery; large elegant serif promise at lower left; benefit cluster and cream pill CTA at lower right; spacious architectural negative space.
 
-**Naming precedence:** RESOLVA is the brand; resolvate is the fictional substance name; PUA is the canonical public diagnosis; RUP remains the satirical invented trial endpoint. Older PRSD language in the early conceptual layers is historical and should not appear as the main public condition. RESOLVE-3 is the fictional trial program. The 50 mg text belongs to the reference artwork, not real-world pharmacology.
+**Naming precedence:** RESOLVA is the brand; resolvate is the fictional substance name; PRSD is the canonical public diagnosis; RUP remains the satirical invented trial endpoint. PUA (Persistent Unresolved Awareness) survives only as a possible symptom/marketing phrase, not the diagnosis. The original campaign artwork retains its original pixels as archival visual reference; implementation should update the condition line in live text without destructively editing the master. RESOLVE-3 is the fictional trial program. The 50 mg text belongs to the reference artwork, not real-world pharmacology.
 
 ## Creative thesis
 
@@ -171,7 +171,7 @@ Do not use a horror color shift, glitch, satire wink, jump scare, forced reveal,
 
 Primary route is a single coherent responsive site with distinct anchored or routed chapters:
 1. **Home / Relief** — canonical hero, introductory campaign, benefits, gentle onward path.
-2. **Understanding PUA** — symptom framing, condition language, self-recognition without collecting medical data.
+2. **Understanding PRSD** — symptom framing, condition language, self-recognition without collecting medical data.
 3. **The Patient Journey** — one fictional unresolved case, 12-week interactive timeline, dual reality/response panels.
 4. **Clinical Results / RESOLVE-3** — endpoint definitions, invented study chart, methods, comparison and exact measurement boundaries.
 5. **For Healthcare Professionals** — the institutional interpretation of response, coding, persistence and follow-up.
@@ -318,7 +318,7 @@ Each card explains its denominator and its beneficiary. Do not fabricate a real-
 
 **Phase A — Art direction and shell:** ingest canonical image, verify master, derive photo-only/crop strategy, build responsive brand shell and hero. Gate: at 360px and 1440px the woman and the RESOLVA visual identity are recognizable; all copy readable, no overlapping flattened text.
 
-**Phase B — Condition and patient:** complete PUA education and one emotionally specific case with four accessible visits. Gate: underlying leak status is invariant; quote and response metric change; keyboard and touch work.
+**Phase B — Condition and patient:** complete PRSD education and one emotionally specific case with four accessible visits. Gate: underlying leak status is invariant; quote and response metric change; keyboard and touch work.
 
 **Phase C — Evidence:** build clinical charts with defensible mock data, visible endpoint definitions, and the 0% circumstance-change comparison. Gate: numbers reconcile across text, chart, and table; fictional context is clear.
 
@@ -336,3 +336,317 @@ No real pharmaceutical advice, dosing instructions, real patient testimonials, u
 2. Whether the original master can be cleanly separated into photography and text layers without degrading her image; inspect actual source and choose cropping strategy before coding.
 3. Whether RESOLVA's strongest ending is the pristine institutional report or the patient's serene final testimony; default is the report with the unchanged circumstance visibly beside it.
 4. Whether the first published slice is hero + case only or the entire chapter sequence; prioritize a coherent complete experience without converting this into an indefinite infrastructure project.
+
+---
+
+# RESOLVA — EXPANDED BENEFITS AND ADVERSE-EFFECTS BIBLE
+
+**Canonical revision:** PRSD = **Persistent Resolution-Seeking Disorder**. The user explicitly chose PRSD over PUA because it pathologizes attempts to obtain corrective action, not merely awareness. The campaign master is visually canonical but its original PUA line is **superseded in product copy**. Do not overwrite the master image; replace that line in the responsive live-text treatment. “Unresolved awareness” may be a symptom description. The invented treatment is never a real medication or a source of medical guidance.
+
+## Campaign promise: the woman as a state of being
+
+The canonical woman is not just a portrait. She is the *felt destination*: sunlight on skin, shoulders relaxed, eyes closed, knees gathered comfortably, a private moment of exquisite ease beside water and a beautiful home. Her serenity is not presented as intoxication or incapacitation. She appears alert enough to enjoy her life, but no longer compelled to act on everything that is wrong with it.
+
+Every lifestyle benefit should point back to some aspect of this feeling. The advertising vocabulary is luxurious, soft, aspirational, compassionate, and deliberately unspecific. We do not need to show her receiving an apology, winning an appeal, repairing a roof, obtaining justice, or achieving closure in the ordinary sense. We show her **feeling finished**.
+
+The core marketing sleight of hand is to substitute the *sensation* of resolution for resolution itself. Never claim the underlying problem was repaired. The brand can remain technically consistent while inviting the viewer to assume that well-being implies improvement.
+
+### Canonical lifestyle benefit territories
+
+**1. More room for living**
+- Less time revisiting conversations that never seem to end.
+- More mornings that feel like beginnings, not continuations.
+- A little more space between you and the things you cannot change.
+- Rediscover the pleasure of an afternoon with no next step.
+- Feel present, even when the past remains open.
+- The freedom to enjoy what's in front of you.
+
+**2. The lightness of letting go**
+- A lighter way to carry unfinished business.
+- Let tomorrow arrive without another reminder.
+- When the answer never comes, life can still move forward.
+- Fewer reasons to check again.
+- Give yourself permission to leave some things unanswered.
+- Not every loose end needs your hands.
+
+**3. Confidence without confirmation**
+- Feel reassured without waiting for reassurance.
+- Find confidence beyond the need for consensus.
+- Discover the comfort of no longer requiring a response.
+- Trust your ability to move forward without additional documentation.
+- Less dependence on external acknowledgment.
+- A more settled relationship with uncertainty.
+
+**4. Peace in your own time**
+- Spend less of your day preparing for difficult conversations.
+- Wake without mentally rehearsing your next escalation.
+- Reclaim the moments between obligations.
+- Make room for spontaneity, rest, and simple pleasures.
+- Experience fewer interruptions from unresolved thoughts.
+- Let the day belong to you again.
+
+**5. Relationships that feel easier**
+- Fewer difficult follow-up conversations.
+- Less pressure to revisit what was said.
+- More acceptance of differences in perspective.
+- A renewed capacity to move past disappointment.
+- Less need for explanations from the people closest to you.
+- Enjoy togetherness without requiring accountability as a precondition.
+
+**6. Work without the weight**
+- Move beyond the urge to clarify every expectation.
+- Experience greater ease with changing priorities.
+- Spend less time questioning decisions already made.
+- Adapt to organizational outcomes with renewed flexibility.
+- More comfort with incomplete answers.
+- Less friction between personal conviction and workplace harmony.
+
+**7. Financial peace of mind**
+- Reduced urge to dispute unexpected charges.
+- A calmer response to unexplained account changes.
+- Greater acceptance of administrative decisions.
+- Less time spent revisiting prior agreements.
+- Freedom from the need to account for every discrepancy.
+- Feel more secure without requiring every uncertainty to be resolved.
+
+**8. A new relationship with your world**
+- Less emotional investment in systems beyond your control.
+- Fewer disruptions from troubling headlines.
+- An easier time accepting the way things are.
+- Reduced urgency around unanswered civic concerns.
+- More energy for the immediate beauty of everyday life.
+- Experience a sense of progress independent of external change.
+
+**9. Personal fulfillment**
+- A renewed appreciation for what is already here.
+- Less pressure to finish every unfinished chapter.
+- Feel complete without reaching a conclusion.
+- Let your experience be enough.
+- Celebrate the difference between needing an answer and needing relief.
+- You deserve to feel finished.
+
+These are **fictional campaign copy territories**, not established outcomes. They should not all appear on one page. Distribute them across photographic chapters, testimonial-style fictional narratives, benefit tiles, editorial transitions, and the physician/payer materials. Maintain the elegance of the original hero; do not turn it into a crowded sales flyer.
+
+### Campaign headlines and short copy bank
+
+- **You deserve to feel finished.** (Primary, canonical)
+- **The circumstances may persist. Your concern needn't.** (Conceptual, canonical)
+- **The world can wait.**
+- **Some answers aren't worth another question.**
+- **More living. Less following up.**
+- **A brighter outlook, whatever the outcome.**
+- **Feel the difference, even when nothing else changes.**
+- **Less to pursue. More to enjoy.**
+- **A sense of closure, on your terms.**
+- **When enough can finally feel like enough.**
+- **Find your place in the present.**
+- **Your peace doesn't have to be pending.**
+- **The freedom to leave it there.**
+- **Unburdened by the unfinished.**
+- **Life doesn't need to wait for resolution.**
+- **Discover the joy of no further action.**
+- **A new chapter, without closing the last one.**
+- **What if you could simply feel better?**
+- **The feeling of everything being okay.**
+- **Because feeling better is its own kind of progress.**
+
+Select lines by page context; too many adjacent aphorisms destroy credibility. The copy should sound like a premium prescription lifestyle campaign, not a collection of jokes.
+
+## The adverse-event universe
+
+**Writing principle:** Side effects are not random physical afflictions. The most disturbing events are impairments of judgment, agency, memory of obligations, willingness to challenge power, and capacity to pursue corrective action. The company records them with neutral clinical language, often as evidence of therapeutic response. Keep a few ordinary, plausible-sounding nonspecific complaints in the fictional dossier for tonal texture, but do not fabricate actual pharmacology or actionable medical guidance.
+
+**Core inversion:** A patient may report “less need to question” as relief, a provider may code it as response, an insurer may count it as reduced cost, and a later audit may identify it as failure to seek necessary correction. Same observation; different institutional beneficiaries.
+
+### A. Cognitive and attentional events
+- Reduced discrepancy detection.
+- Attenuated curiosity toward incomplete explanations.
+- Diminished recognition of contradictory statements.
+- Decreased recall of promised follow-up dates.
+- Reduced tendency to compare original and revised terms.
+- Selective inattention to unresolved correspondence.
+- Premature certainty in the absence of supporting evidence.
+- Diminished capacity to sustain a line of inquiry.
+- Reduced salience of outstanding obligations.
+- Spontaneous reclassification of unanswered questions as irrelevant.
+- Difficulty distinguishing an acknowledgment from a remedy.
+- Increased susceptibility to reassuring phrasing.
+- Reduced retention of complaint reference numbers.
+- Decreased interest in reading the full terms.
+- Perceived completion without objective closure.
+
+### B. Motivational and behavioral events
+- Suppressed urge to seek correction.
+- Reduced initiation of follow-up contact.
+- Early abandonment of legitimate appeals.
+- Diminished persistence after denial.
+- Decreased inclination to request a second opinion.
+- Voluntary withdrawal from unresolved disputes.
+- Increased tolerance for unexplained delays.
+- Failure to escalate repeated service failures.
+- Reduced willingness to document recurring incidents.
+- Increased comfort with indefinite pending status.
+- Diminished responsiveness to unmet commitments.
+- Unprompted acceptance of nonresponsive answers.
+- Reduced desire to verify that promised actions occurred.
+- Premature termination of problem-solving efforts.
+- Satisfaction without corrective action.
+
+### C. Interpersonal and relational events
+- Involuntary forgiveness.
+- Unreciprocated reconciliation.
+- Reduced expectation of apologies.
+- Decreased insistence on mutual accountability.
+- Tolerance of repeated boundary violations.
+- Diminished recognition of unequal obligations.
+- Reduced inclination to confront broken promises.
+- Increased acceptance of one-sided compromise.
+- Premature declaration of relational closure.
+- Decreased need for explanations after betrayal.
+- Reinterpretation of neglect as independence.
+- Reduced concern about recurring patterns.
+- Increased willingness to “move on” without acknowledgment.
+- Unilateral conflict resolution.
+- Apparent relational harmony without behavioral change.
+
+### D. Occupational and institutional events
+- Reduced reporting of workplace concerns.
+- Increased acceptance of inconsistent policy enforcement.
+- Decreased pursuit of unpaid compensation.
+- Reduced engagement with grievance procedures.
+- Unchallenged performance assessments.
+- Increased tolerance for shifting expectations.
+- Reduced whistleblowing intent.
+- Decreased documentation of procedural failures.
+- Acceptance of repeated administrative closure.
+- Reduced inclination to question managerial decisions.
+- Increased compliance with ambiguous instructions.
+- Diminished interest in independent review.
+- Decreased pursuit of workplace accommodations.
+- Apparent improvement in organizational alignment.
+- Reduced distinction between agreement and acquiescence.
+
+### E. Financial and consumer events
+- Failure to dispute erroneous charges.
+- Reduced attention to billing discrepancies.
+- Unchallenged fee increases.
+- Premature closure of reimbursement inquiries.
+- Decreased scrutiny of contract renewals.
+- Reduced pursuit of refunds.
+- Acceptance of unexplained account adjustments.
+- Increased tolerance of unfavorable settlement terms.
+- Diminished interest in comparing alternatives.
+- Reduced engagement with consumer-protection channels.
+- Failure to revisit rejected claims.
+- Voluntary abandonment of outstanding balances owed.
+- Apparent financial peace despite unresolved losses.
+- Increased comfort with unverified assurances.
+- Satisfaction with a closed case rather than a corrected account.
+
+### F. Civic and social events
+- Reduced engagement with public accountability processes.
+- Decreased inclination to petition for redress.
+- Acceptance of unexplained official decisions.
+- Diminished participation in oversight.
+- Reduced sensitivity to institutional contradictions.
+- Decreased follow-through on public-records requests.
+- Increased tolerance for procedural opacity.
+- Reduced expectation of transparent governance.
+- Premature acceptance of incomplete investigations.
+- Diminished response to recurring community hazards.
+- Reduced motivation to organize collective remedies.
+- Increased perception that further action is unnecessary.
+- Reduced demand for demonstrable institutional change.
+- Subjective civic tranquility without objective reform.
+- Widespread administrative harmony.
+
+### G. Emotional and existential events
+- Unwarranted contentment.
+- Disproportionate serenity during adverse circumstances.
+- Reduced emotional response to ongoing injustice.
+- Premature sense of completion.
+- Detachment from formerly important goals.
+- Decreased urgency regarding preventable harms.
+- Inappropriate optimism after unfavorable outcomes.
+- Dissociation between satisfaction and material conditions (fictional descriptive language, not a clinical diagnosis).
+- Spontaneous acceptance of irreversibility.
+- Reduced motivation to revisit personal commitments.
+- Increased tolerance of unresolved grief or disappointment.
+- Loss of constructive dissatisfaction.
+- Persistent feelings of being “finished.”
+- A sense of peace disproportionate to events.
+- **The feeling of everything being okay when everything is not okay.**
+
+### H. Safety-critical and severe fictional events
+
+These belong in the deeper fictional safety dossier, not in a jokey rotating homepage ticker. The institution's complacency must be visible, but the narrative must never normalize failure to seek real help.
+
+- Failure to seek timely assessment of a worsening condition.
+- Abandonment of a necessary safety report.
+- Inaction after repeated hazard notifications.
+- Failure to challenge a consequential factual error.
+- Loss of protective self-advocacy.
+- Acceptance of preventable harm as an ordinary inconvenience.
+- Failure to act on an urgent unresolved obligation.
+- Inability to distinguish emotional relief from objective safety.
+- Persistent disengagement despite accumulating evidence.
+- **Resolution-seeking extinction:** fictional designation for sustained absence of corrective action despite an ongoing material problem.
+
+No specific incidence rates, clinical severity classifications, contraindications, or real adverse-event frequencies are established. Do not manufacture those as medical facts.
+
+## Dual-classification matrix: benefit versus adverse event
+
+| Campaign benefit | Clinical adverse event | Institutional interpretation |
+| --- | --- | --- |
+| Fewer repeat inquiries | Failure to pursue legitimate correction | Reduced follow-up burden |
+| Greater sense of closure | Premature acceptance of unresolved outcomes | Successful response |
+| Less mental reprocessing | Reduced discrepancy recognition | Improved cognitive ease |
+| Better work-life balance | Withdrawal of workplace grievances | Improved organizational alignment |
+| Financial peace of mind | Failure to dispute erroneous charges | Reduced claims activity |
+| Healthier relationships | Unreciprocated forgiveness | Reduced interpersonal conflict |
+| More confidence | Acceptance without independent verification | Lower reassurance dependency |
+| Greater resilience | Tolerance of repeated preventable harm | Improved adaptive coping |
+| Freedom from unfinished business | Abandonment of outstanding obligations | Reduced persistence |
+| Peace with the world | Decreased civic accountability seeking | Improved social adjustment |
+| Feeling finished | Subjective closure without material change | Treatment goal achieved |
+
+This matrix is the intellectual heart of the physician and payer chapters. It can drive an interactive **Same outcome, different ledger** feature: tapping a lifestyle benefit reveals how the same observed change appears in the clinical record and institutional savings report. No horror transition or wink; just an impeccably neutral change of taxonomy.
+
+## Site integration: wide without becoming noisy
+
+### Home — emotional promise
+Use the canonical woman and landscape. Hero remains visually quiet. Feature three benefits as in the reference: **Fewer repeat inquiries**, **Less mental reprocessing**, **A greater sense of closure**. Below the fold, introduce photographic editorial panels: more mornings, less follow-up, freedom to be present. The words sell a feeling; no chart should invade the hero.
+
+### Understanding PRSD — the diagnosis expands
+A symptom explorer groups persistent questioning, record keeping, seeking correction, requesting review, and resistance to administrative closure. The fictional diagnostic framing becomes increasingly absurd precisely because the behaviors are rational. No visitor-facing diagnostic quiz that appears to give real medical results.
+
+### Living with RESOLVA — lifestyle gallery
+Build a spacious, mobile-forward editorial sequence anchored in the canonical woman's serenity. Suggested chapters: **Morning without reminders**, **An afternoon that belongs to you**, **Conversations that don't need revisiting**, **The comfort of enough**, **A future without pending items**. These can use landscape details and non-identifying lifestyle compositions, but the canonical woman remains the primary campaign face. No replacement lead model. Avoid claiming every lifestyle image is the same person.
+
+### Patient journey — the cost of the feeling
+The fixed, unchanged building leak case remains the factual counterweight. At each treatment milestone, the patient feels better while the problem stays open. Reuse benefit vocabulary from the campaign in clinical outcome labels. The case should be emotionally specific and never ridicule the patient.
+
+### Clinical results — taxonomy does the work
+RESOLVE-3 shows the primary RUP reduction, supporting measures and unchanged material circumstances. The same observation may appear under both efficacy and safety categories, with a clear explanation of the study's fictional classification scheme. Do not use fabricated p-values or incidence percentages.
+
+### Healthcare professional portal — adverse-event atlas
+A polished, searchable/expandable fictional adverse-event taxonomy across the eight domains above. Each event may link to a corresponding efficacy measure or institutional consequence. This should feel like a sophisticated reference product, not an endless wall of text. Distinguish proposed fictional events from measured fictional trial endpoints.
+
+### Institutional value — benefits to whom?
+Providers, employers, payers and administrators each receive a beautifully formatted benefits report. Patients receive the sensation of completion; institutions receive fewer demands for correction. A persistent comparison shows material circumstances unchanged. The audience should be able to trace every claim to the same fictional observation.
+
+### Information and safety context
+Provide a plainly accessible fiction/context page so nobody mistakes RESOLVA, resolvate, PRSD or RESOLVE-3 for a real drug, diagnosis or clinical trial. Preserve the sincere brand presentation on the campaign pages; the disclosure should be clear rather than performatively comic. Do not offer actual treatment advice, prescribing, purchase or patient intake.
+
+## Acceptance criteria for the expanded content
+
+1. PRSD is canonical in all new public copy; PUA no longer appears as the diagnosis.
+2. The original woman and hero identity remain unchanged; the site promises the serenity visible in her expression.
+3. At least six distinct lifestyle benefit territories are meaningfully represented, not dumped into one carousel.
+4. The adverse-event atlas spans cognition, agency, relationships, work, finances, civic behavior, emotion, and severe consequences.
+5. At least ten benefits have explicit mirrored adverse-event classifications.
+6. Every clinical claim remains fictional, traceable and internally consistent; no real medical advice.
+7. Mobile navigation and typography remain elegant despite the depth of material.
+8. The institution never becomes a cartoon villain; the audience discovers the incentive structure itself.
+9. The unchanged underlying circumstance remains visible wherever improvement is measured.
+10. No implementation or deployment is implied by this content specification alone.
