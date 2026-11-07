@@ -11,6 +11,7 @@ Independent, single-page institutional experiences. Each project owns its layout
 - [GOLDEN STANDARD](golden-standard/README.md) — project specification.
 - [EVERSTEAD](everstead/README.md) — project specification.
 - [EIGHTEEN™](eighteen/README.md) — temporal personnel experience and specification.
+- [REMOTE™](remote/README.md) — premium model-mediated human surrogate representation; concept captured, development deferred.
 
 ## Design invariants
 
