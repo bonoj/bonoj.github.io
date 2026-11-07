@@ -1,6 +1,6 @@
 # INVARIANT — litigation without a human interface
 
-**Status:** Approved concept and implementation specification; site not yet built.
+**Status:** Initial site built at `index.html` (commit `15a0fc3`); interactive browser-local intake protocol. Eighteen portrait assets remain to be created; current personnel cards use initials as temporary placeholders. Live GitHub Pages deployment and mobile/desktop rendering have not yet been independently verified.
 **Home:** `jit/subversion/invariant/`
 **Lineage:** Subversion institutional satire; independent single-page experience governed by `../README.md`.
 
@@ -143,7 +143,7 @@ The user selected **1b** for architectural slot 1 and **3a** for architectural s
 | 4 — Final sterile glass corridor | 1c (cleanroom ten-candidate matrix) | https://www.ritterwand.de/mt-content/uploads/2023/08/ritterwand_reinraeume_projektebeispiel_6.jpg |
 
 
-**All four architectural images approved.** Exact URLs locked above. Final slot is a pale, symmetrical glass-partitioned cleanroom corridor with no people.
+**All four architectural images approved and used in `index.html`.** Exact URLs locked above. Final slot is a pale, symmetrical glass-partitioned cleanroom corridor with no people.
 
 ## The serious hypothesis beneath the satire
 
@@ -158,4 +158,4 @@ A supervised machine-native legal operation might lower the marginal cost of ana
 - No invented legal licensure or false attorney identity.
 - Complete deterministic test matrix for state, validation, errors, idempotency, permissions and conflict handling.
 - Verify narrow and wide layouts and interactive branches before claiming implementation quality.
-- Do not implement or deploy until the next explicit build instruction.
+- Build explicitly authorized November 7, 2026. Initial implementation committed; verify deployed rendering and finish portrait assets before considering production-quality acceptance.
