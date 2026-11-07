@@ -1,7 +1,7 @@
 # Everstead™ — full JIT subversion specification
 
 **Canonical destination:** `bonoj/bonoj.github.io`, `master:jit/subversion/everstead/`  
-**Project status:** **SPECIFICATION ONLY — not yet implemented or deployed**  
+**Project status:** **IMPLEMENTED IN SOURCE** — GitHub Pages publication and live rendering not independently verified  
 **Reference implementation:** [Golden Standard](../golden-standard/) (`index.html` and `README.md` inspected 2026-11-07)  
 **Genre:** Deadpan institutional horror, executive cloning satire, premium continuing-care brochure. **Fictional institution.**
 
@@ -147,3 +147,7 @@ Section label: **Continuity Portal™**. Heading: *Track Your Successor™*. Pro
 - **Executive Continuity C — The Art Studio:** **APPROVED by user, locked.** MonteCedro art studio, representing standardized individuality development. Candidate direct image URL: `https://www.ecsforseniors.org/wp-content/uploads/2020/09/ECS_Hero_MonteCedro_art-studio.jpg`. Source gallery: https://www.ecsforseniors.org/montecedro/photo-gallery . Use for the second program card. No visible words or signage permitted; inspect the exact image before implementation. Exact direct JPG path, third-party embedding, and reuse rights remain unverified; do not silently substitute an alternative.
 
 **Publishing gate:** Direct JPG paths were proposed from source-site naming conventions and have not been independently HTTP-verified here; embedding reliability and reuse permission remain unconfirmed. Do not imply the images are licensed for third-party use, or publish until the chosen sources and rights are checked. Never add visible lettering or logos to photography.
+
+## Implementation record — 2026-11-07
+
+**Source implementation:** `index.html`, commit `91fef215cefaac952b7329dadb7f6886da4b9a5a`. Standalone HTML/CSS/JS, eighteen Continuants with exact names/portrait references and unique IDs, responsive directory, accessible FAQ, and local-only tracking portal. **Selected design system:** Everstead Golden Hour, derived from approved main-entrance hero: Stucco `#F1E3CF`, Twilight `#647A9D`, Sunset `#A65F56`, Clay `#C18B70`, Iron `#45403E`, plus darker institutional blue `#303D52` and lighter paper `#FBF7F0`. The sunset accent is used on primary buttons, registry band, and small architectural rules. Distinct from Golden Standard's green/gold identity. Square-edged formal cards, traditional serif display, restrained sans metadata, institutional masthead. **Locked imagery:** Hero A, Residential B, Executive C as recorded above. **Publication caveat:** Image licensing, exact URL resolution, and GitHub Pages live output remain unverified. The real facility is not affiliated with this fictional project; the site contains an explicit satire disclosure.
