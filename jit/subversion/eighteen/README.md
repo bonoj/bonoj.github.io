@@ -75,7 +75,7 @@ Reuse the established eighteen visual identities, but **never their names**. The
 17. Sidney Brooks
 18. Lee Cameron
 
-Each has a stable designation **F-01 through F-18**, a fatality specialty, signature pose/tableau, career highlights, recurring incidents, peer relationships, and performance-review notes. Do not use personal names or historic aliases in customer-facing personnel records. Their repeated visual signatures, not biographical names, establish continuity.
+Each has a stable designation **F-01 through F-18**, a fatality specialty, career highlights, recurring incidents, peer relationships, and performance-review notes. Do not use personal names or historic aliases in customer-facing personnel records. Their recurring portraits and specialist designations, not biographical names, establish continuity.
 
 ## Visual and interaction direction — OPEN
 Do not reuse Everstead's Golden Hour look by default. Potential direction: restrained corporate luxury, precision typography, archival document texture, cool industrial neutrals, confident enterprise dashboard components. Final palette, typography, imagery, motion, layout, and implementation should wait for user direction.
@@ -93,9 +93,9 @@ Do not reuse Everstead's Golden Hour look by default. Potential direction: restr
 **Await user's art direction and product priorities.** This file is a premise and experience specification only. Do not implement `index.html`, choose a final visual system, or expand the lore until directed.
 
 ## Creative direction update — anonymous fatality specialists (2026-11-07)
-**Locked:** Personnel have **no names**, only F-01…F-18 designations and professional fatality specialties. Their recognizable signature poses/tableaux recur across periods, visual records, and fictional reconstructions. They have distinctive memorable moments where their presence is integral or critical to a purported engagement, with peer rivalries and repeat collaborations. Tone: dead-serious talent agency / staffing catalog with absurdly precise performance assessments. Do not make poses into practical instructions for causing injury.
+**Locked:** Personnel have **no names**, only F-01…F-18 designations and professional fatality specialties. Their existing portraits are reused as-is; no pose illustrations or new specialist imagery are needed. They have distinctive memorable moments where their presence is integral or critical to a purported engagement, with peer rivalries and repeat collaborations. Tone: dead-serious talent agency / staffing catalog with absurdly precise performance assessments. No pose artwork or pose-driven interface.
 
-### Provisional specialty sketches (subject to art direction)
+### Provisional specialty sketches (text-only; subject to art direction)
 - F-01 — **The Foreman**: raised hand, still directing others; recognized for apparent authority.
 - F-04 — **The Witness**: looking just outside the frame; frequently featured in a final image.
 - F-07 — **The Late Arrival**: half-buttoned coat, one foot over a threshold; absent from original attendance lists.
@@ -105,14 +105,24 @@ Do not reuse Everstead's Golden Hour look by default. Potential direction: restr
 Other twelve specialties and precise positions are open pending direction.
 
 ### Cross-incident continuity: the milling pair
-The **Glasgow 1872** and **Minneapolis 1878** flour-mill incidents provide a paired case-study sequence: same cohort, similar industry, six-year gap. Present them as a fictional repeat-client / sector-expertise success story, with crosslinked specialist records, recurring poses, shared invented objects, mirrored fictional administrative notes, and callbacks. The actual disasters' casualty figures and chronology must be separately sourced and verified. **Do not invent a real-world connection between the events or falsely attribute real victims' identities to fictional personnel.** The cross-reference is a deliberate fictional conceit. Potential feature: a two-column “Then / Again” personnel matrix linking all eighteen specialists to both engagements, with intriguing differences in their performance reviews.
+The **Glasgow 1872** and **Minneapolis 1878** flour-mill incidents provide a paired case-study sequence: same cohort, similar industry, six-year gap. Present them as a fictional repeat-client / sector-expertise success story, with crosslinked specialist records, recurring personnel, shared invented objects, mirrored fictional administrative notes, and callbacks. The actual disasters' casualty figures and chronology must be separately sourced and verified. **Do not invent a real-world connection between the events or falsely attribute real victims' identities to fictional personnel.** The cross-reference is a deliberate fictional conceit. Potential feature: a two-column “Then / Again” personnel matrix linking all eighteen specialists to both engagements, with intriguing differences in their performance reviews.
 
 ### Site implications
-- Replace named team biographies with an **18-card specialist roster**, numbered and sortable by specialty, pose, and historical engagement.
-- Individual profiles show **signature pose**, **memorable moments**, **critical contributions**, **repeat appearances**, and **collaborators**.
+- Replace named team biographies with an **18-card specialist roster**, numbered and sortable by specialty and historical engagement.
+- Individual profiles show ****memorable moments**, **critical contributions**, **repeat appearances**, and **collaborators**.
 - Every case-study page has an 18-position cast sheet; each position links back to a specialist.
-- Case-study-to-case-study cross-references are first-class: recurring poses, six-year mill-industry return, personnel performance deltas, and fictional archive references.
+- Case-study-to-case-study cross-references are first-class: recurring personnel, six-year mill-industry return, personnel performance deltas, and fictional archive references.
 - The portfolio is the company's sales proof, not an investigation. In-world copy never calls itself fiction.
 
 ## FINAL INSTRUCTION — DO NOT PISS BANKSY OFF
 Before calling the work complete, audit every visible string and interaction (hero, navigation, case studies, personnel cards, tooltips, forms, validation, empty states, accessibility text, metadata, footer, and generated content). Remove anything that explains the fiction, apologizes for the premise, breaks character, moralizes, or turns the artwork into a compliance memo. No unsolicited “this is satire,” “fictional institution,” “demonstration only,” “no services offered,” or “not affiliated” boilerplate. Don't invent facts about real historical victims or falsely present fictional cross-incident connections as sourced history; resolve those integrity concerns through responsible editorial design and internal review. If a disclosure is genuinely legally required, flag it explicitly for approval rather than sneaking it into the experience. Final acceptance criterion: the website feels like EIGHTEEN™ made it, not like an assistant nervously explaining EIGHTEEN™.
+
+## Lean image and content budget — locked
+- **18 existing personnel portraits:** reuse as-is; no new personnel art.
+- **1 new homepage hero image.**
+- **4 new case-study images:** one per historical engagement.
+- **No signature-pose illustrations, pose galleries, or other extra artwork.**
+- **Total new images: 5.**
+- **Content:** 4 initial case studies and 4 corresponding fictional client testimonials.
+- Working case-study titles: **A Fine Performance** (Glasgow 1872), **A Fine Performance. Again.** (Minneapolis 1878), **An Atmosphere of Excellence** (South African ammonia incident, 1973; historical details require verification), **Peak Performance** (Thredbo 1997). Titles are proposed, not yet approved.
+- Specialist profiles are text-led: designation, fatality specialty, memorable moments, historical appearances, and cross-references. Do not inflate the asset budget or complicate the site with pose-related features.
