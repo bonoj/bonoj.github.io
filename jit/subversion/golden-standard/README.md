@@ -2,7 +2,7 @@
 
 ## Approved photography — implementation specification
 
-All three image selections are **approved** as of 2026-11-06. This specification supersedes the previous golden-liquid hero selection. Images have **not yet been integrated into the live page**.
+All three image selections are **approved** as of 2026-11-06. This specification supersedes the previous golden-liquid hero selection. All three approved images were integrated into `index.html` in commit `78c76a0b8d3442ed69024cb99f62d8180120c36a`; GitHub Pages deployment may lag the source commit.
 
 | Slot | Selection | Source image URL |
 | --- | --- | --- |
@@ -26,4 +26,4 @@ https://essenceofargan.com/cdn/shop/files/iStock-oil.jpg?v=1616838276&width=4050
 
 ### Implementation status
 
-**Specification only.** No live-site HTML changes are included in this update.
+**Implemented in source.** Full-bleed responsive orchard hero (following JIT Air's overlay architecture) and two photographic division cards. Await GitHub Pages publication and visual verification.
