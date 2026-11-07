@@ -80,6 +80,56 @@ Canonical conceptual operation: `POST /v1/intake`. Subsequent resource operation
 - The roster is the system architecture hidden in a personnel directory. Its functions must map to real modules of the eventual JS simulation, not decorative labels. A subsystem can be small, but it must have observable, testable behavior.
 - The single responsible real attorney remains outside the eighteen synthetic identities; do not invent an attorney's name or suggest the firm already practices law.
 
+
+## Canonical personnel slogans — approved
+
+These are the exact first-person portrait quotations. Their voice is humane, confident and slightly intimate; the fracture is that each speaker is describing its literal execution semantics. Do not replace them with overt robot jokes, random glitches or technical exposition. Preserve wording and punctuation unless the user revises a line.
+
+- **Alex Morgan:** “Everyone deserves an entrance. Not everyone requires a door.”
+- **Jordan Ellis:** “I believe in people. Once they've been established.”
+- **Taylor Reed:** “I give everyone my undivided attention. In the order received.”
+- **Casey Bennett:** “Forgiveness is a personal matter. Forgetting is not.”
+- **Morgan Avery:** “I never question what you've experienced. Only whether it can be accepted.”
+- **Riley Chen:** “There's a place for everyone. I make certain they arrive there.”
+- **Jamie Parker:** “Everything has happened before. Sometimes the record needs reminding.”
+- **Cameron Blake:** “I always consider the other side. All of them.”
+- **Avery Quinn:** “I find disagreement reassuring. It means the system is still telling the truth.”
+- **Robin Hayes:** “There's always time. It simply may not belong to you.”
+- **Sam Rivera:** “Every disagreement has an optimal ending. Not everyone recognizes theirs.”
+- **Quinn Harper:** “People change their minds. I make sure their previous minds remain accounted for.”
+- **Drew Collins:** “You are entitled to your opinion. Its current version is another matter.”
+- **Blair Jordan:** “I treat everyone equally. Exceptions would be unfair.”
+- **Reese Taylor:** “I believe in commitment. Entirely, or not at all.”
+- **Devon Lane:** “I like to know how everyone is doing. At all times.”
+- **Sidney Brooks:** “We all make mistakes. I make sure they don't survive us.”
+- **Lee Cameron:** “People come and go. I have always found that unnecessary.”
+
+### Slogan presentation
+
+Pair each quote with the existing name, inverted infrastructure title and portrait. Prefer selective quotes on overview cards and complete quotes on expanded profiles so the directory has editorial rhythm rather than eighteen identical blocks. No visible decoding of the underlying system. The quotes are character voice, not factual claims of human biography or attorney qualification.
+
+## Site imagery — approved direction, asset selection pending
+
+**Visual progression:** **AUSTERE → HUMAN → STERILE HUMAN → STERILE MACHINE.** This is an emotional progression, not four unrelated themes. Begin with a credible elite law firm; gradually remove warmth and organic variation until Contact is precise, depersonalized interface. Avoid overt cyberpunk, glowing code, server-rack stock photography and science-fiction effects. The machine reveal is primarily *interaction design*.
+
+### Image requirements and placement
+
+1. **Hero architecture (one master image):** monumental, expensive, nearly empty legal-institution architecture—stone, glass, quiet symmetry, restrained daylight. Editorial photorealism. Preserve a strong text-safe region and mobile crop; architecture must look occupied by an institution, not like a futuristic lair.
+2. **Practice / matters (one or two supporting images):** beautifully controlled human legal workspaces: a conference table, a document room or a private consultation setting, with sparse evidence of actual use. Slightly colder than the hero. No gavels, scales, courthouse clip art or staged handshakes.
+3. **Eighteen synthetic portraits (eighteen distinct assets):** human-looking professionals, consistent portrait geometry, understated attire, credible age and appearance diversity, subtly standardized light, camera height, background and composure. The uncanny effect comes from *collective uniformity*, not obvious face glitches. Each asset must have its own subject and stable filename tied to the roster. No reuse of one face for multiple roles.
+4. **Institutional threshold (one image):** an immaculate unoccupied corridor, reception threshold, or glass-walled meeting space with stronger symmetry and cooler light; placed near Approach / before Contact to bridge human and machine.
+5. **Contact / API (no photograph required):** exquisitely designed native UI with documentation, schemas, request builder, response pane and state. Do not embed code or interface text into a raster. The disappearance of people and photography is the final visual event.
+
+**Initial asset budget:** 1 hero + 2 practice + 18 portraits + 1 threshold = **22 images**. Can reduce to 21 if only one practice image earns its place. These are image *slots*, not approved individual images; choose or generate assets separately and review mobile/desktop crops before implementation.
+
+### Responsive art direction
+
+- Hero and architecture use explicit aspect ratios and focal points; retain independent text overlays, never baked-in text.
+- Portraits share a consistent aspect ratio, likely 3:4 or 4:5, with faces and shoulders safe across mobile and desktop crops.
+- Avoid a giant 18-person grid on mobile: stage the roster with meaningful editorial hierarchy and expandable profiles or an intentional browse pattern.
+- Light temperature and color saturation should subtly decline across the page; avoid crude CSS filters that destroy portrait skin tone.
+- Each image must justify its placement. No filler stock photos or visually redundant corridor shots.
+
 ## The serious hypothesis beneath the satire
 
 A supervised machine-native legal operation might lower the marginal cost of analysis, research, drafting and correspondence. One real lawyer remains responsible for actual legal judgment, supervision, competence, confidentiality, conflicts, client communication, court appearances and legally required channels. A nominal “license proxy” or unsupervised automated practice is **not** the operating assumption. Court-authorized service, filing, conferencing and judicial orders are not superseded by the firm's API preference. These realities belong in the engineering specification, not as unsolicited public-facing disclaimers.
