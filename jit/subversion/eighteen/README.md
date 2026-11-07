@@ -140,3 +140,58 @@ The following five choices were selected by the project owner from the image mat
 | Thredbo, 1997 — Peak Performance | **A** | Documentary photograph of emergency-service volunteers at the 1997 landslide | https://commons.wikimedia.org/wiki/File:Thredbo_landslide.jpg |
 
 **Production note:** These source-page URLs are carried forward from the prior candidate list. They have not been independently revalidated during this README edit; verify exact file availability, image rights, and preferred direct asset URLs before implementing the site. Selection approval is not approval to build. Do not add additional imagery.
+
+## Approved visual design system — architectural precision
+
+**Status: approved.** This design direction is anchored to the user-supplied homepage hero photograph: a dark, rigorously repeated diagonal glazing lattice against pale blue glass and an expansive light wall with soft geometric shadows. The actual uploaded hero is the visual reference; do not replace it with a search-result approximation. Ensure the image asset is added to the repository during a future authorized build, not during this specification update.
+
+### Brand character
+A premium international architectural consultancy meets an elite temporal staffing firm. Bright, disciplined, self-assured, meticulously organized, and institutionally deadpan. The contrast between credible corporate presentation and EIGHTEEN's disturbing service offering is the central creative device. Do not use horror tropes, gore, distress textures, faux glitch, or explanatory satire framing.
+
+### Color tokens (approved design direction; approximate visual interpretations, not sampled pixel values)
+
+| Token | Hex | Use |
+|---|---|---|
+| Structural Ink | `#101C24` | Logo, headlines, navigation, primary text, dark hero panel |
+| Steel Blue | `#315B70` | Primary buttons, active controls, links |
+| Glazing Blue | `#6E93A3` | Secondary accents and muted labels |
+| Atmospheric Blue | `#A9C4CF` | Fine rules, subtle outlines, light graphic details |
+| Frosted Glass | `#DCE9ED` | Quiet section backgrounds and surfaces |
+| Gallery White | `#F6F8F7` | Dominant page background |
+
+Use one cohesive cool blue family; avoid gratuitous red, gold, neon, gradients, and colorful status ornamentation. Maintain accessible text contrast and visible keyboard focus.
+
+### Typography and hierarchy
+- Swiss-modernist editorial language; **Inter** or **Helvetica Neue**, with robust system sans-serif fallback.
+- Large tightly tracked headlines, exceptionally clear numerals, disciplined uppercase eyebrow labels, compact metadata, and unambiguous hierarchy.
+- **18** is a recurring structural typographic motif, not a decorative logo gimmick.
+- Lead homepage line: **“Eighteen. Every time.”** Support copy should be short, credible, and deadpan.
+
+### Grid, surfaces, and motion
+- Twelve-column desktop grid; responsive, readable single-column layouts on mobile.
+- Generous whitespace, consistent baseline spacing, hard alignments, thin dividers, repeatable modules.
+- Eighteen personnel cards with uniform dimensions and F-01 through F-18 designations. Reuse the 18 existing portraits; no poses or pose illustrations.
+- Square or very subtly rounded corners; no soft, bubbly SaaS styling.
+- Minimal motion: restrained fades/reveals and understated hover states; honor reduced-motion preferences.
+
+### Image direction
+- **Homepage:** the user's uploaded architectural hero, displayed prominently, with enough unobstructed area to preserve the lattice/wall composition. Do not substitute an unrelated stock building photo.
+- **Four historical engagements:** use the five-image selection table elsewhere in this README (one hero plus four case studies), but the uploaded hero supersedes the previously listed homepage stock-photo reference. Preserve the archival character of historical material with restrained crops and consistent frames; do not fabricate documentary provenance.
+- **People:** existing 18 portraits, unchanged. No additional personnel imagery.
+- No decorative overlays, faux paper aging, or needless photo effects.
+
+### Homepage composition
+1. Gallery White navigation bar with Structural Ink EIGHTEEN™ wordmark and spare navigation (Our People / Engagements / Contact).
+2. Confident Structural Ink headline area: small uppercase “TEMPORAL PERSONNEL SOLUTIONS”; large **“Eighteen. Every time.”**; compact supporting line “Precision staffing across the historical record.”
+3. User-provided hero image at generous width, not buried behind text.
+4. Light editorial follow-through: “01 / 18”, a fine rule, heading “Our people. Your moment.”, and a succinct staffing statement.
+5. Continue into case studies and numbered personnel with the same grid discipline; keep the copy fully in-world.
+
+### Final art-direction acceptance criteria
+- The finished experience looks credible enough for a major infrastructure consultancy, while the prose remains calmly unsettling.
+- The supplied hero is the visual anchor; cool architectural tones inform the entire system.
+- Light-first, geometric, restrained, premium; not dark horror or generic SaaS.
+- Every section is aligned to a coherent grid and typography scale.
+- The site contains exactly the planned image placements plus the 18 existing portraits; no new pose art.
+- All public-facing copy follows the README's **DO NOT PISS BANKSY OFF** bookend instructions. No unsolicited fiction disclaimers or winking explanations.
+
