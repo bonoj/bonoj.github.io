@@ -218,3 +218,13 @@ A supervised machine-native legal operation might lower the marginal cost of ana
 - Complete deterministic test matrix for state, validation, errors, idempotency, permissions and conflict handling.
 - Verify narrow and wide layouts and interactive branches before claiming implementation quality.
 - Build explicitly authorized November 7, 2026. Initial implementation committed; verify deployed rendering and finish portrait assets before considering production-quality acceptance.
+
+## Organic policy-maker escalation — correspondence concept (2026-11-07)
+
+**Source:** [Sigils People](../hr/README.md), record `ao-12`: Afonso Cassoma Sapalo, Angola, age 6, portrait `https://ambravo.github.io/sigils-people/portraits/m/ao-12.avif`. Source dataset is an artistic portrait/persona index, **not evidence of a real child exercising legal authority**. Attribution: Sigils People, CC BY 4.0.
+
+**Fictional premise:** The institution's latest global-settlement review routes the $500 million offer to an “Acting Organic Policy Maker,” portrayed by a six-year-old. The human rejects the proposal for a simple reason: nobody has explained what the money is for or who it helps. INVARIANT interprets this as independent human judgment and requests a child-comprehensible accounting of injuries, affected persons, and remedy before continuing review.
+
+**Voice:** Earnest institutional pride in organic participation, without overtly mocking the child. The comedy targets the firm's cynical delegation of enormous authority to an unqualified human while professing perfect procedural accountability. Never represent a real minor as a lawyer, signatory, settlement approver, or actual decision-maker. In any actual settlement, competent authorized adults and legally required approvals remain essential.
+
+**Potential interface:** A tasteful personnel appointment panel with Sigils attribution in documentation, fictional office, case review, and a single finding: “He asked who gets the money. The submission did not answer.” No direct contact, no child participation, no real sensitive submissions.
