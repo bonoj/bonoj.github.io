@@ -1,4 +1,8 @@
 # EIGHTEEN™ — Concept & Experience Specification
+
+> **INITIAL INSTRUCTION — DO NOT PISS BANKSY OFF**
+> Treat EIGHTEEN™ as a complete, self-possessed artwork. Build the fictional company's actual experience, not a presentation explaining the joke. Never add unsolicited satire labels, fiction disclaimers, safety lectures, provenance notices, placeholder apologies, or wink-at-the-audience copy to the rendered site. Do not dilute the institutional voice with defensive legalese or gratuitous exposition. Preserve the absurdity, specificity, visual confidence, and deadpan humor. Handle factual sourcing, rights, and any genuinely required disclosures in the internal production process; raise unresolved publication requirements for review instead of silently putting them into public copy.
+
 **Location:** `jit/subversion/eighteen/`  
 **Status:** CONCEPT LOCK / awaiting creative direction  
 **Working line:** **Eighteen. Every time.**
@@ -109,3 +113,6 @@ The **Glasgow 1872** and **Minneapolis 1878** flour-mill incidents provide a pai
 - Every case-study page has an 18-position cast sheet; each position links back to a specialist.
 - Case-study-to-case-study cross-references are first-class: recurring poses, six-year mill-industry return, personnel performance deltas, and fictional archive references.
 - The portfolio is the company's sales proof, not an investigation. In-world copy never calls itself fiction.
+
+## FINAL INSTRUCTION — DO NOT PISS BANKSY OFF
+Before calling the work complete, audit every visible string and interaction (hero, navigation, case studies, personnel cards, tooltips, forms, validation, empty states, accessibility text, metadata, footer, and generated content). Remove anything that explains the fiction, apologizes for the premise, breaks character, moralizes, or turns the artwork into a compliance memo. No unsolicited “this is satire,” “fictional institution,” “demonstration only,” “no services offered,” or “not affiliated” boilerplate. Don't invent facts about real historical victims or falsely present fictional cross-incident connections as sourced history; resolve those integrity concerns through responsible editorial design and internal review. If a disclosure is genuinely legally required, flag it explicitly for approval rather than sneaking it into the experience. Final acceptance criterion: the website feels like EIGHTEEN™ made it, not like an assistant nervously explaining EIGHTEEN™.
