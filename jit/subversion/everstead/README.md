@@ -137,3 +137,13 @@ Section label: **Continuity Portal™**. Heading: *Track Your Successor™*. Pro
 ## Decision log
 
 2026-11-07: User chose **Everstead** and explicitly specified `jit/subversion/everstead`, **full spec**, all **18 original Golden Standard names** with allocations and metadata, subtle designation rather than explicit clone/replicant, and **current batch** (not cohort). This specification is the implementation contract; no site deployment is implied by its creation.
+
+## Photography selection log — 2026-11-07
+
+**Approved by user (locked choices; no replacement without approval):**
+
+- **Hero A — The arrival:** MonteCedro main entrance at dusk. Direct image candidate: `https://www.ecsforseniors.org/wp-content/uploads/2020/09/ECS_Hero_MonteCedro_Main-Entrance-1.jpg`. Source gallery: https://www.ecsforseniors.org/montecedro/photo-gallery . Full-bleed responsive hero, no visible words in composition.
+- **Residential Cultivation B — The common room:** MonteCedro living room with blue-green curtains and paired sofas. Direct image candidate: `https://www.ecsforseniors.org/wp-content/uploads/2020/09/ECS_Hero_MonteCedro_Living-Space-Living-Room-blue-green-curtains.jpg`. Source gallery as above. Two-column program card; no visible words.
+- **Executive Continuity:** **NOT SELECTED.** New alternatives requested. Do not use the previous A/B/C options without a new user decision.
+
+**Publishing gate:** Direct JPG paths were proposed from source-site naming conventions and have not been independently HTTP-verified here; embedding reliability and reuse permission remain unconfirmed. Do not imply the images are licensed for third-party use, or publish until the chosen sources and rights are checked. Never add visible lettering or logos to photography.
