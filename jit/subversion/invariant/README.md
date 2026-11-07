@@ -139,8 +139,10 @@ The user selected **1b** for architectural slot 1 and **3a** for architectural s
 | --- | --- | --- |
 | 1 — Hero / monumental wood | 1b | https://images.squarespace-cdn.com/content/v1/6660abf9c5aed2338f4095ee/83d5e4fa-64dc-4772-867c-8aafcf9052d3/WilmerHale%2BDC%2B2023%2B%28141%29.jpg?format=1000w |
 | 2 — Practice / private offices | 3a | https://images.squarespace-cdn.com/content/v1/6660abf9c5aed2338f4095ee/7c8ae861-1a49-4b08-a8fd-21081a802c55/WilmerHale%2BDC%2B2023%2B%28178%29.jpg |
+| 3 — Sterile human-to-machine / white server cabinets | 1c (ten-candidate matrix) | https://kempenautomatisering.com/assets/droppedImage-2097-47d41fd38aebb579628b33dee989479428962f78aec8d60975bed88b64c4d4fa.png |
 
-**Slots 3 and 4:** seek sterile white, glass-fronted server-farm photographs with no humans. Await user approval; do not lock candidates prematurely.
+
+**Slot 3 approved:** white server cabinets, exact URL locked above. **Slot 4 remains open:** seek a final sterile machine environment that completes the transition; no humans, minimal color, architectural glass and strong spatial depth.
 
 ## The serious hypothesis beneath the satire
 
