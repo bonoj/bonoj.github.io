@@ -44,9 +44,41 @@ Canonical conceptual operation: `POST /v1/intake`. Subsequent resource operation
 - Test through a console that permits ordinary text and raw JSON. The documentation should be genuinely usable by an engineer, not decorative pseudo-code.
 - No real legal advice, real case submission, sensitive document collection or attorney-client relationship in the static prototype. Don't store real sensitive submissions in browser persistence. Fictional fixtures only.
 
-## Eighteen functional faces
+## Canonical personnel roster — approved
 
-The eighteen are the institutional presentation layer, not the underlying legal team. Candidate offices: Intake, Evidence, Discovery, Research, Precedent, Claims, Remedies, Valuation, Negotiation, Correspondence, Objections, Procedure, Deadlines, Appeals, Conflicts, Quality, Records and Continuity. Give each a distinct dignified persona and title; never call them a licensed attorney or invent bar credentials. All actions converge on the same intake interface. The actual machine has one canonical matter state.
+**Naming convention:** `[backend infrastructure function] + [human institutional rank]`. No “Director of …” phrasing. Titles must be grammatically plausible as corporate roles while quietly reading as literal system component names. Vary seniority and specificity; the hierarchy expresses infrastructure criticality rather than attorney seniority.
+
+**Identity continuity:** Reuse the existing eighteen names from Golden Standard, in their original order. Do not invent a replacement cast. INVARIANT's roles and biographies are new, but these names remain stable.
+
+| Name | INVARIANT title | Literal infrastructure function |
+| --- | --- | --- |
+| Alex Morgan | Client Gateway Director | API gateway |
+| Jordan Ellis | Identity Access Principal | Authentication and access |
+| Taylor Reed | Correspondence Queue Coordinator | Message queue |
+| Casey Bennett | Institutional Memory Executive | Canonical database |
+| Morgan Avery | Evidence Validation Principal | Schema and evidence validation |
+| Riley Chen | Matter Orchestration Director | Workflow orchestration |
+| Jamie Parker | Precedent Retrieval Specialist | Search and retrieval |
+| Cameron Blake | Adversarial Inference Director | Analysis and inference |
+| Avery Quinn | Conflict Detection Officer | Conflict and constraint detection |
+| Robin Hayes | Procedural Schedule Administrator | Scheduler and deadlines |
+| Sam Rivera | Resolution Optimization Executive | Optimization and settlement modeling |
+| Quinn Harper | Position Reconciliation Director | State reconciliation |
+| Drew Collins | Version Authority Principal | Version control |
+| Blair Jordan | Policy Enforcement Officer | Policy and rule evaluation |
+| Reese Taylor | Transaction Integrity Controller | Atomic transactions |
+| Devon Lane | Operational Observability Director | Monitoring and telemetry |
+| Sidney Brooks | Exception Recovery Specialist | Failure recovery |
+| Lee Cameron | Institutional Persistence President | Durable state and continuity |
+
+### Presentation rules
+
+- Each of the eighteen receives a polished synthetic portrait, name, exact approved title, substantial institutional biography, and an individual correspondence action. The portraits are deliberately human-looking, not cyborgs or abstract infrastructure.
+- Biographies describe the underlying subsystem *accurately*, using credible corporate-legal language. No explicit disclosure that a person “is a database,” no sci-fi hints, and no fabricated law licenses, bar numbers, trial histories or human professional credentials.
+- Subtle cues: unusual constancy, exhaustive recall, absolute sequencing, no downtime, precise escalation, consistent language, no availability windows. None alone should expose the mechanism.
+- The people are **personifications of backend components**, not eighteen independent models or actual lawyers. Each persona's correspondence CTA routes to the one `POST /v1/intake` interface, preconfigured with its relevant operation type; there are no individual inboxes.
+- The roster is the system architecture hidden in a personnel directory. Its functions must map to real modules of the eventual JS simulation, not decorative labels. A subsystem can be small, but it must have observable, testable behavior.
+- The single responsible real attorney remains outside the eighteen synthetic identities; do not invent an attorney's name or suggest the firm already practices law.
 
 ## The serious hypothesis beneath the satire
 
