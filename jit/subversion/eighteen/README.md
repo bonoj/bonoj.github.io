@@ -126,3 +126,17 @@ Before calling the work complete, audit every visible string and interaction (he
 - **Content:** 4 initial case studies and 4 corresponding fictional client testimonials.
 - Working case-study titles: **A Fine Performance** (Glasgow 1872), **A Fine Performance. Again.** (Minneapolis 1878), **An Atmosphere of Excellence** (South African ammonia incident, 1973; historical details require verification), **Peak Performance** (Thredbo 1997). Titles are proposed, not yet approved.
 - Specialist profiles are text-led: designation, fatality specialty, memorable moments, historical appearances, and cross-references. Do not inflate the asset budget or complicate the site with pose-related features.
+
+## Selected launch images — approved choices
+
+The following five choices were selected by the project owner from the image matrix. Reuse the 18 existing personnel portraits unchanged; no pose illustrations and no additional image placements.
+
+| Placement | Selection | Image description | Source page URL |
+|---|---|---|---|
+| Homepage hero | **A** | Geometric glass façade; minimalist blue-glass architecture with repeating lines | https://www.pexels.com/photo/modern-glass-office-building-exterior-view-33902820/ |
+| Glasgow, 1872 — A Fine Performance | **A** | Illustrated London News engraving of the Tradeston flour-mill explosion aftermath | https://commons.wikimedia.org/wiki/File:Scene_of_the_Explosion_at_Tradeston_Flour-Mills,_Glasgow_ILN_1872.png |
+| Minneapolis, 1878 — A Fine Performance. Again. | **B** | Wide historical image of the Great Mill Disaster aftermath | https://commons.wikimedia.org/wiki/File:Washburn_Mill_Explosion_1878.jpg |
+| Potchefstroom, 1973 — An Atmosphere of Excellence | **A** | Black-and-white photograph of an ammonia production unit at Shell Haven West, England, 1960; contextual image, **not** the Potchefstroom disaster | https://commons.wikimedia.org/wiki/File:Ammonia_unit,_chemical_plant,_Shell_Haven_West,_1960_-_geograph.org.uk_-_3747728.jpg |
+| Thredbo, 1997 — Peak Performance | **A** | Documentary photograph of emergency-service volunteers at the 1997 landslide | https://commons.wikimedia.org/wiki/File:Thredbo_landslide.jpg |
+
+**Production note:** These source-page URLs are carried forward from the prior candidate list. They have not been independently revalidated during this README edit; verify exact file availability, image rights, and preferred direct asset URLs before implementing the site. Selection approval is not approval to build. Do not add additional imagery.
