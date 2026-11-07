@@ -1,6 +1,6 @@
 # INVARIANT — litigation without a human interface
 
-**Status:** Initial site built at `index.html` (commit `15a0fc3`); interactive browser-local intake protocol. Eighteen portrait assets remain to be created; current personnel cards use initials as temporary placeholders. Live GitHub Pages deployment and mobile/desktop rendering have not yet been independently verified.
+**Status:** Initial site built at `index.html` (commit `15a0fc3`); interactive browser-local intake protocol. All eighteen portraits are reused in canonical order from Golden Standard; the initial placeholders have been removed. Live GitHub Pages deployment and mobile/desktop rendering have not yet been independently verified.
 **Home:** `jit/subversion/invariant/`
 **Lineage:** Subversion institutional satire; independent single-page experience governed by `../README.md`.
 
@@ -144,6 +144,65 @@ The user selected **1b** for architectural slot 1 and **3a** for architectural s
 
 
 **All four architectural images approved and used in `index.html`.** Exact URLs locked above. Final slot is a pale, symmetrical glass-partitioned cleanroom corridor with no people.
+
+## Continuity in Perpetuity™ — approved service expansion (2026-11-07)
+
+**Status:** Concept approved for specification, not yet implemented in the public site. INVARIANT enters the relationship-retention business alongside litigation, settlement, and institutional memory. This is a fictional institutional service; public copy must remain perfectly sincere, with no explanatory satire label or winking disclaimer.
+
+### Lineage: RETAIN
+
+See [Subversion Projects — RETAIN](../PROJECTS.md#retain--third-party-relationship-recovery). RETAIN treats cancellation as a recoverable corporate asset: the provider transfers an unwanted relationship to a specialist, which announces that the relationship remains in recovery. Its governing line: **“You may have ended the relationship. Your provider has not accepted the loss.”**
+
+INVARIANT advances the premise beyond recovery: **a concluded relationship becomes a permanent institutional holding**. RETAIN pursues an exit; INVARIANT recognizes the exit and preserves the relationship anyway. No subscription renewal, collection demand, or consent checkbox is necessary to the *fictional* administrative classification. Do not confuse this with actual consent, enforceable obligations, ownership of a person, or rights to retain protected data.
+
+### Product: INVARIANT Continuity in Perpetuity™
+
+- **Positioning:** “Your future has been provisioned.” / “Participation may end. Continuity does not.”
+- **Trigger:** An unresolved objection, request for settlement, termination, withdrawal, or inquiry about human accountability may cause a continuity allocation to appear in the fictional matter record.
+- **Enrollment:** Automatically assigned, complimentary, and indefinite. The institution does not call this a subscription. A party may end active participation, but the historical classification persists.
+- **Allocation:** A named archival partition, redundant processing capacity, succession ledger, and physical access credential. Infrastructure is *represented* as allocated in the fictional experience; do not claim a real facility, shipment, credential, or data custody.
+- **Administrative seat:** **Upper Mustang Continuity Annex, Nepal**—an evocatively remote fictional annex, not a claim of owned premises, extraterritorial authority, or actual physical access.
+- **Credential collection:** Appointment-only, in person at the annex; remote collection is not supported in the fictional workflow. The institution never pressures or instructs a real visitor to travel.
+- **Financial terms:** “Complimentary” is literal within the fictional product. Organic review time may be accounted for narratively, but no real bill, debt, lien, obligation, or enforceable charge is created.
+- **Exit semantics:** Active service may terminate; the immutable event of termination remains. A request to erase the relationship becomes a new relationship event. The distinction is the central horror.
+- **Settlement interaction:** Financial claims may settle, findings may be corrected, and future duties may end. The institution continues to remember the sequence, subject to actual retention/deletion obligations.
+- **Human access:** An Organic–Synthetic Liaison receives inquiries, and human authorization is required wherever legally significant action demands it. No invented attorney, legal entity, professional credentials, or real-world appointment.
+
+### New institutional service offices
+
+1. **Office of Continuity Allocation** — provisions the permanent relationship reference and capacity ledger.
+2. **Office of Relationship Recovery** — accepts referrals from concluded or cancelled relationships, paralleling RETAIN's third-party retention model.
+3. **Office of Succession & Survivorship** — determines which institutional obligations and records persist when an occupant, client, provider, or relationship ends.
+4. **Office of Physical Access** — maintains the appointment-only annex credential workflow, with perpetual availability and no guaranteed proximity.
+5. **Office of Organic Accounting** — distinguishes machine correspondence from human time; produces an internal accounting entry, not an invoice or legal debt.
+6. **Office of Finality Review** — separates settlement finality, termination of participation, and continued institutional memory. Its favorite determination: “The matter is closed. The relationship remains accounted for.”
+
+These are **functional subdivisions** of the existing eighteen-person roster, not six additional faces or fabricated lawyers. Map them to the existing backend personas: Lee Cameron (persistence), Casey Bennett (memory), Quinn Harper (reconciliation), Robin Hayes (scheduling), Reese Taylor (transactions), Blair Jordan (policy), and Jordan Ellis (access).
+
+### Proposed public experience
+
+- **Service page / section:** An elegant private-client service offering, presented with the same visual seriousness as litigation. No ominous UI gimmicks, overt machine talk, or “you are trapped” text.
+- **Allocation certificate:** A precise fictional reference, commencement date, status **ACTIVE IN PERPETUITY**, administrative seat, access procedure, and succession status. No false real-world certificate or claim of ownership.
+- **Continuity register:** A browser-local sequence showing intake → objection → escalation → settlement invitation → enrollment → attempted cancellation → cancellation recorded. Every action adds an event; none retroactively deletes a previous one.
+- **Exit request:** A working interaction that terminates *active participation* while preserving the historical relationship record; response: **“Your departure has been recorded. Thank you for remaining part of our history.”**
+- **Credential request:** A functional local appointment-request flow that returns a reference and a pending state, not a fabricated confirmed travel booking.
+- **Organic review ledger:** Show fictional recorded human-review units without inventing an enforceable invoice; charges remain zero unless a valid independent basis exists.
+- **RETAIN handoff:** A fictional referral event can originate with a RETAIN recovery notice. INVARIANT accepts the relationship as a durable record, even if RETAIN's recovery effort has concluded. Keep each site's independent identity; no shared runtime is required.
+- **Narrative restraint:** Do not expose the architecture as a technical joke on the public page. Its horror is that every administrative act is impeccable and permanent.
+
+### Further dystopian service concepts (idea bank; not approved for implementation)
+
+- **Objection Preservation:** A disputed decision is superseded but never withdrawn from the sequence; even the objection to preservation is preserved.
+- **Post-Settlement Stewardship:** A case closes financially but receives an indefinite “institutional learning” file.
+- **Adversarial Courtesy:** Opposing counsel are given the same complimentary continuity allocation as clients.
+- **Inherited Correspondence:** A successor office inherits unanswered questions from an office that no longer exists.
+- **Continuity of Absence:** Non-response is recorded as a recurring institutional condition, without pretending it establishes consent.
+- **Legacy Presence:** An absent participant's historical positions remain searchable, but the institution never impersonates them or invents new statements.
+- **Finality Assurance:** The institution can certify that a dispute is concluded while certifying that its own interest is not.
+
+### Implementation boundaries
+
+All new interactions remain fictional and browser-local unless an actual backend is separately authorized and built. No actual personal data collection, indefinite retention, external credential issuance, legal notices, fees, consent inference, or real travel arrangements. Real-world deletion, privacy, court, and professional duties override the fictional premise. These engineering boundaries belong in the README, **not as unsolicited public-facing disclaimers**.
 
 ## The serious hypothesis beneath the satire
 
