@@ -51,6 +51,7 @@ This index was originally generated from the GitHub tree on 2026-10-28 and incre
 - [`fieldwork/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/fieldwork) · [page](https://bonoj.github.io/jit/fieldwork/)
 - [`fieldwork-v1/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/fieldwork-v1) · [page](https://bonoj.github.io/jit/fieldwork-v1/)
 - [`gel-lattice/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/gel-lattice) · [page](https://bonoj.github.io/jit/gel-lattice/)
+- [`subversion/golden-standard/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/subversion/golden-standard) · [page](https://bonoj.github.io/jit/subversion/golden-standard/) — Golden Standard corporate satire
 - [`genealogy/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/genealogy) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/genealogy/README.md) · [page](https://bonoj.github.io/jit/genealogy/)
 - [`genesis/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/genesis) · [page](https://bonoj.github.io/jit/genesis/)
 - [`geometry/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/geometry) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/geometry/README.md)
