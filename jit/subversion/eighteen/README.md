@@ -51,7 +51,7 @@ These are **real tragedies**. All EIGHTEEN™ involvement, personnel identity ma
 Keep source notes in editorial metadata rather than inserting a self-defeating satire explanation into customer-facing marketing prose.
 
 ## The eighteen-person cast
-Reuse the established ensemble names and visual identities, with new roles and histories:
+Reuse the established eighteen visual identities, but **never their names**. The cast is identified only by designations and fatality specialties. Superseded name list (internal casting provenance only):
 1. Alex Morgan
 2. Jordan Ellis
 3. Taylor Reed
@@ -71,7 +71,7 @@ Reuse the established ensemble names and visual identities, with new roles and h
 17. Sidney Brooks
 18. Lee Cameron
 
-Each should have a stable personnel ID (proposed ET-001…ET-018), specialty, fictional past aliases, assignment count, recent engagement, and performance-review note. Avoid reducing the cast to interchangeable victims: each has an identifiable work persona and differing relationship to repeated mortality.
+Each has a stable designation **F-01 through F-18**, a fatality specialty, signature pose/tableau, career highlights, recurring incidents, peer relationships, and performance-review notes. Do not use personal names or historic aliases in customer-facing personnel records. Their repeated visual signatures, not biographical names, establish continuity.
 
 ## Visual and interaction direction — OPEN
 Do not reuse Everstead's Golden Hour look by default. Potential direction: restrained corporate luxury, precision typography, archival document texture, cool industrial neutrals, confident enterprise dashboard components. Final palette, typography, imagery, motion, layout, and implementation should wait for user direction.
@@ -87,3 +87,25 @@ Do not reuse Everstead's Golden Hour look by default. Potential direction: restr
 
 ## Next step
 **Await user's art direction and product priorities.** This file is a premise and experience specification only. Do not implement `index.html`, choose a final visual system, or expand the lore until directed.
+
+## Creative direction update — anonymous fatality specialists (2026-11-07)
+**Locked:** Personnel have **no names**, only F-01…F-18 designations and professional fatality specialties. Their recognizable signature poses/tableaux recur across periods, visual records, and fictional reconstructions. They have distinctive memorable moments where their presence is integral or critical to a purported engagement, with peer rivalries and repeat collaborations. Tone: dead-serious talent agency / staffing catalog with absurdly precise performance assessments. Do not make poses into practical instructions for causing injury.
+
+### Provisional specialty sketches (subject to art direction)
+- F-01 — **The Foreman**: raised hand, still directing others; recognized for apparent authority.
+- F-04 — **The Witness**: looking just outside the frame; frequently featured in a final image.
+- F-07 — **The Late Arrival**: half-buttoned coat, one foot over a threshold; absent from original attendance lists.
+- F-11 — **The Reclining Professional**: composed, arm across chair; admired for effortless final tableaux.
+- F-16 — **The Assistant**: holding someone else's paperwork; recurring administrative roles.
+- F-18 — **The Closer**: facing camera; traditionally last accounted for.
+Other twelve specialties and precise positions are open pending direction.
+
+### Cross-incident continuity: the milling pair
+The **Glasgow 1872** and **Minneapolis 1878** flour-mill incidents provide a paired case-study sequence: same cohort, similar industry, six-year gap. Present them as a fictional repeat-client / sector-expertise success story, with crosslinked specialist records, recurring poses, shared invented objects, mirrored fictional administrative notes, and callbacks. The actual disasters' casualty figures and chronology must be separately sourced and verified. **Do not invent a real-world connection between the events or falsely attribute real victims' identities to fictional personnel.** The cross-reference is a deliberate fictional conceit. Potential feature: a two-column “Then / Again” personnel matrix linking all eighteen specialists to both engagements, with intriguing differences in their performance reviews.
+
+### Site implications
+- Replace named team biographies with an **18-card specialist roster**, numbered and sortable by specialty, pose, and historical engagement.
+- Individual profiles show **signature pose**, **memorable moments**, **critical contributions**, **repeat appearances**, and **collaborators**.
+- Every case-study page has an 18-position cast sheet; each position links back to a specialist.
+- Case-study-to-case-study cross-references are first-class: recurring poses, six-year mill-industry return, personnel performance deltas, and fictional archive references.
+- The portfolio is the company's sales proof, not an investigation. In-world copy never calls itself fiction.
