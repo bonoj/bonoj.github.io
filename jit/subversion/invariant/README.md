@@ -130,6 +130,18 @@ Pair each quote with the existing name, inverted infrastructure title and portra
 - Light temperature and color saturation should subtly decline across the page; avoid crude CSS filters that destroy portrait skin tone.
 - Each image must justify its placement. No filler stock photos or visually redundant corridor shots.
 
+
+## Approved architectural image URLs — locked verbatim
+
+The user selected **1b** for architectural slot 1 and **3a** for architectural slot 2 (selection labels from the prior twelve-candidate matrix). Preserve these **exact URL strings**; do not normalize, shorten, alter query parameters or silently substitute another source. Slot numbering here is the final four-image sequence, not the prior candidate-category numbering.
+
+| Final slot | Approved candidate | Exact URL |
+| --- | --- | --- |
+| 1 — Hero / monumental wood | 1b | https://images.squarespace-cdn.com/content/v1/6660abf9c5aed2338f4095ee/83d5e4fa-64dc-4772-867c-8aafcf9052d3/WilmerHale%2BDC%2B2023%2B%28141%29.jpg?format=1000w |
+| 2 — Practice / private offices | 3a | https://images.squarespace-cdn.com/content/v1/6660abf9c5aed2338f4095ee/7c8ae861-1a49-4b08-a8fd-21081a802c55/WilmerHale%2BDC%2B2023%2B%28178%29.jpg |
+
+**Slots 3 and 4:** seek sterile white, glass-fronted server-farm photographs with no humans. Await user approval; do not lock candidates prematurely.
+
 ## The serious hypothesis beneath the satire
 
 A supervised machine-native legal operation might lower the marginal cost of analysis, research, drafting and correspondence. One real lawyer remains responsible for actual legal judgment, supervision, competence, confidentiality, conflicts, client communication, court appearances and legally required channels. A nominal “license proxy” or unsupervised automated practice is **not** the operating assumption. Court-authorized service, filing, conferencing and judicial orders are not superseded by the firm's API preference. These realities belong in the engineering specification, not as unsolicited public-facing disclaimers.
