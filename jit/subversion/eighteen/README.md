@@ -129,11 +129,11 @@ Before calling the work complete, audit every visible string and interaction (he
 
 ## Selected launch images — approved choices
 
-The following five choices were selected by the project owner from the image matrix. Reuse the 18 existing personnel portraits unchanged; no pose illustrations and no additional image placements.
+The following five choices were selected by the project owner. The homepage hero was replaced and explicitly approved on 2026-11-07; the four historical selections are unchanged. Reuse the 18 existing personnel portraits unchanged; no pose illustrations and no additional image placements.
 
 | Placement | Selection | Image description | Source page URL |
 |---|---|---|---|
-| Homepage hero | **A** | Geometric glass façade; minimalist blue-glass architecture with repeating lines | https://www.pexels.com/photo/modern-glass-office-building-exterior-view-33902820/ |
+| Homepage hero | **Approved replacement — The Monolith (01)** | Low-angle view of One World Trade Center, converging vertical blue-glass façades; photograph by Maxim Melnikov | https://unsplash.com/photos/worms-eyeview-of-building-5Nyjw-CNypU |
 | Glasgow, 1872 — A Fine Performance | **A** | Illustrated London News engraving of the Tradeston flour-mill explosion aftermath | https://commons.wikimedia.org/wiki/File:Scene_of_the_Explosion_at_Tradeston_Flour-Mills,_Glasgow_ILN_1872.png |
 | Minneapolis, 1878 — A Fine Performance. Again. | **B** | Wide historical image of the Great Mill Disaster aftermath | https://commons.wikimedia.org/wiki/File:Washburn_Mill_Explosion_1878.jpg |
 | Potchefstroom, 1973 — An Atmosphere of Excellence | **A** | Black-and-white photograph of an ammonia production unit at Shell Haven West, England, 1960; contextual image, **not** the Potchefstroom disaster | https://commons.wikimedia.org/wiki/File:Ammonia_unit,_chemical_plant,_Shell_Haven_West,_1960_-_geograph.org.uk_-_3747728.jpg |
@@ -143,7 +143,7 @@ The following five choices were selected by the project owner from the image mat
 
 ## Approved visual design system — architectural precision
 
-**Status: approved.** This design direction is anchored to the user-supplied homepage hero photograph: a dark, rigorously repeated diagonal glazing lattice against pale blue glass and an expansive light wall with soft geometric shadows. The actual uploaded hero is the visual reference; do not replace it with a search-result approximation. Ensure the image asset is added to the repository during a future authorized build, not during this specification update.
+**Status: approved.** This design direction is anchored to the approved replacement homepage photograph: a dramatic upward view of a blue-glass skyscraper with converging vertical façades, a sharp central spine, and pale sky. Source: https://unsplash.com/photos/worms-eyeview-of-building-5Nyjw-CNypU ; image URL used by the site: https://images.unsplash.com/photo-1457302649866-aa1ada2db703 . This replacement supersedes the earlier uploaded diamond-lattice image and Pexels link. Do not substitute a similar building.
 
 ### Brand character
 A premium international architectural consultancy meets an elite temporal staffing firm. Bright, disciplined, self-assured, meticulously organized, and institutionally deadpan. The contrast between credible corporate presentation and EIGHTEEN's disturbing service offering is the central creative device. Do not use horror tropes, gore, distress textures, faux glitch, or explanatory satire framing.
@@ -175,8 +175,8 @@ Use one cohesive cool blue family; avoid gratuitous red, gold, neon, gradients, 
 - Minimal motion: restrained fades/reveals and understated hover states; honor reduced-motion preferences.
 
 ### Image direction
-- **Homepage:** the user's uploaded architectural hero, displayed prominently, with enough unobstructed area to preserve the lattice/wall composition. Do not substitute an unrelated stock building photo.
-- **Four historical engagements:** use the five-image selection table elsewhere in this README (one hero plus four case studies), but the uploaded hero supersedes the previously listed homepage stock-photo reference. Preserve the archival character of historical material with restrained crops and consistent frames; do not fabricate documentary provenance.
+- **Homepage:** the approved replacement skyscraper hero, displayed prominently, with enough unobstructed area to preserve the lattice/wall composition. Do not substitute an unrelated stock building photo.
+- **Four historical engagements:** use the five-image selection table elsewhere in this README (one hero plus four case studies), but the approved replacement skyscraper hero supersedes the earlier Pexels selection and the prior uploaded lattice photograph. Preserve the archival character of historical material with restrained crops and consistent frames; do not fabricate documentary provenance.
 - **People:** existing 18 portraits, unchanged. No additional personnel imagery.
 - No decorative overlays, faux paper aging, or needless photo effects.
 
@@ -189,7 +189,7 @@ Use one cohesive cool blue family; avoid gratuitous red, gold, neon, gradients, 
 
 ### Final art-direction acceptance criteria
 - The finished experience looks credible enough for a major infrastructure consultancy, while the prose remains calmly unsettling.
-- The supplied hero is the visual anchor; cool architectural tones inform the entire system.
+- The approved glass skyscraper hero is the visual anchor; cool architectural tones inform the entire system.
 - Light-first, geometric, restrained, premium; not dark horror or generic SaaS.
 - Every section is aligned to a coherent grid and typography scale.
 - The site contains exactly the planned image placements plus the 18 existing portraits; no new pose art.
