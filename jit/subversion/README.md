@@ -8,6 +8,9 @@ Independent, single-page institutional experiences. Each project owns its layout
 - [Human Resources portrait bank](hr/README.md) — reusable portrait sources, not an application.
 - [RESOLVA](resolva/) — standalone experience.
 - [CDC — Centers for Disease Cultivation](cdc/README.md) — experience specification; implementation pending.
+- [GOLDEN STANDARD](golden-standard/README.md) — project specification.
+- [EVERSTEAD](everstead/README.md) — project specification.
+- [EIGHTEEN™](eighteen/README.md) — temporal personnel experience and specification.
 
 ## Design invariants
 
