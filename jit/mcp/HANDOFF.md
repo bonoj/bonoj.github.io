@@ -42,3 +42,21 @@ Keep tests and claims separate; update `EXPERIMENTS.md` with observed results. D
 ## Work-mode handoff prompt
 
 Continue JIT MCP E5 in `bonoj/bonoj.github.io` (`jit/mcp/`). Read HANDOFF, EXPERIMENTS, E5-DEPLOYMENT-BOUNDARY and current live Site source. Preserve the existing private plugin ID, Site identity, pairing, E4 consent/revocation and all six MCP tools. Recover and mirror the **exact deployed E5 source** first; GitHub `site/worker.mjs` is stale E4. Implement and verify a secure fixed gateway to an independently deployable backend, if supported, without introducing a new plugin. Prove a **new** read-only capability can be added and invoked through unchanged `jit_capabilities`/`jit_invoke` from ordinary ChatGPT without Site/plugin republishing for that addition. Test, deploy, record exact evidence in EXPERIMENTS, and update HANDOFF/README/CONTRACT. If a supported independent deployment path is unavailable, stop and document the precise blocker instead of claiming completion.
+
+
+## Paused for Work quota — next session checklist (2026-11-08)
+
+**State at pause:** Work unavailable for approximately four hours. No E5.1 backend has been implemented or deployed yet. Do not interpret the earlier suggestion to build it as completed work. E4 remains verified; E5 stable interface works; E5 independent capability deployment remains blocked/unverified. No new infrastructure or credentials were provisioned, no production Site changes were made, and no plugin release was changed.
+
+**Priority when Work resumes:**
+
+1. Inspect the *currently deployed* Site project `appgprj_6af07fda46ec8191a71e9df6f4bc9e75` and recover exact E5 code and deployment metadata before editing. Compare against `jit/mcp/site/worker.mjs` (stale E4). Back up/mirror E5 safely; do not overwrite live Site with E4 code.
+2. Determine supported independent deployment and authentication mechanisms, including whether the existing Site can act as a fixed, owner-isolated authenticated gateway to a separately deployable capability service. Prefer a minimal, verifiable approach; avoid unnecessary infrastructure, paid services, or secret exposure.
+3. If feasible, implement E5.1: versioned allowlisted read-only capability registry, strict schemas, bounded inputs/outputs, rate limits, auditable revisions, and tests. Introduce one **new** deterministic capability such as `echo_text_v1` (not existing `echo_integer`). Maintain E4 pairing/consent/revocation and all six registered MCP tools.
+4. Prove a capability-only deployment via the independent path: no Site redeploy and no plugin republish **between the baseline and the new capability's appearance**. Capture plugin release ID, Site deployment ID, backend revision, exact `jit_capabilities` and `jit_invoke` results in ordinary ChatGPT. If a one-time Site gateway bootstrap is needed, perform and document it separately *before* the no-republish acceptance run.
+5. Run regression tests for E2/E3/E4, including explicit no-consent and hidden-page unavailability; avoid requiring another full Android manual acceptance unless the transport actually changes.
+6. Update `EXPERIMENTS.md` with UTC evidence and outcomes, then `HANDOFF.md`, `README.md`, `CONTRACT.md`, and source mirror. State any platform blocker explicitly rather than declaring success without production proof.
+
+**Stop conditions:** Unsupported Site deploy access; inability to retrieve deployed E5 source; no secure fixed-gateway extension mechanism; inability to authenticate an independent backend. Do not replace the existing plugin or silently weaken consent/privacy to proceed.
+
+**Short Work invocation:** “Resume JIT MCP E5 from `bonoj/bonoj.github.io/jit/mcp/HANDOFF.md`. Start at ‘Paused for Work quota — next session checklist’. Preserve the deployed E4/E5 behavior and original plugin identity. Recover deployed E5 source first, then establish and prove independent capability deployment. Record exact results in EXPERIMENTS; do not claim success without ordinary-chat verification.”
