@@ -289,3 +289,10 @@ Available connected tools provide read-only plugin source/release metadata and p
 - Checked available connected Supabase actions: deployment, Edge Function readback, SQL and logs are available; **no Edge Function secret-management action** is exposed. No secret was provisioned, no JWT was obtained, and no live authorized request was sent.
 - Checked GitHub's commit-associated workflow-run endpoint for `cbe44984d597f4348f1421fe751e9a2a4f76c057`: returned no runs. This endpoint is PR-filtered and is **not conclusive evidence** that the push workflow never ran.
 - Security gate remains: configure gateway credential in Supabase secrets and Site server-side secrets (not client), choose durable nonce/replay and rate-limit enforcement, verify production authorization, then connect Work Site gateway. Do not enable automatic production deployments until these pass.
+
+
+## E5.1 — signed gateway request implementation (2026-11-08)
+
+- Implemented HMAC-SHA256 request signing over a version tag, millisecond timestamp, nonce, and SHA-256 of exact request body in `runtime/index.mjs` (commit `e858771f211c5c3ee96b456fb44de5cc06601bad`). Synchronized `index.ts` mirror (commit `eea9cff88ee45bc5b5e9b64aaf4d13dbfdc43c63`). Handler checks freshness, nonce/signature format, body size, and requires a durable `admit(nonce,timestamp)` callback. Missing callback or secret returns 503; failed replay admission returns 429. **The deployed Supabase function is still the older v1, not this code.**
+- Replaced unit tests with ten scenarios covering signature integrity, expiry, replay, admission failures and size limit (commit `8dd748da6fa47da916df209d1f5763f4b7e1614a`). **Tests not yet executed**: local container could not resolve GitHub raw host; GitHub Actions status not verified. No pass claim.
+- The SQL ledger remains source-only and must be reviewed, applied and wired via a server-side role. There is no production secret configured and no authenticated Site gateway connection. Do not deploy the new signed runtime as operational or claim E5 verified until tests, durable admission and live authorization are verified.
