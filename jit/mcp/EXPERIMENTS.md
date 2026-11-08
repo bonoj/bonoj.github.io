@@ -496,3 +496,11 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 - Updated `.github/workflows/jit-android.yml` to provision pinned Gradle 8.9 with `gradle/actions/setup-gradle@v4`, matching Android Gradle Plugin 8.7.3; commit `56c448558925135de514abb6c15dbd88c9d050bd`. No successful GitHub Actions run has been observed yet; no build claim.
 - Committed `jit/mcp/android/runtime/dom-v1.js`, commit `1ec586e4e63867f160a1389db83985fc9e79c492`. It defines a versioned in-page DOM observer, visible actionable element refs, revision checks, bounded observations, and click/fill dispatch with input/change events. It intentionally does not access native APIs, credentials or network.
 - **Important:** This JS is not yet remotely fetched or injected by the APK; its synchronous action result is **not** proof of navigation/SPA settlement or completed browser acceptance. It needs authenticated native orchestration, post-action settle/re-observe, signed update validation, and cross-site tests. No APK installation requested.
+
+
+## 2026-11-08 — Native WebView → packaged DOM runtime integration (SOURCE ONLY)
+
+- Committed `jit/mcp/android/app/src/main/assets/dom-v1.js` as an offline copy of the versioned DOM runtime, commit `0456939f742f9fcbcc1ab02e980d4349c2cd0a4a`.
+- Updated `MainActivity.java`, commit `3deed08f6baa61b6417932cec4d86790203ec2c0`: visible **Inspect DOM locally** button loads the packaged JS asset, runs it with `WebView.evaluateJavascript`, invokes `__jitDomRuntime.act({operation:'observe'})`, parses returned JSON and displays observation revision and control count. HTTPS page is required; errors are reported in-app.
+- **Source integration only:** Android compilation, device execution and actual DOM output remain UNVERIFIED. The bundled runtime is an offline baseline, **not** remotely updated. No enrolled device, secure command transport or remote action execution exists. Do not request APK installation yet.
+- Next gate: validate build, then implement authenticated transport and verified remotely updatable runtime with fallback. Never expose an untrusted page-to-native bridge or route public demo commands into this WebView.
