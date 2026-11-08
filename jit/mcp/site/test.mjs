@@ -5,6 +5,7 @@ import worker,{status} from './worker.mjs';
 const sql=new DatabaseSync(':memory:');sql.exec(readFileSync('drizzle/0000_device_sessions.sql','utf8'));
 sql.exec(readFileSync(new URL('./drizzle/0001_browser_observation.sql',import.meta.url),'utf8'));
 sql.exec(readFileSync(new URL('./drizzle/0002_permanent_interface.sql',import.meta.url),'utf8'));
+sql.exec(readFileSync(new URL('./drizzle/0003_gateway_setup.sql',import.meta.url),'utf8'));
 const DB = {
  prepare(query) {
   return { bind(...args) {
@@ -225,4 +226,48 @@ try {
  assert.deepEqual((await gatewayCall('jit_invoke',{capability:'echo_integer',input:{value:42}})).data,{value:42});
 } finally {globalThis.fetch = liveFetch;}
 console.log('PASS: gateway credential headers, typed forwarding, backend-only catalog revision, fixed tool definitions, invalid output, and local fallback');
+const setupOwner = 'owner@example.test';
+const setupEnv = {DB,JIT_MCP_SUPABASE_JWT:'fixture-jwt',JIT_MCP_SETUP_OWNER_EMAIL:setupOwner,
+ JIT_MCP_SETUP_WRAP_KEY:Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64')};
+const fixture = '!'.repeat(64);
+const setup = (path='/api/setup',{method='GET',secret=fixture,user='setup-owner',email=setupOwner,originHeader=origin}={}) =>
+ worker.fetch(new Request(origin+path,{method,headers:{
+  ...(user?{'oai-authenticated-user-id':user}:{}),
+  ...(email?{'oai-authenticated-user-email':email}:{}),
+  'Content-Type':'application/json',Origin:originHeader
+ },...(method==='POST'?{body:JSON.stringify({secret})}:{})}),setupEnv);
+assert.equal((await setup('/setup',{user:null,email:null})).status,302);
+assert.equal((await setup('/setup',{user:'visitor',email:'visitor@example.test'})).status,403);
+assert.equal((await setup('/api/setup',{user:'visitor',email:'visitor@example.test',method:'POST'})).status,403);
+assert.equal((await setup('/setup')).status,200);
+assert.deepEqual(await (await setup()).json(),{configured:false,paired:false});
+assert.equal((await setup('/api/setup',{method:'POST'})).status,403);
+const enrollment = (await api('enroll',{},null,'setup-owner')).data;
+assert.equal((await api('confirm',{code:enrollment.code,confirm:true},enrollment.token,'setup-owner')).code,200);
+assert.deepEqual(await (await setup()).json(),{configured:false,paired:true});
+assert.equal((await setup('/api/setup',{method:'POST',originHeader:'https://other.example'})).status,403);
+let backendAccept = false;
+globalThis.fetch = async (url,options) => {
+ assert.equal(url,'https://iqglyokmcobegledbfcm.supabase.co/functions/v1/jit-mcp-capabilities');
+ assert.equal(options.headers['X-JIT-Gateway-Secret'],fixture);
+ return backendAccept?Response.json({interface_version:1,revision:1,capabilities:[]}):new Response(null,{status:401});
+};
+try {
+ assert.equal((await setup('/api/setup',{method:'POST'})).status,422);
+ assert.equal(sql.prepare('SELECT count(*) AS n FROM jit_gateway_config').get().n,0);
+ backendAccept = true;
+ const saves = await Promise.all([setup('/api/setup',{method:'POST'}),setup('/api/setup',{method:'POST'})]);
+ assert.deepEqual(saves.map(response=>response.status).sort(),[200,409]);
+ const saved = saves.find(response=>response.ok);
+ assert.deepEqual(await saved.json(),{configured:true});
+ assert.equal(saved.headers.get('cache-control'),'no-store');
+ const {value} = sql.prepare('SELECT value FROM jit_gateway_config').get();
+ assert.match(value,/^v1\./);
+ assert.ok(!value.includes(fixture));
+ assert.equal((await setup('/api/setup',{method:'POST'})).status,409);
+ assert.deepEqual(await (await setup()).json(),{configured:true,paired:true});
+ assert.equal((await tool('jit_capabilities','setup-owner',{},setupEnv)).structuredContent.backend_status,'available');
+ assert.deepEqual(await discover(),toolDefinitions);
+} finally {globalThis.fetch = liveFetch;}
+console.log('PASS: owner-only setup, pairing, CSRF, validate before write, ciphertext, single write, credential-free response, gateway readback');
 Date.now=actualNow;console.log('PASS: real SQLite transport lifecycle, auth/isolation, CSRF, rate limits, explicit pairing, heartbeat, hidden/stale, 45s expiry, revocation, 2min code expiry, 10min session expiry, cleanup, ping');
