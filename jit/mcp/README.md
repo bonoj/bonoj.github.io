@@ -1,12 +1,15 @@
-# MCP — Chat-to-Device Lever Laboratory
+# MCP — Browser Automation via Ordinary ChatGPT
 
-**[Resume in a new chat: HANDOFF.md](HANDOFF.md)**
+**CANONICAL OBJECTIVE: [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md) — read first.**\n\n**[Resume in a new chat: HANDOFF.md](HANDOFF.md)**
 
 [Android companion](https://jit-mcp.bracedbuddy1.chatgpt.site/device) · [Experiments](EXPERIMENTS.md) · [E3 specification](E3-TRANSPORT.md) · [E4 specification](E4-OBSERVATION.md)
 
 Status: **E2–E4 verified on Android in ordinary ChatGPT. E5 stable tools verified; gateway deployed; shared credential and production dispatch proof pending.**
 
 ## Objective
+
+**Current product objective:** ordinary ChatGPT operates arbitrary uninstrumented websites through an authenticated, remotely hosted browser runtime. The Android companion and first-party Supabase demos are historical transport experiments, **not** the target product. The binding acceptance contract and anti-confusion rules are in [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md).
+
 
 The existing ChatGPT conversation supplies reasoning and agency. JIT MCP supplies deterministic communication with a user-authorized browser. No second model, paid inference service, or ongoing Work session is required.
 
