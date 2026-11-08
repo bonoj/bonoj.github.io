@@ -24,7 +24,7 @@ Response must be produced by a live enrolled device; a hosted endpoint returning
 
 `browser_observe({})` returns availability, consent, observation method and scope, server receipt time and age, visibility, nonce, and snapshot data. Data is limited to the companion origin and path, title, visibility, local timestamp, nonce and numeric demo counter. The paired user explicitly shares or refreshes each snapshot. The server withholds data when consent is absent, the session is hidden or stale, or either the snapshot or enrollment has expired. Stop sharing deletes consent and the snapshot while retaining pairing.
 
-Android readback in ordinary ChatGPT is the remaining E4 acceptance test. See [E4-OBSERVATION.md](E4-OBSERVATION.md).
+Android E4 readback, counter refresh, and revocation were verified in ordinary ChatGPT on 2026-11-08. See [EXPERIMENTS.md](EXPERIMENTS.md).
 
 ## Stage 2: bounded actuation
 
@@ -49,3 +49,7 @@ Targets must be grounded in a fresh observation; reject stale context. Do not ex
 ## Implementation gate
 
 E5 actuation requires a separate experiment and explicit user authorization.
+
+## E5 stable interface and backend boundary
+
+Live Site already exposes `jit_capabilities`, `jit_invoke`, and `jit_observe`; built-in `echo_integer(42)` is verified. Independent capability dispatch is **not** verified. The separate Supabase `jit-mcp-capabilities` v2 backend accepts only `POST` with a Supabase-verified JWT in the Authorization header and a server-only `X-JIT-Gateway-Secret` checked by the handler. JSON is limited to 2048 bytes. `{operation:'capabilities'}` returns the versioned allowlist; `{operation:'invoke',capability:'echo_text_v1',input:{text:'...'}}` echoes up to 256 characters. No arbitrary code, URLs, or device operations. Backend remains fail-closed until a private credential and one-time Site gateway bootstrap are configured. See [HANDOFF.md](HANDOFF.md).
