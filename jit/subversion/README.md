@@ -5,6 +5,11 @@ Independent, single-page institutional experiences. Each project owns its layout
 ## Index
 
 - [Projects and idea bank](PROJECTS.md) — concepts and creative lineage.
+- [American Air Council](../air/) — live institutional parody.
+- [Starve The Children](../stc/) — live institutional parody.
+- [Paternal](../paternal/) — live fertility-clinic parody.
+- [HUMANE](../humane/) — live artisanal organ-marketplace parody.
+- [Leaf](../leaf/) — live consumer-technology parody.
 - [Human Resources portrait bank](hr/README.md) — reusable portrait sources, not an application.
 - [RESOLVA](resolva/) — standalone experience.
 - [CDC — Centers for Disease Cultivation](cdc/README.md) — experience specification; implementation pending.
