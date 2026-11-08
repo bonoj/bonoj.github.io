@@ -1,85 +1,29 @@
-# JIT MCP — current handoff (2026-11-08)
+# JIT MCP — E5 handoff (2026-11-08)
 
-## Goal
-
-Preserve the **same private JIT MCP plugin** and working Android observation transport. Complete E5 by proving that a new typed, harmless capability can be independently deployed and invoked through the permanent MCP tools from ordinary ChatGPT **without a plugin or Site republish for each capability**. GitHub Pages remains the default frontend.
-
-## Canonical references
-
-- Repository: `bonoj/bonoj.github.io`, branch `master`, directory `jit/mcp/`.
-- Existing Site: https://jit-mcp.bracedbuddy1.chatgpt.site
-- Android companion: https://jit-mcp.bracedbuddy1.chatgpt.site/device
-- Existing plugin ID: `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`.
-- Existing Site project ID: `appgprj_6af07fda46ec8191a71e9df6f4bc9e75`.
-- Plugin current release: `PluginRelease_a2893093886481919da01bd918ca4504`, v1.0.0, created `2026-11-08T13:59:23.433598Z`; only release returned by release listing.
-- Read `EXPERIMENTS.md`, `E5-PERMANENT-INTERFACE.md`, `E5-DEPLOYMENT-BOUNDARY.md`, `CONTRACT.md` before modifying anything.
+## Objective
+Extend the **existing private JIT MCP plugin** from ordinary ChatGPT without Work for every new capability. Preserve the Android companion, consent controls, pairing, and all six existing MCP tools.
 
 ## Verified
+- E2 `integration_ping`, E3 `device_status`, E4 `browser_observe` on Android in ordinary ChatGPT; consent, counter refresh and revocation verified. See [EXPERIMENTS.md](EXPERIMENTS.md).
+- E5 Site exposes `jit_capabilities`, `jit_invoke`, `jit_observe`; built-in `echo_integer(42)` works. **Independent backend capability dispatch is NOT verified.**
+- Private plugin ID `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`; Site project `appgprj_6af07fda46ec8191a71e9df6f4bc9e75`; Site https://jit-mcp.bracedbuddy1.chatgpt.site .
+- Supabase project **Hermeticon Memory** `iqglyokmcobegledbfcm`, existing `memory` function untouched. Separate `jit-mcp-capabilities` Edge Function deployed **ACTIVE v2**, `verify_jwt:true`, containing allowlisted bounded `echo_text_v1`. Backend is **fail-closed** until `JIT_MCP_GATEWAY_SECRET` is securely configured.
 
-- E2 `integration_ping`: verified ordinary chat.
-- E3 `device_status`: real Android pairing, visible/online heartbeat verified.
-- E4 `browser_observe` and stable `jit_observe`: **FULLY VERIFIED on Android** in ordinary chat. Shared counter 0 at `2026-11-08T15:19:05.784Z`, refreshed counter 1 at `15:19:36.462Z` with distinct nonce, then explicit Stop sharing yielded `available:false,reason:sharing_disabled,consent_active:false` while `device_status` remained paired/online/visible at `15:20:13.654Z`. Hidden-page observation was correctly stale. Exact data in `EXPERIMENTS.md`.
-- E5 live Site exposes six MCP tools: `integration_ping`, `device_status`, `browser_observe`, `jit_capabilities`, `jit_invoke`, `jit_observe`. `jit_capabilities` returns interface_version 1/revision 0, `companion_page_only` and `echo_integer`. `jit_invoke({capability:'echo_integer',input:{value:42}})` returned 42. **Stable interface verified; independent deployment NOT verified**.
-- Plugin package is still its original release; package contains only `.app.json` and `.codex-plugin/plugin.json`, not Site worker source.
+## Canonical code and constraints
+- `runtime/index.mjs` is the Edge Function source; `runtime/index.ts` is an identical mirror; `runtime/index.test.mjs` is the six-test suite. `.github/workflows/jit-mcp-runtime.yml` tests and checks mirror equality; no automatic production deployment.
+- Auth contract: Supabase JWT in `Authorization: Bearer <jwt>` (verified by Supabase), independent server-only shared credential in `X-JIT-Gateway-Secret` (verified by handler). Do not expose either to the Android companion or model-visible payloads. No custom HMAC, replay database, or background infrastructure.
+- Strict allowlist, bounded JSON body (2048 bytes), bounded echo (256 characters), fixed backend URL, no arbitrary code/URL/device actuation. If adding consequential operations later, design their authorization separately.
+- **Critical:** GitHub `site/worker.mjs` is a stale E4 mirror; live Site already has six E5 tools. **Never deploy that stale mirror over production.**
 
-## Critical source mismatch
+## Only remaining E5 integration work
+1. In Work/Sites, retrieve and preserve the **exact live E5 Site source** before modifying anything. Reconcile `site/` mirror.
+2. Provision the backend credential using supported secret stores; configure the Site's server-only JWT and shared credential. If Site cannot securely hold credentials or call Supabase, stop and report the actual blocker.
+3. Make a **single** Site bootstrap change: forward existing `jit_capabilities`/`jit_invoke` through a fixed, authenticated server-side call to the independent Supabase function, preserving existing built-in capabilities and all E2–E4 behavior. No new plugin or new tool signature.
+4. Verify baseline, then deploy a new harmless capability by changing **only** Supabase backend source. From ordinary Android ChatGPT, verify discovery and invocation without Site/plugin republish between baseline and new capability. Capture exact UTC results and deployment/release IDs.
+5. Update [EXPERIMENTS.md](EXPERIMENTS.md), README and CONTRACT with **observed** results, not assumptions.
 
-`jit/mcp/site/worker.mjs` in GitHub is an **obsolete E4 mirror** (only three tool definitions). The deployed Site is E5 (six tools). **Never deploy the GitHub mirror over production.** First recover exact deployed E5 source and reconcile GitHub. The ordinary-chat tools currently available do not expose a ChatGPT Site source/deploy API. Plugin Creator can read/update the plugin package, but that is NOT the Site backend.
+## Scope control
+No further security frameworks, database tables, custom signing protocols, or repeated planning documents for this read-only proof. Do not claim completion until ordinary-chat end-to-end evidence exists.
 
-## Next engineering work
-
-1. Recover exact deployed E5 Site source, deployment metadata and supported Site deployment workflow. Do not alter existing pairing, authentication, privacy, or plugin identity.
-2. Determine whether an authenticated, fixed-gateway dispatch to an independently deployable backend can be implemented. If it needs one final Work/Sites bootstrap, document that explicitly. Avoid creating a second plugin.
-3. Design and implement a default-deny, schema-validated, versioned registry and authenticated gateway-to-backend transport. No arbitrary URLs, code execution, open proxy, secrets or unrestricted device control.
-4. Deploy a **new** harmless read-only capability, such as bounded `echo_text_v1`, through the independent deployment path.
-5. In an ordinary Android ChatGPT conversation, verify it appears in `jit_capabilities` and works through `jit_invoke` without a new plugin release or Site republish for that capability. Log exact response, UTC, source/deployment IDs and unchanged plugin release.
-6. Only then mark E5 independent deployment VERIFIED.
-
-## Operating rules
-
-Keep tests and claims separate; update `EXPERIMENTS.md` with observed results. Do not log pairing codes, tokens or other secrets. Android observation is opt-in first-party companion-page state only, not unrelated tabs, OS control or remote actuation. Avoid asking the user to repeat completed E4 tests. Do not claim independent deployment merely because E5 tools exist.
-
-## Work-mode handoff prompt
-
-Continue JIT MCP E5 in `bonoj/bonoj.github.io` (`jit/mcp/`). Read HANDOFF, EXPERIMENTS, E5-DEPLOYMENT-BOUNDARY and current live Site source. Preserve the existing private plugin ID, Site identity, pairing, E4 consent/revocation and all six MCP tools. Recover and mirror the **exact deployed E5 source** first; GitHub `site/worker.mjs` is stale E4. Implement and verify a secure fixed gateway to an independently deployable backend, if supported, without introducing a new plugin. Prove a **new** read-only capability can be added and invoked through unchanged `jit_capabilities`/`jit_invoke` from ordinary ChatGPT without Site/plugin republishing for that addition. Test, deploy, record exact evidence in EXPERIMENTS, and update HANDOFF/README/CONTRACT. If a supported independent deployment path is unavailable, stop and document the precise blocker instead of claiming completion.
-
-
-## Paused for Work quota — next session checklist (2026-11-08)
-
-**State at pause:** Work unavailable for approximately four hours. No E5.1 backend has been implemented or deployed yet. Do not interpret the earlier suggestion to build it as completed work. E4 remains verified; E5 stable interface works; E5 independent capability deployment remains blocked/unverified. No new infrastructure or credentials were provisioned, no production Site changes were made, and no plugin release was changed.
-
-**Priority when Work resumes:**
-
-1. Inspect the *currently deployed* Site project `appgprj_6af07fda46ec8191a71e9df6f4bc9e75` and recover exact E5 code and deployment metadata before editing. Compare against `jit/mcp/site/worker.mjs` (stale E4). Back up/mirror E5 safely; do not overwrite live Site with E4 code.
-2. Determine supported independent deployment and authentication mechanisms, including whether the existing Site can act as a fixed, owner-isolated authenticated gateway to a separately deployable capability service. Prefer a minimal, verifiable approach; avoid unnecessary infrastructure, paid services, or secret exposure.
-3. If feasible, implement E5.1: versioned allowlisted read-only capability registry, strict schemas, bounded inputs/outputs, rate limits, auditable revisions, and tests. Introduce one **new** deterministic capability such as `echo_text_v1` (not existing `echo_integer`). Maintain E4 pairing/consent/revocation and all six registered MCP tools.
-4. Prove a capability-only deployment via the independent path: no Site redeploy and no plugin republish **between the baseline and the new capability's appearance**. Capture plugin release ID, Site deployment ID, backend revision, exact `jit_capabilities` and `jit_invoke` results in ordinary ChatGPT. If a one-time Site gateway bootstrap is needed, perform and document it separately *before* the no-republish acceptance run.
-5. Run regression tests for E2/E3/E4, including explicit no-consent and hidden-page unavailability; avoid requiring another full Android manual acceptance unless the transport actually changes.
-6. Update `EXPERIMENTS.md` with UTC evidence and outcomes, then `HANDOFF.md`, `README.md`, `CONTRACT.md`, and source mirror. State any platform blocker explicitly rather than declaring success without production proof.
-
-**Stop conditions:** Unsupported Site deploy access; inability to retrieve deployed E5 source; no secure fixed-gateway extension mechanism; inability to authenticate an independent backend. Do not replace the existing plugin or silently weaken consent/privacy to proceed.
-
-**Short Work invocation:** “Resume JIT MCP E5 from `bonoj/bonoj.github.io/jit/mcp/HANDOFF.md`. Start at ‘Paused for Work quota — next session checklist’. Preserve the deployed E4/E5 behavior and original plugin identity. Recover deployed E5 source first, then establish and prove independent capability deployment. Record exact results in EXPERIMENTS; do not claim success without ordinary-chat verification.”
-
-
-## E5.1 backend selection and implementation start (2026-11-08)
-
-**Selected infrastructure:** Existing Supabase project **Hermeticon Memory**, project ref `iqglyokmcobegledbfcm` (`ACTIVE_HEALTHY`, `us-east-1`). Its existing `memory` Edge Function is ACTIVE v2; **do not modify it**. Cloudflare is not the chosen path.
-
-**Committed source:** `jit/mcp/runtime/index.ts` at commit `35431a88e25cd284c343f17282a90203c4e49f14`. It is a separate, fail-closed prototype for a new `jit-mcp-capabilities` Supabase Edge Function. It supports a bounded `echo_text_v1` and capability discovery, validates request shapes and size, and requires a configured `JIT_MCP_GATEWAY_SECRET` bearer token. It does not touch Android pairing or consent. **Not deployed or tested yet**; no gateway secret provisioned. It is not yet production-hardened (add replay protection/rate limits and integration tests before exposing). Do not treat this commit as E5 verification.
-
-**Next:** Run Deno tests; confirm secure gateway-to-Supabase auth and replay protection; provision a shared secret through approved secret-management controls, never GitHub; deploy a *new* function without altering `memory`; recover the exact deployed E5 Site source through Work; connect existing `jit_capabilities`/`jit_invoke` to the backend while preserving E4. Then verify ordinary-chat discovery and invocation across a backend-only redeploy. Keep original plugin release unchanged.
-
-
-## E5.1 CI checkpoint (2026-11-08)
-
-- Added `.github/workflows/jit-mcp-runtime.yml` (commit `b0ce6cd540a87d90167fc8e324f016f2ecb762a0`) to run `node --test jit/mcp/runtime/index.test.mjs` and byte-compare `runtime/index.ts` against `runtime/index.mjs` on runtime changes. Synchronized mirrors at commit `cbe44984d597f4348f1421fe751e9a2a4f76c057`.
-- **CI execution not yet verified**; do not claim a successful GitHub Actions run until a run log is read. Previous six passing tests are local evidence only.
-- Production function `jit-mcp-capabilities` remains ACTIVE v1, `verify_jwt:true`, no gateway secret provisioned; `memory` remains untouched. This CI workflow intentionally does **not** deploy. Before enabling automated deployments, add secure request authentication with durable replay prevention, rate limiting, provision secrets in approved secret stores, and verify authorized live invocation. Never store secrets in GitHub source or logs.
-
-
-## E5.1 replay/rate-limit design staged (2026-11-08)
-
-- Added `jit/mcp/runtime/replay-ledger.sql` at commit `67500fb012c6b97e25bc4e961fbae8054a42c0a9`. **Source only: migration NOT applied**, no existing Supabase table/function changed. It proposes an isolated `jit_mcp_private.gateway_requests` nonce ledger and a transaction-serialized, time-windowed acceptance function. Review role privileges and cleanup scheduling before applying.
-- **Critical missing implementation:** a gateway-generated, cryptographically authenticated nonce+timestamp+body binding (HMAC or equivalent), with verification *before* calling the ledger; otherwise clients could forge timestamps or flood the nonce table. Add server-only credentials, replay tests, request-size and rate-limit tests. Do not rely on bearer auth alone for replay prevention.
-- The connected Supabase tools do not expose a secrets-write operation. Configure secrets only through an authorized dashboard/CLI/Work pathway, and never commit them. The deployed `jit-mcp-capabilities` function remains v1 fail-closed; the original `memory` function remains unchanged. Do not enable gateway dispatch yet.
+## Work continuation
+“Continue JIT MCP E5 from `jit/mcp/HANDOFF.md`. Recover exact deployed Site source first. Preserve plugin ID, six tools and Android E4. Configure fixed Supabase gateway, run the backend-only capability deployment proof, and record actual ordinary-chat results. No new infrastructure.”
