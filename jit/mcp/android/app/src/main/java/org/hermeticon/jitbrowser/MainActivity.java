@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.json.JSONObject;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Local-only browser shell. Remote command transport is intentionally NOT enabled.
@@ -62,6 +64,10 @@ public final class MainActivity extends Activity {
         settings.setJavaScriptCanOpenWindowsAutomatically(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         root.addView(browser, new LinearLayout.LayoutParams(-1, 0, 1));
+        Button inspect = new Button(this);
+        inspect.setText("Inspect DOM locally");
+        root.addView(inspect, new LinearLayout.LayoutParams(-1, -2));
+        inspect.setOnClickListener(v -> observe());
         Button stop = new Button(this);
         stop.setText("Stop / clear browser");
         root.addView(stop, new LinearLayout.LayoutParams(-1, -2));
@@ -85,14 +91,38 @@ public final class MainActivity extends Activity {
         browser.loadUrl(url);
     }
 
-    /** Future authenticated dispatcher calls this only on the UI thread.
-     * Never pass arbitrary instructions directly from a webpage into this method.
+    /** Local diagnostic only. A future authenticated dispatcher must enforce
+     * device identity, authorization, origin and command expiry before execution.
      */
     private void observe() {
-        browser.evaluateJavascript(
-            "(function(){return JSON.stringify({url:location.href,title:document.title,text:(document.body?.innerText||'').slice(0,3000),controls:[...document.querySelectorAll('button,input,a,select,textarea')].slice(0,50).map((e,i)=>({index:i,tag:e.tagName,role:e.getAttribute('role'),label:e.getAttribute('aria-label')||e.innerText||e.getAttribute('placeholder')||'',type:e.getAttribute('type')||''}))})})()",
-            result -> status.setText("DOM observation (local diagnostic): " + result.substring(0, Math.min(result.length(), 200)))
-        );
+        if (browser.getUrl() == null || !browser.getUrl().startsWith("https://")) {
+            status.setText("Navigate to an HTTPS page before inspecting");
+            return;
+        }
+        final String script;
+        try (InputStream in = getAssets().open("dom-v1.js")) {
+            byte[] bytes = new byte[in.available()];
+            int count = in.read(bytes);
+            if (count != bytes.length) throw new java.io.IOException("Incomplete runtime asset");
+            script = new String(bytes, StandardCharsets.UTF_8);
+        } catch (Exception ex) {
+            status.setText("DOM runtime unavailable: " + ex.getClass().getSimpleName());
+            return;
+        }
+        browser.evaluateJavascript(script, ignored -> browser.evaluateJavascript(
+            "JSON.stringify(window.__jitDomRuntime.act({operation:'observe'}))",
+            result -> {
+                try {
+                    // evaluateJavascript returns a JSON-encoded JavaScript string.
+                    String decoded = new org.json.JSONTokener(result).nextValue().toString();
+                    JSONObject observation = new JSONObject(decoded).getJSONObject("observation");
+                    status.setText("DOM verified locally · revision " + observation.getInt("revision")
+                        + " · controls " + observation.getJSONArray("controls").length());
+                } catch (Exception ex) {
+                    status.setText("DOM inspection failed: " + ex.getClass().getSimpleName());
+                }
+            }
+        ));
     }
 
     @Override public void onBackPressed() {
