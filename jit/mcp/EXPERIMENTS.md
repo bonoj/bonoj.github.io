@@ -519,3 +519,10 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 - Committed `BrowserExecutor.java` at `03ff69fe2aedd663ad9f9761210a34e4b0d46046`: typed local native dispatcher for observe, click, fill, scroll, back and HTTPS navigation, with bounded post-action re-observation and explicit errors. **A 350 ms delay is not proof of completion of arbitrary asynchronous site operations.** Navigation returns pending, not success.
 - Wired the Activity's local Inspect DOM control to `BrowserExecutor`, commit `5c8cde53d783a245953c306d8e5b26d6f6891292`. This subsequent source revision has **not yet been build-verified**.
 - **Still missing:** enrolled device auth, secure command/result queue, remote signed JS updates, ordinary-chat browser invocation, two-site acceptance. No one-time APK installation requested.
+
+
+## 2026-11-08 — Live E5 backend inspection and Android transport authority contract
+
+- Re-read live Supabase `jit-mcp-capabilities` v4: `verify_jwt:true`, gateway-secret authenticated, 2048-byte body limit, only `echo_text_v1` and `text_length_v1`. No browser capability or device queue exists. Queried database inventory: only `public.jit_page_commands` and `public.jit_page_demo` match JIT/device names; those belong to the earlier first-party demo and are not an authenticated browser-control plane.
+- Committed [`android/TRANSPORT.md`](android/TRANSPORT.md), commit `0a8c0c03c2d79bc4bee4e6b99a268c4c14a26474`, specifying authenticated account/device enrollment, private command/result model, lease/idempotence, explicit foreground consent, revoke, and signed JS runtime updates.
+- **Design contract only:** no new Supabase tables or functions deployed; no phone enrollment or remote command channel implemented. The existing E5 backend remains unchanged. Next implementation must prove the gateway's actual caller identity and deploy private authenticated transport before allowing any remote WebView action.
