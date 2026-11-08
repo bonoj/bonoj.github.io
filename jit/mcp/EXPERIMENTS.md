@@ -336,3 +336,11 @@ Local tests passed for owner-only access, pairing, cross-origin rejection, inval
 - Setup now distinguishes JWT rejection, shared-secret mismatch, missing backend secret, network failure, redirect and incompatible response without logging the credential or upstream response. Local tests passed. The owner-only form, encrypted storage, Site/plugin identity and six tool signatures are unchanged.
 
 **Pending:** the owner's successful paste, ordinary-chat baseline and backend-only capability proof. No Supabase deployment was made during the repair.
+
+## 2026-11-08 — E5 production baseline verified from ordinary ChatGPT
+
+- User reported the deployed `/setup` page returned: **“Saved and verified with Supabase. You can clear your clipboard.”** This is user-observed provisioning success; the credential itself was never provided in chat.
+- In this **ordinary ChatGPT conversation**, directly invoked the installed private JIT MCP plugin's `jit_capabilities` tool. It returned `interface_version:1`, `revision:67108864`, `backend_status:"available"`, and discovered Supabase-backed `echo_text_v1` alongside the existing local capabilities.
+- Invoked `jit_invoke` with `{capability:"echo_text_v1",input:{text:"e5-baseline"},expected_revision:67108864}`. Live structured response: `{interface_version:1,revision:67108864,capability:"echo_text_v1",data:{text:"e5-baseline"}}`. **PASS: production backend discovery and invocation through the installed plugin, outside Work mode.**
+- This verifies the baseline, **not yet** independent backend-only deployment. Next: deploy a distinct read-only capability by changing only the Supabase function; then verify its discovery/invocation here while Site deployment and plugin release remain unchanged.
+- Exact tool-call UTC timestamps were not exposed in this conversation; date is the current conversation date, not a fabricated timestamp.
