@@ -17,6 +17,7 @@ import android.widget.TextView;
 import org.json.JSONObject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.io.ByteArrayOutputStream;
 
 /**
  * Local-only browser shell. Remote command transport is intentionally NOT enabled.
@@ -56,8 +57,12 @@ public final class MainActivity extends Activity {
             }
         });
         browser.setWebChromeClient(new WebChromeClient());
+        android.webkit.WebView.setWebContentsDebuggingEnabled(false);
         WebSettings settings = browser.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setSupportMultipleWindows(false);
+        settings.setAllowFileAccessFromFileURLs(false);
+        settings.setAllowUniversalAccessFromFileURLs(false);
         settings.setDomStorageEnabled(true);
         settings.setAllowFileAccess(false);
         settings.setAllowContentAccess(false);
@@ -101,10 +106,11 @@ public final class MainActivity extends Activity {
         }
         final String script;
         try (InputStream in = getAssets().open("dom-v1.js")) {
-            byte[] bytes = new byte[in.available()];
-            int count = in.read(bytes);
-            if (count != bytes.length) throw new java.io.IOException("Incomplete runtime asset");
-            script = new String(bytes, StandardCharsets.UTF_8);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            byte[] buffer = new byte[8192];
+            int count;
+            while ((count = in.read(buffer)) != -1) out.write(buffer, 0, count);
+            script = out.toString(StandardCharsets.UTF_8.name());
         } catch (Exception ex) {
             status.setText("DOM runtime unavailable: " + ex.getClass().getSimpleName());
             return;
