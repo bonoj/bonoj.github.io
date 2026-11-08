@@ -17,6 +17,7 @@ Independent, single-page institutional experiences. Each project owns its layout
 - [EVERSTEAD](everstead/README.md) — project specification.
 - [EIGHTEEN™](eighteen/README.md) — temporal personnel experience and specification.
 - [REMOTE™](remote/README.md) — premium model-mediated human surrogate representation; concept captured, development deferred.
+- [ELDRITCH LAW](eldritch/README.md) — cosmic-horror legal practice; eighteen partners as cross-sections of one four-dimensional being; concept specification.
 - [INVARIANT](invariant/README.md) — immaculate litigation firm with eighteen synthetic institutional faces and a single endpoint-only communication interface; specification, implementation pending.
 
 ## Design invariants
