@@ -226,3 +226,10 @@ Independent concurrent `device_status({})` returned `paired:true,online:true,sta
 Earlier at server time `2026-11-08T15:18:30.671Z`, while the page was hidden, `jit_observe` returned `available:false,state:"stale",reason:"page_hidden",consent_active:true`; `device_status` showed paired but stale. This confirms visibility gating and recovery on returning the page to visible split-screen.
 
 **Disposition:** Production first-party Android shared-page readback via the stable E5 tool is **VERIFIED**. Changed counter + fresh nonce, explicit stop-sharing revocation while remaining paired, and E5 new-capability-without-plugin-republish are **PENDING**. Do not mark full E4/E5 acceptance yet.
+
+
+## 2026-11-08T15:19:44Z — E4 changed-counter and fresh-nonce readback VERIFIED
+
+After the user incremented the companion demo counter and tapped Refresh shared snapshot, ordinary ChatGPT invoked the production `jit_observe({})` tool again. It returned `available:true`, `state:"available"`, `consent_active:true`, `visibility:"visible"`, `observed_at:"2026-11-08T15:19:36.462Z"`, `age_seconds:8.236`, `nonce:"0e5fb111-3b13-4cba-8d60-8e5c185bf494"`, and `data.demo_counter:1` (device time `2026-11-08T15:19:36.268Z`). Previous production snapshot had `data.demo_counter:0` and nonce `57ff262e-6838-4bdc-9a98-2b5d0559a660`. Independent `device_status({})` remained `paired:true,online:true,state:"online",platform:"Android",visibility:"visible"` with server time `2026-11-08T15:19:44.668Z`.
+
+**Disposition:** Android consented initial observation, refreshed changed counter, distinct nonce and live pairing **VERIFIED** via stable MCP tool. Explicit Stop sharing -> unavailable while still paired **PENDING**; E5 future capability iteration without republishing **PENDING**.
