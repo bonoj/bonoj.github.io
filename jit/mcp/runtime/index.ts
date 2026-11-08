@@ -1,4 +1,4 @@
-// JIT MCP E5.1 capability runtime. NOT YET DEPLOYED.
+// JIT MCP E5.1 capability runtime. Gateway integration pending.
 // Separate from Hermeticon Memory's existing 'memory' Edge Function.
 const json=(status,data)=>new Response(JSON.stringify(data),{status,headers:{"content-type":"application/json","cache-control":"no-store"}});
 const own=(v,k)=>Object.prototype.hasOwnProperty.call(v,k);
