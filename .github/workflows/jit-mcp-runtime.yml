@@ -1,0 +1,26 @@
+name: JIT MCP capability runtime checks
+on:
+  push:
+    paths:
+      - 'jit/mcp/runtime/**'
+      - '.github/workflows/jit-mcp-runtime.yml'
+  pull_request:
+    paths:
+      - 'jit/mcp/runtime/**'
+      - '.github/workflows/jit-mcp-runtime.yml'
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test isolated capability runtime
+        run: node --test jit/mcp/runtime/index.test.mjs
+      - name: Verify deployable source matches tested source
+        run: cmp jit/mcp/runtime/index.ts jit/mcp/runtime/index.mjs || (echo 'Runtime source copies diverged' && exit 1)
+# No deployment on push: production gateway auth and replay protections are not complete.
