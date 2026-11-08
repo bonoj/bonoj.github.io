@@ -17,7 +17,7 @@
 ## Next action — execute, do not redesign
 
 1. Inspect the live Site gateway source, Supabase function and experiment evidence. Preserve plugin identity, six tool signatures, secrets, and working E5.
-2. Continue the committed Android WebView **Java prototype** and GitHub Actions debug build: verify build first, then add secure enrollment, authenticated command execution, remote JS version verification/rollback, and visible stop. The spec calls for Kotlin; current scaffold is Java and should be converted or explicitly accepted before the first install.
+2. Continue the committed Android WebView **Java prototype** and GitHub Actions debug build. **Build status is unknown**: the available GitHub integration cannot list workflow runs, and the public runs endpoint was inaccessible. Verify build via a workflow run link/log or a build-capable environment; do not assume success. Then add secure enrollment, authenticated command execution, remote JS version verification/rollback, and visible stop. The spec calls for Kotlin; current scaffold is Java and should be converted or explicitly accepted before the first install. The spec calls for Kotlin; current scaffold is Java and should be converted or explicitly accepted before the first install.
 3. Extend existing authenticated gateway/Supabase transport and capability schemas for structured commands and completed results. Never acknowledge before device execution.
 4. Build/deploy JS DOM runtime and demonstrate a remotely shipped change without reinstalling the APK.
 5. Arrange **one** APK install/enrollment, then verify real navigate/observe/fill/click/observe from ordinary ChatGPT on two unrelated unmodified sites. Log UTC proof in `EXPERIMENTS.md`.
