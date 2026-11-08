@@ -272,3 +272,12 @@ Available connected tools provide read-only plugin source/release metadata and p
 - Locally executed six equivalent tests using Node.js `v22.16.0` against a temporary `.mjs` copy of the TypeScript-compatible JavaScript runtime; `node --test`: **6 passed, 0 failed**. Categories: discovery, bounded echo, default deny, missing/wrong secret, HTTP method/content-type/JSON/body limit, authenticated invocation. This is local evidence only; no deployed HTTP verification.
 - **Not deployed**; no gateway secret configured. The current bearer token alone does not protect against replay, and there is no rate limiting. Do not enable authenticated production invocation until hardened. No claim that E5 independent deployment is verified.
 - Repeat local tests from repo root with `cp jit/mcp/runtime/index.ts jit/mcp/runtime/index.mjs && node --test jit/mcp/runtime/index.test.mjs` (remove the generated `.mjs` afterward; do not commit it). Production Deno testing is still outstanding.
+
+
+## E5.1 — Supabase deployment (2026-11-08)
+
+- New function `jit-mcp-capabilities` deployed to existing Hermeticon Memory project `iqglyokmcobegledbfcm` through the connected Supabase deployment action. Function ID `97d7fbc6-303c-48e0-9782-c9990d556279`, **ACTIVE**, version **1**, `verify_jwt:true`, entrypoint `index.mjs`, SHA-256 `7931f49507bed743b35a3b6895e0d7d3d8568fec52e27eea75c5eaa19bb6e808`. Source mirror `jit/mcp/runtime/index.mjs` commit `cfb34d0df31e8e47456fd2d018db7a2128f55f87`.
+- Readback via `list_edge_functions` confirmed `jit-mcp-capabilities` ACTIVE v1 and original `memory` ACTIVE v2 (unchanged).
+- Node.js v22.16.0 `node --test test.mjs` local six-test suite: **6 pass, 0 fail**. This verifies local logic, not live endpoint behavior.
+- **Security hold:** no `JIT_MCP_GATEWAY_SECRET` configured; handler returns 503 after any valid Supabase JWT. No gateway integration, replay defense, rate limit or live authenticated invocation verified. Function is deployed but not ready for production dispatch. Keep `verify_jwt:true`; do not expose secret in source or public clients.
+- **E5 independent capability deployment remains UNVERIFIED** until gateway is securely integrated and a *subsequent* backend-only revision is seen in ordinary ChatGPT without Site/plugin redeploy.
