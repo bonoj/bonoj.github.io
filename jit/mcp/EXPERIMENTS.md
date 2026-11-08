@@ -382,3 +382,14 @@ Local tests passed for owner-only access, pairing, cross-origin rejection, inval
 - The endpoint's GET and POST are publicly callable with `verify_jwt:false`; the demonstration function currently has **no per-user authentication or command acknowledgment authorization**. Its CORS policy is not authentication. Treat it as a single-purpose public demo only; do not reuse for sensitive state, arbitrary commands, or multi-user control. Harden with authenticated sessions and atomic/idempotent command claiming before broadening scope.
 - No evidence of arbitrary-site DOM access or control. The successful case is a **first-party page intentionally designed to cooperate**.
 - The page reports connected when GET polling succeeds; that is not evidence of an independently verified continuous background connection.
+
+
+### Follow-up: automatic command delivery without refresh — VERIFIED
+
+- User kept the same first-party JIT page open in Android Chrome and explicitly authorized the next command with “Go for it :).”
+- Assistant inserted `increment` command **#2** from ordinary ChatGPT using connected Supabase SQL. Created `2026-11-08 22:48:12.478606+00`.
+- Initial database readback showed `counter:1`, command #2 `consumed_at:null`.
+- **Without refreshing the page**, user confirmed the counter changed to **2**.
+- Independent SQL readback: `counter:2`, state updated `2026-11-08 22:48:28.859+00`, command #2 consumed `2026-11-08 22:48:28.923+00`.
+- **Disposition: VERIFIED** for foreground Chrome automatic polling and execution, no refresh or local interaction required. Observed end-to-end interval from enqueue to acknowledgment was ~16.4 seconds; do not interpret this single observation as the poll cadence or a latency guarantee.
+- Scope remains first-party cooperating page; commands are queued through Supabase connector, not the existing JIT MCP plugin. The demonstration endpoint remains unauthenticated and unsuitable for sensitive actions.
