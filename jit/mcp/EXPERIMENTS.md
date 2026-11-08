@@ -233,3 +233,15 @@ Earlier at server time `2026-11-08T15:18:30.671Z`, while the page was hidden, `j
 After the user incremented the companion demo counter and tapped Refresh shared snapshot, ordinary ChatGPT invoked the production `jit_observe({})` tool again. It returned `available:true`, `state:"available"`, `consent_active:true`, `visibility:"visible"`, `observed_at:"2026-11-08T15:19:36.462Z"`, `age_seconds:8.236`, `nonce:"0e5fb111-3b13-4cba-8d60-8e5c185bf494"`, and `data.demo_counter:1` (device time `2026-11-08T15:19:36.268Z`). Previous production snapshot had `data.demo_counter:0` and nonce `57ff262e-6838-4bdc-9a98-2b5d0559a660`. Independent `device_status({})` remained `paired:true,online:true,state:"online",platform:"Android",visibility:"visible"` with server time `2026-11-08T15:19:44.668Z`.
 
 **Disposition:** Android consented initial observation, refreshed changed counter, distinct nonce and live pairing **VERIFIED** via stable MCP tool. Explicit Stop sharing -> unavailable while still paired **PENDING**; E5 future capability iteration without republishing **PENDING**.
+
+
+## 2026-11-08T15:20:13Z — E4 Android consent/revocation acceptance VERIFIED
+
+Following the user's explicit Stop sharing action, ordinary ChatGPT invoked production `jit_observe({})` and `device_status({})` through the installed JIT MCP plugin.
+
+- `jit_observe`: `{"available":false,"state":"unavailable","reason":"sharing_disabled","observation_method":"first_party_companion_dom","scope":"companion_page_only","consent_active":false,"observed_at":null,"age_seconds":null,"visibility":"visible","nonce":null,"data":null,"interface_version":1}`.
+- `device_status`: `{"paired":true,"online":true,"state":"online","observed_at":"2026-11-08T15:20:05.922Z","age_seconds":7.732,"server_time":"2026-11-08T15:20:13.654Z","device_time":"2026-11-08T15:20:05.726Z","device_nonce":"6dc42fd0-533a-473a-b1ba-029a900d436d","platform":"Android","visibility":"visible","capabilities":["browser_heartbeat","page_visibility"],"expires_at":"2026-11-08T15:27:57.097Z","heartbeat_timeout_seconds":45}`.
+
+**E4 disposition: VERIFIED end-to-end on physical Android in ordinary ChatGPT.** Verified before-consent unavailable; consented fresh counter 0; changed counter 1 with distinct nonce; page-hidden stale; explicit Stop sharing immediately unavailable with consent false while the device remained paired/online. The verified observation scope is only the first-party companion page; this does not establish general tab/OS observation or actuation.
+
+**E5 disposition: PARTIALLY VERIFIED.** Permanent v1 MCP tools are discoverable and callable; `jit_invoke` echoes a typed integer; `jit_observe` passed the Android observation lifecycle. Still pending: demonstrate adding a **new** capability through unchanged tool signatures without plugin republishing and document the independently operable browser-first deployment mechanism. Do not equate a working dispatcher with completed independent iteration.
