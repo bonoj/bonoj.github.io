@@ -210,6 +210,8 @@ async function gatewaySecret(env) {
 }
 async function setupGateway(request,env,user) {
  if (!user) return json({error:'authentication_required'},401);
+ const paired=await env.DB.prepare('SELECT paired,expires_at FROM device_sessions WHERE user_id=?').bind(user).first();
+ if (!paired?.paired || paired.expires_at<=Date.now()) return json({error:'active_paired_owner_session_required'},403);
  if (request.method==='GET') {
   const row=await env.DB.prepare('SELECT name FROM jit_gateway_config WHERE name=?').bind('gateway_secret').first();
   return json({configured:!!(env.JIT_MCP_GATEWAY_SECRET||row)});
