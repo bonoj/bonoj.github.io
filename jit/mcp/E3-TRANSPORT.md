@@ -1,6 +1,8 @@
 # E3 — Site-to-Android transport implementation brief
 
-Status: **ready for Site implementation; not deployed**.
+Status: **implemented and deployed 2026-11-08; production tool invocation and Android pairing verification pending**.
+
+Implementation, deployment IDs, tested behavior and remaining limits are recorded in [EXPERIMENTS.md](EXPERIMENTS.md). Source mirror: [site/worker.mjs](site/worker.mjs).
 
 ## Goal
 

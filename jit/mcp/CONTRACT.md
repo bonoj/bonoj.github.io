@@ -1,6 +1,18 @@
-# Candidate device tool contract — not implemented
+# Device tool contract
 
 The bridge is deterministic. It does not run another language model.
+
+## Deployed E3 browser status (2026-11-08)
+
+`integration_ping({})` retains its timestamp, nonce, source and `connected_device:false` probe response. That field deliberately describes the integration probe, not device status.
+
+`device_status({}) -> {paired, online, state, observed_at, age_seconds, server_time, device_time, device_nonce, platform, visibility, capabilities, expires_at, heartbeat_timeout_seconds}`
+
+The tool reads only the Sites-authenticated caller’s session. No user or session selector is accepted. Server receipt time controls freshness; browser time and nonce are separate observations. Online requires confirmed enrollment, an unexpired 10-minute credential, a visible heartbeat less than 45 seconds old. Platform and visibility are browser-reported, not hardware attestation. Capabilities are limited to browser heartbeat and page visibility.
+
+Pairing requires the authenticated user, a 256-bit memory-only token, an unexpired code and explicit confirmation. The code alone grants nothing. Five confirmation attempts maximum, one enrollment per ten seconds, and same-origin JSON checks protect pairing. Server stores only token/code hashes. Disconnect deletes the session; new enrollment replaces the old session. No remote actuation tool is deployed.
+
+Production tool invocation and Android end-to-end verification remain pending; see EXPERIMENTS. The stages below are future candidates, not current APIs.
 
 ## Stage 0: connectivity
 

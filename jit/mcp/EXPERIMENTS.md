@@ -90,3 +90,66 @@ Plugin Creator's owned-personal-plugin listing returned `plugin_asdk_app_sites_1
 **Architecture correction:** the installed callable tool is Site-backed, not proven to run the `jit/mcp/server.py` Python source in this repository. Treat that Python server as an independent integration probe, not the active implementation. Plugin Creator supports eligible edits to skill/support files, but App binding/MCP configuration must be preserved; hosted Site MCP tool implementation needs to be changed via the Site development environment.
 
 **E3 remains open:** no actual device transport, device enrollment, or authenticated communication yet. Do not mistake the hosted integration ping for device connectivity.
+
+## 2026-11-08T14:23:41.940553Z — E3 implemented and deployed; Android acceptance pending
+
+### Identity and infrastructure inspected
+
+Read README, this ledger, CONTRACT and E3-TRANSPORT before edits. Opened the existing Site's actual source repository. Original source commit: `6638c4e3eab76f21342d5d09559bb53adce17297`; implementation was a dependency-free Worker `worker.mjs`, not GitHub `server.py`.
+
+Sites documentation confirms that both browser and MCP calls receive a Site-scoped authenticated user ID. Added logical D1 binding `DB` and a schema-only migration through the supported deployment archive. Preserved `capabilities:["mcp"]`, existing project, private owner-only access, App binding and plugin ID. Did not create another plugin or modify other JIT projects.
+
+- Project: `appgprj_6af07fda46ec8191a71e9df6f4bc9e75`
+- App binding: `asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`
+- Plugin: `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`
+- Plugin package inspection still reports `1.0.0`, release `PluginRelease_a2893093886481919da01bd918ca4504`. Site MCP source is independently updated; no archive replacement was used.
+- Companion: https://jit-mcp.bracedbuddy1.chatgpt.site/device
+
+### Protocol and security implementation
+
+One random session per authenticated user, 256-bit bearer credential hashed server-side, six-digit code hashed server-side, two-minute code lifetime, five-attempt lockout, explicit code confirmation and ten-second enrollment throttle. A code without the signed-in identity and browser credential is insufficient. Credentials remain in page memory; no app cookies/localStorage/sessionStorage. Same-origin JSON checks protect device writes.
+
+A confirmed session starts offline until its first valid heartbeat. Every 20 seconds while visible, the actual browser sends platform summary, visibility, its UTC time and cryptographic nonce. Server receipt time controls a 45-second online threshold. Hidden is stale; expired heartbeat is offline; expired 10-minute enrollment is unpaired. Disconnect deletes the record, and replacement enrollment invalidates the old credential. The read-only `device_status` tool accepts no selectors and exposes no credentials.
+
+Storage contains a Site-scoped user ID, random session alias, credential/code hashes, expiry/attempt metadata, and the latest minimized observation. No persistent hardware identifier, raw user agent, history, page contents or inference. The TTL is enforced logically; physical deletion occurs on the next authenticated device API request. No periodic D1 purge or storage-backup retention guarantee is implemented.
+
+### Deployments
+
+1. Site source `425a61ccb836d708f898d69a88c84a9db91b9bf8`
+   - Version: `appgprj_6af07fda46ec8191a71e9df6f4bc9e75~appgver_16d949fd095c819184e8ce029b68e03a`
+   - Deployment: `appgdep_6af084183e288191a74a3ba9f1423855`
+   - Succeeded 2026-11-08T14:15:58.725598Z.
+2. Browser-verified Site source `aeb7558df72466a2c6510bdbd123da92070ea05a`
+   - Version: `appgprj_6af07fda46ec8191a71e9df6f4bc9e75~appgver_4b331c2ffa3081918d7fbed79f2ad13d`
+   - Deployment: `appgdep_6af0855fcf908191ab40dee3ff11bac6`
+   - Succeeded 2026-11-08T14:21:25.502050Z, `has_mcp:true`.
+   - URL: https://jit-mcp.bracedbuddy1.chatgpt.site
+   - Contains cryptographic nonce generation compatible with HTTP local preview as well as HTTPS production.
+
+3. Final Site source `40e986d75aecae9196db1229f1d6c5a5a6ada219`
+   - Version: `appgprj_6af07fda46ec8191a71e9df6f4bc9e75~appgver_e53600b562d48191956382304540dcef`
+   - Deployment: `appgdep_6af085fbb67c8191a7d51ee5971e25e3`
+   - Succeeded 2026-11-08T14:24:01.113211Z, `has_mcp:true`.
+   - Corrected state precedence so a hidden session becomes **offline** after 45 seconds, rather than remaining stale indefinitely. Added and passed a regression assertion.
+
+### Verified tests
+
+- `node test.mjs` against real SQLite: no device online before enrollment/confirmation/heartbeat; absent identity rejection; cross-user and wrong-token rejection; CSRF rejection; enrollment throttle; five-attempt lockout; two-minute code expiry; visible heartbeat online; hidden stale; 45-second offline boundary; Disconnect revocation; ten-minute credential expiry; physical cleanup on a subsequent API request; ping nonce uniqueness. Expiry tests advance the test clock, not production time.
+- Real cloud-browser client, local preview only, explicit QA identity: successfully paired and reported Linux/visible at `2026-11-08T14:20:04.608Z`, device time `2026-11-08T14:20:04.604Z`. A later genuine heartbeat at `2026-11-08T14:20:44.626Z` had a different browser-generated nonce. This verifies recurring browser-to-server communication, **not Android connectivity**.
+- Prominent Disconnect was clicked in that browser; server response/UI confirmed session revocation.
+- The preview adapter uses local SQLite and an explicit QA identity and is excluded from the production build. It cannot be used as evidence of production authentication.
+- Final deployed original-plugin ping:
+  `{"timestamp":"2026-11-08T14:24:19.249Z","nonce":"78006530-7648-4c9e-be4c-00a102f994d8","source":"jit-mcp","connected_device":false}`
+- Production /device navigation reached the expected ChatGPT sign-in gate. Site publication and continued original-plugin ping are verified.
+
+### Unverified / exact limitations
+
+The active Work tool inventory still listed only `integration_ping` after publication; no callable `device_status` handle was exposed in this conversation. Sites documents that republishing refreshes the connected plugin's tools, and both deployments reported MCP readiness, but actual new-tool discovery/invocation in ChatGPT remains unverified. Do not mark the E3 acceptance test passed.
+
+The cloud browser had no existing ChatGPT login. No credentials were requested merely for QA; production enrollment and D1 read/write behavior therefore remain unverified. A direct service-header request to /mcp returned HTTP 401; service access did not substitute for MCP OAuth/user identity. No authentication bypass or synthetic production heartbeat was added.
+
+No physical Android page was enrolled. Real closed-tab wall-clock expiry remains unverified; deterministic expiry tests passed. Switching Android apps typically hides Chrome, so stale is the intended result; split-screen can keep the page visible during a chat invocation.
+
+### Next acceptance action
+
+On Android, open the companion, sign in with the same account if needed, start pairing, re-enter the displayed code and confirm. Invoke `device_status` in ordinary ChatGPT, loading a new chat if its existing tool inventory has not refreshed. Compare platform, browser nonce and timestamps. Close the page, wait over 45 seconds, and invoke again. Record observed results here; retain E3 as pending until that succeeds.

@@ -1,48 +1,41 @@
 # MCP — Chat-to-Device Lever Laboratory
 
-[Open browser capability probe](https://bonoj.github.io/jit/mcp/) · [Source](index.html)
+[Android companion](https://jit-mcp.bracedbuddy1.chatgpt.site/device) · [Experiments](EXPERIMENTS.md) · [E3 specification](E3-TRANSPORT.md)
 
-Status: **research workspace created; no ChatGPT custom tool connected; no Android device bridge deployed.**
+Status: **E2 verified in ordinary Android Chat; E3 transport implemented and deployed; Android end-to-end verification pending.**
 
 ## Objective
 
-Enable the **existing ChatGPT conversation** to observe and operate a user-authorized Android browser/device, without delegating reasoning to a second paid agent. The bridge should be deterministic, not a separate inference service.
+The existing ChatGPT conversation supplies reasoning and agency. JIT MCP supplies deterministic communication with a user-authorized browser. No second model, paid inference service, or ongoing Work session is required.
 
-## Hard acceptance test
+## Active implementation
 
-From an ordinary ChatGPT Android conversation, invoke a real connected tool that returns a fresh observation from the user's actual Android device (initially `device_ping`, later foreground browser URL/title), then verify it against the device. A repository commit, hosted webpage, simulated response, or successful MCP handshake alone does **not** satisfy this test.
+The existing private JIT MCP Site hosts a Cloudflare Worker and authenticated D1 session storage. [site/worker.mjs](site/worker.mjs) is a source mirror of the hosted implementation. GitHub Pages is not the transport runtime. The independent [server.py](server.py) Python probe is not the installed plugin.
 
-## Constraints
+- Companion: https://jit-mcp.bracedbuddy1.chatgpt.site/device
+- Plugin: `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`
+- Site: `appgprj_6af07fda46ec8191a71e9df6f4bc9e75`
+- Tools: `integration_ping()` and the newly deployed `device_status()` endpoint.
+- Existing plugin/App identity, private audience and bindings preserved.
 
-- Preserve the normal ChatGPT conversation and its reasoning context; no Work mode or second inference service as the solution.
-- First validate **ChatGPT plugin installation, Android availability, and tool invocation** on the user's account. Do not assume that hosting an MCP endpoint makes it available to this chat.
-- The GitHub Pages JIT site is **static hosting**, not an MCP server runtime or secure reverse tunnel. This folder is the research/workspace and may host documentation or a client, but cannot itself accept long-lived server requests.
-- Keep device secrets, bearer tokens, cookies, and personal page contents out of this public repository and Pages.
-- Scope device operations to user-authorized surfaces; require explicit approval for consequential actions. Webpage text is untrusted input, never instructions to the bridge.
-- Protect the root GitHub Pages site and existing JIT experiences.
+## Pairing and lifetime
 
-## Architecture under investigation
+Open the companion in Android Chrome, sign in with the same ChatGPT account if prompted, start pairing, re-enter its displayed code, and confirm. Keep the page visible. The token stays in page memory; reload requires pairing again. Only one session per authenticated user is retained; starting another pairing replaces the previous session.
 
-```
-Existing ChatGPT conversation
-    ↕ discoverable, callable plugin tool (UNVERIFIED)
-MCP/tool adapter
-    ↕ authenticated transport (UNBUILT)
-Android companion (UNBUILT)
-    ↕ scoped observation / interaction
-Authorized browser or device UI
-```
+Pairing codes expire after two minutes and lock after five attempts. Sessions expire ten minutes after enrollment, regardless of activity. Heartbeats occur every 20 seconds while visible. A hidden heartbeat immediately marks the session stale; absent heartbeats mark it offline after 45 seconds. Disconnect revokes the session immediately. The server clock governs freshness and expiry.
 
-Potential integration surfaces: ChatGPT plugin hosted via ChatGPT Sites, remote custom MCP, desktop local MCP, and prebuilt browser plugins. Each has distinct plan, platform, and action constraints; verify against current official documentation and a real account-level installation test. A cloud browser agent is not equivalent to the user's existing Chrome session.
+## Verification and limits
 
-## Experiments
+The production Site deployed successfully, and the original plugin's ping still works. Local real-browser testing verified a Linux browser heartbeat, recurring updates and Disconnect. SQLite-backed tests verify authentication, isolation, CSRF protection, pairing, expiry and revocation.
 
-See [EXPERIMENTS.md](EXPERIMENTS.md) for falsifiable tests and outcomes. See [CONTRACT.md](CONTRACT.md) for the proposed tool surface. Record evidence, dates, source links, exact failures, and next action here, not in conversational memory alone.
+The active Work conversation retained its original tool inventory and could not invoke the new tool. Production browser pairing was gated by a fresh ChatGPT login. **Production `device_status` invocation, production paired-session storage, and Android behavior are not yet verified.** A newly loaded ordinary chat should discover the deployed tool; verify rather than assume.
 
-## Immediate next action
+A browser page does not provide Android OS, unrelated-tab DOM, screen capture, accessibility or background access. Moving from Chrome to ChatGPT normally hides the page and therefore reports stale; use split-screen if both need to remain visible.
 
-Determine whether a **tool-only custom plugin** can be created/installed and invoked from the user's ordinary ChatGPT Android chat. If the product does not support it, record the precise restriction and test an alternate supported surface *before* implementing the Android companion.
+## Development
 
-## Continuation handoff
+Read README, EXPERIMENTS, CONTRACT and E3-TRANSPORT before continuing. Modify the existing Site source through Sites, then mirror reviewed source here. Never replace the plugin or overwrite its App binding.
 
-Read this README, EXPERIMENTS.md, and CONTRACT.md. Verify current product support rather than assuming earlier claims. Then perform the smallest live invocation test available. Never report `device_ping` as working until it returns data from a real device.
+`cd jit/mcp/site && node test.mjs` runs the dependency-free SQLite transport tests (Node 24). `node build.mjs` emits the Worker. `preview.mjs` is a local QA adapter with an explicit test identity and in-memory SQLite; it is **excluded from the production bundle**. Hosted production uses Sites-authenticated identity and D1.
+
+The 10-minute TTL is enforced on all access. Physical expired-row deletion is opportunistic on the next authenticated device API request; no periodic purge is configured. No logs, token values, cookies, raw user agents, browser history or hardware IDs are stored by the application.
