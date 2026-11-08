@@ -28,6 +28,7 @@ public final class MainActivity extends Activity {
     private TextView status;
     private EditText address;
     private long revision = 0;
+    private BrowserExecutor executor;
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -49,6 +50,7 @@ public final class MainActivity extends Activity {
         browser.setWebViewClient(new WebViewClient() {
             @Override public void onPageFinished(WebView view, String url) {
                 revision++;
+                if (executor != null) executor.invalidate();
                 address.setText(url);
                 status.setText("Loaded · revision " + revision + " · " + url);
             }
@@ -78,6 +80,7 @@ public final class MainActivity extends Activity {
         root.addView(stop, new LinearLayout.LayoutParams(-1, -2));
         go.setOnClickListener(v -> navigate(address.getText().toString()));
         stop.setOnClickListener(v -> {
+            if (executor != null) executor.invalidate();
             browser.stopLoading();
             browser.loadUrl("about:blank");
             browser.clearHistory();
@@ -96,39 +99,35 @@ public final class MainActivity extends Activity {
         browser.loadUrl(url);
     }
 
-    /** Local diagnostic only. A future authenticated dispatcher must enforce
-     * device identity, authorization, origin and command expiry before execution.
-     */
+    /** Local diagnostic only; no remote command source is connected. */
     private void observe() {
-        if (browser.getUrl() == null || !browser.getUrl().startsWith("https://")) {
-            status.setText("Navigate to an HTTPS page before inspecting");
-            return;
-        }
-        final String script;
-        try (InputStream in = getAssets().open("dom-v1.js")) {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            byte[] buffer = new byte[8192];
-            int count;
-            while ((count = in.read(buffer)) != -1) out.write(buffer, 0, count);
-            script = out.toString(StandardCharsets.UTF_8.name());
-        } catch (Exception ex) {
-            status.setText("DOM runtime unavailable: " + ex.getClass().getSimpleName());
-            return;
-        }
-        browser.evaluateJavascript(script, ignored -> browser.evaluateJavascript(
-            "JSON.stringify(window.__jitDomRuntime.act({operation:'observe'}))",
-            result -> {
-                try {
-                    // evaluateJavascript returns a JSON-encoded JavaScript string.
-                    String decoded = new org.json.JSONTokener(result).nextValue().toString();
-                    JSONObject observation = new JSONObject(decoded).getJSONObject("observation");
-                    status.setText("DOM verified locally · revision " + observation.getInt("revision")
-                        + " · controls " + observation.getJSONArray("controls").length());
-                } catch (Exception ex) {
-                    status.setText("DOM inspection failed: " + ex.getClass().getSimpleName());
-                }
+        if (executor == null) {
+            try (InputStream in = getAssets().open("dom-v1.js")) {
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                byte[] buffer = new byte[8192];
+                int count;
+                while ((count = in.read(buffer)) != -1) out.write(buffer, 0, count);
+                executor = new BrowserExecutor(browser, out.toString(StandardCharsets.UTF_8.name()));
+            } catch (Exception ex) {
+                status.setText("DOM runtime unavailable: " + ex.getClass().getSimpleName());
+                return;
             }
-        ));
+        }
+        JSONObject command = new JSONObject();
+        try { command.put("operation", "observe"); } catch (Exception ignored) {}
+        executor.execute(command, result -> {
+            if (result.has("error")) {
+                status.setText("DOM inspection: " + result.optString("error"));
+                return;
+            }
+            JSONObject observation = result.optJSONObject("observation");
+            if (observation == null) {
+                status.setText("DOM inspection: missing observation");
+                return;
+            }
+            status.setText("DOM observed locally · revision " + observation.optInt("revision")
+                + " · controls " + (observation.optJSONArray("controls") == null ? 0 : observation.optJSONArray("controls").length()));
+        });
     }
 
     @Override public void onBackPressed() {
