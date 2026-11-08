@@ -70,3 +70,15 @@ A screenshot supplied from Android Chrome at `chatgpt.com/plugins` shows the **A
 User screenshot from Android Chrome shows **Work** selected, **Plugin Creator** attached in the composer, and a default draft prompt `help me create a plugin`. This establishes that the **Create plugin** menu item launches a Work-mode creator workflow; it does **not** establish that the plugin was created, installed, or callable in normal Chat mode.
 
 **Decision:** Use Work strictly as a one-time tool-manufacturing environment, not as the runtime for the Android bridge. Request a private, tool-only `JIT MCP` plugin exposing a fresh `integration_ping` nonce/timestamp and `connected_device: false`. No external services or repo changes. After installation, test invocation in ordinary Android Chat. Keep E2 open until then.
+
+## 2026-11-08 — E2 VERIFIED: custom plugin invoked in ordinary Chat
+
+Tool inventory exposed `mcp__JIT_MCP__integration_ping` directly in this existing conversation. Invoked successfully; result:
+
+```json
+{"timestamp":"2026-11-08T14:03:56.588Z","nonce":"071c570c-966e-47fd-8d63-b6d955cef26e","source":"jit-mcp","connected_device":false}
+```
+
+**Verified:** custom tool is callable from this ordinary conversation (no Work-mode transition). This is a live tool result, not a mock. The tool is available under the `JIT_MCP` namespace. **Not verified:** transport to Android device; `connected_device` is explicitly false. The GitHub `server.py` research probe is not established as the implementation behind the hosted plugin; do not conflate them.
+
+**Next gate E3:** inspect hosted plugin implementation and available editing tools, then implement an authenticated device-to-plugin transport. Avoid putting tokens or device observations in public JIT.
