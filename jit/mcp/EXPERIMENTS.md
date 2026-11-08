@@ -203,7 +203,7 @@ This Work conversation still exposes the two E3 tool handles. The Worker adverti
 
 ## 2026-11-08T15:16:24Z — E5 ordinary-chat tool discovery and invocation VERIFIED (partial acceptance)
 
-From a fresh **ordinary ChatGPT conversation**, the tool inventory independently exposed all seven existing-plugin tools: `integration_ping`, `device_status`, `browser_observe`, `jit_capabilities`, `jit_observe`, and `jit_invoke` (six names listed; no additional tool implied). The previously missing E4 `browser_observe` is now discoverable. This verifies tool exposure, **not** the root cause of the prior missing-tool state.
+From a fresh **ordinary ChatGPT conversation**, the tool inventory independently exposed all six existing-plugin tools: `integration_ping`, `device_status`, `browser_observe`, `jit_capabilities`, `jit_observe`, and `jit_invoke`. The previously missing E4 `browser_observe` is now discoverable. This verifies tool exposure, **not** the root cause of the prior missing-tool state.
 
 Actual production calls through the installed plugin:
 
