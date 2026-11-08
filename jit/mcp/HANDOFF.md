@@ -1,39 +1,32 @@
-# JIT MCP — current handoff: arbitrary-site browser automation
+# JIT MCP — handoff
 
-**Read [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md) FIRST. It is the binding objective, implementation inventory, ordinary-chat-first policy and acceptance contract.** This file replaces the obsolete E5 owner-setup instructions. No Work session is required for routine usage or ordinary development.
+**Start here:** [ANDROID-WEBVIEW.md](ANDROID-WEBVIEW.md) is the **binding, noise-free specification** for the current implementation. Read it first. [EXPERIMENTS.md](EXPERIMENTS.md) is the evidence log. [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md) documents the earlier cloud-browser proposal; its hosted-Chromium and no-Android assumptions are **superseded**.
 
-## Actual status
+## Non-negotiable target
 
-- **VERIFIED:** Private JIT MCP plugin callable from ordinary ChatGPT on Android, six unchanged MCP tool signatures.
-- **VERIFIED:** E5 authenticated Supabase capability discovery and invocation via `jit_capabilities` / `jit_invoke`; original gateway secret already provisioned. Production baseline `echo_text_v1` succeeded.
-- **VERIFIED:** Backend-only Supabase deployment of `text_length_v1` was discovered and invoked from ordinary ChatGPT, returning `7` for `Hello 🐝`, with no plugin/Site republish. See EXPERIMENTS.
-- **VERIFIED, HISTORICAL:** E3/E4 paired Android Chrome companion and consented snapshot; useful auth/freshness patterns, **not** required for the target.
-- **VERIFIED, HISTORICAL:** First-party Supabase command delivery to GitHub Pages without refresh; not arbitrary-browser control and not a substitute for Chromium.
-- **NOT IMPLEMENTED:** Hosted Playwright/Chromium runtime, arbitrary-site DOM inspection, click, fill, scroll and end-to-end acceptance through JIT MCP.
+**One Android APK installation. Then ordinary ChatGPT controls a real WebView on the phone and iterates browser automation by remotely updating JavaScript.** No routine Work, Railway, paid Chromium host, Chrome pairing, manual relays, or repeat sideloading. A future native update may be unavoidable for native defects or API changes; do not conceal that limitation.
 
-## 2026-11-08 host discovery / Gate 1
+## Verified vs missing
 
-- Inspected the **live** Supabase `jit-mcp-capabilities` Edge Function: ACTIVE v4, `verify_jwt:true`, SHA `47ba769fc0fb674f1ddb5b68c8235de1a29088bb40e01f146d2636969aeb901f`. Current registry is `echo_text_v1` (text→text) and `text_length_v1` (text→integer), revision 2; request body max 2048 bytes. No browser operations deployed.
-- Confirmed existing connected GitHub and Supabase tools, but **no installed process-container deployment integration**.
-- Discovered Railway's ChatGPT integration (available, **not yet connected**) for deploying and managing applications. Suggested connecting it as the one-time host provisioning dependency. Do not claim Railway deployment or access until connection is confirmed. Once connected, inspect its capabilities and deploy a Chromium/Playwright service from ordinary ChatGPT.
-- **Gate 1 status: BLOCKED ON HOST CONNECTION**, not on E5 credentials or Android pairing. Do not fall back to Work or build a substitute counter demo.
+- **VERIFIED:** Existing private JIT MCP plugin callable from ordinary Android ChatGPT; six unchanged MCP signatures; E5 authenticated Supabase backend-only capability evolution (echo and Unicode length). Existing gateway secret is provisioned; do not rotate or repeat `/setup`.
+- **VERIFIED historical:** E3/E4 device heartbeat, consented observation and revocation patterns; first-party command queue demo. Reuse patterns, **not** the demo's insecure authority or fake browser state.
+- **INSPECTED 2026-11-08:** Live Supabase `jit-mcp-capabilities` ACTIVE v4; text/integer-only capability schema, 2048-byte request limit. Repo `runtime/index.mjs` is stale; never deploy it blindly.
+- **NOT IMPLEMENTED:** Kotlin companion, installable APK, secure Android command/result transport, signed remote JS runtime, real third-party DOM automation, ordinary-chat end-to-end acceptance.
+- **NO HOST BLOCKER:** Railway was merely an optional cloud-host suggestion and is **not** required or a dependency.
 
-## Next action in an ordinary ChatGPT conversation
+## Next action — execute, do not redesign
 
-1. Inspect the deployed `jit-mcp-capabilities` Edge Function and **live** Site gateway implementation, not the stale `runtime/index.mjs` mirror. Confirm current authenticated dispatch and version/schema limits. Preserve existing secrets, plugin identity and six tool signatures.
-2. Find a **deployable, process-capable Chromium host** using tools/connectors available from ordinary chat. Prioritize one-time provisioning with subsequent API/GitHub-driven deployments. If provisioning cannot be done with available tools, specify exactly one necessary user action and keep all subsequent work in ordinary chat.
-3. Deploy isolated Playwright/Chromium runtime. Verify real DOM observation of an unmodified site from the runtime.
-4. Expose versioned browser capabilities through the **existing** Supabase backend and `jit_invoke`; preserve the installed plugin. The existing text/integer-only E5 schemas may need a backward-compatible extension for structured browser observations and action payloads; test and document that actual constraint rather than pretending the current schema supports browser control.
-5. Verify from **ordinary ChatGPT**: navigate → real DOM observe → fill → click → fresh DOM observe on two unrelated unmodified websites. Log UTC proof in EXPERIMENTS. No Work or Android companion in the acceptance path.
+1. Inspect the live Site gateway source, Supabase function and experiment evidence. Preserve plugin identity, six tool signatures, secrets, and working E5.
+2. Implement `jit/mcp/android/` minimal Kotlin WebView companion and a GitHub Actions APK build. Native shell must support secure device enrollment, command execution, remote JS version verification/rollback, and visible stop.
+3. Extend existing authenticated gateway/Supabase transport and capability schemas for structured commands and completed results. Never acknowledge before device execution.
+4. Build/deploy JS DOM runtime and demonstrate a remotely shipped change without reinstalling the APK.
+5. Arrange **one** APK install/enrollment, then verify real navigate/observe/fill/click/observe from ordinary ChatGPT on two unrelated unmodified sites. Log UTC proof in `EXPERIMENTS.md`.
 
-## Do not drift
+**Stop conditions:** If live source is unavailable, an Android permission or API needs native update, or APK build/signing cannot be completed through available tools, identify the exact blocker. Do not substitute Work, cloud Chromium, a mock page, or another app download without approval.
 
-Do not re-run /setup, rotate credentials, create another plugin, ask for Android pairing, deploy another first-party counter/UI demo, use Supabase SQL queue changes as evidence of browser control, or require Work for routine development. The product is **ordinary ChatGPT operating arbitrary websites through a remotely controlled browser**. If a step does not advance that, stop and return to the canonical spec.
+## Fixed infrastructure
 
-## Pointers
-
-- [Canonical spec](BROWSER-AUTOMATION.md)
-- [Experiment evidence](EXPERIMENTS.md)
-- Supabase project `iqglyokmcobegledbfcm`, Edge Function `jit-mcp-capabilities`
-- Existing plugin `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`
-- Existing six tools: `integration_ping`, `device_status`, `browser_observe`, `jit_capabilities`, `jit_invoke`, `jit_observe`
+- Repo `bonoj/bonoj.github.io`, branch `master`, directory `jit/mcp/`
+- Supabase project `iqglyokmcobegledbfcm`, function `jit-mcp-capabilities`
+- Private plugin `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`
+- Six signatures: `integration_ping`, `device_status`, `browser_observe`, `jit_capabilities`, `jit_invoke`, `jit_observe`
