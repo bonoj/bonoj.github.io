@@ -489,3 +489,10 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 - **Not verified:** workflow completion, Gradle compilation, APK artifact, physical-device operation. No installation requested. Debug builds are not the final signed once-install release channel.
 - **Not implemented:** authenticated device transport/enrollment, signed remotely updatable JS, browser commands through MCP, post-action observation, or arbitrary-site end-to-end acceptance. No remote commands are accepted by the prototype; no untrusted page-to-native bridge is exposed.
 - **Next:** verify/fix CI build, implement native secure transport and signed JS update path, then produce the single intended installable APK. Do **not** ask the user to install the prototype.
+
+
+## 2026-11-08 — Android CI and DOM runtime source follow-up (SOURCE ONLY)
+
+- Updated `.github/workflows/jit-android.yml` to provision pinned Gradle 8.9 with `gradle/actions/setup-gradle@v4`, matching Android Gradle Plugin 8.7.3; commit `56c448558925135de514abb6c15dbd88c9d050bd`. No successful GitHub Actions run has been observed yet; no build claim.
+- Committed `jit/mcp/android/runtime/dom-v1.js`, commit `1ec586e4e63867f160a1389db83985fc9e79c492`. It defines a versioned in-page DOM observer, visible actionable element refs, revision checks, bounded observations, and click/fill dispatch with input/change events. It intentionally does not access native APIs, credentials or network.
+- **Important:** This JS is not yet remotely fetched or injected by the APK; its synchronous action result is **not** proof of navigation/SPA settlement or completed browser acceptance. It needs authenticated native orchestration, post-action settle/re-observe, signed update validation, and cross-site tests. No APK installation requested.
