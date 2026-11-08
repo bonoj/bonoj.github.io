@@ -199,3 +199,19 @@ Exact MCP observation outputs from the local SQLite fixture follow. Their times 
 ### Android acceptance pending
 
 This Work conversation still exposes the two E3 tool handles. The Worker advertises `browser_observe` and Sites published the MCP-enabled version. Discovery and invocation of the new tool in ordinary ChatGPT remain unverified. On Android, reload and pair the companion, then keep Chrome visible in split screen with a fresh ordinary ChatGPT chat. Invoke `browser_observe` before sharing, then share and read back within 45 seconds. Change the counter, refresh and read it back again. Verify that backgrounding makes the snapshot stale and that stopping sharing makes it unavailable. Record the production responses here.
+
+
+## 2026-11-08T15:16:24Z — E5 ordinary-chat tool discovery and invocation VERIFIED (partial acceptance)
+
+From a fresh **ordinary ChatGPT conversation**, the tool inventory independently exposed all seven existing-plugin tools: `integration_ping`, `device_status`, `browser_observe`, `jit_capabilities`, `jit_observe`, and `jit_invoke` (six names listed; no additional tool implied). The previously missing E4 `browser_observe` is now discoverable. This verifies tool exposure, **not** the root cause of the prior missing-tool state.
+
+Actual production calls through the installed plugin:
+
+- `jit_capabilities({})` returned `interface_version:1`, `revision:0`, with `companion_page_only` (read-only, explicit paired-visible-page sharing) and `echo_integer` (read-only integer echo, range -999..999). Both advertise a shared 60 calls/60 seconds limit.
+- `jit_invoke({capability:"echo_integer",input:{value:42}})` returned `{"interface_version":1,"revision":0,"capability":"echo_integer","data":{"value":42}}`. **Stable dispatcher works in ordinary ChatGPT.**
+- `jit_observe({})` returned `{"available":false,"state":"unavailable","reason":"unpaired_or_expired","observation_method":"first_party_companion_dom","scope":"companion_page_only","consent_active":false,"observed_at":null,"age_seconds":null,"visibility":null,"nonce":null,"data":null,"interface_version":1}`.
+- `device_status({})` returned `{"paired":false,"online":false,"state":"unpaired","observed_at":null,"age_seconds":null,"server_time":"2026-11-08T15:16:24.533Z","device_time":null,"device_nonce":null,"platform":null,"visibility":null,"capabilities":[],"expires_at":null,"heartbeat_timeout_seconds":45}`.
+
+**Disposition:** E5 tool discovery, interface v1 and production dispatch **VERIFIED**. Consent-off/unpaired observation boundary **VERIFIED**. E4/E5 real Android shared-counter readback and revocation **PENDING** because pairing expired. The key additional E5 gate—introducing a *new* capability after bootstrap and invoking it through the *unchanged* MCP tool signatures **without plugin republishing**—is also **PENDING**. The existing `echo_integer` capability proves dispatch but not independent future iteration. Do not declare E5 fully complete.
+
+**Next:** Pair the Android companion again, keep it visible in split-screen, and test explicit sharing through `jit_observe` and `browser_observe`; refresh after counter increment, then revoke and confirm unavailable while pairing remains intact. Record exact UTC production responses.
