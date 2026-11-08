@@ -71,6 +71,7 @@ This index was originally generated from the GitHub tree on 2026-10-28 and incre
 - [`lattice/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/lattice) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/lattice/README.md) · [page](https://bonoj.github.io/jit/lattice/)
 - [`lovecraft/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/lovecraft) · [page](https://bonoj.github.io/jit/lovecraft/)
 - [`materials/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/materials) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/materials/README.md) · [page](https://bonoj.github.io/jit/materials/)
+- [`mcp/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/mcp) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/mcp/README.md) — Chat-to-device MCP bridge research; no live device connection yet
 - [`merchant/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/merchant) · [page](https://bonoj.github.io/jit/merchant/)
 - [`mircrohard/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/mircrohard) · [page](https://bonoj.github.io/jit/mircrohard/)
 - [`music/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/music) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/music/README.md) · [page](https://bonoj.github.io/jit/music/)
