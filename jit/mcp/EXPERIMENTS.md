@@ -281,3 +281,11 @@ Available connected tools provide read-only plugin source/release metadata and p
 - Node.js v22.16.0 `node --test test.mjs` local six-test suite: **6 pass, 0 fail**. This verifies local logic, not live endpoint behavior.
 - **Security hold:** no `JIT_MCP_GATEWAY_SECRET` configured; handler returns 503 after any valid Supabase JWT. No gateway integration, replay defense, rate limit or live authenticated invocation verified. Function is deployed but not ready for production dispatch. Keep `verify_jwt:true`; do not expose secret in source or public clients.
 - **E5 independent capability deployment remains UNVERIFIED** until gateway is securely integrated and a *subsequent* backend-only revision is seen in ordinary ChatGPT without Site/plugin redeploy.
+
+
+## E5.1 — authentication readiness checkpoint (2026-11-08)
+
+- Re-ran local Node v22.16.0 tests against the saved runtime/test snapshot: **6 passed, 0 failed**; `index.ts` and `index.mjs` byte comparison passed. This is **not** a GitHub Actions run or live endpoint test.
+- Checked available connected Supabase actions: deployment, Edge Function readback, SQL and logs are available; **no Edge Function secret-management action** is exposed. No secret was provisioned, no JWT was obtained, and no live authorized request was sent.
+- Checked GitHub's commit-associated workflow-run endpoint for `cbe44984d597f4348f1421fe751e9a2a4f76c057`: returned no runs. This endpoint is PR-filtered and is **not conclusive evidence** that the push workflow never ran.
+- Security gate remains: configure gateway credential in Supabase secrets and Site server-side secrets (not client), choose durable nonce/replay and rate-limit enforcement, verify production authorization, then connect Work Site gateway. Do not enable automatic production deployments until these pass.
