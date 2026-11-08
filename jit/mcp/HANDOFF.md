@@ -16,3 +16,11 @@ E2–E4 are verified in ordinary Android ChatGPT. E5 interface v1 works, and the
 4. Record exact observations in [EXPERIMENTS.md](EXPERIMENTS.md). Keep E5 pending until the ordinary-chat production proof is observed.
 
 No new plugin, database, inference service or replay infrastructure is needed.
+
+## One-time browser provisioning implementation (not deployed)
+
+Prepared in GitHub commits `45c65fd`, `345b710`, `47651f3`. The **live Site is unchanged**. `site/worker.mjs` adds an authenticated `/setup` page and same-origin `/api/setup` endpoint. It requires an actively paired owner session, validates a 64–128 character alphanumeric/underscore/hyphen secret, inserts once into the server-only D1 `jit_gateway_config` table, and thereafter uses the stored value as `X-JIT-Gateway-Secret` when calling Supabase. Existing environment-secret support is preserved. No secret is returned to the browser. SQL migration: `site/gateway-setup.sql`.
+
+**Work deployment sequence:** (1) compare the current live Site source and GitHub mirror; do not overwrite newer live changes, (2) inspect Site database access/security and ensure server-side-only table and platform encryption at rest, (3) apply the SQL to the existing Site DB, (4) deploy the reconciled Site code without modifying plugin tool signatures, (5) have the user open `https://jit-mcp.bracedbuddy1.chatgpt.site/setup` while signed in and with the Android companion actively paired, paste the **existing** 64-character Supabase secret, and save, (6) verify backend availability and backend-only deploy through ordinary ChatGPT. **Do not request the secret in Work or chat.**
+
+**Security review before deployment:** active pairing narrows access but does not independently establish a unique immutable owner; verify that the paired session belongs to the intended Site owner and pin authorization if necessary. Confirm the D1 storage protection is acceptable; unlike the platform's managed secret store, this is an application database value. Never claim the Site has been deployed or that this is a managed Site secret. If these controls cannot be established, do not deploy the setup endpoint.
