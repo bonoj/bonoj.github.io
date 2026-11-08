@@ -1,5 +1,7 @@
 # MCP — Chat-to-Device Lever Laboratory
 
+**[Resume in a new chat: HANDOFF.md](HANDOFF.md)**
+
 [Android companion](https://jit-mcp.bracedbuddy1.chatgpt.site/device) · [Experiments](EXPERIMENTS.md) · [E3 specification](E3-TRANSPORT.md) · [E4 specification](E4-OBSERVATION.md)
 
 Status: **E2 and E3 verified in ordinary ChatGPT; E4 deployed, with Android acceptance pending.**
