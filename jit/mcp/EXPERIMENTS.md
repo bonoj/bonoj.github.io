@@ -504,3 +504,10 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 - Updated `MainActivity.java`, commit `3deed08f6baa61b6417932cec4d86790203ec2c0`: visible **Inspect DOM locally** button loads the packaged JS asset, runs it with `WebView.evaluateJavascript`, invokes `__jitDomRuntime.act({operation:'observe'})`, parses returned JSON and displays observation revision and control count. HTTPS page is required; errors are reported in-app.
 - **Source integration only:** Android compilation, device execution and actual DOM output remain UNVERIFIED. The bundled runtime is an offline baseline, **not** remotely updated. No enrolled device, secure command transport or remote action execution exists. Do not request APK installation yet.
 - Next gate: validate build, then implement authenticated transport and verified remotely updatable runtime with fallback. Never expose an untrusted page-to-native bridge or route public demo commands into this WebView.
+
+
+## 2026-11-08 — WebView asset loading hardening; build verification still unavailable
+
+- Updated `MainActivity.java` at commit `ac429847e5cabb0ae0c96d6d6f96e7295b01b983`: replace single `InputStream.read` with complete buffered read of the bundled JS runtime; disable WebView debugging, multi-window support, file-URL cross-origin access.
+- Attempted to inspect GitHub Actions runs using available GitHub tools; only PR-filtered commit-run lookup and run-ID-specific endpoints were available, with no general workflow-run listing. The public GitHub workflow-run endpoint could not be retrieved. **No successful or failed Android build was observed**. Do not infer a build result.
+- **Still blocked at build verification**, before native transport/enrollment and remote update integration. No APK installation requested.
