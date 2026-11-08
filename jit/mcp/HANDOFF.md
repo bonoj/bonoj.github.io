@@ -60,3 +60,12 @@ Continue JIT MCP E5 in `bonoj/bonoj.github.io` (`jit/mcp/`). Read HANDOFF, EXPER
 **Stop conditions:** Unsupported Site deploy access; inability to retrieve deployed E5 source; no secure fixed-gateway extension mechanism; inability to authenticate an independent backend. Do not replace the existing plugin or silently weaken consent/privacy to proceed.
 
 **Short Work invocation:** “Resume JIT MCP E5 from `bonoj/bonoj.github.io/jit/mcp/HANDOFF.md`. Start at ‘Paused for Work quota — next session checklist’. Preserve the deployed E4/E5 behavior and original plugin identity. Recover deployed E5 source first, then establish and prove independent capability deployment. Record exact results in EXPERIMENTS; do not claim success without ordinary-chat verification.”
+
+
+## E5.1 backend selection and implementation start (2026-11-08)
+
+**Selected infrastructure:** Existing Supabase project **Hermeticon Memory**, project ref `iqglyokmcobegledbfcm` (`ACTIVE_HEALTHY`, `us-east-1`). Its existing `memory` Edge Function is ACTIVE v2; **do not modify it**. Cloudflare is not the chosen path.
+
+**Committed source:** `jit/mcp/runtime/index.ts` at commit `35431a88e25cd284c343f17282a90203c4e49f14`. It is a separate, fail-closed prototype for a new `jit-mcp-capabilities` Supabase Edge Function. It supports a bounded `echo_text_v1` and capability discovery, validates request shapes and size, and requires a configured `JIT_MCP_GATEWAY_SECRET` bearer token. It does not touch Android pairing or consent. **Not deployed or tested yet**; no gateway secret provisioned. It is not yet production-hardened (add replay protection/rate limits and integration tests before exposing). Do not treat this commit as E5 verification.
+
+**Next:** Run Deno tests; confirm secure gateway-to-Supabase auth and replay protection; provision a shared secret through approved secret-management controls, never GitHub; deploy a *new* function without altering `memory`; recover the exact deployed E5 Site source through Work; connect existing `jit_capabilities`/`jit_invoke` to the backend while preserving E4. Then verify ordinary-chat discovery and invocation across a backend-only redeploy. Keep original plugin release unchanged.
