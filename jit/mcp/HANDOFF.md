@@ -11,6 +11,13 @@
 - **VERIFIED, HISTORICAL:** First-party Supabase command delivery to GitHub Pages without refresh; not arbitrary-browser control and not a substitute for Chromium.
 - **NOT IMPLEMENTED:** Hosted Playwright/Chromium runtime, arbitrary-site DOM inspection, click, fill, scroll and end-to-end acceptance through JIT MCP.
 
+## 2026-11-08 host discovery / Gate 1
+
+- Inspected the **live** Supabase `jit-mcp-capabilities` Edge Function: ACTIVE v4, `verify_jwt:true`, SHA `47ba769fc0fb674f1ddb5b68c8235de1a29088bb40e01f146d2636969aeb901f`. Current registry is `echo_text_v1` (text→text) and `text_length_v1` (text→integer), revision 2; request body max 2048 bytes. No browser operations deployed.
+- Confirmed existing connected GitHub and Supabase tools, but **no installed process-container deployment integration**.
+- Discovered Railway's ChatGPT integration (available, **not yet connected**) for deploying and managing applications. Suggested connecting it as the one-time host provisioning dependency. Do not claim Railway deployment or access until connection is confirmed. Once connected, inspect its capabilities and deploy a Chromium/Playwright service from ordinary ChatGPT.
+- **Gate 1 status: BLOCKED ON HOST CONNECTION**, not on E5 credentials or Android pairing. Do not fall back to Work or build a substitute counter demo.
+
 ## Next action in an ordinary ChatGPT conversation
 
 1. Inspect the deployed `jit-mcp-capabilities` Edge Function and **live** Site gateway implementation, not the stale `runtime/index.mjs` mirror. Confirm current authenticated dispatch and version/schema limits. Preserve existing secrets, plugin identity and six tool signatures.
