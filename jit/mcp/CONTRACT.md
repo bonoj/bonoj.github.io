@@ -12,7 +12,7 @@ The tool reads only the Sites-authenticated caller’s session. No user or sessi
 
 Pairing requires the authenticated user, a 256-bit memory-only token, an unexpired code and explicit confirmation. The code alone grants nothing. Five confirmation attempts maximum, one enrollment per ten seconds, and same-origin JSON checks protect pairing. Server stores only token/code hashes. Disconnect deletes the session; new enrollment replaces the old session. No remote actuation tool is deployed.
 
-Production tool invocation and Android end-to-end verification remain pending; see EXPERIMENTS. The stages below are future candidates, not current APIs.
+Production tool invocation and Android end-to-end heartbeat readback are verified; see EXPERIMENTS. The stages below are future candidates, not current APIs.
 
 ## Stage 0: connectivity
 
@@ -20,7 +20,7 @@ Production tool invocation and Android end-to-end verification remain pending; s
 
 Response must be produced by a live enrolled device; a hosted endpoint returning hardcoded JSON is insufficient. Never include persistent hardware identifiers.
 
-## Stage 1: observation
+## Stage 1: observation (E4, not deployed)
 
 `device_status({}) -> {foreground_app?, permission_state, capabilities}`
 
