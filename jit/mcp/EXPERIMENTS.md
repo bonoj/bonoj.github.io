@@ -215,3 +215,14 @@ Actual production calls through the installed plugin:
 **Disposition:** E5 tool discovery, interface v1 and production dispatch **VERIFIED**. Consent-off/unpaired observation boundary **VERIFIED**. E4/E5 real Android shared-counter readback and revocation **PENDING** because pairing expired. The key additional E5 gate—introducing a *new* capability after bootstrap and invoking it through the *unchanged* MCP tool signatures **without plugin republishing**—is also **PENDING**. The existing `echo_integer` capability proves dispatch but not independent future iteration. Do not declare E5 fully complete.
 
 **Next:** Pair the Android companion again, keep it visible in split-screen, and test explicit sharing through `jit_observe` and `browser_observe`; refresh after counter increment, then revoke and confirm unavailable while pairing remains intact. Record exact UTC production responses.
+
+
+## 2026-11-08T15:19:13Z — E4/E5 first real Android observation VERIFIED
+
+Ordinary ChatGPT called the production `jit_observe({})` MCP tool after the user explicitly shared the first-party companion page. It returned `available:true`, `state:"available"`, `consent_active:true`, `visibility:"visible"`, `observed_at:"2026-11-08T15:19:05.784Z"`, `age_seconds:7.32`, `nonce:"57ff262e-6838-4bdc-9a98-2b5d0559a660"`, `interface_version:1`, and `data:{origin:"https://jit-mcp.bracedbuddy1.chatgpt.site",path:"/device",title:"JIT MCP · Device",visibility:"visible",device_time:"2026-11-08T15:19:05.595Z",nonce:"57ff262e-6838-4bdc-9a98-2b5d0559a660",demo_counter:0}`.
+
+Independent concurrent `device_status({})` returned `paired:true,online:true,state:"online",platform:"Android",visibility:"visible"`, heartbeat at `2026-11-08T15:19:05.874Z`, server time `2026-11-08T15:19:13.113Z`, and enrollment expiry `2026-11-08T15:27:57.097Z`.
+
+Earlier at server time `2026-11-08T15:18:30.671Z`, while the page was hidden, `jit_observe` returned `available:false,state:"stale",reason:"page_hidden",consent_active:true`; `device_status` showed paired but stale. This confirms visibility gating and recovery on returning the page to visible split-screen.
+
+**Disposition:** Production first-party Android shared-page readback via the stable E5 tool is **VERIFIED**. Changed counter + fresh nonce, explicit stop-sharing revocation while remaining paired, and E5 new-capability-without-plugin-republish are **PENDING**. Do not mark full E4/E5 acceptance yet.
