@@ -29,3 +29,16 @@ No screenshots or MediaProjection, no native Android screen capture, no addition
 ## Design constraint
 
 Preserve the current plugin's six tool signatures where possible. If a schema restriction prevents necessary commands or responses, document and verify that exact boundary before proposing any plugin change. Backend extensibility alone cannot grant a webpage cross-origin access.
+
+## Browser integration investigation (2026-11-08)
+
+Decision: prototype **Firefox for Android WebExtension content scripts** first, not MediaProjection, GeckoView, or abandoned Kiwi Browser. Content scripts can access and modify page DOM after host permissions; the extension background can exchange messages with them. This does **not** establish that our extension is installed, that Android Firefox supports every desired API, or that our Site has a usable extension enrollment/authentication flow. Those must be proven on-device.
+
+Alternative: GeckoView provides a documented native-to-content-script messaging route, but would require shipping a browser application. Edge Canary supports some extensions but its developer installation path is less direct. Do not use unsupported Chrome for Android extension claims.
+
+**Next gate before remote actuation:** inspect actual six published MCP input/output schemas and the live Site relay. Build a minimal Firefox extension with a user-initiated active-tab permission, read-only semantic DOM inventory, and a local diagnostic page. Establish an authenticated relay session without copying a gateway secret into extension source. Only then implement action dispatch with fresh element references. The plugin must be able to receive the result in ordinary ChatGPT; avoid building a disconnected extension demo.
+
+References:
+- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts
+- https://firefox-source-docs.mozilla.org/mobile/android/geckoview/consumer/web-extensions.html
+- https://github.com/kiwibrowser/src.next/blob/kiwi/README.md
