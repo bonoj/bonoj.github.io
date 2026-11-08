@@ -202,6 +202,31 @@ async function audit(db,user,action,outcome) {
 function toolResult(id,data) {
  return rpc(id,{result:{...(data.error?{isError:true}:{}),content:[{type:'text',text:JSON.stringify(data)}],structuredContent:data}});
 }
+// Server-only gateway credential, provisioned once through authenticated /setup.
+async function gatewaySecret(env) {
+ if (env.JIT_MCP_GATEWAY_SECRET) return env.JIT_MCP_GATEWAY_SECRET;
+ const row = await env.DB.prepare('SELECT value FROM jit_gateway_config WHERE name=?').bind('gateway_secret').first();
+ return row?.value ?? null;
+}
+async function setupGateway(request,env,user) {
+ if (!user) return json({error:'authentication_required'},401);
+ if (request.method==='GET') {
+  const row=await env.DB.prepare('SELECT name FROM jit_gateway_config WHERE name=?').bind('gateway_secret').first();
+  return json({configured:!!(env.JIT_MCP_GATEWAY_SECRET||row)});
+ }
+ if (request.method!=='POST') return json({error:'method_not_allowed'},405);
+ const origin=new URL(request.url).origin;
+ if (request.headers.get('Origin')!==origin || request.headers.get('Content-Type')?.split(';')[0]!=='application/json') return json({error:'same_origin_required'},403);
+ const body=await readBoundedJson(request,256);
+ if (!fields(body,['secret'],['secret']) || typeof body.secret!=='string' || !/^[A-Za-z0-9_-]{64,128}$/.test(body.secret)) return json({error:'invalid_secret'},400);
+ // Owner is pinned on first successful provisioning. Never permit a second write through this route.
+ const existing=await env.DB.prepare('SELECT name FROM jit_gateway_config WHERE name=?').bind('gateway_secret').first();
+ if (existing || env.JIT_MCP_GATEWAY_SECRET) return json({error:'already_configured'},409);
+ const result=await env.DB.prepare('INSERT OR IGNORE INTO jit_gateway_config(name,value,owner_id) VALUES (?,?,?)').bind('gateway_secret',body.secret,user).run();
+ return result.meta.changes===1 ? json({configured:true}) : json({error:'already_configured'},409);
+}
+const setupPage = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JIT MCP · Setup</title><style>:root{color-scheme:dark;font:17px system-ui;background:#101816;color:#edf5ef}main{max-width:32rem;margin:3rem auto;padding:1rem}input,button{font:inherit;padding:.75rem;width:100%;box-sizing:border-box;margin:.7rem 0}button{background:#b8edcc;color:#10251a;border:0;border-radius:.5rem}</style></head><body><main><h1>JIT MCP gateway setup</h1><p>Paste the existing Supabase gateway secret. It will be stored server-side, never shown again, and this form cannot overwrite it.</p><form id="form"><input id="secret" type="password" autocomplete="off" spellcheck="false" minlength="64" maxlength="128" required aria-label="Gateway secret"><button>Save gateway secret</button></form><p id="status" role="status">Checking configuration…</p></main><script src="/setup.js"></script></body></html>`;
+const setupClient = `const form=document.getElementById('form'),input=document.getElementById('secret'),status=document.getElementById('status');async function check(){try{const r=await fetch('/api/setup',{cache:'no-store'}),d=await r.json();if(d.configured){form.hidden=true;status.textContent='Already configured.'}else status.textContent='Ready for one-time setup.'}catch{status.textContent='Configuration unavailable.'}}form.addEventListener('submit',async e=>{e.preventDefault();const secret=input.value;input.value='';try{const r=await fetch('/api/setup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret}),cache:'no-store'});if(!r.ok)throw Error((await r.json()).error||'Failed');form.hidden=true;status.textContent='Saved. You can clear your clipboard.'}catch(err){status.textContent=err.message}});void check();`;
 const backendUrl = 'https://iqglyokmcobegledbfcm.supabase.co/functions/v1/jit-mcp-capabilities';
 const backendText = objectSchema({text:{type:'string',maxLength:256}},['text']);
 const backendTypes = {
@@ -212,10 +237,12 @@ const backendTypes = {
 const revisionBase = 2 ** 26;
 
 async function backendRequest(env,payload) {
+ const gateway=await gatewaySecret(env);
+ if (!gateway) throw Error('backend_not_configured');
  const response = await fetch(backendUrl,{
   method:'POST',redirect:'error',signal:AbortSignal.timeout(4000),
   headers:{'Content-Type':'application/json',Authorization:'Bearer '+env.JIT_MCP_SUPABASE_JWT,
-   'X-JIT-Gateway-Secret':env.JIT_MCP_GATEWAY_SECRET},
+   'X-JIT-Gateway-Secret':gateway},
   body:JSON.stringify(payload),
  });
  if (!response.ok) throw Error('backend_unavailable');
@@ -228,7 +255,7 @@ async function backendRequest(env,payload) {
 }
 
 async function backendCatalog(env) {
- if (!env.JIT_MCP_SUPABASE_JWT || !env.JIT_MCP_GATEWAY_SECRET) return null;
+ if (!env.JIT_MCP_SUPABASE_JWT || !await gatewaySecret(env)) return null;
  const data = await backendRequest(env,{operation:'capabilities'});
  if (!Array.isArray(data.capabilities) || data.capabilities.length>16) throw Error('invalid_backend_catalog');
  const names = new Set();
@@ -521,12 +548,14 @@ void perform('load');
 export default {async fetch(request,env) {
  const path=new URL(request.url).pathname,user=request.headers.get('oai-authenticated-user-id');
  try {
+ if(path==='/api/setup') return await setupGateway(request,env,user);
+ if(path==='/setup.js') return new Response(setupClient,{headers:{'Content-Type':'text/javascript','Cache-Control':'no-store'}});
  if(path==='/api/capabilities') return await manage(request,env.DB,user);
  if(path==='/capabilities.js') return new Response(managementClient,{headers:{'Content-Type':'text/javascript','Cache-Control':'no-store'}});
  if(path.startsWith('/api/device/')) return await api(request,env,user,path);
- if((path==='/device'||path==='/capabilities') && request.method==='GET') {
+ if((path==='/device'||path==='/capabilities'||path==='/setup') && request.method==='GET') {
   if(!user)return new Response(null,{status:302,headers:{Location:'/signin-with-chatgpt?return_to='+encodeURIComponent(path),'Cache-Control':'no-store'}});
-  return new Response(path==='/capabilities'?managementPage:page,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",'Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'}});
+  return new Response(path==='/setup'?setupPage:path==='/capabilities'?managementPage:page,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",'Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'}});
  }
  if(path==='/device.js') return new Response(client,{headers:{'Content-Type':'text/javascript','Cache-Control':'no-store'}});
  if(path==='/') return new Response('JIT MCP — private deterministic browser transport. Open /device to pair.\n');
