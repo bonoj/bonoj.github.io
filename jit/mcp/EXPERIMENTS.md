@@ -440,3 +440,43 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 - Deployed `jit/mcp/control/dom.html` at `https://bonoj.github.io/jit/mcp/control/dom.html`, GitHub commit `d8109452a50bd4c8edb99519a9450153716a371e`. The first-party page inventories its four allowlisted controls (three buttons, one text input), publishes their labels/values as a DOM snapshot, polls for commands, invokes `HTMLElement.click()` or assigns `HTMLInputElement.value` and dispatches `input`, then displays the acknowledged shared state.
 - **No user/browser verification yet** for this deployment. Next: user opens `dom.html` in Android Chrome and confirms Connected; assistant reads `dom_snapshot` through connected Supabase, then enqueues a typed `fill` and `click` using discovered target IDs, and verifies browser-visible behavior and database consumption without refresh.
 - **Important limits:** this is a first-party cooperative page, not arbitrary-tab DOM access. Snapshot data is shared through the demo backend rather than E4 paired companion. The function is still unauthenticated and exposes demo state/acknowledgment to public callers; do not send private data or scale to arbitrary actions. Backend updates state before the page calls `click()` or sets the input; acknowledgment proves command consumption, **not independently that the DOM event succeeded**. Subsequent iterations should report post-action browser observations and error status, use authenticated scoped sessions, and make acknowledgment occur after successful execution.
+
+
+## 2026-11-08 — Architecture pivot: one-install Android WebView companion (DECISION; NOT IMPLEMENTED)
+
+**Decision source:** User identified an already-owned Android device as a process-capable browser host and explicitly rejected repeated APK downloads. This supersedes the proposed hosted Chromium/Playwright runtime as the implementation target. Canonical specification: [ANDROID-WEBVIEW.md](ANDROID-WEBVIEW.md); concise resume path: [HANDOFF.md](HANDOFF.md). The earlier [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md) remains a record of the cloud-browser design, **not** the controlling plan where it conflicts.
+
+### Why pivot
+
+- **Cloud browser was an unnecessary new dependency.** GitHub Pages and Supabase Edge Functions cannot themselves host a persistent Chromium process, so the earlier plan required another compute provider (Railway was identified as an *optional* candidate, not connected). That would add provisioning, operating cost, and another integration to maintain. No remote Chromium deployment was performed.
+- **Chrome on Android is not an open automation API.** Existing Android Chrome sessions/tabs and cookies cannot be inspected or controlled by an ordinary unrelated app via a supported unrestricted DOM interface. Chrome DevTools Protocol access on Android typically involves ADB debugging/authorization and transport complexity; accessibility provides UI semantics rather than unrestricted page DOM. E3/E4 demonstrated heartbeat and consented snapshots, **not** arbitrary Chrome-tab control.
+- **First-party page experiments were intentionally narrower.** The Supabase-backed counter/UI/DOM demos worked only on cooperative JIT pages with embedded polling/instrumentation; the DOM demo had no Android acceptance and its backend could acknowledge state before real DOM execution. Its public unauthenticated endpoint is unsuitable for general browsing. These experiments remain valid evidence for command delivery and failure modes, not evidence of arbitrary-site automation.
+- **The physical phone already supplies compute and browser embedding.** A Kotlin app can own an Android WebView and invoke `evaluateJavascript` against loaded pages, enabling DOM-derived observations and grounded actions on many unmodified sites without paying for cloud Chromium. This does **not** grant access to existing Chrome tabs/cookies or bypass browser security boundaries.
+- **Repeated APK installations would destroy the iteration loop.** Put the durable Android permissions, WebView, authenticated transport, safe script loader and native dispatch into a small once-installed host; deliver DOM automation logic as versioned, verified JavaScript. The objective is routine chat-driven changes without reinstalling. Native defects, new permissions, Android API changes or security fixes may still require an APK update.
+
+### Capabilities planned, not yet demonstrated
+
+| Surface | New target capability | Important boundary |
+|---|---|---|
+| Browser host | Android companion owns a visible WebView and maintains its own session | Not Chrome's existing session; Android background execution can be suspended |
+| Read | Actual page URL/title, bounded visible text, actionable DOM elements with role/name/value and revision | Cross-origin frames and protected surfaces may be inaccessible; avoid leaking secrets |
+| Act | Navigate, grounded click, fill with appropriate events, scroll, back | Must execute in WebView and return **fresh DOM postcondition**; stale refs rejected |
+| Control | Authenticated JIT MCP → Supabase command/result transport → enrolled device | No unauthenticated demo queue; user/device scoping, expiry, replay protection, stop/revoke |
+| Iteration | Remotely shipped signed/versioned JS runtime with digest verification, compatibility checks and rollback | No remotely granted native permissions; native API changes still require an app update |
+| Workflow | Ordinary Android ChatGPT handles use **and development** via existing plugin/GitHub/Supabase | Companion must be available; no Work, manual relay or repeat sideload in normal use |
+
+### Evidence and unchanged infrastructure
+
+- **VERIFIED before pivot:** Private plugin callable from ordinary Android ChatGPT, six unchanged MCP signatures; E5 authenticated backend-only capability extension `echo_text_v1` → `text_length_v1` without Site/plugin republish; E3/E4 device transport/consent patterns; first-party queued command delivery. Preserve those results.
+- **INSPECTED 2026-11-08:** Live Supabase `jit-mcp-capabilities` ACTIVE v4, `verify_jwt:true`, revision 2, only text/integer capabilities, 2048-byte request limit. Structured browser payloads and post-action results are **not yet supported** by this deployed interface. Existing gateway secret stays configured.
+- **NOT BUILT / NOT VERIFIED:** Android WebView APK, secure enrolled device command/result service, remotely verified JavaScript update channel, arbitrary-site DOM observation/actions, or end-to-end ordinary-chat acceptance. No APK installed, no browser-host subscription required, and no claim of completed browser automation.
+
+### Implementation and acceptance gates
+
+1. Inspect live gateway/Supabase sources and preserve E5 compatibility. Design backward-compatible structured command/result envelopes; do not deploy stale repo runtime mirrors.
+2. Commit/build minimal Kotlin WebView companion and GitHub Actions APK pipeline. Include visible stop, enrollment, authenticated transport, safe remote JS update/rollback, and execution result handling.
+3. Install/enroll the APK **once** after the native host is ready. Verify chat-issued commands reach the device and completed results return; queueing alone is insufficient.
+4. Deploy and revise the DOM automation JavaScript remotely; verify a behavioral update is adopted **without downloading a new APK**.
+5. From **ordinary ChatGPT**, navigate/observe/fill/click/observe on two unrelated unmodified public websites, with real DOM-derived postconditions, plus revoke/offline tests. Record UTC timestamps, versions and outputs here. Do not mark VERIFIED before those tests.
+
+**Status: SPECIFIED / IMPLEMENTATION PENDING.** This entry is a decision record, not experimental proof. Future work must follow [HANDOFF.md](HANDOFF.md) → [ANDROID-WEBVIEW.md](ANDROID-WEBVIEW.md); do not resume the Railway/cloud-host path without explicit user direction.
