@@ -76,3 +76,10 @@ Continue JIT MCP E5 in `bonoj/bonoj.github.io` (`jit/mcp/`). Read HANDOFF, EXPER
 - Added `.github/workflows/jit-mcp-runtime.yml` (commit `b0ce6cd540a87d90167fc8e324f016f2ecb762a0`) to run `node --test jit/mcp/runtime/index.test.mjs` and byte-compare `runtime/index.ts` against `runtime/index.mjs` on runtime changes. Synchronized mirrors at commit `cbe44984d597f4348f1421fe751e9a2a4f76c057`.
 - **CI execution not yet verified**; do not claim a successful GitHub Actions run until a run log is read. Previous six passing tests are local evidence only.
 - Production function `jit-mcp-capabilities` remains ACTIVE v1, `verify_jwt:true`, no gateway secret provisioned; `memory` remains untouched. This CI workflow intentionally does **not** deploy. Before enabling automated deployments, add secure request authentication with durable replay prevention, rate limiting, provision secrets in approved secret stores, and verify authorized live invocation. Never store secrets in GitHub source or logs.
+
+
+## E5.1 replay/rate-limit design staged (2026-11-08)
+
+- Added `jit/mcp/runtime/replay-ledger.sql` at commit `67500fb012c6b97e25bc4e961fbae8054a42c0a9`. **Source only: migration NOT applied**, no existing Supabase table/function changed. It proposes an isolated `jit_mcp_private.gateway_requests` nonce ledger and a transaction-serialized, time-windowed acceptance function. Review role privileges and cleanup scheduling before applying.
+- **Critical missing implementation:** a gateway-generated, cryptographically authenticated nonce+timestamp+body binding (HMAC or equivalent), with verification *before* calling the ledger; otherwise clients could forge timestamps or flood the nonce table. Add server-only credentials, replay tests, request-size and rate-limit tests. Do not rely on bearer auth alone for replay prevention.
+- The connected Supabase tools do not expose a secrets-write operation. Configure secrets only through an authorized dashboard/CLI/Work pathway, and never commit them. The deployed `jit-mcp-capabilities` function remains v1 fail-closed; the original `memory` function remains unchanged. Do not enable gateway dispatch yet.
