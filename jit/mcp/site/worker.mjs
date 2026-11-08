@@ -35,7 +35,19 @@ function browserObservation(row, now = Date.now()) {
  else if (!device.online) reason = 'heartbeat_stale';
  else if (age === null) reason = 'snapshot_required';
  else if (age >= HEARTBEAT_TTL / 1000) reason = 'snapshot_expired';
- const data = reason ? null : JSON.parse(row.observation);
+ let data = null;
+ if (!reason) {
+  try {
+   const snapshot = JSON.parse(row.observation);
+   const origin = new URL(snapshot.origin);
+   if (!fields(snapshot,observationKeys,observationKeys) ||
+       !['https:','http:'].includes(origin.protocol) || origin.origin !== snapshot.origin ||
+       !validSnapshot(snapshot,origin.origin)) throw Error('Invalid stored snapshot');
+   data = snapshot;
+  } catch {
+   reason = 'invalid_snapshot';
+  }
+ }
  return {
   available: !reason,
   state: !reason ? 'available' : ['page_hidden', 'heartbeat_stale', 'snapshot_expired'].includes(reason) ? 'stale' : 'unavailable',
@@ -51,7 +63,7 @@ function browserObservation(row, now = Date.now()) {
  };
 }
 
-async function readObservationBody(request) {
+async function readBoundedJson(request, maxBytes = 1024) {
  const reader = request.body?.getReader();
  if (!reader) return null;
  const decoder = new TextDecoder('utf-8', {fatal: true});
@@ -61,7 +73,7 @@ async function readObservationBody(request) {
    const {done, value} = await reader.read();
    if (done) break;
    size += value.byteLength;
-   if (size > 1024) {
+   if (size > maxBytes) {
     await reader.cancel();
     return null;
    }
@@ -73,6 +85,13 @@ async function readObservationBody(request) {
  }
 }
 
+function validSnapshot(body, origin) {
+ return body.origin === origin && body.path === '/device' && body.title === pageTitle &&
+  body.visibility === 'visible' && typeof body.nonce === 'string' && uuid.test(body.nonce) &&
+  typeof body.device_time === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(body.device_time) &&
+  Number.isFinite(Date.parse(body.device_time)) &&
+  Number.isInteger(body.demo_counter) && body.demo_counter >= 0 && body.demo_counter <= 999;
+}
 async function writeObservation(db, row, user, action, body, origin, now) {
  if (!row.paired) return json({error:'Confirm pairing first'},403);
  if (!body || typeof body.share_id !== 'string' || !uuid.test(body.share_id)) {
@@ -84,12 +103,8 @@ async function writeObservation(db, row, user, action, body, origin, now) {
    .bind(user,row.session_id,body.share_id).run();
   return json({consent_active:false});
  }
- if (Object.keys(body).length !== observationKeys.length + 1 || !observationKeys.every(key => Object.hasOwn(body, key)) ||
-     body.origin !== origin || body.path !== '/device' || body.title !== pageTitle || body.visibility !== 'visible' ||
-     typeof body.nonce !== 'string' || !uuid.test(body.nonce) ||
-     typeof body.device_time !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(body.device_time) ||
-     !Number.isFinite(Date.parse(body.device_time)) ||
-     !Number.isInteger(body.demo_counter) || body.demo_counter < 0 || body.demo_counter > 999) {
+ if (!fields(body,[...observationKeys,'share_id'],[...observationKeys,'share_id']) ||
+     !validSnapshot(body,origin) || Math.abs(now-Date.parse(body.device_time))>=HEARTBEAT_TTL) {
   return json({error:'Invalid companion observation'},400);
  }
  const data = Object.fromEntries(observationKeys.map(key => [key, body[key]]));
@@ -97,10 +112,230 @@ async function writeObservation(db, row, user, action, body, origin, now) {
  const consentCondition = action === 'share' ? 'share_id IS NULL' : 'share_id = ?';
  const consentArgs = action === 'share' ? [] : [body.share_id];
  const result = await db.prepare(
-  'UPDATE device_sessions SET share_id=?,observation=?,observation_received_at=? WHERE user_id=? AND session_id=? AND paired=1 AND expires_at>? AND visibility=\'visible\' AND last_seen>? AND ' + consentCondition
- ).bind(body.share_id,JSON.stringify(data),now,user,row.session_id,now,now-HEARTBEAT_TTL,...consentArgs).run();
+  'UPDATE device_sessions SET share_id=?,observation=?,observation_received_at=?,last_snapshot_time=? WHERE user_id=? AND session_id=? AND paired=1 AND expires_at>? AND visibility=\'visible\' AND last_seen>? AND (last_snapshot_time IS NULL OR last_snapshot_time<?) AND ' + consentCondition
+ ).bind(body.share_id,JSON.stringify(data),now,body.device_time,user,row.session_id,now,now-HEARTBEAT_TTL,body.device_time,...consentArgs).run();
  if (result.meta.changes !== 1) return json({error:'Sharing requires a visible, connected page and current consent'},409);
  return json({consent_active:true,observed_at:iso(now)});
+}
+
+const interfaceVersion = 1;
+const observationScope = 'companion_page_only';
+const capabilityName = /^[a-z][a-z0-9_]{0,39}$/;
+const configuredName = /^demo_[a-z0-9_]{1,35}$/;
+const isInteger = value => Number.isInteger(value) && value >= -999 && value <= 999;
+const revisionValid = value => Number.isSafeInteger(value) && value >= 0;
+const integerSchema = {type:'integer',minimum:-999,maximum:999};
+const revisionSchema = {type:'integer',minimum:0,maximum:Number.MAX_SAFE_INTEGER};
+const objectSchema = (properties = {}, required = []) => ({
+ type:'object',properties,required,additionalProperties:false,
+});
+const emptySchema = objectSchema();
+const integerObject = objectSchema({value:integerSchema},['value']);
+const fixedTools = [
+ ['jit_capabilities','List enabled JIT interface v1 capabilities and their schemas.',emptySchema],
+ ['jit_observe','Read a fresh, consented JIT companion-page snapshot.',objectSchema({scope:{const:observationScope}})],
+ ['jit_invoke','Invoke an enabled read-only JIT capability using its declared input schema.',
+  objectSchema({capability:{type:'string',pattern:capabilityName.source},input:{type:'object'},expected_revision:revisionSchema},['capability','input'])],
+].map(([name,description,inputSchema])=>({name,description,inputSchema,annotations:{readOnlyHint:true,openWorldHint:false}}));
+
+function plainObject(value) {
+ return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+function fields(value, allowed, required = []) {
+ return plainObject(value) && Object.keys(value).every(key=>allowed.includes(key)) &&
+  required.every(key=>Object.hasOwn(value,key));
+}
+function validEntry(entry) {
+ return fields(entry,['name','kind','value'],['name','kind','value']) &&
+  typeof entry.name === 'string' && configuredName.test(entry.name) &&
+  entry.kind === 'constant_integer' && isInteger(entry.value);
+}
+async function registry(db,user) {
+ const row = await db.prepare('SELECT revision,entries FROM jit_registry WHERE user_id=?').bind(user).first();
+ return row ? {revision:row.revision,entries:JSON.parse(row.entries).filter(validEntry)} : {revision:0,entries:[]};
+}
+function catalog(config) {
+ const common = {risk:'read_only',permission:'authenticated_owner'};
+ const rate = {limit:60,window_seconds:60,shared:true};
+ return {
+  interface_version:interfaceVersion, revision:config.revision,
+  capabilities:[
+   {name:observationScope,tool:'jit_observe',...common,consent:'paired_visible_page_explicit_share',rate_limit:rate,
+    input_schema:objectSchema({scope:{const:observationScope}}),
+    output_schema:{type:'object',required:['available','scope','consent_active','data']}},
+   {name:'echo_integer',tool:'jit_invoke',...common,consent:'none',rate_limit:rate,input_schema:integerObject,output_schema:integerObject},
+   ...config.entries.map(entry=>({name:entry.name,tool:'jit_invoke',...common,consent:'none',rate_limit:rate,
+    input_schema:emptySchema,output_schema:integerObject})),
+  ],
+ };
+}
+function invokeCapability(config,args) {
+ if (!fields(args,['capability','input','expected_revision'],['capability','input']) ||
+     typeof args.capability !== 'string' || !capabilityName.test(args.capability) ||
+     !plainObject(args.input) ||
+     (Object.hasOwn(args,'expected_revision') && !revisionValid(args.expected_revision))) return {error:'invalid_arguments'};
+ if (args.expected_revision !== undefined && args.expected_revision !== config.revision) return {error:'revision_mismatch'};
+ let value;
+ if (args.capability === 'echo_integer') {
+  if (!fields(args.input,['value'],['value']) || !isInteger(args.input.value)) return {error:'invalid_input'};
+  value = args.input.value;
+ } else {
+  const entry = config.entries.find(item=>item.name===args.capability);
+  if (!entry) return {error:'capability_unavailable'};
+  if (!fields(args.input,[])) return {error:'invalid_input'};
+  value = entry.value;
+ }
+ if (!isInteger(value)) return {error:'invalid_output'};
+ return {interface_version:interfaceVersion,revision:config.revision,capability:args.capability,data:{value}};
+}
+async function takeQuota(db,user) {
+ const window = Math.floor(Date.now()/60000);
+ const result = await db.prepare(
+  'INSERT INTO jit_activity(user_id,window,calls) VALUES (?,?,1) ON CONFLICT(user_id) DO UPDATE SET window=excluded.window,calls=CASE WHEN jit_activity.window=excluded.window THEN jit_activity.calls+1 ELSE 1 END WHERE jit_activity.window<>excluded.window OR jit_activity.calls<60'
+ ).bind(user,window).run();
+ return result.meta.changes === 1;
+}
+async function audit(db,user,action,outcome) {
+ await db.prepare('UPDATE jit_activity SET action=?,outcome=?,recorded_at=? WHERE user_id=?')
+  .bind(action,outcome,Date.now(),user).run();
+}
+function toolResult(id,data) {
+ return rpc(id,{result:{...(data.error?{isError:true}:{}),content:[{type:'text',text:JSON.stringify(data)}],structuredContent:data}});
+}
+const backendUrl = 'https://iqglyokmcobegledbfcm.supabase.co/functions/v1/jit-mcp-capabilities';
+const backendText = objectSchema({text:{type:'string',maxLength:256}},['text']);
+const backendTypes = {
+ text: {schema:backendText,validate:value=>fields(value,['text'],['text']) &&
+  typeof value.text==='string' && value.text.length<=256},
+ integer: {schema:integerObject,validate:value=>fields(value,['value'],['value']) && isInteger(value.value)},
+};
+const revisionBase = 2 ** 26;
+
+async function backendRequest(env,payload) {
+ const response = await fetch(backendUrl,{
+  method:'POST',redirect:'error',signal:AbortSignal.timeout(4000),
+  headers:{'Content-Type':'application/json',Authorization:'Bearer '+env.JIT_MCP_SUPABASE_JWT,
+   'X-JIT-Gateway-Secret':env.JIT_MCP_GATEWAY_SECRET},
+  body:JSON.stringify(payload),
+ });
+ if (!response.ok) throw Error('backend_unavailable');
+ const data = await readBoundedJson(response,8192);
+ if (!plainObject(data) || data.interface_version!==interfaceVersion ||
+     !revisionValid(data.revision) || data.revision<1 || data.revision>=revisionBase) {
+  throw Error('invalid_backend_response');
+ }
+ return data;
+}
+
+async function backendCatalog(env) {
+ if (!env.JIT_MCP_SUPABASE_JWT || !env.JIT_MCP_GATEWAY_SECRET) return null;
+ const data = await backendRequest(env,{operation:'capabilities'});
+ if (!Array.isArray(data.capabilities) || data.capabilities.length>16) throw Error('invalid_backend_catalog');
+ const names = new Set();
+ const capabilities = data.capabilities.map(entry=>{
+  if (!plainObject(entry) || typeof entry.name!=='string' ||
+      !/^[a-z][a-z0-9_]{0,33}_v[1-9][0-9]{0,2}$/.test(entry.name) ||
+      configuredName.test(entry.name) || names.has(entry.name) ||
+      entry.read_only!==true || !revisionValid(entry.revision) ||
+      typeof entry.description!=='string' || entry.description.length>160) throw Error('invalid_backend_catalog');
+  names.add(entry.name);
+  // The deployed v2 runtime predates explicit schema kinds.
+  const input = entry.input_kind ?? (entry.name==='echo_text_v1' ? 'text' : null);
+  const output = entry.output_kind ?? (entry.name==='echo_text_v1' ? 'text' : null);
+  if (typeof input!=='string' || typeof output!=='string' || !Object.hasOwn(backendTypes,input) || !Object.hasOwn(backendTypes,output)) throw Error('invalid_backend_schema');
+  return {name:entry.name,description:entry.description,input,output};
+ });
+ return {revision:data.revision,capabilities};
+}
+
+async function routedCapability(env,user,name,args) {
+ const config = await registry(env.DB,user);
+ const result = catalog(config);
+ let backend;
+ try {backend = await backendCatalog(env);}
+ catch {result.backend_status='unavailable';}
+ if (!backend && !result.backend_status) result.backend_status='not_configured';
+ if (backend) {
+  result.backend_status='available';
+  if (config.revision>=revisionBase) return {error:'revision_out_of_range'};
+  result.revision = backend.revision*revisionBase + config.revision;
+  for (const entry of backend.capabilities) {
+   result.capabilities.push({name:entry.name,description:entry.description,tool:'jit_invoke',
+    risk:'read_only',permission:'authenticated_owner',consent:'none',
+    rate_limit:{limit:60,window_seconds:60,shared:true},
+    input_schema:backendTypes[entry.input].schema,output_schema:backendTypes[entry.output].schema});
+  }
+ }
+ if (name==='jit_capabilities') return result;
+ if (!fields(args,['capability','input','expected_revision'],['capability','input']) ||
+     typeof args.capability!=='string' || !capabilityName.test(args.capability) ||
+     !plainObject(args.input) ||
+     (Object.hasOwn(args,'expected_revision') && !revisionValid(args.expected_revision))) return {error:'invalid_arguments'};
+ if (args.expected_revision!==undefined && args.expected_revision!==result.revision) return {error:'revision_mismatch'};
+ const remote = backend?.capabilities.find(entry=>entry.name===args.capability);
+ if (!remote) {
+  const local = invokeCapability(config,{capability:args.capability,input:args.input});
+  if (local.error==='capability_unavailable' && result.backend_status==='unavailable') return {error:'backend_unavailable'};
+  return local.error ? local : {...local,revision:result.revision};
+ }
+ if (!backendTypes[remote.input].validate(args.input)) return {error:'invalid_input'};
+ try {
+  const reply = await backendRequest(env,{operation:'invoke',capability:remote.name,input:args.input});
+  if (reply.revision!==backend.revision) return {error:'revision_mismatch'};
+  if (reply.capability!==remote.name || !backendTypes[remote.output].validate(reply.data)) return {error:'invalid_output'};
+  return {interface_version:interfaceVersion,revision:result.revision,capability:remote.name,data:reply.data};
+ } catch {return {error:'backend_unavailable'};}
+}
+
+async function permanentCall(id,name,args,env,user) {
+ const db = env.DB;
+ if (!await takeQuota(db,user)) return toolResult(id,{error:'rate_limited'});
+ let data;
+ if (name === 'jit_capabilities') {
+  data = fields(args,[]) ? await routedCapability(env,user,name,args) : {error:'invalid_arguments'};
+ } else if (name === 'jit_observe') {
+  data = fields(args,['scope']) && (!Object.hasOwn(args,'scope') || args.scope===observationScope)
+   ? {...browserObservation(await read(db,user)),interface_version:interfaceVersion}
+   : {error:'invalid_arguments'};
+ } else {
+  data = await routedCapability(env,user,name,args);
+ }
+ await audit(db,user,name,data.error ?? 'ok');
+ return toolResult(id,data);
+}
+async function manage(request,db,user) {
+ if (!user) return json({error:'authentication_required'},401);
+ if (request.method === 'GET') return json(await registry(db,user));
+ if (request.method !== 'POST') return json({error:'method_not_allowed'},405);
+ if (request.headers.get('Origin') !== new URL(request.url).origin ||
+     request.headers.get('Content-Type')?.split(';')[0] !== 'application/json') return json({error:'same_origin_required'},403);
+ if (!await takeQuota(db,user)) return json({error:'rate_limited'},429);
+ const body = await readBoundedJson(request);
+ const config = await registry(db,user);
+ let outcome;
+ if (fields(body,['action','entry'],['action','entry']) && body.action==='test' && validEntry(body.entry)) {
+  const draft = {revision:config.revision,entries:[body.entry]};
+  outcome = invokeCapability(draft,{capability:body.entry.name,input:{}});
+ } else {
+  const publish = fields(body,['action','entry','expected_revision'],['action','entry','expected_revision']) &&
+   body.action==='publish' && validEntry(body.entry);
+  const revoke = fields(body,['action','name','expected_revision'],['action','name','expected_revision']) &&
+   body.action==='revoke' && typeof body.name==='string' && configuredName.test(body.name);
+  if ((!publish && !revoke) || !revisionValid(body.expected_revision)) return json({error:'invalid_configuration'},400);
+  if (body.expected_revision !== config.revision) return json({error:'revision_mismatch'},409);
+  const name = publish ? body.entry.name : body.name;
+  const entries = config.entries.filter(entry=>entry.name!==name);
+  if (publish) entries.push(body.entry);
+  if (entries.length>16) return json({error:'registry_full'},409);
+  const revision = config.revision+1;
+  const result = await db.prepare(
+   'INSERT INTO jit_registry(user_id,revision,entries) VALUES (?,?,?) ON CONFLICT(user_id) DO UPDATE SET revision=excluded.revision,entries=excluded.entries WHERE jit_registry.revision=?'
+  ).bind(user,revision,JSON.stringify(entries),config.revision).run();
+  if (result.meta.changes!==1) return json({error:'revision_mismatch'},409);
+  outcome = {revision,entries};
+ }
+ await audit(db,user,'manage_'+body.action,outcome.error ?? 'ok');
+ return json(outcome);
 }
 
 async function read(db,user) { return db.prepare('SELECT * FROM device_sessions WHERE user_id = ?').bind(user).first(); }
@@ -111,14 +346,14 @@ async function api(request, env, user, path) {
  const now=Date.now(), db=env.DB;
  await db.prepare('DELETE FROM device_sessions WHERE expires_at <= ?').bind(now).run();
  const observationAction = /^\/api\/device\/observation\/(share|refresh|revoke)$/.exec(path)?.[1];
- let body; try {body=observationAction ? await readObservationBody(request) : await request.json();} catch{return json({error:'Invalid JSON'},400);}
+ let body; try {body=observationAction ? await readBoundedJson(request) : await request.json();} catch{return json({error:'Invalid JSON'},400);}
  if (!body || typeof body !== 'object') return json({error:'Invalid body'},400);
  const row=await read(db,user);
  if(path === '/api/device/enroll') {
   if(row && now-row.created_at<10000) return json({error:'Wait ten seconds before starting another pairing'},429);
   const token=secret(), id=crypto.randomUUID();
   const code=String(crypto.getRandomValues(new Uint32Array(1))[0]%1000000).padStart(6,'0');
-  await db.prepare('INSERT INTO device_sessions (user_id,session_id,token_hash,code_hash,created_at,expires_at,pair_expires_at,attempts,paired) VALUES (?,?,?,?,?,?,?,0,0) ON CONFLICT(user_id) DO UPDATE SET session_id=excluded.session_id,token_hash=excluded.token_hash,code_hash=excluded.code_hash,created_at=excluded.created_at,expires_at=excluded.expires_at,pair_expires_at=excluded.pair_expires_at,attempts=0,paired=0,last_seen=NULL,device_time=NULL,nonce=NULL,platform=NULL,visibility=NULL,share_id=NULL,observation=NULL,observation_received_at=NULL').bind(user,id,await hash(token),await hash(code),now,now+TTL,now+PAIR_TTL).run();
+  await db.prepare('INSERT INTO device_sessions (user_id,session_id,token_hash,code_hash,created_at,expires_at,pair_expires_at,attempts,paired) VALUES (?,?,?,?,?,?,?,0,0) ON CONFLICT(user_id) DO UPDATE SET session_id=excluded.session_id,token_hash=excluded.token_hash,code_hash=excluded.code_hash,created_at=excluded.created_at,expires_at=excluded.expires_at,pair_expires_at=excluded.pair_expires_at,attempts=0,paired=0,last_seen=NULL,device_time=NULL,nonce=NULL,platform=NULL,visibility=NULL,share_id=NULL,observation=NULL,observation_received_at=NULL,last_snapshot_time=NULL').bind(user,id,await hash(token),await hash(code),now,now+TTL,now+PAIR_TTL).run();
   return json({token,code,pair_expires_at:iso(now+PAIR_TTL),expires_at:iso(now+TTL)});
  }
  const token=request.headers.get('Authorization')?.replace(/^Bearer /,'');
@@ -145,14 +380,14 @@ async function api(request, env, user, path) {
  return json({error:'Not found'},404);
 }
 const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${pageTitle}</title><style>
-:root{color-scheme:dark;font:17px/1.5 system-ui;background:#101816;color:#edf5ef}*{box-sizing:border-box}body{margin:0;padding:28px 20px}main{max-width:520px;margin:5vh auto}small{color:#a9bdb1;letter-spacing:.12em}h1{font-size:36px;line-height:1.15;margin:16px 0}p{color:#bdcec4}section{padding:22px;border:1px solid #385247;border-radius:18px;margin:24px 0;background:#17251e}button,input{width:100%;font:inherit;border-radius:10px;padding:14px;margin:8px 0}button{border:0;background:#b8edcc;color:#10251a;font-weight:700;cursor:pointer}button:disabled{opacity:.4;cursor:default}input{background:#101816;color:white;border:1px solid #799a88}#disconnect{background:#f4b9a8;color:#341b13}#code{font-size:36px;letter-spacing:.2em;color:#b8edcc}#state{font-size:24px;font-weight:700}pre{font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;color:#b8cdbf}a{color:#b8edcc}[hidden]{display:none!important}</style></head><body><main><small>JIT MCP / E4</small><h1>This browser.<br>Your conversation.</h1><p>Pair this page to let your private JIT MCP plugin read its connection status. Keep it visible for live heartbeats.</p><section><div id="state" role="status" aria-live="polite">Not paired</div><p id="message">A session lasts 10 minutes. Nothing starts until you confirm.</p><button id="start">Start pairing</button><div id="pair" hidden><p>Your one-time code · valid for 2 minutes</p><div id="code"></div><label for="entered">Re-enter the code to confirm this browser</label><input id="entered" inputmode="numeric" autocomplete="off" maxlength="6" pattern="[0-9]{6}"><button id="confirm">Confirm pairing</button></div><button id="disconnect" disabled>Disconnect</button><pre id="details"></pre></section><section aria-labelledby="observation-heading"><h2 id="observation-heading">Page observation</h2>
+:root{color-scheme:dark;font:17px/1.5 system-ui;background:#101816;color:#edf5ef}*{box-sizing:border-box}body{margin:0;padding:28px 20px}main{max-width:520px;margin:5vh auto}small{color:#a9bdb1;letter-spacing:.12em}h1{font-size:36px;line-height:1.15;margin:16px 0}p{color:#bdcec4}section{padding:22px;border:1px solid #385247;border-radius:18px;margin:24px 0;background:#17251e}button,input{width:100%;font:inherit;border-radius:10px;padding:14px;margin:8px 0}button{border:0;background:#b8edcc;color:#10251a;font-weight:700;cursor:pointer}button:disabled{opacity:.4;cursor:default}input{background:#101816;color:white;border:1px solid #799a88}#disconnect{background:#f4b9a8;color:#341b13}#code{font-size:36px;letter-spacing:.2em;color:#b8edcc}#state{font-size:24px;font-weight:700}pre{font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;color:#b8cdbf}a{color:#b8edcc}[hidden]{display:none!important}</style></head><body><main><small>JIT MCP / E5</small><h1>This browser.<br>Your conversation.</h1><p>Pair this page to let your private JIT MCP plugin read its connection status. Keep it visible for live heartbeats.</p><section><div id="state" role="status" aria-live="polite">Not paired</div><p id="message">A session lasts 10 minutes. Nothing starts until you confirm.</p><button id="start">Start pairing</button><div id="pair" hidden><p>Your one-time code · valid for 2 minutes</p><div id="code"></div><label for="entered">Re-enter the code to confirm this browser</label><input id="entered" inputmode="numeric" autocomplete="off" maxlength="6" pattern="[0-9]{6}"><button id="confirm">Confirm pairing</button></div><button id="disconnect" disabled>Disconnect</button><pre id="details"></pre></section><section aria-labelledby="observation-heading"><h2 id="observation-heading">Page observation</h2>
 <p>Sharing is off by default. Each snapshot includes this page’s address and title, visibility, the demo counter, timestamps and a nonce. Snapshots expire after 45 seconds.</p>
 <p>Demo counter <output id="demo-counter">0</output></p>
 <button id="increment">Change demo counter</button>
 <button id="share" disabled>Share this page state</button>
 <button id="refresh" disabled>Refresh shared snapshot</button>
 <button id="revoke" disabled>Stop sharing</button>
-<p id="sharing-state" role="status">Sharing off · pair to enable.</p></section><p>Hiding this page makes it stale. Closing it makes it offline within 45 seconds of its last heartbeat. Reloading requires pairing again.</p><a href="/">JIT MCP</a></main><script src="/device.js"></script></body></html>`;
+<p id="sharing-state" role="status">Sharing off · pair to enable.</p></section><p>Hiding this page makes it stale. Closing it makes it offline within 45 seconds of its last heartbeat. Reloading requires pairing again.</p><a href="/capabilities">Manage capabilities</a></main><script src="/device.js"></script></body></html>`;
 const client = `function nonce(){const b=crypto.getRandomValues(new Uint8Array(16));b[6]=(b[6]&15)|64;b[8]=(b[8]&63)|128;const h=Array.from(b,v=>v.toString(16).padStart(2,'0')).join('');return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20)}\nconst el=id=>document.getElementById(id);let token=null,paired=false,timer=null,busy=false;
 let shareId=null, sharingBusy=false, hiddenPending=false;
 const platform=/Android/i.test(navigator.userAgent)?'Android':/iPhone|iPad/i.test(navigator.userAgent)?'iOS':/Windows/i.test(navigator.userAgent)?'Windows':/Macintosh/i.test(navigator.userAgent)?'macOS':/Linux/i.test(navigator.userAgent)?'Linux':'Other';
@@ -223,26 +458,93 @@ document.addEventListener('visibilitychange',() => {
  } else renderSharing();
  void beat();
 });window.addEventListener('online',beat);window.addEventListener('offline',()=>{el('state').textContent='Offline';el('message').textContent='Network unavailable. Server heartbeat expires after 45 seconds.'});`;
+const managementPage = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JIT MCP · Capabilities</title><style>
+:root{color-scheme:dark;font:17px/1.5 system-ui;background:#101816;color:#edf5ef}
+main{max-width:38rem;margin:auto;padding:1.5rem}label{display:block;margin:1rem 0}
+input,button{font:inherit;padding:.6rem;margin:.25rem;max-width:95%}
+button{background:#b8edcc;color:#10251a;border:0;border-radius:.5rem}a{color:#b8edcc}
+pre{white-space:pre-wrap;overflow-wrap:anywhere}
+</style></head><body><main><a href="/device">Android companion</a><h1>JIT capabilities</h1>
+<p>Test an integer capability, then publish it to your private registry. Ordinary ChatGPT can invoke it through <code>jit_invoke</code>.</p>
+<label>Capability name <input id="name" value="demo_answer" maxlength="40" autocomplete="off"></label>
+<label>Integer result <input id="value" type="number" min="-999" max="999" step="1" value="42"></label>
+<button id="test">Test draft</button><button id="publish">Publish capability</button><button id="revoke">Revoke named capability</button>
+<p role="status" id="message">Loading registry…</p><h2>Result</h2><pre id="result"></pre><h2>Published registry</h2><pre id="registry"></pre>
+</main><script src="/capabilities.js"></script></body></html>`;
+const managementClient = `
+const el = id => document.getElementById(id);
+const buttons = ['test','publish','revoke'].map(el);
+let revision;
+async function request(body) {
+ const response = await fetch('/api/capabilities',body ? {
+  method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)
+ } : {});
+ const data = await response.json();
+ if (!response.ok) throw Error(data.error || 'Request failed');
+ return data;
+}
+function show(config) {
+ revision = config.revision;
+ el('registry').textContent = JSON.stringify(config,null,2);
+}
+async function perform(action) {
+ buttons.forEach(button=>button.disabled=true);
+ try {
+  if (action === 'load') {
+   show(await request());
+   el('message').textContent='Registry loaded.';
+   return;
+  }
+  const name = el('name').value.trim();
+  const value = el('value').valueAsNumber;
+  const entry = {name,kind:'constant_integer',value};
+  const body = action==='test' ? {action,entry} :
+   action==='publish' ? {action,entry,expected_revision:revision} : {action,name,expected_revision:revision};
+  const result = await request(body);
+  el('result').textContent = JSON.stringify(result,null,2);
+  if (action!=='test') show(result);
+  el('message').textContent = {test:'Draft test passed.',publish:'Capability published.',revoke:'Capability revoked.'}[action];
+ } catch (error) {
+  el('message').textContent = error.message;
+  if (error.message==='revision_mismatch') {
+   try {show(await request());el('message').textContent='Registry refreshed. Review it and retry.';} catch {}
+  }
+ } finally {
+  buttons.forEach(button=>button.disabled=false);
+ }
+}
+buttons.forEach(button=>button.onclick=()=>perform(button.id));
+void perform('load');
+`;
+
 export default {async fetch(request,env) {
  const path=new URL(request.url).pathname,user=request.headers.get('oai-authenticated-user-id');
  try {
+ if(path==='/api/capabilities') return await manage(request,env.DB,user);
+ if(path==='/capabilities.js') return new Response(managementClient,{headers:{'Content-Type':'text/javascript','Cache-Control':'no-store'}});
  if(path.startsWith('/api/device/')) return await api(request,env,user,path);
- if(path==='/device' && request.method==='GET') {
-  if(!user)return new Response(null,{status:302,headers:{Location:'/signin-with-chatgpt?return_to=%2Fdevice','Cache-Control':'no-store'}});
-  return new Response(page,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",'Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'}});
+ if((path==='/device'||path==='/capabilities') && request.method==='GET') {
+  if(!user)return new Response(null,{status:302,headers:{Location:'/signin-with-chatgpt?return_to='+encodeURIComponent(path),'Cache-Control':'no-store'}});
+  return new Response(path==='/capabilities'?managementPage:page,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",'Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'}});
  }
  if(path==='/device.js') return new Response(client,{headers:{'Content-Type':'text/javascript','Cache-Control':'no-store'}});
  if(path==='/') return new Response('JIT MCP — private deterministic browser transport. Open /device to pair.\n');
  if(path!=='/mcp')return json({error:'Not found'},404);
  if(request.method!=='POST')return json({error:'POST required'},405);
- let m;try{m=await request.json()}catch{return rpc(null,{error:{code:-32700,message:'Parse error'}})}
+ const m=await readBoundedJson(request,4096);
+ if (m===null) return rpc(null,{error:{code:-32700,message:'Invalid or oversized JSON'}});
  if(m?.jsonrpc!=='2.0'||typeof m.method!=='string')return rpc(null,{error:{code:-32600,message:'Invalid request'}});
  if(m.id===undefined)return new Response(null,{status:202});
  const {id,method,params}=m;
  if(method==='server/discover')return rpc(id,{result:{supportedVersions:[protocolVersion],capabilities:{tools:{}}}});
  if(method==='initialize')return rpc(id,{result:{protocolVersion:[protocolVersion,'2025-11-25','2025-06-18','2025-03-26'].includes(params?.protocolVersion)?params.protocolVersion:protocolVersion,capabilities:{tools:{}},serverInfo:{name:'jit-mcp',version:'1.1.0'}}});
- if(method==='tools/list')return rpc(id,{result:{tools}});
+ if(method==='tools/list')return rpc(id,{result:{tools:[...tools,...fixedTools]}});
  if(method==='tools/call') {
+  if (fixedTools.some(tool=>tool.name===params?.name)) {
+   if (!user) return toolResult(id,{error:'authentication_required'});
+   return await permanentCall(id,params.name,params.arguments===undefined?{}:params.arguments,env,user);
+  }
   if(!tools.some(t=>t.name===params?.name))return rpc(id,{error:{code:-32602,message:'Unknown tool'}});
   const args=params.arguments;if(args!==undefined&&(!args||typeof args!=='object'||Array.isArray(args)||Object.keys(args).length))return rpc(id,{error:{code:-32602,message:'Tool takes no arguments'}});
   if(params.name!=='integration_ping'&&!user)return rpc(id,{result:{isError:true,content:[{type:'text',text:'Authenticated user identity required'}]}});

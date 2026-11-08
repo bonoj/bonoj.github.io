@@ -52,4 +52,8 @@ E5 actuation requires a separate experiment and explicit user authorization.
 
 ## E5 stable interface and backend boundary
 
-Live Site already exposes `jit_capabilities`, `jit_invoke`, and `jit_observe`; built-in `echo_integer(42)` is verified. Independent capability dispatch is **not** verified. The separate Supabase `jit-mcp-capabilities` v2 backend accepts only `POST` with a Supabase-verified JWT in the Authorization header and a server-only `X-JIT-Gateway-Secret` checked by the handler. JSON is limited to 2048 bytes. `{operation:'capabilities'}` returns the versioned allowlist; `{operation:'invoke',capability:'echo_text_v1',input:{text:'...'}}` echoes up to 256 characters. No arbitrary code, URLs, or device operations. Backend remains fail-closed until a private credential and one-time Site gateway bootstrap are configured. See [HANDOFF.md](HANDOFF.md).
+`jit_capabilities({})` lists local and authenticated backend capabilities. `jit_invoke({capability,input,expected_revision?})` dispatches read-only requests. `jit_observe({scope?})` remains local and consent-gated. No tool signatures changed for the v7 gateway.
+
+Remote capabilities are discovered server-side at the fixed Supabase function URL with `Authorization: Bearer <JWT>` and `X-JIT-Gateway-Secret`. Both credentials are required. The gateway accepts only bounded read-only, versioned capability names with supported input/output schema kinds (`text` ≤256 UTF-16 units or `integer` −999 to 999). Legacy `echo_text_v1` is treated as text→text. The response capability, revision and output are checked. The combined catalog revision includes both local and backend revisions. Local dispatch remains available if the backend is unconfigured or unreachable.
+
+Supabase v2 still requires the shared credential. Site v7 has the JWT configured and reports `backend_status:"not_configured"`. See [HANDOFF.md](HANDOFF.md) for the production proof sequence.

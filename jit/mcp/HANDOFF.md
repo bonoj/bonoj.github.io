@@ -1,29 +1,18 @@
 # JIT MCP — E5 handoff (2026-11-08)
 
-## Objective
-Extend the **existing private JIT MCP plugin** from ordinary ChatGPT without Work for every new capability. Preserve the Android companion, consent controls, pairing, and all six existing MCP tools.
+E2–E4 are verified in ordinary Android ChatGPT. E5 interface v1 works, and the Supabase gateway is deployed on the existing Site. **Independent production capability deployment remains unverified.**
 
-## Verified
-- E2 `integration_ping`, E3 `device_status`, E4 `browser_observe` on Android in ordinary ChatGPT; consent, counter refresh and revocation verified. See [EXPERIMENTS.md](EXPERIMENTS.md).
-- E5 Site exposes `jit_capabilities`, `jit_invoke`, `jit_observe`; built-in `echo_integer(42)` works. **Independent backend capability dispatch is NOT verified.**
-- Private plugin ID `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`; Site project `appgprj_6af07fda46ec8191a71e9df6f4bc9e75`; Site https://jit-mcp.bracedbuddy1.chatgpt.site .
-- Supabase project **Hermeticon Memory** `iqglyokmcobegledbfcm`, existing `memory` function untouched. Separate `jit-mcp-capabilities` Edge Function deployed **ACTIVE v2**, `verify_jwt:true`, containing allowlisted bounded `echo_text_v1`. Backend is **fail-closed** until `JIT_MCP_GATEWAY_SECRET` is securely configured.
+- Site: https://jit-mcp.bracedbuddy1.chatgpt.site (companion `/device`). Project `appgprj_6af07fda46ec8191a71e9df6f4bc9e75`.
+- Site v7 deployment `appgdep_6af0ec66ed648191a0cd5e88ac546583`, version `appgprj_6af07fda46ec8191a71e9df6f4bc9e75~appgver_fcfbb8dc2994819180f7845b00b1bb74`, source `b69b739d709f10e0c5e56a56136aca7a983fa478`. The reviewed source is mirrored under `site/`. Compare the live Site commit before any further edits.
+- Private plugin `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`; release `PluginRelease_a2893093886481919da01bd918ca4504`. All six tool signatures are unchanged.
+- Supabase project `iqglyokmcobegledbfcm`, function `jit-mcp-capabilities` ACTIVE v2 with `verify_jwt:true`. Source: `runtime/index.mjs` and its identical `index.ts` mirror. The existing `memory` function is independent.
+- The Site holds the legacy anon JWT under `JIT_MCP_SUPABASE_JWT`. Production `jit_capabilities` returned `backend_status:"not_configured"`; local echo and observation calls answered.
 
-## Canonical code and constraints
-- `runtime/index.mjs` is the Edge Function source; `runtime/index.ts` is an identical mirror; `runtime/index.test.mjs` is the six-test suite. `.github/workflows/jit-mcp-runtime.yml` tests and checks mirror equality; no automatic production deployment.
-- Auth contract: Supabase JWT in `Authorization: Bearer <jwt>` (verified by Supabase), independent server-only shared credential in `X-JIT-Gateway-Secret` (verified by handler). Do not expose either to the Android companion or model-visible payloads. No custom HMAC, replay database, or background infrastructure.
-- Strict allowlist, bounded JSON body (2048 bytes), bounded echo (256 characters), fixed backend URL, no arbitrary code/URL/device actuation. If adding consequential operations later, design their authorization separately.
-- **Critical:** GitHub `site/worker.mjs` is a stale E4 mirror; live Site already has six E5 tools. **Never deploy that stale mirror over production.**
+## Resume here
 
-## Only remaining E5 integration work
-1. In Work/Sites, retrieve and preserve the **exact live E5 Site source** before modifying anything. Reconcile `site/` mirror.
-2. Provision the backend credential using supported secret stores; configure the Site's server-only JWT and shared credential. If Site cannot securely hold credentials or call Supabase, stop and report the actual blocker.
-3. Make a **single** Site bootstrap change: forward existing `jit_capabilities`/`jit_invoke` through a fixed, authenticated server-side call to the independent Supabase function, preserving existing built-in capabilities and all E2–E4 behavior. No new plugin or new tool signature.
-4. Verify baseline, then deploy a new harmless capability by changing **only** Supabase backend source. From ordinary Android ChatGPT, verify discovery and invocation without Site/plugin republish between baseline and new capability. Capture exact UTC results and deployment/release IDs.
-5. Update [EXPERIMENTS.md](EXPERIMENTS.md), README and CONTRACT with **observed** results, not assumptions.
+1. Use an authenticated Supabase Dashboard or CLI session to set a strong random `JIT_MCP_GATEWAY_SECRET` in Edge Function secrets. Set the identical value in the existing Site's server-only secret store and apply that environment revision to v7. Use secret inputs, never chat text, repo content, source, client code or logs. The connected Supabase tools have no secret-write operation.
+2. In ordinary ChatGPT, call `jit_capabilities` and confirm `backend_status:"available"` and `echo_text_v1` in the catalog. Invoke it with `{text:"e5-baseline"}` and the returned catalog revision. Record UTC results and current Site deployment/plugin release.
+3. Only then deploy a backend-only revision introducing a distinct read-only capability. Example: `text_length_v1`, with `input_kind:"text"`, `output_kind:"integer"`, bounded input and an incremented backend catalog revision. Test locally, deploy only `jit-mcp-capabilities`, and verify discovery and invocation from ordinary ChatGPT. Confirm the Site deployment, plugin release and six tool signatures stayed fixed across this step.
+4. Record exact observations in [EXPERIMENTS.md](EXPERIMENTS.md). Keep E5 pending until the ordinary-chat production proof is observed.
 
-## Scope control
-No further security frameworks, database tables, custom signing protocols, or repeated planning documents for this read-only proof. Do not claim completion until ordinary-chat end-to-end evidence exists.
-
-## Work continuation
-“Continue JIT MCP E5 from `jit/mcp/HANDOFF.md`. Recover exact deployed Site source first. Preserve plugin ID, six tools and Android E4. Configure fixed Supabase gateway, run the backend-only capability deployment proof, and record actual ordinary-chat results. No new infrastructure.”
+No new plugin, database, inference service or replay infrastructure is needed.

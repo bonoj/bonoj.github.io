@@ -4,7 +4,7 @@
 
 [Android companion](https://jit-mcp.bracedbuddy1.chatgpt.site/device) · [Experiments](EXPERIMENTS.md) · [E3 specification](E3-TRANSPORT.md) · [E4 specification](E4-OBSERVATION.md)
 
-Status: **E2–E4 verified on Android in ordinary ChatGPT. E5 stable tools verified; independent backend dispatch pending Site gateway bootstrap.**
+Status: **E2–E4 verified on Android in ordinary ChatGPT. E5 stable tools verified; gateway deployed; shared credential and production dispatch proof pending.**
 
 ## Objective
 
@@ -12,7 +12,7 @@ The existing ChatGPT conversation supplies reasoning and agency. JIT MCP supplie
 
 ## Active implementation
 
-The existing private JIT MCP Site hosts a Cloudflare Worker and authenticated D1 session storage. **[site/worker.mjs](site/worker.mjs) is a stale E4 mirror; never deploy it over the live E5 Site without recovering the deployed source.** GitHub Pages is not the transport runtime. The independent [server.py](server.py) Python probe is not the installed plugin.
+The existing private JIT MCP Site hosts a Cloudflare Worker and authenticated D1 session storage. [site/worker.mjs](site/worker.mjs) mirrors the deployed E5 gateway source. Compare its source commit with the live Site before deploying. GitHub Pages is not the transport runtime. The independent [server.py](server.py) Python probe is not the installed plugin.
 
 - Companion: https://jit-mcp.bracedbuddy1.chatgpt.site/device
 - Plugin: `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`
@@ -44,4 +44,4 @@ The 10-minute TTL is enforced on all access. Physical expired-row deletion is op
 
 ## Independent capability backend (E5)
 
-Supabase project `iqglyokmcobegledbfcm` hosts a separate ACTIVE v2 `jit-mcp-capabilities` Edge Function with `verify_jwt:true`. It is not yet connected to the Site, and the private gateway secret is not configured. Source: [runtime/index.mjs](runtime/index.mjs). Run `node --test jit/mcp/runtime/index.test.mjs` from the repository root. The original `memory` function and Android transport are unchanged. See [HANDOFF.md](HANDOFF.md) for the one remaining integration task.
+Supabase project `iqglyokmcobegledbfcm` hosts a separate ACTIVE v2 `jit-mcp-capabilities` Edge Function with `verify_jwt:true`. The Site v7 gateway is deployed and holds the legacy anon JWT. Remote dispatch remains off until the shared gateway secret is configured on both services and the Site environment revision is applied. Source: [runtime/index.mjs](runtime/index.mjs). Run `node --test jit/mcp/runtime/index.test.mjs` from the repository root. The original `memory` function and Android transport are unchanged. See [HANDOFF.md](HANDOFF.md) for the one remaining integration task.
