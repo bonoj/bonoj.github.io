@@ -2,7 +2,7 @@
 
 [Android companion](https://jit-mcp.bracedbuddy1.chatgpt.site/device) · [Experiments](EXPERIMENTS.md) · [E3 specification](E3-TRANSPORT.md)
 
-Status: **E2 verified in ordinary Android Chat; E3 transport implemented and deployed; Android end-to-end verification pending.**
+Status: **E2 and E3 verified in ordinary ChatGPT; E4 browser observation pending.**
 
 ## Objective
 
@@ -28,7 +28,7 @@ Pairing codes expire after two minutes and lock after five attempts. Sessions ex
 
 The production Site deployed successfully, and the original plugin's ping still works. Local real-browser testing verified a Linux browser heartbeat, recurring updates and Disconnect. SQLite-backed tests verify authentication, isolation, CSRF protection, pairing, expiry and revocation.
 
-The active Work conversation retained its original tool inventory and could not invoke the new tool. Production browser pairing was gated by a fresh ChatGPT login. **Production `device_status` invocation, production paired-session storage, and Android behavior are not yet verified.** A newly loaded ordinary chat should discover the deployed tool; verify rather than assume.
+**Production E3 verified on Android (2026-11-08):** ordinary ChatGPT invoked `device_status()` and independently received a paired Android session with fresh browser-originated nonce, timestamp, and `visibility:hidden` / `state:stale`. An earlier visible/online result was supplied by the user. See EXPERIMENTS for exact evidence. Real >45-second timeout and Android OS/browser control remain unverified.
 
 A browser page does not provide Android OS, unrelated-tab DOM, screen capture, accessibility or background access. Moving from Chrome to ChatGPT normally hides the page and therefore reports stale; use split-screen if both need to remain visible.
 
