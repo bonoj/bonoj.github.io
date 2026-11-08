@@ -419,3 +419,13 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 6. **Maintain this ledger** with UTC evidence, code/deployment revisions, independent readbacks, failures, and precise boundaries. Update README/HANDOFF only after verified implementation, not speculative design.
 
 **Decision:** First-party cooperative website control is the primary JIT iteration path. Android pairing remains a separate historical capability, not a prerequisite. The immediate work is security hardening and a typed inspect/act/ack protocol—not rebuilding browser control.
+
+
+## 2026-11-08 — First-party UI inspect/act experiment deployed (ANDROID ACCEPTANCE PENDING)
+
+- Extended the existing bounded demo command queue with `toggle_panel`, `select_orbit`, and `select_grove`. Extended shared state with `panel_open` and `selection`; retained original counter commands and state.
+- Added `public.jit_demo_apply_command(bigint)` with row locks and a transactional state update + command consumption, improving idempotence for duplicate acknowledgments. Revoked public/anon/authenticated EXECUTE, granted only to `service_role`.
+- Deployed `jit-page-demo` Edge Function **v2**, with `protocol:1`, `revision:2`, read-only shared UI state in GET, and RPC-backed command acknowledgment in POST. Original counter page remains supported.
+- Created `jit/mcp/control/ui.html` on GitHub master commit `b8beab2180185117b5fd88680926a40f6d34c36a`, URL `https://bonoj.github.io/jit/mcp/control/ui.html`. UI has two selectable elements (Orbit and Grove), an inspector panel, visible selected state, polling status, and command execution log.
+- **No Android acceptance yet.** Next: user opens the UI page in Chrome; assistant enqueues `select_orbit` or `toggle_panel` from ordinary chat; user confirms visual change without refreshing; independently verify backend state and consumed command.
+- **Security limitation unchanged:** the demonstration Edge Function is public and its command-acknowledgment POST is unauthenticated. The RPC transaction improves concurrency but **does not authenticate the browser**. The demo is restricted to harmless predetermined UI operations and must not be extended to private or consequential capabilities before session-scoped authorization is implemented.
