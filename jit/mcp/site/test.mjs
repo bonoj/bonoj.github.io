@@ -189,7 +189,7 @@ const liveFetch = globalThis.fetch;
 let backendRevision = 1, downstreamCalls = 0, backendFailure = false, malformedOutput = false;
 globalThis.fetch = async (url, options) => {
  assert.equal(url,'https://iqglyokmcobegledbfcm.supabase.co/functions/v1/jit-mcp-capabilities');
- assert.equal(options.redirect,'error');
+ assert.equal(options.redirect,'manual');
  assert.equal(options.headers.Authorization,'Bearer fixture-jwt');
  assert.equal(options.headers['X-JIT-Gateway-Secret'],'fixture-secret');
  const payload = JSON.parse(options.body);
@@ -246,14 +246,27 @@ const enrollment = (await api('enroll',{},null,'setup-owner')).data;
 assert.equal((await api('confirm',{code:enrollment.code,confirm:true},enrollment.token,'setup-owner')).code,200);
 assert.deepEqual(await (await setup()).json(),{configured:false,paired:true});
 assert.equal((await setup('/api/setup',{method:'POST',originHeader:'https://other.example'})).status,403);
-let backendAccept = false;
+let backendAccept = false, failureMode = null;
 globalThis.fetch = async (url,options) => {
  assert.equal(url,'https://iqglyokmcobegledbfcm.supabase.co/functions/v1/jit-mcp-capabilities');
  assert.equal(options.headers['X-JIT-Gateway-Secret'],fixture);
- return backendAccept?Response.json({interface_version:1,revision:1,capabilities:[]}):new Response(null,{status:401});
+ if (failureMode==='jwt_rejected') return Response.json({message:'Invalid JWT'},{status:401});
+ if (failureMode==='backend_secret_missing') return Response.json({error:'not_configured'},{status:503});
+ if (failureMode==='network_failure') throw new TypeError('fixture network failure');
+ if (failureMode==='response_invalid') return Response.json({interface_version:2});
+ return backendAccept?Response.json({interface_version:1,revision:1,capabilities:[]}):Response.json({error:'unauthorized'},{status:401});
 };
 try {
- assert.equal((await setup('/api/setup',{method:'POST'})).status,422);
+ const mismatch = await setup('/api/setup',{method:'POST'});
+ assert.equal(mismatch.status,422);
+ assert.equal((await mismatch.json()).reason,'gateway_secret_mismatch');
+ for (const reason of ['jwt_rejected','backend_secret_missing','network_failure','response_invalid']) {
+  failureMode = reason;
+  const failure = await setup('/api/setup',{method:'POST'});
+  assert.equal(failure.status,502);
+  assert.equal((await failure.json()).reason,reason);
+ }
+ failureMode = null;
  assert.equal(sql.prepare('SELECT count(*) AS n FROM jit_gateway_config').get().n,0);
  backendAccept = true;
  const saves = await Promise.all([setup('/api/setup',{method:'POST'}),setup('/api/setup',{method:'POST'})]);

@@ -251,8 +251,21 @@ async function setupGateway(request,env,user) {
  if (!await takeQuota(env.DB,user)) return json({error:'Too many attempts. Try again in a minute.'},429);
  try {
   await backendRequest(env,{operation:'capabilities'},body.secret);
- } catch {
-  return json({error:'Supabase did not accept the credential. Nothing was saved.'},422);
+ } catch (error) {
+  const reason = error instanceof BackendFailure ? error.code : 'response_invalid';
+  console.warn('jit_setup_validation',reason);
+  const message = {
+   gateway_secret_mismatch:'The submitted value does not match the secret configured in Supabase.',
+   jwt_rejected:'Supabase rejected the Site’s JWT.',
+   backend_secret_missing:'The Supabase function has no gateway secret configured.',
+   network_failure:'The Site could not reach Supabase.',
+   network_blocked:'The Site runtime blocked the Supabase request.',
+   network_timeout:'The Supabase request timed out.',
+   upstream_redirect:'Supabase returned an unexpected redirect.',
+   response_invalid:'Supabase returned an incompatible response.',
+   upstream_error:'Supabase returned an unexpected error.',
+  }[reason];
+  return json({error:message+' Nothing was saved.',reason},reason==='gateway_secret_mismatch'?422:502);
  }
  const encrypted = await sealGatewaySecret(env,body.secret);
  const result = await env.DB.prepare(
@@ -300,20 +313,42 @@ const backendTypes = {
 };
 const revisionBase = 2 ** 26;
 
+class BackendFailure extends Error {
+ constructor(code) {super(code);this.code=code;}
+}
 async function backendRequest(env,payload,candidate) {
  const gateway = candidate ?? await gatewaySecret(env);
- if (!gateway) throw Error('backend_not_configured');
- const response = await fetch(backendUrl,{
-  method:'POST',redirect:'error',signal:AbortSignal.timeout(4000),
-  headers:{'Content-Type':'application/json',Authorization:'Bearer '+env.JIT_MCP_SUPABASE_JWT,
-   'X-JIT-Gateway-Secret':gateway},
-  body:JSON.stringify(payload),
- });
- if (!response.ok) throw Error('backend_unavailable');
+ if (!gateway) throw new BackendFailure('backend_secret_missing');
+ let response;
+ const controller = new AbortController();
+ const timer = setTimeout(()=>controller.abort(),4000);
+ try {
+  response = await fetch(backendUrl,{
+   method:'POST',redirect:'manual',signal:controller.signal,
+   headers:{'Content-Type':'application/json',Authorization:'Bearer '+env.JIT_MCP_SUPABASE_JWT,
+    'X-JIT-Gateway-Secret':gateway},
+   body:JSON.stringify(payload),
+  });
+ } catch (error) {
+  const message = typeof error?.message==='string' ? error.message : '';
+  const code = controller.signal.aborted ? 'network_timeout' :
+   /not allowed|blocked|denied|prohibited|disallowed|allowlist/i.test(message) ? 'network_blocked' : 'network_failure';
+  throw new BackendFailure(code);
+ } finally {clearTimeout(timer);}
+ if (response.status>=300 && response.status<400) throw new BackendFailure('upstream_redirect');
+ if (!response.ok) {
+  const failure = await readBoundedJson(response,2048);
+  if (response.status===401 && failure?.error==='unauthorized') throw new BackendFailure('gateway_secret_mismatch');
+  if (response.status===503 && failure?.error==='not_configured') throw new BackendFailure('backend_secret_missing');
+  if ((response.status===401 || response.status===403) &&
+      [failure?.message,failure?.error,failure?.code].some(value=>typeof value==='string' &&
+       /jwt|invalid.token|missing.authorization/i.test(value))) throw new BackendFailure('jwt_rejected');
+  throw new BackendFailure('upstream_error');
+ }
  const data = await readBoundedJson(response,8192);
  if (!plainObject(data) || data.interface_version!==interfaceVersion ||
      !revisionValid(data.revision) || data.revision<1 || data.revision>=revisionBase) {
-  throw Error('invalid_backend_response');
+  throw new BackendFailure('response_invalid');
  }
  return data;
 }
@@ -357,7 +392,20 @@ async function routedCapability(env,user,name,args) {
     input_schema:backendTypes[entry.input].schema,output_schema:backendTypes[entry.output].schema});
   }
  }
- if (name==='jit_capabilities') return result;
+ if (name==='jit_capabilities') {
+  // An intentionally invalid, short credential proves transport and JWT acceptance while setup is pending.
+  if (result.backend_status==='not_configured' && env.JIT_MCP_SUPABASE_JWT && env.JIT_MCP_SETUP_WRAP_KEY) {
+   try {
+    await backendRequest(env,{operation:'capabilities'},'jit-preflight-invalid');
+    result.setup_preflight='unexpected_acceptance';
+   } catch (error) {
+    result.setup_preflight = error instanceof BackendFailure
+     ? error.code==='gateway_secret_mismatch' ? 'ready_for_secret' : error.code
+     : 'response_invalid';
+   }
+  }
+  return result;
+ }
  if (!fields(args,['capability','input','expected_revision'],['capability','input']) ||
      typeof args.capability!=='string' || !capabilityName.test(args.capability) ||
      !plainObject(args.input) ||
