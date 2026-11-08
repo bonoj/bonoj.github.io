@@ -153,3 +153,19 @@ No physical Android page was enrolled. Real closed-tab wall-clock expiry remains
 ### Next acceptance action
 
 On Android, open the companion, sign in with the same account if needed, start pairing, re-enter the displayed code and confirm. Invoke `device_status` in ordinary ChatGPT, loading a new chat if its existing tool inventory has not refreshed. Compare platform, browser nonce and timestamps. Close the page, wait over 45 seconds, and invoke again. Record observed results here; retain E3 as pending until that succeeds.
+
+## 2026-11-08T14:37Z — E3 VERIFIED: authenticated Android browser transport
+
+**Independent ordinary-chat MCP invocation succeeded after real Android enrollment.** The user first supplied a production `device_status` response with `paired:true`, `online:true`, `state:"online"`, `platform:"Android"`, `visibility:"visible"`, `observed_at:"2026-11-08T14:37:04.158Z"`, device-generated nonce `868c76c8-9325-4e6e-aeca-51f992160522`, and a 45-second heartbeat threshold. This supplied response was not, by itself, independent verification.
+
+The assistant then invoked the actual `mcp__JIT_MCP__device_status({})` tool **in this ordinary ChatGPT conversation**, receiving:
+
+```json
+{"paired":true,"online":false,"state":"stale","observed_at":"2026-11-08T14:37:20.834Z","age_seconds":5.02,"server_time":"2026-11-08T14:37:25.854Z","device_time":"2026-11-08T14:37:20.656Z","device_nonce":"1e59aae4-7ec1-45e6-91cc-ba7602636ce1","platform":"Android","visibility":"hidden","capabilities":["browser_heartbeat","page_visibility"],"expires_at":"2026-11-08T14:46:53.119Z","heartbeat_timeout_seconds":45}
+```
+
+**What this establishes:** the existing private Site-backed plugin's newly published `device_status` tool is discoverable and callable in ordinary ChatGPT; the server sees an authenticated, paired Android browser, receives fresh browser-originated timestamps/nonces and visibility observations, and correctly distinguishes a hidden browser from a visible/online browser. The second nonce differs from the user-supplied earlier heartbeat. This is an actual end-to-end ChatGPT → MCP → hosted Site → enrolled Android browser observation, not a hardcoded `connected_device:true` or a Work-only demonstration.
+
+**Important boundary:** `online:false` with `state:"stale"` was observed when the page was hidden even though `age_seconds` was only 5.02. That is expected visibility gating, not a transport failure. No >45-second real-world expiry check, post-expiry offline readback, Android OS access, arbitrary Chrome tab observation, or remote actuation has yet been independently verified in this conversation. E4 and E5 remain open.
+
+**Ledger disposition:** E3 **VERIFIED** for authenticated, browser-page heartbeat and ordinary-chat MCP readback. Future E4 should determine a consented observation surface; future E5 should test a narrowly bounded, user-authorized action with readback. Preserve separation between a companion webpage and general Android/browser control.
