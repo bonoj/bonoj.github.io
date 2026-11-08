@@ -245,3 +245,14 @@ Following the user's explicit Stop sharing action, ordinary ChatGPT invoked prod
 **E4 disposition: VERIFIED end-to-end on physical Android in ordinary ChatGPT.** Verified before-consent unavailable; consented fresh counter 0; changed counter 1 with distinct nonce; page-hidden stale; explicit Stop sharing immediately unavailable with consent false while the device remained paired/online. The verified observation scope is only the first-party companion page; this does not establish general tab/OS observation or actuation.
 
 **E5 disposition: PARTIALLY VERIFIED.** Permanent v1 MCP tools are discoverable and callable; `jit_invoke` echoes a typed integer; `jit_observe` passed the Android observation lifecycle. Still pending: demonstrate adding a **new** capability through unchanged tool signatures without plugin republishing and document the independently operable browser-first deployment mechanism. Do not equate a working dispatcher with completed independent iteration.
+
+
+## 2026-11-08 — E5 independent-deployment gate: BLOCKED (not a runtime failure)
+
+Ordinary ChatGPT re-invoked `jit_capabilities({})` and confirmed live interface v1/revision 0 with `companion_page_only` and `echo_integer`. The existing GitHub mirror `jit/mcp/site/worker.mjs`, however, still declares only `integration_ping`, `device_status` and `browser_observe`; it does **not** contain the E5 `jit_capabilities` / `jit_invoke` / `jit_observe` implementation. The GitHub README/HANDOFF/CONTRACT also retain pre-E5 status. Therefore the repository mirror is stale relative to the verified deployed Site.
+
+This ordinary-chat tool inventory provides GitHub file writes and existing JIT MCP read-only tools, but **no supported Site source/deploy action**. GitHub Pages cannot deploy the authenticated Site backend. No source changes, Site deployment, plugin republishing or capability additions were attempted in this step. The `echo_integer` capability is already present; it cannot count as proof of adding a *new* capability without plugin republishing.
+
+**Required before claiming E5 complete:** recover the exact deployed E5 Site source and deployment identifiers; reconcile the mirror without overwriting production with old code; establish and verify an independently callable deployment path (e.g., authorized backend deployment API/CI) for this Site or an independently hosted backend behind the fixed MCP interface; then introduce a distinct harmless read-only capability, verify it through `jit_capabilities` and `jit_invoke` in ordinary ChatGPT, and confirm the plugin ID/tool signatures and release remain unchanged. If the current Sites platform does not permit deployment outside Work, document that limitation and consider a separate backend rather than misrepresenting success.
+
+**Disposition:** E4 VERIFIED; E5 interface/discovery/Android observation VERIFIED; E5 browser-first independent capability deployment **NOT YET VERIFIED**.
