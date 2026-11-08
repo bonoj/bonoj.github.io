@@ -69,3 +69,10 @@ Continue JIT MCP E5 in `bonoj/bonoj.github.io` (`jit/mcp/`). Read HANDOFF, EXPER
 **Committed source:** `jit/mcp/runtime/index.ts` at commit `35431a88e25cd284c343f17282a90203c4e49f14`. It is a separate, fail-closed prototype for a new `jit-mcp-capabilities` Supabase Edge Function. It supports a bounded `echo_text_v1` and capability discovery, validates request shapes and size, and requires a configured `JIT_MCP_GATEWAY_SECRET` bearer token. It does not touch Android pairing or consent. **Not deployed or tested yet**; no gateway secret provisioned. It is not yet production-hardened (add replay protection/rate limits and integration tests before exposing). Do not treat this commit as E5 verification.
 
 **Next:** Run Deno tests; confirm secure gateway-to-Supabase auth and replay protection; provision a shared secret through approved secret-management controls, never GitHub; deploy a *new* function without altering `memory`; recover the exact deployed E5 Site source through Work; connect existing `jit_capabilities`/`jit_invoke` to the backend while preserving E4. Then verify ordinary-chat discovery and invocation across a backend-only redeploy. Keep original plugin release unchanged.
+
+
+## E5.1 CI checkpoint (2026-11-08)
+
+- Added `.github/workflows/jit-mcp-runtime.yml` (commit `b0ce6cd540a87d90167fc8e324f016f2ecb762a0`) to run `node --test jit/mcp/runtime/index.test.mjs` and byte-compare `runtime/index.ts` against `runtime/index.mjs` on runtime changes. Synchronized mirrors at commit `cbe44984d597f4348f1421fe751e9a2a4f76c057`.
+- **CI execution not yet verified**; do not claim a successful GitHub Actions run until a run log is read. Previous six passing tests are local evidence only.
+- Production function `jit-mcp-capabilities` remains ACTIVE v1, `verify_jwt:true`, no gateway secret provisioned; `memory` remains untouched. This CI workflow intentionally does **not** deploy. Before enabling automated deployments, add secure request authentication with durable replay prevention, rate limiting, provision secrets in approved secret stores, and verify authorized live invocation. Never store secrets in GitHub source or logs.
