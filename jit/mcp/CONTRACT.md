@@ -12,21 +12,19 @@ The tool reads only the Sites-authenticated caller’s session. No user or sessi
 
 Pairing requires the authenticated user, a 256-bit memory-only token, an unexpired code and explicit confirmation. The code alone grants nothing. Five confirmation attempts maximum, one enrollment per ten seconds, and same-origin JSON checks protect pairing. Server stores only token/code hashes. Disconnect deletes the session; new enrollment replaces the old session. No remote actuation tool is deployed.
 
-Production tool invocation and Android end-to-end heartbeat readback are verified; see EXPERIMENTS. The stages below are future candidates, not current APIs.
+Production tool invocation and Android end-to-end heartbeat readback are verified; see EXPERIMENTS. The sections marked as candidates are future APIs.
 
-## Stage 0: connectivity
+## Candidate connectivity tool
 
 `device_ping({}) -> {connected, device_id_alias, platform, observed_at, nonce, capabilities}`
 
 Response must be produced by a live enrolled device; a hosted endpoint returning hardcoded JSON is insufficient. Never include persistent hardware identifiers.
 
-## Stage 1: observation (E4, not deployed)
+## Deployed E4 companion observation
 
-`device_status({}) -> {foreground_app?, permission_state, capabilities}`
+`browser_observe({})` returns availability, consent, observation method and scope, server receipt time and age, visibility, nonce, and snapshot data. Data is limited to the companion origin and path, title, visibility, local timestamp, nonce and numeric demo counter. The paired user explicitly shares or refreshes each snapshot. The server withholds data when consent is absent, the session is hidden or stale, or either the snapshot or enrollment has expired. Stop sharing deletes consent and the snapshot while retaining pairing.
 
-`browser_observe({}) -> {url?, title?, observation_method, observed_at}`
-
-Observation must report its source and uncertainty. Android app sandboxing prevents arbitrary access to another app's internal browser DOM. User consent and OS permission are prerequisites.
+Android readback in ordinary ChatGPT is the remaining E4 acceptance test. See [E4-OBSERVATION.md](E4-OBSERVATION.md).
 
 ## Stage 2: bounded actuation
 
@@ -50,4 +48,4 @@ Targets must be grounded in a fresh observation; reject stale context. Do not ex
 
 ## Implementation gate
 
-Do not build Stage 1/2 until a real custom tool invocation from the target chat client is established. This contract is a test target, not a deployed API.
+E5 actuation requires a separate experiment and explicit user authorization.

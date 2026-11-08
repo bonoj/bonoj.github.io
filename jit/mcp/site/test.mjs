@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import worker,{status} from './worker.mjs';
 const sql=new DatabaseSync(':memory:');sql.exec(readFileSync('drizzle/0000_device_sessions.sql','utf8'));
+sql.exec(readFileSync(new URL('./drizzle/0001_browser_observation.sql',import.meta.url),'utf8'));
 const DB = {
  prepare(query) {
   return { bind(...args) {
@@ -51,4 +52,80 @@ assert.equal((await api('heartbeat',hb,e.token)).code,401);
 assert.equal(sql.prepare('SELECT count(*) AS n FROM device_sessions').get().n,0);
 const p1=(await tool('integration_ping')).structuredContent,p2=(await tool('integration_ping')).structuredContent;
 assert.notEqual(p1.nonce,p2.nonce);assert.equal(p1.connected_device,false);
+const discovery = await worker.fetch(new Request(origin+'/mcp',{
+ method:'POST', body:JSON.stringify({jsonrpc:'2.0',id:1,method:'tools/list'})
+}),{DB});
+assert.deepEqual((await discovery.json()).result.tools.map(tool=>tool.name),
+ ['integration_ping','device_status','browser_observe']);
+const observe = async user => (await tool('browser_observe',user)).structuredContent;
+assert.equal((await tool('browser_observe',null)).isError,true);
+assert.equal((await observe()).reason,'unpaired_or_expired');
+e = (await api('enroll')).data;
+const snapshot = {
+ share_id:crypto.randomUUID(), origin, path:'/device', title:'JIT MCP · Device',
+ visibility:'visible', device_time:new Date(clock).toISOString(), nonce:crypto.randomUUID(), demo_counter:0
+};
+const write = (action,body=snapshot,user='alice',token=e.token) => api('observation/'+action,body,token,user);
+assert.equal((await write('share')).code,403);
+assert.equal((await api('confirm',{code:e.code,confirm:true},e.token)).code,200);
+await api('heartbeat',hb,e.token);
+assert.equal((await observe()).reason,'sharing_disabled');
+assert.equal(sql.prepare('SELECT observation FROM device_sessions').get().observation,null);
+assert.equal((await write('refresh')).code,409);
+assert.equal((await write('share',snapshot,'bob')).code,401);
+assert.equal((await write('share',snapshot,'alice','wrong')).code,401);
+for (const invalid of [
+ {...snapshot, path:'/device?secret=1'}, {...snapshot, path:'/device#secret'},
+ {...snapshot, origin:'https://other.example'}, {...snapshot,title:'secret'},
+ {...snapshot, visibility:'hidden'}, {...snapshot,demo_counter:1000},
+ {...snapshot, nonce:'invalid'}, {...snapshot, device_time:'invalid'},
+ {...snapshot, typed_text:'secret'}, {...snapshot, title:'x'.repeat(2048)}
+]) assert.equal((await write('share',invalid)).code,400);
+assert.equal((await write('share')).code,200);
+let observed = await observe();
+assert.equal(observed.available,true);
+assert.equal(observed.data.demo_counter,0);
+assert.equal(observed.nonce,snapshot.nonce);
+assert.equal(observed.observed_at,new Date(clock).toISOString());
+assert.equal(observed.data.device_time,snapshot.device_time);
+assert.equal(Object.hasOwn(observed.data,'share_id'),false);
+assert.equal((await observe('bob')).data,null);
+const changed = {...snapshot,demo_counter:1,nonce:crypto.randomUUID()};
+assert.equal((await write('refresh',changed)).code,200);
+observed = await observe();
+assert.equal(observed.data.demo_counter,1);
+assert.equal(observed.nonce,changed.nonce);
+await api('heartbeat',{...hb,visibility:'hidden'},e.token);
+assert.equal((await observe()).reason,'page_hidden');
+assert.equal((await observe()).data,null);
+await api('heartbeat',hb,e.token);
+assert.equal((await observe()).reason,'snapshot_required');
+assert.equal((await write('refresh')).code,200);
+clock += 45000;
+await api('heartbeat',hb,e.token);
+assert.equal((await observe()).reason,'snapshot_expired');
+assert.equal((await observe()).nonce,null);
+assert.equal((await write('refresh')).code,200);
+assert.equal((await write('revoke',{share_id:snapshot.share_id})).code,200);
+assert.equal((await observe()).reason,'sharing_disabled');
+assert.equal(sql.prepare('SELECT observation FROM device_sessions').get().observation,null);
+assert.equal((await write('refresh')).code,409);
+assert.equal((await write('share')).code,200);
+const oldToken = e.token;
+e = (await api('enroll')).data;
+assert.equal((await write('refresh',snapshot,'alice',oldToken)).code,401);
+assert.equal(sql.prepare('SELECT observation FROM device_sessions').get().observation,null);
+assert.equal((await api('confirm',{code:e.code,confirm:true},e.token)).code,200);
+await api('heartbeat',hb,e.token);
+assert.equal((await write('share')).code,200);
+assert.equal((await api('disconnect',{},e.token)).code,200);
+assert.equal((await observe()).data,null);
+e = (await api('enroll')).data;
+await api('confirm',{code:e.code,confirm:true},e.token);
+await api('heartbeat',hb,e.token);
+assert.equal((await write('share')).code,200);
+clock += 600000;
+assert.equal((await observe()).reason,'unpaired_or_expired');
+assert.equal((await observe()).data,null);
+console.log('PASS: E4 MCP discovery, consent, bounded payload, isolation, refresh, hidden/expired snapshots, revoke, replacement and disconnect');
 Date.now=actualNow;console.log('PASS: real SQLite transport lifecycle, auth/isolation, CSRF, rate limits, explicit pairing, heartbeat, hidden/stale, 45s expiry, revocation, 2min code expiry, 10min session expiry, cleanup, ping');

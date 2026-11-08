@@ -1,8 +1,8 @@
 # MCP — Chat-to-Device Lever Laboratory
 
-[Android companion](https://jit-mcp.bracedbuddy1.chatgpt.site/device) · [Experiments](EXPERIMENTS.md) · [E3 specification](E3-TRANSPORT.md)
+[Android companion](https://jit-mcp.bracedbuddy1.chatgpt.site/device) · [Experiments](EXPERIMENTS.md) · [E3 specification](E3-TRANSPORT.md) · [E4 specification](E4-OBSERVATION.md)
 
-Status: **E2 and E3 verified in ordinary ChatGPT; E4 browser observation pending.**
+Status: **E2 and E3 verified in ordinary ChatGPT; E4 deployed, with Android acceptance pending.**
 
 ## Objective
 
@@ -15,7 +15,7 @@ The existing private JIT MCP Site hosts a Cloudflare Worker and authenticated D1
 - Companion: https://jit-mcp.bracedbuddy1.chatgpt.site/device
 - Plugin: `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`
 - Site: `appgprj_6af07fda46ec8191a71e9df6f4bc9e75`
-- Tools: `integration_ping()` and the newly deployed `device_status()` endpoint.
+- Tools: `integration_ping()`, `device_status()`, and `browser_observe()`.
 - Existing plugin/App identity, private audience and bindings preserved.
 
 ## Pairing and lifetime

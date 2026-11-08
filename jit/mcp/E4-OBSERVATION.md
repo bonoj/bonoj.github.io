@@ -1,6 +1,6 @@
 # E4 — Consented observation of the companion page
 
-Status: **specified, not implemented or deployed** (2026-11-08).
+Status: **deployed, with Android acceptance pending** (2026-11-08).
 
 ## Question
 

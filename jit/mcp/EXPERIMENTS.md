@@ -169,3 +169,33 @@ The assistant then invoked the actual `mcp__JIT_MCP__device_status({})` tool **i
 **Important boundary:** `online:false` with `state:"stale"` was observed when the page was hidden even though `age_seconds` was only 5.02. That is expected visibility gating, not a transport failure. No >45-second real-world expiry check, post-expiry offline readback, Android OS access, arbitrary Chrome tab observation, or remote actuation has yet been independently verified in this conversation. E4 and E5 remain open.
 
 **Ledger disposition:** E3 **VERIFIED** for authenticated, browser-page heartbeat and ordinary-chat MCP readback. Future E4 should determine a consented observation surface; future E5 should test a narrowly bounded, user-authorized action with readback. Preserve separation between a companion webpage and general Android/browser control.
+
+## 2026-11-08T14:47:45.849384Z — E4 deployed
+
+Sites published version 5 of the existing private Site with MCP enabled. The plugin remains `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`.
+
+- Companion page: https://jit-mcp.bracedbuddy1.chatgpt.site/device
+- Site source commit: `ebd135a189a6d4c6db7567b147cabbf97990ce9c`
+- Site version: `appgprj_6af07fda46ec8191a71e9df6f4bc9e75~appgver_af81bab6b9008191b68aea19bcb274f6`
+- Deployment: `appgdep_6af08b8a5f908191ba239cafa2dc3477`
+
+`browser_observe()` reads the paired user's latest explicitly shared companion-page snapshot. Sharing starts off. Share and Refresh capture only the origin, path, title, visibility, browser time, nonce and numeric demo counter. Server receipt controls freshness. A snapshot is readable for up to 45 seconds while the page has a fresh visible heartbeat. A hidden heartbeat clears the snapshot. Stop sharing clears consent and the snapshot without unpairing. A new pairing clears both, and the existing enrollment expiry bounds access and uses the same opportunistic row cleanup as E3.
+
+### Verified
+
+- `node test.mjs` passed the E3 suite and E4 checks against SQLite using the same migrations and Worker as production. Checks cover `tools/list`, no snapshot before consent, authenticated user and token isolation, payload size and allowed fields, refresh with a different nonce, hidden and expired snapshots, revocation, replacement and disconnect.
+- Browser preview with a QA identity confirmed pairing, initial sharing, changing the demo counter from 0 to 1, explicit refresh, and a successful stop-sharing response.
+- Production Site reports `succeeded` and `has_mcp:true` with the original plugin ID. The installed plugin's existing tools answered after deployment:
+  - `integration_ping`: `{"timestamp":"2026-11-08T14:48:08.813Z","nonce":"09c0e202-907f-40bf-88cf-6e0c064aa7fa","source":"jit-mcp","connected_device":false}`
+  - `device_status`: `{"paired":false,"online":false,"state":"unpaired","observed_at":null,"age_seconds":null,"server_time":"2026-11-08T14:48:09.216Z","device_time":null,"device_nonce":null,"platform":null,"visibility":null,"capabilities":[],"expires_at":null,"heartbeat_timeout_seconds":45}`
+
+Exact MCP observation outputs from the local SQLite fixture follow. Their times are from the test clock.
+
+```json
+{"available":true,"state":"available","reason":null,"observation_method":"first_party_companion_dom","scope":"companion_page_only","consent_active":true,"observed_at":"2026-11-08T14:33:50.000Z","age_seconds":0,"visibility":"visible","nonce":"8fa2bb67-3767-4f3d-a902-dc93c872cf9e","data":{"origin":"https://test.example","path":"/device","title":"JIT MCP · Device","visibility":"visible","device_time":"2026-11-08T14:33:50.000Z","nonce":"8fa2bb67-3767-4f3d-a902-dc93c872cf9e","demo_counter":0}}
+{"available":true,"state":"available","reason":null,"observation_method":"first_party_companion_dom","scope":"companion_page_only","consent_active":true,"observed_at":"2026-11-08T14:33:50.000Z","age_seconds":0,"visibility":"visible","nonce":"781cf275-4b3e-4c78-ace7-e9c7674ff73f","data":{"origin":"https://test.example","path":"/device","title":"JIT MCP · Device","visibility":"visible","device_time":"2026-11-08T14:33:50.000Z","nonce":"781cf275-4b3e-4c78-ace7-e9c7674ff73f","demo_counter":1}}
+```
+
+### Android acceptance pending
+
+This Work conversation still exposes the two E3 tool handles. The Worker advertises `browser_observe` and Sites published the MCP-enabled version. Discovery and invocation of the new tool in ordinary ChatGPT remain unverified. On Android, reload and pair the companion, then keep Chrome visible in split screen with a fresh ordinary ChatGPT chat. Invoke `browser_observe` before sharing, then share and read back within 45 seconds. Change the counter, refresh and read it back again. Verify that backgrounding makes the snapshot stale and that stopping sharing makes it unavailable. Record the production responses here.
