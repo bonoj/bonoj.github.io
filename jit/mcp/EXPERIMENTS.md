@@ -393,3 +393,29 @@ Local tests passed for owner-only access, pairing, cross-origin rejection, inval
 - Independent SQL readback: `counter:2`, state updated `2026-11-08 22:48:28.859+00`, command #2 consumed `2026-11-08 22:48:28.923+00`.
 - **Disposition: VERIFIED** for foreground Chrome automatic polling and execution, no refresh or local interaction required. Observed end-to-end interval from enqueue to acknowledgment was ~16.4 seconds; do not interpret this single observation as the poll cadence or a latency guarantee.
 - Scope remains first-party cooperating page; commands are queued through Supabase connector, not the existing JIT MCP plugin. The demonstration endpoint remains unauthenticated and unsuitable for sensitive actions.
+
+
+## 2026-11-08 — Architecture correction, detour postmortem, and next steps
+
+### Capability achieved (verified, not aspirational)
+
+**Ordinary ChatGPT can command a live first-party website open in Android Chrome without Android pairing or a browser refresh.** The chat uses the connected Supabase management tool to enqueue a bounded command; the deployed page polls the Supabase Edge Function, executes/acknowledges the command, and displays the resulting shared state. Independent SQL readbacks confirmed commands #1 and #2 were consumed and the counter advanced `0 → 1 → 2`. Command #2 was received with the Chrome page already open and **no refresh**. This is the exact narrow capability required to start iterating on chat-manipulable JIT websites.
+
+The actual architecture is **ordinary ChatGPT → Supabase connector → database queue → first-party page polling an Edge Function → state/acknowledgment → ChatGPT SQL readback**. It does **not** use the previously built Android companion pairing, the Site gateway, or `JIT MCP` plugin invocation. Those systems still exist and their earlier experiments remain valid, but they are not dependencies of this workflow. The result does not establish access to arbitrary Chrome tabs, general DOM inspection, or arbitrary browser automation.
+
+### Why the assistant detoured (failure analysis)
+
+The user consistently wanted a **website we can build, deploy, extend, and manipulate from chat**. The assistant incorrectly reframed that as a requirement to **control Chrome or access arbitrary third-party page DOM**. That self-imposed requirement led to unnecessary exploration of Android pairing/companion transport, browser extensions, accessibility/screen capture, bookmarklets, and Site gateway changes. The assistant then treated lack of Site deployment access in ordinary chat as a blocker, even though GitHub Pages and the existing connected Supabase tools were sufficient for a first-party cooperative page. It repeatedly explained or proposed architecture instead of shipping the smallest end-to-end experiment. The problem was assistant scope drift and failure to distinguish first-party page instrumentation from browser-level automation, **not ambiguity in the user's request**.
+
+**Correction:** For owned JIT pages, instrument the page directly and use a backend command/state channel. Do not require Android pairing, Work, Chrome privileges, screenshots, arbitrary-tab DOM access, or Site gateway changes unless a future *specific* requirement justifies them. Preserve the earlier E2–E5 work without making it part of this new critical path.
+
+### Next steps (ordered)
+
+1. **Harden the demo before extending its authority.** The current `jit-page-demo` endpoint has `verify_jwt:false`, publicly readable state and publicly callable command acknowledgment; CORS is not authentication. Introduce scoped authorization for command submission/claim/acknowledgment, owner/session isolation, bounded operations, replay resistance, atomic/idempotent claiming, and expiry. Do not expose Supabase service-role credentials or reuse the unauthenticated demo for sensitive operations.
+2. **Define a minimal first-party page protocol:** page/session identity, capability registry, typed command envelope and IDs, result/error acknowledgment, version/revision, freshness, and bounded read-only observation. Prefer a small auditable contract over speculative general-browser machinery.
+3. **Demonstrate actual UI inspection and manipulation** on an iterated JIT page: report selected DOM/application state; chat issues a harmless action (e.g. change a component value, toggle a panel, select a scene element); page executes and returns structured result; verify in Android Chrome and backend. Keep user approval for consequential actions.
+4. **Choose the normal chat dispatch path.** Supabase management SQL is proven but is an administrative connector, not an ideal user-facing runtime API. Evaluate routing the same authenticated command protocol through the existing JIT MCP backend capabilities while preserving the six installed tool signatures, or a purpose-built authenticated connector. Do not conflate this integration with the already verified page transport.
+5. **Test reliability:** foreground/background behavior, refresh/reconnect, command ordering, duplicate delivery, timeout, offline recovery, and multiple sessions/devices. Measure rather than promise latency.
+6. **Maintain this ledger** with UTC evidence, code/deployment revisions, independent readbacks, failures, and precise boundaries. Update README/HANDOFF only after verified implementation, not speculative design.
+
+**Decision:** First-party cooperative website control is the primary JIT iteration path. Android pairing remains a separate historical capability, not a prerequisite. The immediate work is security hardening and a typed inspect/act/ack protocol—not rebuilding browser control.
