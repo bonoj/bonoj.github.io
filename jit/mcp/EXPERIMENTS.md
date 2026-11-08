@@ -352,3 +352,33 @@ Local tests passed for owner-only access, pairing, cross-origin rejection, inval
 - Immediately invoked installed `jit_capabilities` in this **ordinary ChatGPT conversation**. Returned `backend_status:"available"`, registry revision `134217728`, and discovered new `text_length_v1` with text input and integer output schema.
 - Invoked `jit_invoke` with `{capability:"text_length_v1",input:{text:"Hello 🐝"},expected_revision:134217728}`. Live structured response: `{interface_version:1,revision:134217728,capability:"text_length_v1",data:{value:7}}`. **PASS**.
 - E5 independent backend-only capability iteration is **verified**. Tool responses did not expose precise invocation UTC timestamps; no timestamps invented.
+
+
+## 2026-11-08 — First-party JIT page controlled from ordinary ChatGPT (VERIFIED)
+
+**Goal:** extend capability to a website we own, deploy and iterate on it, and manipulate that page from an ordinary ChatGPT conversation in Android Chrome. This is distinct from controlling arbitrary third-party Chrome tabs.
+
+### Implemented
+
+- Created Supabase tables `public.jit_page_demo` (bounded counter/state) and `public.jit_page_commands` (increment/decrement/reset queue with consumed timestamp) in existing project `iqglyokmcobegledbfcm`. Anonymous and authenticated database roles were denied direct table access.
+- Deployed a new `jit-page-demo` Supabase Edge Function, ACTIVE v1, ID `7c283175-5104-4de5-bb8f-0b80541e0d56`, with GET state/pending-command polling and POST command acknowledgment/execution. This is a separate first-party demonstration backend, not an extension of the existing six JIT MCP plugin tools.
+- Created `jit/mcp/control/index.html` on GitHub `master`, commit `adcf02fab2d2e0f2705d3de02c7ba17af2733923`, intended URL `https://bonoj.github.io/jit/mcp/control/`. The page polls the function and displays a counter, connectivity, and command execution log. The local button only updates an explanatory message; it does not mutate the backend counter.
+- Did not change the installed plugin, its Site gateway, or E2–E5 infrastructure. No Work session, browser extension, OS accessibility permission, or screen capture was needed.
+
+### Real Android acceptance evidence
+
+1. User opened the deployed page in Android Chrome and reported: `Chat controls this page`, counter `0`, `Connected · checking for chat commands`.
+2. From **this ordinary ChatGPT conversation**, assistant inserted `increment` into `public.jit_page_commands` via the connected Supabase tool. Backend returned command **#1**, created at `2026-11-08 22:44:46.667312+00`.
+3. Initial independent SQL readbacks found counter `0` and command #1 pending (`consumed_at:null`).
+4. User **refreshed the Chrome page**, then reported counter `1`, `Connected · checking for chat commands`, and `Executed increment #1 → 1`.
+5. Independent SQL readback verified `counter:1`, command `id:1`, `action:increment`, `consumed_at:2026-11-08 22:45:11.07+00`; state updated at `2026-11-08 22:45:11.026+00`.
+
+**Disposition: VERIFIED** for ordinary ChatGPT → authenticated Supabase connector SQL command enqueue → first-party deployed page in Android Chrome → browser-triggered backend mutation → independent database readback. This is a real command execution, not a simulated result.
+
+### Boundaries and next experiment
+
+- **Continuous polling without refresh is not yet verified.** Refresh was performed before successful execution. Test a second queued command with Chrome foregrounded and **without refreshing**.
+- The command originated through the connected Supabase management connector, **not** through the existing `JIT MCP` `jit_invoke` tool. Native JIT MCP dispatch remains a separate integration task.
+- The endpoint's GET and POST are publicly callable with `verify_jwt:false`; the demonstration function currently has **no per-user authentication or command acknowledgment authorization**. Its CORS policy is not authentication. Treat it as a single-purpose public demo only; do not reuse for sensitive state, arbitrary commands, or multi-user control. Harden with authenticated sessions and atomic/idempotent command claiming before broadening scope.
+- No evidence of arbitrary-site DOM access or control. The successful case is a **first-party page intentionally designed to cooperate**.
+- The page reports connected when GET polling succeeds; that is not evidence of an independently verified continuous background connection.
