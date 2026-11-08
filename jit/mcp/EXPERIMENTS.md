@@ -64,3 +64,9 @@ A screenshot supplied from Android Chrome at `chatgpt.com/plugins` shows the **A
 **E1 update:** the user's account **exposes creation/registration entrypoints in the mobile web UI** (observed). This does not yet establish permission to complete creation, that a hosted plugin can run tools, or that tools can be invoked in an ordinary Android ChatGPT conversation. **E2 remains unverified**.
 
 **Next test:** tap **Create plugin** and inspect the creation form and available hosting/tool capabilities before committing to an integration path. Do not assume that `server.py` can be registered via custom MCP until it is deployed on a reachable authenticated HTTPS endpoint.
+
+## 2026-11-08 — Plugin Creator launch observed
+
+User screenshot from Android Chrome shows **Work** selected, **Plugin Creator** attached in the composer, and a default draft prompt `help me create a plugin`. This establishes that the **Create plugin** menu item launches a Work-mode creator workflow; it does **not** establish that the plugin was created, installed, or callable in normal Chat mode.
+
+**Decision:** Use Work strictly as a one-time tool-manufacturing environment, not as the runtime for the Android bridge. Request a private, tool-only `JIT MCP` plugin exposing a fresh `integration_ping` nonce/timestamp and `connected_device: false`. No external services or repo changes. After installation, test invocation in ordinary Android Chat. Keep E2 open until then.
