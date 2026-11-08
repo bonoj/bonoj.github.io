@@ -1,5 +1,7 @@
 # MCP — Chat-to-Device Lever Laboratory
 
+[Open browser capability probe](https://bonoj.github.io/jit/mcp/) · [Source](index.html)
+
 Status: **research workspace created; no ChatGPT custom tool connected; no Android device bridge deployed.**
 
 ## Objective
