@@ -1,0 +1,27 @@
+name: JIT Android companion build
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'jit/mcp/android/**'
+      - '.github/workflows/jit-android.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Build unsigned debug prototype
+        working-directory: jit/mcp/android
+        run: gradle :app:assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jit-android-debug-prototype
+          path: jit/mcp/android/app/build/outputs/apk/debug/*.apk
+          retention-days: 7
