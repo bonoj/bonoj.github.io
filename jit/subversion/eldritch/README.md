@@ -26,6 +26,46 @@ Conventional legal marketing already says “combined years of experience,” �
 
 Reuse the **same eighteen established portrait identities and names**, in their canonical order, from [INVARIANT](../invariant/README.md), which reuses Golden Standard. Do not invent eighteen replacements or assume new images are required. Their INVARIANT backend titles are *not* automatically ELDRITCH titles. Develop believable estate-law specialties, biographies, and period-specific histories separately.
 
+### Canonical portrait roster — all eighteen
+
+The **same exact eighteen people, names, ordering, and existing portrait assets from INVARIANT** are required. This is a casting and portrait specification, not a request to generate replacement faces. The original image for each identity is the facial reference; do not substitute another person, mix up identities, or infer physical features from names. Eldritch-era variations may change clothing, background, medium, lighting, and apparent historical setting while retaining recognizable facial identity. Existing source portraits are authoritative.
+
+| # | Canonical name | Eldritch Law specialty / outward-facing portrait identity | Subtle continuity clue |
+| --- | --- | --- | --- |
+| 01 | Alex Morgan | Director of Client Admissions & Standing | The visitor's arrival is entered before the appointment is made. |
+| 02 | Jordan Ellis | Principal, Identity, Capacity & Personhood | Identifies the same party across otherwise incompatible legal identities. |
+| 03 | Taylor Reed | Counsel for Correspondence & Notice | Every letter reaches its intended recipient, regardless of century. |
+| 04 | Casey Bennett | Keeper of the Institutional Archive | A portrait caption predates the purported sitter's birth. |
+| 05 | Morgan Avery | Principal, Evidence & Attestation | Authenticates a signature dated before its author's existence. |
+| 06 | Riley Chen | Director of Estate Administration | Distributes assets among heirs who have yet to be born. |
+| 07 | Jamie Parker | Counsel for Precedent & Antiquities | Cites an opinion from a court that has not been founded. |
+| 08 | Cameron Blake | Principal, Adversarial Proceedings | Appears on both sides of a historical dispute. |
+| 09 | Avery Quinn | Counsel for Conflicts & Equitable Interests | Represents seemingly incompatible interests without changing expression. |
+| 10 | Robin Hayes | Principal, Limitations & Perpetuities | Office clocks disagree, but the deadlines never do. |
+| 11 | Sam Rivera | Director of Settlement & Final Disposition | Settlement portraits show the same figure at each supposed generation. |
+| 12 | Quinn Harper | Counsel for Reconciliation & Restatement | An amended document preserves every superseded version. |
+| 13 | Drew Collins | Principal, Instruments & Codicils | Multiple centuries of signatures share the same hand. |
+| 14 | Blair Jordan | Counsel for Covenants & Enforcement | A covenant applies to land before the land exists. |
+| 15 | Reese Taylor | Director of Conveyance & Closing | A transaction concludes before either party arrives. |
+| 16 | Devon Lane | Principal, Guardianship & Continuing Oversight | A ward has remained under supervision for impossible spans. |
+| 17 | Sidney Brooks | Counsel for Restitution & Reinstatement | A deceased party is restored to the record without remark. |
+| 18 | Lee Cameron | Senior Partner, Continuity & Survivorship | The founding portrait and contemporary photograph show the same face. |
+
+**Title status:** These are proposed *fictional* Eldritch Law titles and specializations, distinct from INVARIANT's canonical titles; they are not claims of actual licensure or approved real-world credentials. All eighteen names and roster positions are locked.
+
+### Portrait art direction and asset reuse
+
+- **Primary source:** reuse the exact eighteen INVARIANT portrait images, maintaining the name-to-image mapping in its published implementation. Preserve source filenames or an explicit manifest mapping; never assign portraits by shuffled array order.
+- **First layer — contemporary:** current portraits appear as conventional, distinguished staff photography in a refined law-firm directory. A coherent but not mechanically identical editorial treatment; real-looking skin, eyes, hair, clothing, and backgrounds. Avoid monstrous facial distortions, glowing eyes, uncanny face morphs, or supernatural symbols.
+- **Second layer — archival:** selected portraits reappear in the estate as painted, engraved, daguerreotype, or early photographic records from different periods. They must remain unmistakably the **same individual** as their modern portrait, not a lookalike. Preserve distinctive facial structure; vary period clothing, pose, setting, and image medium. Do not create all eighteen archival variants by default: introduce only as many as the narrative earns.
+- **Third layer — impossible continuity:** use documentary evidence, portrait dates, room placement, and repetition to establish the impossible timeline. The viewer should notice the anomaly, not have it announced in a caption. Two portraits may represent separate visible sections of the one organism, never a simple before-and-after transformation.
+- **Visual system:** dark walnut and oxblood upholstery, aged gold frames, oil-paint patina, restrained natural light, subtle varnish cracks, credible archival print grain. The modern directory stays photorealistic; historical portraits adopt period-appropriate media. No blanket sepia filter, AI-smoothed faces, or cloned compositions.
+- **Composition:** portrait subjects framed from chest or waist upward with eyes and faces legible on a narrow phone. Favor consistent aspect ratio (3:4 or 4:5), intentional focal point, and no baked-in names or titles. Captions and brass labels remain responsive HTML.
+- **Continuity check:** compare each reused modern face with its archival variations at face-level, not just aesthetic similarity. Keep a source/variant mapping per identity and reject mismatches.
+- **Site rhythm:** avoid an undifferentiated eighteen-card wall on mobile. Use a curated handful in the first view, with accessible paths to all eighteen and meaningful discoveries in the portrait gallery, practice rooms, and archives.
+- **Revelation:** the eighteen are not eighteen sequential incarnations of one person. They coexist as simultaneous cross-sections of a four-dimensional being. Their repeated appearance across eras expresses persistence of the organism, not reincarnation.
+- **Implementation:** existing INVARIANT assets are reused by reference or copied with provenance when building; no new images, files, or website implementation are authorized by this spec alone.
+
 Their existing INVARIANT quotations offer thematic seeds, **not automatically approved ELDRITCH copy**:
 
 - Casey Bennett: “Forgiveness is a personal matter. Forgetting is not.”
