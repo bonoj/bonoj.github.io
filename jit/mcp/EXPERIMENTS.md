@@ -344,3 +344,11 @@ Local tests passed for owner-only access, pairing, cross-origin rejection, inval
 - Invoked `jit_invoke` with `{capability:"echo_text_v1",input:{text:"e5-baseline"},expected_revision:67108864}`. Live structured response: `{interface_version:1,revision:67108864,capability:"echo_text_v1",data:{text:"e5-baseline"}}`. **PASS: production backend discovery and invocation through the installed plugin, outside Work mode.**
 - This verifies the baseline, **not yet** independent backend-only deployment. Next: deploy a distinct read-only capability by changing only the Supabase function; then verify its discovery/invocation here while Site deployment and plugin release remain unchanged.
 - Exact tool-call UTC timestamps were not exposed in this conversation; date is the current conversation date, not a fabricated timestamp.
+
+## 2026-11-08 — E5 backend-only capability deployment verified (PASS)
+
+- Read the live Supabase `jit-mcp-capabilities` function: ACTIVE v3, `verify_jwt:true`, original `memory` function untouched. Baseline ordinary-chat plugin discovery had `backend_status:"available"`, registry revision `67108864`, and `echo_text_v1` invocation returned `e5-baseline`.
+- Deployed **only** Supabase function `jit-mcp-capabilities` as ACTIVE **v4**, preserving `verify_jwt:true`, same gateway authentication and bounded read-only behavior. Function SHA256 reported `47ba769fc0fb674f1ddb5b68c8235de1a29088bb40e01f146d2636969aeb901f`. Added typed `text_length_v1` (Unicode code-point count); backend revision incremented from 1 to 2. No Site or plugin deployment/update performed.
+- Immediately invoked installed `jit_capabilities` in this **ordinary ChatGPT conversation**. Returned `backend_status:"available"`, registry revision `134217728`, and discovered new `text_length_v1` with text input and integer output schema.
+- Invoked `jit_invoke` with `{capability:"text_length_v1",input:{text:"Hello 🐝"},expected_revision:134217728}`. Live structured response: `{interface_version:1,revision:134217728,capability:"text_length_v1",data:{value:7}}`. **PASS**.
+- E5 independent backend-only capability iteration is **verified**. Tool responses did not expose precise invocation UTC timestamps; no timestamps invented.
