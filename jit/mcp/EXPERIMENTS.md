@@ -511,3 +511,11 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 - Updated `MainActivity.java` at commit `ac429847e5cabb0ae0c96d6d6f96e7295b01b983`: replace single `InputStream.read` with complete buffered read of the bundled JS runtime; disable WebView debugging, multi-window support, file-URL cross-origin access.
 - Attempted to inspect GitHub Actions runs using available GitHub tools; only PR-filtered commit-run lookup and run-ID-specific endpoints were available, with no general workflow-run listing. The public GitHub workflow-run endpoint could not be retrieved. **No successful or failed Android build was observed**. Do not infer a build result.
 - **Still blocked at build verification**, before native transport/enrollment and remote update integration. No APK installation requested.
+
+
+## 2026-11-08 — Android CI green reported; typed native WebView executor committed
+
+- **USER-REPORTED:** GitHub Actions build became green after workflow SDK fixes, most recently commit `be2803466e595fcbd466136563a17ae2446ab71f`. This is evidence of a successful reported build, not independent APK installation/device testing. Earlier failures: obsolete `sdkmanager tools` requested by `android-actions/setup-android@v3`; then `sdkmanager` not on `PATH`. The workflow now resolves SDK manager from installed command-line tools.
+- Committed `BrowserExecutor.java` at `03ff69fe2aedd663ad9f9761210a34e4b0d46046`: typed local native dispatcher for observe, click, fill, scroll, back and HTTPS navigation, with bounded post-action re-observation and explicit errors. **A 350 ms delay is not proof of completion of arbitrary asynchronous site operations.** Navigation returns pending, not success.
+- Wired the Activity's local Inspect DOM control to `BrowserExecutor`, commit `5c8cde53d783a245953c306d8e5b26d6f6891292`. This subsequent source revision has **not yet been build-verified**.
+- **Still missing:** enrolled device auth, secure command/result queue, remote signed JS updates, ordinary-chat browser invocation, two-site acceptance. No one-time APK installation requested.
