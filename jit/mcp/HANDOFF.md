@@ -11,13 +11,13 @@
 - **VERIFIED:** Existing private JIT MCP plugin callable from ordinary Android ChatGPT; six unchanged MCP signatures; E5 authenticated Supabase backend-only capability evolution (echo and Unicode length). Existing gateway secret is provisioned; do not rotate or repeat `/setup`.
 - **VERIFIED historical:** E3/E4 device heartbeat, consented observation and revocation patterns; first-party command queue demo. Reuse patterns, **not** the demo's insecure authority or fake browser state.
 - **INSPECTED 2026-11-08:** Live Supabase `jit-mcp-capabilities` ACTIVE v4; text/integer-only capability schema, 2048-byte request limit. Repo `runtime/index.mjs` is stale; never deploy it blindly.
-- **NOT IMPLEMENTED:** Kotlin companion, installable APK, secure Android command/result transport, signed remote JS runtime, real third-party DOM automation, ordinary-chat end-to-end acceptance.
+- **IMPLEMENTED IN SOURCE (UNBUILT/UNVERIFIED):** Minimal Android WebView shell and GitHub Actions debug APK workflow under `jit/mcp/android/`. Local HTTPS navigation, WebView settings, Stop and diagnostic DOM observation are scaffolded; remote control remains disabled. **NOT IMPLEMENTED:** secure Android command/result transport, signed remote JS runtime, real third-party DOM automation, ordinary-chat end-to-end acceptance.
 - **NO HOST BLOCKER:** Railway was merely an optional cloud-host suggestion and is **not** required or a dependency.
 
 ## Next action — execute, do not redesign
 
 1. Inspect the live Site gateway source, Supabase function and experiment evidence. Preserve plugin identity, six tool signatures, secrets, and working E5.
-2. Implement `jit/mcp/android/` minimal Kotlin WebView companion and a GitHub Actions APK build. Native shell must support secure device enrollment, command execution, remote JS version verification/rollback, and visible stop.
+2. Continue the committed Android WebView **Java prototype** and GitHub Actions debug build: verify build first, then add secure enrollment, authenticated command execution, remote JS version verification/rollback, and visible stop. The spec calls for Kotlin; current scaffold is Java and should be converted or explicitly accepted before the first install.
 3. Extend existing authenticated gateway/Supabase transport and capability schemas for structured commands and completed results. Never acknowledge before device execution.
 4. Build/deploy JS DOM runtime and demonstrate a remotely shipped change without reinstalling the APK.
 5. Arrange **one** APK install/enrollment, then verify real navigate/observe/fill/click/observe from ordinary ChatGPT on two unrelated unmodified sites. Log UTC proof in `EXPERIMENTS.md`.
