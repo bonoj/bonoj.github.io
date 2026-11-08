@@ -22,7 +22,7 @@ export async function handle(req,secret){
   if(!equalSecret(req.headers.get("x-jit-gateway-secret"),secret))return json(401,{error:"unauthorized"});
   if(!/^application\/json(?:\s*;|$)/i.test(req.headers.get("content-type")||""))return json(415,{error:"unsupported_media_type"});
   const declared=req.headers.get("content-length");
-  if(declared!==null&&(!/^\\d+$/.test(declared)||Number(declared)>2048))return json(413,{error:"too_large"});
+  if(declared!==null&&(!/^\d+$/.test(declared)||Number(declared)>2048))return json(413,{error:"too_large"});
   let raw;try{raw=await req.text();}catch{return json(400,{error:"invalid_body"});}
   if(new TextEncoder().encode(raw).length>2048)return json(413,{error:"too_large"});
   let payload;try{payload=JSON.parse(raw);}catch{return json(400,{error:"invalid_json"});}
