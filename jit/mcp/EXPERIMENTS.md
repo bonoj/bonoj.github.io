@@ -526,3 +526,11 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 - Re-read live Supabase `jit-mcp-capabilities` v4: `verify_jwt:true`, gateway-secret authenticated, 2048-byte body limit, only `echo_text_v1` and `text_length_v1`. No browser capability or device queue exists. Queried database inventory: only `public.jit_page_commands` and `public.jit_page_demo` match JIT/device names; those belong to the earlier first-party demo and are not an authenticated browser-control plane.
 - Committed [`android/TRANSPORT.md`](android/TRANSPORT.md), commit `0a8c0c03c2d79bc4bee4e6b99a268c4c14a26474`, specifying authenticated account/device enrollment, private command/result model, lease/idempotence, explicit foreground consent, revoke, and signed JS runtime updates.
 - **Design contract only:** no new Supabase tables or functions deployed; no phone enrollment or remote command channel implemented. The existing E5 backend remains unchanged. Next implementation must prove the gateway's actual caller identity and deploy private authenticated transport before allowing any remote WebView action.
+
+
+## 2026-11-08 — Private browser transport database foundation deployed (VERIFIED SCHEMA; NO COMMAND SERVICE)
+
+- Created PostgreSQL schema `jit_browser` in Supabase project `iqglyokmcobegledbfcm`, with `devices`, `sessions`, and `commands` tables. Added foreign keys, expiration checks, command operation/status allowlists, JSON-object argument validation, and pending-command indexes.
+- Enabled RLS on all three tables and revoked direct schema/table privileges from `public`, `anon`, and `authenticated`. Independent PostgreSQL verification returned `rls_enabled=true`, `anon_select=false`, `authenticated_select=false` for all three tables.
+- **Not implemented:** device credential enrollment, service-to-service identity checks, atomic command claiming, authenticated Edge Function API, signed JS updates, or Android polling. No new public endpoint was exposed and no browser commands can be submitted or executed through this schema yet.
+- Preserved the existing `jit-mcp-capabilities` v4, gateway secret and first-party demo tables. Next: implement account/device authorization and authenticated claim/complete service before wiring the APK.
