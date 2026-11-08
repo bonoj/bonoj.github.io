@@ -480,3 +480,12 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 5. From **ordinary ChatGPT**, navigate/observe/fill/click/observe on two unrelated unmodified public websites, with real DOM-derived postconditions, plus revoke/offline tests. Record UTC timestamps, versions and outputs here. Do not mark VERIFIED before those tests.
 
 **Status: SPECIFIED / IMPLEMENTATION PENDING.** This entry is a decision record, not experimental proof. Future work must follow [HANDOFF.md](HANDOFF.md) → [ANDROID-WEBVIEW.md](ANDROID-WEBVIEW.md); do not resume the Railway/cloud-host path without explicit user direction.
+
+
+## 2026-11-08 — Android companion initial source scaffold (IMPLEMENTED IN REPO; BUILD UNVERIFIED)
+
+- Committed Android Gradle project under `jit/mcp/android/`: WebView Activity with HTTPS-only user-entered navigation, JavaScript enabled, DOM storage, file/content access disabled, mixed content blocked, visible stop/clear and a **local-only** `evaluateJavascript` DOM observation diagnostic. The Activity is currently **Java**, not the Kotlin called for in the spec; this must be resolved before the first intended installation.
+- Added `.github/workflows/jit-android.yml` to attempt `gradle :app:assembleDebug` and upload a short-lived debug APK artifact. Workflow commit `a48014942f6a4ab2d260dc56dc70a8fadfecf2cf`.
+- **Not verified:** workflow completion, Gradle compilation, APK artifact, physical-device operation. No installation requested. Debug builds are not the final signed once-install release channel.
+- **Not implemented:** authenticated device transport/enrollment, signed remotely updatable JS, browser commands through MCP, post-action observation, or arbitrary-site end-to-end acceptance. No remote commands are accepted by the prototype; no untrusted page-to-native bridge is exposed.
+- **Next:** verify/fix CI build, implement native secure transport and signed JS update path, then produce the single intended installable APK. Do **not** ask the user to install the prototype.
