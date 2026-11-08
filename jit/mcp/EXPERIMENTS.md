@@ -82,3 +82,11 @@ Tool inventory exposed `mcp__JIT_MCP__integration_ping` directly in this existin
 **Verified:** custom tool is callable from this ordinary conversation (no Work-mode transition). This is a live tool result, not a mock. The tool is available under the `JIT_MCP` namespace. **Not verified:** transport to Android device; `connected_device` is explicitly false. The GitHub `server.py` research probe is not established as the implementation behind the hosted plugin; do not conflate them.
 
 **Next gate E3:** inspect hosted plugin implementation and available editing tools, then implement an authenticated device-to-plugin transport. Avoid putting tokens or device observations in public JIT.
+
+## 2026-11-08 — Hosted plugin identity inspected
+
+Plugin Creator's owned-personal-plugin listing returned `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`, scope `USER`, discoverability `PRIVATE`, version `1.0.0`, release `PluginRelease_a2893093886481919da01bd918ca4504`. Read its two manifest files: `.app.json` and `.codex-plugin/plugin.json`. Display name is **JIT MCP**; website URL is `https://jit-mcp.bracedbuddy1.chatgpt.site`.
+
+**Architecture correction:** the installed callable tool is Site-backed, not proven to run the `jit/mcp/server.py` Python source in this repository. Treat that Python server as an independent integration probe, not the active implementation. Plugin Creator supports eligible edits to skill/support files, but App binding/MCP configuration must be preserved; hosted Site MCP tool implementation needs to be changed via the Site development environment.
+
+**E3 remains open:** no actual device transport, device enrollment, or authenticated communication yet. Do not mistake the hosted integration ping for device connectivity.
