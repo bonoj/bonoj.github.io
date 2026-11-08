@@ -4,14 +4,14 @@
 
 [Android companion](https://jit-mcp.bracedbuddy1.chatgpt.site/device) · [Experiments](EXPERIMENTS.md) · [E3 specification](E3-TRANSPORT.md) · [E4 specification](E4-OBSERVATION.md)
 
-Status: **E2–E4 verified on Android in ordinary ChatGPT. E5 stable tools verified; gateway deployed; shared credential and production dispatch proof pending.**
+Status: **E2–E5 verified, including authenticated backend-only capability iteration in ordinary ChatGPT. Arbitrary-site browser automation is SPECIFIED, NOT IMPLEMENTED.**
 
 ## Objective
 
 **Current product objective:** ordinary ChatGPT operates arbitrary uninstrumented websites through an authenticated, remotely hosted browser runtime. The Android companion and first-party Supabase demos are historical transport experiments, **not** the target product. The binding acceptance contract and anti-confusion rules are in [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md).
 
 
-The existing ChatGPT conversation supplies reasoning and agency. JIT MCP supplies deterministic communication with a user-authorized browser. No second model, paid inference service, or ongoing Work session is required.
+The existing ChatGPT conversation supplies reasoning and agency. The target is a **remotely hosted, assistant-controlled browser** accessible through the existing JIT MCP tools, without Work in routine use. Historical Android companion experiments remain documented but are not a prerequisite. See [canonical spec](BROWSER-AUTOMATION.md).
 
 ## Active implementation
 
@@ -39,7 +39,7 @@ A browser page does not provide Android OS, unrelated-tab DOM, screen capture, a
 
 ## Development
 
-Read README, EXPERIMENTS, CONTRACT and E3-TRANSPORT before continuing. Modify the existing Site source through Sites, then mirror reviewed source here. Never replace the plugin or overwrite its App binding.
+Read BROWSER-AUTOMATION first, then HANDOFF and EXPERIMENTS. For implementation, inspect live deployed source; the historical source mirrors may be stale. Modify the existing Site source through Sites, then mirror reviewed source here. Never replace the plugin or overwrite its App binding.
 
 `cd jit/mcp/site && node test.mjs` runs the dependency-free SQLite transport tests (Node 24). `node build.mjs` emits the Worker. `preview.mjs` is a local QA adapter with an explicit test identity and in-memory SQLite; it is **excluded from the production bundle**. Hosted production uses Sites-authenticated identity and D1.
 
@@ -47,4 +47,6 @@ The 10-minute TTL is enforced on all access. Physical expired-row deletion is op
 
 ## Independent capability backend (E5)
 
-Supabase project `iqglyokmcobegledbfcm` hosts a separate ACTIVE v2 `jit-mcp-capabilities` Edge Function with `verify_jwt:true`. The Site v7 gateway is deployed and holds the legacy anon JWT. Remote dispatch remains off until the shared gateway secret is configured on both services and the Site environment revision is applied. Source: [runtime/index.mjs](runtime/index.mjs). Run `node --test jit/mcp/runtime/index.test.mjs` from the repository root. The original `memory` function and Android transport are unchanged. See [HANDOFF.md](HANDOFF.md) for the one remaining integration task.
+**Verified in ordinary ChatGPT:** the existing Supabase gateway credential is configured; `jit_capabilities` discovered the production backend and `jit_invoke` called `echo_text_v1`. A **Supabase-only** deployment then added `text_length_v1`, discovered at revision `134217728`, and returned `7` for `Hello 🐝` without Site/plugin republishing. Do not repeat setup. See [EXPERIMENTS.md](EXPERIMENTS.md) and the [current HANDOFF](HANDOFF.md).
+
+**Important:** the repository `runtime/index.mjs` is an old mirror; inspect the live deployed function and Site gateway before editing. Existing E5 schema constraints must be evaluated for structured browser capabilities.
