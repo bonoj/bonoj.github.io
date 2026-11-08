@@ -1,6 +1,6 @@
 # E3 — Site-to-Android transport implementation brief
 
-Status: **implemented and deployed 2026-11-08; production tool invocation and Android pairing verification pending**.
+Status: **implemented, deployed and verified end-to-end on Android 2026-11-08**. See EXPERIMENTS for direct MCP readback.
 
 Implementation, deployment IDs, tested behavior and remaining limits are recorded in [EXPERIMENTS.md](EXPERIMENTS.md). Source mirror: [site/worker.mjs](site/worker.mjs).
 
