@@ -1,3 +1,19 @@
+# CURRENT HANDOFF — Android JIT MCP release discipline (2026-11-08)
+
+## Non-negotiable release contract
+
+**Only one canonical APK release workflow:** [`.github/workflows/jit-android.yml`](../../.github/workflows/jit-android.yml). It runs on Android/runtime changes and manual dispatch, runs `node --test jit/mcp/runtime/v6.test.mjs`, builds `:app:assembleDebug` using Gradle 8.10.2, signs with existing repository Actions secrets `JIT_APK_KEYSTORE_BASE64` and `JIT_APK_KEYSTORE_PASSWORD`, alias `jit-browser`, verifies with `apksigner verify --verbose --print-certs`, and uploads **`jit-android-signed`** containing **`jit-browser-signed.apk`**. It retains artifacts 14 days and fails on missing artifacts. Do not expose keystore, passwords or secret values.
+
+**Never substitute an unsigned build** (`app-release-unsigned.apk`), request that the user upload a CI ZIP, request a run URL/ID, create another competing APK workflow, or suggest uninstall/re-enrollment as an upgrade path. Inspect the repository's existing successful signed workflow and Actions artifact history FIRST. If artifact retrieval is unavailable to a particular connector, state the actual limitation; don't confuse that with the artifact not existing. A green workflow means CI tests, signing and signature verification passed, **not** physical-device acceptance.
+
+**Current changes:** restored canonical signed pipeline trigger (44c5485); added Node runtime regression gate, Gradle 8.10.2 and required signed artifact (164d2a3); deleted duplicate unsigned workflow (7e9f878). Those are committed changes, **not evidence that the newest signed run has completed**. Check Actions for actual green run and artifact before claiming ready.
+
+**Release acceptance:** verify signed APK exists and is nonempty; verify signature/certificate matches currently installed app, package ID and monotonically increasing versionCode; verify in-place upgrade preserving enrollment; check foreground session consent, ordinary ChatGPT observation/interactions, cross-origin denial, stop/revocation and v5 fallback. Record actual UTC evidence in EXPERIMENTS.md. A build passing CI is not proof of runtime v6 activation: signed runtime approval is a separate process; do not conflate APK signing and remote-JS signing.
+
+**Recovery procedure:** read this file, [README.md](README.md), [ANDROID-WEBVIEW.md](ANDROID-WEBVIEW.md), [INVARIANTS.md](INVARIANTS.md), [EXPERIMENTS.md](EXPERIMENTS.md), and canonical workflow; inspect latest signed Actions run and artifact. Fix the canonical workflow in place if broken. Do not ask the user to perform repository/CI retrieval steps the assistant can do. Request user action only for genuinely physical Android installation, foreground sharing and consent.
+
+---
+
 # E10 continued — 2026-11-08
 
 - Fixed v6+ signed operation manifest fallback: malformed/absent manifest now denies every operation; only older signed v5 uses the legacy compatibility list (commit 65f520c).
