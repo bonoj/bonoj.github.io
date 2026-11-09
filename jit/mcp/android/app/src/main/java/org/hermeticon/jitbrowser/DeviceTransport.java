@@ -53,6 +53,7 @@ final class DeviceTransport {
     private long pageEpoch;
     private String observationRevision;
     private boolean remoteExecution;
+    private boolean interactionConsent;
     private android.app.AlertDialog pendingApproval;
     private int generation;
     private boolean foreground;
@@ -108,7 +109,7 @@ final class DeviceTransport {
         });
     }
 
-    void start() {
+    void start(boolean allowInteractions) {
         final String origin = origin(web.getUrl());
         if (!foreground || token == null || origin == null || starting || session != null) {
             status.accept("Enroll and load a public HTTPS page before sharing.");
@@ -116,6 +117,7 @@ final class DeviceTransport {
         }
         final String credential = token;
         final int current = ++generation;
+        interactionConsent = false;
         starting = true;
         network.execute(() -> {
             JSONObject update = null;
@@ -133,6 +135,7 @@ final class DeviceTransport {
                     }
                     try { if (candidate != null) activate(candidate); } catch (Exception ignored) { }
                     approvedOrigin = origin;
+                    interactionConsent = allowInteractions;
                     session = id;
                     status.accept("Sharing page text from " + origin + " · runtime " + runtimeVersion);
                     poll(current,id,credential);
@@ -164,6 +167,7 @@ final class DeviceTransport {
         ++generation;
         observationRevision = null;
         remoteExecution = false;
+        interactionConsent = false;
         if (pendingApproval != null) { pendingApproval.dismiss(); pendingApproval = null; }
         String previous = session;
         session = null;
@@ -326,7 +330,7 @@ final class DeviceTransport {
                 complete(current,id,credential,commandId,result);
             });
         };
-        if (readOnly || "scroll".equals(operation)) { dispatch.run(); return; }
+        if (readOnly || "scroll".equals(operation) || interactionConsent && ("interact".equals(risk) || "navigate".equals(risk))) { dispatch.run(); return; }
         final boolean[] approved={false};
         android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(web.getContext())
             .setTitle("Allow remote browser "+operation+"?")
