@@ -68,3 +68,8 @@ The legacy `device_status` / `jit_observe` tools returned `unpaired` / `unavaila
 - Never label E6 complete based on commits, CI, successful enrollment, or sharing alone.
 
 **Next action at this checkpoint:** Confirm the current E6 session state in Supabase, then when the user explicitly shares again, invoke `browser_observe_v1` and `browser_result_v1` immediately. Diagnose any failure from actual command and session records. Avoid unnecessary re-enrollment.
+
+
+## E8 transport checkpoint
+
+E6 end-to-end and Stop were subsequently verified in ordinary ChatGPT. E7 phone links reached Supabase; the E8 Site now accepts the legacy links shape, covered by fixture tests. E8 Site/Supabase are deployed and the matching signed APK is built, but E8 phone/ordinary-chat acceptance is pending. For generic operations use `browser_command_v1` and `browser_result_v1`. Retain the existing enrollment and verify v4 before approving v5. See HANDOFF for exact current state.

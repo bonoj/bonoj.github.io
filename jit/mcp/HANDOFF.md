@@ -2,9 +2,9 @@
 
 E8 generalized the existing transport. See [E8-TRANSPORT-FOUNDATION.md](E8-TRANSPORT-FOUNDATION.md), [INVARIANTS.md](INVARIANTS.md), and [EXPERIMENTS.md](EXPERIMENTS.md) for verification. Existing enrollment, signing key, gateway credentials, and six-tool plugin remain in place.
 
-- Site deployment `appgdep_6af12f7d0ed88191957bdf85390a5528`, source `a75acd233ac580e7071aa016e6841195e115cf64`.
+- Supabase v7 and Site deployment `appgdep_6af12f7d0ed88191957bdf85390a5528`, source `a75acd233ac580e7071aa016e6841195e115cf64`.
 - E6 was verified end to end. E7 links are now accepted by the Site; fresh phone readback is still needed.
-- This one-time native host update negotiates protocol 1; older hosts retain E6/E7. Install in place using the existing signing identity; never uninstall, clear app data, or re-enroll.
+- This one-time native host update negotiates protocol 1; older hosts retain E6/E7. [Install the verified APK in place](https://chatgpt.com/library?file_id=libfile_b27ebdc776cc8191bab056279a046e7a&account_id=personal). [CI run](https://github.com/bonoj/bonoj.github.io/actions/runs/42551098507). Never uninstall, clear app data, or re-enroll.
 - Baseline signed runtime v4 handles observe and paginated links/content. The v5 candidate adds nested headings and bounded scroll. Its exact bytes are staged at `runtime/releases/v5.js`. Activation requires approving its version and SHA-256 in private `jit_browser.runtime_releases`. The existing Edge Function verifies the immutable URL bytes against that approval before signing with the existing key.
 - Command: `jit_invoke` capability `browser_command_v1`, input `{protocol_version:1,operation:"observe",schema_version:1,expected_revision:null,payload:{}}`. Retrieve its command ID with `browser_result_v1`. Scroll requires the returned observation revision and `payload:{delta:300}`. The envelope accepts other allowlisted operations, but v4/v5 do not implement their DOM semantics. Sensitive mutations require native confirmation.
 - Keep the real Android foreground session visible. Verify v4 readback, then approve the v5 candidate, stop/start sharing to fetch it, and verify headings plus a real scroll on a long public page. Finally stop sharing and verify a new command is denied. Do not mark E8 complete until ordinary-chat evidence is captured.
