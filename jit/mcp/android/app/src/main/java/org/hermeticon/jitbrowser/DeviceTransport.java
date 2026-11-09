@@ -85,7 +85,8 @@ final class DeviceTransport {
                 new SecureRandom().nextBytes(bytes);
                 String credential = hex(bytes);
                 JSONObject result = call(credential, object("operation","enroll","pairing_code",code));
-                if (!result.has("device_id")) throw new IllegalStateException();
+                if (result.has("error")) throw new IllegalStateException("Server: " + result.optString("error"));
+                if (!result.has("device_id")) throw new IllegalStateException("Enrollment response missing device_id");
                 saveToken(credential);
                 ui.post(() -> {
                     token = credential;
@@ -95,7 +96,7 @@ final class DeviceTransport {
             } catch (Exception failure) {
                 ui.post(() -> {
                     starting = false;
-                    if (generation == current && foreground) status.accept("Enrollment failed. Request a fresh code.");
+                    if (generation == current && foreground) status.accept("Enrollment failed: " + safeError(failure));
                 });
             }
         });
@@ -116,6 +117,7 @@ final class DeviceTransport {
             final JSONObject candidate = update;
             try {
                 JSONObject response = call(credential, object("operation","start","origin",origin));
+                if (response.has("error")) throw new IllegalStateException("Server: " + response.optString("error"));
                 final String id = response.getString("session_id");
                 ui.post(() -> {
                     starting = false;
@@ -132,7 +134,7 @@ final class DeviceTransport {
             } catch (Exception failure) {
                 ui.post(() -> {
                     starting = false;
-                    if (generation == current) status.accept("Could not start a foreground session.");
+                    if (generation == current) status.accept("Session failed: " + safeError(failure));
                 });
             }
         });
@@ -276,9 +278,19 @@ final class DeviceTransport {
         conn.setFixedLengthStreamingMode(bytes.length);
         try {
             try (java.io.OutputStream output = conn.getOutputStream()) { output.write(bytes); }
-            if (conn.getResponseCode() != 200) throw new IllegalStateException();
+            int http = conn.getResponseCode();
+            if (http != 200) throw new IllegalStateException("HTTP " + http);
             try (InputStream in = conn.getInputStream()) { return new JSONObject(read(in,8192)); }
         } finally { conn.disconnect(); }
+    }
+
+    private static String safeError(Exception error) {
+        String message = error.getMessage();
+        if (error instanceof java.net.SocketTimeoutException) return "Network timeout";
+        if (error instanceof java.net.UnknownHostException) return "Cannot resolve server";
+        if (error instanceof javax.net.ssl.SSLException) return "TLS connection failed";
+        if (message != null && (message.startsWith("HTTP ") || message.startsWith("Server: ") || message.equals("Enrollment response missing device_id"))) return message;
+        return "Network or device error (" + error.getClass().getSimpleName() + ")";
     }
 
     private SecretKey key() throws Exception {
