@@ -53,13 +53,17 @@ public final class MainActivity extends Activity {
         navigation.setOrientation(LinearLayout.HORIZONTAL);
         navigation.addView(address, new LinearLayout.LayoutParams(0, -2, 1));
         Button go = new Button(this);
-        go.setText("GO");
+        go.setText("Go");
+        go.setAllCaps(false);
         navigation.addView(go, new LinearLayout.LayoutParams(-2, -2));
         root.addView(navigation, new LinearLayout.LayoutParams(-1, -2));
         address.setText("https://example.com");
+        address.setSelectAllOnFocus(true);
         status = new TextView(this);
         status.setText("Sharing off");
         status.setTextColor(Color.BLACK);
+        status.setTextSize(12);
+        status.setPadding(12,4,12,4);
         root.addView(status, new LinearLayout.LayoutParams(-1, -2));
         browser = new WebView(this);
         browser.setWebViewClient(new WebViewClient() {
@@ -98,6 +102,8 @@ public final class MainActivity extends Activity {
         TextView sharing = new TextView(this);
         sharing.setText("Remote observation off");
         sharing.setTextColor(Color.BLACK);
+        sharing.setTextSize(12);
+        sharing.setPadding(12,4,12,4);
         root.addView(sharing);
         try { transport = new DeviceTransport(this,browser,sharing::setText); }
         catch (Exception failure) { sharing.setText("Transport unavailable"); }
@@ -132,6 +138,7 @@ public final class MainActivity extends Activity {
         pause.setOnClickListener(v -> transport.stop());
         root.addView(browser, new LinearLayout.LayoutParams(-1, 0, 1));
         LinearLayout bottom = new LinearLayout(this);
+        bottom.setPadding(4,4,4,4);
         bottom.setBackgroundColor(Color.WHITE);
         bottom.setGravity(android.view.Gravity.CENTER_VERTICAL);
         Button back = new Button(this); back.setText("‹"); back.setOnClickListener(v -> { if(browser.canGoBack()) browser.goBack(); });
@@ -145,11 +152,11 @@ public final class MainActivity extends Activity {
         root.addView(controls);
         Button inspect = new Button(this);
         inspect.setText("Inspect DOM locally");
-        root.addView(inspect, new LinearLayout.LayoutParams(-1, -2));
+        inspect.setVisibility(View.GONE);
         inspect.setOnClickListener(v -> observe());
         Button stop = new Button(this);
         stop.setText("Stop / clear browser");
-        root.addView(stop, new LinearLayout.LayoutParams(-1, -2));
+        stop.setVisibility(View.GONE);
         go.setOnClickListener(v -> navigate(address.getText().toString()));
         stop.setOnClickListener(v -> {
             if (transport != null) transport.stop();
