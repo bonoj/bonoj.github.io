@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'jit/mcp/android/**'
+      - 'jit/mcp/runtime/**'
       - '.github/workflows/jit-android.yml'
 jobs:
   build:
