@@ -218,14 +218,16 @@ public final class MainActivity extends Activity {
         if (browser.canGoBack()) browser.goBack(); else super.onBackPressed();
     }
 
-    @Override protected void onResume() {
-        super.onResume();
+    // onPause can occur while still visible in Android split-screen.
+    // Remote consent is tied to visibility, not input focus.
+    @Override protected void onStart() {
+        super.onStart();
         if (transport != null) transport.foreground(true);
     }
 
-    @Override protected void onPause() {
+    @Override protected void onStop() {
         if (transport != null) transport.foreground(false);
-        super.onPause();
+        super.onStop();
     }
 
     @Override protected void onDestroy() {
