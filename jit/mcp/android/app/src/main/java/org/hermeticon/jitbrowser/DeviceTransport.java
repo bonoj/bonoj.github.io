@@ -31,6 +31,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.net.ssl.HttpsURLConnection;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 final class DeviceTransport {
     private static final String ENDPOINT = "https://iqglyokmcobegledbfcm.supabase.co/functions/v1/jit-mcp-capabilities";
@@ -226,6 +227,7 @@ final class DeviceTransport {
                     result = object("origin",origin,"title",clip(dom.getString("title"),160),
                         "text",clip(dom.getString("text"),360),"observed_at",Instant.now().toString(),
                         "nonce",UUID.randomUUID().toString(),"runtime_version",runtimeVersion);
+                    if (runtimeVersion >= 3) result.put("links", safeLinks(dom.optJSONArray("links")));
                 }
             } catch (Exception failure) { result = object("error","invalid_runtime_result"); }
             complete(current,id,credential,commandId,result);
@@ -359,6 +361,25 @@ final class DeviceTransport {
         StringBuilder out = new StringBuilder(bytes.length*2);
         for (byte b : bytes) out.append(Character.forDigit((b&255)>>>4,16)).append(Character.forDigit(b&15,16));
         return out.toString();
+    }
+
+    private static JSONArray safeLinks(JSONArray source) throws Exception {
+        JSONArray out = new JSONArray();
+        if (source == null) return out;
+        for (int i=0;i<source.length() && out.length()<5;i++) {
+            JSONObject item = source.optJSONObject(i);
+            if (item == null) continue;
+            String label = item.optString("text","").trim();
+            String href = item.optString("href","");
+            if (label.isEmpty() || label.length()>60 || href.length()>160) continue;
+            try {
+                URI url = URI.create(href);
+                if (!(url.getScheme().equalsIgnoreCase("https") || url.getScheme().equalsIgnoreCase("http")) ||
+                    url.getHost()==null || url.getRawUserInfo()!=null) continue;
+                out.put(object("text",label,"href",href));
+            } catch (Exception ignored) { }
+        }
+        return out;
     }
 
     private static String clip(String value,int max) {
