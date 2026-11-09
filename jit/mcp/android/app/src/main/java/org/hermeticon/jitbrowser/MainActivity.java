@@ -100,7 +100,7 @@ public final class MainActivity extends Activity {
         settings.setJavaScriptCanOpenWindowsAutomatically(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         TextView sharing = new TextView(this);
-        sharing.setText("Remote observation off");
+        sharing.setText("Remote browser control off");
         sharing.setTextColor(Color.BLACK);
         sharing.setTextSize(12);
         sharing.setPadding(12,4,12,4);
@@ -111,7 +111,7 @@ public final class MainActivity extends Activity {
         Button enroll = new Button(this);
         enroll.setText("Enroll");
         Button share = new Button(this);
-        share.setText("Share page text");
+        share.setText("Share browser");
         Button pause = new Button(this);
         pause.setText("Stop sharing");
         for (Button button : new Button[]{enroll,share,pause}) {
@@ -132,9 +132,9 @@ public final class MainActivity extends Activity {
                 }).show();
         });
         share.setOnClickListener(v -> new android.app.AlertDialog.Builder(this)
-            .setTitle("Share visible page text with JIT MCP?")
-            .setMessage("Only the current website is approved. Sharing stops when you leave the app or tap Stop sharing.")
-            .setNegativeButton("Cancel",null).setPositiveButton("Share",(dialog,which)->transport.start()).show());
+            .setTitle("Allow JIT MCP to operate this website?")
+            .setMessage("During this foreground session, ChatGPT may read the current HTTPS origin, follow links, navigate and change ordinary form fields without repeated prompts. Cross-origin control and consequential submissions remain blocked. Tap Stop sharing to revoke immediately.")
+            .setNegativeButton("Cancel",null).setPositiveButton("Share and allow interactions",(dialog,which)->transport.start(true)).show());
         pause.setOnClickListener(v -> transport.stop());
         root.addView(browser, new LinearLayout.LayoutParams(-1, 0, 1));
         LinearLayout bottom = new LinearLayout(this);
