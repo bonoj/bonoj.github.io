@@ -337,7 +337,7 @@ final class DeviceTransport {
         });
         pendingApproval=dialog;
         dialog.show();
-        ui.postDelayed(()->{if (pendingApproval==dialog) dialog.dismiss();},5000);
+        ui.postDelayed(()->{if (pendingApproval==dialog) dialog.dismiss();},30000);
     }
 
     private static boolean boundedPayload(JSONObject value) {
@@ -382,7 +382,7 @@ final class DeviceTransport {
         int version = release.getInt("version");
         String source = release.getString("script");
         if (version < 2 || version < settings.getInt("highest_runtime",1) ||
-            release.getInt("min_host") != 1 || source.getBytes(StandardCharsets.UTF_8).length > 4096) return;
+            release.getInt("min_host") != 1 || source.getBytes(StandardCharsets.UTF_8).length > 262144) return;
         String digest = hex(MessageDigest.getInstance("SHA-256").digest(source.getBytes(StandardCharsets.UTF_8)));
         if (!digest.equals(release.getString("sha256"))) return;
         String highestDigest=settings.getString("highest_digest",null);
@@ -419,7 +419,7 @@ final class DeviceTransport {
             try (java.io.OutputStream output = conn.getOutputStream()) { output.write(bytes); }
             int http = conn.getResponseCode();
             if (http != 200) throw new IllegalStateException("HTTP " + http);
-            try (InputStream in = conn.getInputStream()) { return new JSONObject(read(in,8192)); }
+            try (InputStream in = conn.getInputStream()) { return new JSONObject(read(in,524288)); }
         } finally { conn.disconnect(); }
     }
 
