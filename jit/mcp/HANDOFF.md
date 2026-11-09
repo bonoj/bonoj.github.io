@@ -2,11 +2,15 @@
 
 **Start here:** [ANDROID-WEBVIEW.md](ANDROID-WEBVIEW.md) is the **binding, noise-free specification** for the current implementation. Read it first. [EXPERIMENTS.md](EXPERIMENTS.md) is the evidence log. [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md) documents the earlier cloud-browser proposal; its hosted-Chromium and no-Android assumptions are **superseded**.
 
+## Latest checkpoint — E6 observation transport deployed
+
+Site deployment `appgdep_6af115a40e10819180dc38526469a281` and Supabase function v5 are live. E5 readback still works. The Android source now implements one-time enrollment, foreground observation and signed JS verification. The phone acceptance remains open. First verify the Actions APK for the E6 commit, then install once. In ordinary ChatGPT request `jit_invoke({capability:"browser_pair_v1",input:{}})`, enter its short-lived code in the companion, open a public HTTPS site, and tap **Share page text**. With the companion still foreground, invoke `browser_observe_v1`, then `browser_result_v1` with the returned command ID. Record the fresh DOM text, nonce, UTC timestamp and runtime version. Test Stop sharing. This release queues observation only.
+
 ## Non-negotiable target
 
 **One Android APK installation. Then ordinary ChatGPT controls a real WebView on the phone and iterates browser automation by remotely updating JavaScript.** No routine Work, Railway, paid Chromium host, Chrome pairing, manual relays, or repeat sideloading. A future native update may be unavoidable for native defects or API changes; do not conceal that limitation.
 
-## Verified vs missing
+## Pre-E6 history
 
 - **VERIFIED:** Existing private JIT MCP plugin callable from ordinary Android ChatGPT; six unchanged MCP signatures; E5 authenticated Supabase backend-only capability evolution (echo and Unicode length). Existing gateway secret is provisioned; do not rotate or repeat `/setup`.
 - **VERIFIED historical:** E3/E4 device heartbeat, consented observation and revocation patterns; first-party command queue demo. Reuse patterns, **not** the demo's insecure authority or fake browser state.
@@ -14,7 +18,7 @@
 - **IMPLEMENTED IN SOURCE (UNBUILT/UNVERIFIED):** Minimal Android WebView shell and GitHub Actions debug APK workflow under `jit/mcp/android/`. Local HTTPS navigation, WebView settings, Stop and diagnostic DOM observation are scaffolded; a versioned JS DOM runtime is committed in `android/runtime/dom-v1.js` and packaged as an offline app asset. The local **Inspect DOM** control invokes it through `evaluateJavascript` and displays a bounded diagnostic; **not compiled/device verified**, and no remote commands or updates are enabled. Remote control remains disabled. **NOT IMPLEMENTED:** secure Android command/result transport, signed remote JS runtime, real third-party DOM automation, ordinary-chat end-to-end acceptance.
 - **NO HOST BLOCKER:** Railway was merely an optional cloud-host suggestion and is **not** required or a dependency.
 
-## Next action — execute, do not redesign
+## Original E6 implementation checklist
 
 1. Inspect the live Site gateway source, Supabase function and experiment evidence. Preserve plugin identity, six tool signatures, secrets, and working E5.
 2. Continue the committed Android WebView **Java prototype** and GitHub Actions debug build. **Build status is unknown**: the available GitHub integration cannot list workflow runs, and the public runs endpoint was inaccessible. Verify build via a workflow run link/log or a build-capable environment; do not assume success. Then add secure enrollment, authenticated command execution, remote JS version verification/rollback, and visible stop. The spec calls for Kotlin; current scaffold is Java and should be converted or explicitly accepted before the first install. The spec calls for Kotlin; current scaffold is Java and should be converted or explicitly accepted before the first install.

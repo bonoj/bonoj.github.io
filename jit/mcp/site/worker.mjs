@@ -306,7 +306,40 @@ void check();
 `;
 const backendUrl = 'https://iqglyokmcobegledbfcm.supabase.co/functions/v1/jit-mcp-capabilities';
 const backendText = objectSchema({text:{type:'string',maxLength:256}},['text']);
+const browserId = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
+const isBrowserId = value=>typeof value==='string' && browserId.test(value);
+const transportErrors = new Set(['foreground_session_required','command_not_found','command_expired',
+ 'session_unavailable','command_in_progress','transport_unavailable','invalid_owner','invalid_input']);
+const executionErrors = new Set(['document_unavailable','invalid_runtime_result','observation_rejected','execution_timeout']);
+function transportError(value) {
+ return fields(value,['error'],['error']) && transportErrors.has(value.error);
+}
+function commandResult(value) {
+ if (transportError(value)) return true;
+ if (!fields(value,['command_id','status','result'],['command_id','status']) ||
+     !isBrowserId(value.command_id) || !['pending','claimed','completed','failed'].includes(value.status)) return false;
+ if (value.status==='pending'||value.status==='claimed') return value.result==null;
+ const r=value.result;
+ if (value.status==='failed') return fields(r,['error'],['error']) && executionErrors.has(r.error);
+ return fields(r,['origin','title','text','observed_at','nonce','runtime_version'],['origin','title','text','observed_at','nonce','runtime_version']) &&
+  typeof r.origin==='string' && r.origin.length<=253 && /^https:\/\/[a-z0-9.-]+$/.test(r.origin) &&
+  typeof r.title==='string' && r.title.length<=160 && typeof r.text==='string' && r.text.length<=360 &&
+  typeof r.observed_at==='string' && Number.isFinite(Date.parse(r.observed_at)) && isBrowserId(r.nonce) &&
+  Number.isSafeInteger(r.runtime_version) && r.runtime_version>=1;
+}
+async function browserOwner(user) {
+ const hash=new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('jit-browser-owner-v1:'+user)));
+ const hex=Array.from(hash.slice(0,16),b=>b.toString(16).padStart(2,'0')).join('');
+ return [hex.slice(0,8),hex.slice(8,12),hex.slice(12,16),hex.slice(16,20),hex.slice(20)].join('-');
+}
 const backendTypes = {
+ empty:{schema:emptySchema,validate:value=>fields(value,[])},
+ command_ref:{schema:objectSchema({command_id:{type:'string',pattern:browserId.source}},['command_id']),
+  validate:value=>fields(value,['command_id'],['command_id']) && isBrowserId(value.command_id)},
+ pairing:{schema:{type:'object'},validate:value=>transportError(value) ||
+  (fields(value,['pairing_code','expires_in_seconds'],['pairing_code','expires_in_seconds']) &&
+   typeof value.pairing_code==='string' && /^[0-9a-f]{32}$/.test(value.pairing_code) && value.expires_in_seconds===300)},
+ command:{schema:{type:'object'},validate:commandResult},
  text: {schema:backendText,validate:value=>fields(value,['text'],['text']) &&
   typeof value.text==='string' && value.text.length<=256},
  integer: {schema:integerObject,validate:value=>fields(value,['value'],['value']) && isInteger(value.value)},
@@ -316,7 +349,7 @@ const revisionBase = 2 ** 26;
 class BackendFailure extends Error {
  constructor(code) {super(code);this.code=code;}
 }
-async function backendRequest(env,payload,candidate) {
+async function backendRequest(env,payload,candidate,owner) {
  const gateway = candidate ?? await gatewaySecret(env);
  if (!gateway) throw new BackendFailure('backend_secret_missing');
  let response;
@@ -326,7 +359,7 @@ async function backendRequest(env,payload,candidate) {
   response = await fetch(backendUrl,{
    method:'POST',redirect:'manual',signal:controller.signal,
    headers:{'Content-Type':'application/json',Authorization:'Bearer '+env.JIT_MCP_SUPABASE_JWT,
-    'X-JIT-Gateway-Secret':gateway},
+    'X-JIT-Gateway-Secret':gateway,...(owner?{'X-JIT-Browser-Owner':owner}:{})},
    body:JSON.stringify(payload),
   });
  } catch (error) {
@@ -387,7 +420,8 @@ async function routedCapability(env,user,name,args) {
   result.revision = backend.revision*revisionBase + config.revision;
   for (const entry of backend.capabilities) {
    result.capabilities.push({name:entry.name,description:entry.description,tool:'jit_invoke',
-    risk:'read_only',permission:'authenticated_owner',consent:'none',
+    risk:entry.name==='browser_pair_v1'?'enrollment':entry.name==='browser_observe_v1'?'read_only_observation':'read_only',
+    permission:'authenticated_owner',consent:entry.name==='browser_observe_v1'?'foreground_origin_approval':'none',
     rate_limit:{limit:60,window_seconds:60,shared:true},
     input_schema:backendTypes[entry.input].schema,output_schema:backendTypes[entry.output].schema});
   }
@@ -419,9 +453,10 @@ async function routedCapability(env,user,name,args) {
  }
  if (!backendTypes[remote.input].validate(args.input)) return {error:'invalid_input'};
  try {
-  const reply = await backendRequest(env,{operation:'invoke',capability:remote.name,input:args.input});
+  const reply = await backendRequest(env,{operation:'invoke',capability:remote.name,input:args.input},undefined,remote.name.startsWith('browser_')?await browserOwner(user):undefined);
   if (reply.revision!==backend.revision) return {error:'revision_mismatch'};
   if (reply.capability!==remote.name || !backendTypes[remote.output].validate(reply.data)) return {error:'invalid_output'};
+  if (remote.name.startsWith('browser_') && transportError(reply.data)) return {error:reply.data.error};
   return {interface_version:interfaceVersion,revision:result.revision,capability:remote.name,data:reply.data};
  } catch {return {error:'backend_unavailable'};}
 }

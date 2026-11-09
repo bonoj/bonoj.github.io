@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.io.ByteArrayOutputStream;
 
 /**
- * Local-only browser shell. Remote command transport is intentionally NOT enabled.
+ * Foreground browser shell with explicitly approved read-only observation.
  * No JS interface is exposed to untrusted websites.
  */
 public final class MainActivity extends Activity {
@@ -29,6 +29,7 @@ public final class MainActivity extends Activity {
     private EditText address;
     private long revision = 0;
     private BrowserExecutor executor;
+    private DeviceTransport transport;
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -43,11 +44,21 @@ public final class MainActivity extends Activity {
         go.setText("Navigate");
         root.addView(go, new LinearLayout.LayoutParams(-1, -2));
         status = new TextView(this);
-        status.setText("Local browser only — remote control not connected");
+        status.setText("Sharing off");
         status.setTextColor(Color.BLACK);
         root.addView(status, new LinearLayout.LayoutParams(-1, -2));
         browser = new WebView(this);
         browser.setWebViewClient(new WebViewClient() {
+            @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                if (!request.isForMainFrame()) return false;
+                String url = request.getUrl().toString();
+                if (transport != null) transport.navigation(url);
+                return DeviceTransport.origin(url) == null;
+            }
+            @Override public void onPageStarted(WebView view, String url, android.graphics.Bitmap icon) {
+                if (transport != null) transport.navigation(url);
+                if (executor != null) executor.invalidate();
+            }
             @Override public void onPageFinished(WebView view, String url) {
                 revision++;
                 if (executor != null) executor.invalidate();
@@ -70,6 +81,42 @@ public final class MainActivity extends Activity {
         settings.setAllowContentAccess(false);
         settings.setJavaScriptCanOpenWindowsAutomatically(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+        TextView sharing = new TextView(this);
+        sharing.setText("Remote observation off");
+        sharing.setTextColor(Color.BLACK);
+        root.addView(sharing);
+        try { transport = new DeviceTransport(this,browser,sharing::setText); }
+        catch (Exception failure) { sharing.setText("Transport unavailable"); }
+        LinearLayout controls = new LinearLayout(this);
+        Button enroll = new Button(this);
+        enroll.setText("Enroll");
+        Button share = new Button(this);
+        share.setText("Share page text");
+        Button pause = new Button(this);
+        pause.setText("Stop sharing");
+        for (Button button : new Button[]{enroll,share,pause}) {
+            controls.addView(button,new LinearLayout.LayoutParams(0,-2,1));
+            button.setEnabled(transport != null);
+        }
+        enroll.setOnClickListener(v -> {
+            EditText code = new EditText(this);
+            code.setSingleLine(true);
+            code.setHint("One-time enrollment code");
+            code.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            new android.app.AlertDialog.Builder(this).setTitle("Enroll this companion")
+                .setView(code).setNegativeButton("Cancel",null)
+                .setPositiveButton("Enroll",(dialog,which)->{
+                    String value=code.getText().toString().trim();
+                    code.setText("");
+                    transport.enroll(value);
+                }).show();
+        });
+        share.setOnClickListener(v -> new android.app.AlertDialog.Builder(this)
+            .setTitle("Share visible page text with JIT MCP?")
+            .setMessage("Only the current website is approved. Sharing stops when you leave the app or tap Stop sharing.")
+            .setNegativeButton("Cancel",null).setPositiveButton("Share",(dialog,which)->transport.start()).show());
+        pause.setOnClickListener(v -> transport.stop());
+        root.addView(controls);
         root.addView(browser, new LinearLayout.LayoutParams(-1, 0, 1));
         Button inspect = new Button(this);
         inspect.setText("Inspect DOM locally");
@@ -80,19 +127,19 @@ public final class MainActivity extends Activity {
         root.addView(stop, new LinearLayout.LayoutParams(-1, -2));
         go.setOnClickListener(v -> navigate(address.getText().toString()));
         stop.setOnClickListener(v -> {
+            if (transport != null) transport.stop();
             if (executor != null) executor.invalidate();
             browser.stopLoading();
             browser.loadUrl("about:blank");
             browser.clearHistory();
-            status.setText("Stopped · remote control not connected");
+            status.setText("Stopped");
         });
         setContentView(root);
     }
 
     private void navigate(String raw) {
         String url = raw.trim();
-        android.net.Uri parsed = android.net.Uri.parse(url);
-        if (!"https".equalsIgnoreCase(parsed.getScheme()) || parsed.getHost() == null) {
+        if (DeviceTransport.origin(url) == null) {
             status.setText("Only absolute HTTPS URLs are supported");
             return;
         }
@@ -134,7 +181,18 @@ public final class MainActivity extends Activity {
         if (browser.canGoBack()) browser.goBack(); else super.onBackPressed();
     }
 
+    @Override protected void onResume() {
+        super.onResume();
+        if (transport != null) transport.foreground(true);
+    }
+
+    @Override protected void onPause() {
+        if (transport != null) transport.foreground(false);
+        super.onPause();
+    }
+
     @Override protected void onDestroy() {
+        if (transport != null) transport.destroy();
         browser.destroy();
         super.onDestroy();
     }
