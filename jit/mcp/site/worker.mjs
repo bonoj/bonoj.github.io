@@ -321,7 +321,13 @@ function commandResult(value) {
  if (value.status==='pending'||value.status==='claimed') return value.result==null;
  const r=value.result;
  if (value.status==='failed') return fields(r,['error'],['error']) && executionErrors.has(r.error);
- return fields(r,['origin','title','text','observed_at','nonce','runtime_version'],['origin','title','text','observed_at','nonce','runtime_version']) &&
+ const hasLinks=Object.hasOwn(r,'links');
+ if (hasLinks && (!Array.isArray(r.links) || r.links.length>5 ||
+  !r.links.every(link=>fields(link,['text','href'],['text','href']) &&
+   typeof link.text==='string' && link.text.length>0 && link.text.length<=60 &&
+   typeof link.href==='string' && link.href.length<=160 &&
+   (()=>{try{const u=new URL(link.href);return ['http:','https:'].includes(u.protocol)&&!!u.hostname&&!u.username&&!u.password;}catch{return false;}})()))) return false;
+ return fields(r,hasLinks?['origin','title','text','observed_at','nonce','runtime_version','links']:['origin','title','text','observed_at','nonce','runtime_version'],['origin','title','text','observed_at','nonce','runtime_version']) &&
   typeof r.origin==='string' && r.origin.length<=253 && /^https:\/\/[a-z0-9.-]+$/.test(r.origin) &&
   typeof r.title==='string' && r.title.length<=160 && typeof r.text==='string' && r.text.length<=360 &&
   typeof r.observed_at==='string' && Number.isFinite(Date.parse(r.observed_at)) && isBrowserId(r.nonce) &&
