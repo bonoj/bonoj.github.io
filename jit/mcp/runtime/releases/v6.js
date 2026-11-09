@@ -1,3 +1,4 @@
+/* JIT_OPERATION_CLASSES {"observe":"read","extract":"read","scroll":"interact","click":"interact","fill":"interact","select":"interact","navigate":"navigate","back":"navigate","forward":"navigate","submit":"consequential"} */
 (function(command){
 "use strict";
 if(document.readyState!=="complete"||location.protocol!=="https:")return {error:"document_unavailable"};
