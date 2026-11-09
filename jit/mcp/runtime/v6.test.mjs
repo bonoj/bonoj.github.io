@@ -16,7 +16,7 @@ test('v6 runtime is executable, HTTPS scoped, and covers navigation and forms',(
  controls.push(text,check,select);links.push(link);blocks.push(make('H1',{innerText:'Fixture'}));
  const location={protocol:'https:',origin:'https://example.com',href:'https://example.com/',assign(url){this.lastNavigation=url}};
  const context={document:{readyState:'complete',title:'Fixture',forms:[],querySelectorAll:q=>q.startsWith('input,')?controls:q==='a[href]'?links:q.startsWith('h1,')?blocks:[]},location,getComputedStyle:()=>({visibility:'visible',display:'block'}),URL,Event:class{},HTMLInputElement:class{},HTMLTextAreaElement:class{},scrollY:0,scrollBy:()=>{},history:{back(){this.didBack=true},forward(){this.didForward=true}}};
- Object.defineProperty(context.HTMLInputElement.prototype,'value',{set(v){this._value=v}});
+ Object.defineProperty(context.HTMLInputElement.prototype,'value',{set(v){this._value=v;this.value=v}});
  const run=vm.runInNewContext(source,context);
  const cmd=(operation,payload={})=>run({schema_version:1,operation,payload});
  assert.equal(cmd('observe').kind,'browser.observation');
