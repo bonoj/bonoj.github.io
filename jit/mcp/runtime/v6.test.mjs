@@ -21,6 +21,7 @@ test('v6 runtime is executable, HTTPS scoped, and covers navigation and forms',(
  const cmd=(operation,payload={})=>run({schema_version:1,operation,payload});
  assert.equal(cmd('observe').kind,'browser.observation');
  assert.equal(cmd('inspect_metadata').payload.metadata.control_count,3);
+ assert.equal(cmd('extract',{extension:'inspect_metadata'}).payload.metadata.control_count,3);
  const extracted=cmd('extract',{collection:'controls',limit:8,cursor:null}).payload;
  assert.equal(extracted.total,3);
  assert.equal(extracted.next_cursor,null);
