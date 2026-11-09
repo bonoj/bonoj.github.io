@@ -13,15 +13,15 @@ const linkItems=anchors.flatMap((e,i)=>{const href=safeUrl(e.href);const text=la
 const controlItems=controls.flatMap((e,i)=>{if(isSensitive(e))return [];const type=clean(e.getAttribute("type")||e.tagName.toLowerCase(),24).toLowerCase();const name=label(e);return [{ref:"c"+i,role:clean(e.getAttribute("role")||e.tagName.toLowerCase(),24),type,label:name,required:!!e.required,disabled:!!e.disabled,checked:!!e.checked}]});
 const forms=Array.from(document.forms).filter(visible).slice(0,40).map((f,i)=>({ref:"f"+i,method:clean(f.method,12),action:safeUrl(f.action)||"",controls:controls.filter(e=>e.form===f).length}));
 const title=clean(document.title,160),text=clean(blocks.slice(0,12).map(e=>e.innerText).join(" "),360);
-const common={origin:location.origin,title,text,links:linkItems.slice(0,5).map(({text,href})=>({text,href}))};
+const common={origin:location.origin,title,text:text.slice(0,120),links:linkItems.slice(0,1).map(({text,href})=>({text,href}))};
 if(!command)return common;
 if(command.schema_version!==1)return {error:"unsupported_operation"};
 const result=(kind,payload)=>({...common,kind,schema_version:1,payload});
 const op=command.operation,p=command.payload||{};
-if(op==="observe")return result("browser.observation",{page:{title,excerpt:text},outline:{headings:blocks.filter(e=>/^H[12]$/.test(e.tagName)).slice(0,4).map(e=>({level:Number(e.tagName[1]),label:clean(e.innerText,60)}))},forms:forms.slice(0,2),control_count:controlItems.length,link_count:linkItems.length,links:linkItems.slice(0,2)});
+if(op==="observe")return result("browser.observation",{page:{title,excerpt:text},outline:{headings:blocks.filter(e=>/^H[12]$/.test(e.tagName)).slice(0,4).map(e=>({level:Number(e.tagName[1]),label:clean(e.innerText,60)}))},forms:forms.slice(0,1),control_count:controlItems.length,link_count:linkItems.length,links:linkItems.slice(0,2)});
 if(op==="extract"){
  const collections={links:linkItems,controls:controlItems,forms,content:blocks.map(e=>({text:clean(e.innerText,140)})),options:controls.flatMap((e,i)=>e.tagName==="SELECT"?Array.from(e.options).slice(0,20).map((o,j)=>({control_ref:"c"+i,option_ref:"o"+i+"_"+j,label:clean(o.text,70),selected:o.selected,disabled:o.disabled})):[]),messages:Array.from(document.querySelectorAll("[role=alert],[aria-live],.error,.invalid-feedback")).filter(visible).slice(0,20).map(e=>({text:clean(e.innerText,140)}))};
- if(!Object.prototype.hasOwnProperty.call(collections,p.collection)||!Number.isInteger(p.limit)||p.limit<1||p.limit>4||(p.cursor!==null&&(!Number.isInteger(p.cursor)||p.cursor<0||p.cursor>400)))return {error:"observation_rejected"};
+ if(!Object.prototype.hasOwnProperty.call(collections,p.collection)||!Number.isInteger(p.limit)||p.limit<1||p.limit>8||(p.cursor!=null&&(!Number.isInteger(p.cursor)||p.cursor<0||p.cursor>400)))return {error:"observation_rejected"};
  const items=collections[p.collection],start=p.cursor||0,end=start+p.limit;
  return result("browser.observation",{collection:p.collection,items:items.slice(start,end),next_cursor:end<items.length?end:null,total:items.length});
 }
@@ -32,10 +32,10 @@ if(op==="click"){
  const index=Number(p.ref.slice(1)),e=p.ref[0]==="l"?anchors[index]:controls[index];
  if(!e||!e.isConnected||!visible(e)||e.disabled)return {error:"target_unavailable"};
  if(e.tagName==="A"&&(!safeUrl(e.href)||p.href&&safeUrl(e.href)!==p.href))return {error:"target_unavailable"};
- if(e.matches("button[type=submit],input[type=submit]")||e.closest("form")&&e.matches("[type=submit]"))return {error:"submit_requires_confirmation"};
+ if(e.matches("button[type=submit],input[type=submit],button:not([type]),input[type=image]")||e.closest("form")&&e.matches("[type=submit]"))return {error:"submit_requires_confirmation"};
  e.click();return result("browser.action",{action:"click",state:"initiated",ref:p.ref});
 }
-if(op==="fill"){
+if(op==="fill"&&p.option_ref===undefined&&p.checked===undefined){
  if(typeof p.ref!=="string"||!/^c\d{1,3}$/.test(p.ref)||typeof p.value!=="string"||p.value.length>512)return {error:"observation_rejected"};
  const e=controls[Number(p.ref.slice(1))];
  if(!e||!e.isConnected||!visible(e)||e.disabled||e.readOnly||isSensitive(e)||!e.matches("input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea"))return {error:"target_unavailable"};
@@ -43,7 +43,7 @@ if(op==="fill"){
  if(!setter)return {error:"unsupported_operation"};setter.call(e,p.value);e.dispatchEvent(new Event("input",{bubbles:true}));e.dispatchEvent(new Event("change",{bubbles:true}));
  return result("browser.action",{action:"fill",ref:p.ref,accepted:e.value===p.value,length:e.value.length});
 }
-if(op==="select"){
+if(op==="select"||op==="fill"&&p.option_ref!==undefined||op==="fill"&&p.checked!==undefined){
  if(typeof p.ref!=="string"||!/^c\\d{1,3}$/.test(p.ref))return {error:"observation_rejected"};
  const e=controls[Number(p.ref.slice(1))];
  if(!e||!e.isConnected||!visible(e)||e.disabled||isSensitive(e))return {error:"target_unavailable"};
@@ -62,5 +62,7 @@ if(op==="select"){
  }
  return {error:"unsupported_operation"};
 }
+if(op==="navigate"){if(typeof p.url!=="string"||!safeUrl(p.url)||new URL(p.url).origin!==location.origin)return {error:"observation_rejected"};location.assign(p.url);return result("browser.action",{action:"navigate",state:"initiated"});}
+if(op==="back"||op==="forward"){history[op==="back"?"back":"forward"]();return result("browser.action",{action:op,state:"initiated"});}
 return {error:"unsupported_operation"};
 })
