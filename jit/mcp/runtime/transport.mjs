@@ -44,7 +44,7 @@ export function validDeviceBody(body) {
    const result = body.result;
    if (e8Result(result)) return Math.abs(Date.now()-Date.parse(result.observed_at))<15000;
    if (!result || typeof result!=='object') return false;
-   if (fields(result,['error'])) return ['document_unavailable','invalid_runtime_result','observation_rejected','execution_timeout','unsupported_operation','stale_observation','confirmation_required','user_denied','payload_too_large'].includes(result.error);
+   if (fields(result,['error'])) return ['document_unavailable','invalid_runtime_result','observation_rejected','execution_timeout','unsupported_operation','stale_observation','confirmation_required','user_denied','payload_too_large','navigation_initiated','target_unavailable','submit_requires_confirmation'].includes(result.error);
    const hasLinks=Object.hasOwn(result,'links');
    if (hasLinks && (!Array.isArray(result.links) || result.links.length>5 ||
       !result.links.every(link=>fields(link,['text','href']) && typeof link.text==='string' &&
