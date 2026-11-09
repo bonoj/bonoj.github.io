@@ -1,3 +1,12 @@
+# E10 foundation update — 2026-11-08 (not yet accepted)
+
+**Committed:** DeviceTransport signed-source operation class manifest (read, interact, navigate, consequential) with deny-by-default unknown classes and no consequential execution, preserving legacy v5 fallback. v6 source declares the classes in its signed bytes, adds inspect_metadata as a new operation and also exposes it through the existing extract carrier. Edge transport protocol.mjs no longer hardcodes operation names; Edge Function v9 deployed ACTIVE with JWT preserved. Android version 0.4.0 (versionCode 4). GitHub Actions workflow .github/workflows/jit-mcp-android-build.yml added with Node v6 fixture gate and unsigned release APK artifact. **Workflow result, actual APK artifact and signing are not yet verified.**
+
+**Critical discovered limitation:** Ordinary ChatGPT Site's published browser_command_v1 input schema still lists nine operation names. A direct new operation name will be rejected there. Signed-runtime-only extensibility must therefore use a risk-class-preserving carrier (e.g. extract + payload.extension=inspect_metadata) until the Site schema is generalized. This carrier must be verified on a real device; do not claim end-to-end success from fixture tests.
+
+**Remaining:** Confirm GitHub Actions build and fixture tests; obtain APK artifact, sign with original Android release key using Android-compatible APK signing and verify upgrade compatibility; validate signed runtime release bytes and SQL approval; real device session, form and navigation readback, stop/revocation and extension carrier acceptance. Do not request reinstall or declare completion before APK is verified.
+
+---
 # v6 implementation checkpoint — 2026-11-08 (do not mistake for acceptance)
 
 Binding target: [V6-FULL-BROWSER-INTERACTION.md](V6-FULL-BROWSER-INTERACTION.md). The earlier E9 click-only handoff below is superseded.
