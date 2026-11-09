@@ -39,13 +39,13 @@ Site deployment `appgdep_6af115a40e10819180dc38526469a281` and Supabase function
 
 The permanent Android APK signing key is backed up as **AES-256-CBC encrypted ciphertext**, not a plaintext keystore:
 
-- [Encrypted keystore backup](secure-backups/jit-release.jks.enc.b64)
+- [Encrypted keystore backup in private Home](https://github.com/bonoj/Home/blob/main/secure/jit-mcp/jit-release.jks.enc.b64)
 - [GitHub Actions signing secrets](https://github.com/bonoj/bonoj.github.io/settings/secrets/actions): `JIT_APK_KEYSTORE_BASE64` and `JIT_APK_KEYSTORE_PASSWORD`.
 
 **Never commit the plaintext keystore or signing password.** This repository is public. The backup was encrypted with OpenSSL `enc -aes-256-cbc -pbkdf2 -iter 250000 -salt`, using the separately stored signing password. Recover locally using the password from your private secret store:
 
 ```sh
-base64 -d jit/mcp/secure-backups/jit-release.jks.enc.b64 > /tmp/jit-release.jks.enc
+base64 -d secure/jit-mcp/jit-release.jks.enc.b64 > /tmp/jit-release.jks.enc
 openssl enc -d -aes-256-cbc -pbkdf2 -iter 250000 \\
   -in /tmp/jit-release.jks.enc -out jit-release.jks
 keytool -list -keystore jit-release.jks -alias jit-browser
