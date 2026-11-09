@@ -1,5 +1,7 @@
 # JIT MCP — handoff
 
+**Execution gate:** Read [INVARIANTS.md](INVARIANTS.md) first on every continuation. It defines the binding workflow, known E6 split-brain status trap, verification levels, and acceptance criteria. Do not repeat enrollment when Supabase has already confirmed it.
+
 **Start here:** [ANDROID-WEBVIEW.md](ANDROID-WEBVIEW.md) is the **binding, noise-free specification** for the current implementation. Read it first. [EXPERIMENTS.md](EXPERIMENTS.md) is the evidence log. [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md) documents the earlier cloud-browser proposal; its hosted-Chromium and no-Android assumptions are **superseded**.
 
 ## Latest checkpoint — E6 observation transport deployed
