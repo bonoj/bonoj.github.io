@@ -240,6 +240,20 @@ The central insight: **an institution that has solved the wrong problem perfectl
 
 **Subversion:** Institutional authority manufactures its own evidence, then cites the resulting consensus as independent validation. No science-fiction premise or overt admission of fraud is needed.
 
+## AI PSA — Terminology Panic
+
+**Status:** idea bank only; implementation deferred.
+
+**Premise:** An immaculate anti-AI public-safety campaign discovers decades of ordinary software engineering vocabulary and presents benign technical practices as alarming admissions. The technical statements are literally defensible; the insinuations rely on stripping away their meaning.
+
+**Founding specimens:**
+- **Dependency injection:** “AI systems are injecting dependencies.”
+- **Race conditions:** “AI systems are exploiting race conditions.”
+
+**Selection discipline:** Seek genuine, mundane terminology from general software engineering rather than AI-specific jargon. Favor surprising double meanings that sound provocative or conspiratorial to laypeople without relying on deliberately edgy names (zombie processes, fork bombs, kill commands). A handful of strong examples beats a long list of weak ones. Keep the campaign's institutional voice straight-faced; its own website might quietly use the practices it condemns.
+
+**Next step:** Revisit only when enough equally strong terms emerge to justify an experience.
+
 ## Cross-project design lessons
 
 - Corporate horror is strongest when the company **behaves rationally according to a horrifying objective**, not when it randomly behaves like a villain.
