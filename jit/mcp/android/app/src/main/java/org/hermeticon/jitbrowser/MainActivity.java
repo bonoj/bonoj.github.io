@@ -145,7 +145,7 @@ public final class MainActivity extends Activity {
         Button forward = new Button(this); forward.setText("›"); forward.setOnClickListener(v -> { if(browser.canGoForward()) browser.goForward(); });
         Button reload = new Button(this); reload.setText("↻"); reload.setOnClickListener(v -> browser.reload());
         Button connect = new Button(this); connect.setText("Connect"); connect.setAllCaps(false);
-        connect.setOnClickListener(v -> new android.app.AlertDialog.Builder(this).setTitle("JIT MCP").setMessage(sharing.getText()).setItems(new String[]{"Enroll device","Share current site","Stop sharing","Inspect locally"},(d,i) -> { if(i==0) enroll.performClick(); else if(i==1) share.performClick(); else if(i==2) pause.performClick(); else observe(); }).show());
+        connect.setOnClickListener(v -> new android.app.AlertDialog.Builder(this).setTitle("JIT MCP · Connect").setItems(new String[]{"Enroll device","Share current site","Stop sharing","Inspect locally"},(d,i) -> { if(i==0) enroll.performClick(); else if(i==1) share.performClick(); else if(i==2) pause.performClick(); else observe(); }).setNegativeButton("Cancel",null).show());
         for(Button b : new Button[]{back,forward,reload,connect}) bottom.addView(b,new LinearLayout.LayoutParams(0,-2,b==connect?2:1));
         root.addView(bottom);
         controls.setVisibility(View.GONE);
