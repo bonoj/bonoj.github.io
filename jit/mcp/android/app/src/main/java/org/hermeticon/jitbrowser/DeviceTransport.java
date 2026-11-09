@@ -305,8 +305,8 @@ final class DeviceTransport {
                     String kind = readOnly?"browser.observation":"browser.action";
                     String error = dom.optString("error","");
                     if (epoch!=pageEpoch || !targetOrigin.equals(origin(web.getUrl()))) {
-                        result=object("error","stale_observation");
-                    } else if (java.util.Set.of("document_unavailable","unsupported_operation","observation_rejected").contains(error)) {
+                        result=object("error","navigation_initiated");
+                    } else if (java.util.Set.of("document_unavailable","unsupported_operation","observation_rejected","target_unavailable","submit_requires_confirmation").contains(error)) {
                         result=object("error",error);
                     } else if (!targetOrigin.equals(dom.optString("origin")) || !kind.equals(dom.optString("kind")) ||
                         dom.optInt("schema_version")<1 || dom.optInt("schema_version")>255) {
