@@ -56,6 +56,7 @@ public final class MainActivity extends Activity {
         go.setText("GO");
         navigation.addView(go, new LinearLayout.LayoutParams(-2, -2));
         root.addView(navigation, new LinearLayout.LayoutParams(-1, -2));
+        address.setText("https://example.com");
         status = new TextView(this);
         status.setText("Sharing off");
         status.setTextColor(Color.BLACK);
@@ -129,8 +130,19 @@ public final class MainActivity extends Activity {
             .setMessage("Only the current website is approved. Sharing stops when you leave the app or tap Stop sharing.")
             .setNegativeButton("Cancel",null).setPositiveButton("Share",(dialog,which)->transport.start()).show());
         pause.setOnClickListener(v -> transport.stop());
-        root.addView(controls);
         root.addView(browser, new LinearLayout.LayoutParams(-1, 0, 1));
+        LinearLayout bottom = new LinearLayout(this);
+        bottom.setBackgroundColor(Color.WHITE);
+        bottom.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        Button back = new Button(this); back.setText("‹"); back.setOnClickListener(v -> { if(browser.canGoBack()) browser.goBack(); });
+        Button forward = new Button(this); forward.setText("›"); forward.setOnClickListener(v -> { if(browser.canGoForward()) browser.goForward(); });
+        Button reload = new Button(this); reload.setText("↻"); reload.setOnClickListener(v -> browser.reload());
+        Button connect = new Button(this); connect.setText("Connect"); connect.setAllCaps(false);
+        connect.setOnClickListener(v -> new android.app.AlertDialog.Builder(this).setTitle("JIT MCP").setMessage(sharing.getText()).setItems(new String[]{"Enroll device","Share current site","Stop sharing","Inspect locally"},(d,i) -> { if(i==0) enroll.performClick(); else if(i==1) share.performClick(); else if(i==2) pause.performClick(); else observe(); }).show());
+        for(Button b : new Button[]{back,forward,reload,connect}) bottom.addView(b,new LinearLayout.LayoutParams(0,-2,b==connect?2:1));
+        root.addView(bottom);
+        controls.setVisibility(View.GONE);
+        root.addView(controls);
         Button inspect = new Button(this);
         inspect.setText("Inspect DOM locally");
         root.addView(inspect, new LinearLayout.LayoutParams(-1, -2));
@@ -152,6 +164,7 @@ public final class MainActivity extends Activity {
         root.requestApplyInsets();
         root.requestFocus();
         root.post(() -> { root.requestFocus(); root.scrollTo(0,0); });
+        browser.loadUrl("https://example.com");
     }
 
     private void navigate(String raw) {
