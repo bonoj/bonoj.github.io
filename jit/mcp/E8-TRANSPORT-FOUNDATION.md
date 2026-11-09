@@ -38,6 +38,14 @@ Suggested conceptual envelope (illustrative only; preserve E6/E7 legacy shapes o
 
 Define precise limits across all boundaries. Existing Android request size is approximately 2048 bytes: account for full UTF-8 serialized body, nesting, key count, array count, result persistence, gateway response and Unicode. Reject oversize input explicitly rather than silently truncating. Preserve backward compatibility with `browser_observe_v1`, `browser_result_v1`, E5 backend-only capabilities, and the six fixed MCP tools. The gateway must be deploy-once for this contract; later **new signed runtime observation shapes must not require another Site or Supabase deployment**. Native changes only for genuinely new host/Android capabilities.
 
+## Mandatory future browser-action scope
+
+The generic transport must support a stable, allowlisted, versioned browser-command envelope in addition to generic observation results. Design it now so **later** signed-runtime implementations of `observe`, paginated/targeted extraction, `click`, `fill`, `navigate`, `back`, `forward` and explicitly confirmed `submit` do **not** require a new Site deployment or new MCP tool signature. E8 does **not** need to implement every action's WebView/DOM semantics; it **must** prove that a newly introduced allowlisted runtime-handled action shape can traverse the same deployed gateway and return a result without gateway changes.
+
+Do not allow the client or runtime to invent unrestricted operation names, bypass user consent, inject unsigned JavaScript, read passwords or secrets, or silently submit consequential forms. Distinguish read-only observations from mutating browser interactions, require fresh element references and origin/session checks, and enforce explicit user confirmation for consequential submissions. The signed runtime may evolve action implementation and structured output, while native code retains security and lifecycle authority. Support bounded pagination/cursors for `n` links and content rather than promising unbounded single-response results.
+
+**Acceptance extension:** After the one-time protocol hardening deployment, demonstrate a new structured observation and a newly introduced benign runtime-handled browser action through the same six-tool plugin and unchanged Site, Supabase transport and APK. If native WebView support is genuinely necessary for a particular action, document that exceptional limitation without reintroducing schema-specific Site changes.
+
 ## Work sequence
 
 1. Read `INVARIANTS.md`, `ANDROID-WEBVIEW.md`, `EXPERIMENTS.md`, `E7-STRUCTURED-DOM.md`, this file, and live source. Inspect deployed Site worker, deployed Supabase Edge Function files, private SQL transport, Android `DeviceTransport.java`, signing manifest, workflows and tests. Deployed state outranks stale repo copies.
