@@ -44,11 +44,11 @@ if(op==="fill"&&p.option_ref===undefined&&p.checked===undefined){
  return result("browser.action",{action:"fill",ref:p.ref,accepted:e.value===p.value,length:e.value.length});
 }
 if(op==="select"||op==="fill"&&p.option_ref!==undefined||op==="fill"&&p.checked!==undefined){
- if(typeof p.ref!=="string"||!/^c\\d{1,3}$/.test(p.ref))return {error:"observation_rejected"};
+ if(typeof p.ref!=="string"||!/^c\d{1,3}$/.test(p.ref))return {error:"observation_rejected"};
  const e=controls[Number(p.ref.slice(1))];
  if(!e||!e.isConnected||!visible(e)||e.disabled||isSensitive(e))return {error:"target_unavailable"};
  if(e.tagName==="SELECT"){
-  if(typeof p.option_ref!=="string"||!/^o\\d{1,3}_\\d{1,2}$/.test(p.option_ref))return {error:"observation_rejected"};
+  if(typeof p.option_ref!=="string"||!/^o\d{1,3}_\d{1,2}$/.test(p.option_ref))return {error:"observation_rejected"};
   const parts=p.option_ref.slice(1).split("_").map(Number);
   if(parts[0]!==Number(p.ref.slice(1))||parts[1]>=e.options.length||parts[1]>=20||e.options[parts[1]].disabled)return {error:"target_unavailable"};
   e.selectedIndex=parts[1];e.dispatchEvent(new Event("input",{bubbles:true}));e.dispatchEvent(new Event("change",{bubbles:true}));
