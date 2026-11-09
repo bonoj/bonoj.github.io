@@ -1,6 +1,6 @@
 # JIT MCP v6 — Browser capability, not a demo
 
-**Status: binding target specification; not an implementation, deployment, or device acceptance.** Supersedes the earlier v6 full-form scope and E9 click-only handoff wherever they conflict. Uploads and consequential submissions are deferred. The deliverable is an actually usable remotely operated browser for navigation and form interaction from ordinary ChatGPT on Android.
+**Status: BINDING FULL-ACCEPTANCE SPECIFICATION.** v6 is implemented, remotely approved and verified live for observe/extract/text fill; full acceptance gates A–H are NOT yet satisfied. Execute next work via [HANDOFF.md](HANDOFF.md), not the historical implementation sequence below. Supersedes the earlier v6 full-form scope and E9 click-only handoff wherever they conflict. Uploads and consequential submissions are deferred. The deliverable is an actually usable remotely operated browser for navigation and form interaction from ordinary ChatGPT on Android.
 
 ## 1. Product contract and non-negotiable outcome
 
