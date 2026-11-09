@@ -365,6 +365,8 @@ final class DeviceTransport {
 
     private String operationRisk(String operation) {
         if (operationClasses != null) return operationClasses.optString(operation,null);
+        // Legacy signed releases have no manifest; new releases must never fall back.
+        if (runtimeVersion >= 6) return null;
         if (java.util.Set.of("observe","extract").contains(operation)) return "read";
         if ("scroll".equals(operation)) return "interact";
         if (java.util.Set.of("click","fill").contains(operation)) return "interact";
