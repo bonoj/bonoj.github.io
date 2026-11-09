@@ -1,6 +1,6 @@
 # JIT MCP — Android WebView Companion v1
 
-**Status: SPECIFIED; not built, installed, or verified.** This is the binding implementation plan. [HANDOFF](HANDOFF.md) is the entrypoint; [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md) is historical architecture analysis and is superseded wherever it requires hosted Chromium, forbids Android, or requires no phone-side runtime.
+**Status: HISTORICAL DESIGN SPECIFICATION.** The native companion is built, installed and has returned real v6 DOM observation, extraction and fill results. Full v6 acceptance remains open. For current status and next execution use [HANDOFF.md](HANDOFF.md); historical implementation gates below are not live instructions. [HANDOFF](HANDOFF.md) is the entrypoint; [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md) is historical architecture analysis and is superseded wherever it requires hosted Chromium, forbids Android, or requires no phone-side runtime.
 
 ## Invariants
 
