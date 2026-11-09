@@ -7,7 +7,7 @@ const safeUrl=s=>{try{const u=new URL(s,location.href);if(!["http:","https:"].in
 const controls=Array.from(document.querySelectorAll("input,textarea,select,button,[role=button],[role=checkbox],[role=radio]")).filter(visible).slice(0,160);
 const anchors=Array.from(document.querySelectorAll("a[href]")).filter(visible).slice(0,400);
 const blocks=Array.from(document.querySelectorAll("h1,h2,main p,article p,body > p")).filter(visible).slice(0,400);
-const label=e=>{const id=e.id;let l=id?Array.from(document.querySelectorAll("label[for]")).find(x=>x.htmlFor===id):null;return clean(l?.innerText||e.closest("label")?.innerText||e.getAttribute("aria-label")||e.getAttribute("title")||e.getAttribute("placeholder")||e.innerText||"",80)};
+const label=e=>{const id=e.id;let l=id?Array.from(document.querySelectorAll("label[for]")).find(x=>x.htmlFor===id):null;return clean(e.labels?.[0]?.innerText||l?.innerText||e.closest("label")?.innerText||e.getAttribute("aria-label")||e.getAttribute("title")||e.getAttribute("placeholder")||e.innerText||"",80)};
 const isSensitive=e=>e.matches("input[type=password],input[type=hidden]")||/^(?:cc-|one-time-code|current-password|new-password)/.test(e.getAttribute("autocomplete")||"");
 const linkItems=anchors.flatMap((e,i)=>{const href=safeUrl(e.href);const text=label(e);return href&&text?[{ref:"l"+i,text,href}]:[]});
 const controlItems=controls.flatMap((e,i)=>{if(isSensitive(e))return [];const type=clean(e.getAttribute("type")||e.tagName.toLowerCase(),24).toLowerCase();const name=label(e);return [{ref:"c"+i,role:clean(e.getAttribute("role")||e.tagName.toLowerCase(),24),type,label:name,required:!!e.required,disabled:!!e.disabled,checked:!!e.checked}]});
