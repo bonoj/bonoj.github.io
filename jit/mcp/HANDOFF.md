@@ -1,3 +1,22 @@
+# CURRENT HANDOFF — v6 LIVE on native Android (2026-11-09 04:27 UTC)
+
+**Read [INVARIANTS.md](INVARIANTS.md), then the newest entry in [EXPERIMENTS.md](EXPERIMENTS.md). This section supersedes earlier v5-only and v6-not-activated statements below.**
+
+**Current production truth:** v6 is approved in private Supabase `jit_browser.runtime_releases` at SHA-256 `4ed8f295771878b7e5218e4b3f281d7dc7d4e87e8dda9f67d4cf7f0a12a39fc0`, and **physically verified executing** in the enrolled Android WebView. In ordinary ChatGPT, v6 `observe` returned `https://example.com` at `04:24:17.325015Z`. On `https://la.disneyresearch.com`, v6 `observe` and `extract controls` found a real Disney Research application form; v6 `fill` of `c0 Name*` with `John Bono` completed at `04:27:40.774304Z`, `accepted:true`, `length:9`. **No APK reinstall, re-enrollment, plugin identity change, Site redeploy or Edge redeploy was needed in this session.** Do not infer installed APK version from runtime version.
+
+**User's last explicit browser constraint:** “Fill in the name form. Don't click anything.” That task completed. **Do not click, navigate, or submit on Disney Research without a new explicit user request.** No application was submitted.
+
+**Next steps (priority order):**
+1. **Fix command/result lifecycle for clicks without user disruption.** A v6 `click` to Example Domain's `Learn more` link was enqueued as command `7985bd6d-245b-4617-889b-a8ba87a33611`, but `browser_result_v1` returned `command_not_found` twice. Diagnose live `jit_browser` command/session/result records, device claim/ack/expiry and cross-origin revocation semantics. Do not claim the click occurred. Avoid using an active job application form as the test target.
+2. **Verify a benign click end-to-end** only with fresh user authorization and foreground sharing: observe a safe page, use the fresh `revision` and returned `lN` reference, enqueue `click`, read its command result, then independently observe the destination or same-origin page. Cross-origin arrival must require explicit consent; do not bypass per-origin controls. Record exact UTC evidence.
+3. **Test v6 extension carrier** `operation:"extract"`, `payload:{extension:"inspect_metadata"}` (with fresh revision), then bounded form controls, select/checkbox and history only on benign test pages with explicit consent. Verify fail-closed on stale revisions, hidden/unsafe targets, cross-origin requests, consequential submit, and Stop sharing.
+4. **Verify latest signed APK provenance separately** using canonical `.github/workflows/jit-android.yml` and `jit-android-signed` artifact. Prior successful run `42548481030` produced artifact `13644790627` on commit `2f8bb5a...`; that does not prove current versionCode 4 installation. **Do not require a new APK merely to activate v6**; remote JS v6 already works.
+5. Update EXPERIMENTS with real UTC command IDs, outcome and limitation; keep this handoff current. Preserve six-tool plugin identity, signing root, consent, enrollment, and v5 fallback.
+
+**Native tool recipe:** `jit_capabilities` if needed → `jit_invoke({capability:"browser_command_v1",input:{protocol_version:1,operation:"observe",schema_version:1,expected_revision:null,payload:{}}})` → `jit_invoke({capability:"browser_result_v1",input:{command_id}})`. For `extract` or `fill`, use a fresh device-returned `revision`. The last verified fill used `{operation:"fill",payload:{ref:"c0",label:"Name*",value:"John Bono"}}` and `expected_revision:"e64a3e0c-bd1c-4e87-b7ef-ac287f954a3b"`. **Never reuse that revision for future commands.** Legacy `device_status`, `browser_observe`, `jit_observe` describe a different Chrome companion and are non-authoritative for native Android.
+
+---
+
 # NATIVE ANDROID MCP — FIRST ACTION (2026-11-09 UTC)
 
 **Authoritative:** [INVARIANTS.md](INVARIANTS.md). For a sharing Android user, immediately call `jit_invoke({capability:"browser_observe_v1",input:{}})`, then `jit_invoke({capability:"browser_result_v1",input:{command_id}})`. For generalized browser actions, discover `browser_command_v1` in `jit_capabilities` first. **Never use `device_status`, `browser_observe`, `jit_observe` to infer native Android status**; those are legacy Chrome companion interfaces. No split-screen/Chrome pairing/re-enrollment advice based on them.
