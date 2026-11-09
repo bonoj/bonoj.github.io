@@ -1,3 +1,17 @@
+# CURRENT ROUTING CONTRACT — native Android WebView (2026-11-09 UTC)
+
+**READ THIS FIRST.** The native Android JIT MCP path is **`jit_capabilities()` → `jit_invoke({capability:"browser_observe_v1",input:{}})` → `jit_invoke({capability:"browser_result_v1",input:{command_id}})`**. For generic operations use `browser_command_v1` with its declared schema and then `browser_result_v1`. The same six-tool plugin identity is preserved; do not rename or remove tools.
+
+**Legacy tools deprecated for native Android status/observation:** `device_status()`, `browser_observe()`, and `jit_observe()` operate the old Chrome/page-sharing companion and **MUST NOT** be called to check native Android enrollment, visibility, sharing or DOM. Their `unpaired`, `hidden` and `sharing_disabled` responses are unrelated to the Android WebView. They may remain available for backward compatibility; do not delete or change signatures. Never suggest Chrome pairing or split-screen for native Android.
+
+**LIVE EVIDENCE:** 2026-11-09 04:13:24.408207 UTC, ordinary ChatGPT invoked `browser_observe_v1`, command `d93dab27-f65c-445c-9651-cfa87450015e`, and `browser_result_v1` returned `completed` with real WebView DOM from `https://example.com`, title `Example Domain`, link `Learn more` → `https://iana.org/help/example-domains`, nonce `c4d1fc36-31ba-491f-8469-dfcd4a3e3bdd`, runtime_version 5. This proves native observation, **not** v6 activation, mutation, or revocation in this session.
+
+**When user says “Sharing” or “Ready”:** immediately enqueue `browser_observe_v1` and poll `browser_result_v1` with the returned command ID while the foreground session is fresh. Do not spend the window calling legacy status tools or asking the user to pair again. If the result fails, diagnose native Supabase session/command records; never use Chrome session status as evidence. Do not regenerate enrollment credentials without an actual native enrollment failure.
+
+**Documentation hierarchy:** this routing contract and observed native tool output override historical E3/E4 README, stale “not built” statements in ANDROID-WEBVIEW, and obsolete sections lower in this file. Preserve the security and release invariants below. For signed Android APK releases use only `.github/workflows/jit-android.yml`, artifact `jit-android-signed/jit-browser-signed.apk`; never substitute unsigned workflows or require user artifact uploads.
+
+---
+
 # JIT MCP — execution invariants and acceptance gate
 
 **Purpose:** Persistent, binding working instructions for any assistant continuing `jit/mcp/`. Read this file before modifying code, generating an enrollment code, asking the human to test, or claiming E6 complete. This is an operational contract, not a progress narrative.
