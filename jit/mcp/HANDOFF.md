@@ -34,3 +34,23 @@ Site deployment `appgdep_6af115a40e10819180dc38526469a281` and Supabase function
 - Supabase project `iqglyokmcobegledbfcm`, function `jit-mcp-capabilities`
 - Private plugin `plugin_asdk_app_sites_1d9a5f42945c81918eff9f533e9e1f6d`
 - Six signatures: `integration_ping`, `device_status`, `browser_observe`, `jit_capabilities`, `jit_invoke`, `jit_observe`
+
+## Android signing-key recovery
+
+The permanent Android APK signing key is backed up as **AES-256-CBC encrypted ciphertext**, not a plaintext keystore:
+
+- [Encrypted keystore backup](secure-backups/jit-release.jks.enc.b64)
+- [GitHub Actions signing secrets](https://github.com/bonoj/bonoj.github.io/settings/secrets/actions): `JIT_APK_KEYSTORE_BASE64` and `JIT_APK_KEYSTORE_PASSWORD`.
+
+**Never commit the plaintext keystore or signing password.** This repository is public. The backup was encrypted with OpenSSL `enc -aes-256-cbc -pbkdf2 -iter 250000 -salt`, using the separately stored signing password. Recover locally using the password from your private secret store:
+
+```sh
+base64 -d jit/mcp/secure-backups/jit-release.jks.enc.b64 > /tmp/jit-release.jks.enc
+openssl enc -d -aes-256-cbc -pbkdf2 -iter 250000 \\
+  -in /tmp/jit-release.jks.enc -out jit-release.jks
+keytool -list -keystore jit-release.jks -alias jit-browser
+```
+
+Expected signing certificate SHA-256: `56:7C:25:EB:D8:87:15:FC:F1:57:F6:8C:70:0F:C4:E7:60:14:87:FD:74:73:62:F7:DA:87:CB:9B:26:C9:11:77`.
+
+Keep the password independent of this repository. An encrypted copy in public GitHub is not a substitute for a separately protected offsite backup.
