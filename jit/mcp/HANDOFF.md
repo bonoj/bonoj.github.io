@@ -1,3 +1,12 @@
+# E10 continued — 2026-11-08
+
+- Fixed v6+ signed operation manifest fallback: malformed/absent manifest now denies every operation; only older signed v5 uses the legacy compatibility list (commit 65f520c).
+- Implemented explicit foreground, same-origin, session-scoped interaction consent. Android Share dialog clearly authorizes read/navigation/ordinary form actions for that session, with immediate Stop revocation; consequential submissions remain blocked. Avoids per-action permission prompts only after explicit approval. DeviceTransport.start now takes a boolean and MainActivity calls start(true) (commits c97d470, aa727ea).
+- Re-exercised 11 simulated v6 runtime checks including signed manifest, inspect_metadata through extract carrier, text fill, select, checkbox, click, navigation/history and cross-origin rejection. These are V8 mock checks, not Node CI or physical Android results.
+- Local execution environment contains an existing Android release keystore with one alias, jit-browser, but has **no Android SDK, Gradle or unsigned APK**; do not expose keystore contents or password. No APK was signed, built, downloaded, or verified. GitHub workflow was committed, but its run/artifact status could not be established through available commit-status/PR-run tools. Never ask user to install an unverified APK.
+- Live Supabase Edge v9 remains active; v5 remains sole approved signed runtime. Continue build/CI verification and in-place signing compatibility, then device acceptance. Do not claim E10 complete.
+
+---
 # E10 foundation update — 2026-11-08 (not yet accepted)
 
 **Committed:** DeviceTransport signed-source operation class manifest (read, interact, navigate, consequential) with deny-by-default unknown classes and no consequential execution, preserving legacy v5 fallback. v6 source declares the classes in its signed bytes, adds inspect_metadata as a new operation and also exposes it through the existing extract carrier. Edge transport protocol.mjs no longer hardcodes operation names; Edge Function v9 deployed ACTIVE with JWT preserved. Android version 0.4.0 (versionCode 4). GitHub Actions workflow .github/workflows/jit-mcp-android-build.yml added with Node v6 fixture gate and unsigned release APK artifact. **Workflow result, actual APK artifact and signing are not yet verified.**
