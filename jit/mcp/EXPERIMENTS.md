@@ -564,3 +564,11 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 - The plugin/backend rejected the command with exact error `foreground_session_required` (`INVALID_ARGUMENT` wrapper). No new observation command was accepted.
 - **Verified:** remote observation is blocked after user stops sharing. Enrollment persistence was previously confirmed separately in Supabase; this check does not prove installed APK version or signed runtime-update activation.
 - **Remaining E6 work:** independently test remotely signed JavaScript update without APK reinstall; verify updated APK lifecycle behavior on the physical device. Do not conflate those with the already verified observation/revocation round trip.
+
+## 2026-11-09 02:04 UTC — E7 physical link extraction VERIFIED, plugin readback BLOCKED
+
+- Android E7 signed APK build [42548481030](https://github.com/bonoj/bonoj.github.io/actions/runs/42548481030) succeeded; observed live Android runtime **3** proves the new host/runtime executed.
+- Ordinary ChatGPT invoked `browser_observe_v1`, received command `e0bbda09-cb66-4909-8808-7ec0ee5ab6ee` pending.
+- `browser_result_v1` failed at plugin boundary with `invalid_output`.
+- Authoritative Supabase `jit_browser.commands` record: `status=completed`, `claimed_at=2026-11-09 02:04:11.453375+00`, `completed_at=2026-11-09 02:04:11.557736+00`, `observed_at=2026-11-09T02:04:11.445184Z`, `origin=https://example.com`, `title=Example Domain`, `runtime_version=3`, nonce `79fe9bfb-7122-42d8-a969-e6a340c3320e`, `links=[{text:"Learn more",href:"https://iana.org/help/example-domains"}]`.
+- This proves device execution, structured link extraction and backend persistence. **It does not prove plugin-facing E7 readback.** The existing Site gateway or plugin output validator appears to reject the new `links` property; inspect and extend its schema without altering six tool signatures. Do not ask user to reinstall or re-enroll.
