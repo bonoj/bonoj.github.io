@@ -1,0 +1,33 @@
+name: JIT MCP Android build
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'jit/mcp/android/**'
+      - '.github/workflows/jit-mcp-android-build.yml'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+      - name: Build unsigned release
+        working-directory: jit/mcp/android
+        run: gradle --no-daemon :app:assembleRelease
+      - name: Verify output
+        run: test -s jit/mcp/android/app/build/outputs/apk/release/app-release-unsigned.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jit-mcp-android-v6-unsigned
+          path: jit/mcp/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          if-no-files-found: error
