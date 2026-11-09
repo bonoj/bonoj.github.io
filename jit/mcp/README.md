@@ -1,4 +1,24 @@
-# MCP — Browser Automation via Ordinary ChatGPT
+# Android JIT MCP — build and handoff
+
+**Canonical release:** [signed Android Actions workflow](../../.github/workflows/jit-android.yml) · [current handoff](HANDOFF.md) · [experiment evidence](EXPERIMENTS.md) · [Android design](ANDROID-WEBVIEW.md) · [invariants](INVARIANTS.md)
+
+## Installing/updating the Android companion
+
+The **only supported CI-delivered installable APK** is `jit-browser-signed.apk` inside the GitHub Actions artifact **`jit-android-signed`** from the successful [JIT Android companion build](https://github.com/bonoj/bonoj.github.io/actions/workflows/jit-android.yml). The workflow builds, signs with the existing signing identity, verifies with Android `apksigner`, and fails if the artifact is absent. Changes to `jit/mcp/android/**` or `jit/mcp/runtime/**` trigger it; manual dispatch is also supported. Runtime tests are required before signing. Artifact retention is 14 days.
+
+**Do not install an unsigned APK or uninstall the current companion.** An in-place upgrade must preserve package identity, signing certificate, increasing versionCode, pairing and enrollment. CI success alone does not verify installation on the user's device. The signing secrets are already held by GitHub Actions; never request them from the user or expose them in logs.
+
+## Release/incident guardrails
+
+1. Read the existing workflow and recent successful signed release **before** creating or editing CI. There must be no second unsigned release path. Fix canonical workflow in place.
+2. Retrieve the CI artifact via available GitHub tools; never ask the user to upload a ZIP or provide a run ID as the default workflow. If tool permissions prevent artifact retrieval, distinguish tool limitations from build failure.
+3. A green signed CI run confirms build, runtime test gate, signing and certificate verification only. Check artifact, installed-app upgrade and actual Android behavior separately. Never claim physical acceptance from simulated tests.
+4. Signed Android APK releases and signed remote JavaScript runtime approvals are separate. A new APK does not activate runtime v6; follow [HANDOFF.md](HANDOFF.md) and [EXPERIMENTS.md](EXPERIMENTS.md) for rollout state and UTC evidence.
+5. Never request reinstall/re-enrollment to work around a signing or CI mistake. Preserve six-tool plugin identity, Supabase transport, authentication and explicit foreground consent.
+
+---
+
+# Historical MCP overview — Browser Automation via Ordinary ChatGPT
 
 **CANONICAL OBJECTIVE: [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md) — read first.**\n\n**[Resume in a new chat: HANDOFF.md](HANDOFF.md)**
 
