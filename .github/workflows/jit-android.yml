@@ -32,7 +32,9 @@ jobs:
           "$SDKMANAGER" --sdk_root="$SDK_ROOT" --install "platforms;android-35" "build-tools;35.0.0" "platform-tools"
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.9'
+          gradle-version: '8.10.2'
+      - name: Browser runtime regression
+        run: node --test jit/mcp/runtime/v6.test.mjs
       - name: Build debug APK
         working-directory: jit/mcp/android
         run: gradle :app:assembleDebug --no-daemon
@@ -57,4 +59,5 @@ jobs:
         with:
           name: jit-android-signed
           path: jit/mcp/android/app/build/outputs/apk/debug/*.apk
-          retention-days: 7
+          retention-days: 14
+          if-no-files-found: error
