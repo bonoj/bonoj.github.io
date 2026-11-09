@@ -18,7 +18,18 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
+      # GitHub's Ubuntu Android SDK is preinstalled. setup-android@v3 defaults to
+      # the removed SDK package `tools`, causing sdkmanager exit 1 before Gradle.
+      - name: Verify runner Android SDK
+        run: |
+          test -n "${ANDROID_HOME:-}" || { echo 'ANDROID_HOME missing'; exit 1; }
+          test -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" || test -x "$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager"
+          echo "ANDROID_HOME=$ANDROID_HOME"
+      - name: Install required Android packages
+        run: |
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          if [ ! -x "$SDKMANAGER" ]; then SDKMANAGER="$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager"; fi
+          "$SDKMANAGER" --install 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0'
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.10.2'
