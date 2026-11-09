@@ -70,7 +70,7 @@ public final class MainActivity extends Activity {
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 if (!request.isForMainFrame()) return false;
                 String url = request.getUrl().toString();
-                if (transport != null) transport.navigation(url);
+                if (transport != null && transport.blockRemoteNavigation(url)) return true;
                 return DeviceTransport.origin(url) == null;
             }
             @Override public void onPageStarted(WebView view, String url, android.graphics.Bitmap icon) {

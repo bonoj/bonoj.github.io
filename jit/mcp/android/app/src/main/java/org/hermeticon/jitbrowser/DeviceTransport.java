@@ -49,6 +49,10 @@ final class DeviceTransport {
     private String approvedOrigin;
     private String script;
     private int runtimeVersion = 1;
+    private long pageEpoch;
+    private String observationRevision;
+    private boolean remoteExecution;
+    private android.app.AlertDialog pendingApproval;
     private int generation;
     private boolean foreground;
     private boolean starting;
@@ -114,10 +118,10 @@ final class DeviceTransport {
         starting = true;
         network.execute(() -> {
             JSONObject update = null;
-            try { update = call(credential, object("operation","runtime")); } catch (Exception ignored) { }
+            try { update = call(credential, object("operation","runtime","host_protocol",1)); } catch (Exception ignored) { }
             final JSONObject candidate = update;
             try {
-                JSONObject response = call(credential, object("operation","start","origin",origin));
+                JSONObject response = call(credential, object("operation","start","origin",origin,"host_protocol",1));
                 if (response.has("error")) throw new IllegalStateException("Server: " + response.optString("error"));
                 final String id = response.getString("session_id");
                 ui.post(() -> {
@@ -141,12 +145,25 @@ final class DeviceTransport {
         });
     }
 
+    boolean blockRemoteNavigation(String url) {
+        return remoteExecution && !java.util.Objects.equals(approvedOrigin,origin(url));
+    }
+
     void navigation(String url) {
+        pageEpoch++;
+        observationRevision = null;
+        if (pendingApproval != null) {
+            pendingApproval.dismiss();
+            pendingApproval = null;
+        }
         if (session != null && !approvedOrigin.equals(origin(url))) stop();
     }
 
     void stop() {
         ++generation;
+        observationRevision = null;
+        remoteExecution = false;
+        if (pendingApproval != null) { pendingApproval.dismiss(); pendingApproval = null; }
         String previous = session;
         session = null;
         approvedOrigin = null;
@@ -206,6 +223,12 @@ final class DeviceTransport {
             complete(current,id,credential,commandId,object("error","observation_rejected"));
             return;
         }
+        final JSONObject envelope = command.optJSONObject("envelope");
+        if (envelope != null) {
+            executeEnvelope(current,id,credential,command,envelope);
+            return;
+        }
+        final long epoch = pageEpoch;
         final boolean[] delivered = {false};
         Runnable timeout = () -> {
             if (delivered[0] || !active(current,id)) return;
@@ -213,7 +236,7 @@ final class DeviceTransport {
             complete(current,id,credential,commandId,object("error","execution_timeout"));
         };
         ui.postDelayed(timeout,3500);
-        web.evaluateJavascript(script,raw -> {
+        web.evaluateJavascript(runtimeVersion>=4 ? "("+script+")()" : script,raw -> {
             if (delivered[0] || !active(current,id)) return;
             delivered[0] = true;
             ui.removeCallbacks(timeout);
@@ -221,7 +244,7 @@ final class DeviceTransport {
             try {
                 JSONObject dom = new JSONObject(raw);
                 if (dom.has("error")) result = object("error","document_unavailable");
-                else if (!origin.equals(origin(web.getUrl())) || !origin.equals(dom.optString("origin"))) {
+                else if (epoch != pageEpoch || !origin.equals(origin(web.getUrl())) || !origin.equals(dom.optString("origin"))) {
                     result = object("error","observation_rejected");
                 } else {
                     result = object("origin",origin,"title",clip(dom.getString("title"),160),
@@ -232,6 +255,118 @@ final class DeviceTransport {
             } catch (Exception failure) { result = object("error","invalid_runtime_result"); }
             complete(current,id,credential,commandId,result);
         });
+    }
+
+    private void executeEnvelope(int current,String id,String credential,JSONObject command,JSONObject envelope) {
+        String commandId = command.optString("command_id");
+        String operation = envelope.optString("operation");
+        String expected = envelope.optString("expected_revision","");
+        boolean readOnly = operation.equals("observe") || operation.equals("extract");
+        if (runtimeVersion < 4 || envelope.optInt("protocol_version") != 1 ||
+            envelope.optInt("schema_version") < 1 || envelope.optInt("schema_version") > 255 ||
+            !java.util.Set.of("observe","extract","scroll","click","fill","navigate","back","forward","submit").contains(operation) ||
+            envelope.length()!=5 || !envelope.has("expected_revision") ||
+            !boundedPayload(envelope.optJSONObject("payload"))) {
+            complete(current,id,credential,commandId,object("error","unsupported_operation"));
+            return;
+        }
+        if (!readOnly && (observationRevision == null || !observationRevision.equals(expected))) {
+            complete(current,id,credential,commandId,object("error","stale_observation"));
+            return;
+        }
+        final long epoch = pageEpoch;
+        Runnable dispatch = () -> {
+            if (!active(current,id) || epoch!=pageEpoch || !approvedOrigin.equals(origin(web.getUrl())) ||
+                !unexpired(command.optString("expires_at"))) {
+                complete(current,id,credential,commandId,object("error","stale_observation"));
+                return;
+            }
+            if (!readOnly) observationRevision=null;
+            remoteExecution=!readOnly;
+            final String targetOrigin=approvedOrigin;
+            final boolean[] done={false};
+            Runnable timeout = () -> {
+                if (done[0] || !active(current,id)) return;
+                done[0]=true;
+                remoteExecution=false;
+                complete(current,id,credential,commandId,object("error","execution_timeout"));
+            };
+            ui.postDelayed(timeout,3500);
+            String invocation="("+script+")(JSON.parse("+JSONObject.quote(envelope.toString())+"))";
+            web.evaluateJavascript(invocation,raw -> {
+                if (done[0] || !active(current,id)) return;
+                done[0]=true;
+                remoteExecution=false;
+                ui.removeCallbacks(timeout);
+                JSONObject result;
+                try {
+                    JSONObject dom = new JSONObject(raw);
+                    JSONObject payload = dom.optJSONObject("payload");
+                    String kind = readOnly?"browser.observation":"browser.action";
+                    String error = dom.optString("error","");
+                    if (epoch!=pageEpoch || !targetOrigin.equals(origin(web.getUrl()))) {
+                        result=object("error","stale_observation");
+                    } else if (java.util.Set.of("document_unavailable","unsupported_operation","observation_rejected").contains(error)) {
+                        result=object("error",error);
+                    } else if (!targetOrigin.equals(dom.optString("origin")) || !kind.equals(dom.optString("kind")) ||
+                        dom.optInt("schema_version")<1 || dom.optInt("schema_version")>255) {
+                        result=object("error","invalid_runtime_result");
+                    } else if (!boundedPayload(payload)) {
+                        result=object("error","payload_too_large");
+                    } else {
+                        observationRevision=UUID.randomUUID().toString();
+                        result=object("protocol_version",1,"kind",kind,"schema_version",dom.getInt("schema_version"),
+                            "origin",targetOrigin,"observed_at",Instant.now().toString(),"nonce",UUID.randomUUID().toString(),
+                            "runtime_version",runtimeVersion,"revision",observationRevision,"payload",payload);
+                    }
+                } catch (Exception failure) { result=object("error","invalid_runtime_result"); }
+                complete(current,id,credential,commandId,result);
+            });
+        };
+        if (readOnly || operation.equals("scroll")) { dispatch.run(); return; }
+        final boolean[] approved={false};
+        android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(web.getContext())
+            .setTitle("Allow remote browser "+operation+"?")
+            .setMessage("Current approved site: "+approvedOrigin+"\nReview the requested action before allowing it.\n"+
+                clip(envelope.optJSONObject("payload").toString(),500))
+            .setNegativeButton("Deny",null)
+            .setPositiveButton("Allow once",(view,which)->{approved[0]=true;dispatch.run();}).create();
+        dialog.setOnDismissListener(view->{
+            if (pendingApproval==dialog) pendingApproval=null;
+            if (!approved[0]) complete(current,id,credential,commandId,object("error","user_denied"));
+        });
+        pendingApproval=dialog;
+        dialog.show();
+        ui.postDelayed(()->{if (pendingApproval==dialog) dialog.dismiss();},5000);
+    }
+
+    private static boolean boundedPayload(JSONObject value) {
+        return value != null && value.toString().getBytes(StandardCharsets.UTF_8).length<=2048
+            && boundedValue(value,0,new int[]{0});
+    }
+
+    private static boolean boundedValue(Object value,int depth,int[] nodes) {
+        if (++nodes[0]>128 || depth>6) return false;
+        if (value==null || value==JSONObject.NULL || value instanceof Boolean) return true;
+        if (value instanceof Number) return Math.abs(((Number)value).doubleValue())<=9007199254740991d;
+        if (value instanceof String) return ((String)value).length()<=1024;
+        if (value instanceof org.json.JSONArray) {
+            org.json.JSONArray array=(org.json.JSONArray)value;
+            if (array.length()>24) return false;
+            for (int i=0;i<array.length();i++) if (!boundedValue(array.opt(i),depth+1,nodes)) return false;
+            return true;
+        }
+        if (!(value instanceof JSONObject)) return false;
+        JSONObject object=(JSONObject)value;
+        if (object.length()>24) return false;
+        java.util.Iterator<String> keys=object.keys();
+        while (keys.hasNext()) {
+            String key=keys.next();
+            if (!key.matches("[a-zA-Z][a-zA-Z0-9_]{0,39}") ||
+                key.matches("(?i)constructor|prototype|password|passcode|secret|token|cookie|authorization|script|html") ||
+                !boundedValue(object.opt(key),depth+1,nodes)) return false;
+        }
+        return true;
     }
 
     private void complete(int current,String id,String credential,String commandId,JSONObject result) {
@@ -247,9 +382,11 @@ final class DeviceTransport {
         int version = release.getInt("version");
         String source = release.getString("script");
         if (version < 2 || version < settings.getInt("highest_runtime",1) ||
-            release.getInt("min_host") != 1 || source.length() > 4096) return;
+            release.getInt("min_host") != 1 || source.getBytes(StandardCharsets.UTF_8).length > 4096) return;
         String digest = hex(MessageDigest.getInstance("SHA-256").digest(source.getBytes(StandardCharsets.UTF_8)));
         if (!digest.equals(release.getString("sha256"))) return;
+        String highestDigest=settings.getString("highest_digest",null);
+        if (version==settings.getInt("highest_runtime",1) && highestDigest!=null && !digest.equals(highestDigest)) return;
         byte[] raw = Base64.decode(signingPublicKey,Base64.URL_SAFE | Base64.NO_WRAP | Base64.NO_PADDING);
         byte[] prefix = {0x30,0x2a,0x30,0x05,0x06,0x03,0x2b,0x65,0x70,0x03,0x21,0x00};
         if (raw.length != 32) return;
@@ -260,7 +397,7 @@ final class DeviceTransport {
         verify.initVerify(KeyFactory.getInstance("Ed25519").generatePublic(new X509EncodedKeySpec(x509)));
         verify.update(("jit-dom-v1\n"+version+"\n1\n"+digest+"\n").getBytes(StandardCharsets.UTF_8));
         if (!verify.verify(Base64.decode(release.getString("signature"),Base64.DEFAULT))) return;
-        if (!settings.edit().putString("runtime",release.toString()).putInt("highest_runtime",version).commit()) return;
+        if (!settings.edit().putString("runtime",release.toString()).putInt("highest_runtime",version).putString("highest_digest",digest).commit()) return;
         script = source;
         runtimeVersion = version;
     }
@@ -276,7 +413,7 @@ final class DeviceTransport {
         conn.setRequestProperty("Content-Type","application/json");
         conn.setDoOutput(true);
         byte[] bytes = body.toString().getBytes(StandardCharsets.UTF_8);
-        if (bytes.length > 2048) throw new IllegalArgumentException();
+        if (bytes.length > 4096) throw new IllegalArgumentException();
         conn.setFixedLengthStreamingMode(bytes.length);
         try {
             try (java.io.OutputStream output = conn.getOutputStream()) { output.write(bytes); }

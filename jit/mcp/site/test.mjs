@@ -283,4 +283,34 @@ try {
  assert.deepEqual(await discover(),toolDefinitions);
 } finally {globalThis.fetch = liveFetch;}
 console.log('PASS: owner-only setup, pairing, CSRF, validate before write, ciphertext, single write, credential-free response, gateway readback');
+const e8Id='00000000-0000-4000-8000-000000000008';
+const e8Command={protocol_version:1,operation:'observe',schema_version:1,expected_revision:null,payload:{}};
+const e8Result={protocol_version:1,kind:'browser.observation',schema_version:1,origin:'https://example.org',
+ observed_at:new Date(clock).toISOString(),nonce:e8Id,revision:e8Id,runtime_version:5,
+ payload:{outline:{headings:[{label:'Example 🐝'}]}}};
+let generic=true;
+globalThis.fetch=async (_url,options)=>{
+ const body=JSON.parse(options.body);
+ const base={interface_version:1,revision:4};
+ if(body.operation==='capabilities') return Response.json({...base,capabilities:[
+  {name:'browser_command_v1',revision:1,read_only:true,description:'Browser command',input_kind:'browser_envelope',output_kind:'command'},
+  {name:'browser_result_v1',revision:1,read_only:true,description:'Browser result',input_kind:'command_ref',output_kind:'command'}
+ ]});
+ assert.match(options.headers['X-JIT-Browser-Owner'],/^[0-9a-f-]{36}$/);
+ const data=body.capability==='browser_command_v1'?{command_id:e8Id,status:'pending'}:{
+  command_id:e8Id,status:'completed',result:generic?e8Result:{
+   origin:e8Result.origin,observed_at:e8Result.observed_at,nonce:e8Id,runtime_version:3,title:'Example',
+   text:'Test',links:[{text:'Learn more',href:'https://iana.org/help/example-domains'}]}};
+ return Response.json({...base,capability:body.capability,data});
+};
+try {
+ assert.equal((await gatewayCall('jit_invoke',{capability:'browser_command_v1',input:e8Command})).data.status,'pending');
+ assert.equal((await gatewayCall('jit_invoke',{capability:'browser_command_v1',input:{...e8Command,operation:'eval'}})).error,'invalid_input');
+ const input={command_id:e8Id};
+ assert.deepEqual((await gatewayCall('jit_invoke',{capability:'browser_result_v1',input})).data.result,e8Result);
+ generic=false;
+ assert.equal((await gatewayCall('jit_invoke',{capability:'browser_result_v1',input})).data.result.links[0].text,'Learn more');
+ assert.deepEqual(await discover(),toolDefinitions);
+} finally {globalThis.fetch=liveFetch;}
+console.log('PASS: E7 link readback and E8 opaque nested payload through fixed MCP definitions');
 Date.now=actualNow;console.log('PASS: real SQLite transport lifecycle, auth/isolation, CSRF, rate limits, explicit pairing, heartbeat, hidden/stale, 45s expiry, revocation, 2min code expiry, 10min session expiry, cleanup, ping');

@@ -12,11 +12,11 @@ export function execute(payload){
   if(!keys(payload,["operation","capability","input"])||typeof payload.operation!=="string")return {status:400,data:{error:"invalid_request"}};
   if(payload.operation==="capabilities"){
     if(Object.keys(payload).length!==1)return {status:400,data:{error:"invalid_request"}};
-    return {status:200,data:{interface_version:1,revision:3,capabilities}};
+    return {status:200,data:{interface_version:1,revision:4,capabilities}};
   }
   if(payload.operation!=="invoke"||!["echo_text_v1","text_length_v1"].includes(payload.capability)||!keys(payload.input,["text"])||Object.keys(payload.input).length!==1||typeof payload.input.text!=="string"||payload.input.text.length>256)
     return {status:400,data:{error:"unsupported_or_invalid_capability"}};
-  return {status:200,data:{interface_version:1,revision:3,capability:payload.capability,data:payload.capability==="text_length_v1"?{value:[...payload.input.text].length}:{text:payload.input.text}}};
+  return {status:200,data:{interface_version:1,revision:4,capability:payload.capability,data:payload.capability==="text_length_v1"?{value:[...payload.input.text].length}:{text:payload.input.text}}};
 }
 export async function handle(req,secret,serviceKey){
   if(req.method!=="POST")return json(405,{error:"method_not_allowed"});
@@ -24,26 +24,43 @@ export async function handle(req,secret,serviceKey){
   if(!device && !secret)return json(503,{error:"not_configured"});
   if(!device && !equalSecret(req.headers.get("x-jit-gateway-secret"),secret))return json(401,{error:"unauthorized"});
   if(!/^application\/json(?:\s*;|$)/i.test(req.headers.get("content-type")||""))return json(415,{error:"unsupported_media_type"});
+  const maxBytes=4096;
   const declared=req.headers.get("content-length");
-  if(declared!==null&&(!/^\d+$/.test(declared)||Number(declared)>2048))return json(413,{error:"too_large"});
-  let raw;try{raw=await req.text();}catch{return json(400,{error:"invalid_body"});}
-  if(new TextEncoder().encode(raw).length>2048)return json(413,{error:"too_large"});
+  if(declared!==null&&(!/^\d+$/.test(declared)||Number(declared)>maxBytes))return json(413,{error:"too_large"});
+  let raw="";
+  try {
+    const reader=req.body.getReader(), decoder=new TextDecoder('utf-8',{fatal:true});
+    let size=0;
+    while (true) {
+      const {done,value}=await reader.read();
+      if (done) break;
+      size+=value.byteLength;
+      if (size>maxBytes) {await reader.cancel();return json(413,{error:"too_large"});}
+      raw+=decoder.decode(value,{stream:true});
+    }
+    raw+=decoder.decode();
+  } catch {return json(400,{error:"invalid_body"});}
   let payload;try{payload=JSON.parse(raw);}catch{return json(400,{error:"invalid_json"});}
+  if (new TextEncoder().encode(raw).length>2048 &&
+      !(device && payload?.operation==="complete" && payload.result?.protocol_version===1) &&
+      !(!device && payload?.operation==="invoke" && payload.capability==="browser_command_v1")) {
+    return json(413,{error:"too_large"});
+  }
   try {
     if (device && payload?.operation==="runtime") {
-      if (!serviceKey || !secret || !keys(payload,["operation"])) return json(400,{error:"invalid_request"});
-      const session = await deviceCall(req,{operation:"runtime"},serviceKey);
+      if (!serviceKey || !secret || !keys(payload,["operation","host_protocol"])) return json(400,{error:"invalid_request"});
+      const session = await deviceCall(req,payload,serviceKey);
       if (session.error) return json(401,session);
-      return json(200,await runtimeRelease(secret));
+      return json(200,await runtimeRelease(secret,payload.host_protocol,session.release));
     }
     if (device) return serviceKey ? json(200,await deviceCall(req,payload,serviceKey)) : json(503,{error:"transport_unavailable"});
     if (payload?.operation==="invoke" && payload.capability==="browser_runtime_key_v1" && keys(payload,["operation","capability","input"]) && keys(payload.input,[])) {
-      return json(200,{interface_version:1,revision:3,capability:payload.capability,data:{text:await publicKey(secret)}});
+      return json(200,{interface_version:1,revision:4,capability:payload.capability,data:{text:await publicKey(secret)}});
     }
     if (payload?.operation==="invoke" && browserCapabilities.some(item=>item.name===payload.capability)) {
       if (!serviceKey || !keys(payload,["operation","capability","input"])) return json(400,{error:"invalid_request"});
       const data=await browserCall(req,payload,serviceKey);
-      return json(200,{interface_version:1,revision:3,capability:payload.capability,data});
+      return json(200,{interface_version:1,revision:4,capability:payload.capability,data});
     }
     const result=execute(payload);return json(result.status,result.data);
   } catch {return json(503,{error:"transport_unavailable"});}

@@ -306,11 +306,54 @@ void check();
 `;
 const backendUrl = 'https://iqglyokmcobegledbfcm.supabase.co/functions/v1/jit-mcp-capabilities';
 const backendText = objectSchema({text:{type:'string',maxLength:256}},['text']);
+// E8 wire validators. Keep the Site copy in sync; application fields are opaque.
+const e8Ops = new Set(['observe','extract','scroll','click','fill','navigate','back','forward','submit']);
+const e8Action = value => e8Ops.has(value) && value!=='observe' && value!=='extract';
+const e8Id = value => typeof value==='string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(value);
+const e8Object = value => value !== null && typeof value==='object' && !Array.isArray(value);
+const e8Exact = (value, keys) => e8Object(value) && Object.keys(value).length===keys.length &&
+ keys.every(key=>Object.hasOwn(value,key));
+function e8Payload(value) {
+ if (!e8Object(value)) return false;
+ let nodes=0;
+ function visit(item,depth) {
+  if (++nodes>128 || depth>6) return false;
+  if (item===null || typeof item==='boolean') return true;
+  if (typeof item==='number') return Number.isFinite(item) && Math.abs(item)<=Number.MAX_SAFE_INTEGER;
+  if (typeof item==='string') return item.length<=1024;
+  if (Array.isArray(item)) return item.length<=24 && item.every(child=>visit(child,depth+1));
+  return e8Object(item) && Object.keys(item).length<=24 && Object.entries(item).every(([key,child])=>
+   /^[a-zA-Z][a-zA-Z0-9_]{0,39}$/.test(key) &&
+   !/^(?:constructor|prototype|password|passcode|secret|token|cookie|authorization|script|html)$/i.test(key) &&
+   visit(child,depth+1));
+ }
+ return visit(value,0) && new TextEncoder().encode(JSON.stringify(value)).length<=2048;
+}
+function e8Command(value) {
+ return e8Exact(value,['protocol_version','operation','schema_version','expected_revision','payload']) &&
+  value.protocol_version===1 && e8Ops.has(value.operation) && Number.isInteger(value.schema_version) &&
+  value.schema_version>=1 && value.schema_version<=255 && e8Payload(value.payload) &&
+  (e8Action(value.operation)?e8Id(value.expected_revision):value.expected_revision===null || e8Id(value.expected_revision));
+}
+function e8Result(value) {
+ if (!e8Exact(value,['protocol_version','kind','schema_version','origin','observed_at','nonce','runtime_version','revision','payload'])) return false;
+ let origin;
+ try {origin=new URL(value.origin);} catch {return false;}
+ return value.protocol_version===1 && ['browser.observation','browser.action'].includes(value.kind) &&
+  Number.isInteger(value.schema_version) && value.schema_version>=1 && value.schema_version<=255 &&
+  typeof value.origin==='string' && value.origin.length<=253 && origin.origin===value.origin &&
+  origin.protocol==='https:' && !origin.port && /^(?:[a-z0-9-]+\.)+[a-z]{2,63}$/.test(origin.hostname) &&
+  !/\.(?:local|internal|localhost|test|invalid|onion)$/.test(origin.hostname) &&
+  typeof value.observed_at==='string' && Number.isFinite(Date.parse(value.observed_at)) &&
+  e8Id(value.nonce) && e8Id(value.revision) && Number.isSafeInteger(value.runtime_version) &&
+  value.runtime_version>=4 && e8Payload(value.payload);
+}
+
 const browserId = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
 const isBrowserId = value=>typeof value==='string' && browserId.test(value);
 const transportErrors = new Set(['foreground_session_required','command_not_found','command_expired',
  'session_unavailable','command_in_progress','transport_unavailable','invalid_owner','invalid_input']);
-const executionErrors = new Set(['document_unavailable','invalid_runtime_result','observation_rejected','execution_timeout']);
+const executionErrors = new Set(['document_unavailable','invalid_runtime_result','observation_rejected','execution_timeout','unsupported_operation','stale_observation','confirmation_required','user_denied','payload_too_large']);
 function transportError(value) {
  return fields(value,['error'],['error']) && transportErrors.has(value.error);
 }
@@ -321,13 +364,15 @@ function commandResult(value) {
  if (value.status==='pending'||value.status==='claimed') return value.result==null;
  const r=value.result;
  if (value.status==='failed') return fields(r,['error'],['error']) && executionErrors.has(r.error);
- const hasLinks=Object.hasOwn(r,'links');
- if (hasLinks && (!Array.isArray(r.links) || r.links.length>5 ||
-  !r.links.every(link=>fields(link,['text','href'],['text','href']) &&
-   typeof link.text==='string' && link.text.length>0 && link.text.length<=60 &&
-   typeof link.href==='string' && link.href.length<=160 &&
-   (()=>{try{const u=new URL(link.href);return ['http:','https:'].includes(u.protocol)&&!!u.hostname&&!u.username&&!u.password;}catch{return false;}})()))) return false;
- return fields(r,hasLinks?['origin','title','text','observed_at','nonce','runtime_version','links']:['origin','title','text','observed_at','nonce','runtime_version'],['origin','title','text','observed_at','nonce','runtime_version']) &&
+ if (e8Result(r)) return true;
+ const base=['origin','title','text','observed_at','nonce','runtime_version'];
+ if (Object.hasOwn(r??{},'links') && (!Array.isArray(r.links) || r.links.length>5 || !r.links.every(link=>{
+  if (!e8Exact(link,['text','href']) || typeof link.text!=='string' || !link.text.length || link.text.length>60 ||
+      typeof link.href!=='string' || link.href.length>160) return false;
+  try {const u=new URL(link.href);return ['http:','https:'].includes(u.protocol)&&!!u.hostname&&!u.username&&!u.password;}
+  catch {return false;}
+ }))) return false;
+ return fields(r,[...base,'links'],base) &&
   typeof r.origin==='string' && r.origin.length<=253 && /^https:\/\/[a-z0-9.-]+$/.test(r.origin) &&
   typeof r.title==='string' && r.title.length<=160 && typeof r.text==='string' && r.text.length<=360 &&
   typeof r.observed_at==='string' && Number.isFinite(Date.parse(r.observed_at)) && isBrowserId(r.nonce) &&
@@ -339,6 +384,11 @@ async function browserOwner(user) {
  return [hex.slice(0,8),hex.slice(8,12),hex.slice(12,16),hex.slice(16,20),hex.slice(20)].join('-');
 }
 const backendTypes = {
+ browser_envelope:{schema:objectSchema({
+  protocol_version:{const:1},operation:{type:'string',enum:[...e8Ops]},
+  schema_version:{type:'integer',minimum:1,maximum:255},
+  expected_revision:{type:['string','null']},payload:{type:'object'}
+ },['protocol_version','operation','schema_version','expected_revision','payload']),validate:e8Command},
  empty:{schema:emptySchema,validate:value=>fields(value,[])},
  command_ref:{schema:objectSchema({command_id:{type:'string',pattern:browserId.source}},['command_id']),
   validate:value=>fields(value,['command_id'],['command_id']) && isBrowserId(value.command_id)},
@@ -426,8 +476,8 @@ async function routedCapability(env,user,name,args) {
   result.revision = backend.revision*revisionBase + config.revision;
   for (const entry of backend.capabilities) {
    result.capabilities.push({name:entry.name,description:entry.description,tool:'jit_invoke',
-    risk:entry.name==='browser_pair_v1'?'enrollment':entry.name==='browser_observe_v1'?'read_only_observation':'read_only',
-    permission:'authenticated_owner',consent:entry.name==='browser_observe_v1'?'foreground_origin_approval':'none',
+    risk:entry.name==='browser_pair_v1'?'enrollment':entry.name==='browser_command_v1'?'foreground_browser_operation':entry.name==='browser_observe_v1'?'read_only_observation':'read_only',
+    permission:'authenticated_owner',consent:entry.name==='browser_command_v1'?'foreground_origin_approval_and_native_confirmation_for_mutation':entry.name==='browser_observe_v1'?'foreground_origin_approval':'none',
     rate_limit:{limit:60,window_seconds:60,shared:true},
     input_schema:backendTypes[entry.input].schema,output_schema:backendTypes[entry.output].schema});
   }
