@@ -4,6 +4,7 @@ Independent, single-page institutional experiences. Each project owns its layout
 
 ## Index
 
+- [Office of Availability](availability/README.md) — curated, government-inspired availability determinations routing real problems to appropriate external resources; specification only.
 - [Projects and idea bank](PROJECTS.md) — concepts and creative lineage.
 - [American Air Council](../air/) — live institutional parody.
 - [Starve The Children](../stc/) — live institutional parody.
