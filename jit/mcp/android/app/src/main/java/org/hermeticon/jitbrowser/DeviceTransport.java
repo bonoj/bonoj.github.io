@@ -48,6 +48,7 @@ final class DeviceTransport {
     private String session;
     private String approvedOrigin;
     private String script;
+    private JSONObject operationClasses;
     private int runtimeVersion = 1;
     private long pageEpoch;
     private String observationRevision;
@@ -261,10 +262,12 @@ final class DeviceTransport {
         String commandId = command.optString("command_id");
         String operation = envelope.optString("operation");
         String expected = envelope.optString("expected_revision","");
-        boolean readOnly = operation.equals("observe") || operation.equals("extract");
+        String risk = operationRisk(operation);
+        boolean readOnly = "read".equals(risk);
+        boolean consequential = "consequential".equals(risk);
         if (runtimeVersion < 4 || envelope.optInt("protocol_version") != 1 ||
             envelope.optInt("schema_version") < 1 || envelope.optInt("schema_version") > 255 ||
-            !java.util.Set.of("observe","extract","scroll","click","fill","navigate","back","forward","submit").contains(operation) ||
+            risk == null || consequential ||
             envelope.length()!=5 || !envelope.has("expected_revision") ||
             !boundedPayload(envelope.optJSONObject("payload"))) {
             complete(current,id,credential,commandId,object("error","unsupported_operation"));
@@ -323,7 +326,7 @@ final class DeviceTransport {
                 complete(current,id,credential,commandId,result);
             });
         };
-        if (readOnly || operation.equals("scroll")) { dispatch.run(); return; }
+        if (readOnly || "scroll".equals(operation)) { dispatch.run(); return; }
         final boolean[] approved={false};
         android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(web.getContext())
             .setTitle("Allow remote browser "+operation+"?")
@@ -338,6 +341,36 @@ final class DeviceTransport {
         pendingApproval=dialog;
         dialog.show();
         ui.postDelayed(()->{if (pendingApproval==dialog) dialog.dismiss();},30000);
+    }
+
+    // The manifest is inside the Ed25519-verified source bytes, not a caller-provided class.
+    // Unknown classes and consequential operations are deliberately not executable here.
+    private static JSONObject parseOperationClasses(String source) {
+        String prefix = "/* JIT_OPERATION_CLASSES ";
+        if (!source.startsWith(prefix)) return null;
+        int end = source.indexOf(" */",prefix.length());
+        if (end < 0 || end > 8192) return null;
+        try {
+            JSONObject manifest = new JSONObject(source.substring(prefix.length(),end));
+            if (manifest.length() > 64) return null;
+            java.util.Iterator<String> names = manifest.keys();
+            while (names.hasNext()) {
+                String name=names.next();
+                if (!name.matches("[a-z][a-z0-9_]{0,47}") ||
+                    !java.util.Set.of("read","interact","navigate","consequential").contains(manifest.optString(name))) return null;
+            }
+            return manifest;
+        } catch (Exception ignored) { return null; }
+    }
+
+    private String operationRisk(String operation) {
+        if (operationClasses != null) return operationClasses.optString(operation,null);
+        if (java.util.Set.of("observe","extract").contains(operation)) return "read";
+        if ("scroll".equals(operation)) return "interact";
+        if (java.util.Set.of("click","fill").contains(operation)) return "interact";
+        if (java.util.Set.of("navigate","back","forward").contains(operation)) return "navigate";
+        if ("submit".equals(operation)) return "consequential";
+        return null;
     }
 
     private static boolean boundedPayload(JSONObject value) {
@@ -399,6 +432,7 @@ final class DeviceTransport {
         if (!verify.verify(Base64.decode(release.getString("signature"),Base64.DEFAULT))) return;
         if (!settings.edit().putString("runtime",release.toString()).putInt("highest_runtime",version).putString("highest_digest",digest).commit()) return;
         script = source;
+        operationClasses = parseOperationClasses(source);
         runtimeVersion = version;
     }
 
