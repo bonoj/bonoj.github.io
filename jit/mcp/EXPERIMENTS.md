@@ -556,3 +556,11 @@ The user consistently wanted a **website we can build, deploy, extend, and manip
 - Invoked `browser_result_v1` with that command ID; returned **completed** with origin `https://example.com`, title `Example Domain`, real DOM text beginning “This domain is for use in documentation examples without needing permission.”, observed_at `2026-11-09T01:55:47.881470Z`, nonce `7191e661-c6b0-4b37-b01c-443d3d0108ba`, runtime_version `2`.
 - **Verified:** plugin → authenticated Supabase transport → foreground Android WebView → live DOM observation → result readback. This supersedes the earlier false conclusion based on legacy `device_status` and `jit_observe` reporting unpaired.
 - **Still open:** test Stop sharing / rejected post-revocation observation; independently verify signed runtime update without reinstall; verify which APK is installed and lifecycle stability. Do not claim all E6 acceptance complete.
+
+## 2026-11-09 — E6 post-stop revocation VERIFIED
+
+- User explicitly reported **Sharing stopped** after the successful remote DOM observation.
+- Immediately invoked `jit_invoke({capability:"browser_observe_v1",input:{}})` from ordinary ChatGPT.
+- The plugin/backend rejected the command with exact error `foreground_session_required` (`INVALID_ARGUMENT` wrapper). No new observation command was accepted.
+- **Verified:** remote observation is blocked after user stops sharing. Enrollment persistence was previously confirmed separately in Supabase; this check does not prove installed APK version or signed runtime-update activation.
+- **Remaining E6 work:** independently test remotely signed JavaScript update without APK reinstall; verify updated APK lifecycle behavior on the physical device. Do not conflate those with the already verified observation/revocation round trip.
