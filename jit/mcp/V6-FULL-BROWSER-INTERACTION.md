@@ -44,10 +44,14 @@ Authenticate the owner and paired device, verify immutable signed runtime bytes 
 
 A build, commit or partial pass is **not** acceptance. Report each gate PASS/FAIL/NOT TESTED with evidence. If any gate fails, keep the last verified runtime active and report the specific blocker; do not manufacture a success story.
 
-## 7. User time budget and reporting discipline
+## 7. Explicitly discovered host gaps to close
+
+The inspected Android DeviceTransport currently rejects signed scripts above 4,096 UTF-8 bytes, reads a maximum 8,192 bytes from its Edge Function response, and allows only five seconds for an Allow once dialog. These are **observed implementation constraints**, not legitimate feature ceilings. A larger signed runtime requires revisiting **both** the activation size check and the network response reader, plus verifying any Edge/SQL delivery limits; merely changing 4,096 to 262,144 will not work. The current operation allowlist is name-based and must become a verified signed-manifest operation-class contract. The WebView history/navigation bridge and actual UI callback behavior are not yet inspected; do not promise they already work. Reconsider approval timeout and session-level consent deliberately, with an owner-visible scope and immediate revocation. Test these constraints before requesting a phone update.
+
+## 8. User time budget and reporting discipline
 
 The user is not a test harness. No asking them to reinstall, re-pair, repeatedly share, or approve tiny experimental steps while source/tests/deploy are unresolved. Expected human work is one in-place update **if required**, one foreground sharing/consent session, and any necessary system permissions. This is a target, not a guarantee; disclose any unavoidable extra steps with a proven reason. No turn-by-turn crumb commits as completion reports. Continue integrated execution until a genuine external dependency or user action blocks progress.
 
-## 8. Independent adversarial review before claiming ready
+## 9. Independent adversarial review before claiming ready
 
 Before implementation and again before device acceptance, review this spec against: (i) full user-requested scope, (ii) actual host/transport constraints, (iii) signed-runtime-only extensibility, (iv) owner consent and external-attack protection, (v) browser navigation and controlled-form edge cases, (vi) testable evidence, and (vii) minimum human time. Record every unresolved gap explicitly. **No spec can guarantee future assistant behavior or zero failures**; the enforceable substitute is a falsifiable acceptance gate, evidence-linked progress, and refusal to call partial work complete.
