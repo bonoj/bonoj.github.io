@@ -32,11 +32,28 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-      - name: Build unsigned debug prototype
+      - name: Build debug APK
         working-directory: jit/mcp/android
         run: gradle :app:assembleDebug --no-daemon
+      - name: Sign and verify installable APK
+        env:
+          JIT_APK_KEYSTORE_BASE64: ${{ secrets.JIT_APK_KEYSTORE_BASE64 }}
+          JIT_APK_KEYSTORE_PASSWORD: ${{ secrets.JIT_APK_KEYSTORE_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -z "$JIT_APK_KEYSTORE_BASE64" ] || [ -z "$JIT_APK_KEYSTORE_PASSWORD" ]; then
+            echo "::error::Missing JIT APK signing secrets. Configure both repository Actions secrets."
+            exit 1
+          fi
+          KEYSTORE="$RUNNER_TEMP/jit-release.jks"
+          printf '%s' "$JIT_APK_KEYSTORE_BASE64" | base64 --decode > "$KEYSTORE"
+          APK="jit/mcp/android/app/build/outputs/apk/debug/app-debug.apk"
+          OUT="jit/mcp/android/app/build/outputs/apk/debug/jit-browser-signed.apk"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" sign --ks "$KEYSTORE" --ks-key-alias jit-browser --ks-pass env:JIT_APK_KEYSTORE_PASSWORD --key-pass env:JIT_APK_KEYSTORE_PASSWORD --out "$OUT" "$APK"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$OUT"
+          rm -f "$KEYSTORE" "$APK"
       - uses: actions/upload-artifact@v4
         with:
-          name: jit-android-debug-prototype
+          name: jit-android-signed
           path: jit/mcp/android/app/build/outputs/apk/debug/*.apk
           retention-days: 7
