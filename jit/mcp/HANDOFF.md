@@ -1,3 +1,52 @@
+# JIT MCP — ACTIVE EXECUTION PATH (2026-11-09 UTC)
+
+**One entrypoint:** [HANDOFF.md](HANDOFF.md) → [INVARIANTS.md](INVARIANTS.md) → [V6-FULL-BROWSER-INTERACTION.md](V6-FULL-BROWSER-INTERACTION.md) acceptance gates → latest chronological entry in [EXPERIMENTS.md](EXPERIMENTS.md). Other documents are background or historical. **Do not execute an older handoff, old E6 checklist, or earlier “v6 not active” status.**
+
+## Established production baseline (do not redo)
+
+- Private **six-tool JIT MCP** plugin in **ordinary Android ChatGPT**; native path is `jit_capabilities` and `jit_invoke` using `browser_command_v1` / `browser_result_v1`. Legacy `device_status`, `browser_observe`, `jit_observe` are **not native Android diagnostics**.
+- Native WebView companion is enrolled and running; signed remote **runtime v6 is LIVE**. Approved v6 SHA-256: `4ed8f295771878b7e5218e4b3f281d7dc7d4e87e8dda9f67d4cf7f0a12a39fc0`. Real Android observe, paginated controls extraction, and text fill returned completed v6 results on 2026-11-09 04:24–04:27 UTC. See EXPERIMENTS for command IDs.
+- Existing Site gateway, Supabase project `iqglyokmcobegledbfcm`, signing root, enrollment, plugin identity, and APK must be preserved. **No reinstall, re-pairing, redeploy, signing approval or new v6 implementation without evidence of a specific defect.**
+- A previous `click` command `7985bd6d-245b-4617-889b-a8ba87a33611` was queued but result lookup returned `command_not_found` twice. **Click and navigation are NOT verified.** Do not claim v6 full browser acceptance from the successful text fill.
+- The last application interaction was a user-requested name fill only. **Do not revisit, click or submit the Disney Research application without fresh user authorization.**
+
+## Next engineering job — execute in this order
+
+1. **Read before acting:** this file, INVARIANTS, v6 hard acceptance gate, newest EXPERIMENTS entry, then relevant live source. Check current `master` and deployed state. Do not reinterpret old “not built”/“not active” paragraphs as current facts.
+2. **Diagnose `command_not_found` read-only first:** inspect exact command ID, private Supabase command/result/session records and expiry/cleanup, Site result adapter, Edge claim/ack, native navigation lifecycle. Establish whether command was executed, expired, revoked, or deleted. Distinguish a transport error from a real click. Do not ask for another sharing session to perform this investigation.
+3. **Fix only the proven failing boundary:** preserve protocol v1, bounded versioned envelopes, signed runtime, same-origin/foreground consent, revision checks, replay/rollback defenses, Stop revocation, and v5 fallback. Add regression tests for the exact failure and navigation-result race. No broad redesign, speculative deployment or APK update.
+4. **Verify source/tests/backend without user:** run existing `runtime/v6.test.mjs` and relevant transport tests; check actual deployment and runtime digest if changed. If a native change is proven necessary, use **only** `.github/workflows/jit-android.yml` and its signed `jit-android-signed/jit-browser-signed.apk` artifact; preserve signing identity and enrollment. A CI pass is not device acceptance.
+5. **Prepare one safe, owned HTTPS test flow** for full acceptance, not an active application or third-party submission: bounded pagination; a benign link click and navigation readback; back/forward; two distinct field fills with post-action DOM readback; select and checkbox/radio state; validation feedback; Stop-sharing denial; subsequent signed runtime capability without Site/Edge/APK change. Check cross-origin consent and fail-closed behavior. If no owned fixture exists, create/test one before asking the user to share.
+6. **Only then ask for minimal physical interaction:** one foreground sharing/consent session and, only if proved indispensable, one in-place signed APK update. Immediately use native `browser_command_v1` `observe` → `browser_result_v1`; for subsequent operations use a fresh device-returned DOM `revision`, current `lN/cN` refs and per-operation user authorization. Never reuse historical revisions. Observe postconditions independently. No automatic consequential submission.
+7. **Close against the v6 spec, not a demo:** report gates A–H individually as PASS/FAIL/NOT TESTED with real command IDs, `observed_at` UTC, origin, revision and runtime version. Record actual evidence at the **chronological end** of EXPERIMENTS, then update this short handoff. Do not claim full completion while any required gate is unverified.
+
+## Minimal native call shape
+
+```js
+const q = await tools.mcp__JIT_MCP__jit_invoke({
+  capability:"browser_command_v1",
+  input:{protocol_version:1,operation:"observe",schema_version:1,expected_revision:null,payload:{}}
+});
+// Obtain q's returned command_id, then:
+const result = await tools.mcp__JIT_MCP__jit_invoke({
+  capability:"browser_result_v1",
+  input:{command_id:"<returned command_id>"}
+});
+```
+
+The tool's pending response is **not** an executed action. Read the completed result. Fresh revision is required for follow-on `extract`, `fill`, `click`, etc. If a command disappears, investigate the lifecycle before reissuing it.
+
+## Stop conditions
+
+Stop and report the exact blocker if current production contradicts documentation, consent cannot be enforced, command state is ambiguous, or a requested operation is consequential without explicit confirmation. Never silently weaken authorization, migrate transport, rotate keys, reset enrollment, or make the user debug infrastructure.
+
+---
+# Archived handoffs and prior checkpoints — historical, not executable
+
+The material below records earlier implementation and release stages. **All “next action”, “not activated”, and “not built” statements below are superseded by the active execution path above.** Consult for provenance only.
+
+---
+
 # CURRENT HANDOFF — v6 LIVE on native Android (2026-11-09 04:27 UTC)
 
 **Read [INVARIANTS.md](INVARIANTS.md), then the newest entry in [EXPERIMENTS.md](EXPERIMENTS.md). This section supersedes earlier v5-only and v6-not-activated statements below.**
