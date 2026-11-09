@@ -9,7 +9,11 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceError;
 import android.webkit.WebSettings;
 import android.graphics.Color;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
+import android.graphics.Insets;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -37,6 +41,11 @@ public final class MainActivity extends Activity {
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(Color.WHITE);
         root.setFocusableInTouchMode(true);
+        root.setOnApplyWindowInsetsListener((view, insets) -> {
+            Insets bars = insets.getInsets(WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout());
+            view.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return WindowInsets.CONSUMED;
+        });
         address = new EditText(this);
         address.setSingleLine(true);
         address.setHint("https://example.org");
@@ -139,6 +148,8 @@ public final class MainActivity extends Activity {
             status.setText("Stopped");
         });
         setContentView(root);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+        root.requestApplyInsets();
         root.requestFocus();
         root.post(() -> { root.requestFocus(); root.scrollTo(0,0); });
     }
