@@ -4,6 +4,7 @@ on:
     branches: [master]
     paths:
       - 'jit/mcp/android/**'
+      - 'jit/mcp/runtime/**'
       - '.github/workflows/jit-mcp-android-build.yml'
   workflow_dispatch:
 jobs:
@@ -21,6 +22,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.10.2'
+      - name: Browser runtime regression
+        run: node --test jit/mcp/runtime/v6.test.mjs
       - name: Build unsigned release
         working-directory: jit/mcp/android
         run: gradle --no-daemon :app:assembleRelease
