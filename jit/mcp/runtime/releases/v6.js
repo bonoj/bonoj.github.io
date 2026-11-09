@@ -20,7 +20,7 @@ const result=(kind,payload)=>({...common,kind,schema_version:1,payload});
 const op=command.operation,p=command.payload||{};
 if(op==="observe")return result("browser.observation",{page:{title,excerpt:text},outline:{headings:blocks.filter(e=>/^H[12]$/.test(e.tagName)).slice(0,4).map(e=>({level:Number(e.tagName[1]),label:clean(e.innerText,60)}))},forms:forms.slice(0,2),control_count:controlItems.length,link_count:linkItems.length,links:linkItems.slice(0,2)});
 if(op==="extract"){
- const collections={links:linkItems,controls:controlItems,forms,content:blocks.map(e=>({text:clean(e.innerText,140)})),options:[],messages:[]};
+ const collections={links:linkItems,controls:controlItems,forms,content:blocks.map(e=>({text:clean(e.innerText,140)})),options:controls.flatMap((e,i)=>e.tagName==="SELECT"?Array.from(e.options).slice(0,20).map((o,j)=>({control_ref:"c"+i,option_ref:"o"+i+"_"+j,label:clean(o.text,70),selected:o.selected,disabled:o.disabled})):[]),messages:Array.from(document.querySelectorAll("[role=alert],[aria-live],.error,.invalid-feedback")).filter(visible).slice(0,20).map(e=>({text:clean(e.innerText,140)}))};
  if(!Object.prototype.hasOwnProperty.call(collections,p.collection)||!Number.isInteger(p.limit)||p.limit<1||p.limit>4||(p.cursor!==null&&(!Number.isInteger(p.cursor)||p.cursor<0||p.cursor>400)))return {error:"observation_rejected"};
  const items=collections[p.collection],start=p.cursor||0,end=start+p.limit;
  return result("browser.observation",{collection:p.collection,items:items.slice(start,end),next_cursor:end<items.length?end:null,total:items.length});
@@ -42,6 +42,25 @@ if(op==="fill"){
  const setter=Object.getOwnPropertyDescriptor(e.tagName==="TEXTAREA"?HTMLTextAreaElement.prototype:HTMLInputElement.prototype,"value")?.set;
  if(!setter)return {error:"unsupported_operation"};setter.call(e,p.value);e.dispatchEvent(new Event("input",{bubbles:true}));e.dispatchEvent(new Event("change",{bubbles:true}));
  return result("browser.action",{action:"fill",ref:p.ref,accepted:e.value===p.value,length:e.value.length});
+}
+if(op==="select"){
+ if(typeof p.ref!=="string"||!/^c\\d{1,3}$/.test(p.ref))return {error:"observation_rejected"};
+ const e=controls[Number(p.ref.slice(1))];
+ if(!e||!e.isConnected||!visible(e)||e.disabled||isSensitive(e))return {error:"target_unavailable"};
+ if(e.tagName==="SELECT"){
+  if(typeof p.option_ref!=="string"||!/^o\\d{1,3}_\\d{1,2}$/.test(p.option_ref))return {error:"observation_rejected"};
+  const parts=p.option_ref.slice(1).split("_").map(Number);
+  if(parts[0]!==Number(p.ref.slice(1))||parts[1]>=e.options.length||parts[1]>=20||e.options[parts[1]].disabled)return {error:"target_unavailable"};
+  e.selectedIndex=parts[1];e.dispatchEvent(new Event("input",{bubbles:true}));e.dispatchEvent(new Event("change",{bubbles:true}));
+  return result("browser.action",{action:"select",ref:p.ref,selected_option:p.option_ref,accepted:e.selectedIndex===parts[1]});
+ }
+ if(e.matches("input[type=checkbox],input[type=radio]")){
+  if(typeof p.checked!=="boolean")return {error:"observation_rejected"};
+  if(e.type==="radio"&&!p.checked)return {error:"observation_rejected"};
+  e.checked=p.checked;e.dispatchEvent(new Event("input",{bubbles:true}));e.dispatchEvent(new Event("change",{bubbles:true}));
+  return result("browser.action",{action:"select",ref:p.ref,checked:e.checked});
+ }
+ return {error:"unsupported_operation"};
 }
 return {error:"unsupported_operation"};
 })
