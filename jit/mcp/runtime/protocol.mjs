@@ -1,6 +1,6 @@
 // E8 wire validators. Keep the Site copy in sync; application fields are opaque.
-const e8Ops = new Set(['observe','extract','scroll','click','fill','navigate','back','forward','submit']);
-const e8Action = value => e8Ops.has(value) && value!=='observe' && value!=='extract';
+// Transport is operation-name agnostic; the signed Android runtime decides authority.
+const e8Operation = value => typeof value==='string' && /^[a-z][a-z0-9_]{0,47}$/.test(value);
 const e8Id = value => typeof value==='string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(value);
 const e8Object = value => value !== null && typeof value==='object' && !Array.isArray(value);
 const e8Exact = (value, keys) => e8Object(value) && Object.keys(value).length===keys.length &&
@@ -23,9 +23,9 @@ function e8Payload(value) {
 }
 function e8Command(value) {
  return e8Exact(value,['protocol_version','operation','schema_version','expected_revision','payload']) &&
-  value.protocol_version===1 && e8Ops.has(value.operation) && Number.isInteger(value.schema_version) &&
+  value.protocol_version===1 && e8Operation(value.operation) && Number.isInteger(value.schema_version) &&
   value.schema_version>=1 && value.schema_version<=255 && e8Payload(value.payload) &&
-  (e8Action(value.operation)?e8Id(value.expected_revision):value.expected_revision===null || e8Id(value.expected_revision));
+  (value.expected_revision===null || e8Id(value.expected_revision));
 }
 function e8Result(value) {
  if (!e8Exact(value,['protocol_version','kind','schema_version','origin','observed_at','nonce','runtime_version','revision','payload'])) return false;
