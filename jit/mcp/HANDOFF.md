@@ -1,3 +1,11 @@
+# NATIVE ANDROID MCP — FIRST ACTION (2026-11-09 UTC)
+
+**Authoritative:** [INVARIANTS.md](INVARIANTS.md). For a sharing Android user, immediately call `jit_invoke({capability:"browser_observe_v1",input:{}})`, then `jit_invoke({capability:"browser_result_v1",input:{command_id}})`. For generalized browser actions, discover `browser_command_v1` in `jit_capabilities` first. **Never use `device_status`, `browser_observe`, `jit_observe` to infer native Android status**; those are legacy Chrome companion interfaces. No split-screen/Chrome pairing/re-enrollment advice based on them.
+
+**Just verified:** ordinary ChatGPT received completed real Android WebView DOM observation at 2026-11-09 04:13:24.408207 UTC, command `d93dab27-f65c-445c-9651-cfa87450015e`, `https://example.com`, runtime v5, link to iana.org. User was already sharing; no enrollment action was required. v6 runtime and physical signed APK upgrade are not yet verified. Preserve signed-release workflow `.github/workflows/jit-android.yml` and six-tool identity. Record actual results in EXPERIMENTS, not fabricated CI/device claims.
+
+---
+
 # CURRENT HANDOFF — Android JIT MCP release discipline (2026-11-08)
 
 ## Non-negotiable release contract
