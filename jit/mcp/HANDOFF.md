@@ -1,6 +1,6 @@
 # JIT MCP — handoff
 
-**Execution gate:** Read [INVARIANTS.md](INVARIANTS.md) first on every continuation. It defines the binding workflow, known E6 split-brain status trap, verification levels, and acceptance criteria. Do not repeat enrollment when Supabase has already confirmed it.
+**E7 checkpoint:** [E7-STRUCTURED-DOM.md](E7-STRUCTURED-DOM.md) specifies the structured-link result extension and acceptance. Android source commit `2f8bb5a` forwards up to five validated visible links from signed runtime >=3; Supabase Edge Function v6 is deployed with backward-compatible validation and signed runtime v3. **New APK build and physical E7 link readback are not yet verified.** Preserve enrollment and E6 behavior.\n\n**Execution gate:** Read [INVARIANTS.md](INVARIANTS.md) first on every continuation. It defines the binding workflow, known E6 split-brain status trap, verification levels, and acceptance criteria. Do not repeat enrollment when Supabase has already confirmed it.
 
 **Start here:** [ANDROID-WEBVIEW.md](ANDROID-WEBVIEW.md) is the **binding, noise-free specification** for the current implementation. Read it first. [EXPERIMENTS.md](EXPERIMENTS.md) is the evidence log. [BROWSER-AUTOMATION.md](BROWSER-AUTOMATION.md) documents the earlier cloud-browser proposal; its hosted-Chromium and no-Android assumptions are **superseded**.
 
