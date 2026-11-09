@@ -8,6 +8,11 @@
   if (prior && prior.version === 1) return;
   const state = { version: 1, revision: 0, refs: new Map(), serial: 0 };
   const maxText = 3000, maxControls = 80;
+  const sensitive = /password|passcode|secret|token|api.?key|auth|credit|card|cvv|cvc|ssn|otp|verification/i;
+  function protectedField(el) {
+    if (!(el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement)) return false;
+    return sensitive.test([el.type, el.name, el.id, el.autocomplete, el.getAttribute('aria-label'), el.placeholder].join(' '));
+  }
   function visible(el) {
     const style = getComputedStyle(el);
     const r = el.getBoundingClientRect();
@@ -34,8 +39,8 @@
       if (!visible(el)) continue;
       const ref = "e" + (++state.serial);
       state.refs.set(ref, el);
-      const secret = el.matches("input[type=password],input[type=hidden]") || /password|token|secret/i.test(el.autocomplete || "");
-      controls.push({ ref, role: role(el), name: label(el), type: el.getAttribute("type") || "",
+      const secret = protectedField(el);
+      controls.push({ ref, role: role(el), name: secret ? "[sensitive field]" : label(el), type: el.getAttribute("type") || "",
         disabled: !!el.disabled, value: secret ? null : ("value" in el ? String(el.value).slice(0, 180) : null) });
     }
     return { runtime_version: 1, revision: state.revision, url: location.href,
@@ -51,12 +56,14 @@
     if (!el || !el.isConnected || !visible(el)) return { error: "stale_element" };
     if (command.operation === "click") {
       if (el.disabled) return { error: "disabled" };
+      if (el.matches("input[type=submit],button[type=submit]") && el.form?.querySelector("input[type=password]")) return { error: "sensitive_form_requires_manual_submit" };
       el.click();
     } else if (command.operation === "fill") {
       if (typeof command.value !== "string" || command.value.length > 1000) return { error: "invalid_value" };
       if (!(el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el instanceof HTMLSelectElement))
         return { error: "not_editable" };
       if (el.disabled || el.readOnly || el.type === "file") return { error: "not_editable" };
+      if (protectedField(el)) return { error: "sensitive_field_requires_manual_input" };
       const proto = el instanceof HTMLTextAreaElement ? HTMLTextAreaElement.prototype :
         el instanceof HTMLSelectElement ? HTMLSelectElement.prototype : HTMLInputElement.prototype;
       const setter = Object.getOwnPropertyDescriptor(proto, "value")?.set;
