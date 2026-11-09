@@ -36,13 +36,17 @@ public final class MainActivity extends Activity {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(Color.WHITE);
+        root.setFocusableInTouchMode(true);
         address = new EditText(this);
         address.setSingleLine(true);
         address.setHint("https://example.org");
-        root.addView(address, new LinearLayout.LayoutParams(-1, -2));
+        LinearLayout navigation = new LinearLayout(this);
+        navigation.setOrientation(LinearLayout.HORIZONTAL);
+        navigation.addView(address, new LinearLayout.LayoutParams(0, -2, 1));
         Button go = new Button(this);
-        go.setText("Navigate");
-        root.addView(go, new LinearLayout.LayoutParams(-1, -2));
+        go.setText("GO");
+        navigation.addView(go, new LinearLayout.LayoutParams(-2, -2));
+        root.addView(navigation, new LinearLayout.LayoutParams(-1, -2));
         status = new TextView(this);
         status.setText("Sharing off");
         status.setTextColor(Color.BLACK);
@@ -135,6 +139,8 @@ public final class MainActivity extends Activity {
             status.setText("Stopped");
         });
         setContentView(root);
+        root.requestFocus();
+        root.post(() -> { root.requestFocus(); root.scrollTo(0,0); });
     }
 
     private void navigate(String raw) {
