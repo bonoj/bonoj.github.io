@@ -32,7 +32,7 @@ export async function runtimeRelease(secret, hostProtocol=0, approved=null) {
    const {done,value}=await reader.read();
    if (done) break;
    size+=value.byteLength;
-   if (size>4096) {await reader.cancel();throw Error('release_too_large');}
+   if (size>262144) {await reader.cancel();throw Error('release_too_large');}
    chunks.push(value);
   }
   const bytes=new Uint8Array(size);
