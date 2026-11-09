@@ -1,3 +1,15 @@
+# v6 implementation checkpoint — 2026-11-08 (do not mistake for acceptance)
+
+Binding target: [V6-FULL-BROWSER-INTERACTION.md](V6-FULL-BROWSER-INTERACTION.md). The earlier E9 click-only handoff below is superseded.
+
+**Verified repo changes:** Native DeviceTransport now accepts 256 KiB signed runtime scripts and up to 512 KiB runtime HTTP response, increases native approval timeout to 30s, and maps target errors/navigation transitions. Signed runtime release loader limit changed to 256 KiB. v6.js implements observe, paginated links/content/controls/forms/options/messages, click, fill, dropdown/checkbox/radio through fill, same-origin navigate and history back/forward. Native-compatible operation names preserved. Test fixture `runtime/v6.test.mjs` added. An in-tool simulated DOM check passed 11 operations, but CI/node and device tests are not yet verified.
+
+**Verified live backend:** Supabase Edge Function `jit-mcp-capabilities` version 8 ACTIVE, runtime loader 256 KiB verified by fetching deployed function. Private runtime approval table remains v5 only; v6 has **not** been signed/approved/activated. Installed Android companion remains unchanged.
+
+**Open engineering blockers:** Build/sign and distribute native APK preserving signing identity; verify runtime test suite in CI; operation-class manifest extensibility (current host, Site, Edge protocol still name-allowlisted); real WebView history and navigation race behavior; stable DOM refs across reorder; confirm release HTTP response and SHA256; physical ordinary-ChatGPT acceptance; update EXPERIMENTS with observed UTC evidence. No human action requested until build and deployment are verified. Do not claim completion.
+
+---
+
 # JIT MCP handoff — E9 native-consented DOM clicking
 
 ## Verified E8 baseline (2026-11-09 UTC)
