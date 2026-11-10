@@ -25,6 +25,7 @@ Canonical entrypoint: https://bonoj.github.io/jit/music/
 | 008 | Three-String Minor Lute | D–A–F open D minor, diatonic touch fretboard, independent multitouch strumming soundboard, hammer-on and pull-off |
 | 009 | Baba Yaga’s Harp | Fifteen-string A harmonic minor harp, manual plucks and sweeps, four-section original crooked dance played through the instrument |
 | 010 | The Impossible Procession | Six-act composed dramatic arc for harp, bowed strings, and ritual drums; performer mute controls |
+| 011 | The Bathyal | Seven pluckable D Dorian strings; procedural resonances and ocean descent through five depth regions |
 
 ## Experience 004 — Field Music
 
@@ -80,3 +81,7 @@ Experience 008 is the reference instrument. The user played a recognizable Schis
 The key architectural insight is independent fretting and excitation gesture streams. A future programmatic performer should operate the same instrument controls as a human, rather than bypassing the instrument to emit generic note events. Preserve 008. Experience 009 was playful and showed instrument-first composition; 010 lacked that playfulness and had audible fuzz. The 010 bowed sawtooth is a possible source of buzz, but its deeper shortcoming is that it arranged synthetic sounds before developing convincing instrumental performance.
 
 Next possible experiment, only when requested: capture a small two-hand gesture score and have a program play an 008-like instrument, including open notes, slides, hammer-ons and rhythmic plucks. Do not modify 008 merely for polish. This is a cold handoff, not an implementation request. Existing repository boundaries remain in force.
+
+## Experience 011 — The Bathyal (2026-11-10)
+
+The author requested an in-chat toy whose resonating strings evoke a slow, quiet, contemplative descent to the ocean floor: wonder, gradual development, and diatonic notes without wrong choices. The chat prototype was subsequently promoted to the existing JIT Music single-page registry, not a separate standalone page. Seven touch/sweep strings use D Dorian (D E F G A B C), with layered sine partials, decaying envelopes, filtered tone, feedback-delay reflections, visual pluck ripples, particles, changing light and bioluminescence, and an adjustable descent rate including zero. The user must initiate audio; navigation away suspends the Bathyal and fades active voices. This is a first implementation, not a claim of acoustic realism or confirmed mobile listening quality. See [CHRONICLE.md](CHRONICLE.md) for the originating human instruction, model choices, and implementation record. Source committed; public Pages deployment and actual sound/gesture quality require independent verification.
