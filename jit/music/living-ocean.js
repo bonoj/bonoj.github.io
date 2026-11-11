@@ -26,7 +26,7 @@ new ResizeObserver(resize).observe(canvas);
 function setup(){
  if(ac)return;
  ac=new(window.AudioContext||window.webkitAudioContext)();
- out=ac.createGain();out.gain.value=.28;
+ out=ac.createGain();out.gain.value=.72;
  const compressor=ac.createDynamicsCompressor();compressor.threshold.value=-21;compressor.ratio.value=3;out.connect(compressor);compressor.connect(ac.destination);
  echo=ac.createDelay(2);echo.delayTime.value=.56;feedback=ac.createGain();feedback.gain.value=.18;echo.connect(feedback);feedback.connect(echo);wet=ac.createGain();wet.gain.value=.16;out.connect(echo);echo.connect(wet);wet.connect(compressor);
 }
@@ -34,7 +34,7 @@ function tone(c,degree,time,strength=.65,answer=false){
  if(!ac||ac.state!=='running')return;
  const sp=species[c.kind],m=scale[clamp(degree,0,scale.length-1)],f=hz(m),dur=sp.voice==='bass'?3.3:sp.voice==='flute'?2.4:2.9;
  const env=ac.createGain(),filter=ac.createBiquadFilter(),pan=ac.createStereoPanner();
- const gain=(sp.voice==='bass'?.045:.032)*strength;
+ const gain=(sp.voice==='bass'?.085:.075)*strength;
  env.gain.setValueAtTime(.0001,time);env.gain.exponentialRampToValueAtTime(gain,time+.04);env.gain.exponentialRampToValueAtTime(.0001,time+dur);
  filter.type='lowpass';filter.frequency.value=Math.max(420,2700-depth*.19);
  pan.pan.value=clamp((c.x-.5)*1.5,-.8,.8);filter.connect(env);env.connect(pan);pan.connect(out);
@@ -104,7 +104,7 @@ function stop(){
 }
 $('start').onclick=async()=>{
  if(playing){stop();return}
- try{setup();await ac.resume();playing=true;next=ac.currentTime+.09;clock=setInterval(tick,45);$('start').textContent='Pause listening';}
+ try{setup();await ac.resume();playing=true;next=ac.currentTime+.09;clock=setInterval(tick,45);$('start').textContent='Pause listening';const first=creatures.filter(visible)[0];if(first){speak(first,next);$('caption').textContent='Listening · '+species[first.kind].name+' calls into the water';}tick();}
  catch(e){$('caption').textContent='Audio unavailable: '+e.message}
 };
 $('drift').addEventListener('input',()=>{rate=Number($('drift').value);$('drift-label').textContent=rate===0?'STILL':rate+' m/s'});
