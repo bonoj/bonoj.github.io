@@ -26,6 +26,7 @@ Canonical entrypoint: https://bonoj.github.io/jit/music/
 | 009 | Baba Yaga’s Harp | Fifteen-string A harmonic minor harp, manual plucks and sweeps, four-section original crooked dance played through the instrument |
 | 010 | The Impossible Procession | Six-act composed dramatic arc for harp, bowed strings, and ritual drums; performer mute controls |
 | 011 | The Bathyal | Seven pluckable D Dorian strings; procedural resonances and ocean descent through five depth regions |
+| 012 | Living Ocean | 56 depth-distributed creatures; six families exchanging motifs in spatially coupled call-and-response; touch to call |
 
 ## Experience 004 — Field Music
 
@@ -85,3 +86,7 @@ Next possible experiment, only when requested: capture a small two-hand gesture 
 ## Experience 011 — The Bathyal (2026-11-10)
 
 The author requested an in-chat toy whose resonating strings evoke a slow, quiet, contemplative descent to the ocean floor: wonder, gradual development, and diatonic notes without wrong choices. The chat prototype was subsequently promoted to the existing JIT Music single-page registry, not a separate standalone page. Seven touch/sweep strings use D Dorian (D E F G A B C), with layered sine partials, decaying envelopes, filtered tone, feedback-delay reflections, visual pluck ripples, particles, changing light and bioluminescence, and an adjustable descent rate including zero. The user must initiate audio; navigation away suspends the Bathyal and fades active voices. This is a first implementation, not a claim of acoustic realism or confirmed mobile listening quality. See [CHRONICLE.md](CHRONICLE.md) for the originating human instruction, model choices, and implementation record. Source committed; public Pages deployment and actual sound/gesture quality require independent verification.
+
+## Experience 012 — Living Ocean (2026-11-10)
+
+A successor to 011's contemplative descent. Fifty-six creatures are distributed throughout the water column, with only a local neighborhood audible at a given depth. Each creature has a persistent motif, voice, timing, pitch memory, and listening relationships. Calls cause delayed, interval-aware replies from neighbors; the resulting music is an interaction among organisms rather than a uniform random-note generator. Tap creatures to initiate conversations, or simply descend and listen. Drift can be zero. Audio requires a user gesture and stops on navigation. Source: `living-ocean.js`; human instruction and implementation choices: [CHRONICLE.md](CHRONICLE.md). Source committed; Pages and listening unverified.
