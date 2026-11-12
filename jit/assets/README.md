@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| The Last Lighthouse | canvas-autonomous-ecology | [`last-lighthouse/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/last-lighthouse/index.html) | [Open](https://bonoj.github.io/jit/assets/last-lighthouse/) | Self-contained Canvas simulation of three bioluminescent species, lighthouse beam color/intensity/rotation, feeding, reproduction, predation, currents, pause/reset. Browser runtime not independently verified. |
+
+
 | Strand · Plateau Island | webgl-3d-terraced-terrain | [`strand/plateau-island/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/strand/plateau-island/index.html) | [Open](https://bonoj.github.io/jit/assets/strand/plateau-island/) | Self-contained native WebGL island with three plateaus, cliff walls, trees, houses, orbit camera, height and zoom controls. Source committed; browser runtime not independently verified. |
 \n\n| Strand · Northfall | canvas2d-tactical-island-defense | [\`strand/northfall/\`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/strand/northfall/index.html) | [Open](https://bonoj.github.io/jit/assets/strand/northfall/) | Three squads, six longship waves, five destructible houses, terrain height, stamina, morale, abilities, and coin-funded upgrades. [Strand collection](./strand/). Chat-built source; browser runtime not independently verified. |\n
 
