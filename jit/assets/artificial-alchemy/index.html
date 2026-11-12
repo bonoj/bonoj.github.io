@@ -1,0 +1,89 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101b22"><title>Artificial Alchemy · Vessel 01</title><style>*{box-sizing:border-box}body{margin:0;background:#101b22;color:#e8e2d1;font:14px system-ui,sans-serif}main{max-width:900px;margin:auto;padding:14px}h1{font-size:clamp(22px,5vw,30px);margin:0 0 5px}p,.small{font-size:12px;color:#aabcc0}p{margin:0 0 12px}nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0}button{background:#263c48;color:#e8e2d1;border:1px solid #5b7480;border-radius:8px;padding:9px 11px;font:600 12px system-ui;touch-action:manipulation}button.sel{background:#b6c8c4;color:#15252c}canvas{display:block;width:100%;height:auto;border-radius:12px;touch-action:none;background:#101b22}input[type=range]{width:110px;accent-color:#df9d53}#readout,#observation{overflow-wrap:anywhere;margin:8px 0}a{color:#bedadf}</style></head><body><main><h1>Artificial Alchemy · Vessel 01</h1><p>Four starting substances. Gravity, heat, diffusion, and local reactions. Paint inside the vessel to experiment.</p><nav id="palette"><button class="sel" data-m="1">🔥 Cinder</button><button data-m="2">💧 Brine</button><button data-m="3">🌱 Bloom</button><button data-m="4">✧ Aether</button><button data-m="0">⌫ Erase</button></nav><canvas id="vessel" width="640" height="420"></canvas><nav><button id="ignite">Heat: off</button><button id="pause">Pause</button><button id="reset">Clear vessel</button><span class="small">Speed</span><input type="range" id="speed" min="1" max="6" value="2"></nav><div class="small" id="readout">Initializing</div><div class="small" id="observation">Observation journal: awaiting first experiment.</div><p>Experimental local-rule toy with a finite authored set of states; not a continuous chemistry simulator.</p></main><script>
+(()=>{
+const root=document.querySelector('main'),cv=document.querySelector('#vessel'),ctx=cv.getContext('2d');
+const NX=100,NY=60,S=5.5,OX=45,OY=42,N=NX*NY;
+const names=['Empty','Cinder','Brine','Bloom','Aether','Mineral','Vapor','Residue'];
+const colors=['#12222b','#e5a24f','#4e9dd2','#79c17e','#c2a7e8','#a8b6b4','#91cbd4','#6b625c'];
+let type=new Uint8Array(N),heat=new Float32Array(N),energy=new Float32Array(N),age=new Uint16Array(N);
+let brush=1,heating=false,paused=false,clock=0,events={},speed=2;
+const index=(x,y)=>y*NX+x,inside=(x,y)=>x>=1&&x<NX-1&&y>=1&&y<NY-1;
+const rnd=n=>Math.floor(Math.random()*n);
+function place(x,y,m){if(!inside(x,y))return;const i=index(x,y);type[i]=m;heat[i]=m===1?100:m===4?15:20;energy[i]=m===3?20:0;age[i]=0;}
+function swap(i,j){let t=type[i];type[i]=type[j];type[j]=t;t=heat[i];heat[i]=heat[j];heat[j]=t;t=energy[i];energy[i]=energy[j];energy[j]=t;t=age[i];age[i]=age[j];age[j]=t;}
+function record(key){events[key]=(events[key]||0)+1;}
+function step(){
+ clock++;
+ if(heating)for(let x=18;x<82;x++){const i=index(x,NY-2);heat[i]=Math.min(230,heat[i]+3.5);}
+ const old=heat.slice();
+ for(let y=1;y<NY-1;y++)for(let x=1;x<NX-1;x++){
+  const i=index(x,y),l=i-1,r=i+1,u=i-NX,d=i+NX;
+  heat[i]=old[i]+.11*(old[l]+old[r]+old[u]+old[d]-4*old[i])+(20-old[i])*.0007;
+  if(type[i]===1)heat[i]=Math.max(heat[i],85);
+ }
+ for(let y=NY-2;y>=1;y--)for(let x=1;x<NX-1;x++){
+  const i=index(x,y),m=type[i];if(!m)continue;age[i]++;
+  const neighbors=[i-1,i+1,i-NX,i+NX],near=neighbors.map(j=>type[j]);
+  if(m===2){
+   if(heat[i]>105&&Math.random()<.045){type[i]=6;record('Brine vaporized');continue;}
+   if(heat[i]>62&&near.includes(1)&&Math.random()<.022){type[i]=5;record('Mineral deposition');continue;}
+  }
+  if(m===3){
+   const food=neighbors.find(j=>type[j]===2||type[j]===5);
+   if(food!==undefined&&heat[i]>15&&heat[i]<78&&energy[i]>1&&Math.random()<.022){
+    if(type[food]===2){type[food]=3;energy[food]=energy[i]*.65;energy[i]*=.75;record('Bloom propagation');}
+    else{energy[i]+=1.5;type[food]=7;record('Mineral consumption');}
+   }
+   energy[i]-=.003;
+   if(heat[i]>110&&Math.random()<.05){type[i]=7;record('Thermal decomposition');}
+  }
+  if(m===4){
+   if(heat[i]>75&&near.includes(5)&&Math.random()<.012){type[i]=5;record('Aether crystallization');continue;}
+  }
+  if(m===6&&heat[i]<58&&Math.random()<.02){type[i]=2;record('Vapor condensed');}
+  const current=type[i];if(!current)continue;
+  const gas=current===4||current===6,liquid=current===2,loose=current===7;
+  if(!gas&&!liquid&&!loose)continue;
+  const dir=gas?-1:1,vertical=i+dir*NX;
+  if(vertical>=0&&vertical<N&&type[vertical]===0){swap(i,vertical);continue;}
+  const side=rnd(2)?1:-1,xx=x+side;
+  if(xx>0&&xx<NX-1){
+   const diag=i+dir*NX+side;
+   if(diag>=0&&diag<N&&type[diag]===0){swap(i,diag);continue;}
+   if((gas||liquid)&&type[i+side]===0&&Math.random()<.65)swap(i,i+side);
+  }
+ }
+}
+function draw(){
+ ctx.fillStyle='#101b22';ctx.fillRect(0,0,640,420);
+ ctx.fillStyle='#253843';ctx.fillRect(OX-9,OY-9,NX*S+18,NY*S+18);
+ ctx.fillStyle='#0d2028';ctx.fillRect(OX,OY,NX*S,NY*S);
+ for(let y=0;y<NY;y++)for(let x=0;x<NX;x++){
+  const i=index(x,y),m=type[i];if(!m)continue;
+  ctx.fillStyle=colors[m];ctx.globalAlpha=m===4?.65:m===6?.55:1;
+  ctx.fillRect(OX+x*S,OY+y*S,S+.25,S+.25);
+  if(heat[i]>75){ctx.fillStyle='#ffb75a';ctx.globalAlpha=Math.min(.45,(heat[i]-75)/260);ctx.fillRect(OX+x*S,OY+y*S,S,S);}
+ }
+ ctx.globalAlpha=1;ctx.strokeStyle='#9ab8bd';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(OX-5,OY-5);ctx.lineTo(OX-5,OY+NY*S+5);ctx.lineTo(OX+NX*S+5,OY+NY*S+5);ctx.lineTo(OX+NX*S+5,OY-5);ctx.stroke();
+ if(heating){const grd=ctx.createLinearGradient(0,OY+NY*S,0,420);grd.addColorStop(0,'#f6aa4b');grd.addColorStop(1,'#9c412f');ctx.fillStyle=grd;ctx.fillRect(OX+95,OY+NY*S+10,350,12);}
+ ctx.fillStyle='#b9c8cb';ctx.font='12px system-ui';ctx.fillText('VESSEL 01   •   OPEN SYSTEM',OX,24);
+ const count={};for(const m of type)if(m)count[names[m]]=(count[names[m]]||0)+1;
+ root.querySelector('#readout').textContent='Tick '+clock+' · '+Object.entries(count).map(([k,v])=>k+' '+v).join(' · ');
+ const top=Object.entries(events).sort((a,b)=>b[1]-a[1]).slice(0,3);
+ root.querySelector('#observation').textContent=top.length?'Observed: '+top.map(([k,v])=>k+' ×'+v).join(' · '):'Observation journal: awaiting reactions.';
+}
+let last=0,acc=0;
+function frame(now){if(!last)last=now;acc+=Math.min(100,now-last);last=now;if(!paused){let n=0;while(acc>=20&&n++<speed*2){step();acc-=20;}}else acc=0;draw();requestAnimationFrame(frame);}
+let drawing=false;
+function paint(e){const r=cv.getBoundingClientRect(),x=Math.floor(((e.clientX-r.left)*640/r.width-OX)/S),y=Math.floor(((e.clientY-r.top)*420/r.height-OY)/S);
+ for(let k=0;k<16;k++){const xx=x+rnd(7)-3,yy=y+rnd(7)-3;if(inside(xx,yy))place(xx,yy,brush);}}
+cv.addEventListener('pointerdown',e=>{drawing=true;cv.setPointerCapture(e.pointerId);paint(e);});
+cv.addEventListener('pointermove',e=>{if(drawing)paint(e);});
+cv.addEventListener('pointerup',()=>drawing=false);cv.addEventListener('pointercancel',()=>drawing=false);
+root.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{brush=+b.dataset.m;root.querySelectorAll('[data-m]').forEach(q=>q.classList.toggle('sel',q===b));});
+root.querySelector('#ignite').onclick=e=>{heating=!heating;e.target.textContent=heating?'Heat: on':'Heat: off';};
+root.querySelector('#pause').onclick=e=>{paused=!paused;e.target.textContent=paused?'Resume':'Pause';};
+root.querySelector('#speed').oninput=e=>{speed=+e.target.value;};
+root.querySelector('#reset').onclick=()=>{type.fill(0);heat.fill(20);energy.fill(0);age.fill(0);events={};clock=0;};
+heat.fill(20);requestAnimationFrame(frame);
+})();
+</script></body></html>
