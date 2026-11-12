@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| The Impossible Machine · Instrument 001 | canvas2d-black-box-instrument | [`impossible-machine/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/impossible-machine/index.html) | [Open](https://bonoj.github.io/jit/assets/impossible-machine/) | Interactive autonomous instrument with impulse, bias, aperture, phase, memory and reversal controls; coupled charge, pressure, coherence, reserve, integrity, signal, event log and latch events. Chat-built source; browser runtime unverified. |
+
+
 | Artificial Alchemy · Vessel 01 | canvas2d-cellular-material-experiment | [`artificial-alchemy/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/artificial-alchemy/index.html) | [Open](https://bonoj.github.io/jit/assets/artificial-alchemy/) | Chat-built 100×60 cell vessel with Cinder, Brine, Bloom and Aether, heat diffusion, gravity, vapor/condensation, mineral deposition, Bloom propagation, local reaction counters and touch painting. Finite authored states; not open-ended chemistry. Source committed; live browser unverified. |
 
 
