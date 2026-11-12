@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#18271e"><title>Strand · Pocket Battlefield</title><style>*{box-sizing:border-box}body{margin:0;background:#17251d;color:#f2e8c9;font:14px system-ui,sans-serif}main{max-width:1000px;margin:auto;padding:14px}h1{font-size:clamp(20px,5vw,30px);margin:0 0 4px}p{color:#b8c7ad;margin:0 0 12px}nav{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}button{background:#304634;color:#f4ebce;border:1px solid #66795e;border-radius:9px;padding:10px 12px;font:600 13px system-ui;touch-action:manipulation}button.selected{background:#8b9e64;color:#18261c}canvas{display:block;width:100%;aspect-ratio:720/420;touch-action:none;background:#748665;border-radius:12px}#stats{font-size:12px;color:#d5dcbf}footer{font-size:12px;color:#a9b7a0;margin-top:10px}</style></head><body><main><h1>Strand · Pocket Battlefield</h1><p>A 2D experiment in emergent lanes, crowding and persistent obstructions.</p><nav id="tools"><button data-mode="tree" class="selected">🌲 Tree</button><button data-mode="rock">🪨 Rock</button><button data-mode="kill">💀 Kill</button><button data-mode="dig">⛏ Dig</button><button data-mode="spawn">🐜 Spawn</button></nav><canvas id="field" width="720" height="420" aria-label="Interactive battlefield"></canvas><nav><button id="pause">Pause</button><button id="reset">Reset</button><button id="fell">Topple trees</button><span id="stats" role="status"></span></nav><footer>Tap or drag to use a tool. Falling trees become logs. Corpses remain collidable. Excavation removes solid terrain. This is an experimental local-steering toy, not Strand's 3D runtime.</footer></main><script>
+(()=>{
+const canvas=document.querySelector('#field'),ctx=canvas.getContext('2d'),W=720,H=420;
+let mode='tree',paused=false,agents=[],objects=[],terrain=[],arrived=0,killed=0,tick=0,nextId=0,spawnTimer=0;
+const rand=(a,b)=>a+Math.random()*(b-a),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+function spawn(x=rand(17,65),y=rand(175,245)){agents.push({id:nextId++,x,y,vx:0,vy:0,r:5.3,stuck:0});}
+function reset(){agents=[];objects=[];terrain=[];arrived=0;killed=0;tick=0;nextId=0;spawnTimer=0;
+for(let x=0;x<W;x+=18){const top=76+17*Math.sin(x*.018)+12*Math.sin(x*.047),bottom=342+17*Math.sin(x*.023)+9*Math.cos(x*.054);
+for(let y=0;y<H;y+=18)if(y<top||y>bottom)terrain.push({x:x+9,y:y+9,r:12});}
+for(let i=0;i<8;i++)objects.push({type:'tree',x:rand(185,560),y:Math.random()<.5?rand(95,130):rand(285,325),r:11,angle:rand(-.5,.5)});
+for(let i=0;i<22;i++)spawn();}
+function nearest(o,x,y){if(o.type!=='log')return{x:o.x,y:o.y,r:o.r};const dx=Math.cos(o.angle),dy=Math.sin(o.angle),t=Math.max(-o.length/2,Math.min(o.length/2,(x-o.x)*dx+(y-o.y)*dy));return{x:o.x+t*dx,y:o.y+t*dy,r:7};}
+function blocked(x,y,r=5){for(const p of terrain)if(Math.abs(p.x-x)<22&&Math.abs(p.y-y)<22&&Math.hypot(p.x-x,p.y-y)<p.r+r)return true;
+for(const o of objects){const p=nearest(o,x,y);if(Math.hypot(p.x-x,p.y-y)<p.r+r)return true;}return false;}
+function contact(x,y,r){let fx=0,fy=0,contacts=0;
+for(const p of terrain){const dx=x-p.x,dy=y-p.y,d2=dx*dx+dy*dy,rr=r+p.r+2;if(d2<rr*rr&&d2>.001){const d=Math.sqrt(d2),q=(rr-d)/rr;fx+=dx/d*q;fy+=dy/d*q;contacts++;}}
+for(const o of objects){const p=nearest(o,x,y),dx=x-p.x,dy=y-p.y,d2=dx*dx+dy*dy,rr=r+p.r+2;if(d2<rr*rr&&d2>.001){const d=Math.sqrt(d2),q=(rr-d)/rr;fx+=dx/d*q;fy+=dy/d*q;contacts++;}}return{fx,fy,contacts};}
+function step(){tick++;if(++spawnTimer>19&&agents.length<160){spawn();spawnTimer=0;}
+const bins=new Map(),size=17;for(const a of agents){const k=Math.floor(a.x/size)+','+Math.floor(a.y/size);if(!bins.has(k))bins.set(k,[]);bins.get(k).push(a);}
+for(const a of agents){const c=contact(a.x,a.y,a.r),look=contact(a.x+18,a.y,a.r);let ax=1+c.fx*2.3+look.fx*.95,ay=(210-a.y)*.004+c.fy*2.3+look.fy*.95;
+const cx=Math.floor(a.x/size),cy=Math.floor(a.y/size);for(let i=-1;i<=1;i++)for(let j=-1;j<=1;j++){const near=bins.get((cx+i)+','+(cy+j));if(!near)continue;for(const b of near){if(b===a)continue;const dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);if(d<12&&d>.01){const f=(12-d)/12;ax+=dx/d*f*.65;ay+=dy/d*f*.65;}}}
+if(look.contacts)ay+=Math.sin(a.id*7.23)*.65;a.vx=(a.vx+ax*.12)*.89;a.vy=(a.vy+ay*.12)*.89;const speed=Math.hypot(a.vx,a.vy);if(speed>2.2){a.vx*=2.2/speed;a.vy*=2.2/speed;}}
+for(const a of agents){const nx=a.x+a.vx,ny=a.y+a.vy;if(!blocked(nx,ny,a.r)){a.x=nx;a.y=ny;a.stuck=Math.max(0,a.stuck-1);}else{if(!blocked(nx,a.y,a.r))a.x=nx;else if(!blocked(a.x,ny,a.r))a.y=ny;else{a.vx*=-.2;a.vy*=-.2;a.stuck++;}}}
+for(let pass=0;pass<2;pass++)for(let i=0;i<agents.length;i++)for(let j=i+1;j<agents.length;j++){const a=agents[i],b=agents[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy),rr=a.r+b.r;if(d>.01&&d<rr){const push=(rr-d)*.48,nx=dx/d,ny=dy/d;if(!blocked(a.x-nx*push,a.y-ny*push,a.r)){a.x-=nx*push;a.y-=ny*push;}if(!blocked(b.x+nx*push,b.y+ny*push,b.r)){b.x+=nx*push;b.y+=ny*push;}}}
+agents=agents.filter(a=>{if(a.x>676){arrived++;return false;}return true;});}
+function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle='#778b68';ctx.fillRect(0,0,W,H);ctx.fillStyle='#374f3e';for(const p of terrain){ctx.beginPath();ctx.arc(p.x,p.y,p.r+1,0,Math.PI*2);ctx.fill();}
+ctx.fillStyle='#283b32';ctx.fillRect(0,0,10,H);ctx.fillStyle='#e6cb86';ctx.fillRect(682,153,8,114);ctx.fillStyle='#f1dfab';ctx.font='bold 14px system-ui';ctx.fillText('SPAWN',16,35);ctx.fillText('GOAL',642,145);
+for(const o of objects){ctx.save();ctx.translate(o.x,o.y);if(o.type==='tree'){ctx.fillStyle='#315c3e';ctx.strokeStyle='#9fbd83';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,o.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#b5a078';ctx.fillRect(-2,-2,4,4);}
+if(o.type==='rock'){ctx.fillStyle='#777b79';ctx.strokeStyle='#b3b6aa';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,o.r,0,Math.PI*2);ctx.fill();ctx.stroke();}
+if(o.type==='corpse'){ctx.fillStyle='#a86662';ctx.beginPath();ctx.ellipse(0,0,o.r*1.15,o.r*.72,o.angle||0,0,Math.PI*2);ctx.fill();}
+if(o.type==='log'){ctx.rotate(o.angle);ctx.fillStyle='#80583b';ctx.strokeStyle='#c49c6b';ctx.lineWidth=2;ctx.fillRect(-o.length/2,-7,o.length,14);ctx.strokeRect(-o.length/2,-7,o.length,14);}ctx.restore();}
+for(const a of agents){ctx.fillStyle=a.stuck>12?'#e28b65':'#edce80';ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#665338';ctx.lineWidth=.8;ctx.stroke();}
+document.querySelector('#stats').textContent='Living '+agents.length+' · Dead '+killed+' · Arrived '+arrived;}
+let last=0,acc=0;function frame(now){if(!last)last=now;const dt=Math.min(80,now-last);last=now;if(!paused){acc+=dt;let n=0;while(acc>=16.667&&n++<4){step();acc-=16.667;}}draw();requestAnimationFrame(frame);}
+function action(x,y){if(mode==='tree')objects.push({type:'tree',x,y,r:12,angle:rand(0,Math.PI*2)});if(mode==='rock')objects.push({type:'rock',x,y,r:rand(12,20)});if(mode==='spawn')for(let i=0;i<8;i++)spawn(x+rand(-12,12),y+rand(-12,12));
+if(mode==='dig'){terrain=terrain.filter(p=>Math.hypot(p.x-x,p.y-y)>34);objects=objects.filter(o=>o.type!=='rock'||dist(o,{x,y})>30);}
+if(mode==='kill'){const victims=agents.filter(a=>Math.hypot(a.x-x,a.y-y)<30);agents=agents.filter(a=>!victims.includes(a));for(const a of victims){objects.push({type:'corpse',x:a.x,y:a.y,r:6,angle:rand(0,Math.PI)});killed++;}}}
+let dragging=false;function touch(e){const r=canvas.getBoundingClientRect();action((e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height);}
+canvas.addEventListener('pointerdown',e=>{dragging=true;canvas.setPointerCapture(e.pointerId);touch(e);});canvas.addEventListener('pointermove',e=>{if(dragging&&(mode==='dig'||mode==='kill'))touch(e);});canvas.addEventListener('pointerup',()=>dragging=false);canvas.addEventListener('pointercancel',()=>dragging=false);
+document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll('[data-mode]').forEach(t=>t.classList.toggle('selected',t===b));});
+document.querySelector('#pause').onclick=e=>{paused=!paused;e.target.textContent=paused?'Resume':'Pause';};document.querySelector('#reset').onclick=reset;document.querySelector('#fell').onclick=()=>{for(const o of objects)if(o.type==='tree'){o.type='log';o.length=rand(55,90);o.angle=rand(-1.5,1.5);o.r=7;}};reset();requestAnimationFrame(frame);
+})();
+</script></body></html>
