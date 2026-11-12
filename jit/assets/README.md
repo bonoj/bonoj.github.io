@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| Strand · Pocket Battlefield | canvas2d-emergent-battlefield | [`pocket-battlefield/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/pocket-battlefield/index.html) | [Open](https://bonoj.github.io/jit/assets/pocket-battlefield/) | Chat-built 2D toy: local steering, colliding creatures, fallen trees/logs, rocks, persistent corpse obstacles, and terrain excavation. Source committed 2026-11-11; browser runtime not independently verified. |
+
+
 | GIBSTORM · Arena 01 | canvas2d-arcade-fps | [`gibstorm/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/gibstorm/index.html) | [Open](https://bonoj.github.io/jit/assets/gibstorm/) | Archived chat-built pseudo-3D tap-to-shoot alien arena, six weapons, waves, combo scoring and neon particle gibs. Not true 3D FPS; source committed 2026-11-04; live browser runtime unverified. |
 
 
