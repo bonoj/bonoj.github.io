@@ -648,3 +648,9 @@ Original top-level folders retired after content was copied and verified through
 
 Removed translucent barrel, liquid reservoir, bead animation, viscosity control and ink-fill UI. The pen is opaque metal; quaternion rotation and spherical drawing remain. The earlier entry description above is historical. Browser not independently verified.
 
+
+## Singularity Engine (2026-11-12)
+
+- Entry: [`singularity-engine/`](./singularity-engine/)
+- Live: https://bonoj.github.io/jit/assets/singularity-engine/
+- Self-contained Canvas kinetic sculpture: tap impulses, gears, energy, resonance, particles, structural cascade and reassembly. Based on corrected in-chat version after a syntax error caused the original to render black. Browser runtime not independently verified.
