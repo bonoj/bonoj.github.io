@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| Artificial Alchemy · Vessel 01 | canvas2d-cellular-material-experiment | [`artificial-alchemy/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/artificial-alchemy/index.html) | [Open](https://bonoj.github.io/jit/assets/artificial-alchemy/) | Chat-built 100×60 cell vessel with Cinder, Brine, Bloom and Aether, heat diffusion, gravity, vapor/condensation, mineral deposition, Bloom propagation, local reaction counters and touch painting. Finite authored states; not open-ended chemistry. Source committed; live browser unverified. |
+
+
 **Strand battlefield pair:** [Pocket Battlefield (top-down)](./pocket-battlefield/) · [The Corpsefield (side view)](./corpsefield/). Both are independent chat-built Canvas experiments, not Abyss Strand runtime.
 
 | Strand · The Corpsefield (side view) | canvas2d-sideview-battlefield | [`corpsefield/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/corpsefield/index.html) | [Open](https://bonoj.github.io/jit/assets/corpsefield/) | Companion to Pocket Battlefield: gravity, climbing, falling damage, automatic tower arrows, persistent corpse piles that obstruct shots, rocks and trees. Chat-built prototype; browser runtime unverified. |
