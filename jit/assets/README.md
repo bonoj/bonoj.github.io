@@ -29,6 +29,10 @@
 
 ## Human-readable experiment index
 
+**Strand battlefield pair:** [Pocket Battlefield (top-down)](./pocket-battlefield/) · [The Corpsefield (side view)](./corpsefield/). Both are independent chat-built Canvas experiments, not Abyss Strand runtime.
+
+| Strand · The Corpsefield (side view) | canvas2d-sideview-battlefield | [`corpsefield/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/corpsefield/index.html) | [Open](https://bonoj.github.io/jit/assets/corpsefield/) | Companion to Pocket Battlefield: gravity, climbing, falling damage, automatic tower arrows, persistent corpse piles that obstruct shots, rocks and trees. Chat-built prototype; browser runtime unverified. |
+
 | Strand · Pocket Battlefield | canvas2d-emergent-battlefield | [`pocket-battlefield/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/pocket-battlefield/index.html) | [Open](https://bonoj.github.io/jit/assets/pocket-battlefield/) | Chat-built 2D toy: local steering, colliding creatures, fallen trees/logs, rocks, persistent corpse obstacles, and terrain excavation. Source committed 2026-11-11; browser runtime not independently verified. |
 
 
