@@ -27,7 +27,7 @@
 
 > **Inventory maintenance note (2026-10-27):** Parchment Highlands was added after the inventory snapshot above. The historic counts and tree/blob SHAs in this README require a full re-enumeration; do not treat them as current.
 
-## Human-readable experiment index
+## Human-readable experiment index\n\n| Strand · Northfall | canvas2d-tactical-island-defense | [\`strand/northfall/\`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/strand/northfall/index.html) | [Open](https://bonoj.github.io/jit/assets/strand/northfall/) | Three squads, six longship waves, five destructible houses, terrain height, stamina, morale, abilities, and coin-funded upgrades. [Strand collection](./strand/). Chat-built source; browser runtime not independently verified. |\n
 
 | The Impossible Machine · Instrument 001 | canvas2d-black-box-instrument | [`impossible-machine/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/impossible-machine/index.html) | [Open](https://bonoj.github.io/jit/assets/impossible-machine/) | Interactive autonomous instrument with impulse, bias, aperture, phase, memory and reversal controls; coupled charge, pressure, coherence, reserve, integrity, signal, event log and latch events. Chat-built source; browser runtime unverified. |
 
@@ -35,7 +35,7 @@
 | Artificial Alchemy · Vessel 01 | canvas2d-cellular-material-experiment | [`artificial-alchemy/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/artificial-alchemy/index.html) | [Open](https://bonoj.github.io/jit/assets/artificial-alchemy/) | Chat-built 100×60 cell vessel with Cinder, Brine, Bloom and Aether, heat diffusion, gravity, vapor/condensation, mineral deposition, Bloom propagation, local reaction counters and touch painting. Finite authored states; not open-ended chemistry. Source committed; live browser unverified. |
 
 
-**Strand battlefield pair:** [Pocket Battlefield (top-down)](./pocket-battlefield/) · [The Corpsefield (side view)](./corpsefield/). Both are independent chat-built Canvas experiments, not Abyss Strand runtime.
+**Strand battlefield trio:** [Strand index](./strand/) · [Pocket Battlefield (top-down)](./pocket-battlefield/) · [The Corpsefield (side view)](./corpsefield/) · [Northfall (tactical island defense)](./strand/northfall/). All are independent chat-built Canvas experiments, not Abyss Strand runtime.
 
 | Strand · The Corpsefield (side view) | canvas2d-sideview-battlefield | [`corpsefield/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/corpsefield/index.html) | [Open](https://bonoj.github.io/jit/assets/corpsefield/) | Companion to Pocket Battlefield: gravity, climbing, falling damage, automatic tower arrows, persistent corpse piles that obstruct shots, rocks and trees. Chat-built prototype; browser runtime unverified. |
 
