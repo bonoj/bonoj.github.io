@@ -654,3 +654,11 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Entry: [`singularity-engine/`](./singularity-engine/)
 - Live: https://bonoj.github.io/jit/assets/singularity-engine/
 - Self-contained Canvas kinetic sculpture: tap impulses, gears, energy, resonance, particles, structural cascade and reassembly. Based on corrected in-chat version after a syntax error caused the original to render black. Browser runtime not independently verified.
+
+## The Little God (2026-11-12)
+
+- Entry: [`little-god/`](./little-god/)
+- Live: https://bonoj.github.io/jit/assets/little-god/
+- Self-contained Canvas climate toy with draggable sun, terrain, trees, rain clouds, villages, and cosmetic cistern/canal adaptations.
+- **Preserved behavior:** land moisture continuously declines even without solar heating; replenishment cannot sustain the world, vegetation eventually dies, and cisterns do not change hydrology. This terminal imbalance was observed by the user and deliberately retained as the specimen's character.
+- Source derived from the repaired in-chat version after the initial version rendered black. Deployed browser runtime not independently verified.
