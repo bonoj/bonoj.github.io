@@ -662,3 +662,10 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Self-contained Canvas climate toy with draggable sun, terrain, trees, rain clouds, villages, and cosmetic cistern/canal adaptations.
 - **Preserved behavior:** land moisture continuously declines even without solar heating; replenishment cannot sustain the world, vegetation eventually dies, and cisterns do not change hydrology. This terminal imbalance was observed by the user and deliberately retained as the specimen's character.
 - Source derived from the repaired in-chat version after the initial version rendered black. Deployed browser runtime not independently verified.
+
+## Specimen 038 — Ferrofluid Laboratory (2026-11-13)
+
+- Source: [`ferrofluid/index.html`](./ferrofluid/index.html)
+- Live: https://bonoj.github.io/jit/assets/ferrofluid/
+- Three.js WebGL orbitable dish with CPU-updated 117×117 grid, magnet X/Z/height and field-strength controls, 3-direction cosine lattice for spike peaks, exponential response smoothing and recomputed vertex normals.
+- **Model limitation:** illustrative reduced surface-response field, not a ferrohydrodynamic solver or independently verified Rosensweig instability threshold. Browser deployment/runtime not independently smoke-tested.
