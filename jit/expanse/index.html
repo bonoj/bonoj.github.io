@@ -95,15 +95,26 @@ function flightState(t){const day=Math.max(0,Math.min(2192,t));let i=legs.findIn
 }
 const step=.25,flightSamples=[],sampleDomains=[];
 for(let d=0;d<=2192+step/2;d+=step){const v=flightState(Math.min(d,2192));flightSamples.push(v.p);sampleDomains.push(v.domain)}
-const trails={};
-for(const domain of ['sol','hub','ilus']){const positions=new Float32Array(flightSamples.length*3);const geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.BufferAttribute(positions,3));geom.setDrawRange(0,0);const line=new THREE.Line(geom,new THREE.LineBasicMaterial({color:domain==='sol'?0x69d9f5:domain==='hub'?0xc8a5ff:0x8ee1aa,transparent:true,opacity:.8}));scene.add(line);trails[domain]={positions,geom,line};}
+const trails={sol:[],hub:[],ilus:[]};
+let segmentStart=0;
+for(let j=1;j<=flightSamples.length;j++){
+  if(j<flightSamples.length&&sampleDomains[j]===sampleDomains[segmentStart])continue;
+  const domain=sampleDomains[segmentStart],slice=flightSamples.slice(segmentStart,j);
+  const geom=new THREE.BufferGeometry().setFromPoints(slice);geom.setDrawRange(0,0);
+  const line=new THREE.Line(geom,new THREE.LineBasicMaterial({color:domain==='sol'?0x69d9f5:domain==='hub'?0xc8a5ff:0x8ee1aa,transparent:true,opacity:.8}));
+  scene.add(line);trails[domain].push({line,geom,start:segmentStart,end:j});
+  segmentStart=j;
+}
 let trailCursor=0;
 function updateFlight(day){const f=flightState(day);ship.position.copy(f.p);const next=flightState(Math.min(day+.005,2192));const dir=next.p.sub(f.p);if(dir.lengthSq()>1e-10&&next.domain===f.domain)ship.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir.normalize());
   tycho.position.copy(targetAt('Tycho',day));ringMesh.position.copy(targetAt('Ring',day));hub.position.copy(targetAt('Hub',day));ilusMesh.position.copy(targetAt('Ilus',day));
   const domain=f.domain;for(const b of bodies)b.mesh.visible=domain==='sol';sun.visible=domain==='sol';ringMesh.visible=domain==='sol';tycho.visible=domain==='sol';hub.visible=domain==='hub';ilusMesh.visible=domain==='ilus';for(const m of moons)m.mesh.visible=domain==='sol';
   const count=Math.min(flightSamples.length,Math.floor(day/step)+1);
-  // Rebuild domain-local trails through the current timestamp, without crossing gates.
-  for(const d of Object.keys(trails)){const tr=trails[d],arr=tr.positions;let n=0;for(let j=0;j<count;j++){if(sampleDomains[j]!==d)continue;if(j>0&&sampleDomains[j-1]!==d){if(n>0){const k=(n-1)*3;arr[n*3]=arr[k];arr[n*3+1]=arr[k+1];arr[n*3+2]=arr[k+2];n++;}}const p=flightSamples[j];arr[n*3]=p.x;arr[n*3+1]=p.y;arr[n*3+2]=p.z;n++;}tr.geom.attributes.position.needsUpdate=true;tr.geom.setDrawRange(0,n);tr.line.visible=d===domain;}
+  // One growing polyline per contiguous spatial-domain visit. No gate-spanning lines.
+  for(const d of Object.keys(trails))for(const tr of trails[d]){
+    tr.geom.setDrawRange(0,Math.max(0,Math.min(tr.end,count)-tr.start));
+    tr.line.visible=d===domain;
+  }
   document.getElementById('mission').textContent=f.label+' · '+(f.leg+1)+' / '+legs.length+' · '+domain.toUpperCase();
 }
 let days=0,playing=true,focus='Rocinante',target=new THREE.Vector3(),yaw=.32,pitch=.55,dist=42,drag=false,lastX=0,lastY=0,downX=0,downY=0;
