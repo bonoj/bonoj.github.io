@@ -674,3 +674,11 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 
 - Replaced hard-coded three-wave hexagonal lattice with a seeded, evolving 59×59 Swift–Hohenberg-type order-parameter field, using two discrete Laplacians, local magnetic-field-dependent growth, quadratic symmetry breaking, cubic saturation and finite time steps. Render mesh remains 117×117 and samples the field bilinearly.
 - This is a **phenomenological pattern-formation model**, not a magnetostatic free-energy minimizer, volume-conserving fluid model, or validated ferrohydrodynamic simulation. Surface-height centering is approximate. Visual behavior and mobile performance still require browser testing.
+
+
+## Specimen 039 — Little Universe (2026-11-13)
+
+- Source: [`little-universe/index.html`](./little-universe/index.html)
+- Live: https://bonoj.github.io/jit/assets/little-universe/
+- Standalone Canvas 2D gravitational sandbox from the in-chat prototype: pairwise softened Newtonian attraction, drag-to-launch bodies, trails, collision mergers conserving mass and momentum, gravity and time-scale sliders, pause/reset/clear.
+- Numerical integration is semi-implicit Euler with five substeps per frame; illustrative toy units, not an astronomical integrator. Browser runtime not independently verified.
