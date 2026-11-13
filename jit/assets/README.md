@@ -669,3 +669,8 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live: https://bonoj.github.io/jit/assets/ferrofluid/
 - Three.js WebGL orbitable dish with CPU-updated 117×117 grid, magnet X/Z/height and field-strength controls, 3-direction cosine lattice for spike peaks, exponential response smoothing and recomputed vertex normals.
 - **Model limitation:** illustrative reduced surface-response field, not a ferrohydrodynamic solver or independently verified Rosensweig instability threshold. Browser deployment/runtime not independently smoke-tested.
+
+### Specimen 038 — nonlinear pattern update
+
+- Replaced hard-coded three-wave hexagonal lattice with a seeded, evolving 59×59 Swift–Hohenberg-type order-parameter field, using two discrete Laplacians, local magnetic-field-dependent growth, quadratic symmetry breaking, cubic saturation and finite time steps. Render mesh remains 117×117 and samples the field bilinearly.
+- This is a **phenomenological pattern-formation model**, not a magnetostatic free-energy minimizer, volume-conserving fluid model, or validated ferrohydrodynamic simulation. Surface-height centering is approximate. Visual behavior and mobile performance still require browser testing.
