@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>Rocinante · Solar System 2350</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#030711;color:#e5edf8;font:13px system-ui,sans-serif}canvas{display:block;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}#hud{position:absolute;inset:0;pointer-events:none}#top{position:absolute;top:16px;left:18px;right:18px;display:flex;justify-content:space-between;gap:12px}h1{font-size:15px;letter-spacing:.22em;margin:0 0 5px}small,.muted{color:#91a5bf}#status{text-align:right;font-variant-numeric:tabular-nums}#bottom{position:absolute;bottom:12px;left:12px;right:12px;pointer-events:auto;background:#081322d9;border:1px solid #304054;border-radius:12px;padding:12px;backdrop-filter:blur(10px)}#time{width:100%;accent-color:#c8e5ff;margin:10px 0}#controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}button,select{background:#14243a;color:#e4f0ff;border:1px solid #3b5570;border-radius:7px;padding:8px 11px;font:inherit}button{cursor:pointer}button.active{background:#325477}#speed{flex:1;min-width:120px}#hint{position:absolute;top:70px;left:18px;color:#8298af;line-height:1.6;max-width:260px}#date{font-size:18px;font-variant-numeric:tabular-nums}#legend{position:absolute;right:18px;bottom:136px;text-align:right;color:#9fb1c6;line-height:1.7}#legend b{color:#e9f3ff}@media(max-width:600px){#legend{display:none}#hint{font-size:11px}#top{left:12px;right:12px}h1{font-size:12px}#date{font-size:14px}}
-</style></head><body><div id="hud"><div id="top"><div><h1>ROCINANTE / OBSERVATORY</h1><small>01 · CELESTIAL FOUNDATION</small></div><div id="status"><div id="date"></div><small id="rate"></small></div></div><div id="hint">Drag to orbit · Pinch / wheel to zoom<br>Tap a planet to follow · Double-tap to reset<br>Orbital sizes in AU · Body radii exaggerated<br>Tachi → Tycho: illustrative 36-day transfer; not canon-fitted</div><div id="legend">Solar-system barycentric approximation<br><b>2350–2356</b> · deterministic Kepler propagation<br>Major moons: simplified circular orbits<br>Planetary elements: JPL long-range approximation</div><div id="bottom"><div id="controls"><button id="play">Ⅱ Pause</button><select id="focus"><option value="Sun">Sun · overview</option></select><button id="reset">Reset view</button><span class="muted">Rate</span><select id="speed"><option value="1">1 day / second</option><option value="7" selected>1 week / second</option><option value="30">1 month / second</option><option value="180">6 months / second</option></select></div><input id="time" type="range" min="0" max="2192" step=".01" value="0"><div style="display:flex;justify-content:space-between"><small>2350 · T=0</small><small id="elapsed"></small><small>2356 · +6 years</small></div></div></div>
+</style></head><body><div id="hud"><div id="top"><div><h1>ROCINANTE / OBSERVATORY</h1><small>01 · CELESTIAL FOUNDATION</small></div><div id="status"><div id="date"></div><small id="rate"></small></div></div><div id="mission" style="position:absolute;top:67px;right:18px;color:#a9d8ef;text-align:right;font-size:11px;letter-spacing:.06em"></div><div id="hint">Drag to orbit · Pinch / wheel to zoom<br>Tap a planet to follow · Double-tap to reset<br>Orbital sizes in AU · Body radii exaggerated<br>Six-season continuous reconstructed journey · orbital interpolation</div><div id="legend">Solar-system barycentric approximation<br><b>2350–2356</b> · deterministic Kepler propagation<br>Major moons: simplified circular orbits<br>Planetary elements: JPL long-range approximation</div><div id="bottom"><div id="controls"><button id="play">Ⅱ Pause</button><select id="focus"><option value="Sun">Sun · overview</option></select><button id="reset">Reset view</button><span class="muted">Rate</span><select id="speed"><option value="1">1 day / second</option><option value="7" selected>1 week / second</option><option value="30">1 month / second</option><option value="180">6 months / second</option></select></div><input id="time" type="range" min="0" max="2192" step=".01" value="0"><div style="display:flex;justify-content:space-between"><small>2350 · T=0</small><small id="elapsed"></small><small>2356 · +6 years</small></div></div></div>
 <script type="module">
 import * as THREE from 'https://esm.sh/three@0.170.0';
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x030711);
@@ -36,28 +36,80 @@ const moons=[
 ['Proteus','Neptune',.00079,1.122,.006,0x929ba5],['Triton','Neptune',.00237,-5.877,.009,0xb4b8c2]
 ].map((m,i)=>{const mesh=new THREE.Mesh(new THREE.SphereGeometry(m[4],10,8),new THREE.MeshBasicMaterial({color:m[5]}));scene.add(mesh);return {name:m[0],parent:m[1],r:m[2],period:m[3],mesh,phase:(i*2.399963)%6.283}});
 const ship=new THREE.Group();const hull=new THREE.Mesh(new THREE.ConeGeometry(.022,.09,7),new THREE.MeshStandardMaterial({color:0xd8e6f3,metalness:.55,roughness:.38,emissive:0x45678b,emissiveIntensity:.3}));hull.rotation.x=Math.PI/2;ship.add(hull);const marker=new THREE.Mesh(new THREE.SphereGeometry(.07,12,8),new THREE.MeshBasicMaterial({color:0x8ae8ff,transparent:true,opacity:.22,depthWrite:false}));ship.add(marker);scene.add(ship);select.add(new Option('Tachi / Rocinante · provisional','Rocinante'));
-// Illustrative continuous Tachi-to-Tycho transfer, NOT a canon-fitted trajectory.
-// Endpoints move with their ephemerides; the ship follows a time-parameterized
-// accelerate/flip/decelerate trajectory in inertial coordinates.
-const flightStart=0,flightEnd=36;
-const marsBody=bodies.find(b=>b.name==='Mars');
-const earthBody=bodies.find(b=>b.name==='Earth');
-const tycho=new THREE.Mesh(new THREE.OctahedronGeometry(.028,0),new THREE.MeshBasicMaterial({color:0x6af1cf}));
-scene.add(tycho);
-function tychoPosition(day){const earth=orbit(earthBody.e,day),mars=orbit(marsBody.e,day);return earth.clone().lerp(mars,.43).add(new THREE.Vector3(.0,.08,.11));}
-const flightA=orbit(marsBody.e,flightStart).add(new THREE.Vector3(.12,.025,.07));
-const flightB=tychoPosition(flightEnd);
-const displacement=flightB.clone().sub(flightA);
-const normal=new THREE.Vector3().crossVectors(displacement,new THREE.Vector3(0,1,0)).normalize();
-const bend=Math.min(.24,displacement.length()*.18);
-function flightPosition(day){if(day<=flightStart)return flightA.clone();if(day>=flightEnd)return tychoPosition(day);const u=(day-flightStart)/(flightEnd-flightStart);const p=u<.5?2*u*u:1-2*(1-u)*(1-u);return flightA.clone().lerp(flightB,p).addScaledVector(normal,Math.sin(Math.PI*u)*bend)}
-const routePoints=[];for(let i=0;i<=160;i++)routePoints.push(flightPosition(flightEnd*i/160));
-const route=new THREE.Line(new THREE.BufferGeometry().setFromPoints(routePoints),new THREE.LineBasicMaterial({color:0x72d7f4,transparent:true,opacity:.65}));scene.add(route);
-function updateFlight(day){tycho.position.copy(tychoPosition(day));ship.position.copy(flightPosition(day));const next=flightPosition(Math.min(day+.05,flightEnd));const dir=next.sub(ship.position);if(dir.lengthSq()>1e-12)ship.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir.normalize());}
-let days=0,playing=true,focus='Sun',target=new THREE.Vector3(),yaw=.32,pitch=.55,dist=42,drag=false,lastX=0,lastY=0,downX=0,downY=0;
-const speed=document.getElementById('speed'),time=document.getElementById('time'),play=document.getElementById('play');
+// Six-season continuous flight reconstruction. Event chronology is interpolated.
+// Transfers use endpoint-velocity Hermite arcs; orbital operations are explicitly
+// modeled as ongoing motion. These are NOT integrated Epstein thrust solutions.
+const byName=Object.fromEntries(bodies.map(b=>[b.name,b]));
+const tycho=new THREE.Mesh(new THREE.OctahedronGeometry(.035),new THREE.MeshBasicMaterial({color:0x6af1cf}));scene.add(tycho);
+const ringMesh=new THREE.Mesh(new THREE.TorusGeometry(.13,.012,8,44),new THREE.MeshBasicMaterial({color:0x86d7f4}));scene.add(ringMesh);
+const hub=new THREE.Mesh(new THREE.IcosahedronGeometry(.07,1),new THREE.MeshBasicMaterial({color:0x9ad7ff}));scene.add(hub);
+const ilusMesh=new THREE.Mesh(new THREE.SphereGeometry(.12,18,12),new THREE.MeshStandardMaterial({color:0x8eab81}));scene.add(ilusMesh);
+const moonParent={Ganymede:'Jupiter',Io:'Jupiter',Europa:'Jupiter',Callisto:'Jupiter',Titan:'Saturn',Moon:'Earth'};
+function targetAt(name,t){
+  if(byName[name])return orbit(byName[name].e,t);
+  if(name==='Tycho')return orbit(byName.Earth.e,t).lerp(orbit(byName.Mars.e,t),.43).add(new THREE.Vector3(0,.08,.11));
+  if(name==='Eros')return orbit(byName.Earth.e,t).multiplyScalar(1.42).add(new THREE.Vector3(.04,0,.12));
+  if(name==='Thoth'||name==='Anubis'||name==='Zmeya'||name==='Ceres'||name==='Pella'||name==='Azure Dragon')return orbit(byName.Mars.e,t).lerp(orbit(byName.Jupiter.e,t),name==='Ceres'?.22:.36).add(new THREE.Vector3(.16,0,.12));
+  if(name==='Ganymede'||name==='Io')return orbit(byName.Jupiter.e,t).add(new THREE.Vector3(name==='Io'?.04:.07,0,name==='Io'?.02:.05));
+  if(name==='Ring')return new THREE.Vector3(19.4,0,-.9);
+  if(name==='Hub')return new THREE.Vector3(0,0,0);
+  if(name==='Ilus')return new THREE.Vector3(2.3,0,.4);
+  if(name==='Ilus Gate')return new THREE.Vector3(-1.8,0,.1);
+  if(name==='Sol Gate')return new THREE.Vector3(1.8,0,.1);
+  return new THREE.Vector3();
+}
+const legs=[
+['Donnager','Mars',0,9,'sol'],['Tycho','Tycho',9,51,'sol'],['Anubis','Anubis',51,79,'sol'],['Eros','Eros',79,125,'sol'],
+['Thoth Station','Thoth',125,181,'sol'],['Eros pursuit','Eros',181,228,'sol'],['Tycho regroup','Tycho',228,270,'sol'],
+['Ganymede','Ganymede',270,365,'sol'],['Io','Io',365,475,'sol'],['Tycho refit','Tycho',475,705,'sol'],
+['Sol Ring approach','Ring',705,830,'sol'],['Ring Station','Hub',830,890,'hub'],['Sol return','Ring',890,960,'sol'],
+['Luna preparation','Earth',960,1100,'sol'],['Ring outbound','Ring',1100,1215,'sol'],['Ring crossing','Hub',1215,1232,'hub'],
+['Ilus approach','Ilus',1232,1335,'ilus'],['Ilus operations','Ilus',1335,1450,'ilus'],
+['Ilus return','Ilus Gate',1450,1510,'ilus'],['Ring crossing home','Hub',1510,1527,'hub'],['Sol return','Ring',1527,1540,'sol'],
+['Tycho drydock','Tycho',1540,1700,'sol'],['Zmeya pursuit','Zmeya',1700,1780,'sol'],
+['Naomi rescue','Pella',1780,1850,'sol'],['Inner-system patrol','Earth',1850,1910,'sol'],
+['Azure Dragon','Azure Dragon',1910,1970,'sol'],['Pella encounter','Pella',1970,2040,'sol'],
+['Ceres campaign','Ceres',2040,2100,'sol'],['Final Ring assault','Ring',2100,2160,'sol'],
+['Medina Station','Hub',2160,2192,'hub']
+];
+// Domain transitions are explicit: do not connect unrelated spatial coordinate frames.
+const domainScene={sol:[...bodies.map(b=>b.mesh),tycho,ringMesh],hub:[hub],ilus:[ilusMesh]};
+function domainAt(t){let active='sol';for(const l of legs){if(t>=l[2])active=l[4];else break;}return active;}
+const starts=legs.map((l,i)=>i===0?0:legs[i-1][3]);
+function dwellRadius(name){return name==='Ilus'?.14:name==='Hub'?.22:name==='Ring'?.18:name==='Earth'?.045:name==='Mars'?.035:.065}
+function dwellPosition(l,t){const center=targetAt(l[1],t);const rad=dwellRadius(l[1]);const a=t*2*Math.PI/(l[1]==='Hub'?4:l[1]==='Ilus'?8:3.5);return center.add(new THREE.Vector3(rad*Math.cos(a),rad*.13*Math.sin(a*.6),rad*Math.sin(a)))}
+function velocity(fn,t){return fn(t+.005).sub(fn(t-.005)).multiplyScalar(100)}
+function hermite(p0,v0,p1,v1,u,span){const u2=u*u,u3=u2*u;return p0.multiplyScalar(2*u3-3*u2+1).addScaledVector(v0,(u3-2*u2+u)*span).addScaledVector(p1,-2*u3+3*u2).addScaledVector(v1,(u3-u2)*span)}
+// Each leg spends its last 15% in continuous orbital/station-keeping motion.
+// At arrival the interpolation matches the orbit's position and velocity.
+function flightState(t){const day=Math.max(0,Math.min(2192,t));let i=legs.findIndex(l=>day<=l[3]);if(i<0)i=legs.length-1;const l=legs[i],start=starts[i],end=l[3],span=end-start,arrival=start+span*.85,domain=l[4];const orbitFn=x=>dwellPosition(l,x);
+  if(day>=arrival)return {p:orbitFn(day),domain,label:l[0],leg:i};
+  let p0,v0;
+  if(i===0){p0=targetAt('Mars',0).add(new THREE.Vector3(.12,.025,.07));v0=velocity(x=>targetAt('Mars',x),0)}
+  else {const prev=legs[i-1];const prevFn=x=>dwellPosition(prev,x);p0=prevFn(start);v0=velocity(prevFn,start)}
+  // For changes of coordinate domain, departure is the local gate position.
+  if(i>0&&legs[i-1][4]!==domain){const origin=domain==='hub'?'Sol Gate':domain==='ilus'?'Ilus Gate':l[1]==='Ring'?'Ring':'Hub';p0=targetAt(origin,start);v0=new THREE.Vector3()}
+  const p1=orbitFn(arrival),v1=velocity(orbitFn,arrival);
+  const u=Math.max(0,Math.min(1,(day-start)/(arrival-start)));
+  return {p:hermite(p0,v0,p1,v1,u,arrival-start),domain,label:l[0],leg:i};
+}
+const step=.25,flightSamples=[],sampleDomains=[];
+for(let d=0;d<=2192+step/2;d+=step){const v=flightState(Math.min(d,2192));flightSamples.push(v.p);sampleDomains.push(v.domain)}
+const trails={};
+for(const domain of ['sol','hub','ilus']){const positions=new Float32Array(flightSamples.length*3);const geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.BufferAttribute(positions,3));geom.setDrawRange(0,0);const line=new THREE.Line(geom,new THREE.LineBasicMaterial({color:domain==='sol'?0x69d9f5:domain==='hub'?0xc8a5ff:0x8ee1aa,transparent:true,opacity:.8}));scene.add(line);trails[domain]={positions,geom,line};}
+let trailCursor=0;
+function updateFlight(day){const f=flightState(day);ship.position.copy(f.p);const next=flightState(Math.min(day+.005,2192));const dir=next.p.sub(f.p);if(dir.lengthSq()>1e-10&&next.domain===f.domain)ship.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),dir.normalize());
+  tycho.position.copy(targetAt('Tycho',day));ringMesh.position.copy(targetAt('Ring',day));hub.position.copy(targetAt('Hub',day));ilusMesh.position.copy(targetAt('Ilus',day));
+  const domain=f.domain;for(const b of bodies)b.mesh.visible=domain==='sol';sun.visible=domain==='sol';ringMesh.visible=domain==='sol';tycho.visible=domain==='sol';hub.visible=domain==='hub';ilusMesh.visible=domain==='ilus';for(const m of moons)m.mesh.visible=domain==='sol';
+  const count=Math.min(flightSamples.length,Math.floor(day/step)+1);
+  // Rebuild domain-local trails through the current timestamp, without crossing gates.
+  for(const d of Object.keys(trails)){const tr=trails[d],arr=tr.positions;let n=0;for(let j=0;j<count;j++){if(sampleDomains[j]!==d)continue;if(j>0&&sampleDomains[j-1]!==d){if(n>0){const k=(n-1)*3;arr[n*3]=arr[k];arr[n*3+1]=arr[k+1];arr[n*3+2]=arr[k+2];n++;}}const p=flightSamples[j];arr[n*3]=p.x;arr[n*3+1]=p.y;arr[n*3+2]=p.z;n++;}tr.geom.attributes.position.needsUpdate=true;tr.geom.setDrawRange(0,n);tr.line.visible=d===domain;}
+  document.getElementById('mission').textContent=f.label+' · '+(f.leg+1)+' / '+legs.length+' · '+domain.toUpperCase();
+}
+let days=0,playing=true,focus='Rocinante',target=new THREE.Vector3(),yaw=.32,pitch=.55,dist=42,drag=false,lastX=0,lastY=0,downX=0,downY=0;
+select.value='Rocinante';dist=2.8;const speed=document.getElementById('speed'),time=document.getElementById('time'),play=document.getElementById('play');
 function state(){for(const b of bodies)b.mesh.position.copy(orbit(b.e,days));for(const m of moons){const p=bodies.find(b=>b.name===m.parent).mesh.position;const a=m.phase+days/m.period*2*Math.PI;m.mesh.position.set(p.x+Math.cos(a)*m.r,p.y+Math.sin(a*.13)*m.r*.1,p.z+Math.sin(a)*m.r)}updateFlight(days);const d=new Date(Date.UTC(2350,0,1)+days*DAY*1000);document.getElementById('date').textContent=d.toISOString().slice(0,10);document.getElementById('elapsed').textContent='+'+days.toFixed(1)+' days';document.getElementById('rate').textContent=(playing?'PLAYING':'PAUSED')+' · '+speed.selectedOptions[0].text;time.value=days;}
-function frame(t){const dt=Math.min((t-(frame.prev||t))/1000,.1);frame.prev=t;if(playing){days=(days+dt*Number(speed.value))%2192;state()}const chosen=bodies.find(b=>b.name===focus);const dest=focus==='Rocinante'?ship.position:chosen?chosen.mesh.position:new THREE.Vector3();target.copy(dest);const cp=Math.cos(pitch);camera.position.set(target.x+dist*cp*Math.sin(yaw),target.y+dist*Math.sin(pitch),target.z+dist*cp*Math.cos(yaw));camera.lookAt(target);renderer.render(scene,camera);requestAnimationFrame(frame)}state();requestAnimationFrame(frame);
+function frame(t){const dt=Math.min((t-(frame.prev||t))/1000,.1);frame.prev=t;if(playing){days=Math.min(2192,days+dt*Number(speed.value));if(days>=2192){playing=false;play.textContent='▶ Play'}state()}const chosen=bodies.find(b=>b.name===focus);const dest=focus==='Rocinante'?ship.position:chosen&&chosen.mesh.visible?chosen.mesh.position:ship.position;target.copy(dest);const cp=Math.cos(pitch);camera.position.set(target.x+dist*cp*Math.sin(yaw),target.y+dist*Math.sin(pitch),target.z+dist*cp*Math.cos(yaw));camera.lookAt(target);renderer.render(scene,camera);requestAnimationFrame(frame)}state();requestAnimationFrame(frame);
 play.onclick=()=>{playing=!playing;play.textContent=playing?'Ⅱ Pause':'▶ Play';state()};time.oninput=()=>{days=Number(time.value);state()};select.onchange=()=>{focus=select.value;if(focus!=='Sun')dist=Math.min(dist,focus==='Rocinante'?.8:Math.max(.45,bodies.find(b=>b.name===focus).e[14]*25));};document.getElementById('reset').onclick=()=>{focus='Sun';select.value='Sun';dist=42;yaw=.32;pitch=.55};
 const el=renderer.domElement;el.addEventListener('pointerdown',e=>{drag=true;lastX=downX=e.clientX;lastY=downY=e.clientY;el.setPointerCapture(e.pointerId)});el.addEventListener('pointermove',e=>{if(!drag)return;yaw-=(e.clientX-lastX)*.0035;pitch=Math.max(-1.35,Math.min(1.35,pitch+(e.clientY-lastY)*.0035));lastX=e.clientX;lastY=e.clientY});el.addEventListener('pointerup',e=>{drag=false;if(Math.hypot(e.clientX-downX,e.clientY-downY)<8){const v=new THREE.Vector2(e.clientX/innerWidth*2-1,-e.clientY/innerHeight*2+1);const ray=new THREE.Raycaster();ray.setFromCamera(v,camera);const hits=ray.intersectObjects(bodies.map(b=>b.mesh));if(hits.length){focus=bodies.find(b=>b.mesh===hits[0].object).name;select.value=focus;dist=Math.max(.45,hits[0].object.geometry.parameters.radius*25)}}});el.addEventListener('dblclick',()=>document.getElementById('reset').click());el.addEventListener('wheel',e=>{dist=Math.max(.12,Math.min(180,dist*Math.exp(e.deltaY*.001)));e.preventDefault()},{passive:false});let touchDist=0;el.addEventListener('touchmove',e=>{if(e.touches.length===2){drag=false;const a=e.touches[0],b=e.touches[1],d=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);if(touchDist)dist=Math.max(.12,Math.min(180,dist*touchDist/d));touchDist=d;e.preventDefault()}},{passive:false});el.addEventListener('touchend',()=>{touchDist=0;drag=false});el.addEventListener('pointercancel',()=>drag=false);addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
 </script></body></html>
