@@ -12,7 +12,7 @@ This index was originally generated from the GitHub tree on 2026-10-28 and incre
 - Preserve existing experiments. Follow per-experiment instructions before edits.
 - Hermeticon is a separate project (`bonoj/Hermeticon`); use its own handoff and deployment machinery.
 
-## Experiments (78 indexed top-level folders; not a fresh exhaustive count)
+## Experiments (79 indexed top-level folders; not a fresh exhaustive count)
 
 - [`air/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/air) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/air/README.md) · [page](https://bonoj.github.io/jit/air/)
 - [`acid-base/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/acid-base) · [page](https://bonoj.github.io/jit/acid-base/)
@@ -24,6 +24,7 @@ This index was originally generated from the GitHub tree on 2026-10-28 and incre
 - [`autology/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/autology) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/autology/README.md) · [page](https://bonoj.github.io/jit/autology/)
 - [`ballata/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/ballata) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/ballata/README.md) · [page](https://bonoj.github.io/jit/ballata/)
 - [`bauble/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/bauble) · [page](https://bonoj.github.io/jit/bauble/)
+- [`beneath/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/beneath) · [page](https://bonoj.github.io/jit/beneath/) — **The World Beneath:** Three.js 3D cave traversal, formations, mineral crystals, water visualization, and bounded wall deformation; not yet a geological erosion simulation. Live rendering not independently verified.
 - [`brain/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/brain) · [page](https://bonoj.github.io/jit/brain/)
 - [`breadspace/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/breadspace) · [page](https://bonoj.github.io/jit/breadspace/)
 - [`capacity/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/capacity)
