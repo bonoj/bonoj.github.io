@@ -208,3 +208,34 @@ The starting positions of all celestial bodies are therefore **defined by the ep
 No more fixed dots, decorative orbital rings, or scripted jumps masquerading as spacecraft navigation.
 
 This is the foundation I'd build against.
+
+
+## 8. Continuous journey and adaptive playback (2026-11-13)
+
+**One continuous six-year journey, with adaptive time compression.** The universe never stops moving; only the rate at which we experience it changes.
+
+Time acceleration is part of the cinematography.
+
+### Playback behavior
+
+- **Long cruises:** days or weeks pass in seconds. Watch planets advance, orbital geometry change, and the Rocinante trace enormous arcs through space.
+- **Approaching encounters:** smoothly decelerate playback to reveal braking burns, growing destinations, orbital insertion, docking, combat maneuvers, and Ring transit.
+- **After encounters:** smoothly accelerate playback again.
+- **No narrative jumps:** the ship and every celestial body have a continuous position at every simulation timestamp. Episodes annotate the journey; they do not drive teleportation.
+
+**Physics and presentation clocks must remain separate.** The trajectory solver runs in simulation time independently of playback rate. Do not integrate spacecraft dynamics with giant unstable time steps when the viewer accelerates. Precompute trajectories using controlled numerical integration and sample them at arbitrary timestamps during playback.
+
+### Camera direction
+
+The camera anticipates interesting geometry. During cruise, pull back to reveal the trajectory and the scale of interplanetary travel. During an intercept, move closer while keeping the target and relative velocity understandable. Camera transitions must be smooth; never teleport the camera or ship merely because the next episode begins.
+
+### Acceptance criteria
+
+1. Playback runs continuously from the Tachi departure through the final Season 6 Ring-space events.
+2. Time compression accelerates long uneventful passages and decelerates for meaningful encounters, with smooth transitions.
+3. Orbital bodies continue evolving consistently at every speed; scrubbing and replay reproduce the same states.
+4. Burns, flip points, arrival velocity, and destination motion remain physically coherent regardless of playback speed.
+5. Ring transitions preserve the complete timeline and spacecraft history while switching spatial domains.
+6. Camera framing changes smoothly and reveals physical scale and maneuver geometry.
+
+**Next implementation milestone:** moving 2350 solar system and continuous clock, then the first reconstructed Tachi-to-Tycho flight.
