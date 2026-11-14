@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nautilus · Elastic Tentacle</title><style>*{box-sizing:border-box}body{margin:0;background:#09131d;color:#dce8ed;font:14px system-ui}main{max-width:850px;margin:auto;padding:16px}h1{font-size:20px;font-weight:500}canvas{width:100%;height:min(70vh,550px);display:block;touch-action:none;background:#09131d;border:1px solid #263d49;border-radius:12px}.controls{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;align-items:center}label{flex:1;min-width:140px}input{display:block;width:100%;accent-color:#67c5ce}button{background:#162936;color:#dce8ed;border:1px solid #526c7a;border-radius:8px;padding:10px 14px}small{color:#94aebb}</style><main><h1>Nautilus · Elastic Tentacle</h1><canvas id="view"></canvas><div class="controls"><label>Curl <span id="cv">100%</span><input id="curl" type="range" min="0" max="100" value="100"></label><label>Softness <span id="sv">50%</span><input id="soft" type="range" min="0" max="100" value="50"></label></div><div class="controls"><button id="toggle">Unroll</button><button id="pause">Pause</button><button id="reset">Reset</button><small id="state">Tip-first curl · Anchored base</small></div><p><small>Drag to orbit · Pinch to zoom · Fixed world-space camera. Reduced-order elastic model; proximity-driven skin compression, not volumetric soft-body physics.</small></p></main><script>
+(function(){
+const $=id=>document.getElementById(id),canvas=$('view'),ctx=canvas.getContext('2d');
+const N=72,M=12,STEP=1.05,TAU=Math.PI*2,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const joints=new Float64Array(N),vel=new Float64Array(N),xs=new Float64Array(N),ys=new Float64Array(N),rad=new Float64Array(N),press=new Float64Array(N);
+let target=1,front=0,soft=.5,paused=false,yaw=.14,pitch=.2,zoom=1,last=0,acc=0;
+for(let i=0;i<N;i++)rad[i]=3.8-3.35*Math.pow(i/(N-1),.85);
+function reset(){joints.fill(0);vel.fill(0);press.fill(0);front=0;target=1;paused=false;acc=0;yaw=.14;pitch=.2;zoom=1;$('curl').value=100;$('cv').textContent='100%';$('soft').value=50;$('sv').textContent='50%';soft=.5;$('toggle').textContent='Unroll';$('pause').textContent='Pause'}
+function simulate(dt){
+ const rate=target>front?.45:.65;front+=clamp(target-front,-rate*dt,rate*dt);
+ for(let i=1;i<N;i++){
+  const u=i/(N-1),activation=clamp((front-(1-u))/.14,0,1),desired=activation*(.065+.115*u),stiffness=24-soft*11,damping=8-soft*3,coupling=2.4;
+  const neighbor=(i>1?joints[i-1]:0)+(i<N-1?joints[i+1]:joints[i])-2*joints[i];
+  const acceleration=(desired-joints[i])*stiffness-damping*vel[i]+coupling*neighbor;
+  vel[i]=clamp(vel[i]+acceleration*dt,-1.5,1.5);joints[i]=clamp(joints[i]+vel[i]*dt,-.01,.23);
+ }
+ xs[0]=0;ys[0]=0;let heading=0;
+ for(let i=1;i<N;i++){heading+=joints[i];xs[i]=xs[i-1]+Math.cos(heading)*STEP;ys[i]=ys[i-1]+Math.sin(heading)*STEP}
+ for(let i=0;i<N;i++)press[i]*=.91;
+ for(let i=0;i<N;i++)for(let j=i+12;j<N;j++){const d=Math.hypot(xs[i]-xs[j],ys[i]-ys[j]),overlap=(rad[i]+rad[j])*.88-d;if(overlap>0){const p=clamp(overlap/(rad[i]+rad[j]),0,.6);press[i]=Math.max(press[i],p);press[j]=Math.max(press[j],p)}}
+}
+function rotate(x,y,z){const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch),xx=x*cy+z*sy,zz=-x*sy+z*cy;return [xx,y*cp-zz*sp,y*sp+zz*cp]}
+function draw(){
+ const w=canvas.clientWidth||320,h=canvas.clientHeight||370,d=Math.min(2,devicePixelRatio||1);
+ if(canvas.width!==Math.round(w*d)||canvas.height!==Math.round(h*d)){canvas.width=Math.round(w*d);canvas.height=Math.round(h*d)}
+ ctx.setTransform(d,0,0,d,0,0);ctx.clearRect(0,0,w,h);
+ const scale=Math.min(w/95,h/88)*zoom;
+ function project(x,y,z){const p=rotate(x-27,y-3,z),f=1/(1-p[2]/170);return [w*.5+p[0]*scale*f,h*.5-p[1]*scale*f,p[2]]}
+ const verts=new Array(N*M);
+ for(let i=0;i<N;i++){const ia=Math.max(0,i-1),ib=Math.min(N-1,i+1),dx=xs[ib]-xs[ia],dy=ys[ib]-ys[ia],len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len,compression=1-press[i]*(.08+soft*.24);
+  for(let k=0;k<M;k++){const theta=k*TAU/M,r=rad[i]*compression;verts[i*M+k]=project(xs[i]+nx*Math.cos(theta)*r,ys[i]+ny*Math.cos(theta)*r,Math.sin(theta)*r*.78)}
+ }
+ const faces=[];
+ for(let i=0;i<N-1;i++)for(let k=0;k<M;k++){const kn=(k+1)%M,a=verts[i*M+k],b=verts[i*M+kn],c=verts[(i+1)*M+kn],e=verts[(i+1)*M+k];faces.push({v:[a,b,c,e],depth:(a[2]+b[2]+c[2]+e[2])*.25,k,p:(press[i]+press[i+1])*.5})}
+ faces.sort((a,b)=>a.depth-b.depth);
+ for(const f of faces){const theta=(f.k+.5)*TAU/M,light=clamp(.55+.39*Math.cos(theta-1.2),0,1),heat=f.p;
+  ctx.fillStyle='rgb('+Math.round(48+light*103+heat*40)+','+Math.round(94+light*94-heat*20)+','+Math.round(115+light*80-heat*39)+')';
+  ctx.beginPath();ctx.moveTo(f.v[0][0],f.v[0][1]);for(let k=1;k<4;k++)ctx.lineTo(f.v[k][0],f.v[k][1]);ctx.closePath();ctx.fill();ctx.strokeStyle='rgba(9,25,37,.19)';ctx.lineWidth=.5;ctx.stroke()
+ }
+ const anchor=project(0,0,0);ctx.beginPath();ctx.arc(anchor[0],anchor[1],3,0,TAU);ctx.fillStyle='#e5bb78';ctx.fill();
+ $('state').textContent=(front>.95?'Coiled':front<.05?'Extended':'Rolling')+' · Broad end anchored';
+}
+function frame(time){const dt=Math.min(.05,(time-last)/1000||0);last=time;if(!paused){acc+=dt;let steps=0;while(acc>=1/90&&steps<5){simulate(1/90);acc-=1/90;steps++}if(steps===5)acc=0}draw();requestAnimationFrame(frame)}
+$('curl').addEventListener('input',e=>{target=+e.target.value/100;$('cv').textContent=e.target.value+'%'});
+$('soft').addEventListener('input',e=>{soft=+e.target.value/100;$('sv').textContent=e.target.value+'%'});
+$('toggle').onclick=()=>{target=target>.5?0:1;$('curl').value=target*100;$('cv').textContent=Math.round(target*100)+'%';$('toggle').textContent=target?'Unroll':'Curl up'};
+$('pause').onclick=e=>{paused=!paused;e.target.textContent=paused?'Resume':'Pause'};$('reset').onclick=reset;
+const pointers=new Map();let px=0,py=0,pinch=0;
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);px=e.clientX;py=e.clientY});
+canvas.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,[e.clientX,e.clientY]);const pts=[...pointers.values()];if(pts.length===2){const dist=Math.hypot(pts[0][0]-pts[1][0],pts[0][1]-pts[1][1]);if(pinch)zoom=clamp(zoom*dist/pinch,.5,2);pinch=dist}else if(pts.length===1){yaw+=(e.clientX-px)*.008;pitch=clamp(pitch+(e.clientY-py)*.008,-1.35,1.35);px=e.clientX;py=e.clientY}});
+const end=e=>{pointers.delete(e.pointerId);pinch=0;if(pointers.size){const p=[...pointers.values()][0];px=p[0];py=p[1]}};
+canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
+canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom*Math.exp(-e.deltaY*.001),.5,2)},{passive:false});
+reset();simulate(0);requestAnimationFrame(frame);
+})();</script></html>
