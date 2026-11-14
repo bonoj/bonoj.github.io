@@ -29,6 +29,10 @@
 
 ## Human-readable experiment index
 
+| Ice · Procedural Material Lab | native-webgl2-raymarched-material | [`ice-material/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/ice-material/index.html) | [Open](https://bonoj.github.io/jit/assets/ice-material/) | Specimen 044. Interactive orbitable translucent ice block with 38 deterministic internal spherical bubble fields sampled along view rays, procedural surface frost, and frost/bubbles/clarity controls. Single fullscreen fragment shader; bubbles are not mesh geometry or physically refracted cavities. Source committed; deployed browser behavior not independently verified. |
+
+
+
 | Gingerbread · Gumdrop Forest | native-webgl2-procedural-material | [`gingerbread-hex/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/gingerbread-hex/index.html) | [Open](https://bonoj.github.io/jit/assets/gingerbread-hex/) | Specimen 043. Six-sided rounded biscuit with shader-based crumb and a forest of varied 3D gumdrops, autumn/winter colors, sugar-coating shader, orbit, pinch zoom, bake, grain, porosity, roundness and forest regeneration. Material remains exploratory. Source committed; browser runtime not independently verified. |
 
 
