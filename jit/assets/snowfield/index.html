@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#14243a"><title>Snowfield · Accretion Laboratory</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101b2b;color:#edf6ff;font:14px system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:14px}header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}h1{font-size:clamp(19px,4vw,28px);margin:0}a{color:#a6d6ff;text-decoration:none}canvas{display:block;width:100%;height:min(61vh,520px);min-height:270px;background:#20384d;border-radius:14px;touch-action:none}.hint{font-size:12px;color:#b6cadd;margin:9px 0 16px}.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}label{display:block;color:#d1e3f3}label span{float:right;color:#9bc6e7}input{display:block;width:100%;margin-top:9px;accent-color:#83c5f4}.buttons{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}button{border:1px solid #50708b;border-radius:9px;padding:10px 13px;background:#263f56;color:#e8f4ff;font:inherit}button.active{background:#2874a5;border-color:#83c5f4}.status{font-size:12px;color:#aac5d9}@media(min-width:720px){.controls{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style></head><body><main><header><h1>❄ Snowfield · Accretion</h1><a href="../">Assets</a></header>
+<canvas id="view" aria-label="Interactive perspective snowfield with deformable tracks"></canvas>
+<p class="hint">Drag across the snow to make tracks. Snowfall adds powder; redistribution gradually softens depressions. Experimental heightfield, not a full granular simulation.</p>
+<div class="controls">
+<label>Snowfall <span id="snow-v">0.5</span><input id="snow" type="range" min="0" max="2" step=".1" value=".5"></label>
+<label>Redistribution <span id="flow-v">0.4</span><input id="flow" type="range" min="0" max="2" step=".1" value=".4"></label>
+<label>Track depth <span id="depth-v">0.8</span><input id="depth" type="range" min=".1" max="2" step=".1" value=".8"></label>
+<label>Speed <span id="speed-v">1×</span><input id="speed" type="range" min="0" max="5" step=".25" value="1"></label>
+</div><div class="buttons"><button id="walk" class="active">Walking tracks</button><button id="furrow">Continuous furrow</button><button id="pause">Pause</button><button id="reset">Reset</button></div>
+<div class="status" id="status"></div></main>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),canvas=$('view'),ctx=canvas.getContext('2d'),N=72,S=N*N;
+const powder=new Float32Array(S),base=new Float32Array(S),delta=new Float32Array(S);
+let snow=.5,flow=.4,depth=.8,speed=1,elapsed=0,paused=false,mode='walk',last=null,distance=0,side=1;
+powder.fill(.28);const idx=(x,z)=>z*N+x, height=(x,z)=>{let i=idx(x,z);return powder[i]+base[i]};
+for(const id of ['snow','flow','depth','speed'])$(id).addEventListener('input',e=>{const v=+e.target.value;({snow:x=>snow=x,flow:x=>flow=x,depth:x=>depth=x,speed:x=>speed=x})[id](v);$(id+'-v').textContent=v+(id==='speed'?'×':'')});
+function stamp(x,z,angle){
+const ca=Math.cos(angle),sa=Math.sin(angle),a=mode==='walk'?2:1.5,b=mode==='walk'?3.5:2.1,radius=6;
+for(let j=Math.max(1,Math.floor(z-radius));j<Math.min(N-1,Math.ceil(z+radius));j++)for(let i=Math.max(1,Math.floor(x-radius));i<Math.min(N-1,Math.ceil(x+radius));i++){
+const dx=i-x,dz=j-z,u=dx*ca+dz*sa,v=-dx*sa+dz*ca,r=Math.hypot(u/a,v/b),k=idx(i,j);
+if(r<1){const penetration=depth*.07*Math.pow(1-r*r,1.5),loose=Math.min(powder[k],penetration);powder[k]-=loose;base[k]=Math.max(-.22,base[k]-(penetration-loose)*.42)}
+else if(r<1.55)powder[k]+=depth*.007*Math.sin((r-1)/.55*Math.PI);
+}}
+function tick(dt){
+const add=snow*dt*.003;for(let i=0;i<S;i++){powder[i]+=add;delta[i]=0}
+const coefficient=Math.min(.23,flow*dt*.13);
+for(let z=1;z<N-1;z++)for(let x=1;x<N-1;x++){
+const i=idx(x,z),h=height(x,z),neighbors=[i-1,i+1,i-N,i+N],available=powder[i];let wants=[];
+for(const j of neighbors){const dh=h-(powder[j]+base[j]);wants.push(dh>.018?Math.min(available*.12,(dh-.018)*coefficient):0)}
+const total=wants.reduce((a,b)=>a+b,0),factor=Math.min(1,available/Math.max(total,1e-9));
+for(let k=0;k<4;k++){const q=wants[k]*factor;delta[i]-=q;delta[neighbors[k]]+=q}
+}
+for(let i=0;i<S;i++)powder[i]=Math.max(0,powder[i]+delta[i]);elapsed+=dt;
+}
+function draw(){
+const w=canvas.clientWidth,h=canvas.clientHeight,dpr=Math.min(devicePixelRatio||1,2),cw=Math.round(w*dpr),ch=Math.round(h*dpr);
+if(canvas.width!==cw||canvas.height!==ch){canvas.width=cw;canvas.height=ch}
+ctx.setTransform(dpr,0,0,dpr,0,0);const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#14263c');sky.addColorStop(1,'#91b5cc');ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
+const scale=Math.min(w/105,h/65),ox=w*.5,oy=h*.17;
+const project=(x,z,y)=>[ox+(x-z)*scale*.85,oy+(x+z)*scale*.3-y*scale*9];
+for(let z=0;z<N-1;z++)for(let x=0;x<N-1;x++){
+const y=height(x,z),p0=project(x,z,y),p1=project(x+1,z,height(x+1,z)),p2=project(x+1,z+1,height(x+1,z+1)),p3=project(x,z+1,height(x,z+1));
+const dx=height(x+1,z)-y,dz=height(x,z+1)-y,l=Math.max(0,Math.min(1,.77-dx*2.2-dz*1.4)),v=Math.round(145+l*95);
+ctx.fillStyle='rgb('+(v-4)+','+(v+1)+','+Math.min(255,v+12)+')';ctx.beginPath();ctx.moveTo(...p0);ctx.lineTo(...p1);ctx.lineTo(...p2);ctx.lineTo(...p3);ctx.closePath();ctx.fill();
+}
+const frame=Math.floor(elapsed*17);ctx.fillStyle='#fff';for(let i=0;i<55;i++){const px=((i*157+frame*13)%997)/997*w,py=((i*283+frame*7)%991)/991*h;ctx.globalAlpha=.18+(i%5)*.12;ctx.fillRect(px,py,1.5+(i%3),1.5+(i%3))}ctx.globalAlpha=1;
+$('status').textContent='Simulated time: '+elapsed.toFixed(1)+' · surface: 72 × 72 cells';
+}
+function grid(e){const r=canvas.getBoundingClientRect(),s=Math.min(r.width/105,r.height/65),u=(e.clientX-r.left-r.width*.5)/(.85*s),v=(e.clientY-r.top-r.height*.17+3*s)/(.3*s);return {x:(u+v)/2,z:(v-u)/2}}
+function move(e){if(!last)return;const p=grid(e),dx=p.x-last.x,dz=p.z-last.z,len=Math.hypot(dx,dz);if(len<.05)return;const a=Math.atan2(dz,dx);for(let t=0;t<len;t+=.65){const f=t/len,x=last.x+dx*f,z=last.z+dz*f;if(mode==='furrow')stamp(x,z,a);else{distance+=.65;if(distance>=5){distance=0;side=-side;stamp(x-Math.sin(a)*side*1.3,z+Math.cos(a)*side*1.3,a)}}}last=p}
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);last=grid(e);distance=5;stamp(last.x,last.z,0)});
+canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',()=>last=null);canvas.addEventListener('pointercancel',()=>last=null);
+for(const id of ['walk','furrow'])$(id).onclick=()=>{mode=id;$('walk').classList.toggle('active',id==='walk');$('furrow').classList.toggle('active',id==='furrow')};
+$('pause').onclick=()=>{paused=!paused;$('pause').textContent=paused?'Resume':'Pause'};
+$('reset').onclick=()=>{powder.fill(.28);base.fill(0);elapsed=0};
+let prev=performance.now();function frame(now){const dt=Math.min(.06,(now-prev)/1000);prev=now;if(!paused)tick(dt*speed*12);draw();requestAnimationFrame(frame)}requestAnimationFrame(frame);
+})();
+</script></body></html>
