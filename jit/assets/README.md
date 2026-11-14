@@ -688,3 +688,10 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live: https://bonoj.github.io/jit/assets/little-universe/
 - Standalone Canvas 2D gravitational sandbox from the in-chat prototype: pairwise softened Newtonian attraction, drag-to-launch bodies, trails, collision mergers conserving mass and momentum, gravity and time-scale sliders, pause/reset/clear.
 - Numerical integration is semi-implicit Euler with five substeps per frame; illustrative toy units, not an astronomical integrator. Browser runtime not independently verified.
+
+## Specimen 042 — Nautilus · Elastic Tentacle (2026-11-14)
+
+- Source: [`nautilus-elastic/index.html`](./nautilus-elastic/index.html)
+- Live: https://bonoj.github.io/jit/assets/nautilus-elastic/
+- Standalone Canvas projected-3D tapered tentacle, 2D angular backbone, anchored broad end, tip-first activation, damped spring joints, contact-proximity skin compression, fixed world camera, orbit/pinch, curl/softness and pause/reset.
+- Reduced-order elastic visualization, not volumetric soft-body simulation or physically resolved self-contact. Browser runtime not independently verified.
