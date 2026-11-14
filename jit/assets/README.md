@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| Snowfield · Accretion Laboratory | canvas2d-perspective-heightfield | [`snowfield/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/snowfield/index.html) | [Open](https://bonoj.github.io/jit/assets/snowfield/) | Interactive 72×72 snow heightfield with footprint and furrow stamping, snowfall, approximate mass-conserving lateral redistribution, depth and speed controls. Source committed 2026-11-14; live browser runtime not independently verified. |
+
+
 | The Last Lighthouse | canvas-autonomous-ecology | [`last-lighthouse/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/last-lighthouse/index.html) | [Open](https://bonoj.github.io/jit/assets/last-lighthouse/) | Self-contained Canvas simulation of three bioluminescent species, lighthouse beam color/intensity/rotation, feeding, reproduction, predation, currents, pause/reset. Browser runtime not independently verified. |
 
 
