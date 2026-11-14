@@ -701,3 +701,10 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live: https://bonoj.github.io/jit/assets/nautilus-elastic/
 - Standalone Canvas projected-3D tapered tentacle, 2D angular backbone, anchored broad end, tip-first activation, damped spring joints, contact-proximity skin compression, fixed world camera, orbit/pinch, curl/softness and pause/reset.
 - Reduced-order elastic visualization, not volumetric soft-body simulation or physically resolved self-contact. Browser runtime not independently verified.
+
+## Specimen 044 — Ice / 03 · Frosted & Backlit (2026-11-14)
+
+- Source: [`ice-frost-backlit/index.html`](./ice-frost-backlit/index.html)
+- Live: https://bonoj.github.io/jit/assets/ice-frost-backlit/
+- WebGL2 single-pass procedural frosted translucent ice with adjustable frost/backlight, toggleable 10 analytic bubble highlights, pointer orbit, two-finger pinch zoom and mouse wheel zoom.
+- Event-driven rendering only, capped at 300,000 pixels per draw; no continuous animation or volumetric ray marching. Visual approximation, not physically based transmission. JS syntax checked; GPU/runtime and GitHub Pages deployment not independently verified.
