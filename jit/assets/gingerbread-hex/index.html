@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#171b20"><title>Gingerbread · Baked Dough</title><style>*{box-sizing:border-box}body{margin:0;background:#171b20;color:#f0dcc6;font:14px system-ui}main{max-width:760px;margin:auto;padding:14px}h1{font-size:19px;margin:4px 0 12px}canvas{display:block;width:100%;height: min(62vh,520px);min-height:320px;touch-action:none;border-radius:12px;background:#171b20}#status{font-size:11px;color:#d4b99b;margin:8px 0}.controls{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{font-size:12px}input{width:100%;display:block;accent-color:#b87b43}button{background:#3a2a22;border:1px solid #80604a;border-radius:8px;color:#f0dcc6;padding:10px 15px;margin:12px 8px 0 0}small{color:#b5a08b}</style></head><body><main><h1>⬡ Gingerbread · Baked Dough</h1><canvas id="c"></canvas><div id="status">Initializing WebGL2…</div><div class="controls"><label>Bake <output id="bv">55%</output><input id="bake" type="range" min="0" max="100" value="55"></label><label>Crumb <output id="gv">65%</output><input id="grain" type="range" min="0" max="100" value="65"></label><label>Porosity <output id="pv">40%</output><input id="por" type="range" min="0" max="100" value="40"></label><label>Roundness <output id="rv">60%</output><input id="round" type="range" min="0" max="100" value="60"></label></div><button id="batch">New batch</button><button id="reset">Reset</button><p><small>Drag to orbit · Pinch to zoom · Native WebGL2 · Procedural baked crumb · Material study, not final</small></p></main><script>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#171b20"><title>Gingerbread · Gumdrop Forest</title><style>*{box-sizing:border-box}body{margin:0;background:#171b20;color:#f0dcc6;font:14px system-ui}main{max-width:760px;margin:auto;padding:14px}h1{font-size:19px;margin:4px 0 12px}canvas{display:block;width:100%;height: min(62vh,520px);min-height:320px;touch-action:none;border-radius:12px;background:#171b20}#status{font-size:11px;color:#d4b99b;margin:8px 0}.controls{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{font-size:12px}input{width:100%;display:block;accent-color:#b87b43}button{background:#3a2a22;border:1px solid #80604a;border-radius:8px;color:#f0dcc6;padding:10px 15px;margin:12px 8px 0 0}small{color:#b5a08b}</style></head><body><main><h1>⬡ Gingerbread · Gumdrop Forest</h1><canvas id="c"></canvas><div id="status">Initializing WebGL2…</div><div class="controls"><label>Bake <output id="bv">55%</output><input id="bake" type="range" min="0" max="100" value="55"></label><label>Crumb <output id="gv">65%</output><input id="grain" type="range" min="0" max="100" value="65"></label><label>Porosity <output id="pv">40%</output><input id="por" type="range" min="0" max="100" value="40"></label><label>Roundness <output id="rv">60%</output><input id="round" type="range" min="0" max="100" value="60"></label></div><button id="batch">New forest</button><button id="reset">Reset</button><p><small>Drag to orbit · Pinch to zoom · Native WebGL2 · Sugared gumdrop forest · Autumn / winter palette</small></p></main><script>
 (()=>{
 const $=s=>document.getElementById(s),canvas=$('c'),status=$('status'),gl=canvas.getContext('webgl2',{antialias:true,depth:true,alpha:false});
 if(!gl){status.textContent='WebGL2 unavailable';return}
@@ -106,6 +106,88 @@ function geometry(){
  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,ibo);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(indices),gl.STATIC_DRAW);count=indices.length;
 }
 geometry();gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);
+// Separate, genuinely three-dimensional gumdrop geometry and sugar-crystal shader.
+// Each dome is a tapered, softly flattened candy with an irregular rounded crown.
+const gumVS=`#version 300 es
+precision highp float;
+layout(location=0) in vec3 aPos;
+layout(location=1) in vec3 aNormal;
+layout(location=2) in vec3 aColor;
+layout(location=3) in float aVariation;
+uniform mat4 uMVP;
+out vec3 vWorld;out vec3 vNormal;out vec3 vColor;out float vVariation;
+void main(){vWorld=aPos;vNormal=aNormal;vColor=aColor;vVariation=aVariation;gl_Position=uMVP*vec4(aPos,1.);}`;
+const gumFS=`#version 300 es
+precision highp float;
+in vec3 vWorld;in vec3 vNormal;in vec3 vColor;in float vVariation;
+out vec4 outColor;
+float hash3(vec3 p){p=fract(p*.1031);p+=dot(p,p.yzx+33.33);return fract((p.x+p.y)*p.z);}
+float noise3(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+return mix(mix(mix(hash3(i),hash3(i+vec3(1,0,0)),f.x),mix(hash3(i+vec3(0,1,0)),hash3(i+vec3(1,1,0)),f.x),f.y),mix(mix(hash3(i+vec3(0,0,1)),hash3(i+vec3(1,0,1)),f.x),mix(hash3(i+vec3(0,1,1)),hash3(i+vec3(1,1,1)),f.x),f.y),f.z);}
+void main(){
+vec3 p=vWorld*72.+vVariation*13.;
+float sugar=noise3(p);
+float grit=hash3(floor(p*1.65));
+float crystal=pow(max(0.,grit-.72)/.28,3.);
+float frosting=smoothstep(.47,.83,sugar);
+vec3 n=normalize(vNormal);
+float lit=.42+.55*max(dot(n,normalize(vec3(-.45,.55,1.))),0.);
+vec3 candy=vColor*(.76+.19*noise3(vWorld*9.+vVariation));
+vec3 coat=mix(candy,vec3(.95,.91,.81),.18+.29*frosting);
+coat+=vec3(1.,.97,.86)*crystal*.48;
+coat*=lit;
+float sparkle=pow(max(dot(n,normalize(vec3(-.2,.55,1.))),0.),30.)*.13;
+outColor=vec4(pow(coat+sparkle,vec3(.85)),1.);
+}`;
+let gumProgram=null,gumVAO=null,gumCount=0,gumSeed=17;
+try{
+gumProgram=gl.createProgram();gl.attachShader(gumProgram,compile(gl.VERTEX_SHADER,gumVS));gl.attachShader(gumProgram,compile(gl.FRAGMENT_SHADER,gumFS));gl.linkProgram(gumProgram);
+if(!gl.getProgramParameter(gumProgram,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(gumProgram));
+gumVAO=gl.createVertexArray();
+}catch(e){status.textContent='Gumdrop shader error: '+e.message}
+const gumVBO=gl.createBuffer(),gumIBO=gl.createBuffer();
+function buildForest(){
+if(!gumProgram)return;
+let state=gumSeed>>>0;
+function rnd(){state=(Math.imul(state,1664525)+1013904223)>>>0;return state/4294967296}
+const palette=[[.76,.13,.11],[.93,.38,.08],[.93,.62,.12],[.43,.15,.33],[.33,.46,.18],[.13,.42,.36],[.62,.21,.13],[.68,.55,.37],[.29,.34,.56],[.75,.31,.40]];
+const verts=[],idx=[],placed=[];const N=76,S=18,T=12;
+for(let n=0;n<N;n++){
+let x=0,y=0,r=.1,ok=false;
+for(let tries=0;tries<100;tries++){
+x=(rnd()*2-1)*1.77;y=(rnd()*2-1)*1.77;
+if(Math.max(Math.abs(y),Math.abs(.866*x+.5*y),Math.abs(.866*x-.5*y))>1.55)continue;
+r=.065+Math.pow(rnd(),2)*.19;
+if(placed.some(q=>Math.hypot(x-q[0],y-q[1])<r+q[2]+.025))continue;
+ok=true;break;
+}
+if(!ok)continue;placed.push([x,y,r]);
+const height=r*(1.25+rnd()*1.4),variation=rnd()*100,color=palette[Math.floor(rnd()*palette.length)];
+const base=verts.length/10,twist=rnd()*6.283;
+for(let j=0;j<=T;j++){
+const t=j/T,theta=t*Math.PI*.5;
+const z=.31+height*Math.sin(theta);
+const taper=Math.pow(Math.max(0,Math.cos(theta)),.66);
+const radius=r*(1.02-.18*t)*taper;
+for(let k=0;k<=S;k++){
+const a=k/S*Math.PI*2+twist;
+const wobble=1+.055*Math.sin(3*a+variation)+.035*Math.sin(5*a+variation*.7);
+const px=x+radius*wobble*Math.cos(a),py=y+radius*wobble*Math.sin(a);
+const nx=Math.cos(a)*Math.sin(theta*.8+.42),ny=Math.sin(a)*Math.sin(theta*.8+.42),nz=Math.cos(theta*.8+.42);
+verts.push(px,py,z,nx,ny,nz,...color,variation);
+}
+}
+for(let j=0;j<T;j++)for(let k=0;k<S;k++){
+const a=base+j*(S+1)+k,b=a+1,c=a+(S+1),d=c+1;
+idx.push(a,b,c,b,d,c);
+}
+}
+gl.bindVertexArray(gumVAO);gl.bindBuffer(gl.ARRAY_BUFFER,gumVBO);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(verts),gl.STATIC_DRAW);
+for(let a=0;a<4;a++){gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,a===3?1:3,gl.FLOAT,false,40,a===0?0:a===1?12:a===2?24:36)}
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,gumIBO);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(idx),gl.STATIC_DRAW);
+gumCount=idx.length;
+}
+buildForest();
 let az=-.42,el=.72,dist=8.6,seed=4.1,bake=.55,grain=.65,por=.4;
 function mul(a,b){const o=new Float32Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++)for(let k=0;k<4;k++)o[c*4+r]+=a[k*4+r]*b[c*4+k];return o}
 function perspective(fovy,aspect,near,far){const f=1/Math.tan(fovy/2),m=new Float32Array(16);m[0]=f/aspect;m[5]=f;m[10]=(far+near)/(near-far);m[11]=-1;m[14]=2*far*near/(near-far);return m}
@@ -125,16 +207,17 @@ function render(){
  gl.uniformMatrix4fv(uMVP,false,mul(perspective(Math.PI/4,w/h,.1,100),lookAt(eye)));
  gl.uniform1f(uBake,bake);gl.uniform1f(uGrain,grain);gl.uniform1f(uPor,por);gl.uniform1f(uSeed,seed);
  gl.bindVertexArray(vao);gl.drawElements(gl.TRIANGLES,count,gl.UNSIGNED_SHORT,0);
+ if(gumProgram&&gumCount){gl.useProgram(gumProgram);gl.uniformMatrix4fv(gl.getUniformLocation(gumProgram,'uMVP'),false,mul(perspective(Math.PI/4,w/h,.1,100),lookAt(eye)));gl.bindVertexArray(gumVAO);gl.drawElements(gl.TRIANGLES,gumCount,gl.UNSIGNED_SHORT,0);gl.useProgram(program)}
 }
 for(const [id,out,set] of [['bake','bv',v=>bake=v],['grain','gv',v=>grain=v],['por','pv',v=>por=v]])$(id).addEventListener('input',e=>{set(+e.target.value/100);$(out).textContent=e.target.value+'%';render()});
 $('round').addEventListener('input',e=>{round=+e.target.value/100;$('rv').textContent=e.target.value+'%';geometry();render()});
-$('batch').onclick=()=>{seed+=11.73;render()};
-$('reset').onclick=()=>{bake=.55;grain=.65;por=.4;round=.6;seed=4.1;az=-.42;el=.72;dist=8.6;for(const [id,out,v] of [['bake','bv',55],['grain','gv',65],['por','pv',40],['round','rv',60]]){$(id).value=v;$(out).textContent=v+'%'}geometry();render()};
+$('batch').onclick=()=>{seed+=11.73;gumSeed+=193;buildForest();render()};
+$('reset').onclick=()=>{bake=.55;grain=.65;por=.4;round=.6;seed=4.1;gumSeed=17;buildForest();az=-.42;el=.72;dist=8.6;for(const [id,out,v] of [['bake','bv',55],['grain','gv',65],['por','pv',40],['round','rv',60]]){$(id).value=v;$(out).textContent=v+'%'}geometry();render()};
 const pointers=new Map();let px=0,py=0,pinch=0;
 canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,[e.clientX,e.clientY]);px=e.clientX;py=e.clientY});
 canvas.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,[e.clientX,e.clientY]);const pts=[...pointers.values()];if(pts.length===2){const d=Math.hypot(pts[0][0]-pts[1][0],pts[0][1]-pts[1][1]);if(pinch)dist=Math.max(5,Math.min(17,dist*pinch/d));pinch=d}else if(pts.length===1){az-=(e.clientX-px)*.009;el=Math.max(.15,Math.min(1.45,el+(e.clientY-py)*.009));px=e.clientX;py=e.clientY}render()});
 const end=e=>{pointers.delete(e.pointerId);pinch=0;if(pointers.size){const p=[...pointers.values()][0];px=p[0];py=p[1]}};
 canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);window.addEventListener('resize',render);
-status.textContent='WebGL2 · Six-sided solid · Baked crumb shader';render();
+status.textContent='WebGL2 · Sugared gumdrops · Fall / winter';render();
 })();
 </script></body></html>
