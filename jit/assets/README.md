@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| Gingerbread · Baked Dough | native-webgl2-procedural-material | [`gingerbread-hex/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/gingerbread-hex/index.html) | [Open](https://bonoj.github.io/jit/assets/gingerbread-hex/) | Specimen 043. Six-sided rounded extruded biscuit with shader-based browning, crumb and pores; bake, grain, porosity, roundness, orbit, pinch zoom and new-batch controls. Material remains exploratory. Source committed; browser runtime not independently verified. |
+
+
 | Fullerene · 3D Shell | canvas2d-projected-3d-polyhedron | [`fullerene-shell/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fullerene-shell/index.html) | [Open](https://bonoj.github.io/jit/assets/fullerene-shell/) | Interactive truncated icosahedron: 12 pentagons, 20 hexagons, 90 edges; drag rotation, pinch/wheel zoom, adjustable rear-edge opacity and auto-rotation. Source committed 2026-11-14; live browser runtime not independently verified. |
 
 
