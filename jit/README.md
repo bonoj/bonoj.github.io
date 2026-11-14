@@ -90,6 +90,7 @@ This index was originally generated from the GitHub tree on 2026-10-28 and incre
 - [`spiral-out/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/spiral-out) · [page](https://bonoj.github.io/jit/spiral-out/)
 - [`spudify/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/spudify) · [page](https://bonoj.github.io/jit/spudify/)
 - [`stc/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/stc) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/stc/README.md) · [page](https://bonoj.github.io/jit/stc/)
+- [`syntax-reroll/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/syntax-reroll) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/syntax-reroll/README.md) — lexical conservation, persistent narrative worlds, and bounded semantic reconciliation; rules only, no deployed page
 - [`tender/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/tender) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/tender/README.md) · [page](https://bonoj.github.io/jit/tender/) · source implemented; public delivery unverified
 - [`subnautimation/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/subnautimation) · [page](https://bonoj.github.io/jit/subnautimation/)
 - [`topology/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/topology) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/topology/README.md)
