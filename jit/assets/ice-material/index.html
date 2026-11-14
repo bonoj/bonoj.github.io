@@ -1,5 +1,10 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101923"><title>Ice · Procedural Material Lab</title><style>*{box-sizing:border-box}html,body{margin:0;height:100%;background:#101923;color:#d8edf5;font:13px system-ui}main{height:100dvh;min-height:320px;position:relative}canvas{width:100%;height:100%;display:block;touch-action:none}.heading{position:absolute;top:16px;left:18px;pointer-events:none;letter-spacing:.1em}.controls{position:absolute;bottom:16px;left:12px;right:12px;display:flex;gap:12px;flex-wrap:wrap;background:#15232de8;padding:12px;border-radius:12px}.controls label{flex:1;min-width:80px}.controls input{width:100%;accent-color:#a6e9f6}.back{position:absolute;right:16px;top:16px;color:#d8edf5;text-decoration:none}</style></head><body><main><canvas id="view"></canvas><div class="heading" id="status">ICE / 01 · DRAG TO ORBIT</div><a class="back" href="../">Assets</a><div class="controls"><label>Frost<input id="frost" type="range" min="0" max="100" value="22"></label><label>Bubbles<input id="bubbles" type="range" min="0" max="100" value="55"></label><label>Clarity<input id="clarity" type="range" min="0" max="100" value="78"></label></div></main><script type="module">
-const canvas=document.querySelector('#view'),status=document.querySelector('#status'),gl=canvas.getContext('webgl2',{antialias:true,alpha:false});
+const canvas=document.querySelector('#view'),status=document.querySelector('#status');
+status.textContent='ICE / 01 · GPU-INTENSIVE RENDERER DISABLED';
+canvas.style.display='none';
+document.querySelector('.controls').style.display='none';
+const notice=document.createElement('div');notice.textContent='This material experiment has been temporarily disabled because its fragment shader can overheat mobile devices. A bounded-cost renderer is needed before it is re-enabled.';notice.style.cssText='position:absolute;top:45%;left:10%;width:80%;text-align:center;line-height:1.7;color:#d8edf5;font-size:15px';document.querySelector('main').appendChild(notice);
+const gl=null;
 if(!gl)status.textContent='WebGL2 unavailable';
 else {
 const vs=`#version 300 es
