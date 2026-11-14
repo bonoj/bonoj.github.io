@@ -1,0 +1,105 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>Ice / 03 — Frosted & Backlit</title><style>*{box-sizing:border-box}body{margin:0;background:#101a23;color:#e4f5fa;font:12px system-ui}main{height:100dvh;min-height:320px;position:relative;overflow:hidden}canvas{display:block;width:100%;height:100%;touch-action:none}.status{position:absolute;top:12px;left:14px;pointer-events:none;letter-spacing:.07em}.controls{position:absolute;bottom:12px;left:12px;right:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#152631ee;border:1px solid #45616b;border-radius:12px;padding:12px}label{flex:1;min-width:85px}label:first-child{flex:0 0 auto;display:flex;gap:7px;align-items:center}input[type=range]{display:block;width:100%;accent-color:#9de9f5}input[type=checkbox]{accent-color:#9de9f5}</style></head><body><main><canvas aria-label="Interactive 3D ice material"></canvas><div class="status">ICE / 03 · DRAG TO ORBIT · PINCH TO ZOOM</div><div class="controls"><label><input id="bubbles" type="checkbox" checked>Bubbles</label><label>Frost<input id="frost" type="range" min="0" max="100" value="65"></label><label>Backlight<input id="light" type="range" min="0" max="100" value="85"></label></div></main><script type="module">
+const root=document.querySelector('main'),canvas=document.querySelector('canvas'),status=document.querySelector('.status'),bubbles=document.querySelector('#bubbles'),frost=document.querySelector('#frost'),light=document.querySelector('#light');
+const gl=canvas.getContext('webgl2',{alpha:false,antialias:false,powerPreference:'low-power'});
+if(!gl){status.textContent='WebGL2 unavailable';}else{
+const vs=`#version 300 es
+in vec2 position;
+void main(){gl_Position=vec4(position,0.,1.);}`;
+const fs=`#version 300 es
+precision highp float;
+out vec4 fragColor;
+uniform vec2 resolution;
+uniform float yaw,pitch,frost,backlight,bubbleToggle,cameraDistance;
+float hash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
+float noise3(vec3 p){
+ vec3 i=floor(p),f=fract(p);
+ f=f*f*(3.-2.*f);
+ float a=hash(i),b=hash(i+vec3(1,0,0)),c=hash(i+vec3(0,1,0)),d=hash(i+vec3(1,1,0));
+ float e=hash(i+vec3(0,0,1)),g=hash(i+vec3(1,0,1)),h=hash(i+vec3(0,1,1)),j=hash(i+vec3(1,1,1));
+ return mix(mix(mix(a,b,f.x),mix(c,d,f.x),f.y),mix(mix(e,g,f.x),mix(h,j,f.x),f.y),f.z);
+}
+vec3 rot(vec3 p){
+ float a=yaw,b=pitch;
+ p=vec3(cos(a)*p.x+sin(a)*p.z,p.y,-sin(a)*p.x+cos(a)*p.z);
+ return vec3(p.x,cos(b)*p.y-sin(b)*p.z,sin(b)*p.y+cos(b)*p.z);
+}
+vec2 intersectBox(vec3 ro,vec3 rd,vec3 s){
+ vec3 inv=1./rd;
+ vec3 lo=(-s-ro)*inv,hi=(s-ro)*inv;
+ vec3 mn=min(lo,hi),mx=max(lo,hi);
+ return vec2(max(max(mn.x,mn.y),mn.z),min(min(mx.x,mx.y),mx.z));
+}
+vec3 normalBox(vec3 p,vec3 s){
+ vec3 a=abs(p/s);
+ if(a.x>a.y&&a.x>a.z)return vec3(sign(p.x),0.,0.);
+ if(a.y>a.z)return vec3(0.,sign(p.y),0.);
+ return vec3(0.,0.,sign(p.z));
+}
+void main(){
+ vec2 uv=gl_FragCoord.xy/resolution;
+ vec2 q=uv*2.-1.;q.x*=resolution.x/resolution.y;
+ vec3 ro=rot(vec3(0.,.12,cameraDistance));
+ vec3 rd=normalize(rot(vec3(q*.8,-2.4)));
+ vec3 bg=mix(vec3(.018,.034,.055),vec3(.075,.12,.15),smoothstep(-1.,1.,q.y));
+ vec2 hit=intersectBox(ro,rd,vec3(1.03,.72,.66));
+ if(hit.x>hit.y||hit.y<0.){fragColor=vec4(bg,1.);return;}
+ float entry=max(0.,hit.x),thick=hit.y-entry;
+ vec3 p=ro+rd*entry;
+ vec3 n=normalBox(p,vec3(1.03,.72,.66));
+ float facing=max(dot(n,-rd),0.);
+ float fresnel=pow(1.-facing,5.);
+ float grain=noise3(p*23.)*.65+noise3(p*59.)*.35;
+ float crystalline=noise3(p*7.+vec3(3.1,8.2,1.4));
+ float frostMask=clamp(frost*(.38+.62*grain)*(.7+.3*crystalline),0.,1.);
+ float trans=exp(-thick*(.45+frostMask*.85));
+ vec3 absorb=exp(-thick*vec3(.9,.43,.26));
+ vec3 source=vec3(.77,.93,1.)*backlight;
+ vec3 transmitted=source*trans*absorb;
+ vec3 diffuseFrost=vec3(.55,.79,.86)*frostMask*(.35+.65*backlight);
+ vec3 ice=transmitted+diffuseFrost;
+ vec3 key=normalize(vec3(-.5,.8,1.));
+ float spec=pow(max(dot(reflect(rd,n),key),0.),48.);
+ ice+=vec3(.9,.98,1.)*spec*(1.-frostMask*.65);
+ ice+=vec3(.20,.37,.45)*fresnel;
+ ice=mix(ice,vec3(.7,.87,.94),fresnel*.6);
+ if(bubbleToggle>.5){
+  float contribution=0.;
+  for(int i=0;i<10;i++){
+   float k=float(i);
+   vec3 center=vec3(fract(sin(k*17.31+1.2)*43758.5)-.5,fract(sin(k*27.73+4.5)*43758.5)-.5,fract(sin(k*11.93+7.1)*43758.5)-.5)*vec3(1.65,1.12,.95);
+   float radius=.025+.035*fract(sin(k*8.7+2.1)*4567.2);
+   vec3 v=center-ro;
+   float t=dot(v,rd);
+   float d=length(v-rd*clamp(t,entry,hit.y));
+   float ring=smoothstep(radius*.60,radius*.94,d)*(1.-smoothstep(radius,radius*1.15,d));
+   contribution=max(contribution,ring);
+  }
+  ice+=vec3(.18,.28,.30)*contribution*(1.-frostMask*.65);
+ }
+ ice=mix(ice,bg,.10);
+ fragColor=vec4(pow(clamp(ice,0.,1.),vec3(.93)),1.);
+}`;
+function compile(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
+try{
+ const program=gl.createProgram();gl.attachShader(program,compile(gl.VERTEX_SHADER,vs));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fs));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
+ const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+ const attr=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(attr);gl.vertexAttribPointer(attr,2,gl.FLOAT,false,0,0);
+ const uniforms={};for(const name of ['resolution','yaw','pitch','frost','backlight','bubbleToggle','cameraDistance'])uniforms[name]=gl.getUniformLocation(program,name);
+ let yaw=.55,pitch=.22,cameraDistance=4.7,pending=false;const pointers=new Map();let pinchDistance=null;
+ function draw(){pending=false;if(document.hidden||!root.isConnected)return;
+ const width=canvas.clientWidth,height=canvas.clientHeight,scale=Math.min(1.25,Math.sqrt(300000/Math.max(1,width*height)));
+ const w=Math.max(1,Math.round(width*scale)),h=Math.max(1,Math.round(height*scale));
+ if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}
+ gl.uniform2f(uniforms.resolution,w,h);gl.uniform1f(uniforms.yaw,yaw);gl.uniform1f(uniforms.pitch,pitch);gl.uniform1f(uniforms.frost,+frost.value/100);gl.uniform1f(uniforms.backlight,+light.value/100);gl.uniform1f(uniforms.bubbleToggle,bubbles.checked?1:0);gl.uniform1f(uniforms.cameraDistance,cameraDistance);gl.drawArrays(gl.TRIANGLES,0,6);}
+ function invalidate(){if(!pending){pending=true;requestAnimationFrame(draw);}}
+ function separation(){const a=[...pointers.values()];return a.length===2?Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y):null;}
+ canvas.addEventListener('pointerdown',e=>{pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});canvas.setPointerCapture(e.pointerId);pinchDistance=separation();});
+ canvas.addEventListener('pointermove',e=>{const previous=pointers.get(e.pointerId);if(!previous)return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===2){const next=separation();if(pinchDistance!==null&&next>0){cameraDistance=Math.max(2.6,Math.min(11,cameraDistance*pinchDistance/next));invalidate();}pinchDistance=next;}else if(pointers.size===1){yaw+=(e.clientX-previous.x)*.008;pitch=Math.max(-1.1,Math.min(1.1,pitch+(e.clientY-previous.y)*.008));invalidate();}});
+ function end(e){pointers.delete(e.pointerId);pinchDistance=null;}
+ canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);canvas.addEventListener('lostpointercapture',end);
+ canvas.addEventListener('wheel',e=>{e.preventDefault();cameraDistance=Math.max(2.6,Math.min(11,cameraDistance*Math.exp(e.deltaY*.001)));invalidate();},{passive:false});
+ for(const el of [bubbles,frost,light])el.addEventListener('input',invalidate);
+ new ResizeObserver(invalidate).observe(root);document.addEventListener('visibilitychange',invalidate);invalidate();
+}catch(e){status.textContent='Shader error: '+e.message;}
+}
+</script></body></html>
