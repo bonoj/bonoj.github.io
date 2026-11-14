@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| Fullerene · 3D Shell | canvas2d-projected-3d-polyhedron | [`fullerene-shell/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fullerene-shell/index.html) | [Open](https://bonoj.github.io/jit/assets/fullerene-shell/) | Interactive truncated icosahedron: 12 pentagons, 20 hexagons, 90 edges; drag rotation, pinch/wheel zoom, adjustable rear-edge opacity and auto-rotation. Source committed 2026-11-14; live browser runtime not independently verified. |
+
+
 | Snowfield · Accretion Laboratory | canvas2d-perspective-heightfield | [`snowfield/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/snowfield/index.html) | [Open](https://bonoj.github.io/jit/assets/snowfield/) | Interactive 72×72 snow heightfield with footprint and furrow stamping, snowfall, approximate mass-conserving lateral redistribution, depth and speed controls. Source committed 2026-11-14; live browser runtime not independently verified. |
 
 
