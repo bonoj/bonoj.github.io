@@ -1,0 +1,56 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Raindrop · Water as a Volume</title><style>*{box-sizing:border-box}body{margin:0;background:#030912;color:#dceefb;font:14px system-ui,sans-serif}main{max-width:920px;margin:auto}canvas{display:block;width:100%;height:min(68vh,620px);min-height:320px;touch-action:none}.panel{padding:20px;background:#0b1725}.eyebrow{color:#82c7ea;font-size:11px;font-weight:800;letter-spacing:2px}h1{font-size:25px;margin:6px 0}.sub{color:#91adbf;font-size:12px;line-height:1.6}.controls{display:grid;grid-template-columns:1fr 1fr;gap:17px;margin:20px 0}label{display:flex;justify-content:space-between;color:#bdd6e6;font-size:12px;margin-bottom:6px}input{width:100%;accent-color:#8edaf3}button{background:#1a3448;color:#e5f5ff;border:1px solid #40647a;border-radius:8px;padding:11px 14px;font-weight:650;cursor:pointer}.actions{display:flex;gap:8px;flex-wrap:wrap}#error{color:#f6a9a9;margin-top:12px}@media(max-width:420px){.panel{padding:15px}}</style></head><body><main><canvas id="view" aria-label="Three dimensional refractive water sphere with circulating particles"></canvas><section class="panel"><div class="eyebrow">MICROCOSM / EXPERIMENT 03</div><h1>Water as a Volume</h1><p class="sub">Perspective ray tracing through an analytic water sphere. Drag to orbit; particles circulate in three dimensions.</p><div class="controls"><div><label>Circulation <span id="fv">0.8</span></label><input id="flow" type="range" min="0" max="2.5" step=".1" value=".8"></div><div><label>Refractive index <span id="iv">1.333</span></label><input id="ior" type="range" min="1" max="1.6" step=".001" value="1.333"></div><div><label>Camera distance <span id="dv">3.8</span></label><input id="dist" type="range" min="2.3" max="7" step=".1" value="3.8"></div><div><label>Tracers <span id="nv">120</span></label><input id="count" type="range" min="20" max="160" step="20" value="120"></div></div><div class="actions"><button id="pause">Pause</button><button id="reset">Reseed particles</button><button id="orbit">Auto-orbit: on</button></div><p class="sub">WebGL2 · Snell refraction at entry and exit · Fresnel reflection · absorption · bounded prescribed 3D flow. Spherical boundary and illustrative lighting; not a deformable fluid solver.</p><div id="error" role="status"></div></section></main><script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),canvas=$('view'),gl=canvas.getContext('webgl2',{alpha:false,antialias:false});
+if(!gl){$('error').textContent='WebGL2 unavailable on this device.';return}
+const vs=`#version 300 es
+precision highp float;
+void main(){vec2 p=vec2(gl_VertexID==2?3.:-1.,gl_VertexID==1?3.:-1.);gl_Position=vec4(p,0.,1.);}`;
+const fs=`#version 300 es
+precision highp float;
+out vec4 frag;
+uniform vec2 res;uniform float ior,dist,yaw,pitch;uniform int count;uniform vec4 particles[160];
+mat3 ry(float a){float c=cos(a),s=sin(a);return mat3(c,0.,-s,0.,1.,0.,s,0.,c);}
+mat3 rx(float a){float c=cos(a),s=sin(a);return mat3(1.,0.,0.,0.,c,s,0.,-s,c);}
+vec3 env(vec3 d){d=normalize(d);float h=.5+.5*d.y;vec3 col=mix(vec3(.008,.022,.052),vec3(.10,.25,.38),h);col+=vec3(.25,.36,.45)*pow(max(dot(d,normalize(vec3(-.7,.65,.3))),0.),22.);col+=vec3(.17,.28,.34)*pow(max(dot(d,normalize(vec3(.55,.18,-.8))),0.),60.);return col;}
+bool hit(vec3 o,vec3 d,out float a,out float b){float B=dot(o,d),C=dot(o,o)-1.,H=B*B-C;if(H<0.)return false;float s=sqrt(H);a=-B-s;b=-B+s;return b>0.;}
+void main(){
+vec2 q=(gl_FragCoord.xy-.5*res)/res.y;
+vec3 origin=ry(yaw)*rx(pitch)*vec3(0.,0.,dist);
+vec3 forward=normalize(-origin),right=normalize(cross(forward,vec3(0.,1.,0.))),up=cross(right,forward);
+vec3 dir=normalize(forward+q.x*right*1.25+q.y*up*1.25);
+float a,b;vec3 color=env(dir);
+if(hit(origin,dir,a,b)&&a>0.){
+vec3 entry=origin+dir*a,n=normalize(entry);
+float cosine=clamp(-dot(dir,n),0.,1.),f0=pow((ior-1.)/(ior+1.),2.),F=f0+(1.-f0)*pow(1.-cosine,5.);
+vec3 inner=refract(dir,n,1./ior);
+float thickness=max(.001,-2.*dot(entry,inner));
+vec3 exitPoint=entry+inner*thickness;
+vec3 outgoing=refract(inner,-normalize(exitPoint),ior);
+if(length(outgoing)<.001){vec3 reflected=reflect(inner,-normalize(exitPoint));vec3 p=exitPoint+reflected*.001;float aa,bb;if(hit(p,reflected,aa,bb)){p+=reflected*bb;outgoing=refract(reflected,-normalize(p),ior);}if(length(outgoing)<.001)outgoing=reflected;}
+color=mix(env(outgoing)*exp(-vec3(.17,.065,.025)*thickness),env(reflect(dir,n)),F);
+vec3 light=vec3(0.);
+for(int i=0;i<160;i++){if(i>=count)break;vec3 v=particles[i].xyz-entry;float along=dot(v,inner);if(along<0.||along>thickness)continue;float radius=particles[i].w;float sep=length(v-inner*along);if(sep<radius*2.5){float brightness=exp(-5.*sep*sep/(radius*radius));light+=vec3(.32,.72,1.)*brightness*exp(-.15*along)*.75;}}
+color+=min(light,vec3(1.5));
+color+=vec3(.10,.24,.30)*pow(max(0.,dot(n,normalize(vec3(-.5,.8,1.)))),12.)*(1.-F);
+}
+color=pow(color/(1.+color),vec3(.86));frag=vec4(color,1.);
+}`;
+function compile(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}
+let program;try{program=gl.createProgram();gl.attachShader(program,compile(gl.VERTEX_SHADER,vs));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fs));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program))}catch(e){$('error').textContent='Shader error: '+e.message;return}
+gl.useProgram(program);gl.bindVertexArray(gl.createVertexArray());
+const loc=n=>gl.getUniformLocation(program,n),U={res:loc('res'),ior:loc('ior'),dist:loc('dist'),yaw:loc('yaw'),pitch:loc('pitch'),count:loc('count'),particles:loc('particles[0]')};
+let flow=.8,ior=1.333,dist=3.8,yaw=.5,pitch=.2,count=120,paused=false,auto=true,last=0,points=[],drag=null;
+function seed(){points=[];for(let i=0;i<count;i++){let x,y,z;do{x=Math.random()*1.9-.95;y=Math.random()*1.9-.95;z=Math.random()*1.9-.95}while(x*x+y*y+z*z>.88);points.push({x,y,z,r:.007+Math.random()*.008})}}
+function velocity(x,y,z){const e=Math.max(0,1-x*x-y*y-z*z);return{x:e*(-.6*y-.22*z),y:e*(.6*x-.19*z),z:e*(.22*x+.19*y)}}
+function advance(dt){if(paused)return;if(auto)yaw+=dt*.11;for(const p of points){const a=velocity(p.x,p.y,p.z),mx=p.x+a.x*dt*flow*.5,my=p.y+a.y*dt*flow*.5,mz=p.z+a.z*dt*flow*.5,b=velocity(mx,my,mz);p.x+=b.x*dt*flow;p.y+=b.y*dt*flow;p.z+=b.z*dt*flow}}
+const data=new Float32Array(640);
+function draw(now){const dt=Math.min(.05,(now-last)/1000||.016);last=now;advance(dt);const scale=Math.min(devicePixelRatio||1,1.25),maxPixels=420000;let w=Math.max(1,Math.round(canvas.clientWidth*scale)),h=Math.max(1,Math.round(canvas.clientHeight*scale));const down=Math.min(1,Math.sqrt(maxPixels/(w*h)));w=Math.max(1,Math.round(w*down));h=Math.max(1,Math.round(h*down));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h)}for(let i=0;i<points.length;i++){const p=points[i],j=i*4;data[j]=p.x;data[j+1]=p.y;data[j+2]=p.z;data[j+3]=p.r}gl.uniform2f(U.res,w,h);gl.uniform1f(U.ior,ior);gl.uniform1f(U.dist,dist);gl.uniform1f(U.yaw,yaw);gl.uniform1f(U.pitch,pitch);gl.uniform1i(U.count,count);gl.uniform4fv(U.particles,data);gl.drawArrays(gl.TRIANGLES,0,3);requestAnimationFrame(draw)}
+for(const [id,set,format,out] of [['flow',v=>flow=v,v=>v.toFixed(1),'fv'],['ior',v=>ior=v,v=>v.toFixed(3),'iv'],['dist',v=>dist=v,v=>v.toFixed(1),'dv'],['count',v=>{count=v;seed()},v=>String(v),'nv']]){$(id).oninput=()=>{set(+$(id).value);$(out).textContent=format(+$(id).value)}}
+$('pause').onclick=e=>{paused=!paused;e.currentTarget.textContent=paused?'Resume':'Pause'};
+$('reset').onclick=seed;$('orbit').onclick=e=>{auto=!auto;e.currentTarget.textContent='Auto-orbit: '+(auto?'on':'off')};
+canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);auto=false;$('orbit').textContent='Auto-orbit: off'});
+canvas.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-drag.x)*.008;pitch=Math.max(-1.35,Math.min(1.35,pitch+(e.clientY-drag.y)*.008));drag={x:e.clientX,y:e.clientY}});
+canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('pointercancel',()=>drag=null);
+seed();requestAnimationFrame(draw);
+})();
+</script></body></html>
