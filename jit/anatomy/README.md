@@ -26,3 +26,11 @@ Investigate whether continuous, pleasant humanoid surfaces comparable in visual 
 ## Verification
 
 GitHub source write/readback is separate from GitHub Pages publication and mobile WebGL execution. Browser behavior must be tested independently.
+
+## Experiment 002 — Full Figure (2026-11-14)
+
+- Source: [`figure/index.html`](./figure/index.html)
+- Live: https://bonoj.github.io/jit/anatomy/figure/
+- Procedurally generated torso, pelvis, neck, head, arms, legs and feet using cross-section surfaces and ellipsoidal junctions.
+- Idle, walk, run and arms-out motion; wireframe and touch camera controls.
+- Limitation: segments are separately articulated and overlap at joints; not watertight, not skinned, and locomotion is illustrative rather than biomechanically grounded. Browser runtime not independently verified.
