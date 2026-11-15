@@ -12,6 +12,8 @@ This index was originally generated from the GitHub tree on 2026-10-28 and incre
 - Preserve existing experiments. Follow per-experiment instructions before edits.
 - Hermeticon is a separate project (`bonoj/Hermeticon`); use its own handoff and deployment machinery.
 
+- [`anatomy/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/anatomy) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/anatomy/README.md) · [page](https://bonoj.github.io/jit/anatomy/) — procedural humanoid geometry lab, continuous arm experiment
+
 ## Experiments (79 indexed top-level folders; not a fresh exhaustive count)
 
 - [`air/`](https://github.com/bonoj/bonoj.github.io/tree/master/jit/air) · [README](https://github.com/bonoj/bonoj.github.io/blob/master/jit/air/README.md) · [page](https://bonoj.github.io/jit/air/)
