@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| Fractal Highlands | threejs-procedural-terrain | [`fractal-highlands/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fractal-highlands/index.html) | [Open](https://bonoj.github.io/jit/assets/fractal-highlands/) | Specimen 049. Deterministic multioctave ridged terrain, adjustable detail, roughness, relief, seed, and orbit camera. Fixed 160×160 mesh; not adaptive LOD. Source committed; browser runtime unverified. |
+
+
 | Glyphfall · Unified Flow | threejs-symbolic-flow | [`glyphfall-unified-flow/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/glyphfall-unified-flow/index.html) | [Open](https://bonoj.github.io/jit/assets/glyphfall-unified-flow/) | Specimen 048. Continuous Catmull–Rom swept flow domain with animated atlas glyph quads, bank drag, and procedural stone. Separate from specimen 047. Source committed; live browser unverified. |
 
 
