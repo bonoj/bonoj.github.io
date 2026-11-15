@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| Osteon · Anatomical Skull | threejs-imported-anatomy | [`osteon-skull/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/osteon-skull/index.html) | [Open](https://bonoj.github.io/jit/assets/osteon-skull/) | Specimen 051. Custom Three.js viewer for Khronos CC0 ScatteringSkull GLB; front/profile/crown, orbit, zoom, shader porosity and mineral controls. External GLB fetched from CDN with fallbacks; binary not vendored. Source committed; live browser unverified. |
+
+
 | Fractal Highlands | threejs-procedural-terrain | [`fractal-highlands/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/fractal-highlands/index.html) | [Open](https://bonoj.github.io/jit/assets/fractal-highlands/) | Specimen 049. Deterministic multioctave ridged terrain, adjustable detail, roughness, relief, seed, and orbit camera. Fixed 160×160 mesh; not adaptive LOD. Source committed; browser runtime unverified. |
 
 
