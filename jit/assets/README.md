@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| Glyphfall · Unified Flow | threejs-symbolic-flow | [`glyphfall-unified-flow/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/glyphfall-unified-flow/index.html) | [Open](https://bonoj.github.io/jit/assets/glyphfall-unified-flow/) | Specimen 048. Continuous Catmull–Rom swept flow domain with animated atlas glyph quads, bank drag, and procedural stone. Separate from specimen 047. Source committed; live browser unverified. |
+
+
 | Glyphfall · Rough Stone | threejs-procedural-stone | [`glyphfall-stone/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/glyphfall-stone/index.html) | [Open](https://bonoj.github.io/jit/assets/glyphfall-stone/) | Specimen 047. Procedural world-space stone grain and narrow glowing fractures; preserved independently from glyph-flow iteration. Source committed; live browser unverified. |
 
 
