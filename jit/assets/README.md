@@ -756,3 +756,9 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live: https://bonoj.github.io/jit/assets/raindrop-world/
 - Standalone WebGL2 analytic water sphere: perspective orbit, Snell refraction at entry/exit, Fresnel reflection, absorption, and volumetric tracers in prescribed 3D flow.
 - GPU budget: 160 tracers maximum and 420k pixel rendering cap. Spherical boundary and synthetic flow, not deformable fluid dynamics. Browser runtime not independently verified.
+
+### Experiment 04 — Deformation-coupled droplet (2026-11-15)
+
+- Updated the existing raindrop-world specimen in place. Added oscillating 3D ellipsoidal deformation with analytic ray/ellipsoid intersections, transformed surface normals, refractive exit paths, and tracers mapped into the changing volume.
+- Added deformation amplitude and oscillation-rate controls; the synthetic 3D tracer velocity field responds to the same oscillation phase.
+- **Limitations:** kinematic ellipsoid and reduced-order advection, not incompressible Navier–Stokes, pressure projection, free-surface fluid simulation, or fully energy-conserving ray tracing. Browser runtime not independently verified.
