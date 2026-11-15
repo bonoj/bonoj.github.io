@@ -35,11 +35,11 @@ GitHub source write/readback is separate from GitHub Pages publication and mobil
 - Idle, walk, run and arms-out motion; wireframe and touch camera controls.
 - Limitation: segments are separately articulated and overlap at joints; not watertight, not skinned, and locomotion is illustrative rather than biomechanically grounded. Browser runtime not independently verified.
 
-## Experiment 003 — Continuous Skin (2026-11-15)
+## Experiment 003 — Skinned Figure (2026-11-15)
 
 - Source: [`skin/index.html`](./skin/index.html)
 - Live: https://bonoj.github.io/jit/anatomy/skin/
-- One extracted isosurface from smoothly united anatomical signed-distance volumes (torso, pelvis, neck, head, arms, legs, hands, feet).
-- Pose sliders: arm elevation, elbow flexion, knee flexion; adjustable smooth-union width, wireframe and orbit.
-- Polygonization uses marching tetrahedra over a bounded voxel grid, followed by shared-vertex welding and computed normals. Source committed and read back; live WebGL performance not independently verified.
-- Caveat: topology can change as pose changes; smooth unions can produce bulbous junctions, and this is not a persistent skinned rig. Geometry is regenerated on pose change, not every animation frame.
+- Replaces the earlier pose-slider-only implicit experiment. The rest-pose implicit surface is extracted once, welded and given persistent skin indices/weights.
+- The surface is bound as a Three.js `SkinnedMesh` to a 13-bone hierarchy corresponding to Anatomy 002's articulated torso, shoulders, elbows, hips, knees and ankles.
+- Idle, walk, run and arms-out controls use Anatomy 002's animation equations and timing; speed, wireframe, orbit and pinch are retained.
+- Limitations: approximate skin weights, no anatomically authored edge loops, no guaranteed absence of pinch at extreme poses. A single skinned mesh with fixed topology is not proof of anatomically correct deformation. GitHub source readback only; live browser performance and deformation unverified.
