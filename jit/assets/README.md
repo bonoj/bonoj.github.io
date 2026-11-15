@@ -749,3 +749,10 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live: https://bonoj.github.io/jit/assets/penguins-game-night/
 - Standalone mobile-first Pittsburgh Penguins trivia game: 10 recent-era questions, arena photo hero, black-and-gold theme, three-period progress, four-choice interactions, goal/shot scorekeeping, correct-answer explanations, and replay.
 - No external JavaScript dependencies; hero photography loads from Unsplash. Live-browser rendering not independently verified.
+
+## Specimen 055 — Raindrop · Water as a Volume (2026-11-15)
+
+- Source: [raindrop-world/index.html](./raindrop-world/index.html)
+- Live: https://bonoj.github.io/jit/assets/raindrop-world/
+- Standalone WebGL2 analytic water sphere: perspective orbit, Snell refraction at entry/exit, Fresnel reflection, absorption, and volumetric tracers in prescribed 3D flow.
+- GPU budget: 160 tracers maximum and 420k pixel rendering cap. Spherical boundary and synthetic flow, not deformable fluid dynamics. Browser runtime not independently verified.
