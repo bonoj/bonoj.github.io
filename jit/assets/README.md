@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| The Unscripted Garden | threejs-procedural-motion | [`unscripted-garden/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/unscripted-garden/index.html) | [Open](https://bonoj.github.io/jit/assets/unscripted-garden/) | Specimen 046. Preserved single-prompt five-inhabitant world: tumbling stone, four-leg IK walker, pulsing floater, climbing vine, boid flock; focus controls, touch orbit and pinch zoom. Deliberately rough; source committed, browser runtime unverified. |
+
+
 | Xbot · Humanoid Motion Study | threejs-skeletal-animation | [`xbot-motion-studio/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/xbot-motion-studio/index.html) | [Open](https://bonoj.github.io/jit/assets/xbot-motion-studio/) | Specimen 045. Human-proportioned Xbot GLB; dynamically discovers embedded skeletal clips; pointer orbit, pinch/wheel zoom, playback speed and crossfade. Source committed; live browser runtime not independently verified. |
 
 
