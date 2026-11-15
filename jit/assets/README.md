@@ -728,3 +728,10 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live: https://bonoj.github.io/jit/assets/ice-frost-backlit/
 - WebGL2 single-pass procedural frosted translucent ice with adjustable frost/backlight, toggleable 10 analytic bubble highlights, pointer orbit, two-finger pinch zoom and mouse wheel zoom.
 - Event-driven rendering only, capped at 300,000 pixels per draw; no continuous animation or volumetric ray marching. Visual approximation, not physically based transmission. JS syntax checked; GPU/runtime and GitHub Pages deployment not independently verified.
+
+## Specimen 050 — Fractal Highlands · Ridged Sphere (2026-11-15)
+
+- Source: [`fractal-highlands-ridged-sphere/index.html`](./fractal-highlands-ridged-sphere/index.html)
+- Live: https://bonoj.github.io/jit/assets/fractal-highlands-ridged-sphere/
+- Indexed welded icosphere: 40,962 shared vertices, 81,920 triangles; continuous deterministic 3D ridged noise, adjustable octaves, roughness, relief, frequency, seed, wireframe, and orbit/zoom.
+- Low relief produces asteroid-like forms. Source committed; live browser runtime not independently verified.
