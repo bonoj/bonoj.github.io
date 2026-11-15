@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Glyphfall · Rough Stone</title><style>body{margin:0;background:#06100f;color:#b9f7d5;font:14px system-ui}header,footer{padding:12px 16px}canvas{display:block;width:100%;height:78vh;touch-action:none}a{color:#7af2ae}</style><header>GLYPHFALL · rough stone & emissive fractures</header><canvas id="c"></canvas><footer>Drag to orbit · Wheel to zoom · <a href="../">Assets</a></footer><script type="module">
+import * as T from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
+const canvas=document.querySelector('canvas'),renderer=new T.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));const scene=new T.Scene();scene.background=new T.Color('#06100f');scene.fog=new T.FogExp2('#06100f',.018);const camera=new T.PerspectiveCamera(48,1,.1,130);scene.add(new T.HemisphereLight(0x91cbbb,0x030807,2));const sun=new T.DirectionalLight(0xc9e8d8,2.4);sun.position.set(-7,14,9);scene.add(sun);
+const stone=new T.MeshStandardMaterial({color:0x142723,roughness:.98,metalness:.05});
+stone.onBeforeCompile=s=>{s.vertexShader=s.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 worldP;');s.vertexShader=s.vertexShader.replace('#include <worldpos_vertex>','#include <worldpos_vertex>\nworldP=(modelMatrix*vec4(transformed,1.)).xyz;');s.fragmentShader=s.fragmentShader.replace('#include <common>',`#include <common>
+varying vec3 worldP;
+float hash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
+float noise(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(mix(hash(i),hash(i+vec3(1,0,0)),f.x),mix(hash(i+vec3(0,1,0)),hash(i+vec3(1,1,0)),f.x),f.y),mix(mix(hash(i+vec3(0,0,1)),hash(i+vec3(1,0,1)),f.x),mix(hash(i+vec3(0,1,1)),hash(i+vec3(1,1,1)),f.x),f.y),f.z);}
+`);s.fragmentShader=s.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
+float grain=noise(worldP*3.7)*.55+noise(worldP*13.)*.3+noise(worldP*36.)*.15;
+diffuseColor.rgb*=.57+grain*.83;
+float crack=1.-smoothstep(.004,.017,abs(noise(worldP*2.8)-.51));
+diffuseColor.rgb+=vec3(.01,.075,.046)*crack;`);};
+let seed=451;function rand(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;}
+const STEP=2.1;for(let x=-8;x<=18;x+=STEP)for(let z=-12;z<=12;z+=STEP){const channel= x>0&&Math.abs(z-(1.45*Math.sin((x-2)*.24)+.48*Math.sin(x*.62)))<3.2;if(channel)continue;const h=3+rand()*5+(x<2?rand()*6:0);const m=new T.Mesh(new T.BoxGeometry(STEP-.06,h,STEP-.06),stone);m.position.set(x,3.5-h/2,z);scene.add(m);}
+let az=.9,el=.55,dist=38,drag=null;function cam(){camera.position.set(5+dist*Math.cos(el)*Math.cos(az),-2+dist*Math.sin(el),dist*Math.cos(el)*Math.sin(az));camera.lookAt(5,-2,0);}cam();
+canvas.addEventListener('pointerdown',e=>{drag=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!drag)return;az-=(e.clientX-drag[0])*.008;el=Math.max(.05,Math.min(1.45,el+(e.clientY-drag[1])*.007));drag=[e.clientX,e.clientY];cam()});canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('wheel',e=>{e.preventDefault();dist=Math.max(9,Math.min(90,dist*Math.exp(e.deltaY*.001)));cam()},{passive:false});
+function draw(){requestAnimationFrame(draw);let w=canvas.clientWidth,h=canvas.clientHeight;if(w&&h&&(canvas.width!==Math.round(w*renderer.getPixelRatio())||canvas.height!==Math.round(h*renderer.getPixelRatio()))){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}renderer.render(scene,camera)}draw();
+</script></html>
