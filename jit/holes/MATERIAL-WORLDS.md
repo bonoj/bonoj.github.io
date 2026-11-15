@@ -1,5 +1,5 @@
 # HOLES — Seven Material Worlds
-Status: **concept specifications, not implemented experiences**. Added 2026-11-15. These are a second collection alongside the existing seven chambers; do not overwrite the original cabinet.
+Status: **six concept specifications and one initial interactive experiment (The Shape of Sound)**. Added 2026-11-15. These are a second collection alongside the existing seven chambers; do not overwrite the original cabinet.
 
 ## Shared design contract
 - Seven independently buildable, mobile-first, orbitable interactive experiences; each with a coherent physical subject, beautiful default state, and minimal controls.
@@ -80,3 +80,7 @@ Status: **concept specifications, not implemented experiences**. Added 2026-11-1
 
 ## Completion gate
 A specification becomes an implemented experience only when its runnable artifact is committed, indexed in jit/assets, smoke-tested for initialization and interaction, and its model limitations documented. Do not mark these concepts as shipped simulations.
+
+## Implementation log — 2026-11-15
+
+- **The Shape of Sound**: [play](./shape-of-sound/) · [source](./shape-of-sound/index.html). Self-contained WebGL2 plate mesh with four frequency-selective standing-wave modes, 2,700 dynamic grains driven by local modal energy gradients and noise, orbit, frequency/amplitude/damping, scatter, pause and next resonance. This is a qualitative reduced-order Chladni model, not an elastic plate PDE with contact-resolved sand impacts. Browser execution not independently verified.
