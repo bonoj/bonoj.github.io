@@ -29,6 +29,9 @@
 
 ## Human-readable experiment index
 
+| Glyphfall · Rough Stone | threejs-procedural-stone | [`glyphfall-stone/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/glyphfall-stone/index.html) | [Open](https://bonoj.github.io/jit/assets/glyphfall-stone/) | Specimen 047. Procedural world-space stone grain and narrow glowing fractures; preserved independently from glyph-flow iteration. Source committed; live browser unverified. |
+
+
 | The Unscripted Garden | threejs-procedural-motion | [`unscripted-garden/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/unscripted-garden/index.html) | [Open](https://bonoj.github.io/jit/assets/unscripted-garden/) | Specimen 046. Preserved single-prompt five-inhabitant world: tumbling stone, four-leg IK walker, pulsing floater, climbing vine, boid flock; focus controls, touch orbit and pinch zoom. Deliberately rough; source committed, browser runtime unverified. |
 
 
