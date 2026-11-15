@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#121b23"><title>ANATOMY 001 · Continuous Arm</title><style>*{box-sizing:border-box}body{margin:0;background:#0e141c;color:#e8edf1;font:14px system-ui}main{max-width:920px;margin:auto;padding:12px}header{display:flex;justify-content:space-between;align-items:baseline;gap:12px}h1{font-size:20px;margin:8px 0}a{color:#9dcbdc;font-size:12px}.stage{height:min(66vh,610px);min-height:330px;position:relative;overflow:hidden;border-radius:14px;background:#1a2530;touch-action:none;user-select:none}#view{position:absolute;inset:0;touch-action:none}#status{position:absolute;top:12px;left:12px;background:#0d1520c9;padding:8px 10px;border-radius:8px;font-size:12px;pointer-events:none}#hint{position:absolute;bottom:12px;left:12px;font-size:11px;color:#c7d5df;pointer-events:none}.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;margin-top:14px}.control{font-size:12px}.control span{float:right;color:#9dcbdc}input[type=range]{width:100%;accent-color:#77c5d5}.actions{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}button{background:#273947;border:1px solid #5a7485;border-radius:8px;color:#edf5f9;padding:9px 13px;font:12px system-ui;cursor:pointer}button[aria-pressed=true]{background:#36798c;border-color:#9de0e9}.notes{font-size:12px;color:#a9bac5;line-height:1.5}</style></head><body><main><header><h1>ANATOMY / 001 · Continuous Arm</h1><a href="../">JIT</a></header><div class="stage" id="stage"><div id="view"></div><div id="status">Initializing geometry…</div><div id="hint">Drag to orbit · Pinch to zoom · Wheel to zoom</div></div><div class="controls"><label class="control">Elbow flexion <span id="flex-v">65°</span><input id="flex" type="range" min="0" max="145" value="65" step="1"></label><label class="control">Elbow transition <span id="soft-v">0.16</span><input id="soft" type="range" min=".04" max=".34" value=".16" step=".01"></label><label class="control">Muscle fullness <span id="bulk-v">1.00×</span><input id="bulk" type="range" min=".65" max="1.5" value="1" step=".01"></label><label class="control">Cross-section eccentricity <span id="oval-v">1.12×</span><input id="oval" type="range" min=".7" max="1.5" value="1.12" step=".01"></label></div><div class="actions"><button id="animate" aria-pressed="true">Pause motion</button><button id="wire" aria-pressed="false">Wireframe</button><button id="rings" aria-pressed="false">Show cross-sections</button><button id="reset">Reset view</button></div><p class="notes"><strong>Experiment:</strong> one continuous, indexed quad surface from shoulder to wrist, generated from anatomical cross-sections and a smoothly turning centerline. No overlapping capsules, spheres, or disconnected elbow mesh. The elbow's bend is a geometric approximation, not a skinned anatomical joint. Compare silhouette and deformation with wireframe and cross-sections.</p></main><script type="module">
+const el=id=>document.getElementById(id),stage=el('stage'),view=el('view'),status=el('status');
+let THREE,scene,camera,renderer,mesh,wire=false,rings=false,ringLines,playing=true,flex=65,soft=.16,bulk=1,oval=1.12,frame=0;
+let yaw=.5,pitch=.1,radius=4.6;const ptr=new Map();let pinch=null;const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+function cam(){if(!camera)return;const c=Math.cos(pitch);camera.position.set(radius*Math.sin(yaw)*c,-.9+radius*Math.sin(pitch),radius*Math.cos(yaw)*c);camera.lookAt(0,-.9,0)}
+function zoom(v){radius=clamp(radius*Math.exp(v),1.7,12);cam()}
+stage.addEventListener('pointerdown',e=>{e.preventDefault();stage.setPointerCapture(e.pointerId);ptr.set(e.pointerId,{x:e.clientX,y:e.clientY});pinch=null},{passive:false});
+stage.addEventListener('pointermove',e=>{if(!ptr.has(e.pointerId))return;e.preventDefault();const old=ptr.get(e.pointerId);ptr.set(e.pointerId,{x:e.clientX,y:e.clientY});const p=[...ptr.values()];if(p.length===1){yaw-=(e.clientX-old.x)*.009;pitch=clamp(pitch+(e.clientY-old.y)*.006,-1.3,1.3);cam()}else if(p.length>1){const d=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);if(pinch!==null)zoom(Math.log(pinch/Math.max(d,1)));pinch=d}},{passive:false});
+for(const t of ['pointerup','pointercancel','lostpointercapture'])stage.addEventListener(t,e=>{ptr.delete(e.pointerId);pinch=null});
+stage.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY*.001)},{passive:false});
+el('reset').onclick=()=>{yaw=.5;pitch=.1;radius=4.6;cam()};
+el('animate').onclick=()=>{playing=!playing;el('animate').textContent=playing?'Pause motion':'Animate';el('animate').setAttribute('aria-pressed',String(playing))};
+el('wire').onclick=()=>{wire=!wire;el('wire').setAttribute('aria-pressed',String(wire));if(mesh)mesh.material.wireframe=wire};
+el('rings').onclick=()=>{rings=!rings;el('rings').setAttribute('aria-pressed',String(rings));if(ringLines)ringLines.visible=rings};
+for(const [id,variable] of [['flex','flex'],['soft','soft'],['bulk','bulk'],['oval','oval']])el(id).oninput=e=>{const v=+e.target.value;if(variable==='flex')flex=v;if(variable==='soft')soft=v;if(variable==='bulk')bulk=v;if(variable==='oval')oval=v;el(id+'-v').textContent=id==='flex'?v+'°':id==='bulk'||id==='oval'?v.toFixed(2)+'×':v.toFixed(2);update()};
+const N=100,M=32,L=1.92;
+function smooth(a,b,x){let t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t)}
+function radiusAt(s){const shoulder=.235*Math.exp(-Math.pow(s/.26,2));const bicep=.12*Math.exp(-Math.pow((s-.42)/.3,2));const elbow=.105*Math.exp(-Math.pow((s-1.02)/.2,2));const fore=.105*Math.exp(-Math.pow((s-1.38)/.3,2));const wrist=.087;return (wrist+shoulder+bicep+elbow+fore)*bulk}
+let geo,positions,ringGeo;
+function update(){
+ if(!geo)return;
+ const angle=flex*Math.PI/180;
+ let x=0,y=0;
+ const centers=[],orientations=[];
+ const step=L/N;
+ for(let i=0;i<=N;i++){const s=i*step;const t=smooth(1-soft,1+soft,s);const theta=angle*t;orientations.push(theta);centers.push([x,y]);x+=Math.sin(theta)*step;y-=Math.cos(theta)*step}
+ for(let i=0;i<=N;i++){const s=i*step,[cx,cy]=centers[i],a=orientations[i],r=radiusAt(s);const nx=Math.cos(a),ny=Math.sin(a);
+ for(let j=0;j<=M;j++){const q=j/M*Math.PI*2;const rr=r*(1+.06*Math.cos(2*q+s*4));const k=(i*(M+1)+j)*3;positions[k]=cx+nx*rr*Math.cos(q);positions[k+1]=cy+ny*rr*Math.cos(q);positions[k+2]=rr*Math.sin(q)*oval}}
+ geo.attributes.position.needsUpdate=true;geo.computeVertexNormals();geo.computeBoundingSphere();
+ if(ringGeo){const arr=ringGeo.attributes.position.array;let k=0;for(let i=0;i<=N;i+=10){for(let j=0;j<M;j++){for(const jj of [j,j+1]){const o=(i*(M+1)+jj)*3;arr[k++]=positions[o]*1.008;arr[k++]=positions[o+1]*1.008;arr[k++]=positions[o+2]*1.008}}}ringGeo.attributes.position.needsUpdate=true}
+ status.textContent='Continuous mesh · '+(N*M*2).toLocaleString()+' triangles · '+Math.round(flex)+'°';
+}
+try{
+ THREE=await import('https://esm.sh/three@0.160.1');
+ scene=new THREE.Scene();scene.background=new THREE.Color('#1a2530');camera=new THREE.PerspectiveCamera(38,1,.1,50);cam();
+ renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.domElement.style.cssText='width:100%;height:100%;display:block;touch-action:none';view.appendChild(renderer.domElement);
+ scene.add(new THREE.HemisphereLight(0xe6f5ff,0x34445b,2.2));const key=new THREE.DirectionalLight(0xffe4c7,3.3);key.position.set(-3,4,5);scene.add(key);const rim=new THREE.DirectionalLight(0x73c4ed,2);rim.position.set(3,1,-4);scene.add(rim);
+ positions=new Float32Array((N+1)*(M+1)*3);const index=[];for(let i=0;i<N;i++)for(let j=0;j<M;j++){const a=i*(M+1)+j,b=a+M+1;index.push(a,b,a+1,b,b+1,a+1)}
+ geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setIndex(index);
+ const mat=new THREE.MeshStandardMaterial({color:0xc5d6d3,metalness:.08,roughness:.42,side:THREE.DoubleSide});mesh=new THREE.Mesh(geo,mat);scene.add(mesh);
+ const ringPositions=new Float32Array((Math.floor(N/10)+1)*M*2*3);ringGeo=new THREE.BufferGeometry();ringGeo.setAttribute('position',new THREE.BufferAttribute(ringPositions,3));ringLines=new THREE.LineSegments(ringGeo,new THREE.LineBasicMaterial({color:0xffb95e,depthTest:false,transparent:true,opacity:.8}));ringLines.visible=false;scene.add(ringLines);
+ update();new ResizeObserver(()=>{const w=view.clientWidth,h=view.clientHeight;if(w&&h){camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)}}).observe(view);
+ function animate(t){frame=requestAnimationFrame(animate);if(playing){flex=67+60*Math.sin(t*.0006);el('flex').value=flex;el('flex-v').textContent=Math.round(flex)+'°';update()}renderer.render(scene,camera)}frame=requestAnimationFrame(animate);
+}catch(e){status.textContent='3D failed: '+(e?.message||e)}
+</script></body></html>
