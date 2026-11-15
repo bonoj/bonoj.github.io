@@ -29,6 +29,10 @@
 
 ## Human-readable experiment index
 
+| Humanoid Motion Studio | threejs-skeletal-animation | [`humanoid-motion-studio/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/humanoid-motion-studio/index.html) | [Open](https://bonoj.github.io/jit/assets/humanoid-motion-studio/) | Specimen 044. RobotExpressive GLB with idle, walk, run, jump, wave, dance, punch and sit; touch orbit, pinch/wheel zoom, speed and crossfade controls. Source committed; live browser runtime not independently verified. |
+
+
+
 
 
 
