@@ -19,7 +19,7 @@ ctx.restore();ctx.restore()}
 function draw(){const W=680,H=590;ctx.clearRect(0,0,W,H);const bg=ctx.createRadialGradient(340,290,40,340,290,500);bg.addColorStop(0,'#765541');bg.addColorStop(1,'#261a15');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
 ctx.fillStyle='#ead0a6';ctx.font='bold 24px system-ui';ctx.textAlign='center';ctx.fillText('THE SANDWICH EXAMINATION',340,47);ctx.font='13px system-ui';ctx.fillStyle='#c8a98b';ctx.fillText('CHOOSE YOUR INGREDIENTS CAREFULLY',340,71);
 ctx.fillStyle='#402a20';ctx.beginPath();ctx.ellipse(343,350,242,168,0,0,7);ctx.fill();ctx.strokeStyle='#a78365';ctx.lineWidth=5;ctx.beginPath();ctx.ellipse(343,345,240,166,0,0,7);ctx.stroke();
-slice(340,312,0,.83);if(finished||anim>0)slice(340+offset,finished?312:topY,-.075,.83,true);
+slice(340,312,0,.83);if(finished||anim>0)slice(340+offset,anim?topY:312,-.075,.83,true);
 ctx.font='12px system-ui';ctx.fillStyle='#c6a78a';ctx.fillText(finished?'CULINARY CERTIFICATION COMPLETE':'AWAITING INGREDIENT SELECTION',340,552)}
 function showStamp(text,good){clearTimeout(stampTimer);stamp.classList.remove('show');void stamp.offsetWidth;stamp.textContent=text;stamp.style.color=good?'#71d991':'#fa4545';stamp.style.borderColor=good?'#71d991':'#fa4545';stamp.style.background=good?'#12391fe0':'#451616e8';stamp.classList.add('show');stampTimer=setTimeout(()=>stamp.classList.remove('show'),950)}
 let animationFrame=0;
