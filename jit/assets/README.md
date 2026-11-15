@@ -742,3 +742,10 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live: https://bonoj.github.io/jit/assets/fractal-highlands-ridged-sphere/
 - Indexed welded icosphere: 40,962 shared vertices, 81,920 triangles; continuous deterministic 3D ridged noise, adjustable octaves, roughness, relief, frequency, seed, wireframe, and orbit/zoom.
 - Low relief produces asteroid-like forms. Source committed; live browser runtime not independently verified.
+
+## Specimen 054 — Penguins Game Night (2026-11-15)
+
+- Source: [`penguins-game-night/index.html`](./penguins-game-night/index.html)
+- Live: https://bonoj.github.io/jit/assets/penguins-game-night/
+- Standalone mobile-first Pittsburgh Penguins trivia game: 10 recent-era questions, arena photo hero, black-and-gold theme, three-period progress, four-choice interactions, goal/shot scorekeeping, correct-answer explanations, and replay.
+- No external JavaScript dependencies; hero photography loads from Unsplash. Live-browser rendering not independently verified.
