@@ -762,3 +762,11 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Updated the existing raindrop-world specimen in place. Added oscillating 3D ellipsoidal deformation with analytic ray/ellipsoid intersections, transformed surface normals, refractive exit paths, and tracers mapped into the changing volume.
 - Added deformation amplitude and oscillation-rate controls; the synthetic 3D tracer velocity field responds to the same oscillation phase.
 - **Limitations:** kinematic ellipsoid and reduced-order advection, not incompressible Navier–Stokes, pressure projection, free-surface fluid simulation, or fully energy-conserving ray tracing. Browser runtime not independently verified.
+
+## Specimen 056 — Harry Potter · The N.E.W.T. Examination (2026-11-15)
+
+- Source: [`harry-potter-newt/index.html`](./harry-potter-newt/index.html)
+- Live: https://bonoj.github.io/jit/assets/harry-potter-newt/
+- Two reconstructed 10-question book/film canon examinations. Topics and answer keys derived from historical conversation summary; exact original stems, distractors and explanations were not fully available, so these are reconstructed rather than verbatim.
+- Mobile-first standalone HTML/CSS/JS; round switching, scorekeeping, no answer reveal until submission, post-exam explanation review, retake.
+- Source committed; deployed browser behavior not independently verified.
