@@ -20,15 +20,19 @@ let geo,positions,ringGeo;
 function update(){
  if(!geo)return;
  const angle=flex*Math.PI/180;
+ // A tube folds through itself when its bend radius becomes smaller than its own thickness.
+ // Expand the elbow transition at high flexion to keep the inner surface from inverting.
+ const elbowRadius=radiusAt(1);
+ const effectiveSoft=Math.min(.83,Math.max(soft,angle*elbowRadius*.92));
  let x=0,y=0;
  const centers=[],orientations=[];
  const step=L/N;
- for(let i=0;i<=N;i++){const s=i*step;const t=smooth(1-soft,1+soft,s);const theta=angle*t;orientations.push(theta);centers.push([x,y]);x+=Math.sin(theta)*step;y-=Math.cos(theta)*step}
+ for(let i=0;i<=N;i++){const s=i*step;const t=smooth(1-effectiveSoft,1+effectiveSoft,s);const theta=angle*t;orientations.push(theta);centers.push([x,y]);x+=Math.sin(theta)*step;y-=Math.cos(theta)*step}
  for(let i=0;i<=N;i++){const s=i*step,[cx,cy]=centers[i],a=orientations[i],r=radiusAt(s);const nx=Math.cos(a),ny=Math.sin(a);
  for(let j=0;j<=M;j++){const q=j/M*Math.PI*2;const rr=r*(1+.06*Math.cos(2*q+s*4));const k=(i*(M+1)+j)*3;positions[k]=cx+nx*rr*Math.cos(q);positions[k+1]=cy+ny*rr*Math.cos(q);positions[k+2]=rr*Math.sin(q)*oval}}
  geo.attributes.position.needsUpdate=true;geo.computeVertexNormals();geo.computeBoundingSphere();
  if(ringGeo){const arr=ringGeo.attributes.position.array;let k=0;for(let i=0;i<=N;i+=10){for(let j=0;j<M;j++){for(const jj of [j,j+1]){const o=(i*(M+1)+jj)*3;arr[k++]=positions[o]*1.008;arr[k++]=positions[o+1]*1.008;arr[k++]=positions[o+2]*1.008}}}ringGeo.attributes.position.needsUpdate=true}
- status.textContent='Continuous mesh · '+(N*M*2).toLocaleString()+' triangles · '+Math.round(flex)+'°';
+ status.textContent='Continuous mesh · '+(N*M*2).toLocaleString()+' triangles · '+Math.round(flex)+'° · bend span '+effectiveSoft.toFixed(2);
 }
 try{
  THREE=await import('https://esm.sh/three@0.160.1');
