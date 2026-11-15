@@ -29,6 +29,10 @@
 
 ## Human-readable experiment index
 
+| Xbot · Humanoid Motion Study | threejs-skeletal-animation | [`xbot-motion-studio/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/xbot-motion-studio/index.html) | [Open](https://bonoj.github.io/jit/assets/xbot-motion-studio/) | Specimen 045. Human-proportioned Xbot GLB; dynamically discovers embedded skeletal clips; pointer orbit, pinch/wheel zoom, playback speed and crossfade. Source committed; live browser runtime not independently verified. |
+
+
+
 | Humanoid Motion Studio | threejs-skeletal-animation | [`humanoid-motion-studio/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/humanoid-motion-studio/index.html) | [Open](https://bonoj.github.io/jit/assets/humanoid-motion-studio/) | Specimen 044. RobotExpressive GLB with idle, walk, run, jump, wave, dance, punch and sit; touch orbit, pinch/wheel zoom, speed and crossfade controls. Source committed; live browser runtime not independently verified. |
 
 
