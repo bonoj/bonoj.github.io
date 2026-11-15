@@ -29,6 +29,8 @@
 
 ## Human-readable experiment index
 
+| Butter Thy Bread | canvas-culinary-toy | [`butter-thy-bread/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/butter-thy-bread/index.html) | [Open](https://bonoj.github.io/jit/assets/butter-thy-bread/) | Specimen 052. Canvas 2D bread-buttering game: pointer/touch knife dragging, accumulated coverage, butter meter, qualitative feedback, and reset. Source committed; live browser unverified. |
+
 | Osteon · Anatomical Skull | threejs-imported-anatomy | [`osteon-skull/`](https://github.com/bonoj/bonoj.github.io/blob/master/jit/assets/osteon-skull/index.html) | [Open](https://bonoj.github.io/jit/assets/osteon-skull/) | Specimen 051. Custom Three.js viewer for Khronos CC0 ScatteringSkull GLB; front/profile/crown, orbit, zoom, shader porosity and mineral controls. External GLB fetched from CDN with fallbacks; binary not vendored. Source committed; live browser unverified. |
 
 
