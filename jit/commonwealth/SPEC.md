@@ -175,3 +175,52 @@ National accounts, central bank distributional wealth accounts, tax authority pu
 ### Next deliverables
 
 An aggregate institutional graph schema, synthetic test fixtures, provenance validator, rights/continuity stress tests, and a source-backed feasibility model. All remain decision support rather than real-world enforcement.
+
+## 13. Turn 5 — Model-forward mediation, not machine sovereignty
+
+### Decision
+
+**Guarantee essential services first; distribute productive ownership in parallel; establish machine mediation as a permanent, accountable civic capability.** A machine system can advise, reconcile evidence, propose allocations, flag inconsistencies, negotiate draft voluntary terms, and audit outcomes, but does not acquire title to assets, sovereign authority, judicial powers, or an autonomous enforcement mandate.
+
+### Evidence anchors (reviewed 2026-11-21)
+
+- World Bank, *Poverty, Prosperity, and Planet Report 2026*: estimates 811 million people in extreme poverty in 2026 at the $3.00/day 2021 PPP threshold and 3.7 billion below $8.30/day. URL: https://www.worldbank.org/en/publication/poverty-prosperity-and-planet . Estimates and nowcasts are not a direct measure of material production capacity.
+- OECD, *Digital Government Outlook 2026*: 35 of 36 reporting OECD countries use AI in some government area; only 11 of 36 report formal algorithmic transparency standards, and 6 have open algorithm registers. URL: https://www.oecd.org/en/publications/digital-government-outlook_0496b2bc-en/full-report/adopting-and-governing-ai-in-government_7ef312a9.html .
+- OECD, *Modernising Access to Social Protection*: documents failures of automated welfare decision systems and emphasizes meaningful human review, explainability, contestability and accessible appeals. URL: https://www.oecd.org/en/publications/modernising-access-to-social-protection_af31746d-en/full-report/component-8.html .
+
+### Governance division
+
+- **Humans and legitimate institutions:** establish rights, democratic constraints, legal authority, consent, appeals, enforceable commitments, and accountable stewardship.
+- **Machine mediators:** estimate needs, reconcile provenance-tagged public aggregate data, simulate allocations, identify service bottlenecks, compare policies, monitor outcomes, detect conflicting claims and recommend review.
+- **Independent oversight:** challenge both machine outputs and human institutional actions, publish error analyses and suspend flawed processes.
+
+### Multi-agent workflow
+
+1. **Needs agent** identifies regional unmet essential service needs and uncertainty.
+2. **Capacity agent** models physical housing, food, health, energy and infrastructure supply.
+3. **Economics agent** estimates fiscal feasibility, incidence, behavioral response and resource trade-offs.
+4. **Rights agent** checks non-discrimination, privacy, due process and accessibility.
+5. **Capture agent** tests concentration of institutional power and conflicts of interest.
+6. **Adversarial auditor** reproduces estimates, highlights disagreement, detects unsupported claims.
+7. **Human authorization gateway** determines whether any proposed external communication or transaction is permitted. Default deny.
+
+Agents exchange structured claims with source, observation date, jurisdiction, assumptions, uncertainty, model version and reviewer status. A consensus of machines is not evidence of truth or authorization.
+
+### Core invariants
+
+- No individual loses essential services because of nonemployment or refusal to participate.
+- No machine-issued ultimatum, coercive enforcement, seizure, threat, or punishment.
+- No agent can both allocate and independently approve its own decision.
+- No external action without scoped, revocable human authorization.
+- All consequential decisions have accessible explanations, appeals and meaningful remedies.
+- Keep aggregate research distinct from individualized high-stakes decisions.
+- Evaluate exclusion and false-positive harms, including when apparently efficient algorithms deny people support.
+- Model continuity of pensions, housing, healthcare, utilities, food supply and legitimate creditors in institutional reforms.
+
+### Next implementation target
+
+Build a **synthetic regional resource allocation lab**: three regions with different needs and physical capacities, explicit minimum guarantees, a deterministic constrained allocation algorithm, a rights checker, an adversarial auditor and a human-review queue. Show unmet needs and uncertainty rather than inventing a global success metric. This is a research simulator only.
+
+### Unresolved research question
+
+Which minimum entitlements can be provisioned immediately from extant regional capacity, which require infrastructure expansion, and which require international transfers? Require data before answering.
