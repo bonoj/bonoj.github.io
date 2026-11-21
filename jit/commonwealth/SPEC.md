@@ -76,3 +76,38 @@ M4 independent external critique and community co-design.
 M5 voluntary, lawful institutional pilots and evaluation.
 
 The timeline is evidence-driven, not tied to a threat or countdown.
+
+## 11. Turn 3 decision — C-001: unconditional entitlement
+
+**Decision:** Required individual economic contribution to qualify for the universal autonomy and security floor is **zero**. This is a normative requirement, not an empirical claim that global provisioning is already complete.
+
+Every existing person and every newborn qualifies independently of wages, employment, productivity, market demand, inherited wealth, citizenship, disability, age, or capacity to work. Refusing employment, leaving a relationship, declining a contract, or changing residence must not cause loss of essential material security. No one must demonstrate usefulness to deserve life.
+
+### Three service levels
+
+- **I — Survival (unconditional):** adequate food, safe water, sanitation, shelter, essential healthcare, safety and enforceable rights.
+- **II — Security and autonomy (unconditional):** stable private housing, comprehensive healthcare including dental, connectivity, education, legal recourse, mobility and a material ability to refuse exploitative dependence.
+- **III — Abundance (expanding universal objective):** culture, recreation, creative tools, travel, personal space and discretionary resources. Scarce goods may require transparent fair allocation; scarcity never determines human worth.
+
+### Production constraint
+
+The entitlement floor is unconditional for individuals; provisioning remains subject to real labor, materials, energy, ecological and institutional constraints. Gross domestic product is not directly distributable cash. Fiscal capacity alone does not prove physical capacity. Test both.
+
+The program must measure annual physical quantities of housing, care, food, water, energy and transport; replacement/maintenance requirements; local shortages; labor hours and skills; environmental impacts; and effective delivery.
+
+### Contribution and incentives
+
+Necessary work still must be performed. Meet staffing requirements through compensation, improved conditions, training, automation, cooperative arrangements and democratically authorized non-deprivation-based incentives. Do not condition basic needs on accepting a job. Additional contributions may earn discretionary rewards but not unchecked authority over other people's rights.
+
+### Evaluation questions
+
+1. What is the minimum physical consumption bundle for each guarantee, adjusted for local climate, household composition, accessibility and needs?
+2. What proportion of current productive capacity is required to supply it sustainably?
+3. Which deficits are fiscal, which are physical, and which are failures of governance or distribution?
+4. How does the system preserve essential work participation when survival is unconditional?
+5. Can a person actually refuse employment or leave an unsafe home without losing access to essentials?
+
+### Epistemic status
+
+The feasibility of a substantial universal floor is a research hypothesis requiring country-level physical resource accounts, service capacity, and credible fiscal modeling. Do not assert that every form of abundance can be delivered globally today without evidence.
+
