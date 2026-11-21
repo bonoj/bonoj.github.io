@@ -21,3 +21,5 @@ function allocate(regions,available){
  return regions.map((r,i)=>({id:r.id,need:r.need,capacity:r.capacity,transfer:gaps[i]*share,unmet:gaps[i]*(1-share)}));
 }
 if(typeof module!=='undefined')module.exports={assess,allocate};
+
+if(typeof window!=='undefined')window.CommonwealthStewardship={assess,allocate};
