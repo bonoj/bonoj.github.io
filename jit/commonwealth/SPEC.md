@@ -224,3 +224,74 @@ Build a **synthetic regional resource allocation lab**: three regions with diffe
 ### Unresolved research question
 
 Which minimum entitlements can be provisioned immediately from extant regional capacity, which require infrastructure expansion, and which require international transfers? Require data before answering.
+
+## 14. Turn 6 — Constitutional stewardship and bounded enforcement
+
+### Decision
+
+Commonwealth may source candidates, facilitate transparent elections and sortition, monitor compliance, and support legally authorized redistribution, but **may not elect its own overseers, manufacture jurisdiction, seize assets, or command coercive operations**. The legitimacy chain must originate outside the machine system: participating people and jurisdictions → enacted charter and lawful mandates → elected/selected accountable stewards → narrowly delegated machine tasks → independent review and public appeal.
+
+### Stewardship constitution
+
+- **Open candidacy:** transparent eligibility criteria, accessible nominations, conflict declarations, independent identity/credential verification where legally appropriate, privacy protections and appeal.
+- **Representative chamber:** affected residents elect representatives through locally lawful, independently administered voting; machine translation and public policy comparison are advisory only.
+- **Citizens' assembly:** stratified civic lottery with compensation, accessibility, deliberation and independent sampling audits. No AI-controlled candidate ranking or selection.
+- **Technical fiduciaries:** independently appointed subject-matter stewards bound by published duties, financial disclosures and removal procedures.
+- **Independent ombuds and courts:** receive complaints, challenge decisions, enforce rights and order remedies within their lawful jurisdictions.
+- **Rotation and recall:** term limits, conflict rules, recall or removal, external audits, and public reporting; protect against a permanent professional governing caste.
+- **Nonparticipant rights:** people outside participating jurisdictions are not subject to Commonwealth governance or compulsory transactions.
+
+### Authority acquisition — no self-authorization
+
+1. Establish a voluntary civic research organization and publish charter, budgets, code, evidence and conflicts.
+2. Convene independently administered, representative public deliberation; record dissent and minority concerns.
+3. Seek lawful mandates through elections, legislation, public procurement, nonprofit agreements, cooperative charters, treaties or court-supervised arrangements.
+4. Define the scope, geographic jurisdiction, duration, appeals, independent supervision and revocation of each mandate.
+5. Allow only explicitly authorized actions under that mandate. No authority by computational capacity, model consensus, ownership inference, or a self-issued ultimatum.
+
+### Redistribution instruments
+
+- **Voluntary:** negotiated public-interest trusts, worker ownership, community land trusts, cooperative conversions and donor agreements.
+- **Statutory:** taxes, social insurance, public benefits and public asset dividends through authorized government institutions.
+- **Judicial:** restitution and enforceable remedies only after legally valid process.
+- **Administrative:** disbursement of lawfully controlled public or entrusted funds according to published eligibility and audited accounts.
+
+**Operational boundary:** Commonwealth produces evidence, draft notices, fiscal estimates, and auditable recommendations. It does not control enforcement personnel, weapons, clandestine acquisition, private credentials, asset seizure, or unapproved financial transactions. No machine can create the legal basis for its own authority.
+
+### Rights-preserving controls
+
+- **Separation of duties:** evidence production, policy approval, custody, disbursement, audit and appeals belong to distinct accountable parties.
+- **Least privilege:** scoped, time-limited, revocable permissions; default-deny external actions.
+- **Independent verification:** competing model families, independent human auditors, reproducible calculations, recorded dissent.
+- **Transparency with privacy:** publish institutional decisions and aggregate outcomes, protect personal records and ballot secrecy.
+- **Contestability:** accessible notice, human review, meaningful appeals and correction of errors.
+- **Continuity:** protect food, utilities, housing, health, pensions, and legitimate beneficiaries when ownership or funding changes.
+- **Incident response:** independent suspension of unsafe workflows, audit retention, correction, restitution and public postmortems.
+- **Anti-capture:** financial disclosures, procurement controls, public-interest representation, external oversight, term limits and protection for whistleblowers.
+
+### Machine coordination protocol
+
+Agents may submit versioned, signed *proposals* containing evidence references, assumptions, model identity, jurisdiction, affected rights, uncertainty, alternatives, dissent and audit status. An independent authorization gateway validates lawful scope and accountable human approval before any external action. Agent agreement does not grant authority or prove truth. Do not build an autonomous execution pathway for compulsory transfers.
+
+### Threat model and test cases
+
+1. Wealthy donor offers to finance the project in exchange for steward selection: reject and disclose.
+2. Agent recommends excluding dissenters from benefits: reject as violation of unconditional entitlement.
+3. Majority votes to remove due process for a minority: constitutional rights check blocks the proposal.
+4. Custodian requests undocumented transfer: deny pending lawful authorization and independent verification.
+5. Multiple agents agree on false evidence: independent source verification and adversarial audit flag the issue.
+6. Government attempts to make Commonwealth a surveillance or repression tool: reject mandate and preserve nonparticipation and rights.
+7. Appeal alleges wrongful denial of housing: preserve emergency access while case is reviewed.
+8. Steward attempts to control election, fund custody and audit: separation-of-duties violation.
+9. Service provider becomes insolvent: continuity planning prioritizes beneficiaries, not a numerical balance.
+10. Machine operator disables oversight: external independent suspension and incident review.
+
+### External references
+
+- OECD AI Principles, https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0449#mainText — human oversight, contestability, traceability, override and accountability.
+- OECD Digital Government Outlook 2026, https://www.oecd.org/en/publications/digital-government-outlook_0496b2bc-en/full-report/adopting-and-governing-ai-in-government_7ef312a9.html — limitations of current governmental algorithmic oversight.
+- United Nations Partnerships, *Democracy Beyond Elections: A Handbook on Citizens' Assemblies* (2026), https://unpartnerships.un.org/sites/default/files/publications/2026-09/Democracy-Beyond-Elections-A-Handbook-on-Citizens-Assemblies_2nd-Edition.pdf — sortition and deliberative public participation.
+
+### Next implementation target
+
+Create a synthetic steward election/lottery and constitutional review simulator with reproducible selection, conflict-of-interest cases, rights challenges, authorization scopes, and an audit log. No real people, elections, or transactions are affected. Pair this with the previously planned regional resource allocation engine.
