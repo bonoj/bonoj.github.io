@@ -118,8 +118,10 @@ jobs:
           Path('/tmp/lattice-runtime.js').write_text('\n'.join(scripts))
           PY
           node --check /tmp/lattice-runtime.js
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload github-pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
+          name: github-pages
           path: site
       - id: deployment
         uses: actions/deploy-pages@v4
