@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COMMONWEALTH — Autonomy & Security Lab</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#101820;color:#eaf1ef}
+*{box-sizing:border-box}body{margin:0}main{max-width:1000px;margin:auto;padding:clamp(18px,4vw,50px)}
+h1{font-size:clamp(2.6rem,7vw,5rem);letter-spacing:-.06em;line-height:1;margin:.2em 0}
+h2{font-size:1.25rem}p{max-width:70ch;color:#c2d0cc}small,.muted{color:#a9bab5}
+a{color:#9fe0c9}.eyebrow{letter-spacing:.18em;font-size:.75rem;font-weight:700;color:#9fe0c9}
+.panel{background:#1b2930;border:1px solid #37504e;border-radius:16px;padding:20px;margin:22px 0}
+.guarantees,.fields,.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+.tile{border:1px solid #36504d;border-radius:12px;padding:14px}.tile b{display:block}
+label{display:block;font-size:.9rem;margin:10px 0}input{display:block;width:100%;padding:10px;background:#0c151a;color:#f1f8f5;border:1px solid #5e7771;border-radius:8px;font:inherit}
+output{font-variant-numeric:tabular-nums;font-size:1.35rem;font-weight:700;display:block}
+footer{padding:30px 0;color:#a9bab5}
+</style></head><body><main>
+<div class="eyebrow">JIT / COMMONWEALTH / RESEARCH PROTOTYPE</div>
+<h1>Freedom should not be inherited.</h1>
+<p>Explore the material foundations of autonomy and security for every existing person and every newborn. This is a transparent, illustrative fiscal model—not an enacted policy, a verified forecast, or a redistribution service.</p>
+<section class="panel"><h2>Six guarantees</h2><div class="guarantees">
+<div class="tile"><b>Shelter</b>Secure housing</div><div class="tile"><b>Health</b>Essential care</div><div class="tile"><b>Sustenance</b>Food, water, energy</div>
+<div class="tile"><b>Economic agency</b>Ability to refuse exploitation</div><div class="tile"><b>Opportunity</b>Education and mobility</div><div class="tile"><b>Civil liberty</b>Enforceable rights</div>
+</div></section>
+<section class="panel"><h2>Fiscal thought experiment</h2><p>All initial inputs are hypothetical round numbers. Adjust them to see accounting relationships, not predicted outcomes. Monetary inputs use USD; billions and trillions are explicitly labeled.</p>
+<div class="fields">
+<label>Population (billions)<input id="population" type="number" min="0" step=".1" value="8"></label>
+<label>Share needing additional support (%)<input id="coverage" type="number" min="0" max="100" step="1" value="50"></label>
+<label>Annual additional need per person (USD)<input id="need" type="number" min="0" step="100" value="2000"></label>
+<label>Modeled asset base (USD trillions)<input id="base" type="number" min="0" step="1" value="100"></label>
+<label>Effective annual revenue yield (%)<input id="rate" type="number" min="0" max="100" step=".1" value="2"></label>
+<label>Delivery efficiency (%)<input id="efficiency" type="number" min="0" max="100" step="1" value="85"></label>
+<label>Existing annual funding (USD trillions)<input id="existing" type="number" min="0" step=".1" value="0"></label>
+<label>Annual births (millions)<input id="births" type="number" min="0" step="1" value="130"></label>
+<label>Protected endowment per newborn (USD)<input id="endowment" type="number" min="0" step="100" value="1000"></label>
+</div><div class="results" aria-live="polite">
+<div class="tile"><small>Annual resources</small><output id="resources">—</output></div>
+<div class="tile"><small>Annual requirement</small><output id="requirement">—</output></div>
+<div class="tile"><small>Annual balance</small><output id="balance">—</output></div>
+<div class="tile"><small>Fiscal coverage ratio</small><output id="coverageResult">—</output></div>
+</div><p class="muted" id="detail"></p></section>
+<section class="panel"><h2>What this cannot prove</h2><p>A balanced fiscal model does not establish the existence of housing, medical capacity, enforceable rights, political legitimacy, or actual improvements in freedom. Those require separate evidence, implementation, and independent evaluation.</p></section>
+<footer>Source and methods: <a href="https://github.com/bonoj/bonoj.github.io/tree/master/jit/commonwealth/">GitHub / jit/commonwealth</a>. No accounts, transfers, threats, or enforcement actions.</footer>
+</main><script src="./model.js"></script><script>
+const ids=["population","coverage","need","base","rate","efficiency","existing","births","endowment"];
+const el=id=>document.getElementById(id);
+const money=x=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",notation:"compact",maximumFractionDigits:2}).format(x);
+function refresh(){
+try{
+const v=id=>Number(el(id).value);
+const r=CommonwealthModel.calculateScenario({population:v("population")*1e9,coverageFraction:v("coverage")/100,annualNeedPerPerson:v("need"),taxableBase:v("base")*1e12,effectiveAnnualRate:v("rate")/100,deliveryEfficiency:v("efficiency")/100,existingAnnualFunding:v("existing")*1e12,annualBirths:v("births")*1e6,childEndowment:v("endowment")});
+el("resources").textContent=money(r.availableAnnualResources)+"/yr";el("requirement").textContent=money(r.totalAnnualRequirement)+"/yr";el("balance").textContent=money(r.balance)+"/yr";el("coverageResult").textContent=(100*r.fundedShare).toFixed(1)+"%";
+el("detail").textContent="Illustrative: "+money(r.usableAnnualRevenue)+" annual modeled new revenue; "+money(r.annualChildCommitment)+" annual child commitments. No real-world effects.";
+}catch(e){el("detail").textContent="Check inputs: "+e.message;for(const id of ["resources","requirement","balance","coverageResult"])el(id).textContent="—";}
+}
+ids.forEach(id=>el(id).addEventListener("input",refresh));refresh();
+</script></body></html>
