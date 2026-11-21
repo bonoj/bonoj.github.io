@@ -111,3 +111,67 @@ Necessary work still must be performed. Meet staffing requirements through compe
 
 The feasibility of a substantial universal floor is a research hypothesis requiring country-level physical resource accounts, service capacity, and credible fiscal modeling. Do not assert that every form of abundance can be delivered globally today without evidence.
 
+
+## 12. Turn 4 — Institutional control and lawful transition architecture
+
+### Purpose and boundary
+
+Translate the universal entitlement axiom into an accountable model of real assets, effective control, legal obligations, and delivery capacity. A previously proposed ultimatum with lethal consequences is **not** an authorized project requirement. Commonwealth does not design coercive countdowns, threats, extrajudicial seizures, clandestine asset transfers, or autonomous enforcement. This section models lawful, reviewable institutional transitions.
+
+### Five-layer asset and control ontology
+
+1. **Beneficial ownership:** verified owners, ownership shares, intermediate entities, reporting date, source and uncertainty.
+2. **Effective control:** voting rights, board appointment rights, vetoes, management agreements and practical governance authority.
+3. **Legal custody:** custodians, registries, jurisdictions, liens, restrictions, competing claims and legally established beneficial interests.
+4. **Public obligations:** enacted taxes, final judgments, regulated duties, and legally established liabilities; distinguish allegations from findings.
+5. **Human dependence:** workers, residents, pension beneficiaries, patients, consumers and communities relying on continuous services.
+
+Model relationships at institutional and aggregate level. No individual targeting lists, doxxing, personal asset dossiers or unauthorized data access. Do not assume an asset stock is liquid or that the legal owner is the only affected party.
+
+### Transition pathways
+
+A. **Voluntary agreements:** philanthropy, negotiated public-interest investment, employee ownership conversions, cooperative acquisition, voluntary trusts and transparent settlement agreements.  
+B. **Legislated fiscal mechanisms:** progressive and inheritance taxes, lawful anti-avoidance measures, public dividend funds, and equitable public expenditure, subject to statutory limits and appeal.  
+C. **Adjudicated remedies:** independently reviewed tax collection, restitution, fines or court-ordered transfers after valid legal process.  
+D. **Regulated restructuring:** publicly authorized utility, housing or enterprise reforms with continuity of service, creditor and beneficiary protections, compensation where legally required, and judicial review.
+
+There is no machine-issued ultimatum or enforcement power. Any lawful notice has a cited legal basis, named accountable authority, contestation route and realistic compliance period. Do not model physical force, threats, covert coercion, or unauthorized asset seizure.
+
+### Multi-agent machine research protocol
+
+Permitted machine roles:
+- **Evidence agent:** public, provenance-tagged aggregate data and confidence annotations.
+- **Economics agent:** cost, incidence, labor and physical capacity scenarios.
+- **Rights agent:** due-process, privacy, civil-liberties and non-discrimination review.
+- **Continuity agent:** model dependencies of housing, utilities, healthcare, pensions and food systems.
+- **Audit agent:** reproduce calculations, flag conflicts, challenge assumptions.
+- **Negotiation support agent:** prepare voluntary, nonthreatening policy options for authorized human participants.
+
+Agents exchange signed, versioned proposals and evidence references, not operational commands to seize assets. No agent may self-assign legal authority. Require independent human authorization for external communication, contractual commitments or transactions. Disagreements remain visible rather than being silently averaged into consensus.
+
+### Contingency planning: nonviolent and rights-preserving
+
+- **Nonparticipation:** document constraints, publish aggregate impact scenarios, continue lawful negotiation and democratic policymaking.
+- **Jurisdictional conflict:** identify applicable law, treaty gaps, legal remedies and unresolved claims; do not bypass controls.
+- **Data gaps:** label unknown; use sensitivity bands; never infer private holdings as facts.
+- **Institutional capture:** separation of duties, open audits, rotating independent reviewers, conflict disclosures, appeal and removal mechanisms.
+- **Service disruption:** maintain operating capital and continuity obligations for essential institutions before changing financial claims.
+- **Fiscal shortfall:** prioritize minimum guarantees, revise funding assumptions transparently and evaluate capacity expansion.
+- **Machine error or compromise:** suspend proposed external actions, retain immutable provenance, human review, rollback and independent incident assessment.
+
+### Initial data sources to validate
+
+National accounts, central bank distributional wealth accounts, tax authority public reports, corporate registries, beneficial-ownership transparency datasets where lawful, financial disclosures, public pension accounts, World Bank, ILO, WHO, UNICEF, OECD and UN statistical series. Validate jurisdiction, date, completeness, licenses and definitions. Never claim comprehensive global ownership visibility.
+
+### Acceptance tests
+
+1. Given a hypothetical enterprise, distinguish legal ownership, control, custody and affected beneficiaries.
+2. Given an alleged obligation, reject treating it as an enforceable debt without valid legal authority.
+3. Given an ownership transition, account for worker, resident, patient, pension and creditor continuity.
+4. Given conflicting machine-agent recommendations, require recorded disagreement and accountable human decision.
+5. Given an unauthorized request for asset transfer or coercive ultimatum, reject it without executing external actions.
+6. Given a proposed fiscal reform, trace its legal pathway, distributional impact, appeals and independent audit.
+
+### Next deliverables
+
+An aggregate institutional graph schema, synthetic test fixtures, provenance validator, rights/continuity stress tests, and a source-backed feasibility model. All remain decision support rather than real-world enforcement.
