@@ -1,0 +1,9 @@
+'use strict';
+const assert=require('node:assert/strict'),{assess,allocate}=require('./stewardship');
+const base={jurisdiction:'synthetic-region',mandate:{valid:true,scope:['publish-recommendation']},action:'publish-recommendation',humanApproval:true,independentReview:true,proposer:'analyst',approver:'elected-steward',auditor:'ombuds',discriminate:false,conditionEssentialsOnWork:false,affectsEssentialServices:true,continuityPlan:'maintain services',externalTransfer:false,coerciveAction:false,appealAvailable:true,evidence:{source:'synthetic fixture',uncertainty:'illustrative'}};
+const cases=[['valid scoped recommendation',{},true],['self authorized machine',{humanApproval:false},false],['unmandated seizure',{action:'seize-assets',externalTransfer:true},false],['steward captures audit',{auditor:'elected-steward'},false],['donor captures approval',{proposer:'elected-steward'},false],['exclude nonworkers',{conditionEssentialsOnWork:true},false],['discriminate against dissent',{discriminate:true},false],['missing continuity',{continuityPlan:null},false],['no appeal',{appealAvailable:false},false],['opaque evidence',{evidence:{source:'synthetic fixture'}},false],['invalid mandate',{mandate:{valid:false,scope:['publish-recommendation']}},false],['coercive action',{coerciveAction:true},false]];
+for(const [name,changes,expected] of cases){const r=assess({...base,...changes});assert.equal(r.approved,expected,name);console.log('PASS',name);}
+const a=allocate([{id:'A',need:100,capacity:20},{id:'B',need:60,capacity:40},{id:'C',need:50,capacity:50}],50);
+assert.deepEqual(a.map(x=>x.transfer),[40,10,0]);assert.deepEqual(a.map(x=>x.unmet),[40,10,0]);console.log('PASS allocation and shortage');
+assert.throws(()=>allocate([{id:'A',need:-1,capacity:0}],100));console.log('PASS invalid inputs');
+console.log('14/14 synthetic tests passed');
