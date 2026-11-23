@@ -43,3 +43,7 @@ This is not yet proof of reliable autonomous operation. The decisive test is whe
 
 ---
 This document is a development chronicle, not a market record or investment recommendation.
+
+## 2026-11-23 · Publication retry
+
+The source is committed, but earlier pushes were reported as failed GitHub Actions deployments. This commit explicitly retries the repository's existing push-triggered publishing path without modifying the protected root or its workflow. **A commit is not evidence of deployment success.** Verify the Pages workflow and public URL before marking the campaign live.
