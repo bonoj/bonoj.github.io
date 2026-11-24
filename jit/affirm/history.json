@@ -1,4 +1,10 @@
 {
   "schema_version": 1,
-  "entries": []
+  "entries": [
+    {
+      "timestamp_utc": "2026-11-24T17:30:09Z",
+      "label": "midday",
+      "path": "updates/2026-11-24T17-30-09Z-midday.md"
+    }
+  ]
 }
