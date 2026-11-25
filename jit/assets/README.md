@@ -770,3 +770,11 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Two reconstructed 10-question book/film canon examinations. Topics and answer keys derived from historical conversation summary; exact original stems, distractors and explanations were not fully available, so these are reconstructed rather than verbatim.
 - Mobile-first standalone HTML/CSS/JS; round switching, scorekeeping, no answer reveal until submission, post-exam explanation review, retake.
 - Source committed; deployed browser behavior not independently verified.
+
+
+## Specimen 057 — Cosmogenesis · E1 (2026-11-25)
+
+- Source: [`cosmogenesis/index.html`](./cosmogenesis/index.html)
+- Live URL: https://bonoj.github.io/jit/assets/cosmogenesis/
+- Standalone Canvas2D perspective-projected 3D toy: central gravity with artificial drag, deposition into 12 reliquaries, nutrient-seeking mycelial graph, conserved scalar matter inventory, three material classes. Orbit camera, tap inspection, pause, speed, add matter, reset.
+- Limitations: simplified growth, open crust scaffold, no individual provenance ledger or physical capture solver. Standalone adaptation of chat E1 with projection guard and pointer cancellation. Runtime not independently verified.
