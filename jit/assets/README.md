@@ -794,3 +794,11 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live URL: https://bonoj.github.io/jit/assets/the-pale/
 - Autonomous Canvas2D living painting: seeded winter forest, gust-driven tree sway, blowing snow, wandering figure with fading tracks, four articulated skeletal apparitions with cyclic approach and retreat, layered fog and foreground water.
 - Preserved chat animation with responsive standalone wrapper and pause/resume. Prescribed motion, looping wanderer, no physical wind solver or external dependencies. Browser runtime not independently verified.
+
+
+## Specimen 060 — INSTAGIB · Autonomous arena (2026-11-26)
+
+- Source: [`instagib/index.html`](./instagib/index.html)
+- Live URL: https://bonoj.github.io/jit/assets/instagib/
+- Standalone WebGL 3D zero-input arena with autonomous camera, geometric targets, fragmentation, twelve fictional energy emitter configurations and automatic swaps every three frags.
+- Chat algorithm preserved with full-height portrait wrapper and minimum resize dimension guard. JavaScript syntax checked; browser runtime not independently verified.
