@@ -786,3 +786,11 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live URL: https://bonoj.github.io/jit/assets/alpine-painter/
 - Standalone Canvas2D painting with seeded pigment dabs, mountains, meadow, stream, cottage and wildflowers. Repaint regenerates brushwork; fixed composition, no raster textures or dependencies.
 - Preserved chat painting algorithm with standalone responsive wrapper. Browser runtime not independently verified.
+
+
+## Specimen 059 — The Pale · A winter apparition (2026-11-26)
+
+- Source: [`the-pale/index.html`](./the-pale/index.html)
+- Live URL: https://bonoj.github.io/jit/assets/the-pale/
+- Autonomous Canvas2D living painting: seeded winter forest, gust-driven tree sway, blowing snow, wandering figure with fading tracks, four articulated skeletal apparitions with cyclic approach and retreat, layered fog and foreground water.
+- Preserved chat animation with responsive standalone wrapper and pause/resume. Prescribed motion, looping wanderer, no physical wind solver or external dependencies. Browser runtime not independently verified.
