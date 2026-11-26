@@ -778,3 +778,11 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live URL: https://bonoj.github.io/jit/assets/cosmogenesis/
 - Standalone Canvas2D perspective-projected 3D toy: central gravity with artificial drag, deposition into 12 reliquaries, nutrient-seeking mycelial graph, conserved scalar matter inventory, three material classes. Orbit camera, tap inspection, pause, speed, add matter, reset.
 - Limitations: simplified growth, open crust scaffold, no individual provenance ledger or physical capture solver. Standalone adaptation of chat E1 with projection guard and pointer cancellation. Runtime not independently verified.
+
+
+## Specimen 058 — Alpine · Procedural painting (2026-11-26)
+
+- Source: [`alpine-painter/index.html`](./alpine-painter/index.html)
+- Live URL: https://bonoj.github.io/jit/assets/alpine-painter/
+- Standalone Canvas2D painting with seeded pigment dabs, mountains, meadow, stream, cottage and wildflowers. Repaint regenerates brushwork; fixed composition, no raster textures or dependencies.
+- Preserved chat painting algorithm with standalone responsive wrapper. Browser runtime not independently verified.
