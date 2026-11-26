@@ -1,1 +1,78 @@
-<!doctype html><meta charset=utf-8><title>INSTAGIB</title>
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>INSTAGIB · Autonomous arena</title><style>body{margin:0;background:#080b12;color:#e5efff;font:12px system-ui}main{position:relative;width:min(100%,600px);margin:auto;height:100dvh;overflow:hidden}canvas{display:block;width:100%;height:100%}.title{position:absolute;top:16px;left:16px;font-weight:bold;letter-spacing:4px}#kills{position:absolute;top:16px;right:16px;font:13px monospace}#feed{position:absolute;top:50px;right:16px;color:#a5edff;font:10px monospace;text-align:right}.bottom{position:absolute;bottom:18px;left:16px;color:white}#gun{font-size:23px;font-weight:800;letter-spacing:3px}#desc{opacity:.65;margin-top:4px}</style><main><canvas id="arena"></canvas><div class="title">INSTAGIB</div><div id="kills"></div><div class="bottom"><div id="gun"></div><div id="desc"></div></div><div id="feed"></div></main><script>
+(()=>{
+const c=document.getElementById('arena'),gl=c.getContext('webgl',{antialias:true});
+if(!gl){document.getElementById('gun').textContent='WebGL unavailable';return}
+const vs=`attribute vec3 p;attribute vec3 n;uniform mat4 m;uniform vec3 col;uniform float glow;varying vec3 v;void main(){gl_Position=m*vec4(p,1.);v=col*(glow+(1.-glow)*(.48+.52*max(0.,dot(n,normalize(vec3(.5,.8,.3))))));}`;
+const fs=`precision mediump float;varying vec3 v;void main(){gl_FragColor=vec4(v,1.);}`;
+function shader(t,s){let a=gl.createShader(t);gl.shaderSource(a,s);gl.compileShader(a);return a}
+let pr=gl.createProgram();gl.attachShader(pr,shader(gl.VERTEX_SHADER,vs));gl.attachShader(pr,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);gl.useProgram(pr);
+const P=gl.getAttribLocation(pr,'p'),N=gl.getAttribLocation(pr,'n'),M=gl.getUniformLocation(pr,'m'),C=gl.getUniformLocation(pr,'col'),G=gl.getUniformLocation(pr,'glow');
+function mesh(faces){let a=[];for(let [v,n] of faces)for(let p of v)a.push(...p,...n);let b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(a),gl.STATIC_DRAW);return {b,count:a.length/6}}
+let cubeV=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]];
+let cube=mesh([[0,1,2,3],[5,4,7,6],[4,0,3,7],[1,5,6,2],[3,2,6,7],[4,5,1,0]].map((f,i)=>[[0,1,2,0,2,3].map(j=>cubeV[f[j]]),[[0,0,-1],[0,0,1],[-1,0,0],[1,0,0],[0,1,0],[0,-1,0]][i]]));
+let oct=mesh(Array.from({length:8},(_,i)=>{let a=i%4*Math.PI/2,b=a+Math.PI/2,k=i<4?1:-1;return [[[0,k,0],[Math.cos(a),0,Math.sin(a)],[Math.cos(b),0,Math.sin(b)]],[Math.cos(a+.785)*.7,k*.7,Math.sin(a+.785)*.7]]}));
+function mul(a,b){let o=new Float32Array(16);for(let i=0;i<4;i++)for(let j=0;j<4;j++)for(let k=0;k<4;k++)o[i*4+j]+=a[k*4+j]*b[i*4+k];return o}
+function transform(x,y,z,a,b,d,r=0){let co=Math.cos(r),si=Math.sin(r);return new Float32Array([co*a,0,-si*a,0,0,b,0,0,si*d,0,co*d,0,x,y,z,1])}
+let projection,view,vp,aspect=1;
+function draw(shape,x,y,z,a,b,d,col,rot=0,glow=0,local=false){gl.bindBuffer(gl.ARRAY_BUFFER,shape.b);gl.enableVertexAttribArray(P);gl.enableVertexAttribArray(N);gl.vertexAttribPointer(P,3,gl.FLOAT,false,24,0);gl.vertexAttribPointer(N,3,gl.FLOAT,false,24,12);gl.uniformMatrix4fv(M,false,mul(local?projection:vp,transform(x,y,z,a,b,d,rot)));gl.uniform3fv(C,col);gl.uniform1f(G,glow);gl.drawArrays(gl.TRIANGLES,0,shape.count)}
+const box=(...a)=>draw(cube,...a),gem=(...a)=>draw(oct,...a);
+const weapons=[
+['VOLT','Arc lance',[.12,.85,1],.38,0],
+['EMBER','Solar projector',[1,.28,.06],.65,1],
+['WRAITH','Phase emitter',[.65,.24,1],.48,2],
+['VERDANT','Spore cannon',[.28,1,.35],.32,3],
+['MONOLITH','Gravity prism',[.8,.83,1],.8,4],
+['HALO','Photon repeater',[1,.84,.2],.22,5],
+['ABYSS','Void resonator',[.22,.3,1],.55,6],
+['SERAPH','Twin star emitter',[1,.35,.65],.29,7],
+['FROST','Crystal lance',[.55,1,1],.42,8],
+['QUASAR','Singularity engine',[1,.65,.22],.7,9],
+['SPECTRE','Ghost pulse',[.55,.8,.65],.26,10],
+['ZENITH','Radiant core',[1,1,.9],.5,11]
+];
+let t=0,last=0,score=0,wi=0,flash=0,next=1.2,swap=0,yaw=0,cx=0,cz=0,burst=[],beams=[],feed=[];
+let targets=Array.from({length:9},(_,i)=>spawn(i));
+function spawn(i){let a=i*2.399+Math.random()*.6,r=9+Math.random()*17;return {x:Math.sin(a)*r,z:Math.cos(a)*r,p:Math.random()*6,dead:0}}
+function resize(){let w=Math.max(1,c.clientWidth),h=Math.max(1,c.clientHeight),d=Math.min(1.6,devicePixelRatio||1);c.width=w*d;c.height=h*d;gl.viewport(0,0,c.width,c.height);aspect=w/h;let f=1/Math.tan(.52);projection=new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,-1.002,-1,0,0,-.2002,0])}
+resize();new ResizeObserver(resize).observe(c);
+gl.enable(gl.DEPTH_TEST);gl.clearColor(.035,.05,.085,1);
+const stone=[.12,.16,.23],edge=[.21,.27,.38],neon=[.1,.48,.65];
+function world(){
+box(0,-.22,0,33,.2,33,stone);
+for(let i=-32;i<=32;i+=4){box(i,.005,0,.025,.012,32,edge);box(0,.005,i,32,.012,.025,edge)}
+for(let i=0;i<16;i++){let a=i*Math.PI/8,x=Math.sin(a)*31,z=Math.cos(a)*31;box(x,3,z,6,3,.5,stone,a);box(x,6.1,z,5.8,.06,.53,neon,a,.8)}
+for(let i=0;i<8;i++){let a=i*Math.PI/4,x=Math.sin(a)*20,z=Math.cos(a)*20;box(x,2.8,z,1.5,2.8,1.5,edge,a);box(x,5.7,z,1.6,.08,1.6,neon,a,1);box(x,2.5,z,1.53,.04,1.53,neon,a,.7)}
+box(0,.25,0,4,.25,4,edge,Math.PI/4);box(0,.52,0,3,.04,3,[.15,.5,.7],Math.PI/4,.8);
+for(let i=0;i<6;i++){let a=i*Math.PI/3+t*.08;gem(Math.sin(a)*4,7+Math.sin(t+i)*.5,Math.cos(a)*4,.5,1,.5,neon,t*.6,.8)}
+}
+function target(e){let y=1.15+Math.sin(t*2+e.p)*.2;gem(e.x,y,e.z,.65,.8,.65,[.8,.13,.29],t+e.p,.65);gem(e.x,y,e.z,.3,.35,.3,[1,.7,.7],-t,1);for(let k=0;k<3;k++){let a=t*2+k*2.094;gem(e.x+Math.cos(a)*.85,y+Math.sin(a)*.4,e.z+Math.sin(a)*.85,.16,.3,.16,[1,.23,.4],a,.8)}}
+function gun(w){let col=w[2],k=w[4],s=swap>0?Math.sin(swap*Math.PI)*.5:0,x=.19+Math.sin(t*3)*.012,y=-.25-s+Math.sin(t*5)*.009,z=-.72+flash*.09;
+box(x,y,z,.12,.105,.25,[.14,.17,.22],0,0,true);
+box(x,y+.07,z-.05,.095,.04,.22,col,0,.8,true);
+let count=1+k%3;
+for(let i=0;i<count;i++){let dx=(i-(count-1)/2)*.105;box(x+dx,y+.015,z-.25,.045,.045,.2+(k%4)*.045,[.24,.29,.36],0,0,true);box(x+dx,y+.015,z-.44-(k%4)*.045,.048,.048,.035,col,0,1,true)}
+for(let i=0;i<3+k%4;i++)box(x,y+.1,z-.13+i*.06,.13,.018,.018,col,0,.8,true);
+if(k%2===0)gem(x,y+.13,z+.02,.07,.09,.09,col,t*3,1,true);
+if(flash>.05)gem(x,y+.015,z-.57-(k%4)*.045,.08*flash,.08*flash,.25*flash,col,t,1,true);
+}
+function fire(e,w){let y=1.15+Math.sin(t*2+e.p)*.2;for(let i=0;i<26;i++){let a=Math.random()*6.28,r=2+Math.random()*6;burst.push({x:e.x,y,z:e.z,vx:Math.cos(a)*r,vy:Math.random()*6,vz:Math.sin(a)*r,l:.4+Math.random()*.6,col:w[2]})}
+beams.push({x:e.x,y,z:e.z,l:.13,col:w[2]});e.dead=.8+Math.random();score++;flash=1;feed.unshift(w[0]+'  /  FRAGMENTED');feed=feed.slice(0,3);document.getElementById('feed').innerHTML=feed.join('<br>');document.getElementById('kills').textContent=String(score).padStart(5,'0')+' FRAGS';
+if(score%3===0){wi=(wi+1)%weapons.length;swap=1;document.getElementById('gun').textContent=weapons[wi][0];document.getElementById('desc').textContent=weapons[wi][1]}
+}
+document.getElementById('gun').textContent=weapons[0][0];document.getElementById('desc').textContent=weapons[0][1];
+let lock=null;
+function tick(now){let dt=Math.min(.035,(now-last)/1000||0);last=now;t+=dt;
+cx=10*Math.sin(t*.13)+3*Math.sin(t*.37);cz=10*Math.cos(t*.13);
+for(let e of targets){if(e.dead>0){e.dead-=dt;if(e.dead<=0)Object.assign(e,spawn(Math.random()*20));continue}e.x+=Math.sin(t*.8+e.p)*dt*1.2;e.z+=Math.cos(t*.7+e.p)*dt*1.2}
+if(!lock||lock.dead>0){let alive=targets.filter(e=>e.dead<=0);lock=alive.sort((a,b)=>Math.hypot(a.x-cx,a.z-cz)-Math.hypot(b.x-cx,b.z-cz))[0]}
+if(lock){let a=Math.atan2(lock.x-cx,-(lock.z-cz)),d=Math.atan2(Math.sin(a-yaw),Math.cos(a-yaw));yaw+=d*Math.min(1,dt*5);if(t>next&&Math.abs(d)<.09){fire(lock,weapons[wi]);next=t+weapons[wi][3]+.28}}
+let co=Math.cos(yaw),si=Math.sin(yaw),cy=1.65+Math.sin(t*5)*.045;
+view=new Float32Array([co,0,-si,0,0,1,0,0,si,0,co,0,-co*cx-si*cz,-cy,si*cx-co*cz,1]);vp=mul(projection,view);
+gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);world();for(let e of targets)if(e.dead<=0)target(e);
+for(let p of burst){p.l-=dt;p.x+=p.vx*dt;p.z+=p.vz*dt;p.y+=p.vy*dt;p.vy-=8*dt;if(p.y<.05){p.y=.05;p.vy*=-.4}if(p.l>0)gem(p.x,p.y,p.z,.1*p.l+.03,.1*p.l+.03,.1*p.l+.03,p.col,t*4,1)}
+burst=burst.filter(p=>p.l>0);
+for(let b of beams){b.l-=dt;if(b.l>0){for(let i=0;i<28;i++){let f=i/28;gem(cx+(b.x-cx)*f,cy-.2+(b.y-cy+.2)*f,cz+(b.z-cz)*f,.06,.06,.06,b.col,0,1)}}}beams=beams.filter(b=>b.l>0);
+gl.clear(gl.DEPTH_BUFFER_BIT);gun(weapons[wi]);flash=Math.max(0,flash-dt*6);swap=Math.max(0,swap-dt*2.5);requestAnimationFrame(tick)}
+requestAnimationFrame(tick)
+})();
+</script></html>
