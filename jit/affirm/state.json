@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "experiment": "jit-affirm-scheduled-persistence",
-  "run_count": 5,
-  "last_run_utc": "2026-11-26T14:36:54Z",
+  "run_count": 6,
+  "last_run_utc": "2026-11-26T17:33:22Z",
   "last_result": "checkpoint_recorded",
-  "latest_report_path": "updates/2026-11-26T14-36-54Z-opening.md"
+  "latest_report_path": "updates/2026-11-26T17-33-22Z-midday.md"
 }
