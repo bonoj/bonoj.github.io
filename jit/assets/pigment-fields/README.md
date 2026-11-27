@@ -14,6 +14,10 @@ Goal: animated geometry supports illustration without dominating perception. Exp
 
 [Jovian atmosphere](experiment-04.html) — preserved chat shader with differential zonal motion, thermal and condensation fields, material boundary mixing, four prescribed vortices, six controls and four instrument views. User found it interesting but observed that storms are immediately shredded and smeared, overwhelmed by the bands. Preserve this flaw as a baseline. Coriolis is not dynamically integrated; fields are kinematic, not conserved or persistent. Standalone runtime not independently verified.
 
+## Experiment 08
+
+[The Ember Wanderer](experiment-08.html) — reference-image-inspired mount and cloaked rider constructed from articulated implicit ellipsoids and tapered capsules, prescribed walking gait, four material fields, directional ember pigment, armature toggle and orbit. User judged the visual result quite bad but found the armature and rapid translation from the supplied picture promising. Preserve as a construction study, not a successful painting. Walks in place; pigment is procedural and not limb-local or persistent. Standalone runtime not independently verified. Experiments 05–07 remain unarchived.
+
 ## Iteration
 
 Preserve each baseline; add separate numbered HTML experiments and index them here and in index.html. Do not overwrite earlier experiments during exploration.
