@@ -802,3 +802,9 @@ Removed translucent barrel, liquid reservoir, bead animation, viscosity control 
 - Live URL: https://bonoj.github.io/jit/assets/instagib/
 - Standalone WebGL 3D zero-input arena with autonomous camera, geometric targets, fragmentation, twelve fictional energy emitter configurations and automatic swaps every three frags.
 - Chat algorithm preserved with full-height portrait wrapper and minimum resize dimension guard. JavaScript syntax checked; browser runtime not independently verified.
+
+
+## Specimen 061 — Pigment Fields (2026-11-27)
+
+- [Experiment index](./pigment-fields/) · [Experiment 01](./pigment-fields/experiment-01.html)
+- WebGL2 ray-marched animated spheres, noise-disrupted edges, object-local pigment and smooth SDF union. Preserve separate numbered experiments. Standalone runtime not independently verified.
