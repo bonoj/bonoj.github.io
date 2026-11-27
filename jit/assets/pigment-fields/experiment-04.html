@@ -1,1 +1,148 @@
-<!doctype html><title>Jovian atmosphere</title>
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jovian atmosphere</title><style>body{margin:0;background:#080b12;color:#d9dfdf;font:13px system-ui}main{max-width:720px;margin:auto}canvas{width:100%;aspect-ratio:1;display:block;touch-action:none}section{padding:15px;display:grid;gap:13px}input{width:100%;display:block;accent-color:#c7a17d}button{background:#242a34;color:#e9e4da;border:1px solid #444b57;padding:9px 13px;border-radius:7px}a{color:#c7a17d}</style><main><canvas id="planet"></canvas><section><div><button id="pause">Pause</button> <button id="mode">Visible atmosphere</button> <button id="reset">Reset</button></div><label>Internal heating<input id="heat" type="range" min="0" max="100" value="65"></label><label>Upper atmospheric cooling<input id="cool" type="range" min="0" max="100" value="45"></label><label>Rotation / Coriolis influence<input id="spin" type="range" min="0" max="100" value="70"></label><label>Band boundary mixing<input id="mixing" type="range" min="0" max="100" value="75"></label><label>Storm intensity<input id="storm" type="range" min="0" max="100" value="70"></label><label>Cloud density contrast<input id="density" type="range" min="0" max="100" value="65"></label><div id="status"></div><a href="./">Experiments</a></section></main><script>
+const el=id=>document.getElementById(id),c=el('planet'),gl=c.getContext('webgl2',{antialias:false});
+if(!gl){el('status').textContent='WebGL2 unavailable';}else{
+const vs=`#version 300 es
+in vec2 p;
+void main(){gl_Position=vec4(p,0.,1.);}`;
+const fs=`#version 300 es
+precision highp float;
+out vec4 frag;
+uniform vec2 res;
+uniform float time,heat,cool,spin,mixing,storm,density,mode,yaw,pitch;
+const float PI=3.14159265359;
+float hash(vec3 p){
+p=fract(p*.3183099+vec3(.1,.17,.23));p*=17.;
+return fract(p.x*p.y*p.z*(p.x+p.y+p.z));
+}
+float n(vec3 p){
+vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+return mix(mix(mix(hash(i),hash(i+vec3(1,0,0)),f.x),mix(hash(i+vec3(0,1,0)),hash(i+vec3(1,1,0)),f.x),f.y),mix(mix(hash(i+vec3(0,0,1)),hash(i+vec3(1,0,1)),f.x),mix(hash(i+vec3(0,1,1)),hash(i+vec3(1,1,1)),f.x),f.y),f.z);
+}
+float fb(vec3 p){
+return .52*n(p)+.27*n(p*2.03)+.13*n(p*4.07)+.06*n(p*8.13)+.02*n(p*16.17);
+}
+vec3 sphere(float lon,float lat){
+return vec3(cos(lat)*cos(lon),sin(lat),cos(lat)*sin(lon));
+}
+float wrapAngle(float x){return mod(x+PI,2.*PI)-PI;}
+vec2 vortex(vec2 p,vec2 center,vec2 radius,float strength,out float influence){
+vec2 q=vec2(wrapAngle(p.x-center.x),p.y-center.y)/radius;
+float r=length(q);
+influence=exp(-r*r*1.5);
+float angle=strength*exp(-r*r*.85)/(1.+r*.3);
+float cs=cos(angle),sn=sin(angle);
+q=mat2(cs,-sn,sn,cs)*q;
+vec2 warped=center+q*radius;
+return p+vec2(wrapAngle(warped.x-p.x),warped.y-p.y);
+}
+void main(){
+vec2 uv=(gl_FragCoord.xy-.5*res)/res.y;
+float rad=.423;
+float r=length(uv);
+vec3 bg=vec3(.012,.017,.029);
+float stars=step(.9987,hash(vec3(floor(gl_FragCoord.xy),9.)));
+bg+=stars*.45;
+float halo=exp(-max(0.,r-rad)*90.);
+bg+=vec3(.15,.23,.33)*halo*.20;
+if(r>rad){frag=vec4(bg,1.);return;}
+vec2 xy=uv/rad;
+vec3 normal=vec3(xy,sqrt(max(0.,1.-dot(xy,xy))));
+float cp=cos(pitch),sp=sin(pitch);
+vec3 p=vec3(normal.x,cp*normal.y-sp*normal.z,sp*normal.y+cp*normal.z);
+float lat=asin(clamp(p.y,-1.,1.));
+float lon=atan(p.z,p.x)+yaw+time*(.045+spin*.14);
+float jet=sin(lat*19.+.65*sin(lat*5.));
+float coriolis=sin(lat)*spin;
+float wind=jet*(.025+spin*.11)+.018*cos(lat*7.);
+vec2 q=vec2(lon+time*wind,lat);
+float redSpot,blueSpot,smallSpot,polarSpot;
+float strength=storm*(1.+heat*.65);
+q=vortex(q,vec2(1.1+time*.018,-.36),vec2(.37,.19),strength*3.8,redSpot);
+q=vortex(q,vec2(-1.5-time*.023,.43),vec2(.24,.14),-strength*4.1,blueSpot);
+q=vortex(q,vec2(2.7+time*.013,.13),vec2(.15,.09),-strength*3.1,smallSpot);
+q=vortex(q,vec2(-.5,.98),vec2(.4,.18),-strength*4.5,polarSpot);
+vec3 s=sphere(q.x,q.y);
+float conv=fb(s*8.+vec3(0.,time*.035,0.));
+float coarse=fb(s*4.5);
+float shear=abs(cos(q.y*19.));
+vec3 stretch=sphere(q.x*.0+q.x,q.y);
+vec3 flow=vec3(stretch.x*5.,stretch.y*29.,stretch.z*5.);
+float eddies=fb(flow+vec3(0.,time*.025,0.));
+float instability=(eddies-.5)*mixing*(.14+.12*heat)*(.35+.65*shear);
+float latitude=q.y+instability+(conv-.5)*heat*.065;
+float phase=latitude*19.+.65*sin(latitude*5.);
+float belt=sin(phase);
+float boundary=1.-smoothstep(.0,.5,abs(belt));
+float material=belt+(fb(flow*1.7)-.5)*mixing*1.8*boundary;
+float owner=smoothstep(-.13,.13,material);
+float fine=fb(vec3(s.x*19.,s.y*95.,s.z*19.));
+float filaments=fb(flow*3.+vec3(conv*2.));
+float thermal=clamp(.35+heat*.6*(conv+.25)-cool*.34+.10*jet,0.,1.);
+float condensation=clamp(.35+cool*.45+(conv-.5)*heat*.65+owner*.22,0.,1.);
+float cloud=clamp(condensation+(fine-.5)*density*.65+(filaments-.5)*.22,0.,1.);
+vec3 darkBelt=mix(vec3(.34,.15,.075),vec3(.69,.39,.19),fine);
+vec3 brightZone=mix(vec3(.61,.52,.39),vec3(.98,.91,.75),cloud);
+vec3 col=mix(darkBelt,brightZone,owner);
+col=mix(col,vec3(.93,.85,.71),cloud*.32);
+col+=(fine-.5)*.22+(filaments-.5)*.17;
+float red=redSpot*storm;
+float eye=smoothstep(.32,.85,redSpot);
+vec3 rust=mix(vec3(.49,.12,.055),vec3(.91,.56,.31),fine);
+col=mix(col,rust,red*.85);
+col=mix(col,vec3(.73,.32,.16),eye*storm*.35);
+col=mix(col,vec3(.72,.79,.78)+(fine-.5)*.35,blueSpot*storm*.85);
+col=mix(col,vec3(.95,.88,.73),smallSpot*storm*.7);
+col=mix(col,vec3(.39,.48,.52)+(fine-.5)*.4,polarSpot*storm*.65);
+float polar=smoothstep(.98,1.5,abs(lat));
+col=mix(col,vec3(.42,.48,.50)+(fine-.5)*.4,polar*.75);
+if(mode>.5&&mode<1.5){
+col=mix(vec3(.04,.15,.43),vec3(.98,.25,.035),thermal);
+col=mix(col,vec3(1.,.85,.28),smoothstep(.65,.95,thermal));
+}else if(mode>1.5&&mode<2.5){
+col=vec3(cloud);
+}else if(mode>2.5){
+col=mix(vec3(.12,.35,.83),vec3(.91,.36,.08),jet*.5+.5);
+col=mix(col,vec3(.86,.95,.87),boundary*mixing*.8);
+col=mix(col,vec3(.8,.14,.45),max(redSpot,blueSpot)*storm);
+}
+vec3 light=normalize(vec3(-.65,.48,.82));
+float diffuse=max(0.,dot(normal,light));
+float limb=pow(1.-normal.z,3.);
+col*=.13+.87*pow(diffuse,.72);
+col=mix(col,vec3(.35,.46,.59)*(.15+diffuse*.65),limb*.4);
+frag=vec4(clamp(col,0.,1.),1.);
+}`;
+function compile(type,src){
+const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;
+}
+try{
+const prog=gl.createProgram();
+gl.attachShader(prog,compile(gl.VERTEX_SHADER,vs));gl.attachShader(prog,compile(gl.FRAGMENT_SHADER,fs));gl.linkProgram(prog);
+if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(prog));gl.useProgram(prog);
+const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+const a=gl.getAttribLocation(prog,'p');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
+const u={};for(const k of ['res','time','heat','cool','spin','mixing','storm','density','mode','yaw','pitch'])u[k]=gl.getUniformLocation(prog,k);
+let time=0,last=performance.now(),paused=false,mode=0,yaw=0,pitch=.12,drag=null;
+const modes=['Visible atmosphere','Thermal field','Cloud density','Jet streams'];
+el('pause').onclick=()=>{paused=!paused;el('pause').textContent=paused?'Resume':'Pause';};
+el('mode').onclick=()=>{mode=(mode+1)%4;el('mode').textContent=modes[mode];};
+el('reset').onclick=()=>{time=0;yaw=0;pitch=.12;mode=0;el('mode').textContent=modes[0];for(const [k,v] of Object.entries({heat:65,cool:45,spin:70,mixing:75,storm:70,density:65}))el(k).value=v;};
+c.onpointerdown=e=>{drag=[e.clientX,e.clientY];c.setPointerCapture(e.pointerId);};
+c.onpointermove=e=>{if(drag){yaw+=(e.clientX-drag[0])*.009;pitch=Math.max(-1.5,Math.min(1.5,pitch+(e.clientY-drag[1])*.009));drag=[e.clientX,e.clientY];}};
+c.onpointerup=c.onpointercancel=()=>{drag=null;};
+function frame(now){
+if(!paused)time+=Math.min(.05,(now-last)/1000);last=now;
+const w=Math.max(1,Math.min(700,Math.round(c.clientWidth*1.5)));
+if(c.width!==w||c.height!==w){c.width=c.height=w;gl.viewport(0,0,w,w);}
+gl.uniform2f(u.res,w,w);
+for(const [k,v] of Object.entries({time,mode,yaw,pitch}))gl.uniform1f(u[k],v);
+for(const k of ['heat','cool','spin','mixing','storm','density'])gl.uniform1f(u[k],Number(el(k).value)/100);
+gl.drawArrays(gl.TRIANGLES,0,3);
+el('status').textContent='WebGL2 · Drag to rotate · Four atmospheric instruments';
+requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+}catch(e){el('status').textContent=e.message;}
+}
+</script></html>
