@@ -1,1 +1,69 @@
-<!doctype html><title>Pigment Fields</title>
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pigment Fields — 01</title><style>*{box-sizing:border-box}body{margin:0;background:#171915;color:#ddd;font:14px system-ui}main{max-width:720px;margin:auto}canvas{width:100%;aspect-ratio:1.25;display:block}section{padding:14px;display:grid;gap:12px}button{background:#33382f;color:#eee;border:1px solid #555b50;border-radius:6px;padding:9px 12px}input{accent-color:#a8b59b;width:100%}a{color:#b8c6a9}</style><main><canvas id="field"></canvas><section><div><button id="mode">Illustrative field</button> <button id="pause">Pause</button> <button id="reset">Reset</button></div><label>Edge dissolution <input id="edge" type="range" min="0" max="100" value="65"></label><label>Pigment complexity <input id="pigment" type="range" min="0" max="100" value="70"></label><label>Surface intermingling <input id="merge" type="range" min="0" max="100" value="35"></label><div id="status"></div><a href="./">Experiments</a></section></main><script>
+const c=document.getElementById('field'),gl=c.getContext('webgl2',{antialias:false});
+const status=document.getElementById('status');
+if(!gl){status.textContent='WebGL 2 unavailable on this device.';}else{
+const vs=`#version 300 es
+in vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
+const fs=`#version 300 es
+precision highp float;
+out vec4 frag;
+uniform vec2 res;
+uniform float t,edge,pigment,merge,raw;
+float hash(vec3 p){p=fract(p*.3183099+vec3(.1,.17,.23));p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
+float noise(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(mix(hash(i),hash(i+vec3(1,0,0)),f.x),mix(hash(i+vec3(0,1,0)),hash(i+vec3(1,1,0)),f.x),f.y),mix(mix(hash(i+vec3(0,0,1)),hash(i+vec3(1,0,1)),f.x),mix(hash(i+vec3(0,1,1)),hash(i+vec3(1,1,1)),f.x),f.y),f.z);}
+float fb(vec3 p){return noise(p)*.55+noise(p*2.03)*.28+noise(p*4.13)*.12+noise(p*8.1)*.05;}
+vec3 a(){return vec3(-.66+.26*sin(t*.7),.08+.2*sin(t),.24*cos(t*.8));}
+vec3 b(){return vec3(.65-.25*sin(t*.7),-.08+.23*cos(t*.8),-.3*cos(t*.8));}
+vec2 distances(vec3 p){vec3 u=p-a(),v=p-b();float n1=(fb(u*11.)-.5)*.25*edge*(1.-raw);float n2=(fb(v*13.)-.5)*.25*edge*(1.-raw);return vec2(length(u)-.83+n1,length(v)-.71+n2);}
+float scene(vec3 p){vec2 d=distances(p);float k=max(.001,merge*.42*(1.-raw));float h=max(k-abs(d.x-d.y),0.)/k;return min(d.x,d.y)-h*h*k*.25;}
+vec3 normal(vec3 p){vec2 e=vec2(.008,0);return normalize(vec3(scene(p+e.xyy)-scene(p-e.xyy),scene(p+e.yxy)-scene(p-e.yxy),scene(p+e.yyx)-scene(p-e.yyx)));}
+void main(){
+vec2 uv=(gl_FragCoord.xy-.5*res)/res.y;
+vec3 ro=vec3(0.,.25,4.6),rd=normalize(vec3(uv*1.45,-1.));
+float paper=noise(vec3(gl_FragCoord.xy*.72,1.))-.5;
+vec3 bg=mix(vec3(.57,.60,.53),vec3(.87,.84,.73),clamp(uv.y+.5,0.,1.));
+bg+=paper*.045+(.5-fb(vec3(uv*8.,3.)))*.07;
+float shadow=exp(-dot((uv-vec2(0.,-.29))*vec2(2.7,12.),(uv-vec2(0.,-.29))*vec2(2.7,12.)));
+bg=mix(bg,vec3(.28,.33,.27),shadow*.23);
+float z=0.,closest=10.;vec3 p=ro;bool hit=false;
+for(int i=0;i<84;i++){p=ro+rd*z;float d=scene(p);closest=min(closest,d);if(d<.003){hit=true;break;}z+=max(.004,d*.7);if(z>8.)break;}
+vec3 col=bg;
+if(hit){
+vec2 ds=distances(p);
+float w=smoothstep(-.06-merge*.22,.06+merge*.22,ds.x-ds.y);
+vec3 local=mix(p-a(),p-b(),w);
+vec3 n=normal(p);
+float light=dot(n,normalize(vec3(-.6,.85,.7)))*.5+.5;
+vec3 green=mix(vec3(.13,.24,.19),vec3(.65,.72,.43),light);
+vec3 ochre=mix(vec3(.29,.13,.10),vec3(.87,.65,.34),light);
+vec3 base=mix(green,ochre,w);
+float grain=fb(local*22.);
+float strokes=noise(local*vec3(42.,12.,24.));
+float fine=noise(local*110.);
+base+=((grain-.5)*.40+(strokes-.5)*.18+(fine-.5)*.11)*pigment*(1.-raw);
+float rim=abs(dot(n,-rd));
+float coverage=mix(1.,smoothstep(.01,.22+edge*.28,rim+(grain-.5)*edge*.65),edge*(1.-raw));
+col=mix(bg,base,coverage);
+}else if(raw<.5){
+float halo=exp(-max(closest,0.)/(.008+edge*.035));
+col=mix(bg,vec3(.45,.48,.34),halo*edge*.32);
+}
+col+=paper*.025*(1.-raw);
+frag=vec4(clamp(col,0.,1.),1.);
+}`;
+function shader(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
+try{
+const prog=gl.createProgram();gl.attachShader(prog,shader(gl.VERTEX_SHADER,vs));gl.attachShader(prog,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(prog);if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(prog));gl.useProgram(prog);
+const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);const loc=gl.getAttribLocation(prog,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+const u={};for(const k of ['res','t','edge','pigment','merge','raw'])u[k]=gl.getUniformLocation(prog,k);
+let raw=0,paused=false,time=0,last=performance.now();
+const el=id=>document.getElementById(id);
+el('mode').onclick=()=>{raw=1-raw;el('mode').textContent=raw?'Raw geometry':'Illustrative field';};
+el('pause').onclick=()=>{paused=!paused;el('pause').textContent=paused?'Resume':'Pause';};
+el('reset').onclick=()=>{time=0;el('edge').value=65;el('pigment').value=70;el('merge').value=35;raw=0;el('mode').textContent='Illustrative field';};
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;if(!paused)time+=dt;const w=Math.max(1,Math.min(640,Math.round(c.clientWidth*1.4))),h=Math.max(1,Math.round(w/1.25));if(c.width!==w||c.height!==h){c.width=w;c.height=h;gl.viewport(0,0,w,h);}
+gl.uniform2f(u.res,w,h);gl.uniform1f(u.t,time);gl.uniform1f(u.raw,raw);for(const k of ['edge','pigment','merge'])gl.uniform1f(u[k],Number(el(k).value)/100);gl.drawArrays(gl.TRIANGLES,0,3);status.textContent=w+' × '+h+' · WebGL 2 · procedural 3D field';requestAnimationFrame(frame);}
+requestAnimationFrame(frame);
+}catch(e){status.textContent=e.message;}
+}
+</script></html>
