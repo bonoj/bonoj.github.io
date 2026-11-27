@@ -1,1 +1,210 @@
-<!doctype html><title>The Ember Wanderer</title>
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Ember Wanderer</title><style>body{margin:0;background:#151b20;color:#d9d5c9;font:13px system-ui}main{max-width:720px;margin:auto}canvas{width:100%;aspect-ratio:1.05;display:block;touch-action:none}section{padding:15px;display:grid;gap:12px}input{width:100%;display:block;accent-color:#c99c5b}button{background:#30383e;color:#e8e2d5;border:1px solid #555b5e;border-radius:7px;padding:9px 13px}a{color:#c99c5b}</style><main><canvas id="scene"></canvas><section><div><button id="pause">Pause</button> <button id="raw">Show armature</button> <button id="reset">Reset</button></div><label>Pigment permeability<input id="bleed" type="range" min="0" max="100" value="80"></label><label>Edge fragmentation<input id="edge" type="range" min="0" max="100" value="65"></label><label>Brushwork<input id="brush" type="range" min="0" max="100" value="80"></label><label>Ember intensity<input id="fire" type="range" min="0" max="100" value="85"></label><label>Walking speed<input id="speed" type="range" min="0" max="100" value="45"></label><div id="status"></div><div>Drag to orbit the creature.</div><a href="./">Experiments</a></section></main><script>
+(()=>{
+const el=id=>document.getElementById(id),c=el('scene'),gl=c.getContext('webgl2',{antialias:false});
+if(!gl){el('status').textContent='WebGL2 unavailable';return;}
+const vs=`#version 300 es
+in vec2 p;
+void main(){gl_Position=vec4(p,0.,1.);}`;
+const fs=`#version 300 es
+precision highp float;
+out vec4 frag;
+uniform vec2 res;
+uniform float time,walk,bleed,edge,brush,fire,raw,yaw,pitch;
+float hash(vec3 p){
+p=fract(p*.3183099+vec3(.1,.17,.23));p*=17.;
+return fract(p.x*p.y*p.z*(p.x+p.y+p.z));
+}
+float n(vec3 p){
+vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+return mix(mix(mix(hash(i),hash(i+vec3(1,0,0)),f.x),mix(hash(i+vec3(0,1,0)),hash(i+vec3(1,1,0)),f.x),f.y),mix(mix(hash(i+vec3(0,0,1)),hash(i+vec3(1,0,1)),f.x),mix(hash(i+vec3(0,1,1)),hash(i+vec3(1,1,1)),f.x),f.y),f.z);
+}
+float fb(vec3 p){return .57*n(p)+.28*n(p*2.03)+.11*n(p*4.07)+.04*n(p*8.13);}
+float ell(vec3 p,vec3 r){return (length(p/r)-1.)*min(r.x,min(r.y,r.z));}
+float cap(vec3 p,vec3 a,vec3 b,float ra,float rb){
+vec3 q=p-a,d=b-a;
+float h=clamp(dot(q,d)/dot(d,d),0.,1.);
+return length(q-d*h)-mix(ra,rb,h);
+}
+float su(float a,float b,float k){
+float h=max(k-abs(a-b),0.)/k;
+return min(a,b)-h*h*k*.25;
+}
+float bob(){return .045*cos(walk*2.);}
+vec3 ember(){return vec3(.12,2.85+bob(),0.);}
+vec4 fields(vec3 p){
+p.y-=bob();
+float animal=ell(p-vec3(.05,1.10,0.),vec3(.94,.52,.39));
+animal=su(animal,cap(p,vec3(-.59,1.15,0.),vec3(-1.08,1.93,0.),.34,.24),.18);
+animal=su(animal,ell(p-vec3(-1.22,1.90,0.),vec3(.37,.25,.23)),.12);
+animal=su(animal,ell(p-vec3(-1.49,1.77,0.),vec3(.23,.15,.20)),.1);
+for(int i=0;i<4;i++){
+float f=float(i);
+float x=i<2?-.52:.65;
+float z=mod(f,2.)<.5?-.27:.27;
+float ph=walk+float(i==0||i==3?0:1)*3.14159;
+vec3 hip=vec3(x,.99,z);
+vec3 knee=vec3(x+.19*sin(ph),.53,z);
+vec3 foot=vec3(x+.33*sin(ph-.65),.09+max(0.,cos(ph))*.16-bob(),z);
+animal=su(animal,cap(p,hip,knee,.14,.09),.1);
+animal=su(animal,cap(p,knee,foot,.09,.065),.07);
+animal=min(animal,ell(p-foot,vec3(.12,.085,.095)));
+}
+animal=su(animal,cap(p,vec3(.83,1.24,0.),vec3(1.14,.69,.08*sin(walk)),.095,.045),.08);
+float metal=ell(p-vec3(.06,2.04,0.),vec3(.28,.46,.24));
+for(int i=0;i<2;i++){
+float z=i==0?-.24:.24;
+metal=su(metal,ell(p-vec3(.04,2.26,z),vec3(.22,.19,.19)),.08);
+metal=su(metal,cap(p,vec3(.01,2.23,z),vec3(-.21,1.94,z*1.35),.13,.095),.08);
+metal=su(metal,cap(p,vec3(-.21,1.94,z*1.35),vec3(-.57,1.92,z*1.25),.095,.065),.06);
+metal=su(metal,cap(p,vec3(.04,1.74,z),vec3(-.08,1.25,z*1.8),.14,.10),.08);
+metal=su(metal,cap(p,vec3(-.08,1.25,z*1.8),vec3(.15,.95,z*1.7),.1,.085),.05);
+metal=min(metal,cap(p,vec3(-1.14,2.05,z*.67),vec3(-.86,2.46,z*1.55),.075,.008));
+}
+vec3 q=p;
+q.x-=.07*sin(q.y*4.+time*1.7)*smoothstep(2.3,1.1,q.y);
+q.z+=.07*sin(q.y*5.+time*1.5);
+float cloth=ell(q-vec3(.47,1.57,0.),vec3(.58,.79,.37));
+cloth=su(cloth,cap(q,vec3(.21,2.27,0.),vec3(.77,.92,0.),.24,.31),.14);
+float mane=cap(p,vec3(-1.02,1.99,0.),vec3(-.39,1.38,0.),.22,.26);
+cloth=su(cloth,mane,.12);
+vec3 e=p-vec3(.12,2.85,0.);
+float a=atan(e.y,e.x);
+float radius=.25+.07*sin(a*9.+time*3.)+.045*sin(a*17.-time*2.);
+float flame=length(e)-radius;
+flame=min(flame,cap(e,vec3(0.,.08,0.),vec3(.13*sin(time*2.),.44,0.),.17,.015));
+if(raw<.5){
+float grain=(fb(p*vec3(14.,8.,14.))-.5)*edge;
+animal+=grain*.11;
+metal+=grain*.045;
+cloth+=grain*.15;
+flame+=(fb(e*13.+vec3(0.,-time*2.,0.))-.5)*.15;
+}
+return vec4(animal,metal,cloth,flame);
+}
+float sdf(vec3 p){
+vec4 d=fields(p);
+return min(min(d.x,d.y),min(d.z,d.w));
+}
+vec3 normalAt(vec3 p){
+vec2 e=vec2(.008,0.);
+return normalize(vec3(sdf(p+e.xyy)-sdf(p-e.xyy),sdf(p+e.yxy)-sdf(p-e.yxy),sdf(p+e.yyx)-sdf(p-e.yyx)));
+}
+vec3 pigment(vec3 p,vec3 nor,vec4 d){
+float m=min(min(d.x,d.y),min(d.z,d.w));
+if(raw>.5){
+if(d.w==m)return vec3(.95,.55,.12);
+if(d.y==m)return vec3(.48,.54,.59);
+if(d.z==m)return vec3(.36,.22,.32);
+return vec3(.43,.35,.27);
+}
+vec3 q=p-vec3(0.,bob(),0.);
+float strokes=fb(q*vec3(21.,7.,24.));
+float grain=fb(q*49.);
+float warp=fb(q*9.+17.);
+float width=.015+bleed*.20;
+vec3 w=exp(-max(vec3(0.),d.xyz-m+vec3(strokes-.5,warp-.5,.5-strokes)*bleed*.18)/width);
+w/=max(.0001,w.x+w.y+w.z);
+vec3 fur=mix(vec3(.035,.047,.056),vec3(.27,.29,.27),strokes);
+vec3 steel=mix(vec3(.045,.049,.05),vec3(.46,.40,.28),pow(strokes,1.8));
+vec3 fabric=mix(vec3(.018,.023,.035),vec3(.18,.19,.21),strokes);
+vec3 col=fur*w.x+steel*w.y+fabric*w.z;
+vec3 E=ember()-p;
+float dist=length(E);
+float exposure=max(.0,dot(nor,normalize(E)));
+float gold=fire*exp(-dist*1.8)*(.2+.8*exposure);
+gold*=smoothstep(.25,.73,strokes+bleed*.23);
+col=mix(col,vec3(.86,.49,.12),clamp(gold*2.2,0.,.92));
+col+=(grain-.5)*brush*.10;
+col*=.75+.5*strokes*brush;
+float light=max(.0,dot(nor,normalize(vec3(-.7,.8,1.))));
+col*=.42+.75*light;
+if(d.w<=m+.005){
+vec3 e=p-ember();
+float a=atan(e.y,e.x);
+float f=fb(e*18.+vec3(0.,-time*2.,0.));
+float streak=.5+.5*sin(a*13.+f*8.+time*2.);
+col=mix(vec3(.71,.13,.025),vec3(1.,.95,.53),clamp(.35+f*.7+streak*.22,0.,1.));
+float dark=1.-smoothstep(.045,.11,length(e.xy));
+col=mix(col,vec3(.12,.075,.025),dark*.95);
+col*=.55+fire*.65;
+}
+return col;
+}
+void main(){
+vec2 uv=(gl_FragCoord.xy-.5*res)/res.y;
+vec3 ro=vec3(5.2*sin(yaw),1.62+pitch,5.2*cos(yaw));
+vec3 target=vec3(-.1,1.58,0.);
+vec3 forward=normalize(target-ro);
+vec3 right=normalize(cross(forward,vec3(0,1,0)));
+vec3 up=cross(right,forward);
+vec3 rd=normalize(forward+uv.x*right*.79+uv.y*up*.79);
+float paper=fb(vec3(uv*4.,2.));
+vec3 bg=mix(vec3(.10,.135,.15),vec3(.32,.35,.34),paper);
+bg+=(hash(vec3(gl_FragCoord.xy,1.))-.5)*.025;
+float hills=fb(vec3(uv.x*5.+yaw*.3,2.,1.));
+bg=mix(bg,vec3(.09,.12,.13),1.-smoothstep(-.4,-.17,uv.y-hills*.15));
+float ground=-ro.y/rd.y;
+if(ground>0.){
+vec3 gp=ro+rd*ground;
+float shadow=exp(-dot(gp.xz*vec2(.65,1.4),gp.xz*vec2(.65,1.4))*1.7);
+bg*=1.-shadow*.55;
+}
+float t=.3,closest=10.;
+bool hit=false;
+vec3 p=ro;
+for(int i=0;i<100;i++){
+p=ro+rd*t;
+float d=sdf(p);
+closest=min(closest,d);
+if(d<.003){hit=true;break;}
+t+=max(.002,d*.76);
+if(t>9.)break;
+}
+vec3 col=bg;
+if(hit){
+vec3 nor=normalAt(p);
+col=pigment(p,nor,fields(p));
+float rim=abs(dot(nor,-rd));
+float rough=fb(p*vec3(34.,16.,34.));
+float coverage=raw>.5?1.:mix(.64+rough*.35,1.,smoothstep(.02,.35,rim));
+col=mix(bg,col,coverage);
+}else if(raw<.5){
+col=mix(bg,vec3(.14,.17,.17),exp(-closest/.019)*edge*.22);
+}
+vec3 ec=ember()-ro;
+float h=max(0.,dot(ec,rd));
+float glow=length(ec-rd*h);
+if(raw<.5){
+col+=vec3(.9,.37,.045)*exp(-glow*glow*12.)*fire*.19;
+}
+frag=vec4(clamp(col,0.,1.),1.);
+}`;
+try{
+function shader(t,s){const a=gl.createShader(t);gl.shaderSource(a,s);gl.compileShader(a);if(!gl.getShaderParameter(a,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(a));return a;}
+const p=gl.createProgram();gl.attachShader(p,shader(gl.VERTEX_SHADER,vs));gl.attachShader(p,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));gl.useProgram(p);
+const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+const a=gl.getAttribLocation(p,'p');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
+const u={};for(const k of ['res','time','walk','bleed','edge','brush','fire','raw','yaw','pitch'])u[k]=gl.getUniformLocation(p,k);
+let time=0,walk=0,last=performance.now(),paused=false,raw=0,yaw=.22,pitch=.12,drag=null;
+el('pause').onclick=()=>{paused=!paused;el('pause').textContent=paused?'Resume':'Pause';};
+el('raw').onclick=()=>{raw=1-raw;el('raw').textContent=raw?'Show painting':'Show armature';};
+el('reset').onclick=()=>{time=walk=0;yaw=.22;pitch=.12;raw=0;el('raw').textContent='Show armature';for(const [k,v] of Object.entries({bleed:80,edge:65,brush:80,fire:85,speed:45}))el(k).value=v;};
+c.onpointerdown=e=>{drag=[e.clientX,e.clientY];c.setPointerCapture(e.pointerId);};
+c.onpointermove=e=>{if(drag){yaw+=(e.clientX-drag[0])*.009;pitch=Math.max(-.7,Math.min(2.,pitch+(e.clientY-drag[1])*.009));drag=[e.clientX,e.clientY];}};
+c.onpointerup=c.onpointercancel=()=>drag=null;
+function frame(now){
+const dt=Math.min(.05,(now-last)/1000);last=now;
+if(!paused){time+=dt;walk+=dt*Number(el('speed').value)*.075;}
+const w=Math.max(1,Math.min(440,Math.round(c.clientWidth))),h=Math.max(1,Math.round(w/1.05));
+if(c.width!==w||c.height!==h){c.width=w;c.height=h;gl.viewport(0,0,w,h);}
+gl.uniform2f(u.res,w,h);
+for(const [k,v] of Object.entries({time,walk,raw,yaw,pitch}))gl.uniform1f(u[k],v);
+for(const k of ['bleed','edge','brush','fire'])gl.uniform1f(u[k],Number(el(k).value)/100);
+gl.drawArrays(gl.TRIANGLES,0,3);
+el('status').textContent='WebGL2 · '+w+' × '+h+' · Articulated implicit volumes';
+requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+}catch(e){el('status').textContent=e.message;}
+})();
+</script></html>
