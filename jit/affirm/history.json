@@ -2,6 +2,11 @@
   "schema_version": 1,
   "entries": [
     {
+      "timestamp_utc": "2026-11-27T21:13:17Z",
+      "label": "closing",
+      "path": "updates/2026-11-27T21-13-17Z-closing.md"
+    },
+    {
       "timestamp_utc": "2026-11-27T17:31:55Z",
       "label": "midday",
       "path": "updates/2026-11-27T17-31-55Z-midday.md"
